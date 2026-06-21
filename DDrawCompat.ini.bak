@@ -1,0 +1,7 @@
+LogLevel = info
+FullscreenMode = borderless
+DisplayResolution = desktop
+DisplayAspectRatio = app
+DisplayFilter = bilinear(0)
+AltTabFix = keepvidmem(1)
+CompatFixes = singlemonitor
