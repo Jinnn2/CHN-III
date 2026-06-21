@@ -149,6 +149,30 @@ def write_pcx24(path, template_path, bmp_path):
     Path(path).write_bytes(encoded)
 
 
+def read_pcx24_info(path):
+    raw = Path(path).read_bytes()
+    if len(raw) < 128 or raw[0] != 0x0A:
+        raise ValueError(f"{path} is not a PCX/TMG file")
+
+    xmin = _le16(raw, 4)
+    ymin = _le16(raw, 6)
+    xmax = _le16(raw, 8)
+    ymax = _le16(raw, 10)
+    width = xmax - xmin + 1
+    height = ymax - ymin + 1
+    return {
+        "width": width,
+        "height": height,
+        "xmin": xmin,
+        "ymin": ymin,
+        "xmax": xmax,
+        "ymax": ymax,
+        "bpp": raw[3],
+        "planes": raw[65],
+        "bytes_per_line": _le16(raw, 66),
+    }
+
+
 def cmd_export(args):
     header, width, height, bpl, rgb = read_pcx24(args.input)
     write_bmp24(args.output, width, height, rgb)
@@ -160,9 +184,22 @@ def cmd_import(args):
     print(f"imported {args.input} -> {args.output} using {args.template}")
 
 
+def cmd_info(args):
+    for input_path in args.input:
+        info = read_pcx24_info(input_path)
+        print(
+            f"{input_path}: {info['width']}x{info['height']}, "
+            f"bbox=({info['xmin']},{info['ymin']})-({info['xmax']},{info['ymax']}), "
+            f"bpp={info['bpp']}, planes={info['planes']}, bpl={info['bytes_per_line']}"
+        )
+
+
 def main():
     parser = argparse.ArgumentParser(description="Export/import 24-bit PCX-like .TMG UI backgrounds.")
     sub = parser.add_subparsers(dest="cmd", required=True)
+    info = sub.add_parser("info")
+    info.add_argument("input", nargs="+")
+    info.set_defaults(func=cmd_info)
     export = sub.add_parser("export")
     export.add_argument("input")
     export.add_argument("output")

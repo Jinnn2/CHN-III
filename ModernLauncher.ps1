@@ -1,6 +1,7 @@
 param(
     [ValidateSet("", "Keep4x3", "Fill", "Windowed")]
-    [string]$LaunchMode = ""
+    [string]$LaunchMode = "",
+    [string]$GameExeName = "China2EX_fontfix8.exe"
 )
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -8,14 +9,16 @@ Add-Type -AssemblyName System.Drawing
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$gameExe = Join-Path $root "China2EX_fontfix8.exe"
+$gameExe = Join-Path $root $GameExeName
 $configPath = Join-Path $root "dgVoodoo.conf"
 $saveDir = Join-Path $root "Save"
 $backupDir = Join-Path $root "ModernBackups"
 
 function Assert-GameReady {
-    if (!(Test-Path $gameExe)) {
-        throw "Missing China2EX_fontfix8.exe. Run the font fix step first."
+    param([string]$SelectedGameExe)
+
+    if (!(Test-Path $SelectedGameExe)) {
+        throw "Missing $(Split-Path -Leaf $SelectedGameExe)."
     }
     if (!(Test-Path $configPath)) {
         throw "Missing dgVoodoo.conf. The modern graphics wrapper is not installed."
@@ -84,9 +87,12 @@ function Get-4x3Resolution {
 }
 
 function Set-Mode {
-    param([ValidateSet("Keep4x3", "Fill", "Windowed")] [string]$Mode)
+    param(
+        [ValidateSet("Keep4x3", "Fill", "Windowed")] [string]$Mode,
+        [string]$SelectedGameExe = $gameExe
+    )
 
-    Assert-GameReady
+    Assert-GameReady $SelectedGameExe
 
     $desktop = Get-DesktopResolution
     $resolution4x3 = Get-4x3Resolution $desktop
@@ -132,10 +138,13 @@ function Set-Mode {
 }
 
 function Start-Game {
-    param([ValidateSet("Keep4x3", "Fill", "Windowed")] [string]$Mode)
+    param(
+        [ValidateSet("Keep4x3", "Fill", "Windowed")] [string]$Mode,
+        [string]$SelectedGameExe = $gameExe
+    )
 
-    Set-Mode $Mode
-    Start-Process -FilePath $gameExe -WorkingDirectory $root
+    Set-Mode $Mode $SelectedGameExe
+    Start-Process -FilePath $SelectedGameExe -WorkingDirectory $root
 }
 
 if ($LaunchMode) {
@@ -180,7 +189,7 @@ function New-Button {
 
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "China2 Modern Launcher"
-$form.ClientSize = New-Object System.Drawing.Size(380, 320)
+$form.ClientSize = New-Object System.Drawing.Size(380, 408)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedDialog"
 $form.MaximizeBox = $false
@@ -216,7 +225,23 @@ $form.Controls.Add((New-Button "Launch - windowed mode" 166 {
     try { Start-Game "Windowed"; $form.Close() } catch { Show-Error $_.Exception.Message }
 }))
 
-$form.Controls.Add((New-Button "Backup saves" 210 {
+$form.Controls.Add((New-Button "Launch modtest - internal 1280x1024" 210 {
+    try {
+        $modtestExe = Join-Path $root "China2EX_modtest.exe"
+        Start-Game "Windowed" $modtestExe
+        $form.Close()
+    } catch { Show-Error $_.Exception.Message }
+}))
+
+$form.Controls.Add((New-Button "Launch modtest - internal 1600x1200" 254 {
+    try {
+        $modtestExe = Join-Path $root "China2EX_modtest_1600x1200.exe"
+        Start-Game "Windowed" $modtestExe
+        $form.Close()
+    } catch { Show-Error $_.Exception.Message }
+}))
+
+$form.Controls.Add((New-Button "Backup saves" 298 {
     try {
         $zipPath = Backup-Saves
         [System.Windows.Forms.MessageBox]::Show("Save files backed up to:`r`n$zipPath", "China2 Modern Launcher", "OK", "Information") | Out-Null
@@ -224,7 +249,7 @@ $form.Controls.Add((New-Button "Backup saves" 210 {
     catch { Show-Error $_.Exception.Message }
 }))
 
-$form.Controls.Add((New-Button "Open dgVoodoo settings" 254 {
+$form.Controls.Add((New-Button "Open dgVoodoo settings" 342 {
     try {
         $cpl = Join-Path $root "dgVoodooCpl.exe"
         if (!(Test-Path $cpl)) { throw "Missing dgVoodooCpl.exe." }
