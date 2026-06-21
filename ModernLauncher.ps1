@@ -61,12 +61,35 @@ function Get-DesktopResolution {
     return ("{0}x{1}" -f $bounds.Width, $bounds.Height)
 }
 
+function Get-4x3Resolution {
+    param([string]$DesktopResolution)
+
+    if ($DesktopResolution -match "^(\d+)x(\d+)$") {
+        $width = [int]$Matches[1]
+        $height = [int]$Matches[2]
+
+        if (($width / $height) -gt (4 / 3)) {
+            $targetHeight = $height
+            $targetWidth = [int][Math]::Floor($height * 4 / 3)
+        }
+        else {
+            $targetWidth = $width
+            $targetHeight = [int][Math]::Floor($width * 3 / 4)
+        }
+
+        return ("{0}x{1}" -f $targetWidth, $targetHeight)
+    }
+
+    return "max_4_3"
+}
+
 function Set-Mode {
     param([ValidateSet("Keep4x3", "Fill", "Windowed")] [string]$Mode)
 
     Assert-GameReady
 
     $desktop = Get-DesktopResolution
+    $resolution4x3 = Get-4x3Resolution $desktop
     $lines = [System.IO.File]::ReadAllLines($configPath)
 
     $lines = Set-ConfigValue $lines "OutputAPI" "d3d11_fl11_0"
@@ -74,15 +97,17 @@ function Set-Mode {
     $lines = Set-ConfigValue $lines "VRAM" "1024"
     $lines = Set-ConfigValue $lines "dgVoodooWatermark" "false"
     $lines = Set-ConfigValue $lines "DefaultEnumeratedResolutions" "classics"
+    $lines = Set-ConfigValue $lines "ExtraEnumeratedResolutions" ""
 
     if ($Mode -eq "Keep4x3") {
         $lines = Set-ConfigValue $lines "FullScreenMode" "true"
         $lines = Set-ConfigValue $lines "ScalingMode" "stretched_4_3"
         $lines = Set-ConfigValue $lines "FullscreenAttributes" "fake"
         $lines = Set-ConfigValue $lines "WindowedAttributes" ""
-        $lines = Set-ConfigValue $lines "Resolution" "desktop"
+        $lines = Set-ConfigValue $lines "Resolution" $resolution4x3
         $lines = Set-ConfigValue $lines "KeepWindowAspectRatio" "true"
         $lines = Set-ConfigValue $lines "CenterAppWindow" "false"
+        $lines = Set-ConfigValue $lines "ExtraEnumeratedResolutions" $resolution4x3
     }
     elseif ($Mode -eq "Fill") {
         $lines = Set-ConfigValue $lines "FullScreenMode" "true"
@@ -179,7 +204,7 @@ $subtitle.Height = 22
 $subtitle.ForeColor = [System.Drawing.Color]::DimGray
 $form.Controls.Add($subtitle)
 
-$form.Controls.Add((New-Button "Launch - 4:3 aspect ratio (recommended)" 78 {
+$form.Controls.Add((New-Button "Launch - force 4:3 aspect ratio (recommended)" 78 {
     try { Start-Game "Keep4x3"; $form.Close() } catch { Show-Error $_.Exception.Message }
 }))
 

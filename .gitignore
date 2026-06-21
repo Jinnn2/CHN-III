@@ -1,0 +1,9 @@
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+DEBUG.TXT
+TRACE.TXT
+Error.txt
+ModernBackups/
