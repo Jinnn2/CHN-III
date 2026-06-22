@@ -46,6 +46,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType countryProfileDef;
     private StructureDataType governmentDef;
     private StructureDataType groundDef;
+    private StructureDataType empireCountryDef;
     private StructureDataType mapScenarioInfo;
     private StructureDataType dataFormat;
 
@@ -845,6 +846,55 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Before_Edit_Ground exposes this dword as an editable numeric field");
         resolve(groundDef);
 
+        empireCountryDef = fixedStruct("EmpireCountryDef_0x200", 0x200);
+        replaceAt(empireCountryDef, 0x00, IntegerDataType.dataType, 4, "is_enabled_or_selectable",
+            "custom-map selection and editor paths require this first dword to be positive");
+        replaceAt(empireCountryDef, 0x04, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
+            "short_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+        replaceAt(empireCountryDef, 0x15, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
+            "display_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+        replaceAt(empireCountryDef, 0x26, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
+            "alternate_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+        replaceAt(empireCountryDef, 0x38, IntegerDataType.dataType, 4, "country_profile_id",
+            "indexes g_country_profile_defs in custom-map selection, diplomacy, and editor-finish resource setup");
+        replaceAt(empireCountryDef, 0x3c, IntegerDataType.dataType, 4, "country_value_3c",
+            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
+        replaceAt(empireCountryDef, 0x40, IntegerDataType.dataType, 4, "country_value_40",
+            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
+        replaceAt(empireCountryDef, 0x44, IntegerDataType.dataType, 4, "country_value_44",
+            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
+        replaceAt(empireCountryDef, 0x58, IntegerDataType.dataType, 4, "country_select_58",
+            "Before_Edit_Empire_Country binds this dword to an option-list editor control");
+        replaceAt(empireCountryDef, 0x5c, IntegerDataType.dataType, 4, "country_select_5c",
+            "Before_Edit_Empire_Country binds this dword to an option-list editor control");
+        replaceAt(empireCountryDef, 0x60, IntegerDataType.dataType, 4, "favored_science_era_or_group",
+            "City_Resource_Change compares this against ScienceDef.era_or_group_id for research pacing");
+        replaceAt(empireCountryDef, 0x88, IntegerDataType.dataType, 4, "diplomacy_affinity_threshold",
+            "Diplomat_Turn compares diplomacy affinity/counters against this leader/country parameter");
+        replaceAt(empireCountryDef, 0x8c, IntegerDataType.dataType, 4, "diplomacy_pressure_threshold",
+            "Diplomat_Turn subtracts this from diplomatic pressure/caution thresholds");
+        replaceAt(empireCountryDef, 0x94, IntegerDataType.dataType, 4, "category4_build_bonus",
+            "City_Building adds value-6 build progress for completed category 4 buildings when positive");
+        replaceAt(empireCountryDef, 0x98, IntegerDataType.dataType, 4, "category5_build_bonus",
+            "City_Building adds value-6 build progress for completed category 5 buildings when positive");
+        replaceAt(empireCountryDef, 0x9c, IntegerDataType.dataType, 4, "unit_or_category2_build_bonus",
+            "City_Building adds value-6 build progress for unit production and category 2 buildings when positive");
+        replaceAt(empireCountryDef, 0xb4, IntegerDataType.dataType, 4, "category6_build_bonus",
+            "City_Building adds value-6 build progress for category 6 buildings when paired gate is positive");
+        replaceAt(empireCountryDef, 0xb8, IntegerDataType.dataType, 4, "category6_build_bonus_gate",
+            "City_Building requires this value positive before applying the category 6 build bonus");
+        replaceAt(empireCountryDef, 0xd0, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
+            "country_editor_block_d0", "Before_Edit_Empire_Country exposes ten paired editor values from this block");
+        replaceAt(empireCountryDef, 0xf8, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
+            "country_editor_block_f8", "Before_Edit_Empire_Country exposes ten paired editor values from this block");
+        replaceAt(empireCountryDef, 0x120, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_a",
+            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+        replaceAt(empireCountryDef, 0x124, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_b",
+            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+        replaceAt(empireCountryDef, 0x128, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_c",
+            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+        resolve(empireCountryDef);
+
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
         resolve(new TypedefDataType(cat, "LandTilePtr", new PointerDataType(landTile, dtm)));
         resolve(new TypedefDataType(cat, "CountryStatePtr", new PointerDataType(country, dtm)));
@@ -922,6 +972,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x420c00L, "Draw_Text"),
             new Rename(0x42eed0L, "NodeInsert_DataFormat"),
             new Rename(0x42f290L, "Add_New_DataFormat"),
+            new Rename(0x4578a0L, "Before_Edit_Empire_Country"),
             new Rename(0x452110L, "Before_Edit_Army"),
             new Rename(0x454570L, "Before_Edit_Build"),
             new Rename(0x45d6f0L, "Before_Edit_Goverment"),
@@ -1108,6 +1159,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
             new GlobalRename(0x00599288L, "g_government_defs", new ArrayDataType(governmentDef, 8, governmentDef.getLength())),
             new GlobalRename(0x00589428L, "g_ground_defs", new ArrayDataType(groundDef, 15, groundDef.getLength())),
+            new GlobalRename(0x00589a18L, "g_empire_country_defs", new ArrayDataType(empireCountryDef, 100, empireCountryDef.getLength())),
             new GlobalRename(0x0075cf00L, "g_present_use_blt_mode", IntegerDataType.dataType),
             new GlobalRename(0x0075cf18L, "g_present_dst_rect", new ArrayDataType(IntegerDataType.dataType, 4, 4)),
             new GlobalRename(0x0075cf38L, "g_present_src_left", IntegerDataType.dataType),

@@ -22,6 +22,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
+| `EmpireCountryDef_0x200` | Static table starts at `0x00589a18`; `Before_Edit_Empire_Country` reads/writes `EMPIRE.DAT` as `0xc800` bytes, i.e. 100 records of `0x200`; active countries store ids into this table. | Empire/country/leader definition table. |
 | `GovernmentDef_0x74` | Static table starts at `0x00599288`; `Load_Dat` copies `0x3a0` bytes, i.e. 8 records of `0x74`; country `government_or_ai_mode` indexes this table. | Government/civic modifier table. |
 | `GroundDef_0x24` | Static table starts at `0x00589428`; `Load_Dat` copies `0x21c` bytes, i.e. 15 records of `0x24`; `Before_Edit_Ground` binds editor controls to the same stride. | Ground/terrain definition table. |
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
@@ -46,6 +47,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_special_project_defs` | `0x005a19d4`, 25 records, `0x200` byte stride. | Static special-project definitions. |
 | `g_science_defs` | `0x005817a8`, 200 records, `0x88` byte stride. | Static science/research definitions. |
 | `g_country_profile_defs` | `0x00596218`, 100 records, `0x7c` byte stride. | Static country profile definitions and modifiers. |
+| `g_empire_country_defs` | `0x00589a18`, 100 records, `0x200` byte stride. | Static empire/country/leader definitions. |
 | `g_government_defs` | `0x00599288`, 8 records, `0x74` byte stride. | Static government/civic modifier definitions. |
 | `g_ground_defs` | `0x00589428`, 15 records, `0x24` byte stride. | Static ground/terrain definitions. |
 | `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
@@ -107,6 +109,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
+| `Before_Edit_Empire_Country` | Trace string `Before_Edit_Empire_Country`; reads/writes `EMPIRE.DAT`, backs up `g_empire_country_defs`, and binds controls to `EmpireCountryDef_0x200`. | Empire/country/leader definition table editor setup. |
 | `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
 | `Before_Edit_Ground` | Trace string `Before_Edit_Ground`; backs up `g_ground_defs`, checks `GROUND.DAT`, and binds controls to the `GroundDef_0x24` table. | Ground/terrain definition table editor setup. |
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
@@ -451,6 +454,32 @@ table editor calls around `0x0045ee10` expose many columns with base
 | `+0x74` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
 | `+0x78` | `Before_Edit_Empire_Hero` binds this dword to an option-list control. | editor-visible profile selector. |
 
+### `EmpireCountryDef_0x200`
+
+`Before_Edit_Empire_Country` reads and writes `EMPIRE.DAT` as a `0xc800`
+byte block. Its editor controls use base `0x00589a18` and stride `0x200`,
+so the table is 100 records. Custom-map selection and editor finish paths use
+the first dword as an enabled gate, then use `+0x38` to reach
+`g_country_profile_defs`.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | Custom-map selection and editor finish require this value to be positive/nonzero. | enabled / selectable flag. |
+| `+0x04..0x14` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | short name bytes. |
+| `+0x15..0x25` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | display name bytes. |
+| `+0x26..0x36` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | alternate name bytes. |
+| `+0x38` | Custom-map selection, diplomacy, and editor finish use this as an index into `g_country_profile_defs`. | country profile id. |
+| `+0x3c/+0x40/+0x44` | `Before_Edit_Empire_Country` exposes these dwords as editable numeric fields. | editor-visible country values. |
+| `+0x58/+0x5c` | `Before_Edit_Empire_Country` binds these dwords to option-list controls; `Load_UI_Dip_EMG` tests `+0x58` values `1` and `3`. | editor-visible country selectors. |
+| `+0x60` | `City_Resource_Change` compares this against `ScienceDef_0x88.era_or_group_id` for research pacing. | favored science era/group. |
+| `+0x88` | `Diplomat_Turn` compares diplomacy affinity and turn counters against this leader/country parameter. | diplomacy affinity threshold. |
+| `+0x8c` | `Diplomat_Turn` subtracts this value from pressure/caution thresholds. | diplomacy pressure threshold. |
+| `+0x94/+0x98/+0x9c` | `City_Building` adds `value - 6` build progress for matching building categories or unit production when positive. | production/build bonuses. |
+| `+0xb4/+0xb8` | `City_Building` applies the category-6 build bonus only when both fields are above the gate. | category-6 build bonus and gate. |
+| `+0xd0..0xf7` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
+| `+0xf8..0x11f` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
+| `+0x120/+0x124/+0x128` | `Edit_Finish` and `Load_Dat` combine these ids with diplomacy UI color/image tables. | diplomacy UI color layers. |
+
 ### `GovernmentDef_0x74`
 
 `Load_Dat` copies a `0x3a0` byte static government table from the save/static
@@ -568,10 +597,11 @@ important code-first files are:
   mutation paths.
 - `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
   `editor/before_edit_army.c`, `editor/before_edit_build.c`,
-  `editor/before_edit_government.c`, `editor/before_edit_ground.c`, and
-  `editor/before_edit_empire_hero.c`: generic editor form binding plus
-  unit/building/government/ground/country-profile table setup, useful for
-  recovering static data-table semantics from editor controls.
+  `editor/before_edit_empire_country.c`, `editor/before_edit_government.c`,
+  `editor/before_edit_ground.c`, and `editor/before_edit_empire_hero.c`:
+  generic editor form binding plus unit/building/empire-country/government/
+  ground/country-profile table setup, useful for recovering static data-table
+  semantics from editor controls.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

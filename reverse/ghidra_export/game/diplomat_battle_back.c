@@ -32,7 +32,7 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   char *pcVar20;
   int iVar21;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_Start_0051a968);
   iVar14 = param_2 + param_1 * 0x16;
   iVar1 = iVar14 * 0x848;
@@ -51,8 +51,8 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   if (((&DAT_007355a8)[param_1 + iVar10] == '\x01') && ((int)uVar9 < 0)) {
     if (param_1 == g_human_country_index) {
       Format_Text(local_c0,&DAT_0051a94c,&DAT_007350bc + iVar10,
-                  (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar10] * 0x80] * 0x7c + 0x596229,
-                  &DAT_007350cd + iVar10);
+                  g_empire_country_defs[(byte)(&DAT_007350b9)[iVar10]].country_profile_id * 0x7c +
+                  0x596229,&DAT_007350cd + iVar10);
       FUN_00443e00(param_1,local_c0,&DAT_0051a928,0,0);
       return;
     }
@@ -61,8 +61,8 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
       return;
     }
     Format_Text(local_c0,&DAT_0051a908,&DAT_007350bc + iVar7,
-                (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar7] * 0x80] * 0x7c + 0x596229,
-                &DAT_007350cd + iVar7);
+                g_empire_country_defs[(byte)(&DAT_007350b9)[iVar7]].country_profile_id * 0x7c +
+                0x596229,&DAT_007350cd + iVar7);
     FUN_00443e00(param_1,local_c0,&DAT_0051a928,0,0);
     return;
   }
@@ -242,10 +242,10 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   DAT_00705ebc = 0;
   uVar9 = (uint)(*(int *)(&DAT_0060b674 + iVar1) == 0);
   if (*(int *)(&DAT_0060b674 + iVar1) == 1) {
-    uVar8 = *(undefined4 *)(&DAT_00589ae4 + (uint)(byte)(&DAT_007350b9)[iVar7] * 0x200);
+    uVar8 = *(undefined4 *)&g_empire_country_defs[(byte)(&DAT_007350b9)[iVar7]].field_0xcc;
   }
   else {
-    uVar8 = *(undefined4 *)(&DAT_00589ae4 + (uint)(byte)(&DAT_007350b9)[iVar10] * 0x200);
+    uVar8 = *(undefined4 *)&g_empire_country_defs[(byte)(&DAT_007350b9)[iVar10]].field_0xcc;
   }
   DAT_00705e98 = DAT_00588b94;
   DAT_00705eb8 = puVar2;
@@ -1000,4 +1000,3 @@ switchD_0043e9d7_default:
   DAT_00705ee8 = 0;
   return;
 }
-

@@ -17,7 +17,7 @@ void Load_UI_DIP_EMG(void)
   byte *pbVar7;
   int iVar8;
   char *pcVar9;
-  
+
   Trace_Function(s_Alien_Meet_Init_005cec28);
   for (iVar6 = DAT_00758524; iVar6 != 0; iVar6 = *(int *)(iVar6 + 0xc4)) {
     if (-1 < *(int *)(iVar6 + 8)) {
@@ -39,9 +39,9 @@ void Load_UI_DIP_EMG(void)
     break;
   case 1:
   case 2:
-    if ((*(int *)(&DAT_00589a70 + (uint)(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68] * 0x200) == 1)
-       || (*(int *)(&DAT_00589a70 + (uint)(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68] * 0x200) == 3)
-       ) {
+    if ((g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].country_select_58 == 1)
+       || (g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].country_select_58 == 3
+          )) {
       pcVar9 = s_MEET_WEST_005cec04;
     }
     else {
@@ -113,4 +113,3 @@ switchD_004ec235_default:
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

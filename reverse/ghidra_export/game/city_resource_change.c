@@ -27,9 +27,9 @@ void City_Resource_Change(void)
   City_0x1b8_plus *pCVar14;
   CountryState_0xe68 *pCVar15;
   int *piVar16;
-  short sVar17;
-  uint uVar18;
-  int iVar19;
+  int iVar17;
+  short sVar18;
+  uint uVar19;
   undefined *puVar20;
   undefined *puVar21;
   undefined8 uVar22;
@@ -99,18 +99,18 @@ void City_Resource_Change(void)
             if (0 < pCVar5->collapse_delay_or_army_count) {
               if (pCVar5->collapse_delay_or_army_count < iVar4) {
                 *(short *)(iVar12 + 0xe) = pCVar5->collapse_delay_or_army_count;
-                sVar17 = pCVar5->collapse_delay_or_army_count;
-                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar17;
-                iVar4 = iVar4 - sVar17;
+                sVar18 = pCVar5->collapse_delay_or_army_count;
+                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar18;
+                iVar4 = iVar4 - sVar18;
                 g_current_city->collapse_delay_or_army_count =
-                     g_current_city->collapse_delay_or_army_count + sVar17;
+                     g_current_city->collapse_delay_or_army_count + sVar18;
               }
               else {
-                sVar17 = (short)iVar4;
-                *(short *)(iVar12 + 0xe) = sVar17;
-                pCVar5->collapse_delay_or_army_count = pCVar5->collapse_delay_or_army_count - sVar17
+                sVar18 = (short)iVar4;
+                *(short *)(iVar12 + 0xe) = sVar18;
+                pCVar5->collapse_delay_or_army_count = pCVar5->collapse_delay_or_army_count - sVar18
                 ;
-                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar17;
+                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar18;
                 iVar4 = 0;
                 pCVar5 = g_current_city;
               }
@@ -134,23 +134,23 @@ void City_Resource_Change(void)
           if ((pCVar5 != (City_0x1b8_plus *)0x0) &&
              ((char)pCVar5->owner_country_id != g_active_country_index)) {
             if (0 < pCVar5->collapse_delay_or_army_count) {
-              iVar19 = (int)pCVar5->collapse_delay_or_army_count;
+              iVar17 = (int)pCVar5->collapse_delay_or_army_count;
               local_1b0._4_4_ = (int)((ulonglong)local_1b0 >> 0x20);
-              if (iVar19 < iVar4) {
-                iVar13 = iVar19 * 5;
+              if (iVar17 < iVar4) {
+                iVar13 = iVar17 * 5;
                 if (iVar13 < local_1b4) {
-                  local_1b4 = local_1b4 + iVar19 * -5;
+                  local_1b4 = local_1b4 + iVar17 * -5;
                 }
                 else {
-                  iVar19 = iVar13;
+                  iVar17 = iVar13;
                   if (0 < local_1b4) {
-                    iVar19 = iVar13 - local_1b4;
+                    iVar17 = iVar13 - local_1b4;
                     local_1b4 = 0;
                   }
-                  local_1b0 = (double)CONCAT44(local_1b0._4_4_,-iVar19);
-                  FUN_0041f2b0(g_active_country_index,(double)-iVar19);
+                  local_1b0 = (double)CONCAT44(local_1b0._4_4_,-iVar17);
+                  FUN_0041f2b0(g_active_country_index,(double)-iVar17);
                   if (g_active_country_index == g_human_country_index) {
-                    _DAT_0074a03c = _DAT_0074a03c + iVar19;
+                    _DAT_0074a03c = _DAT_0074a03c + iVar17;
                   }
                 }
                 FUN_0041f2b0((int)(char)pCVar5->owner_country_id,(double)iVar13);
@@ -158,23 +158,23 @@ void City_Resource_Change(void)
                   DAT_007558f8 = DAT_007558f8 + iVar13;
                 }
                 *(short *)(iVar12 + 0xe) = pCVar5->collapse_delay_or_army_count;
-                sVar17 = pCVar5->collapse_delay_or_army_count;
-                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar17;
-                iVar4 = iVar4 - sVar17;
+                sVar18 = pCVar5->collapse_delay_or_army_count;
+                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar18;
+                iVar4 = iVar4 - sVar18;
                 g_current_city->collapse_delay_or_army_count =
-                     g_current_city->collapse_delay_or_army_count + sVar17;
+                     g_current_city->collapse_delay_or_army_count + sVar18;
                 pCVar5->collapse_delay_or_army_count = 0;
                 pCVar14 = g_current_city;
               }
               else {
-                iVar19 = iVar4 * 5;
-                if (iVar19 < local_1b4) {
+                iVar17 = iVar4 * 5;
+                if (iVar17 < local_1b4) {
                   local_1b4 = local_1b4 + iVar4 * -5;
                 }
                 else {
-                  iVar13 = iVar19;
+                  iVar13 = iVar17;
                   if (0 < local_1b4) {
-                    iVar13 = iVar19 - local_1b4;
+                    iVar13 = iVar17 - local_1b4;
                     local_1b4 = 0;
                   }
                   local_1b0 = (double)CONCAT44(local_1b0._4_4_,-iVar13);
@@ -183,15 +183,15 @@ void City_Resource_Change(void)
                     _DAT_0074a03c = _DAT_0074a03c + iVar13;
                   }
                 }
-                FUN_0041f2b0((int)(char)pCVar5->owner_country_id,(double)iVar19);
+                FUN_0041f2b0((int)(char)pCVar5->owner_country_id,(double)iVar17);
                 if ((char)pCVar5->owner_country_id == g_human_country_index) {
-                  DAT_007558f8 = DAT_007558f8 + iVar19;
+                  DAT_007558f8 = DAT_007558f8 + iVar17;
                 }
-                sVar17 = (short)iVar4;
-                *(short *)(iVar12 + 0xe) = sVar17;
-                pCVar5->collapse_delay_or_army_count = pCVar5->collapse_delay_or_army_count - sVar17
+                sVar18 = (short)iVar4;
+                *(short *)(iVar12 + 0xe) = sVar18;
+                pCVar5->collapse_delay_or_army_count = pCVar5->collapse_delay_or_army_count - sVar18
                 ;
-                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar17;
+                *(short *)&pCVar5->field_0xca = *(short *)&pCVar5->field_0xca - sVar18;
                 iVar4 = 0;
                 g_current_city->collapse_delay_or_army_count = 0;
                 pCVar14 = g_current_city;
@@ -315,15 +315,15 @@ LAB_00426559:
       uVar9 = (uint)g_current_city->construction_workers;
       if (uVar9 != 0) {
         iVar4 = 0;
-        uVar18 = 0;
+        uVar19 = 0;
         if ((g_current_city->building_status[10] == 2) ||
            (g_current_city->building_status[0x22] == 2)) {
           iVar4 = (int)uVar9 >> 1;
         }
         if (g_current_city->building_status[0x38] == 2) {
-          uVar18 = uVar9 / 5;
+          uVar19 = uVar9 / 5;
         }
-        uVar9 = uVar9 + uVar18 + iVar4;
+        uVar9 = uVar9 + uVar19 + iVar4;
       }
       local_1b0 = 0.0;
       if ((g_current_city->building_status[9] == 2) || (g_current_city->building_status[0x21] == 2))
@@ -340,9 +340,9 @@ LAB_00426559:
       g_active_country->lifetime_research_progress =
            g_active_country->lifetime_research_progress + iVar4;
       iVar12 = (int)g_active_country->build_or_draft_capacity;
-      iVar19 = (uint)g_active_country->leader_or_country_id * 0x200;
       iVar4 = g_science_defs[iVar12].research_cost;
-      local_1a8 = (double)CONCAT44(local_1a8._4_4_,&DAT_00589a7c + iVar19);
+      local_1a8 = (double)CONCAT44(local_1a8._4_4_,
+                                   (uint)g_active_country->leader_or_country_id * 0x200 + 0x589a7c);
       do {
         if (iVar12 == *local_1a8._0_4_) {
           bVar3 = true;
@@ -356,8 +356,10 @@ LAB_00426559:
         local_1b4 = local_1b4 + -1;
         local_1a8 = (double)CONCAT44(local_1a8._4_4_,local_1a8._0_4_ + 1);
       } while (local_1b4 != 0);
-      if ((!bVar3) && (g_science_defs[iVar12].era_or_group_id == *(int *)(&DAT_00589a78 + iVar19)))
-      {
+      if ((!bVar3) &&
+         (g_science_defs[iVar12].era_or_group_id ==
+          g_empire_country_defs[g_active_country->leader_or_country_id].favored_science_era_or_group
+         )) {
         if (g_active_country_index == g_human_country_index) {
           iVar4 = ((g_current_map_scenario_info.scenario_value_30 + 0xc) * iVar4 * 5) / 100;
         }
@@ -410,7 +412,7 @@ LAB_00426559:
           local_1b0._4_4_ = -1;
           do {
             iVar12 = (int)local_1a8._0_4_;
-            iVar19 = local_1b0._4_4_;
+            iVar17 = local_1b0._4_4_;
             if (1 < (int)local_1a8._0_4_) break;
             if (((((ScienceDef_0x88 *)(piVar7 + -8))->is_enabled != 0) && (iVar4 != 0x3a)) &&
                (*piVar16 < 2)) {
@@ -424,7 +426,7 @@ LAB_00426559:
             piVar7 = piVar7 + 0x22;
             iVar4 = iVar4 + 1;
             piVar16 = piVar16 + 1;
-            iVar19 = local_1b0._4_4_;
+            iVar17 = local_1b0._4_4_;
           } while (iVar4 < 200);
           if (g_active_country_index == g_human_country_index) {
             iVar4 = (int)local_1b0;
@@ -433,7 +435,7 @@ LAB_00426559:
             if (-1 < iVar4) {
               FUN_004c0350(g_active_country_index);
             }
-            if (-1 < iVar19) {
+            if (-1 < iVar17) {
               FUN_004c0350(g_active_country_index);
             }
           }
@@ -444,14 +446,14 @@ LAB_00426559:
         pCVar15 = g_active_country;
         do {
           if (('\0' < (char)puVar20[-4]) && (iVar4 != g_active_country_index)) {
-            sVar17 = pCVar15->build_or_draft_capacity;
-            if (*(int *)(puVar20 + sVar17 * 4 + 0x6a0) < 2) {
+            sVar18 = pCVar15->build_or_draft_capacity;
+            if (*(int *)(puVar20 + sVar18 * 4 + 0x6a0) < 2) {
               if (*(int *)(pCVar15->capital_name_bytes + local_1b4 + 0x1c) == 1) {
                 iVar12 = 0;
               }
               else {
                 if (*(int *)(puVar20 + g_active_country_index * 4 + 0x1a8) < 1) goto LAB_004272a6;
-                if (((_DAT_00749cd8 == iVar4) && (sVar17 < 0x44)) && (*(int *)(puVar20 + 0x7b0) < 2)
+                if (((_DAT_00749cd8 == iVar4) && (sVar18 < 0x44)) && (*(int *)(puVar20 + 0x7b0) < 2)
                    ) {
                   iVar12 = 1;
                 }
@@ -523,7 +525,7 @@ LAB_0042725d:
                 FUN_004898b0(DAT_0074c850,local_194,0,0xffffffff);
               }
               pCVar15 = g_active_country;
-              if (sVar17 == iVar4) {
+              if (sVar18 == iVar4) {
                 *(undefined2 *)(puVar20 + 0x9c0) = 0xffff;
                 *(undefined4 *)(puVar20 + 0x9c4) = 0;
                 pCVar15 = g_active_country;
@@ -573,16 +575,16 @@ LAB_004272a6:
   }
   uVar9 = (uint)pCVar14->business_workers;
   if (uVar9 != 0) {
-    uVar18 = 0;
+    uVar19 = 0;
     if ((pCVar14->building_status[0xb] == 2) || (pCVar14->building_status[0x23] == 2)) {
-      uVar18 = uVar9 / 5;
+      uVar19 = uVar9 / 5;
     }
     uVar10 = 0;
     if ((pCVar14->building_status[0x30] == 2) &&
        (uVar10 = uVar9, _DAT_00749d18 != g_active_country_index)) {
       uVar10 = (int)uVar9 >> 1;
     }
-    DAT_007068e0 = DAT_007068e0 + (uVar10 + uVar18 + uVar9) * 10;
+    DAT_007068e0 = DAT_007068e0 + (uVar10 + uVar19 + uVar9) * 10;
   }
   iVar4 = 1;
   DAT_005705b4 = -1;
@@ -673,35 +675,35 @@ LAB_00427595:
         piVar8 = &DAT_0070688c;
         piVar7 = piVar11 + 0x11;
         do {
-          iVar19 = *piVar7;
+          iVar17 = *piVar7;
           piVar7 = piVar7 + 1;
-          *piVar8 = *piVar8 + iVar19;
+          *piVar8 = *piVar8 + iVar17;
           piVar8 = piVar8 + 1;
         } while ((int)piVar8 < 0x7068c0);
         piVar8 = &DAT_007068d0;
         piVar7 = piVar11 + 0x1e;
         do {
-          iVar19 = *piVar7;
+          iVar17 = *piVar7;
           piVar7 = piVar7 + 1;
-          *piVar8 = *piVar8 + iVar19;
+          *piVar8 = *piVar8 + iVar17;
           piVar8 = piVar8 + 1;
         } while ((int)piVar8 < 0x7068e0);
         goto LAB_004277b9;
       }
       if ((piVar11[4] != 2) || (*piVar11 < 1)) goto LAB_004277b9;
-      iVar19 = *piVar16;
+      iVar17 = *piVar16;
       switch(g_map_size_mode) {
       case 0:
-        iVar4 = (uint)*(ushort *)(iVar19 + 0x16) + (uint)*(ushort *)(iVar19 + 0x18) * 0x138;
+        iVar4 = (uint)*(ushort *)(iVar17 + 0x16) + (uint)*(ushort *)(iVar17 + 0x18) * 0x138;
         break;
       case 1:
-        iVar4 = (uint)*(ushort *)(iVar19 + 0x16) + (uint)*(ushort *)(iVar19 + 0x18) * 0x9c;
+        iVar4 = (uint)*(ushort *)(iVar17 + 0x16) + (uint)*(ushort *)(iVar17 + 0x18) * 0x9c;
         break;
       case 2:
-        iVar4 = (uint)*(ushort *)(iVar19 + 0x16) + (uint)*(ushort *)(iVar19 + 0x18) * 0x4e;
+        iVar4 = (uint)*(ushort *)(iVar17 + 0x16) + (uint)*(ushort *)(iVar17 + 0x18) * 0x4e;
         break;
       case 3:
-        iVar4 = (uint)*(ushort *)(iVar19 + 0x18) * 0x27 + (uint)*(ushort *)(iVar19 + 0x16);
+        iVar4 = (uint)*(ushort *)(iVar17 + 0x18) * 0x27 + (uint)*(ushort *)(iVar17 + 0x16);
         break;
       default:
         goto switchD_004276be_default;
@@ -713,17 +715,17 @@ switchD_004276be_default:
         DAT_007068e0 = DAT_007068e0 + *piVar11;
         piVar8 = &DAT_0070688c;
         do {
-          iVar19 = *piVar7;
+          iVar17 = *piVar7;
           piVar7 = piVar7 + 1;
-          *piVar8 = *piVar8 + iVar19;
+          *piVar8 = *piVar8 + iVar17;
           piVar8 = piVar8 + 1;
         } while ((int)piVar8 < 0x7068c0);
         piVar8 = &DAT_007068d0;
         piVar7 = piVar11 + 0x1e;
         do {
-          iVar19 = *piVar7;
+          iVar17 = *piVar7;
           piVar7 = piVar7 + 1;
-          *piVar8 = *piVar8 + iVar19;
+          *piVar8 = *piVar8 + iVar17;
           piVar8 = piVar8 + 1;
         } while ((int)piVar8 < 0x7068e0);
       }
@@ -783,20 +785,20 @@ LAB_004277b9:
   iVar4 = g_government_defs[g_active_country->government_or_ai_mode].stationed_unit_away_limit;
   local_1b0 = (double)CONCAT44(local_1b0._4_4_,iVar4);
   if (0 < iVar4) {
-    iVar19 = 0;
+    iVar17 = 0;
     iVar13 = 0;
     for (iVar12 = *(int *)(&DAT_0074a05c + g_active_country_index * 4); iVar12 != 0;
         iVar12 = *(int *)(iVar12 + 0x160)) {
       if (*(City_0x1b8_plus **)(iVar12 + 0x154) == g_current_city) {
         if (((int)*(short *)(iVar12 + 0x1a) != (uint)g_current_city->tile_x) ||
            ((int)*(short *)(iVar12 + 0x1c) != (uint)g_current_city->tile_y)) {
-          iVar19 = iVar19 + 1;
+          iVar17 = iVar17 + 1;
         }
         iVar13 = iVar13 + 1;
         if (iVar13 == g_current_city->round_or_protection_timer) break;
       }
     }
-    if (iVar4 < iVar19) {
+    if (iVar4 < iVar17) {
       DAT_007068e0 = DAT_007068e0 + -10;
       DAT_007068d8 = DAT_007068d8 + 0x14;
     }
