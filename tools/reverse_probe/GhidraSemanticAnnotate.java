@@ -393,10 +393,49 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "country_or_profile_build_modifiers", "production UI reads this late per-country/profile block");
         resolve(armyTypeDef);
 
-        battleUnit = fixedStruct("BattleUnit_approx", 0x40);
-        replaceAt(battleUnit, 0x10, IntegerDataType.dataType, 4, "battle_x", "param_1[4] in battle grid logic");
-        replaceAt(battleUnit, 0x14, IntegerDataType.dataType, 4, "battle_y", "param_1[5] in battle grid logic");
-        replaceAt(battleUnit, 0x18, IntegerDataType.dataType, 4, "army_type", "param_1[6] indexes battle offsets");
+        battleUnit = fixedStruct("BattleUnit_0x64", 0x64);
+        replaceAt(battleUnit, 0x00, IntegerDataType.dataType, 4, "battle_layer_or_unit_class_flag",
+            "BattleArmy sets it from ArmyType.unit_class == 2; grid code uses zero as front-layer selector");
+        replaceAt(battleUnit, 0x04, IntegerDataType.dataType, 4, "army_type_id",
+            "indexes g_army_type_table throughout battle processing");
+        replaceAt(battleUnit, 0x08, IntegerDataType.dataType, 4, "owner_country_id",
+            "compared against opposing battle units");
+        replaceAt(battleUnit, 0x0c, IntegerDataType.dataType, 4, "battle_side",
+            "side index passed into BattleArmy and used for side-specific battle globals");
+        replaceAt(battleUnit, 0x10, IntegerDataType.dataType, 4, "battle_x",
+            "grid x coordinate, initialized to -1 and later placed into a 0x18-wide battle grid");
+        replaceAt(battleUnit, 0x14, IntegerDataType.dataType, 4, "battle_y",
+            "grid y coordinate, initialized to -1 and later placed into a 0x18-wide battle grid");
+        replaceAt(battleUnit, 0x18, IntegerDataType.dataType, 4, "facing_or_direction",
+            "BattleArmy initializes it from a side-specific direction table and movement uses it as a direction index");
+        replaceAt(battleUnit, 0x1c, IntegerDataType.dataType, 4, "action_frame",
+            "Do_Battle_Army_And_Battle_Die increments/resets it during action animation");
+        replaceAt(battleUnit, 0x20, IntegerDataType.dataType, 4, "moving_or_animating",
+            "nonzero branch advances battle position over action frames");
+        replaceAt(battleUnit, 0x24, IntegerDataType.dataType, 4, "action_state",
+            "battle AI selects action ids such as 0x24 and 0x29 here");
+        replaceAt(battleUnit, 0x28, IntegerDataType.dataType, 4, "action_substate",
+            "paired with action_state during attack/move decisions");
+        replaceAt(battleUnit, 0x2c, IntegerDataType.dataType, 4, "step_frame",
+            "incremented against ArmyType.battle_step_frame_count");
+        replaceAt(battleUnit, 0x30, IntegerDataType.dataType, 4, "strength_chunk",
+            "BattleArmy fills it from map unit strength and caps each chunk at 100");
+        replaceAt(battleUnit, 0x34, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
+            "attack_stats", "copied from Map_To_Battle_Army stat_a vector");
+        replaceAt(battleUnit, 0x40, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
+            "defense_stats", "copied from Map_To_Battle_Army stat_b vector");
+        replaceAt(battleUnit, 0x4c, IntegerDataType.dataType, 4, "source_battle_slot",
+            "copied from ArmyUnit.battle_slot_or_category");
+        replaceAt(battleUnit, 0x50, IntegerDataType.dataType, 4, "formation_index",
+            "BattleArmy assigns the chunk index within a multi-formation map army");
+        replaceAt(battleUnit, 0x54, IntegerDataType.dataType, 4, "map_unit_extra_id",
+            "copied from ArmyUnit +0x13c into the battle record");
+        replaceAt(battleUnit, 0x58, IntegerDataType.dataType, 4, "battle_sprite_or_effect_id",
+            "copied from ArmyType.battle_sprite_or_effect_id");
+        replaceAt(battleUnit, 0x5c, new PointerDataType(battleUnit, dtm), 4, "prev_or_aux_link",
+            "zeroed by BattleArmy; nearby battle list maintenance touches this slot");
+        replaceAt(battleUnit, 0x60, new PointerDataType(battleUnit, dtm), 4, "next_battle_unit",
+            "Battle_AutoArrange and arrange UI traverse battle records through this pointer");
         resolve(battleUnit);
 
         tmgImage = fixedStruct("DecodedImageHeader", 4);
@@ -663,8 +702,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0074c6c0L, "g_world_age_or_turn_phase", IntegerDataType.dataType),
             new GlobalRename(0x00755928L, "g_map_size_mode", IntegerDataType.dataType),
             new GlobalRename(0x00755964L, "g_auto_turn_or_ai_control_flag", IntegerDataType.dataType),
-            new GlobalRename(0x005d926cL, "g_battle_grid_front_units", new PointerDataType(VoidDataType.dataType, dtm)),
-            new GlobalRename(0x005d9274L, "g_battle_grid_back_units", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x005d926cL, "g_battle_grid_front_units", new PointerDataType(battleUnit, dtm)),
+            new GlobalRename(0x005d9274L, "g_battle_grid_back_units", new PointerDataType(battleUnit, dtm)),
+            new GlobalRename(0x005dfe68L, "g_battle_unit_count_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005dfe88L, "g_battle_unit_list_head_by_side", new ArrayDataType(new PointerDataType(battleUnit, dtm), 2, 4)),
+            new GlobalRename(0x005d9244L, "g_battle_total_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005d9210L, "g_battle_land_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005dfe7cL, "g_battle_air_or_class1_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005d9208L, "g_battle_special_or_class2_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005d9218L, "g_battle_frontline_land_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
+            new GlobalRename(0x005d923cL, "g_battle_ranged_land_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
             new GlobalRename(0x005aa2c8L, "g_army_type_table", new ArrayDataType(armyTypeDef, 0x5b, armyTypeDef.getLength())),
             new GlobalRename(0x005dfedcL, "g_directdraw_ready", IntegerDataType.dataType),
             new GlobalRename(0x005dfee0L, "g_main_window", new PointerDataType(VoidDataType.dataType, dtm)),
@@ -737,6 +784,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     }
 
     private void applySelectedSignatures() throws Exception {
+        pointerArg(0x415cb0L, "Do_Battle_Army_And_Battle_Die", VoidDataType.dataType,
+            "battle_unit", battleUnit);
         pointerArg(0x418830L, "BattleArmy", VoidDataType.dataType,
             "side", UnsignedIntegerDataType.dataType, "army", armyUnit, "formation_count", IntegerDataType.dataType,
             "stat_a", new PointerDataType(UnsignedIntegerDataType.dataType, dtm),

@@ -10,7 +10,7 @@
 void Battle_AutoArrange(int param_1,uint param_2)
 
 {
-  int *piVar1;
+  BattleUnit_0x64 *pBVar1;
   double dVar2;
   double dVar3;
   char cVar4;
@@ -19,8 +19,9 @@ void Battle_AutoArrange(int param_1,uint param_2)
   int iVar7;
   int iVar8;
   undefined4 *puVar9;
-  int *piVar10;
-  int iVar11;
+  BattleUnit_0x64 *pBVar10;
+  int *piVar11;
+  int iVar12;
   int local_1c [4];
   int local_c;
   int local_8;
@@ -33,9 +34,11 @@ void Battle_AutoArrange(int param_1,uint param_2)
     puVar9 = puVar9 + 1;
   }
   DAT_005d9204 = (undefined4 *)
-                 FUN_0047de30((&DAT_005dfe68)[param_1] << 3,s_Battle___arrange_type_00513ad8,0xb);
+                 FUN_0047de30(g_battle_unit_count_by_side[param_1] << 3,
+                              s_Battle___arrange_type_00513ad8,0xb);
   puVar9 = DAT_005d9204;
-  for (iVar6 = ((&DAT_005dfe68)[param_1] & 0x1fffffff) << 1; iVar6 != 0; iVar6 = iVar6 + -1) {
+  for (iVar6 = (g_battle_unit_count_by_side[param_1] & 0x1fffffffU) << 1; iVar6 != 0;
+      iVar6 = iVar6 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
@@ -43,92 +46,94 @@ void Battle_AutoArrange(int param_1,uint param_2)
     *(undefined1 *)puVar9 = 0;
     puVar9 = (undefined4 *)((int)puVar9 + 1);
   }
-  if ((int *)(&DAT_005dfe88)[param_1] != (int *)0x0) {
+  if (g_battle_unit_list_head_by_side[param_1] != (BattleUnit_0x64 *)0x0) {
     iVar6 = 0;
-    piVar10 = (int *)(&DAT_005dfe88)[param_1];
+    pBVar10 = g_battle_unit_list_head_by_side[param_1];
     do {
-      piVar1 = (int *)piVar10[0x18];
-      cVar4 = FUN_00415c90(piVar10[4],piVar10[5]);
+      pBVar1 = pBVar10->next_battle_unit;
+      cVar4 = FUN_00415c90(pBVar10->battle_x,pBVar10->battle_y);
       if (cVar4 != '\0') {
-        if (*piVar10 == 0) {
-          (&g_battle_grid_front_units)[(piVar10[4] + piVar10[5] * 0x18) * 0xc] = (void *)0x0;
+        if (pBVar10->battle_layer_or_unit_class_flag == 0) {
+          (&g_battle_grid_front_units)[(pBVar10->battle_x + pBVar10->battle_y * 0x18) * 0xc] =
+               (BattleUnit_0x64 *)0x0;
         }
         else {
-          (&g_battle_grid_back_units)[(piVar10[4] + piVar10[5] * 0x18) * 0xc] = (void *)0x0;
+          (&g_battle_grid_back_units)[(pBVar10->battle_x + pBVar10->battle_y * 0x18) * 0xc] =
+               (BattleUnit_0x64 *)0x0;
         }
-        piVar10[4] = -1;
-        piVar10[5] = -1;
+        pBVar10->battle_x = -1;
+        pBVar10->battle_y = -1;
       }
-      iVar7 = piVar10[1];
-      iVar8 = piVar10[0xd];
-      if ((iVar8 < 5) && (piVar10[0x10] < 5)) {
-        *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+      iVar7 = pBVar10->army_type_id;
+      iVar8 = pBVar10->attack_stats[0];
+      if ((iVar8 < 5) && (pBVar10->defense_stats[0] < 5)) {
+        *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
         *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 0;
         DAT_005d91e8 = DAT_005d91e8 + 1;
       }
       else if (g_army_type_table[iVar7].combat_or_support_values[0] < 2) {
         if (g_army_type_table[iVar7].battle_step_frame_count < 2) {
-          *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+          *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 6;
           DAT_005d9200 = DAT_005d9200 + 1;
         }
-        else if (iVar8 < piVar10[0x10]) {
-          *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+        else if (iVar8 < pBVar10->defense_stats[0]) {
+          *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 5;
           DAT_005d91fc = DAT_005d91fc + 1;
         }
         else {
-          *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+          *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 4;
           DAT_005d91f8 = DAT_005d91f8 + 1;
         }
       }
       else if (g_army_type_table[iVar7].battle_step_frame_count < 5) {
-        if (iVar8 < piVar10[0x10]) {
-          *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+        if (iVar8 < pBVar10->defense_stats[0]) {
+          *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 3;
           DAT_005d91f4 = DAT_005d91f4 + 1;
         }
         else {
-          *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+          *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 2;
           DAT_005d91f0 = DAT_005d91f0 + 1;
         }
       }
       else {
-        *(int **)(iVar6 + 4 + (int)DAT_005d9204) = piVar10;
+        *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
         *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 1;
         DAT_005d91ec = DAT_005d91ec + 1;
       }
       iVar6 = iVar6 + 8;
-      piVar10 = piVar1;
-    } while (piVar1 != (int *)0x0);
+      pBVar10 = pBVar1;
+    } while (pBVar1 != (BattleUnit_0x64 *)0x0);
   }
   if (param_2 == 0xffffffff) {
-    piVar10 = local_1c;
+    piVar11 = local_1c;
     for (iVar6 = 7; iVar6 != 0; iVar6 = iVar6 + -1) {
-      *piVar10 = 0;
-      piVar10 = piVar10 + 1;
+      *piVar11 = 0;
+      piVar11 = piVar11 + 1;
     }
-    iVar6 = (&DAT_005dfe88)[param_1 == 0];
-    while (iVar7 = iVar6, iVar7 != 0) {
-      iVar8 = *(int *)(iVar7 + 4);
-      iVar11 = *(int *)(iVar7 + 0x34);
-      iVar6 = *(int *)(iVar7 + 0x60);
-      if ((4 < iVar11) || (4 < *(int *)(iVar7 + 0x40))) {
-        if (g_army_type_table[iVar8].combat_or_support_values[0] < 2) {
-          if (g_army_type_table[iVar8].battle_step_frame_count < 4) {
+    pBVar10 = g_battle_unit_list_head_by_side[param_1 == 0];
+    while (pBVar1 = pBVar10, pBVar1 != (BattleUnit_0x64 *)0x0) {
+      iVar6 = pBVar1->army_type_id;
+      iVar7 = pBVar1->attack_stats[0];
+      pBVar10 = pBVar1->next_battle_unit;
+      if ((4 < iVar7) || (4 < pBVar1->defense_stats[0])) {
+        if (g_army_type_table[iVar6].combat_or_support_values[0] < 2) {
+          if (g_army_type_table[iVar6].battle_step_frame_count < 4) {
             local_4 = local_4 + 1;
           }
-          else if (iVar11 < *(int *)(iVar7 + 0x40)) {
+          else if (iVar7 < pBVar1->defense_stats[0]) {
             local_8 = local_8 + 1;
           }
           else {
             local_c = local_c + 1;
           }
         }
-        else if (g_army_type_table[iVar8].battle_step_frame_count < 5) {
-          if (iVar11 < *(int *)(iVar7 + 0x40)) {
+        else if (g_army_type_table[iVar6].battle_step_frame_count < 5) {
+          if (iVar7 < pBVar1->defense_stats[0]) {
             local_1c[3] = local_1c[3] + 1;
           }
           else {
@@ -140,18 +145,18 @@ void Battle_AutoArrange(int param_1,uint param_2)
         }
       }
     }
-    iVar11 = local_1c[1] + local_1c[3] + local_1c[2];
+    iVar12 = local_1c[1] + local_1c[3] + local_1c[2];
     iVar8 = DAT_005d91ec + DAT_005d91f4 + DAT_005d91f0;
-    iVar7 = iVar11 + local_8 + local_c + local_4;
+    iVar7 = iVar12 + local_8 + local_c + local_4;
     iVar6 = DAT_005d9200 + DAT_005d91fc + DAT_005d91f8 + iVar8;
     if (0 < iVar7) {
       iVar6 = iVar6 / iVar7;
     }
     dVar2 = (double)iVar6;
-    if ((dVar2 <= _DAT_0050f2d8) || ((int)(&DAT_005dfe68)[param_1] < 0xb)) {
+    if ((dVar2 <= _DAT_0050f2d8) || (g_battle_unit_count_by_side[param_1] < 0xb)) {
       iVar6 = iVar8;
-      if (0 < iVar11) {
-        iVar6 = iVar8 / iVar11;
+      if (0 < iVar12) {
+        iVar6 = iVar8 / iVar12;
       }
       dVar3 = (double)iVar6;
       if (dVar3 < _DAT_0050f2d0) {
@@ -161,7 +166,7 @@ void Battle_AutoArrange(int param_1,uint param_2)
         }
         if (iVar8 != 0) {
           if ((DAT_005d91fc + DAT_005d91f8 + iVar8 < DAT_005d9200) &&
-             ((int)(&DAT_005dfe68)[param_1] < 0x1d)) {
+             (g_battle_unit_count_by_side[param_1] < 0x1d)) {
             DAT_005d91e0 = 3;
           }
           else {

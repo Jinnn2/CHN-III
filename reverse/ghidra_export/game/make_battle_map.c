@@ -83,19 +83,19 @@ LAB_00419306:
     else {
       (&DAT_005dfeb0)[iVar6] = (int)*pcVar2;
     }
-    iVar7 = (&DAT_005dfe7c)[iVar6];
+    iVar7 = g_battle_air_or_class1_units_by_side[iVar6];
     if (iVar7 < 1) {
       if (*pcVar2 < '\v') {
 LAB_00419430:
         local_114[iVar6] = 0;
       }
-      else if ((int)(&DAT_005dfe7c)[iVar6 == 0] < 1) {
+      else if (g_battle_air_or_class1_units_by_side[iVar6 == 0] < 1) {
         if (*(char *)local_108[iVar6 == 0] < '\v') {
-          if (*(int *)(&DAT_005d9210 + iVar6 * 4) == 0) goto LAB_00419408;
+          if (g_battle_land_units_by_side[iVar6] == 0) goto LAB_00419408;
           local_114[iVar6] = 1;
         }
         else {
-          if ((&DAT_005dfe7c)[iVar6 == 0] != 0) goto LAB_004193c9;
+          if (g_battle_air_or_class1_units_by_side[iVar6 == 0] != 0) goto LAB_004193c9;
           if (*(int *)(pcVar2 + 0x88) == 0) goto LAB_00419382;
           local_114[iVar6] = 0;
         }
@@ -105,9 +105,10 @@ LAB_004193c9:
         local_114[iVar6] = 6;
       }
     }
-    else if (iVar7 == (&DAT_005d9244)[iVar6]) {
+    else if (iVar7 == g_battle_total_units_by_side[iVar6]) {
       if (*pcVar2 < '\v') {
-        if (((int)(&DAT_005dfe7c)[iVar6 == 0] < 1) && (*(char *)local_108[iVar6 == 0] < '\v')) {
+        if ((g_battle_air_or_class1_units_by_side[iVar6 == 0] < 1) &&
+           (*(char *)local_108[iVar6 == 0] < '\v')) {
 LAB_00419382:
           local_114[iVar6] = 2;
         }
@@ -120,13 +121,13 @@ LAB_00419408:
         local_114[iVar6] = 4;
       }
     }
-    else if (*(int *)(&DAT_005d9210 + iVar6 * 4) < 1) {
+    else if (g_battle_land_units_by_side[iVar6] < 1) {
       if (*pcVar2 < '\v') goto LAB_00419430;
       local_114[iVar6] = 4;
     }
     else {
-      if ((0 < (int)(&DAT_005dfe7c)[iVar6 == 0]) || ('\n' < *(char *)local_108[iVar6 == 0]))
-      goto LAB_004193c9;
+      if ((0 < g_battle_air_or_class1_units_by_side[iVar6 == 0]) ||
+         ('\n' < *(char *)local_108[iVar6 == 0])) goto LAB_004193c9;
       local_114[iVar6] = 2;
     }
     if ((*(int *)(pcVar2 + 0x88) != 0) && ((('\n' < *pcVar2 || (0 < iVar7)) || ('\n' < *pcVar2)))) {

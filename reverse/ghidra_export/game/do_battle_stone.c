@@ -10,7 +10,7 @@ void Do_Battle_Stone(void)
 {
   int iVar1;
   int iVar2;
-  void *pvVar3;
+  BattleUnit_0x64 *pBVar3;
   int iVar4;
   int iVar5;
   undefined2 uVar6;
@@ -37,11 +37,11 @@ void Do_Battle_Stone(void)
     } while (cVar11 < *(char *)(iVar5 + 0x3eb));
     iVar12 = *(short *)(iVar5 + 6) * 3;
     iVar1 = (int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18;
-    pvVar3 = (&g_battle_grid_front_units)[iVar1 * 0xc];
+    pBVar3 = (&g_battle_grid_front_units)[iVar1 * 0xc];
     iVar4 = *(int *)(&DAT_005d9270 + iVar1 * 0x30);
-    if ((pvVar3 != (void *)0x0) &&
-       ((g_army_type_table[*(int *)((int)pvVar3 + 4)].unit_class < 2 ||
-        (iVar12 = *(int *)((int)pvVar3 + 0xc), (&DAT_005d9230)[iVar12] != '\0')))) {
+    if ((pBVar3 != (BattleUnit_0x64 *)0x0) &&
+       ((g_army_type_table[pBVar3->army_type_id].unit_class < 2 ||
+        (iVar12 = pBVar3->battle_side, (&DAT_005d9230)[iVar12] != '\0')))) {
       if (*(short *)(iVar5 + 0x3ee) < 1) {
         local_8 = 1;
       }
@@ -49,49 +49,49 @@ void Do_Battle_Stone(void)
         uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),*(short *)(iVar5 + 0x3ee)));
         local_8 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
       }
-      if (*(int *)((int)pvVar3 + 0x40) < 1) {
+      if (pBVar3->defense_stats[0] < 1) {
         iVar12 = 1;
       }
       else {
-        uVar7 = FUN_004fbf50(*(int *)((int)pvVar3 + 0x40));
-        iVar12 = (uVar7 & 0xffff) + *(int *)((int)pvVar3 + 0x40) * 8;
+        uVar7 = FUN_004fbf50(pBVar3->defense_stats[0]);
+        iVar12 = (uVar7 & 0xffff) + pBVar3->defense_stats[0] * 8;
       }
       if (local_8 < iVar12) {
         iVar12 = (local_8 << 4) / iVar12;
         if (0 < iVar12) {
-          if (iVar12 < *(int *)((int)pvVar3 + 0x30)) {
-            *(int *)((int)pvVar3 + 0x30) = *(int *)((int)pvVar3 + 0x30) - iVar12;
+          if (iVar12 < pBVar3->strength_chunk) {
+            pBVar3->strength_chunk = pBVar3->strength_chunk - iVar12;
           }
           else {
-            *(undefined4 *)((int)pvVar3 + 0x30) = 0;
+            pBVar3->strength_chunk = 0;
           }
         }
       }
       else {
-        *(undefined4 *)((int)pvVar3 + 0x30) = 0;
+        pBVar3->strength_chunk = 0;
       }
-      if (*(int *)((int)pvVar3 + 0x30) < 1) {
+      if (pBVar3->strength_chunk < 1) {
         puVar8 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
-        puVar8[1] = *(undefined4 *)((int)pvVar3 + 4);
+        puVar8[1] = pBVar3->army_type_id;
         puVar8[4] = 0;
         puVar8[5] = 0;
-        puVar8[2] = *(undefined4 *)((int)pvVar3 + 8);
-        puVar8[3] = *(undefined4 *)((int)pvVar3 + 0x18);
-        puVar8[6] = *(undefined4 *)((int)pvVar3 + 0x54);
+        puVar8[2] = pBVar3->owner_country_id;
+        puVar8[3] = pBVar3->facing_or_direction;
+        puVar8[6] = pBVar3->map_unit_extra_id;
         *puVar8 = 0;
         puVar8[8] = 0;
         puVar8[7] = 0;
         (&DAT_005d927c)[iVar1 * 0xc] = puVar8;
         FUN_00472a90(puVar8);
-        (&g_battle_grid_front_units)[iVar1 * 0xc] = (void *)0x0;
-        if (*(int *)((int)pvVar3 + 0x20) != 0) {
+        (&g_battle_grid_front_units)[iVar1 * 0xc] = (BattleUnit_0x64 *)0x0;
+        if (pBVar3->moving_or_animating != 0) {
           *(undefined4 *)
            (&DAT_005d9270 +
-           ((&DAT_00513b08)[*(int *)((int)pvVar3 + 0x18)] +
-            ((&DAT_00513b28)[*(int *)((int)pvVar3 + 0x18)] + *(int *)((int)pvVar3 + 0x14)) * 0x18 +
-           *(int *)((int)pvVar3 + 0x10)) * 0x30) = 0;
+           ((&DAT_00513b08)[pBVar3->facing_or_direction] +
+            ((&DAT_00513b28)[pBVar3->facing_or_direction] + pBVar3->battle_y) * 0x18 +
+           pBVar3->battle_x) * 0x30) = 0;
         }
-        FUN_00472a20(pvVar3);
+        FUN_00472a20(pBVar3);
       }
     }
     if (iVar4 != 0) {
@@ -148,7 +148,8 @@ void Do_Battle_Stone(void)
           FUN_00472a90(puVar8);
           if (*(int *)(iVar4 + 0x20) != 0) {
             (&g_battle_grid_front_units)
-            [(*(int *)(iVar4 + 0x10) + *(int *)(iVar4 + 0x14) * 0x18) * 0xc] = (void *)0x0;
+            [(*(int *)(iVar4 + 0x10) + *(int *)(iVar4 + 0x14) * 0x18) * 0xc] =
+                 (BattleUnit_0x64 *)0x0;
           }
           *(undefined4 *)(&DAT_005d9270 + iVar1 * 0x30) = 0;
           FUN_00472a20(iVar4);

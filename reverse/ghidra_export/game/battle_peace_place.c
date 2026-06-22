@@ -27,13 +27,13 @@ undefined4 Battle_Peace_Place(int param_1,int *param_2,int *param_3,char param_4
   while( true ) {
     while( true ) {
       if (param_4 == '\0') {
-        if ((&g_battle_grid_front_units)[(iVar4 + iVar1) * 0xc] == (void *)0x0) {
+        if ((&g_battle_grid_front_units)[(iVar4 + iVar1) * 0xc] == (BattleUnit_0x64 *)0x0) {
           *param_2 = iVar1;
           *param_3 = iVar5;
           return 1;
         }
       }
-      else if ((&g_battle_grid_back_units)[(iVar4 + iVar1) * 0xc] == (void *)0x0) {
+      else if ((&g_battle_grid_back_units)[(iVar4 + iVar1) * 0xc] == (BattleUnit_0x64 *)0x0) {
         *param_2 = iVar1;
         *param_3 = iVar5;
         return 1;

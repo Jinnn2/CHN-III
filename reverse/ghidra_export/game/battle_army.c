@@ -19,23 +19,23 @@ void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *st
   pAVar2 = army;
   Trace_Function(s_Add_BattleArmy_00514980);
   uVar5 = (int)(char)army->strength_or_health << 3;
-  (&DAT_005d9244)[side] = (&DAT_005d9244)[side] + 1;
+  g_battle_total_units_by_side[side] = g_battle_total_units_by_side[side] + 1;
   bVar1 = army->army_type_id;
   if (g_army_type_table[bVar1].unit_class == 0) {
-    *(int *)(&DAT_005d9210 + side * 4) = *(int *)(&DAT_005d9210 + side * 4) + 1;
+    g_battle_land_units_by_side[side] = g_battle_land_units_by_side[side] + 1;
     if ((g_army_type_table[bVar1].combat_or_support_values[0] < 2) &&
        (1 < g_army_type_table[bVar1].attack_stat_a)) {
-      piVar3 = (int *)(&DAT_005d923c + side * 4);
+      piVar3 = g_battle_ranged_land_units_by_side + side;
     }
     else {
-      piVar3 = (int *)(&DAT_005d9218 + side * 4);
+      piVar3 = g_battle_frontline_land_units_by_side + side;
     }
   }
   else if (g_army_type_table[bVar1].unit_class == 1) {
-    piVar3 = &DAT_005dfe7c + side;
+    piVar3 = g_battle_air_or_class1_units_by_side + side;
   }
   else {
-    piVar3 = (int *)(&DAT_005d9208 + side * 4);
+    piVar3 = g_battle_special_or_class2_units_by_side + side;
   }
   army = (ArmyUnit_0x164_plus *)0x0;
   *piVar3 = *piVar3 + 1;

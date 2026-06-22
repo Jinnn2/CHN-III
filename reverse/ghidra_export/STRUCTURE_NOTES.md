@@ -16,7 +16,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `LandTile_0x100` | `load_dat.c` copies/iterates `DAT_0074a040` in `0x100`-byte strides. | Map tile/cell record. |
 | `CountryState_0xe68` | `load_dat.c` copies into `DAT_007350b8`; loops advance by `0xe68`; `do_city.c` uses `DAT_007350b8 + country_index * 0xe68`. | Player/country/faction state. |
 | `City_0x1b8_plus` | `do_city.c` iterates `DAT_00706948`; `load_dat.c` links records through offset `+0x1b4`; city x/y at offsets `+0x16/+0x18`; name-like text starts around `+3`. | City record linked list. |
-| `BattleUnit_approx` | Battle logic uses `param_1[4]`, `param_1[5]`, `param_1[6]` as grid x/y/type-like fields. | Battle-side army/unit record. |
+| `BattleUnit_0x64` | `BattleArmy` allocates 100-byte chunks; `Do_Battle_Army_And_Battle_Die`, `Battle_AutoArrange`, and arrange/UI code read typed x/y, state, stat, and linked-list fields. | Battle-side army/unit record. |
 | `Image/Sprite bank` | Main menu and UI paths call function pointer `DAT_00771f34` with entries from `DAT_00707f90`, and load `.EMG`/`.XMG` resources. | Decoded sprite/image resources. |
 | `BuildingDef_0x200` | Building table starts at `0x005997b8`; UI/editor and city production index it with `building_id * 0x200`. | Per-building definition table. |
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
@@ -42,6 +42,14 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_science_defs` | `0x005817a8`, 200 records, `0x88` byte stride. | Static science/research definitions. |
 | `g_country_profile_defs` | `0x00596218`, 100 records, `0x7c` byte stride. | Static country profile definitions and modifiers. |
 | `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
+| `g_battle_unit_count_by_side` | `Battle_AutoArrange` sizes an 8-byte work array from it; `Map_To_Battle_Army` clears both entries before battle setup. | Battle unit/formation count for side 0/1. |
+| `g_battle_unit_list_head_by_side` | `Battle_AutoArrange` and arrange/UI code traverse `BattleUnit_0x64.next_battle_unit` from these heads. | Per-side linked-list heads for battle records. |
+| `g_battle_total_units_by_side` | `BattleArmy` increments once per source map army; `Make_Battle_Map` compares class counts against this total. | Source army count by battle side. |
+| `g_battle_land_units_by_side` | `BattleArmy` increments it when `ArmyTypeDef.unit_class == 0`; `Make_Battle_Map` checks whether land units exist. | Land-class army count by side. |
+| `g_battle_air_or_class1_units_by_side` | `BattleArmy` increments it when `ArmyTypeDef.unit_class == 1`; `Make_Battle_Map` uses it for battle-map selection. | Class-1/air-like army count by side. |
+| `g_battle_special_or_class2_units_by_side` | `BattleArmy` increments it for non-0/non-1 unit classes. | Class-2/special army count by side. |
+| `g_battle_frontline_land_units_by_side` | `BattleArmy` increments it for land units outside the ranged/support condition. | Frontline land army count by side. |
+| `g_battle_ranged_land_units_by_side` | `BattleArmy` increments it for land units with low support value and attack stat above 1. | Ranged/support land army count by side. |
 
 ## Useful Offsets
 
@@ -85,6 +93,35 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x14c` | Cargo/subunit scans compare this pointer against the current unit. | transport or carrier link. |
 | `+0x154` | `City_Belong_Change` assigns a city pointer; `Map_To_Battle_Army` reads `building_status[...]` through it. | stationed/associated city. |
 | `+0x160` | Country army traversals follow this pointer. | next army in linked list. |
+
+### `BattleUnit_0x64`
+
+This is the battle-side record created from map-level `ArmyUnit_0x164_plus`
+records. `BattleArmy` allocates each record as a 100-byte block, fills the
+fields below, and the battle arrange/update paths later traverse the per-side
+linked lists and grid pointers.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | `BattleArmy` sets it from `ArmyTypeDef.unit_class == 2`; grid code tests zero/nonzero when choosing front/back layers. | battle layer or unit-class flag. |
+| `+0x04` | Battle update and stat logic index `g_army_type_table` through this field. | army type id. |
+| `+0x08` | Battle interaction code compares it with opposing battle records. | owner country id. |
+| `+0x0c` | Arrange/UI code checks it against the side being arranged. | battle side. |
+| `+0x10/+0x14` | Arrange code initializes and places these on a `0x18`-wide battle grid; death/update code clears grid slots using them. | battle grid x/y. |
+| `+0x18` | Initialized from a side-specific direction table and used by movement/action logic. | facing or direction. |
+| `+0x1c` | Incremented/reset during action animation in `Do_Battle_Army_And_Battle_Die`. | action frame. |
+| `+0x20` | Nonzero branches into movement/animation update paths. | moving or animating flag. |
+| `+0x24/+0x28` | Battle AI writes action ids/substates such as attack and movement choices. | action state and substate. |
+| `+0x2c` | Compared with `ArmyTypeDef.battle_step_frame_count`. | step frame. |
+| `+0x30` | Filled from map-unit strength chunks and capped at 100; UI and damage code read it as remaining strength. | strength chunk. |
+| `+0x34..0x3f` | Copied from `Map_To_Battle_Army` attack stat vector and read by battle resolution. | attack stats. |
+| `+0x40..0x4b` | Copied from `Map_To_Battle_Army` defense/support stat vector and read by battle resolution. | defense stats. |
+| `+0x4c` | Copied from `ArmyUnit.battle_slot_or_category`. | source battle slot/category. |
+| `+0x50` | `BattleArmy` assigns the chunk index for multi-formation map armies. | formation index. |
+| `+0x54` | Copied from the map army's extra id field at `+0x13c`. | map-unit extra id. |
+| `+0x58` | Copied from `ArmyTypeDef.battle_sprite_or_effect_id`. | battle sprite/effect id. |
+| `+0x5c` | Zeroed at allocation; list/grid maintenance touches this slot. | previous or auxiliary link. |
+| `+0x60` | `Battle_AutoArrange` and arrange/UI code traverse this pointer. | next battle unit. |
 
 ### `ArmyTypeDef_0x400`
 

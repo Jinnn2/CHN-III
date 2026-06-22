@@ -8,10 +8,10 @@
 undefined4 Battle_First_Line(int param_1,uint *param_2,uint *param_3,char param_4)
 
 {
-  void *pvVar1;
+  BattleUnit_0x64 *pBVar1;
   int iVar2;
   int *piVar3;
-  void **ppvVar4;
+  BattleUnit_0x64 **ppBVar4;
   uint *puVar5;
   uint uVar6;
   uint uVar7;
@@ -46,13 +46,13 @@ undefined4 Battle_First_Line(int param_1,uint *param_2,uint *param_3,char param_
     uVar6 = 0xc;
     do {
       if (param_4 == '\0') {
-        if ((&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc] == (void *)0x0) {
+        if ((&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc] == (BattleUnit_0x64 *)0x0) {
           *param_2 = uVar6;
           *param_3 = uVar7;
           return 1;
         }
       }
-      else if ((&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc] == (void *)0x0) {
+      else if ((&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc] == (BattleUnit_0x64 *)0x0) {
 LAB_004152a3:
         *param_2 = uVar6;
         *param_3 = uVar7;
@@ -98,12 +98,12 @@ LAB_004152a3:
     do {
       while( true ) {
         if (param_4 == '\0') {
-          pvVar1 = (&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc];
+          pBVar1 = (&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc];
         }
         else {
-          pvVar1 = (&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc];
+          pBVar1 = (&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc];
         }
-        if (pvVar1 == (void *)0x0) {
+        if (pBVar1 == (BattleUnit_0x64 *)0x0) {
           *param_2 = uVar6;
           *param_3 = uVar7;
           return 1;
@@ -138,12 +138,12 @@ LAB_00414de7:
     do {
       while( true ) {
         if (param_4 == '\0') {
-          pvVar1 = (&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc];
+          pBVar1 = (&g_battle_grid_front_units)[(iVar8 + uVar6) * 0xc];
         }
         else {
-          pvVar1 = (&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc];
+          pBVar1 = (&g_battle_grid_back_units)[(iVar8 + uVar6) * 0xc];
         }
-        if (pvVar1 == (void *)0x0) goto LAB_004152a3;
+        if (pBVar1 == (BattleUnit_0x64 *)0x0) goto LAB_004152a3;
         uVar6 = iVar9 + 0xc;
         if (((int)uVar6 < 0) || (0x17 < (int)uVar6)) {
           uVar7 = uVar7 + iVar11;
@@ -185,13 +185,13 @@ LAB_00414de7:
     local_2c = 0x120;
     do {
       if (param_4 == '\0') {
-        if ((&g_battle_grid_front_units)[(iVar9 + uVar6) * 0xc] == (void *)0x0) {
+        if ((&g_battle_grid_front_units)[(iVar9 + uVar6) * 0xc] == (BattleUnit_0x64 *)0x0) {
           *param_2 = uVar6;
           *param_3 = uVar7;
           return 1;
         }
       }
-      else if ((&g_battle_grid_back_units)[(iVar9 + uVar6) * 0xc] == (void *)0x0) {
+      else if ((&g_battle_grid_back_units)[(iVar9 + uVar6) * 0xc] == (BattleUnit_0x64 *)0x0) {
         *param_2 = uVar6;
         *param_3 = uVar7;
         return 1;
@@ -247,13 +247,13 @@ LAB_00414f38:
         puVar5 = local_10;
         do {
           if (param_4 == '\0') {
-            if ((&g_battle_grid_front_units)[(iVar9 + *puVar5) * 0xc] == (void *)0x0) {
+            if ((&g_battle_grid_front_units)[(iVar9 + *puVar5) * 0xc] == (BattleUnit_0x64 *)0x0) {
               *param_2 = local_10[iVar8];
               *param_3 = uVar7;
               return 1;
             }
           }
-          else if ((&g_battle_grid_back_units)[(iVar9 + *puVar5) * 0xc] == (void *)0x0) {
+          else if ((&g_battle_grid_back_units)[(iVar9 + *puVar5) * 0xc] == (BattleUnit_0x64 *)0x0) {
             *param_2 = local_10[iVar8];
             *param_3 = uVar7;
             return 1;
@@ -314,12 +314,12 @@ LAB_00414f38:
     do {
       while( true ) {
         if (param_4 == '\0') {
-          pvVar1 = (&g_battle_grid_front_units)[(uVar6 + iVar8) * 0xc];
+          pBVar1 = (&g_battle_grid_front_units)[(uVar6 + iVar8) * 0xc];
         }
         else {
-          pvVar1 = (&g_battle_grid_back_units)[(uVar6 + iVar8) * 0xc];
+          pBVar1 = (&g_battle_grid_back_units)[(uVar6 + iVar8) * 0xc];
         }
-        if (pvVar1 == (void *)0x0) goto LAB_004152a3;
+        if (pBVar1 == (BattleUnit_0x64 *)0x0) goto LAB_004152a3;
         uVar6 = iVar13 + iVar9;
         if (((int)uVar6 < 0x18) && (-1 < (int)uVar6)) {
           uVar10 = uVar7 & 0x80000001;
@@ -373,12 +373,12 @@ LAB_0041520a:
     do {
       while( true ) {
         if (param_4 == '\0') {
-          pvVar1 = (&g_battle_grid_front_units)[(uVar6 + iVar8) * 0xc];
+          pBVar1 = (&g_battle_grid_front_units)[(uVar6 + iVar8) * 0xc];
         }
         else {
-          pvVar1 = (&g_battle_grid_back_units)[(uVar6 + iVar8) * 0xc];
+          pBVar1 = (&g_battle_grid_back_units)[(uVar6 + iVar8) * 0xc];
         }
-        if (pvVar1 == (void *)0x0) goto LAB_004152a3;
+        if (pBVar1 == (BattleUnit_0x64 *)0x0) goto LAB_004152a3;
         uVar6 = iVar9 + 0xc;
         if (((int)uVar6 < 0) || (0x17 < (int)uVar6)) {
           uVar7 = uVar7 + iVar11;
@@ -427,57 +427,58 @@ LAB_0041520a:
       iVar9 = iVar11;
       if (uVar7 != uVar6) {
         iVar8 = uVar7 * 0x18;
-        ppvVar4 = &g_battle_grid_back_units + (local_30 + iVar8) * 0xc;
+        ppBVar4 = &g_battle_grid_back_units + (local_30 + iVar8) * 0xc;
         uVar10 = uVar7;
         do {
           if (param_4 == '\0') {
-            if (ppvVar4[-2] == (void *)0x0) {
+            if (ppBVar4[-2] == (BattleUnit_0x64 *)0x0) {
               *param_2 = local_30;
               *param_3 = uVar10;
               return 1;
             }
           }
-          else if (*ppvVar4 == (void *)0x0) {
+          else if (*ppBVar4 == (BattleUnit_0x64 *)0x0) {
             *param_2 = local_30;
             *param_3 = uVar10;
             return 1;
           }
           if (param_4 == '\0') {
-            if ((&g_battle_grid_front_units)[(local_2c + iVar8) * 0xc] == (void *)0x0) {
+            if ((&g_battle_grid_front_units)[(local_2c + iVar8) * 0xc] == (BattleUnit_0x64 *)0x0) {
               *param_2 = local_2c;
               *param_3 = uVar10;
               return 1;
             }
           }
-          else if ((&g_battle_grid_back_units)[(local_2c + iVar8) * 0xc] == (void *)0x0) {
+          else if ((&g_battle_grid_back_units)[(local_2c + iVar8) * 0xc] == (BattleUnit_0x64 *)0x0)
+          {
             *param_2 = local_2c;
             *param_3 = uVar10;
             return 1;
           }
           uVar10 = uVar10 + local_20;
           iVar8 = iVar8 + iVar11 * 0x18;
-          ppvVar4 = ppvVar4 + iVar11 * 0x120;
+          ppBVar4 = ppBVar4 + iVar11 * 0x120;
           uVar7 = local_1c;
           iVar9 = local_20;
         } while (uVar10 != uVar6);
       }
       if ((int)local_30 < (int)local_2c) {
-        ppvVar4 = &g_battle_grid_back_units + (local_18 + local_30) * 0xc;
+        ppBVar4 = &g_battle_grid_back_units + (local_18 + local_30) * 0xc;
         uVar10 = local_30;
         do {
           if (param_4 == '\0') {
-            pvVar1 = ppvVar4[-2];
+            pBVar1 = ppBVar4[-2];
           }
           else {
-            pvVar1 = *ppvVar4;
+            pBVar1 = *ppBVar4;
           }
-          if (pvVar1 == (void *)0x0) {
+          if (pBVar1 == (BattleUnit_0x64 *)0x0) {
             *param_2 = uVar10;
             *param_3 = uVar6;
             return 1;
           }
           uVar10 = uVar10 + 1;
-          ppvVar4 = ppvVar4 + 0xc;
+          ppBVar4 = ppBVar4 + 0xc;
         } while ((int)uVar10 < (int)local_2c);
       }
       local_30 = local_30 + 1;
