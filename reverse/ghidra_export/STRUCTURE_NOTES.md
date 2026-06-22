@@ -132,6 +132,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `MLP_Edit_Empire_Flag` | Trace string `MLP_Edit_Empire_Flag`; maps mouse position/color-channel selectors to a selected 14-wide flag block and writes a 16-bit pixel color. | Empire flag pixel edit handler. |
 | `Clear_UnUsed_Science` | Trace string `Clear_UnUsed_Science`; after loading the science block, disables entries with empty names and resets prerequisites / related science links to `-1`. | Science definition cleanup. |
 | `Science_Know` | Trace string `Science_Know`; grants or marks science state based on prerequisite completion and cascades newly available/known science entries. | Science knowledge/status transition. |
+| `Science_Know_With_Prerequisites` | Called by the map editor's city creation path; starts from one science id, walks `ScienceDef_0x88.prerequisite_science_a/b`, and calls `Science_Know` for every required science reached. | Bulk science grant including prerequisite chain. |
 | `Science_Next` | Trace string `Science_Next`; collects available science entries and scores AI choices using `g_science_priority_target_ids` plus per-science weight blocks. | Next research selection. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
@@ -448,7 +449,7 @@ the city/building tooltip in `Put_City_View`.
 |---:|---|---|
 | `+0x00` | Research lists skip entries where this is zero. | `is_enabled`. |
 | `+0x04` | Research/diplomacy messages format this text. | `name_bytes`. |
-| `+0x1c/+0x20` | Research availability checks these prerequisite science ids for completion or `-1`. | prerequisite science ids. |
+| `+0x1c/+0x20` | Research availability checks these prerequisite science ids for completion or `-1`; `Science_Know_With_Prerequisites` walks them to grant the required chain. | prerequisite science ids. |
 | `+0x24` | Compared against `current_research_progress`, added to a country accumulator when learned, and displayed by `Put_Edit_Science_Exp`. | `research_cost_or_score`. |
 | `+0x28` | Used in research pacing and AI evaluation. | `era_or_group_id`. |
 | `+0x2c..0x43` | `Science_Next` scans the first six `g_science_priority_target_ids` and adds these weights multiplied by 5000 when an unmet target science is found. | AI priority weight block A. |

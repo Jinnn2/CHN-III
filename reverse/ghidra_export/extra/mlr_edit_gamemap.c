@@ -35,7 +35,7 @@ void MLR_Edit_GameMap(void)
   undefined4 local_c;
   undefined4 local_8;
   undefined1 local_4;
-  
+
   Trace_Function(s_MLR_Edit_GameMap_0057f7c8);
   iVar11 = g_editor_selected_country_id;
   if (DAT_00716124 == 1) {
@@ -71,7 +71,7 @@ LAB_004b709e:
       FUN_004b7b60(g_editor_selected_country_id,(&DAT_007350b9)[iVar10],1);
     }
     if (DAT_0057e98c == 5) {
-      FUN_00467740(g_editor_selected_country_id,0x48);
+      Science_Know_With_Prerequisites(g_editor_selected_country_id,0x48);
     }
     if (g_editor_selected_city_seed_id == 0) {
       uVar17 = 10000;
@@ -459,4 +459,3 @@ code_r0x004b75d5:
   g_current_land_tile->editor_named_point_index_a = (short)iVar11;
   return;
 }
-

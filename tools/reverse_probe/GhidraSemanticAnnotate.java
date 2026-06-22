@@ -1006,6 +1006,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x464a20L, "Clear_UnUsed_Science"),
             new Rename(0x467010L, "Before_Edit_Science_Power"),
             new Rename(0x467250L, "Before_Edit_Science_Set"),
+            new Rename(0x467740L, "Science_Know_With_Prerequisites"),
             new Rename(0x467dc0L, "Put_Edit_Science_Exp"),
             new Rename(0x4596a0L, "Before_Window_Edit_File_Detail"),
             new Rename(0x459f90L, "Put_Edit_File_Detail"),
