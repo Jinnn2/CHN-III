@@ -72,7 +72,8 @@ switchD_004398c4_default:
         if (local_c1 != '\x01') goto LAB_00439bb7;
         iVar8 = iVar7 * 0x200;
         *(short *)(puVar2 + 0xd4) =
-             *(short *)(puVar2 + 0xd4) - g_building_defs[iVar7].income_yield_delta;
+             *(short *)(puVar2 + 0xd4) -
+             g_building_defs[iVar7].maintenance_cost_or_income_yield_delta;
         if (_DAT_00748e34 == g_human_country_index) {
           if (DAT_0074a2cc != '\x01') {
             return '\x01';

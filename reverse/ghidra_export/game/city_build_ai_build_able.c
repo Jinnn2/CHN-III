@@ -50,8 +50,8 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
     local_28 = 0;
     local_10 = -0x30;
     local_14 = 0x18;
-    local_c = g_building_defs[param_4].footprint_width_tiles *
-              g_building_defs[param_4].footprint_height_tiles;
+    local_c = g_building_defs[param_4].footprint_length_tiles *
+              g_building_defs[param_4].footprint_width_tiles;
     local_18 = 0;
     do {
       local_1c = 0x18;
@@ -82,9 +82,9 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
           piVar7[3] = iVar5;
           iVar11 = -1;
           local_24 = 0;
-          iVar5 = g_building_defs[param_4].footprint_height_tiles;
+          iVar5 = g_building_defs[param_4].footprint_width_tiles;
           if (-2 < iVar5) {
-            iVar3 = g_building_defs[param_4].footprint_width_tiles;
+            iVar3 = g_building_defs[param_4].footprint_length_tiles;
             iVar10 = local_10;
             do {
               iVar9 = -1;
@@ -96,7 +96,7 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
                           (((local_18 + iVar11 < 0x30 &&
                             (cVar2 = *(char *)((iVar6 + iVar10) * 0x20 + *(int *)(param_1 + 0x1ac) +
                                               7), -1 < cVar2)) &&
-                           (g_building_defs[cVar2].map_object_or_terrain_gate != 0)))))))) {
+                           (g_building_defs[cVar2].building_class != 0)))))))) {
                     local_24 = local_24 + 1;
                   }
                   iVar9 = iVar9 + 1;

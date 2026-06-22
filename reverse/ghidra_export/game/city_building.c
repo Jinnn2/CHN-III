@@ -159,26 +159,26 @@ LAB_00422234:
         iVar14 = (iVar14 * 0x50) / 100;
       }
       if (0 < iVar15) {
-        if (((g_building_defs[iVar9].building_category == 6) &&
+        if (((g_building_defs[iVar9].autonomy_policy == 6) &&
             (6 < g_empire_country_defs[bVar2].category6_build_bonus)) &&
            (6 < g_empire_country_defs[bVar2].category6_build_bonus_gate)) {
           g_current_city->build_progress =
                g_current_city->build_progress +
                g_empire_country_defs[bVar2].category6_build_bonus + -6;
         }
-        if ((g_building_defs[iVar9].building_category == 2) &&
+        if ((g_building_defs[iVar9].autonomy_policy == 2) &&
            (6 < g_empire_country_defs[bVar2].unit_or_category2_build_bonus)) {
           g_current_city->build_progress =
                g_current_city->build_progress +
                g_empire_country_defs[bVar2].unit_or_category2_build_bonus + -6;
         }
-        if ((g_building_defs[iVar9].building_category == 5) &&
+        if ((g_building_defs[iVar9].autonomy_policy == 5) &&
            (6 < g_empire_country_defs[bVar2].category5_build_bonus)) {
           g_current_city->build_progress =
                g_current_city->build_progress +
                g_empire_country_defs[bVar2].category5_build_bonus + -6;
         }
-        if ((g_building_defs[iVar9].building_category == 4) &&
+        if ((g_building_defs[iVar9].autonomy_policy == 4) &&
            (6 < g_empire_country_defs[bVar2].category4_build_bonus)) {
           g_current_city->build_progress =
                g_current_city->build_progress +
@@ -188,12 +188,13 @@ LAB_00422234:
       if (g_current_city->build_progress < iVar14) goto LAB_00421ca4;
       g_current_city->building_status[(char)g_current_city->forced_worker_mode] = 2;
       g_current_city->building_income_yield =
-           g_current_city->building_income_yield + g_building_defs[iVar9].income_yield_delta;
+           g_current_city->building_income_yield +
+           g_building_defs[iVar9].maintenance_cost_or_income_yield_delta;
       City_Loyal_Change(g_current_city);
       City_Happy_Change(g_current_city,
                         (g_government_defs[g_active_country->government_or_ai_mode].happiness_effect
-                         * g_building_defs[iVar9].business_delta * 10) / 100 +
-                        g_building_defs[iVar9].business_delta);
+                         * g_building_defs[iVar9].happiness_effect * 10) / 100 +
+                        g_building_defs[iVar9].happiness_effect);
       City_Safe_Change(g_current_city);
       City_Business_Change(g_current_city);
       bVar13 = g_current_city->forced_worker_mode;
@@ -244,12 +245,14 @@ LAB_00422234:
         if (g_current_city->building_status[1] == 2) {
           g_current_city->building_status[1] = 0;
           g_current_city->building_income_yield =
-               g_current_city->building_income_yield - g_building_defs[1].income_yield_delta;
+               g_current_city->building_income_yield -
+               g_building_defs[1].maintenance_cost_or_income_yield_delta;
         }
         if (g_current_city->building_status[0x19] == 2) {
           g_current_city->building_status[0x19] = 0;
           g_current_city->building_income_yield =
-               g_current_city->building_income_yield - g_building_defs[0x19].income_yield_delta;
+               g_current_city->building_income_yield -
+               g_building_defs[0x19].maintenance_cost_or_income_yield_delta;
         }
       }
       else if (bVar13 == g_current_city->event_lock) {
@@ -331,18 +334,18 @@ LAB_00421ca4:
              (dVar3 <= _DAT_0050f300)) {
             iVar14 = 0;
             if ((g_current_city->business_score < 0x3c) &&
-               (4 < g_building_defs[(char)bVar13].business_delta)) {
-              iVar14 = (g_building_defs[(char)bVar13].business_delta * 4 + 0x3c) -
+               (4 < g_building_defs[(char)bVar13].happiness_effect)) {
+              iVar14 = (g_building_defs[(char)bVar13].happiness_effect * 4 + 0x3c) -
                        g_current_city->business_score;
             }
             if ((g_current_city->safety_score < 0x3c) &&
-               (4 < g_building_defs[(char)bVar13].safety_delta)) {
-              iVar14 = iVar14 + ((g_building_defs[(char)bVar13].safety_delta * 4 + 0x3c) -
+               (4 < g_building_defs[(char)bVar13].security_effect)) {
+              iVar14 = iVar14 + ((g_building_defs[(char)bVar13].security_effect * 4 + 0x3c) -
                                 g_current_city->safety_score);
             }
             if ((g_current_city->growth_or_industry_score < 0x3c) &&
-               (4 < g_building_defs[(char)bVar13].growth_delta)) {
-              iVar14 = iVar14 + ((g_building_defs[(char)bVar13].growth_delta * 4 + 0x3c) -
+               (4 < g_building_defs[(char)bVar13].loyalty_effect)) {
+              iVar14 = iVar14 + ((g_building_defs[(char)bVar13].loyalty_effect * 4 + 0x3c) -
                                 g_current_city->growth_or_industry_score);
             }
             if ((iVar14 < 0x65) || (dVar3 < _DAT_0050f2f8)) {

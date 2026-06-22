@@ -114,14 +114,14 @@ void City_Building_AI(void)
                 (g_current_city->building_status[0x3d] == 0)))) &&
               (((g_active_country->available_building_flags[0] == 1 ||
                 (g_active_country->available_building_flags[0x3d] == 1)) &&
-               (g_building_defs[0].upgrade_or_development_requirement <=
-                g_current_city->stored_population_or_value)))) goto LAB_00422a64;
+               (g_building_defs[0].required_population <= g_current_city->stored_population_or_value
+               )))) goto LAB_00422a64;
     }
     else {
       if ((local_291 == 1) &&
          (bVar10 = 0 < *(int *)((char)g_current_city->forced_worker_mode * 0x200 + 0x599830 +
                                g_active_country->government_or_ai_mode * 4),
-         0 < g_building_defs[(char)g_current_city->forced_worker_mode].population_requirement)) {
+         0 < g_building_defs[(char)g_current_city->forced_worker_mode].population_limit)) {
         bVar10 = bVar10 + 1;
       }
       if ((local_284 != (int *)0x3) &&
@@ -155,11 +155,11 @@ LAB_00422a81:
   }
   iVar19 = 0;
   local_260 = 0;
-  piVar15 = &g_building_defs[0].prerequisite_building_a;
+  piVar15 = &g_building_defs[0].prerequisite_building_id;
   pCVar13 = g_active_country;
   pCVar18 = g_current_city;
   do {
-    iVar20 = ((BuildingDef_0x200 *)(piVar15 + -0x28))->editor_building_kind;
+    iVar20 = ((BuildingDef_0x200 *)(piVar15 + -0x28))->is_usable;
     local_244[iVar19 + 3] = 0;
     if (((((((((iVar20 != 0) && (pCVar13->available_building_flags[iVar19] == 1)) &&
              (pCVar18->building_status[iVar19] == 0)) &&
@@ -312,7 +312,7 @@ LAB_0042302d:
         local_284 = local_244 + 3;
         local_274 = (undefined1 *)0x0;
         local_28c = (int *)0x0;
-        piVar21 = &g_building_defs[0].population_requirement;
+        piVar21 = &g_building_defs[0].population_limit;
         do {
           if (*local_284 == 1) {
             puVar11 = (undefined1 *)0x0;
@@ -357,9 +357,9 @@ LAB_0042324c:
               puVar11 = puVar11 + 3000;
             }
             if (((bVar23) &&
-                (((piVar21 == &g_building_defs[0x15].population_requirement ||
-                  (piVar21 == &g_building_defs[0x2d].population_requirement)) ||
-                 (piVar21 == &g_building_defs[0x34].population_requirement)))) &&
+                (((piVar21 == &g_building_defs[0x15].population_limit ||
+                  (piVar21 == &g_building_defs[0x2d].population_limit)) ||
+                 (piVar21 == &g_building_defs[0x34].population_limit)))) &&
                ((((_DAT_00748e30 != (char *)0x0 && ('\0' < *_DAT_00748e30)) &&
                  (_DAT_00748e30[0x77] != '\0')) || (g_active_country->field_0x77 != '\0')))) {
               puVar11 = puVar11 + 300000;
@@ -804,7 +804,7 @@ LAB_004245ea:
         local_280 = local_244 + 3;
         local_26c = (int *)0xffffffff;
         local_298 = (int *)0x0;
-        piVar21 = &g_building_defs[0].population_requirement;
+        piVar21 = &g_building_defs[0].population_limit;
         do {
           if (*local_280 == 1) {
             if ((bVar23) && (g_current_map_scenario_info.difficulty_level < 2)) {

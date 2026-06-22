@@ -161,10 +161,10 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
             }
             else if ((((-1 < DAT_007161b8 - DAT_005e0038) &&
                       (DAT_007161b8 - DAT_005e0038 <
-                       g_building_defs[DAT_005a80a4].footprint_width_tiles)) &&
+                       g_building_defs[DAT_005a80a4].footprint_length_tiles)) &&
                      (-1 < DAT_007161bc - DAT_005e003c)) &&
                     (DAT_007161bc - DAT_005e003c <
-                     g_building_defs[DAT_005a80a4].footprint_height_tiles)) {
+                     g_building_defs[DAT_005a80a4].footprint_width_tiles)) {
               pvStack_90 = *(void **)(DAT_00758568 + (0x1405 - (uint)DAT_00755920) * 4);
 LAB_0049e9b3:
               uStack_94 = DAT_00716160;
@@ -594,7 +594,7 @@ LAB_0049f322:
               iStack_cc = 0x49f612;
               pbStack_c0 = g_building_defs[iVar12].name_bytes;
               Draw_Text_Centered();
-              iVar10 = g_building_defs[iVar12].map_object_or_terrain_gate;
+              iVar10 = g_building_defs[iVar12].building_class;
               pcStack_8c = (char *)DAT_0057e848;
               if (0 < iVar10) {
                 if ((0 < iVar10) && (iVar10 < 4)) {
@@ -673,7 +673,8 @@ LAB_0049f322:
                 uStack_a8 = 0x49f780;
                 iStack_a4 = iVar10;
                 Draw_Text_Centered();
-                puStack_b4 = *(undefined **)&g_building_defs[iVar12].income_yield_delta;
+                puStack_b4 = *(undefined **)
+                              &g_building_defs[iVar12].maintenance_cost_or_income_yield_delta;
                 uStack_a8 = 0;
                 uStack_ac = 5;
                 puStack_b0 = (undefined *)0x0;
@@ -726,7 +727,7 @@ LAB_0049f322:
                 uStack_a8 = 0x49f852;
                 iStack_a4 = iVar10;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)g_building_defs[iVar12].population_requirement;
+                puStack_b4 = (undefined *)g_building_defs[iVar12].population_limit;
                 uStack_a8 = 0;
                 uStack_ac = 6;
                 puStack_b0 = (undefined *)0x0;
@@ -746,8 +747,8 @@ LAB_0049f322:
                 pcStack_8c = (char *)0x0;
                 pvStack_90 = (void *)0x6;
                 uStack_94 = 0;
-                local_9c = (double)CONCAT44(g_building_defs[iVar12].
-                                            upgrade_or_development_requirement,iVar9 + 0x54);
+                local_9c = (double)CONCAT44(g_building_defs[iVar12].required_population,iVar9 + 0x54
+                                           );
                 uStack_a0 = local_7c + 0x7b;
                 iStack_a4 = 0x49f8b0;
                 FUN_004c51f0();
@@ -762,12 +763,12 @@ LAB_0049f322:
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0xffffffff;
                 pvStack_90 = (void *)0xffffffff;
-                if (g_building_defs[iVar12].prerequisite_building_a < 0) {
+                if (g_building_defs[iVar12].prerequisite_building_id < 0) {
                   local_9c = -NAN;
                 }
                 else {
                   local_9c = (double)CONCAT44(0xffffffff,
-                                              g_building_defs[iVar12].prerequisite_building_a *
+                                              g_building_defs[iVar12].prerequisite_building_id *
                                               0x200 + 0x5997d4);
                 }
                 uStack_94 = (uint)DAT_0074c850;
@@ -783,7 +784,7 @@ LAB_0049f322:
                 uStack_a8 = 0x49f947;
                 iStack_a4 = iVar10;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)g_building_defs[iVar12].growth_delta;
+                puStack_b4 = (undefined *)g_building_defs[iVar12].loyalty_effect;
                 uStack_a8 = 0;
                 uStack_ac = 3;
                 puStack_b0 = (undefined *)0x0;
@@ -803,7 +804,7 @@ LAB_0049f322:
                 pcStack_8c = (char *)0x0;
                 pvStack_90 = (void *)0x3;
                 uStack_94 = 0;
-                local_9c = (double)CONCAT44(g_building_defs[iVar12].business_delta,iVar9 + 0x84);
+                local_9c = (double)CONCAT44(g_building_defs[iVar12].happiness_effect,iVar9 + 0x84);
                 uStack_a0 = local_7c + 0x43;
                 iStack_a4 = 0x49f9a5;
                 FUN_004c52d0();
@@ -816,7 +817,7 @@ LAB_0049f322:
                 pbStack_c0 = (byte *)0x49f9c7;
                 puStack_bc = (undefined *)iVar10;
                 Draw_Text_Centered();
-                iStack_cc = g_building_defs[iVar12].safety_delta;
+                iStack_cc = g_building_defs[iVar12].security_effect;
                 pbStack_c0 = (byte *)0x0;
                 uStack_c4 = 3;
                 uStack_c8 = 0;
@@ -832,7 +833,7 @@ LAB_0049f322:
                 uStack_a8 = 0x49fa0a;
                 iStack_a4 = iVar10;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)g_building_defs[iVar12].resource_or_science_delta;
+                puStack_b4 = (undefined *)g_building_defs[iVar12].commerce_effect;
                 uStack_a8 = 0;
                 uStack_ac = 3;
                 puStack_b0 = (undefined *)0x0;

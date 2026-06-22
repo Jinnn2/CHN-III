@@ -26,13 +26,13 @@ void Before_Edit_Build(void)
   pBVar5 = g_building_defs;
   piVar7 = _DAT_00706af4;
   for (iVar2 = (DAT_00570db8 & 0x7fffff) << 7; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *piVar7 = pBVar5->editor_building_kind;
-    pBVar5 = (BuildingDef_0x200 *)&pBVar5->map_object_or_terrain_gate;
+    *piVar7 = pBVar5->is_usable;
+    pBVar5 = (BuildingDef_0x200 *)&pBVar5->building_class;
     piVar7 = piVar7 + 1;
   }
   for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *(char *)piVar7 = (char)pBVar5->editor_building_kind;
-    pBVar5 = (BuildingDef_0x200 *)((int)&pBVar5->editor_building_kind + 1);
+    *(char *)piVar7 = (char)pBVar5->is_usable;
+    pBVar5 = (BuildingDef_0x200 *)((int)&pBVar5->is_usable + 1);
     piVar7 = (int *)((int)piVar7 + 1);
   }
   uVar3 = 0xffffffff;

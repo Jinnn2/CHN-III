@@ -711,60 +711,62 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(tmgImage);
 
         buildingDef = fixedStruct("BuildingDef_0x200", 0x200);
-        replaceAt(buildingDef, 0x00, IntegerDataType.dataType, 4, "editor_building_kind",
-            "Before_Edit_Build binds this first dword to an option-list editor control");
-        replaceAt(buildingDef, 0x04, IntegerDataType.dataType, 4, "map_object_or_terrain_gate",
-            "building placement and city-view paths test this early dword before allowing/displaying some map structures");
-        replaceAt(buildingDef, 0x08, IntegerDataType.dataType, 4, "editor_building_group",
-            "Before_Edit_Build binds this dword to an option-list editor control");
+        replaceAt(buildingDef, 0x00, IntegerDataType.dataType, 4, "is_usable",
+            "Before_Edit_Build label: usable; build lists skip zero records");
+        replaceAt(buildingDef, 0x04, IntegerDataType.dataType, 4, "building_class",
+            "Before_Edit_Build label: building class; placement and city-view paths also use this as a map-structure gate");
+        replaceAt(buildingDef, 0x08, IntegerDataType.dataType, 4, "build_location_mode",
+            "Before_Edit_Build label: build location");
         replaceAt(buildingDef, 0x0c, IntegerDataType.dataType, 4, "display_category_id",
             "Put_City_View indexes a short category label table from this value");
-        replaceAt(buildingDef, 0x10, IntegerDataType.dataType, 4, "editor_display_group_a",
-            "Before_Edit_Build binds this dword to an option-list editor control");
-        replaceAt(buildingDef, 0x14, IntegerDataType.dataType, 4, "per_resource_effect_base",
-            "city people/resource change paths iterate a per-building value block from this offset");
+        replaceAt(buildingDef, 0x10, IntegerDataType.dataType, 4, "science_era_requirement",
+            "Before_Edit_Build label: science era");
+        replaceAt(buildingDef, 0x14, IntegerDataType.dataType, 4, "city_style_requirement",
+            "Before_Edit_Build label: city style; city people/resource loops use this field as the anchor for a scan");
         replaceAt(buildingDef, 0x1c, new ArrayDataType(ByteDataType.dataType, 0x11, 1), 0x11,
             "name_bytes", "Before_Edit_Build binds this as a 17-byte text field; city/building UI draws names from it");
         replaceAt(buildingDef, 0x30, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
             "per_government_population_requirement", "build UI/editor expose six early numeric requirements indexed by government/profile mode");
         replaceAt(buildingDef, 0x44, ShortDataType.dataType, 2, "tile_object_variant_id",
             "City_Upgrade copies this into city map object/tile records for upgraded structures");
-        replaceAt(buildingDef, 0x48, IntegerDataType.dataType, 4, "upgrade_to_building_id",
+        replaceAt(buildingDef, 0x48, IntegerDataType.dataType, 4, "upgrade_building_id",
             "city upgrade follows this id when an older building becomes obsolete/upgraded");
-        replaceAt(buildingDef, 0x4c, IntegerDataType.dataType, 4, "footprint_width_tiles",
-            "placement and build AI multiply this by footprint_height_tiles");
-        replaceAt(buildingDef, 0x50, IntegerDataType.dataType, 4, "footprint_height_tiles",
-            "placement and build AI multiply this by footprint_width_tiles");
+        replaceAt(buildingDef, 0x4c, IntegerDataType.dataType, 4, "footprint_length_tiles",
+            "Before_Edit_Build label: building length; placement and build AI multiply this by footprint_width_tiles");
+        replaceAt(buildingDef, 0x50, IntegerDataType.dataType, 4, "footprint_width_tiles",
+            "Before_Edit_Build label: building width; placement and build AI multiply this by footprint_length_tiles");
         replaceAt(buildingDef, 0x54, IntegerDataType.dataType, 4, "build_cost",
             "city production compares build_progress against this value");
-        replaceAt(buildingDef, 0x5c, ShortDataType.dataType, 2, "income_yield_delta",
-            "added to City.building_income_yield when construction completes");
-        replaceAt(buildingDef, 0x60, IntegerDataType.dataType, 4, "growth_delta",
-            "shown in the city/building tooltip and used by city score changes");
-        replaceAt(buildingDef, 0x64, IntegerDataType.dataType, 4, "business_delta",
-            "shown in the city/building tooltip and used by city business changes");
-        replaceAt(buildingDef, 0x68, IntegerDataType.dataType, 4, "safety_delta",
-            "shown in the city/building tooltip and used by city safety changes");
-        replaceAt(buildingDef, 0x6c, IntegerDataType.dataType, 4, "resource_or_science_delta",
-            "shown in the city/building tooltip as the fourth stat delta");
+        replaceAt(buildingDef, 0x5c, ShortDataType.dataType, 2, "maintenance_cost_or_income_yield_delta",
+            "Before_Edit_Build label: maintenance cost; gameplay adds/subtracts it from City.building_income_yield");
+        replaceAt(buildingDef, 0x60, IntegerDataType.dataType, 4, "loyalty_effect",
+            "Before_Edit_Build label: loyalty effect; shown in the city/building tooltip");
+        replaceAt(buildingDef, 0x64, IntegerDataType.dataType, 4, "happiness_effect",
+            "Before_Edit_Build label: happiness effect; City_Happy_Change consumes this when construction completes");
+        replaceAt(buildingDef, 0x68, IntegerDataType.dataType, 4, "security_effect",
+            "Before_Edit_Build label: security effect; shown in the city/building tooltip");
+        replaceAt(buildingDef, 0x6c, IntegerDataType.dataType, 4, "commerce_effect",
+            "Before_Edit_Build label: commerce effect; shown in the city/building tooltip");
+        replaceAt(buildingDef, 0x74, IntegerDataType.dataType, 4, "effect_range_mode",
+            "Before_Edit_Build label: effect range");
         replaceAt(buildingDef, 0x78, new ArrayDataType(IntegerDataType.dataType, 8, 4), 0x20,
             "resource_cost_by_kind", "resource/material cost array indexed by current country/resource state");
-        replaceAt(buildingDef, 0x98, IntegerDataType.dataType, 4, "population_requirement",
-            "AI and UI compare this against city stored_population_or_value");
-        replaceAt(buildingDef, 0x9c, IntegerDataType.dataType, 4, "upgrade_or_development_requirement",
-            "UI displays it beside the city upgrade/development stat");
-        replaceAt(buildingDef, 0xa0, IntegerDataType.dataType, 4, "prerequisite_building_a",
+        replaceAt(buildingDef, 0x98, IntegerDataType.dataType, 4, "population_limit",
+            "Before_Edit_Build label: population limit; AI and UI compare this against city stored_population_or_value");
+        replaceAt(buildingDef, 0x9c, IntegerDataType.dataType, 4, "required_population",
+            "Before_Edit_Build label: required population; UI displays it beside city population/development text");
+        replaceAt(buildingDef, 0xa0, IntegerDataType.dataType, 4, "prerequisite_building_id",
             "build AI requires this completed unless it is -1");
-        replaceAt(buildingDef, 0xa4, IntegerDataType.dataType, 4, "prerequisite_building_b",
-            "second prerequisite id used by build AI");
+        replaceAt(buildingDef, 0xa4, IntegerDataType.dataType, 4, "building_direction_mode",
+            "Before_Edit_Build label: building direction");
         replaceAt(buildingDef, 0xa8, new ArrayDataType(IntegerDataType.dataType, 13, 4), 0x34,
             "city_resource_effects_a", "City_Resource_Change accumulates this 13-dword block into per-turn city resource deltas");
         replaceAt(buildingDef, 0xdc, new ArrayDataType(IntegerDataType.dataType, 4, 4), 0x10,
             "city_resource_effects_b", "City_Resource_Change accumulates this follow-up effect block into late per-turn city resource totals");
-        replaceAt(buildingDef, 0xec, IntegerDataType.dataType, 4, "building_category",
-            "production acceleration branches compare values such as 2, 4, 5, and 6");
-        replaceAt(buildingDef, 0xf0, IntegerDataType.dataType, 4, "unlock_or_display_flag",
-            "edited in build table UI and consulted by availability/display logic");
+        replaceAt(buildingDef, 0xec, IntegerDataType.dataType, 4, "autonomy_policy",
+            "Before_Edit_Build label: autonomy policy; production acceleration branches compare values such as 2, 4, 5, and 6");
+        replaceAt(buildingDef, 0xf0, IntegerDataType.dataType, 4, "income_limit",
+            "Before_Edit_Build label: income limit");
         resolve(buildingDef);
 
         specialProjectDef = fixedStruct("SpecialProjectDef_0x200", 0x200);

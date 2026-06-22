@@ -47,7 +47,7 @@ void City_Upgrade(int param_1)
     *piVar4 = 0;
     piVar4 = piVar4 + 1;
   }
-  piVar4 = &g_building_defs[0].upgrade_to_building_id;
+  piVar4 = &g_building_defs[0].upgrade_building_id;
   do {
     if (*(char *)(iVar3 + 100 + param_1) == '\x02') {
       if (iVar3 == 1) {
@@ -79,7 +79,7 @@ LAB_00429019:
           psVar7 = psVar7 + -1;
         } while (-1 < iVar5);
       }
-      piVar8 = &g_building_defs[0].upgrade_to_building_id;
+      piVar8 = &g_building_defs[0].upgrade_building_id;
       piVar4 = local_104;
       local_110 = 0x41;
       do {
@@ -96,7 +96,8 @@ LAB_00429019:
           }
           *(undefined1 *)(iVar5 + 100 + param_1) = 2;
           *(short *)(param_1 + 0xd4) =
-               *(short *)(param_1 + 0xd4) + g_building_defs[iVar5].income_yield_delta;
+               *(short *)(param_1 + 0xd4) +
+               g_building_defs[iVar5].maintenance_cost_or_income_yield_delta;
         }
         piVar8 = piVar8 + 0x80;
         piVar4 = piVar4 + 1;

@@ -523,30 +523,36 @@ higher ids.
 
 ### `BuildingDef_0x200`
 
-The building table is still not fully labeled, but these offsets are strongly
-correlated by `City_Building`, `City_Build_AI_Build_Able`, `City_Upgrade`, and
-the city/building tooltip in `Put_City_View`.
+The building table is now mostly labeled from `Before_Edit_Build` editor control
+bindings, then cross-checked against `City_Building`, `City_Build_AI_Build_Able`,
+`City_Upgrade`, city resource changes, and the city/building tooltip in
+`Put_City_View`.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x00/+0x08/+0x10` | `Before_Edit_Build` binds these dwords to option-list controls. | editor-visible building kind/group values. |
-| `+0x04` | Placement and city-view paths test this before allowing/displaying some map structures. | map object / terrain gate. |
+| `+0x00` | Editor option label is "usable"; build lists skip zero records. | `is_usable`. |
+| `+0x04` | Editor option label is "building class"; placement and city-view paths also test it before allowing/displaying some map structures. | `building_class`. |
+| `+0x08` | Editor option label is "build location". | `build_location_mode`. |
 | `+0x0c` | `Put_City_View` indexes a short building-category label table with this value. | display category id. |
-| `+0x14` | City people/resource change paths iterate a per-building value block from this offset. | per-resource effect base. |
+| `+0x10` | Editor option label is "science era". | `science_era_requirement`. |
+| `+0x14` | Editor option label is "city style"; city people/resource change paths also use this offset as the scan anchor for a per-building value block. | `city_style_requirement`. |
 | `+0x1c..0x2c` | `Before_Edit_Build` binds this as a 17-byte text field; city/building UI draws building names from it. | `name_bytes`. |
 | `+0x30..0x47` | Editor exposes six early numeric requirements; build/resource logic indexes this block by government/profile mode. | per-government population requirement block. |
 | `+0x44` | `City_Upgrade` copies this short into city map-object tile records for upgraded structures. | tile object variant id. |
-| `+0x48` | `City_Upgrade` follows this id when an old building unlocks/replaces another. | `upgrade_to_building_id`. |
-| `+0x4c/+0x50` | Placement and build AI multiply these values and compare map footprint. | `footprint_width_tiles`, `footprint_height_tiles`. |
+| `+0x48` | Editor label is "upgrade building"; `City_Upgrade` follows this id when an old building unlocks/replaces another. | `upgrade_building_id`. |
+| `+0x4c/+0x50` | Editor labels are "building length" and "building width"; placement and build AI multiply these values and compare map footprint. | `footprint_length_tiles`, `footprint_width_tiles`. |
 | `+0x54` | Production compares city `build_progress` against this. | `build_cost`. |
-| `+0x5c` | Added to city `building_income_yield` on completion and subtracted on removal. | `income_yield_delta`. |
-| `+0x60/+0x64/+0x68/+0x6c` | Shown in building tooltip and applied through city stat/resource changes. | growth/business/safety/resource-or-science deltas. |
+| `+0x5c` | Editor label is "maintenance cost"; gameplay adds it to city `building_income_yield` on completion and subtracts it on removal. | `maintenance_cost_or_income_yield_delta`. |
+| `+0x60/+0x64/+0x68/+0x6c` | Editor labels are loyalty, happiness, security, and commerce effects; shown in building tooltip and applied through city stat/resource changes. | `loyalty_effect`, `happiness_effect`, `security_effect`, `commerce_effect`. |
+| `+0x74` | Editor option label is "effect range". | `effect_range_mode`. |
 | `+0x78..0x97` | Indexed by current country/resource state when showing build cost/resource requirements. | `resource_cost_by_kind`. |
-| `+0x98/+0x9c` | Displayed in the city/building tooltip and compared by AI/city checks. | population and upgrade/development requirements. |
-| `+0xa0/+0xa4` | Build AI requires these prerequisite building ids unless `-1`. | prerequisite buildings. |
+| `+0x98` | Editor label is "population limit"; displayed in tooltip and compared by AI/city checks. | `population_limit`. |
+| `+0x9c` | Editor label is "required population"; displayed beside population/development text and checked before construction. | `required_population`. |
+| `+0xa0` | Editor label is "condition building"; build AI requires this completed unless `-1`. | `prerequisite_building_id`. |
+| `+0xa4` | Editor option label is "building direction". | `building_direction_mode`. |
 | `+0xa8..0xdb` / `+0xdc..0xeb` | `City_Resource_Change` accumulates these effect blocks into per-turn city resource and late city-resource totals; the editor exposes the same dwords. | city resource effect blocks. |
-| `+0xec` | Production acceleration branches compare category ids `2`, `4`, `5`, `6`. | `building_category`. |
-| `+0xf0` | Build-table editor and availability/display logic touch this slot. | `unlock_or_display_flag`. |
+| `+0xec` | Editor option label is "autonomy policy"; production acceleration branches compare policy ids `2`, `4`, `5`, `6`. | `autonomy_policy`. |
+| `+0xf0` | Editor label is "income limit". | `income_limit`. |
 
 ### `SpecialProjectDef_0x200`
 

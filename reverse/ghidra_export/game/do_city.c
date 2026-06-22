@@ -307,7 +307,7 @@ LAB_00450bac:
                 }
                 dVar2 = (double)iVar9;
                 iVar9 = 0;
-                piVar12 = &g_building_defs[0].upgrade_to_building_id;
+                piVar12 = &g_building_defs[0].upgrade_building_id;
                 piVar10 = &g_building_defs[0].build_cost;
                 do {
                   iVar11 = *piVar12;

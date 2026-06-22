@@ -373,9 +373,9 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       piVar9 = DAT_00707920;
       pBVar31 = g_building_defs;
       for (iVar6 = 0x3000; iVar6 != 0; iVar6 = iVar6 + -1) {
-        pBVar31->editor_building_kind = *piVar9;
+        pBVar31->is_usable = *piVar9;
         piVar9 = piVar9 + 1;
-        pBVar31 = (BuildingDef_0x200 *)&pBVar31->map_object_or_terrain_gate;
+        pBVar31 = (BuildingDef_0x200 *)&pBVar31->building_class;
       }
       DAT_00707920 = DAT_00707920 + 0x3000;
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0xc000);
@@ -739,12 +739,14 @@ LAB_0047406f:
                   if (pcVar25[0x65] == '\x02') {
                     pcVar25[0x65] = '\0';
                     *(short *)(pcVar25 + 0xd4) =
-                         *(short *)(pcVar25 + 0xd4) - g_building_defs[1].income_yield_delta;
+                         *(short *)(pcVar25 + 0xd4) -
+                         g_building_defs[1].maintenance_cost_or_income_yield_delta;
                   }
                   if (pcVar25[0x7d] == '\x02') {
                     pcVar25[0x7d] = '\0';
                     *(short *)(pcVar25 + 0xd4) =
-                         *(short *)(pcVar25 + 0xd4) - g_building_defs[0x19].income_yield_delta;
+                         *(short *)(pcVar25 + 0xd4) -
+                         g_building_defs[0x19].maintenance_cost_or_income_yield_delta;
                   }
                 }
                 if ((pcVar25[0x100] != '\0') && (iVar6 = 0, pcVar25[0x100] != '\0')) {

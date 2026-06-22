@@ -86,9 +86,9 @@ LAB_004b709e:
     if ((iVar11 != 0) && (city = g_current_land_tile->linked_record, city != (City_0x1b8_plus *)0x0)
        ) {
       iVar11 = 0;
-      piVar6 = &g_building_defs[0].per_resource_effect_base;
+      piVar6 = &g_building_defs[0].city_style_requirement;
       do {
-        if (((((((BuildingDef_0x200 *)(piVar6 + -5))->editor_building_kind != 0) &&
+        if (((((((BuildingDef_0x200 *)(piVar6 + -5))->is_usable != 0) &&
               (((city->development_level != 5 || (0 < piVar6[-1])) &&
                (piVar6[0x22] <= city->stored_population_or_value)))) &&
              ((*piVar6 == -1 ||
