@@ -101,6 +101,8 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Window_Edit_File_Detail` | Trace string `Before_Window_Edit_File_Detail`; initializes defaults and creates form controls bound to `g_current_map_scenario_info`. | Scenario/map-detail editor form setup. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
+| `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
+| `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
@@ -275,6 +277,7 @@ higher ids.
 | Offset | Evidence | Working field |
 |---:|---|---|
 | `+0x00` | `Put_City_Make` and table/UI paths skip zero entries. | enabled/display flag. |
+| `+0x04/+0x08/+0x14` | `Before_Edit_Army` binds these early dwords to editable list-style controls; gameplay uses are not yet isolated. | editor-visible classification/image values. |
 | `+0x0c` | `BattleArmy`, `Map_To_Battle_Army`, near-city scans, and battle resolution compare values `0`, `1`, and `2`. | unit class/domain. |
 | `+0x10` | `City_Building` reads this when completing unit production. | land/domain flag. |
 | `+0x2c` | `BattleArmy` copies it into battle record slot `0x16`. | battle sprite/effect id. |
@@ -301,6 +304,7 @@ higher ids.
 | `+0x1d4` | Battle entry paths pass it to the rank-up handler when a unit reaches veteran/power level `4`; negative values gate rank growth past level `3`. | elite rank reward or unlock. |
 | `+0x1d8` | Special battle entry path for army type `0x29` tests this with defender tile visibility before allowing interaction. | special visibility attack gate. |
 | `+0x1f8..` | `Put_City_Make` compares 40 resource slots against city/country resource availability. | resource cost by kind. |
+| `+0x298/+0x29c` | `Before_Edit_Army` exposes these fields; `Do_Battle_Army_And_Battle_Die` compares battle counters against them. | battle counter limits. |
 
 ### `City_0x1b8_plus`
 
@@ -382,6 +386,9 @@ the city/building tooltip in `Put_City_View`.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
+| `+0x00/+0x08/+0x10` | `Before_Edit_Build` binds these dwords to option-list controls. | editor-visible building kind/group values. |
+| `+0x04` | Placement and city-view paths test this before allowing/displaying some map structures. | map object / terrain gate. |
+| `+0x14` | City people/resource change paths iterate a per-building value block from this offset. | per-resource effect base. |
 | `+0x1c..0x5b` | City/building UI draws names from this string area. | `name_bytes`. |
 | `+0x48` | `City_Upgrade` follows this id when an old building unlocks/replaces another. | `upgrade_to_building_id`. |
 | `+0x4c/+0x50` | Placement and build AI multiply these values and compare map footprint. | `footprint_width_tiles`, `footprint_height_tiles`. |
@@ -391,6 +398,7 @@ the city/building tooltip in `Put_City_View`.
 | `+0x78..0x97` | Indexed by current country/resource state when showing build cost/resource requirements. | `resource_cost_by_kind`. |
 | `+0x98/+0x9c` | Displayed in the city/building tooltip and compared by AI/city checks. | population and upgrade/development requirements. |
 | `+0xa0/+0xa4` | Build AI requires these prerequisite building ids unless `-1`. | prerequisite buildings. |
+| `+0xa8/+0xdc/+0xe0/+0xe4/+0xe8` | `Before_Edit_Build` exposes these late dwords as editable numeric fields; gameplay use is still under investigation. | editor-visible values. |
 | `+0xec` | Production acceleration branches compare category ids `2`, `4`, `5`, `6`. | `building_category`. |
 | `+0xf0` | Build-table editor and availability/display logic touch this slot. | `unlock_or_display_flag`. |
 
@@ -507,6 +515,10 @@ important code-first files are:
   map/editor mode, editor menu selection, custom-map loading/deletion, editor
   toggle, whole-map backup allocation, and the left/right-click editor map
   mutation paths.
+- `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
+  `editor/before_edit_army.c`, and `editor/before_edit_build.c`: generic
+  editor form binding plus unit/building table setup, useful for recovering
+  static data-table semantics from editor controls.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

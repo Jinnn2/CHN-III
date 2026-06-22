@@ -332,7 +332,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       for (iVar6 = 0x5b00; iVar6 != 0; iVar6 = iVar6 + -1) {
         pAVar29->is_enabled_or_displayed = *piVar9;
         piVar9 = piVar9 + 1;
-        pAVar29 = (ArmyTypeDef_0x400 *)&pAVar29->field_0x4;
+        pAVar29 = (ArmyTypeDef_0x400 *)&pAVar29->editor_icon_or_class_value;
       }
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x16c00);
       iVar6 = 0x5b;
@@ -368,9 +368,9 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       piVar9 = DAT_00707920;
       pBVar30 = g_building_defs;
       for (iVar6 = 0x3000; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *(int *)pBVar30 = *piVar9;
+        pBVar30->editor_building_kind = *piVar9;
         piVar9 = piVar9 + 1;
-        pBVar30 = (BuildingDef_0x200 *)&pBVar30->field_0x4;
+        pBVar30 = (BuildingDef_0x200 *)&pBVar30->map_object_or_terrain_gate;
       }
       DAT_00707920 = DAT_00707920 + 0x3000;
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0xc000);
@@ -986,7 +986,7 @@ LAB_004744e0:
       pbVar25 = (byte *)&DAT_00572c8c;
       uStack_560 = *DAT_00707920;
       uStack_55c = CONCAT31(uStack_55c._1_3_,*(char *)((int)DAT_00707920 + 4));
-      DAT_0070792c = (ArmyTypeDef_0x400 *)&DAT_0070792c->field_0x5;
+      DAT_0070792c = (ArmyTypeDef_0x400 *)((int)&DAT_0070792c->editor_icon_or_class_value + 1);
       pbVar10 = (byte *)&uStack_560;
       do {
         bVar1 = *pbVar10;

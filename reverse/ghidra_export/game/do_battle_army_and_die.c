@@ -783,7 +783,7 @@ LAB_004170fb:
   case 6:
     iVar19 = battle_unit->step_frame + 1;
     battle_unit->step_frame = iVar19;
-    if (*(int *)&g_army_type_table[iVar18].field_0x29c <= iVar19) {
+    if (g_army_type_table[iVar18].battle_counter_limit_b <= iVar19) {
       battle_unit->step_frame = 0;
       battle_unit->action_state = 0;
     }
@@ -1042,7 +1042,7 @@ LAB_00417738:
   case 0x29:
     iVar17 = battle_unit->step_frame + 1;
     battle_unit->step_frame = iVar17;
-    if (iVar17 < *(int *)&g_army_type_table[iVar18].field_0x298) {
+    if (iVar17 < g_army_type_table[iVar18].battle_counter_limit_a) {
       return;
     }
     battle_unit->step_frame = 0;

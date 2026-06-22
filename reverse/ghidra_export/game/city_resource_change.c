@@ -587,7 +587,7 @@ LAB_004272a6:
   }
   iVar4 = 1;
   DAT_005705b4 = -1;
-  piVar16 = (int *)&g_building_defs[1].field_0x14;
+  piVar16 = &g_building_defs[1].per_resource_effect_base;
   do {
     if ((((((pCVar15->available_building_flags[iVar4] != 0) &&
            ((((bVar1 = pCVar14->development_level, bVar1 < 5 &&

@@ -194,7 +194,7 @@ LAB_004df9fa:
     piVar11 = &g_building_defs[0].prerequisite_building_a;
     iVar9 = g_editor_mode_enabled;
     do {
-      if (((((*(int *)(piVar11 + -0x28) != 0) &&
+      if (((((((BuildingDef_0x200 *)(piVar11 + -0x28))->editor_building_kind != 0) &&
             ((((*(char *)(iVar10 + 0x9d4 + iVar13) != '\0' || (iVar9 != 0)) &&
               (*(char *)(iVar15 + 100 + iVar13) == '\0')) &&
              ((bVar1 = *(byte *)(iVar15 + 0x22), bVar1 != 5 || (0 < piVar11[-0x24])))))) &&

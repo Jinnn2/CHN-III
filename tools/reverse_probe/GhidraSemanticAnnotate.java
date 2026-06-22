@@ -504,10 +504,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         armyTypeDef = fixedStruct("ArmyTypeDef_0x400", 0x400);
         replaceAt(armyTypeDef, 0x00, IntegerDataType.dataType, 4, "is_enabled_or_displayed",
             "unit production UI skips rows where the first word is zero");
+        replaceAt(armyTypeDef, 0x04, IntegerDataType.dataType, 4, "editor_icon_or_class_value",
+            "Before_Edit_Army binds this early dword to a list-style editor control");
+        replaceAt(armyTypeDef, 0x08, IntegerDataType.dataType, 4, "editor_rank_or_group_value",
+            "Before_Edit_Army binds this early dword to a list-style editor control");
         replaceAt(armyTypeDef, 0x0c, IntegerDataType.dataType, 4, "unit_class",
             "0=land, 1=air/naval-like, 2=special/transport-like in battle and near-city logic");
         replaceAt(armyTypeDef, 0x10, IntegerDataType.dataType, 4, "land_or_domain_flag",
             "city placement/building logic reads this early domain flag");
+        replaceAt(armyTypeDef, 0x14, IntegerDataType.dataType, 4, "editor_image_or_model_value",
+            "Before_Edit_Army binds this early dword to a list-style editor control");
         replaceAt(armyTypeDef, 0x2c, IntegerDataType.dataType, 4, "battle_sprite_or_effect_id",
             "BattleArmy copies this into battle unit slot 0x16");
         replaceAt(armyTypeDef, 0x38, IntegerDataType.dataType, 4, "city_view_image_id",
@@ -572,6 +578,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle entry path for army type 0x29 tests this with defender tile visibility before allowing interaction");
         replaceAt(armyTypeDef, 0x1f8, new ArrayDataType(IntegerDataType.dataType, 40, 4), 0xa0,
             "resource_cost_by_kind", "Put_City_Make compares these against country/city resource availability");
+        replaceAt(armyTypeDef, 0x298, IntegerDataType.dataType, 4, "battle_counter_limit_a",
+            "Do_Battle_Army_And_Battle_Die compares a battle counter against this late editor-exposed field");
+        replaceAt(armyTypeDef, 0x29c, IntegerDataType.dataType, 4, "battle_counter_limit_b",
+            "Do_Battle_Army_And_Battle_Die compares a battle counter against this late editor-exposed field");
         replaceAt(armyTypeDef, 0x2c0, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
             "country_or_profile_build_modifiers", "production UI reads this late per-country/profile block");
         resolve(armyTypeDef);
@@ -652,6 +662,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(tmgImage);
 
         buildingDef = fixedStruct("BuildingDef_0x200", 0x200);
+        replaceAt(buildingDef, 0x00, IntegerDataType.dataType, 4, "editor_building_kind",
+            "Before_Edit_Build binds this first dword to an option-list editor control");
+        replaceAt(buildingDef, 0x04, IntegerDataType.dataType, 4, "map_object_or_terrain_gate",
+            "building placement and city-view paths test this early dword before allowing/displaying some map structures");
+        replaceAt(buildingDef, 0x08, IntegerDataType.dataType, 4, "editor_building_group",
+            "Before_Edit_Build binds this dword to an option-list editor control");
+        replaceAt(buildingDef, 0x10, IntegerDataType.dataType, 4, "editor_display_group_a",
+            "Before_Edit_Build binds this dword to an option-list editor control");
+        replaceAt(buildingDef, 0x14, IntegerDataType.dataType, 4, "per_resource_effect_base",
+            "city people/resource change paths iterate a per-building value block from this offset");
         replaceAt(buildingDef, 0x1c, new ArrayDataType(ByteDataType.dataType, 64, 1), 64,
             "name_bytes", "city/building UI draws building names from this string area");
         replaceAt(buildingDef, 0x48, IntegerDataType.dataType, 4, "upgrade_to_building_id",
@@ -682,6 +702,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "build AI requires this completed unless it is -1");
         replaceAt(buildingDef, 0xa4, IntegerDataType.dataType, 4, "prerequisite_building_b",
             "second prerequisite id used by build AI");
+        replaceAt(buildingDef, 0xa8, IntegerDataType.dataType, 4, "editor_value_a8",
+            "Before_Edit_Build exposes this dword as an editable numeric field");
+        replaceAt(buildingDef, 0xdc, IntegerDataType.dataType, 4, "editor_value_dc",
+            "Before_Edit_Build exposes this late dword as an editable numeric field");
+        replaceAt(buildingDef, 0xe0, IntegerDataType.dataType, 4, "editor_value_e0",
+            "Before_Edit_Build exposes this late dword as an editable numeric field");
+        replaceAt(buildingDef, 0xe4, IntegerDataType.dataType, 4, "editor_value_e4",
+            "Before_Edit_Build exposes this late dword as an editable numeric field");
+        replaceAt(buildingDef, 0xe8, IntegerDataType.dataType, 4, "editor_value_e8",
+            "Before_Edit_Build exposes this late dword as an editable numeric field");
         replaceAt(buildingDef, 0xec, IntegerDataType.dataType, 4, "building_category",
             "production acceleration branches compare values such as 2, 4, 5, and 6");
         replaceAt(buildingDef, 0xf0, IntegerDataType.dataType, 4, "unlock_or_display_flag",
@@ -806,6 +836,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x420c00L, "Draw_Text"),
             new Rename(0x42eed0L, "NodeInsert_DataFormat"),
             new Rename(0x42f290L, "Add_New_DataFormat"),
+            new Rename(0x452110L, "Before_Edit_Army"),
+            new Rename(0x454570L, "Before_Edit_Build"),
             new Rename(0x450490L, "Do_City"),
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),

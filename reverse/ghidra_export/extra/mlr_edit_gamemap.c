@@ -84,9 +84,9 @@ LAB_004b709e:
     if ((iVar11 != 0) && (city = g_current_land_tile->linked_record, city != (City_0x1b8_plus *)0x0)
        ) {
       iVar11 = 0;
-      piVar6 = (int *)&g_building_defs[0].field_0x14;
+      piVar6 = &g_building_defs[0].per_resource_effect_base;
       do {
-        if (((((piVar6[-5] != 0) &&
+        if (((((((BuildingDef_0x200 *)(piVar6 + -5))->editor_building_kind != 0) &&
               (((city->development_level != 5 || (0 < piVar6[-1])) &&
                (piVar6[0x22] <= city->stored_population_or_value)))) &&
              ((*piVar6 == -1 ||
@@ -110,7 +110,7 @@ LAB_004b709e:
             FUN_00429540(city,iVar11,local_18,local_1c);
           }
           city->building_status[iVar11] = 2;
-          city->building_income_yield = city->building_income_yield + (short)piVar6[0x12];
+          city->building_income_yield = city->building_income_yield + *(short *)(piVar6 + 0x12);
           City_Loyal_Change(city);
           City_Happy_Change(city,piVar6[0x14]);
           City_Safe_Change(city);
@@ -154,7 +154,7 @@ joined_r0x004b723a:
           FUN_00469f90(&DAT_0057f688,1);
           return;
         }
-        if (g_army_type_table[0x44]._4_4_ == 0) {
+        if (g_army_type_table[0x44].editor_icon_or_class_value == 0) {
           *(undefined1 *)(iVar11 + 0x735b2b) = 1;
         }
         FUN_00479620(g_editor_selected_country_id,0x44,_DAT_00755908,_DAT_0075590c,
@@ -213,7 +213,7 @@ LAB_004b71a9:
       if (*local_18 == '\0') {
         FUN_004b7b60(g_editor_selected_country_id,local_18[1],1);
       }
-      if (*(int *)&g_army_type_table[iVar10].field_0x4 == 0) {
+      if (g_army_type_table[iVar10].editor_icon_or_class_value == 0) {
         pcVar15[iVar10 + 0xa2f] = '\x01';
         FUN_004785c0();
       }

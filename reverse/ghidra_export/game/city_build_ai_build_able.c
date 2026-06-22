@@ -96,7 +96,7 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
                           (((local_18 + iVar11 < 0x30 &&
                             (cVar2 = *(char *)((iVar6 + iVar10) * 0x20 + *(int *)(param_1 + 0x1ac) +
                                               7), -1 < cVar2)) &&
-                           (*(int *)&g_building_defs[cVar2].field_0x4 != 0)))))))) {
+                           (g_building_defs[cVar2].map_object_or_terrain_gate != 0)))))))) {
                     local_24 = local_24 + 1;
                   }
                   iVar9 = iVar9 + 1;

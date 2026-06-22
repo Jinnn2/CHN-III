@@ -44,7 +44,7 @@ void City_People_Change(void)
     else {
       g_current_city->event_lock = 0xff;
       iVar6 = 1;
-      piVar5 = (int *)&g_building_defs[1].field_0x14;
+      piVar5 = &g_building_defs[1].per_resource_effect_base;
       if (g_current_city->development_level == 5) {
         do {
           if (((((iVar6 != 7) && (iVar6 != 0x18)) &&

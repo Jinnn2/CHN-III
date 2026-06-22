@@ -592,7 +592,7 @@ LAB_0049f322:
               iStack_cc = 0x49f612;
               puStack_c0 = &g_building_defs[iVar11].field_0x1c;
               Draw_Text_Centered();
-              iVar9 = *(int *)&g_building_defs[iVar11].field_0x4;
+              iVar9 = g_building_defs[iVar11].map_object_or_terrain_gate;
               pcStack_8c = (char *)DAT_0057e848;
               if (0 < iVar9) {
                 if ((0 < iVar9) && (iVar9 < 4)) {

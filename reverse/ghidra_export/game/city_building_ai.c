@@ -159,7 +159,7 @@ LAB_00422a81:
   pCVar13 = g_active_country;
   pCVar18 = g_current_city;
   do {
-    iVar20 = *(int *)(piVar15 + -0x28);
+    iVar20 = ((BuildingDef_0x200 *)(piVar15 + -0x28))->editor_building_kind;
     local_244[iVar19 + 3] = 0;
     if (((((((((iVar20 != 0) && (pCVar13->available_building_flags[iVar19] == 1)) &&
              (pCVar18->building_status[iVar19] == 0)) &&
