@@ -12,8 +12,8 @@ bool Diplomat_ScareMonger(void)
 {
   byte bVar1;
   City_0x1b8_plus *city;
-  ushort uVar2;
-  short sVar3;
+  int iVar2;
+  uint uVar3;
   int iVar4;
   undefined *puVar5;
   undefined *puVar6;
@@ -25,51 +25,51 @@ bool Diplomat_ScareMonger(void)
 
   Trace_Function(s_Diplomat_ScareMonger_005195b4);
   if ((_DAT_00748e34 != g_human_country_index) ||
-     (iVar4 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
-    iVar4 = 0;
+     (iVar2 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
+    iVar2 = 0;
     switch(g_map_size_mode) {
     case 0:
-      iVar4 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x138;
+      iVar2 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x138;
       break;
     case 1:
-      iVar4 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x9c;
+      iVar2 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x9c;
       break;
     case 2:
-      iVar4 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x4e;
+      iVar2 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x4e;
       break;
     case 3:
-      iVar4 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27 + (int)*(short *)(_DAT_00748ff0 + 0x1e);
+      iVar2 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27 + (int)*(short *)(_DAT_00748ff0 + 0x1e);
       break;
     default:
       goto switchD_00439434_default;
     }
-    iVar4 = iVar4 * 0x100 + _g_land_tiles;
+    iVar2 = iVar2 * 0x100 + _g_land_tiles;
   }
 switchD_00439434_default:
-  city = *(City_0x1b8_plus **)(iVar4 + 0x88);
+  city = *(City_0x1b8_plus **)(iVar2 + 0x88);
   *(undefined1 *)city = 1;
-  iVar4 = (char)city->owner_country_id * 0xe68;
+  iVar2 = (char)city->owner_country_id * 0xe68;
   if (city->safety_score < 1) {
     local_c1 = true;
   }
   else {
     bVar1 = g_active_country->leader_or_country_id;
     if (((bVar1 == 0x19) || (bVar1 == 0x21)) || (bVar1 == 0x23)) {
-      sVar3 = 1;
+      iVar4 = 1;
     }
     else {
-      sVar3 = 0;
+      iVar4 = 0;
     }
-    uVar2 = FUN_004fbf50(CONCAT22((short)((uint)((char)city->owner_country_id * 0x73) >> 0x10),
-                                  (short)city->safety_score));
-    local_c1 = uVar2 < (ushort)((sVar3 + 1) * 0x1e);
+    uVar3 = Game_Random_Mod(CONCAT22((short)((uint)((char)city->owner_country_id * 0x73) >> 0x10),
+                                     (short)city->safety_score));
+    local_c1 = (uVar3 & 0xffff) < (uint)((iVar4 + 1) * 0x1e);
     if (!local_c1) {
       if (_DAT_00748e34 == g_human_country_index) {
         if (DAT_0074a2cc != '\x01') {
           return false;
         }
-        sVar3 = FUN_004fbf50(2);
-        if (sVar3 == 0) {
+        uVar3 = Game_Random_Mod(2);
+        if ((short)uVar3 == 0) {
           bVar1 = city->city_type_or_terrain_class;
           puVar6 = &DAT_005194b4;
         }
@@ -77,15 +77,15 @@ switchD_00439434_default:
           bVar1 = city->city_type_or_terrain_class;
           puVar6 = &DAT_005192c8;
         }
-        Format_Text(local_c0,puVar6,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+        Format_Text(local_c0,puVar6,&DAT_007350bc + iVar2,&DAT_005a7bdc + (uint)bVar1 * 5,
                     city->name_bytes);
       }
       else if ((char)city->owner_country_id == g_human_country_index) {
         if (DAT_0074a2cc != '\x01') {
           return false;
         }
-        sVar3 = FUN_004fbf50(2);
-        if (sVar3 == 0) {
+        uVar3 = Game_Random_Mod(2);
+        if ((short)uVar3 == 0) {
           Format_Text(local_c0,&DAT_00519490,
                       &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes,
                       g_active_country->name_bytes);
@@ -109,21 +109,21 @@ switchD_00439434_default:
         if (DAT_0074a2cd != '\x01') {
           return false;
         }
-        Format_Text(local_c0,&DAT_00519448,g_active_country->name_bytes,&DAT_007350bc + iVar4,
+        Format_Text(local_c0,&DAT_00519448,g_active_country->name_bytes,&DAT_007350bc + iVar2,
                     &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
       }
       FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);
       goto LAB_0043984b;
     }
   }
-  FUN_004fbf50(10);
+  Game_Random_Mod(10);
   City_Loyal_Change(city);
   if (_DAT_00748e34 == g_human_country_index) {
     if (DAT_0074a2cc != '\x01') {
       return local_c1;
     }
-    sVar3 = FUN_004fbf50(2);
-    if (sVar3 == 0) {
+    uVar3 = Game_Random_Mod(2);
+    if ((short)uVar3 == 0) {
       bVar1 = city->city_type_or_terrain_class;
       puVar6 = &DAT_00519594;
     }
@@ -131,7 +131,7 @@ switchD_00439434_default:
       bVar1 = city->city_type_or_terrain_class;
       puVar6 = &DAT_00519564;
     }
-    Format_Text(local_c0,puVar6,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+    Format_Text(local_c0,puVar6,&DAT_007350bc + iVar2,&DAT_005a7bdc + (uint)bVar1 * 5,
                 city->name_bytes);
   }
   else {
@@ -139,8 +139,8 @@ switchD_00439434_default:
       if (DAT_0074a2cc != '\x01') {
         return local_c1;
       }
-      sVar3 = FUN_004fbf50(2);
-      if (sVar3 != 0) {
+      uVar3 = Game_Random_Mod(2);
+      if ((short)uVar3 != 0) {
         Format_Text(local_c0,&DAT_0051950c,
                     &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes,
                     g_active_country->name_bytes);
@@ -166,7 +166,7 @@ switchD_00439434_default:
         return local_c1;
       }
       pbVar9 = (byte *)city->name_bytes;
-      puVar6 = &DAT_007350bc + iVar4;
+      puVar6 = &DAT_007350bc + iVar2;
       pcVar8 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
       pbVar7 = g_active_country->name_bytes;
       puVar5 = &DAT_005194e0;

@@ -11,7 +11,7 @@ void Order_Diplomat_Choice_Mission(void)
 
 {
   char cVar1;
-  undefined2 uVar2;
+  uint uVar2;
   int iVar3;
 
   Trace_Function(s_Order_Diplomat_Chouice_Mission_0057e2fc);
@@ -31,8 +31,8 @@ void Order_Diplomat_Choice_Mission(void)
       *(undefined1 *)(_DAT_00748ff0 + 0x128) = 0x2e;
       return;
     }
-    uVar2 = FUN_004fbf50(0x10);
-    switch(uVar2) {
+    uVar2 = Game_Random_Mod(0x10);
+    switch(uVar2 & 0xffff) {
     case 0:
     case 1:
     case 2:

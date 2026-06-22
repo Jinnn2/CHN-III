@@ -17,14 +17,15 @@ NoDpa_Near_City_Away_Enemy
   int iVar3;
   int iVar4;
   byte *pbVar5;
-  int iVar6;
-  byte *pbVar7;
-  int iVar8;
+  int from_x;
+  byte *pbVar6;
+  int from_y;
   int local_c;
 
   Trace_Function(s_NoDpa_Near_City_Away_Enamy_0057dcb8);
-  iVar1 = FUN_004c6ed0((int)*(short *)(param_1 + 0x1a),(int)*(short *)(param_1 + 0x1c),param_2,
-                       param_3,0);
+  iVar1 = Tile_Distance_With_Wrap
+                    ((int)*(short *)(param_1 + 0x1a),(int)*(short *)(param_1 + 0x1c),param_2,param_3
+                     ,(byte *)0x0);
   pbVar5 = param_1;
   switch(g_map_size_mode) {
   case 0:
@@ -46,47 +47,47 @@ NoDpa_Near_City_Away_Enemy
   local_c = 1;
   iVar3 = _g_land_tiles;
   iVar4 = g_map_width_tiles;
-  pbVar7 = param_1;
+  pbVar6 = param_1;
   if (0 < g_tile_radius_offset_counts[param_4]) {
     do {
-      iVar6 = *(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8) + param_2;
-      iVar8 = (int)*(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8 + 2) +
-              param_3;
-      if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
-         (((-1 < iVar6 && (iVar6 < iVar4)) ||
+      from_x = *(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8) + param_2;
+      from_y = (int)*(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8 + 2) +
+               param_3;
+      if (((-1 < from_y) && (from_y < g_map_height_tiles)) &&
+         (((-1 < from_x && (from_x < iVar4)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-        if (iVar6 < 0) {
-          iVar6 = iVar6 + iVar4;
+        if (from_x < 0) {
+          from_x = from_x + iVar4;
         }
-        if (iVar4 <= iVar6) {
-          iVar6 = iVar6 - iVar4;
+        if (iVar4 <= from_x) {
+          from_x = from_x - iVar4;
         }
         switch(g_map_size_mode) {
         case 0:
-          iVar2 = iVar6 + iVar8 * 0x138;
+          iVar2 = from_x + from_y * 0x138;
           break;
         case 1:
-          iVar2 = iVar6 + iVar8 * 0x9c;
+          iVar2 = from_x + from_y * 0x9c;
           break;
         case 2:
-          iVar2 = iVar6 + iVar8 * 0x4e;
+          iVar2 = from_x + from_y * 0x4e;
           break;
         case 3:
-          iVar2 = iVar8 * 0x27 + iVar6;
+          iVar2 = from_y * 0x27 + from_x;
           break;
         default:
           goto switchD_0048f4f8_default;
         }
-        pbVar7 = (byte *)(iVar2 * 0x100 + iVar3);
+        pbVar6 = (byte *)(iVar2 * 0x100 + iVar3);
 switchD_0048f4f8_default:
-        if ((((*(int *)(pbVar7 + 0x88) != 0) && ((char)pbVar7[0x25] == _DAT_00748e34)) &&
-            ((iVar4 = g_map_width_tiles, *(short *)(pbVar7 + 0x10) == *(short *)(pbVar5 + 0x10) ||
+        if ((((*(int *)(pbVar6 + 0x88) != 0) && ((char)pbVar6[0x25] == _DAT_00748e34)) &&
+            ((iVar4 = g_map_width_tiles, *(short *)(pbVar6 + 0x10) == *(short *)(pbVar5 + 0x10) ||
              (g_army_type_table[*param_1].unit_class == 2)))) &&
-           (((int)((uint)param_1[0x148] + (int)(char)pbVar7[0x7c] + 1 + (int)(char)pbVar7[0x50]) <
-             0xb && (iVar2 = FUN_004c6ed0(iVar6,iVar8,param_2,param_3,0), iVar3 = _g_land_tiles,
-                    iVar4 = g_map_width_tiles, iVar1 < iVar2)))) {
-          *param_5 = iVar6;
-          *param_6 = iVar8;
+           (((int)((uint)param_1[0x148] + (int)(char)pbVar6[0x7c] + 1 + (int)(char)pbVar6[0x50]) <
+             0xb && (iVar2 = Tile_Distance_With_Wrap(from_x,from_y,param_2,param_3,(byte *)0x0),
+                    iVar3 = _g_land_tiles, iVar4 = g_map_width_tiles, iVar1 < iVar2)))) {
+          *param_5 = from_x;
+          *param_6 = from_y;
           return 1;
         }
       }

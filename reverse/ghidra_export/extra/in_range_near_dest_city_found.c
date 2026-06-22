@@ -8,8 +8,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
-InRange_NearDest_City_Found
-          (undefined4 param_1,undefined4 param_2,int param_3,int *param_4,int *param_5)
+InRange_NearDest_City_Found(int param_1,int param_2,int param_3,int *param_4,int *param_5)
 
 {
   short *psVar1;
@@ -18,9 +17,9 @@ InRange_NearDest_City_Found
   int iVar4;
   int iVar5;
   int iVar6;
+  int from_x;
+  int from_y;
   int iVar7;
-  int iVar8;
-  int iVar9;
   int local_14;
   int local_10;
   int local_c;
@@ -34,48 +33,49 @@ InRange_NearDest_City_Found
   iVar4 = _g_land_tiles;
   iVar5 = _DAT_00748ff0;
   iVar6 = g_map_width_tiles;
-  iVar9 = param_3;
+  iVar7 = param_3;
   if (0 < g_tile_radius_offset_counts[param_3]) {
     do {
       psVar1 = (short *)((int)g_edit_dest_round_buffers[bVar2 & 1] + local_14 * 8);
-      iVar7 = (int)*(short *)(iVar5 + 0x1a) + (int)*psVar1;
-      iVar8 = (int)psVar1[1] + (int)*(short *)(iVar5 + 0x1c);
-      if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
-         (((-1 < iVar7 && (iVar7 < iVar6)) ||
+      from_x = (int)*(short *)(iVar5 + 0x1a) + (int)*psVar1;
+      from_y = (int)psVar1[1] + (int)*(short *)(iVar5 + 0x1c);
+      if (((-1 < from_y) && (from_y < g_map_height_tiles)) &&
+         (((-1 < from_x && (from_x < iVar6)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-        if (iVar7 < 0) {
-          iVar7 = iVar7 + iVar6;
+        if (from_x < 0) {
+          from_x = from_x + iVar6;
         }
-        if (iVar6 <= iVar7) {
-          iVar7 = iVar7 - iVar6;
+        if (iVar6 <= from_x) {
+          from_x = from_x - iVar6;
         }
         switch(g_map_size_mode) {
         case 0:
-          iVar9 = iVar7 + iVar8 * 0x138;
+          iVar7 = from_x + from_y * 0x138;
           break;
         case 1:
-          iVar9 = iVar7 + iVar8 * 0x9c;
+          iVar7 = from_x + from_y * 0x9c;
           break;
         case 2:
-          iVar9 = iVar7 + iVar8 * 0x4e;
+          iVar7 = from_x + from_y * 0x4e;
           break;
         case 3:
-          iVar9 = iVar8 * 0x27 + iVar7;
+          iVar7 = from_y * 0x27 + from_x;
           break;
         default:
           goto switchD_0048ee93_default;
         }
-        iVar9 = iVar9 * 0x100 + iVar4;
+        iVar7 = iVar7 * 0x100 + iVar4;
 switchD_0048ee93_default:
-        if ((((*(int *)(iVar9 + 0x88) != 0) && (*(char *)(iVar9 + 0x25) == _DAT_00748e34)) &&
+        if ((((*(int *)(iVar7 + 0x88) != 0) && (*(char *)(iVar7 + 0x25) == _DAT_00748e34)) &&
             (iVar6 = g_map_width_tiles,
-            (int)((uint)*(byte *)(iVar5 + 0x148) + (int)*(char *)(iVar9 + 0x7c) + 1 +
-                 (int)*(char *)(iVar9 + 0x50)) < 0xb)) &&
-           (iVar3 = FUN_004c6ed0(iVar7,iVar8,param_1,param_2,0), iVar4 = _g_land_tiles,
-           iVar5 = _DAT_00748ff0, iVar6 = g_map_width_tiles, iVar3 < local_10)) {
+            (int)((uint)*(byte *)(iVar5 + 0x148) + (int)*(char *)(iVar7 + 0x7c) + 1 +
+                 (int)*(char *)(iVar7 + 0x50)) < 0xb)) &&
+           (iVar3 = Tile_Distance_With_Wrap(from_x,from_y,param_1,param_2,(byte *)0x0),
+           iVar4 = _g_land_tiles, iVar5 = _DAT_00748ff0, iVar6 = g_map_width_tiles, iVar3 < local_10
+           )) {
           local_10 = iVar3;
-          local_c = iVar7;
-          local_4 = iVar8;
+          local_c = from_x;
+          local_4 = from_y;
         }
       }
       local_14 = local_14 + 1;

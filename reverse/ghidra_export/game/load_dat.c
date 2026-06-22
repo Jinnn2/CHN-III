@@ -495,7 +495,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
                 *(char *)((int)piVar9 + 2) = (char)*piVar9;
               }
               if ((-1 < *(char *)((int)piVar9 + 0x17)) && (piVar9[0x3e] == 0)) {
-                uVar15 = FUN_004fbf50(10);
+                uVar15 = Game_Random_Mod(10);
                 piVar9[0x3e] = ((uVar15 & 0xffff) + 1) * 1000;
               }
               piVar21 = piVar9 + 10;

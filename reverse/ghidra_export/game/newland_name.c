@@ -13,19 +13,18 @@ void NewLand_Name(int param_1,int param_2,uint param_3)
   byte bVar1;
   char cVar2;
   bool bVar3;
-  undefined2 uVar4;
-  char *pcVar5;
-  byte *pbVar6;
-  void **ppvVar7;
-  int iVar8;
+  char *pcVar4;
+  byte *pbVar5;
+  void **ppvVar6;
+  int iVar7;
+  uint uVar8;
   uint uVar9;
-  uint uVar10;
-  int iVar11;
+  int iVar10;
+  byte *pbVar11;
   byte *pbVar12;
-  byte *pbVar13;
-  char *pcVar14;
-  bool bVar15;
-  undefined *puVar16;
+  char *pcVar13;
+  bool bVar14;
+  undefined *puVar15;
   undefined2 local_290;
   undefined1 local_28e;
   undefined2 local_28d;
@@ -63,15 +62,15 @@ void NewLand_Name(int param_1,int param_2,uint param_3)
   if ('\0' < (char)(&DAT_005e0050)[param_1 * 0x20]) {
     return;
   }
-  ppvVar7 = g_land_record_buffers;
-  pcVar5 = &g_country_states;
+  ppvVar6 = g_land_record_buffers;
+  pcVar4 = &g_country_states;
   do {
-    if (('\0' < *pcVar5) && (*(char *)((int)*ppvVar7 + param_1 * 4) == '\x01')) {
+    if (('\0' < *pcVar4) && (*(char *)((int)*ppvVar6 + param_1 * 4) == '\x01')) {
       return;
     }
-    pcVar5 = pcVar5 + 0xe68;
-    ppvVar7 = ppvVar7 + 1;
-  } while ((int)pcVar5 < 0x748da8);
+    pcVar4 = pcVar4 + 0xe68;
+    ppvVar6 = ppvVar6 + 1;
+  } while ((int)pcVar4 < 0x748da8);
   local_250 = DAT_00512288;
   local_24c = DAT_0051228c;
   local_247 = DAT_00512284;
@@ -79,15 +78,15 @@ void NewLand_Name(int param_1,int param_2,uint param_3)
   local_254 = param_1 * 0x14;
   bVar3 = *(int *)(param_1 * 0x14 + DAT_00755918) < 0x65;
   local_244 = (byte *)(&DAT_005e005c + param_1 * 8);
-  iVar8 = -1;
-  pbVar12 = local_244;
+  iVar7 = -1;
+  pbVar11 = local_244;
   do {
-    if (iVar8 == 0) break;
-    iVar8 = iVar8 + -1;
-    bVar1 = *pbVar12;
-    pbVar12 = pbVar12 + 1;
+    if (iVar7 == 0) break;
+    iVar7 = iVar7 + -1;
+    bVar1 = *pbVar11;
+    pbVar11 = pbVar11 + 1;
   } while (bVar1 != 0);
-  if (iVar8 == -2) {
+  if (iVar7 == -2) {
     local_290 = DAT_0051227c;
     local_28e = DAT_0051227e;
     local_28d = DAT_00512278;
@@ -132,74 +131,74 @@ void NewLand_Name(int param_1,int param_2,uint param_3)
     }
   }
   else {
-    uVar9 = 0xffffffff;
-    pbVar12 = local_244;
+    uVar8 = 0xffffffff;
+    pbVar11 = local_244;
     do {
-      pbVar13 = pbVar12;
-      if (uVar9 == 0) break;
-      uVar9 = uVar9 - 1;
-      pbVar13 = pbVar12 + 1;
-      bVar1 = *pbVar12;
-      pbVar12 = pbVar13;
+      pbVar12 = pbVar11;
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      pbVar12 = pbVar11 + 1;
+      bVar1 = *pbVar11;
+      pbVar11 = pbVar12;
     } while (bVar1 != 0);
-    uVar9 = ~uVar9;
-    pbVar12 = pbVar13 + -uVar9;
-    pbVar13 = local_268;
-    for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-      *(undefined4 *)pbVar13 = *(undefined4 *)pbVar12;
+    uVar8 = ~uVar8;
+    pbVar11 = pbVar12 + -uVar8;
+    pbVar12 = local_268;
+    for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+      *(undefined4 *)pbVar12 = *(undefined4 *)pbVar11;
+      pbVar11 = pbVar11 + 4;
       pbVar12 = pbVar12 + 4;
-      pbVar13 = pbVar13 + 4;
     }
-    for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-      *pbVar13 = *pbVar12;
+    for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+      *pbVar12 = *pbVar11;
+      pbVar11 = pbVar11 + 1;
       pbVar12 = pbVar12 + 1;
-      pbVar13 = pbVar13 + 1;
     }
   }
-  iVar8 = _DAT_00748e34;
+  iVar7 = _DAT_00748e34;
   if (_DAT_00748e34 == g_human_country_index) {
     if (g_auto_turn_or_ai_control_flag == 0) {
-      uVar9 = 0xffffffff;
-      pbVar12 = local_268;
+      uVar8 = 0xffffffff;
+      pbVar11 = local_268;
       do {
-        pbVar13 = pbVar12;
-        if (uVar9 == 0) break;
-        uVar9 = uVar9 - 1;
-        pbVar13 = pbVar12 + 1;
-        bVar1 = *pbVar12;
-        pbVar12 = pbVar13;
+        pbVar12 = pbVar11;
+        if (uVar8 == 0) break;
+        uVar8 = uVar8 - 1;
+        pbVar12 = pbVar11 + 1;
+        bVar1 = *pbVar11;
+        pbVar11 = pbVar12;
       } while (bVar1 != 0);
-      uVar9 = ~uVar9;
-      pbVar12 = pbVar13 + -uVar9;
-      pbVar13 = local_288;
-      for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-        *(undefined4 *)pbVar13 = *(undefined4 *)pbVar12;
+      uVar8 = ~uVar8;
+      pbVar11 = pbVar12 + -uVar8;
+      pbVar12 = local_288;
+      for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+        *(undefined4 *)pbVar12 = *(undefined4 *)pbVar11;
+        pbVar11 = pbVar11 + 4;
         pbVar12 = pbVar12 + 4;
-        pbVar13 = pbVar13 + 4;
       }
-      pbVar6 = local_268;
-      for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-        *pbVar13 = *pbVar12;
+      pbVar5 = local_268;
+      for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+        *pbVar12 = *pbVar11;
+        pbVar11 = pbVar11 + 1;
         pbVar12 = pbVar12 + 1;
-        pbVar13 = pbVar13 + 1;
       }
-      pbVar12 = &DAT_0051221c;
+      pbVar11 = &DAT_0051221c;
       do {
-        bVar1 = *pbVar6;
-        bVar15 = bVar1 < *pbVar12;
-        if (bVar1 != *pbVar12) {
+        bVar1 = *pbVar5;
+        bVar14 = bVar1 < *pbVar11;
+        if (bVar1 != *pbVar11) {
 LAB_00408a5f:
-          iVar8 = (1 - (uint)bVar15) - (uint)(bVar15 != 0);
+          iVar7 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
           goto LAB_00408a64;
         }
         if (bVar1 == 0) break;
-        bVar1 = pbVar6[1];
-        bVar15 = bVar1 < pbVar12[1];
-        if (bVar1 != pbVar12[1]) goto LAB_00408a5f;
-        pbVar6 = pbVar6 + 2;
-        pbVar12 = pbVar12 + 2;
+        bVar1 = pbVar5[1];
+        bVar14 = bVar1 < pbVar11[1];
+        if (bVar1 != pbVar11[1]) goto LAB_00408a5f;
+        pbVar5 = pbVar5 + 2;
+        pbVar11 = pbVar11 + 2;
       } while (bVar1 != 0);
-      iVar8 = 0;
+      iVar7 = 0;
 LAB_00408a64:
       _DAT_0074a348 = (param_3 & 1) + param_2;
       _DAT_0074a350 = param_3;
@@ -209,77 +208,77 @@ LAB_00408a64:
       Format_Text(local_240,&DAT_005121f8,g_active_country->name_bytes);
       Draw_Text_Centered(0x15e,0x104,local_240,0xffffffff,DAT_007350b4,0xffffffff,0xffffffff);
       FUN_00420d20(0x1b2,0x11c,local_288,1,DAT_007350b4,0xe,0x10,1,0);
-      iVar11 = -1;
-      pcVar5 = local_288;
+      iVar10 = -1;
+      pcVar4 = local_288;
       do {
-        if (iVar11 == 0) break;
-        iVar11 = iVar11 + -1;
-        cVar2 = *pcVar5;
-        pcVar5 = pcVar5 + 1;
+        if (iVar10 == 0) break;
+        iVar10 = iVar10 + -1;
+        cVar2 = *pcVar4;
+        pcVar4 = pcVar4 + 1;
       } while (cVar2 != '\0');
-      if (iVar11 != -2) {
-        uVar9 = 0xffffffff;
-        pcVar5 = local_288;
+      if (iVar10 != -2) {
+        uVar8 = 0xffffffff;
+        pcVar4 = local_288;
         do {
-          pcVar14 = pcVar5;
-          if (uVar9 == 0) break;
-          uVar9 = uVar9 - 1;
-          pcVar14 = pcVar5 + 1;
-          cVar2 = *pcVar5;
-          pcVar5 = pcVar14;
+          pcVar13 = pcVar4;
+          if (uVar8 == 0) break;
+          uVar8 = uVar8 - 1;
+          pcVar13 = pcVar4 + 1;
+          cVar2 = *pcVar4;
+          pcVar4 = pcVar13;
         } while (cVar2 != '\0');
-        uVar9 = ~uVar9;
-        pbVar12 = (byte *)(pcVar14 + -uVar9);
-        pbVar13 = local_268;
-        for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-          *(undefined4 *)pbVar13 = *(undefined4 *)pbVar12;
+        uVar8 = ~uVar8;
+        pbVar11 = (byte *)(pcVar13 + -uVar8);
+        pbVar12 = local_268;
+        for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+          *(undefined4 *)pbVar12 = *(undefined4 *)pbVar11;
+          pbVar11 = pbVar11 + 4;
           pbVar12 = pbVar12 + 4;
-          pbVar13 = pbVar13 + 4;
         }
-        for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-          *pbVar13 = *pbVar12;
+        for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *pbVar12 = *pbVar11;
+          pbVar11 = pbVar11 + 1;
           pbVar12 = pbVar12 + 1;
-          pbVar13 = pbVar13 + 1;
         }
       }
       FUN_00502ab0();
-      pbVar13 = &DAT_0051221c;
-      pbVar12 = local_288;
+      pbVar12 = &DAT_0051221c;
+      pbVar11 = local_288;
       do {
-        bVar1 = *pbVar12;
-        bVar15 = bVar1 < *pbVar13;
-        if (bVar1 != *pbVar13) {
+        bVar1 = *pbVar11;
+        bVar14 = bVar1 < *pbVar12;
+        if (bVar1 != *pbVar12) {
 LAB_00408b92:
-          iVar11 = (1 - (uint)bVar15) - (uint)(bVar15 != 0);
+          iVar10 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
           goto LAB_00408b97;
         }
         if (bVar1 == 0) break;
-        bVar1 = pbVar12[1];
-        bVar15 = bVar1 < pbVar13[1];
-        if (bVar1 != pbVar13[1]) goto LAB_00408b92;
+        bVar1 = pbVar11[1];
+        bVar14 = bVar1 < pbVar12[1];
+        if (bVar1 != pbVar12[1]) goto LAB_00408b92;
+        pbVar11 = pbVar11 + 2;
         pbVar12 = pbVar12 + 2;
-        pbVar13 = pbVar13 + 2;
       } while (bVar1 != 0);
-      iVar11 = 0;
+      iVar10 = 0;
 LAB_00408b97:
-      if ((iVar11 == 0) && (iVar8 == 0)) {
+      if ((iVar10 == 0) && (iVar7 == 0)) {
         FUN_0041f2b0(g_human_country_index,0,0xc03e0000);
         FUN_00443e00(g_human_country_index,&DAT_005121b0,&DAT_005121c4,5,5);
       }
     }
-    iVar8 = _DAT_00748e34;
+    iVar7 = _DAT_00748e34;
     if (_DAT_00748e34 == g_human_country_index) {
       Format_Text(local_240,&DAT_005121a0,_DAT_00748e30 + 4,local_268);
       FUN_00489e20(_DAT_00748e34,0xffffffff,0xffffffff,local_240);
-      iVar8 = _DAT_00748e34;
+      iVar7 = _DAT_00748e34;
       (&DAT_005e0050)[param_1 * 0x20] = 2;
     }
   }
   if (((DAT_0074a2d2 == '\0') && (DAT_00755940 == 0)) && (DAT_00755958 == 0)) {
     return;
   }
-  if ((iVar8 != g_human_country_index) || (DAT_0074a2cc != '\x01')) {
-    if (((*(int *)(_DAT_00748e30 + 0x1ac + iVar8 * 4) < 2) || (iVar8 == 0)) && (DAT_00755940 == 0))
+  if ((iVar7 != g_human_country_index) || (DAT_0074a2cc != '\x01')) {
+    if (((*(int *)(_DAT_00748e30 + 0x1ac + iVar7 * 4) < 2) || (iVar7 == 0)) && (DAT_00755940 == 0))
     {
       return;
     }
@@ -287,93 +286,93 @@ LAB_00408b97:
       return;
     }
   }
-  pbVar12 = (byte *)((int)&local_250 + bVar3 * 5);
-  Format_Text(local_180,&DAT_00512180,g_active_country->name_bytes,pbVar12,local_268);
+  pbVar11 = (byte *)((int)&local_250 + bVar3 * 5);
+  Format_Text(local_180,&DAT_00512180,g_active_country->name_bytes,pbVar11,local_268);
   FUN_004898b0(DAT_00755910,local_180,1,param_2,param_3);
-  iVar8 = g_map_size_mode;
-  uVar9 = 0xffffffff;
-  pbVar13 = local_268;
+  iVar7 = g_map_size_mode;
+  uVar8 = 0xffffffff;
+  pbVar12 = local_268;
   do {
-    pbVar6 = pbVar13;
-    if (uVar9 == 0) break;
-    uVar9 = uVar9 - 1;
-    pbVar6 = pbVar13 + 1;
-    bVar1 = *pbVar13;
-    pbVar13 = pbVar6;
+    pbVar5 = pbVar12;
+    if (uVar8 == 0) break;
+    uVar8 = uVar8 - 1;
+    pbVar5 = pbVar12 + 1;
+    bVar1 = *pbVar12;
+    pbVar12 = pbVar5;
   } while (bVar1 != 0);
-  uVar9 = ~uVar9;
-  pbVar13 = pbVar6 + -uVar9;
-  pbVar6 = local_244;
-  for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-    *(undefined4 *)pbVar6 = *(undefined4 *)pbVar13;
-    pbVar13 = pbVar13 + 4;
-    pbVar6 = pbVar6 + 4;
+  uVar8 = ~uVar8;
+  pbVar12 = pbVar5 + -uVar8;
+  pbVar5 = local_244;
+  for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+    *(undefined4 *)pbVar5 = *(undefined4 *)pbVar12;
+    pbVar12 = pbVar12 + 4;
+    pbVar5 = pbVar5 + 4;
   }
-  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-    *pbVar6 = *pbVar13;
-    pbVar13 = pbVar13 + 1;
-    pbVar6 = pbVar6 + 1;
+  for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+    *pbVar5 = *pbVar12;
+    pbVar12 = pbVar12 + 1;
+    pbVar5 = pbVar5 + 1;
   }
-  iVar11 = local_254;
-  switch(iVar8) {
+  iVar10 = local_254;
+  switch(iVar7) {
   case 0:
-    iVar11 = (param_2 + param_3 * 0x138) * 0x100 + _g_land_tiles;
+    iVar10 = (param_2 + param_3 * 0x138) * 0x100 + _g_land_tiles;
     break;
   case 1:
-    iVar11 = (param_2 + param_3 * 0x9c) * 0x100 + _g_land_tiles;
+    iVar10 = (param_2 + param_3 * 0x9c) * 0x100 + _g_land_tiles;
     break;
   case 2:
-    iVar11 = (param_2 + param_3 * 0x4e) * 0x100 + _g_land_tiles;
+    iVar10 = (param_2 + param_3 * 0x4e) * 0x100 + _g_land_tiles;
     break;
   case 3:
-    iVar11 = (param_3 * 0x27 + param_2) * 0x100 + _g_land_tiles;
+    iVar10 = (param_3 * 0x27 + param_2) * 0x100 + _g_land_tiles;
   }
-  if (*(char *)(iVar11 + 0xb5 + g_human_country_index) == '\0') {
+  if (*(char *)(iVar10 + 0xb5 + g_human_country_index) == '\0') {
     return;
   }
-  uVar9 = 0xffffffff;
-  pbVar13 = local_268;
+  uVar8 = 0xffffffff;
+  pbVar12 = local_268;
   do {
-    pbVar6 = pbVar13;
-    if (uVar9 == 0) break;
-    uVar9 = uVar9 - 1;
-    pbVar6 = pbVar13 + 1;
-    bVar1 = *pbVar13;
-    pbVar13 = pbVar6;
+    pbVar5 = pbVar12;
+    if (uVar8 == 0) break;
+    uVar8 = uVar8 - 1;
+    pbVar5 = pbVar12 + 1;
+    bVar1 = *pbVar12;
+    pbVar12 = pbVar5;
   } while (bVar1 != 0);
-  uVar9 = ~uVar9;
-  pbVar13 = pbVar6 + -uVar9;
-  pbVar6 = (byte *)(local_254 + 4 + DAT_00755918);
-  for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-    *(undefined4 *)pbVar6 = *(undefined4 *)pbVar13;
-    pbVar13 = pbVar13 + 4;
-    pbVar6 = pbVar6 + 4;
+  uVar8 = ~uVar8;
+  pbVar12 = pbVar5 + -uVar8;
+  pbVar5 = (byte *)(local_254 + 4 + DAT_00755918);
+  for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+    *(undefined4 *)pbVar5 = *(undefined4 *)pbVar12;
+    pbVar12 = pbVar12 + 4;
+    pbVar5 = pbVar5 + 4;
   }
-  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-    *pbVar6 = *pbVar13;
-    pbVar13 = pbVar13 + 1;
-    pbVar6 = pbVar6 + 1;
+  for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+    *pbVar5 = *pbVar12;
+    pbVar12 = pbVar12 + 1;
+    pbVar5 = pbVar5 + 1;
   }
-  Format_Text(local_c0,&DAT_00512170,g_active_country->name_bytes,pbVar12);
-  uVar4 = FUN_004fbf50(4);
-  switch(uVar4) {
+  Format_Text(local_c0,&DAT_00512170,g_active_country->name_bytes,pbVar11);
+  uVar8 = Game_Random_Mod(4);
+  switch(uVar8 & 0xffff) {
   case 0:
     Format_Text(local_240,&DAT_00512148,local_268);
     break;
   case 1:
-    Format_Text(local_240,&DAT_0051211c,pbVar12,local_268);
+    Format_Text(local_240,&DAT_0051211c,pbVar11,local_268);
     break;
   case 2:
-    pbVar13 = local_268;
-    puVar16 = &DAT_005120e4;
-    pbVar6 = pbVar12;
+    pbVar12 = local_268;
+    puVar15 = &DAT_005120e4;
+    pbVar5 = pbVar11;
     goto LAB_00408e5e;
   case 3:
-    puVar16 = &DAT_005120bc;
-    pbVar6 = local_268;
-    pbVar13 = pbVar12;
+    puVar15 = &DAT_005120bc;
+    pbVar5 = local_268;
+    pbVar12 = pbVar11;
 LAB_00408e5e:
-    Format_Text(local_240,puVar16,g_active_country->name_bytes,pbVar6,pbVar13);
+    Format_Text(local_240,puVar15,g_active_country->name_bytes,pbVar5,pbVar12);
   }
   FUN_00443e00(_DAT_00748e34,local_c0,local_240,0,5);
   return;

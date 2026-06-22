@@ -18,9 +18,7 @@ uint Decode_Battle(int param_1,int param_2)
   uint uVar8;
   int iVar9;
   int iVar10;
-  undefined4 local_b8;
-  undefined2 local_b4;
-  undefined2 local_b2;
+  ushort local_b8 [4];
   int local_b0;
   int local_ac;
   undefined2 local_a8;
@@ -71,7 +69,7 @@ uint Decode_Battle(int param_1,int param_2)
     iVar10 = *(int *)((int)&DAT_00513b08 + iVar9) + param_1;
     iVar1 = *(int *)((int)&DAT_00513b28 + iVar9) + param_2;
     *(int *)((int)local_3c + iVar9) = iVar10;
-    *(int *)((int)&local_b8 + iVar9) = iVar1;
+    *(int *)((int)local_b8 + iVar9) = iVar1;
     cVar6 = FUN_00415c90(iVar10,iVar1);
     if (cVar6 == '\0') {
       *(undefined4 *)((int)&local_8c + iVar9) = 0;
@@ -79,7 +77,7 @@ uint Decode_Battle(int param_1,int param_2)
     else {
       *(undefined **)((int)&local_8c + iVar9) =
            &g_battle_grid_cells +
-           (*(int *)((int)local_3c + iVar9) + *(int *)((int)&local_b8 + iVar9) * 0x18) * 0x30;
+           (*(int *)((int)local_3c + iVar9) + *(int *)((int)local_b8 + iVar9) * 0x18) * 0x30;
     }
     iVar9 = iVar9 + 4;
   } while (iVar9 < 0x20);
@@ -163,7 +161,7 @@ uint Decode_Battle(int param_1,int param_2)
       uVar8 = uVar8 + 8;
     }
     if ((uVar3 != 0) && (uVar8 != 0xf)) {
-      uVar7 = FUN_004fbf50((short)local_3c[uVar8]);
+      uVar7 = Game_Random_Mod(CONCAT22((short)(local_90 >> 0x10),(short)local_3c[uVar8]));
       uVar8 = (uVar7 & 0xffff) + (&local_8c)[uVar8];
       (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8 + 0x32e + uVar3 * 0x4d;
       return uVar8;
@@ -220,11 +218,11 @@ uint Decode_Battle(int param_1,int param_2)
     if (iVar9 != 0) {
       if (iVar10 == 0) {
         local_8c = (int *)0x0;
-        local_b8._0_2_ = 0;
+        local_b8[0] = 0;
         local_88 = (uint *)CONCAT22(local_88._2_2_,5);
-        local_b8._2_2_ = 5;
-        local_b4 = 5;
-        local_b2 = 4;
+        local_b8[1] = 5;
+        local_b8[2] = 5;
+        local_b8[3] = 4;
         local_b0 = 0x50005;
         local_ac = 0x20004;
         local_a8 = 5;
@@ -242,7 +240,7 @@ uint Decode_Battle(int param_1,int param_2)
         local_78 = (uint *)0x2c0027;
         local_74 = (int *)0x32002e;
         local_70 = (uint *)0x360034;
-        uVar8 = FUN_004fbf50(*(undefined2 *)((int)&local_b8 + iVar9 * 2));
+        uVar8 = Game_Random_Mod((uint)local_b8[iVar9]);
         (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] =
              (uVar8 & 0xffff) + 0x1115 + (int)*(short *)((int)&local_8c + iVar9 * 2);
         return uVar8 & 0xffff;
@@ -250,7 +248,7 @@ uint Decode_Battle(int param_1,int param_2)
       if (iVar10 != 0) {
         if (iVar9 == 1) {
           if (iVar10 == 8) {
-            uVar8 = FUN_004fbf50(2);
+            uVar8 = Game_Random_Mod(2);
             uVar8 = (uVar8 & 0xffff) + 0x114d;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
@@ -262,7 +260,7 @@ uint Decode_Battle(int param_1,int param_2)
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117c;
             return uVar8;
           }
-          uVar8 = FUN_004fbf50(2);
+          uVar8 = Game_Random_Mod(2);
           uVar8 = (uVar8 & 0xffff) + 0x114f;
           (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
@@ -272,14 +270,14 @@ uint Decode_Battle(int param_1,int param_2)
             if (iVar10 != 8) {
               return 1;
             }
-            uVar8 = FUN_004fbf50(3);
+            uVar8 = Game_Random_Mod(3);
             uVar8 = (uVar8 & 0xffff) + 0x1155;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 4) {
             if (iVar10 == 1) {
-              uVar8 = FUN_004fbf50(2);
+              uVar8 = Game_Random_Mod(2);
               uVar8 = (uVar8 & 0xffff) + 0x1158;
               (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
               return uVar8;
@@ -291,7 +289,7 @@ uint Decode_Battle(int param_1,int param_2)
               (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117e;
               return uVar8;
             }
-            uVar8 = FUN_004fbf50(2);
+            uVar8 = Game_Random_Mod(2);
             uVar8 = (uVar8 & 0xffff) + 0x115a;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
@@ -300,14 +298,14 @@ uint Decode_Battle(int param_1,int param_2)
             if (iVar10 != 1) {
               return 1;
             }
-            uVar8 = FUN_004fbf50(3);
+            uVar8 = Game_Random_Mod(3);
             uVar8 = (uVar8 & 0xffff) + 0x115c;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 8) {
             if (iVar10 == 2) {
-              uVar8 = FUN_004fbf50(2);
+              uVar8 = Game_Random_Mod(2);
               uVar8 = (uVar8 & 0xffff) + 0x115f;
               (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
               return uVar8;
@@ -319,7 +317,7 @@ uint Decode_Battle(int param_1,int param_2)
               (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117f;
               return uVar8;
             }
-            uVar8 = FUN_004fbf50(2);
+            uVar8 = Game_Random_Mod(2);
             uVar8 = (uVar8 & 0xffff) + 0x1161;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
@@ -328,7 +326,7 @@ uint Decode_Battle(int param_1,int param_2)
             if (iVar10 != 4) {
               return 1;
             }
-            uVar8 = FUN_004fbf50(3);
+            uVar8 = Game_Random_Mod(3);
             uVar8 = (uVar8 & 0xffff) + 0x1163;
             (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
@@ -339,13 +337,13 @@ uint Decode_Battle(int param_1,int param_2)
           if (iVar10 != 2) {
             return 1;
           }
-          uVar8 = FUN_004fbf50(3);
+          uVar8 = Game_Random_Mod(3);
           uVar8 = (uVar8 & 0xffff) + 0x1166;
           (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
         }
         if (iVar10 == 8) {
-          uVar8 = FUN_004fbf50(2);
+          uVar8 = Game_Random_Mod(2);
           uVar8 = (uVar8 & 0xffff) + 0x1151;
           (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
@@ -357,7 +355,7 @@ uint Decode_Battle(int param_1,int param_2)
           (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117d;
           return uVar8;
         }
-        uVar8 = FUN_004fbf50(2);
+        uVar8 = Game_Random_Mod(2);
         uVar8 = (uVar8 & 0xffff) + 0x1153;
         (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
         return uVar8;
@@ -372,10 +370,10 @@ uint Decode_Battle(int param_1,int param_2)
       local_78 = (uint *)0x10001;
       local_74 = (int *)0x10001;
       local_70 = (uint *)0x10001;
-      local_b8._0_2_ = 0;
-      local_b8._2_2_ = 0;
-      local_b4 = 2;
-      local_b2 = 4;
+      local_b8[0] = 0;
+      local_b8[1] = 0;
+      local_b8[2] = 2;
+      local_b8[3] = 4;
       local_b0 = 0x70005;
       local_ac = 0x90008;
       local_a8 = 10;
@@ -386,10 +384,10 @@ uint Decode_Battle(int param_1,int param_2)
       local_9e = 0x10;
       local_9c = 0x11;
       local_9a = 0x12;
-      uVar8 = FUN_004fbf50(*(undefined2 *)((int)&local_8c + iVar10 * 2));
+      uVar8 = Game_Random_Mod((uint)*(ushort *)((int)&local_8c + iVar10 * 2));
       uVar8 = uVar8 & 0xffff;
       (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] =
-           uVar8 + 0x1169 + (int)*(short *)((int)&local_b8 + iVar10 * 2);
+           uVar8 + 0x1169 + (int)(short)local_b8[iVar10];
     }
   }
   return uVar8;

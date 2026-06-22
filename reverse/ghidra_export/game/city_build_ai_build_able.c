@@ -15,11 +15,12 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
   int iVar5;
   int iVar6;
   int *piVar7;
-  uint uVar8;
+  int iVar8;
   int iVar9;
   int iVar10;
-  int iVar11;
-  undefined4 *puVar12;
+  uint uVar11;
+  uint uVar12;
+  undefined4 *puVar13;
   int local_28;
   int local_24;
   int local_20;
@@ -41,12 +42,12 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
     if (puVar4 == (undefined4 *)0x0) {
       FUN_0046a230(s_Memory_Error___0051580c,s_Find_Build_Place__rec_0051581c);
     }
-    puVar12 = puVar4;
-    for (iVar9 = 0x2d00; iVar9 != 0; iVar9 = iVar9 + -1) {
-      *puVar12 = 0;
-      puVar12 = puVar12 + 1;
+    puVar13 = puVar4;
+    for (iVar8 = 0x2d00; iVar8 != 0; iVar8 = iVar8 + -1) {
+      *puVar13 = 0;
+      puVar13 = puVar13 + 1;
     }
-    iVar9 = 0;
+    iVar8 = 0;
     local_28 = 0;
     local_10 = -0x30;
     local_14 = 0x18;
@@ -61,10 +62,10 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
         if (-1 < iVar5) {
           if (iVar5 < local_c) {
             local_28 = 0;
-            iVar9 = 0;
+            iVar8 = 0;
             local_c = iVar5;
           }
-          piVar7 = puVar4 + iVar9 * 5;
+          piVar7 = puVar4 + iVar8 * 5;
           *piVar7 = local_20;
           piVar7[1] = local_18;
           piVar7[2] = iVar5;
@@ -72,44 +73,44 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
           if (local_20 + -0x18 < 0) {
             iVar5 = local_1c;
           }
-          iVar11 = local_18 + -0x18;
+          iVar10 = local_18 + -0x18;
           if (local_18 + -0x18 < 0) {
-            iVar11 = local_14;
+            iVar10 = local_14;
           }
-          if (iVar5 < iVar11) {
-            iVar5 = iVar11;
+          if (iVar5 < iVar10) {
+            iVar5 = iVar10;
           }
           piVar7[3] = iVar5;
-          iVar11 = -1;
+          iVar10 = -1;
           local_24 = 0;
           iVar5 = g_building_defs[param_4].footprint_width_tiles;
           if (-2 < iVar5) {
             iVar3 = g_building_defs[param_4].footprint_length_tiles;
-            iVar10 = local_10;
+            iVar9 = local_10;
             do {
-              iVar9 = -1;
+              iVar8 = -1;
               if (-2 < iVar3) {
                 do {
-                  if ((((iVar11 == -1) || (iVar11 == iVar5)) || ((iVar9 == -1 || (iVar9 == iVar3))))
-                     && (((iVar6 = local_20 + iVar9, -1 < iVar6 && (-1 < local_18 + iVar11)) &&
+                  if ((((iVar10 == -1) || (iVar10 == iVar5)) || ((iVar8 == -1 || (iVar8 == iVar3))))
+                     && (((iVar6 = local_20 + iVar8, -1 < iVar6 && (-1 < local_18 + iVar10)) &&
                          ((iVar6 < 0x30 &&
-                          (((local_18 + iVar11 < 0x30 &&
-                            (cVar2 = *(char *)((iVar6 + iVar10) * 0x20 + *(int *)(param_1 + 0x1ac) +
+                          (((local_18 + iVar10 < 0x30 &&
+                            (cVar2 = *(char *)((iVar6 + iVar9) * 0x20 + *(int *)(param_1 + 0x1ac) +
                                               7), -1 < cVar2)) &&
                            (g_building_defs[cVar2].building_class != 0)))))))) {
                     local_24 = local_24 + 1;
                   }
-                  iVar9 = iVar9 + 1;
-                } while (iVar9 <= iVar3);
+                  iVar8 = iVar8 + 1;
+                } while (iVar8 <= iVar3);
               }
-              iVar11 = iVar11 + 1;
-              iVar10 = iVar10 + 0x30;
-              iVar9 = local_28;
-            } while (iVar11 <= iVar5);
+              iVar10 = iVar10 + 1;
+              iVar9 = iVar9 + 0x30;
+              iVar8 = local_28;
+            } while (iVar10 <= iVar5);
           }
-          iVar9 = iVar9 + 1;
+          iVar8 = iVar8 + 1;
           piVar7[4] = local_24;
-          local_28 = iVar9;
+          local_28 = iVar8;
         }
         local_20 = local_20 + 1;
         local_1c = local_1c + -1;
@@ -118,22 +119,22 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
       local_14 = local_14 + -1;
       local_10 = local_10 + 0x30;
     } while (-0x18 < local_14);
-    if (0 < iVar9) {
+    if (0 < iVar8) {
       iVar5 = 0;
-      iVar11 = 0x30;
-      if (0 < iVar9) {
+      iVar10 = 0x30;
+      if (0 < iVar8) {
         piVar7 = puVar4 + 4;
         do {
           iVar3 = *piVar7;
-          iVar10 = iVar5;
-          if (iVar3 < iVar11) {
-            iVar10 = 0;
-            iVar11 = iVar3;
+          iVar9 = iVar5;
+          if (iVar3 < iVar10) {
+            iVar9 = 0;
+            iVar10 = iVar3;
           }
-          iVar5 = iVar10;
-          if (iVar3 == iVar11) {
-            iVar5 = iVar10 + 1;
-            piVar1 = puVar4 + iVar10 * 5;
+          iVar5 = iVar9;
+          if (iVar3 == iVar10) {
+            iVar5 = iVar9 + 1;
+            piVar1 = puVar4 + iVar9 * 5;
             *piVar1 = piVar7[-4];
             piVar1[1] = piVar7[-3];
             piVar1[2] = piVar7[-2];
@@ -141,24 +142,24 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
             piVar1[4] = *piVar7;
           }
           piVar7 = piVar7 + 5;
-          iVar9 = iVar9 + -1;
-        } while (iVar9 != 0);
+          iVar8 = iVar8 + -1;
+        } while (iVar8 != 0);
         if (0 < iVar5) {
-          iVar9 = 0;
-          iVar11 = 0x30;
+          uVar11 = 0;
+          iVar8 = 0x30;
           if (0 < iVar5) {
             piVar7 = puVar4 + 3;
             do {
-              iVar3 = *piVar7;
-              iVar10 = iVar9;
-              if (iVar3 < iVar11) {
-                iVar10 = 0;
-                iVar11 = iVar3;
+              iVar10 = *piVar7;
+              uVar12 = uVar11;
+              if (iVar10 < iVar8) {
+                uVar12 = 0;
+                iVar8 = iVar10;
               }
-              iVar9 = iVar10;
-              if (iVar3 == iVar11) {
-                iVar9 = iVar10 + 1;
-                piVar1 = puVar4 + iVar10 * 5;
+              uVar11 = uVar12;
+              if (iVar10 == iVar8) {
+                uVar11 = uVar12 + 1;
+                piVar1 = puVar4 + uVar12 * 5;
                 *piVar1 = piVar7[-3];
                 piVar1[1] = piVar7[-2];
                 piVar1[2] = piVar7[-1];
@@ -168,10 +169,10 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
               piVar7 = piVar7 + 5;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            if (0 < iVar9) {
-              uVar8 = FUN_004fbf50(iVar9);
-              *param_2 = puVar4[(uVar8 & 0xffff) * 5];
-              *param_3 = puVar4[(uVar8 & 0xffff) * 5 + 1];
+            if (0 < (int)uVar11) {
+              uVar11 = Game_Random_Mod(uVar11);
+              *param_2 = puVar4[(uVar11 & 0xffff) * 5];
+              *param_3 = puVar4[(uVar11 & 0xffff) * 5 + 1];
             }
           }
         }

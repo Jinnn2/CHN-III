@@ -13,11 +13,11 @@ void Do_Battle_Stone(void)
   BattleUnit_0x64 *pBVar3;
   BattleUnit_0x64 *pBVar4;
   int iVar5;
-  undefined2 uVar6;
-  uint uVar7;
-  undefined4 *puVar8;
-  int iVar9;
-  undefined2 *puVar10;
+  uint uVar6;
+  undefined4 *puVar7;
+  int iVar8;
+  undefined2 *puVar9;
+  undefined2 uVar10;
   undefined2 extraout_var;
   char cVar11;
   int iVar12;
@@ -46,15 +46,15 @@ void Do_Battle_Stone(void)
         local_8 = 1;
       }
       else {
-        uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),*(short *)(iVar5 + 0x3ee)));
-        local_8 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
+        uVar6 = Game_Random_Mod(CONCAT22((short)((uint)iVar12 >> 0x10),*(short *)(iVar5 + 0x3ee)));
+        local_8 = (uVar6 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
       }
       if (pBVar3->defense_stats[0] < 1) {
         iVar12 = 1;
       }
       else {
-        uVar7 = FUN_004fbf50(pBVar3->defense_stats[0]);
-        iVar12 = (uVar7 & 0xffff) + pBVar3->defense_stats[0] * 8;
+        uVar6 = Game_Random_Mod(pBVar3->defense_stats[0]);
+        iVar12 = (uVar6 & 0xffff) + pBVar3->defense_stats[0] * 8;
       }
       if (local_8 < iVar12) {
         iVar12 = (local_8 << 4) / iVar12;
@@ -71,18 +71,18 @@ void Do_Battle_Stone(void)
         pBVar3->strength_chunk = 0;
       }
       if (pBVar3->strength_chunk < 1) {
-        puVar8 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
-        puVar8[1] = pBVar3->army_type_id;
-        puVar8[4] = 0;
-        puVar8[5] = 0;
-        puVar8[2] = pBVar3->owner_country_id;
-        puVar8[3] = pBVar3->facing_or_direction;
-        puVar8[6] = pBVar3->map_unit_extra_id;
-        *puVar8 = 0;
-        puVar8[8] = 0;
-        puVar8[7] = 0;
-        (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar8;
-        FUN_00472a90(puVar8);
+        puVar7 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
+        puVar7[1] = pBVar3->army_type_id;
+        puVar7[4] = 0;
+        puVar7[5] = 0;
+        puVar7[2] = pBVar3->owner_country_id;
+        puVar7[3] = pBVar3->facing_or_direction;
+        puVar7[6] = pBVar3->map_unit_extra_id;
+        *puVar7 = 0;
+        puVar7[8] = 0;
+        puVar7[7] = 0;
+        (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar7;
+        FUN_00472a90(puVar7);
         (&g_battle_grid_front_units)[iVar1 * 0xc] = (BattleUnit_0x64 *)0x0;
         if (pBVar3->moving_or_animating != 0) {
           (&g_battle_grid_front_aux_units)
@@ -95,34 +95,34 @@ void Do_Battle_Stone(void)
     }
     if (pBVar4 != (BattleUnit_0x64 *)0x0) {
       iVar12 = pBVar4->action_frame;
-      iVar9 = g_army_type_table[pBVar4->army_type_id].battle_action_frame_count / 2;
-      if (iVar9 <= iVar12) {
+      iVar8 = g_army_type_table[pBVar4->army_type_id].battle_action_frame_count / 2;
+      if (iVar8 <= iVar12) {
         if (1 < g_army_type_table[pBVar4->army_type_id].unit_class) {
           iVar12 = pBVar4->battle_side;
-          iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),g_battle_tile_has_object_by_side[iVar12]);
+          iVar8 = CONCAT31((int3)((uint)iVar8 >> 8),g_battle_tile_has_object_by_side[iVar12]);
           if (g_battle_tile_has_object_by_side[iVar12] == 0) goto LAB_00419ea4;
         }
-        uVar6 = (undefined2)((uint)iVar12 >> 0x10);
+        uVar10 = (undefined2)((uint)iVar12 >> 0x10);
         if (*(short *)(iVar5 + 0x3ee) < 1) {
           iVar12 = 1;
         }
         else {
-          uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar9 >> 0x10),*(short *)(iVar5 + 0x3ee)));
-          iVar12 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
-          uVar6 = extraout_var;
+          uVar6 = Game_Random_Mod(CONCAT22((short)((uint)iVar8 >> 0x10),*(short *)(iVar5 + 0x3ee)));
+          iVar12 = (uVar6 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
+          uVar10 = extraout_var;
         }
         if (pBVar4->defense_stats[0] < 1) {
-          iVar9 = 1;
+          iVar8 = 1;
         }
         else {
-          uVar7 = FUN_004fbf50(CONCAT22(uVar6,(short)pBVar4->defense_stats[0]));
-          iVar9 = (uVar7 & 0xffff) + pBVar4->defense_stats[0] * 8;
+          uVar6 = Game_Random_Mod(CONCAT22(uVar10,(short)pBVar4->defense_stats[0]));
+          iVar8 = (uVar6 & 0xffff) + pBVar4->defense_stats[0] * 8;
         }
-        if (iVar12 < iVar9) {
-          iVar9 = (iVar12 << 4) / iVar9;
-          if (0 < iVar9) {
-            if (iVar9 < pBVar4->strength_chunk) {
-              pBVar4->strength_chunk = pBVar4->strength_chunk - iVar9;
+        if (iVar12 < iVar8) {
+          iVar8 = (iVar12 << 4) / iVar8;
+          if (0 < iVar8) {
+            if (iVar8 < pBVar4->strength_chunk) {
+              pBVar4->strength_chunk = pBVar4->strength_chunk - iVar8;
             }
             else {
               pBVar4->strength_chunk = 0;
@@ -133,18 +133,18 @@ void Do_Battle_Stone(void)
           pBVar4->strength_chunk = 0;
         }
         if (pBVar4->strength_chunk < 1) {
-          puVar8 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
-          puVar8[1] = pBVar4->army_type_id;
-          puVar8[4] = 0;
-          puVar8[5] = 0;
-          puVar8[2] = pBVar4->owner_country_id;
-          puVar8[3] = pBVar4->facing_or_direction;
-          puVar8[6] = pBVar4->map_unit_extra_id;
-          *puVar8 = 0;
-          puVar8[8] = 0;
-          puVar8[7] = 0;
-          (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar8;
-          FUN_00472a90(puVar8);
+          puVar7 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
+          puVar7[1] = pBVar4->army_type_id;
+          puVar7[4] = 0;
+          puVar7[5] = 0;
+          puVar7[2] = pBVar4->owner_country_id;
+          puVar7[3] = pBVar4->facing_or_direction;
+          puVar7[6] = pBVar4->map_unit_extra_id;
+          *puVar7 = 0;
+          puVar7[8] = 0;
+          puVar7[7] = 0;
+          (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar7;
+          FUN_00472a90(puVar7);
           if (pBVar4->moving_or_animating != 0) {
             (&g_battle_grid_front_units)[(pBVar4->battle_x + pBVar4->battle_y * 0x18) * 0xc] =
                  (BattleUnit_0x64 *)0x0;
@@ -157,16 +157,16 @@ void Do_Battle_Stone(void)
 LAB_00419ea4:
     if (*(int *)(&g_battle_grid_cells +
                 ((int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18) * 0x30) < 0xb) {
-      puVar10 = (undefined2 *)FUN_0047de30(0x14,&DAT_005149b0,0x12);
-      uVar6 = FUN_004fbf50(2);
-      *puVar10 = uVar6;
-      puVar10[1] = *(undefined2 *)(iVar5 + 4);
-      puVar10[2] = *(undefined2 *)(iVar5 + 6);
-      puVar10[3] = *(undefined2 *)(iVar5 + 8);
-      puVar10[4] = *(undefined2 *)(iVar5 + 10);
-      *(undefined4 *)(puVar10 + 8) = 0;
-      *(undefined4 *)(puVar10 + 6) = 0;
-      FUN_00472c10(puVar10);
+      puVar9 = (undefined2 *)FUN_0047de30(0x14,&DAT_005149b0,0x12);
+      uVar6 = Game_Random_Mod(2);
+      *puVar9 = (short)uVar6;
+      puVar9[1] = *(undefined2 *)(iVar5 + 4);
+      puVar9[2] = *(undefined2 *)(iVar5 + 6);
+      puVar9[3] = *(undefined2 *)(iVar5 + 8);
+      puVar9[4] = *(undefined2 *)(iVar5 + 10);
+      *(undefined4 *)(puVar9 + 8) = 0;
+      *(undefined4 *)(puVar9 + 6) = 0;
+      FUN_00472c10(puVar9);
     }
     FUN_00472ba0(iVar5);
   } while( true );

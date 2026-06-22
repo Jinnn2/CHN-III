@@ -13,10 +13,11 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
 {
   bool bVar1;
   LandTile_0x100 *pLVar2;
-  char cVar3;
-  int *piVar4;
-  int iVar5;
-  char *pcVar6;
+  char cVar4;
+  uint uVar3;
+  int *piVar5;
+  int iVar6;
+  char *pcVar7;
   int local_34 [13];
 
   pLVar2 = tile;
@@ -44,9 +45,9 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
     tile->field_0x1d = 0;
     tile->field_0x1e = 0;
     *(int *)&tile->field_0x20 = g_frame_tick;
-    cVar3 = (char)((uint)_DAT_0074a310 >> 8);
-    if (cVar3 != '\0') {
-      tile->field_0x1c = cVar3;
+    cVar4 = (char)((uint)_DAT_0074a310 >> 8);
+    if (cVar4 != '\0') {
+      tile->field_0x1c = cVar4;
       return;
     }
     break;
@@ -56,7 +57,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
     }
     bVar1 = false;
     tile = (LandTile_0x100 *)0x0;
-    pcVar6 = &pLVar2->field_0x9;
+    pcVar7 = &pLVar2->field_0x9;
     while (!bVar1) {
       if (-1 < (char)(&pLVar2->field_0x9)[(int)tile]) {
         local_34[1] = 0x34;
@@ -71,21 +72,21 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
         local_34[10] = 0x60;
         local_34[0xb] = 100;
         local_34[0xc] = 0x69;
-        iVar5 = 0;
-        piVar4 = local_34;
+        iVar6 = 0;
+        piVar5 = local_34;
         do {
-          piVar4 = piVar4 + 1;
-          if ((piVar4[-1] <= (int)*pcVar6) && ((int)*pcVar6 < *piVar4)) {
-            cVar3 = FUN_004fbf50(2);
+          piVar5 = piVar5 + 1;
+          if ((piVar5[-1] <= (int)*pcVar7) && ((int)*pcVar7 < *piVar5)) {
+            uVar3 = Game_Random_Mod(2);
             bVar1 = true;
-            pLVar2->field_0x1d = cVar3 + (char)iVar5 * '\x02';
+            pLVar2->field_0x1d = (char)uVar3 + (char)iVar6 * '\x02';
             break;
           }
-          iVar5 = iVar5 + 1;
-        } while (iVar5 < 0xc);
+          iVar6 = iVar6 + 1;
+        } while (iVar6 < 0xc);
       }
       tile = (LandTile_0x100 *)&tile->field_0x1;
-      pcVar6 = pcVar6 + 1;
+      pcVar7 = pcVar7 + 1;
       if (5 < (int)tile) {
         return;
       }

@@ -12,42 +12,55 @@ void AI_Ship(void)
 {
   byte bVar1;
   short sVar2;
-  short sVar3;
+  undefined2 uVar3;
   short sVar4;
-  ushort uVar5;
-  byte *pbVar6;
-  City_0x1b8_plus *pCVar7;
+  short sVar5;
+  ushort uVar6;
+  bool bVar7;
   bool bVar8;
   bool bVar9;
   bool bVar10;
-  bool bVar11;
+  undefined1 uVar11;
   char cVar12;
   char *pcVar13;
-  int iVar14;
-  uint uVar15;
-  undefined4 *puVar16;
-  int iVar17;
-  char *pcVar18;
-  int iVar19;
-  int *piVar20;
-  uint uVar21;
-  int iVar22;
-  ArmyUnit_0x164_plus *pAVar23;
-  char *pcVar24;
-  uint local_9c;
+  char *pcVar14;
+  City_0x1b8_plus *pCVar15;
+  uint uVar16;
+  int *piVar17;
+  byte *pbVar18;
+  City_0x1b8_plus *extraout_ECX;
+  City_0x1b8_plus *extraout_ECX_00;
+  undefined4 extraout_ECX_01;
+  City_0x1b8_plus *extraout_ECX_02;
+  City_0x1b8_plus *extraout_ECX_03;
+  City_0x1b8_plus *pCVar19;
+  undefined4 extraout_ECX_04;
+  int3 iVar20;
+  undefined4 extraout_ECX_05;
+  City_0x1b8_plus *extraout_ECX_06;
+  City_0x1b8_plus *extraout_ECX_07;
+  City_0x1b8_plus *extraout_ECX_08;
+  undefined4 extraout_ECX_09;
+  int iVar21;
+  City_0x1b8_plus *pCVar22;
+  int iVar23;
+  ArmyUnit_0x164_plus *pAVar24;
+  int iVar25;
+  int iVar26;
+  City_0x1b8_plus *local_9c;
   char *local_94;
-  int local_90;
-  char *local_8c;
-  int local_88;
-  uint local_84;
-  uint local_80;
+  City_0x1b8_plus *local_90;
+  City_0x1b8_plus *local_8c;
+  City_0x1b8_plus *local_88;
+  City_0x1b8_plus *local_84;
+  City_0x1b8_plus *local_80;
   int local_7c;
   uint local_78;
   int local_74;
   uint local_70;
   int local_6c;
   int local_68;
-  int local_64;
+  City_0x1b8_plus *local_64;
   int aiStack_60 [8];
   int aiStack_40 [8];
   int aiStack_20 [8];
@@ -55,444 +68,497 @@ void AI_Ship(void)
   Trace_Function(s_AI_Ship_005120b4);
   if (DAT_00706838 != '\x01') goto LAB_0040858d;
   pcVar13 = *(char **)(_DAT_0074a0b8 + 300);
-  bVar8 = 0 < (int)pcVar13;
-  bVar9 = false;
-  if ((DAT_0074c858 != (City_0x1b8_plus *)0x0) && (DAT_0074c858 == _DAT_00748ff0->stationed_city)) {
-    bVar9 = true;
+  bVar7 = 0 < (int)pcVar13;
+  bVar8 = false;
+  if ((DAT_0074c858 != (City_0x1b8_plus *)0x0) &&
+     (DAT_0074c858 == *(City_0x1b8_plus **)&_DAT_00748ff0->field_0x154)) {
+    bVar8 = true;
   }
-  bVar1 = _DAT_00748ff0->cargo_or_subunit_count;
+  bVar1 = _DAT_00748ff0->field_0x148;
   local_7c = 0;
-  bVar11 = false;
   bVar10 = false;
+  bVar9 = false;
   if (bVar1 != 0) {
-    iVar22 = 0;
-    puVar16 = (undefined4 *)(DAT_0075597c + 0x28);
+    iVar23 = 0;
+    piVar17 = &DAT_0075597c->city_policy_mode;
     do {
-      pcVar24 = (char *)*puVar16;
-      if ((((pcVar24 != (char *)0x0) &&
-           (*(ArmyUnit_0x164_plus **)(pcVar24 + 0x144) == _DAT_00748ff0)) && (*pcVar24 == '\0')) &&
-         (pcVar24[0x128] == 'A')) {
-        bVar10 = true;
+      pcVar14 = (char *)*piVar17;
+      if ((((pcVar14 != (char *)0x0) &&
+           ((City_0x1b8_plus *)*(ArmyUnit_0x164_plus **)(pcVar14 + 0x144) == _DAT_00748ff0)) &&
+          (*pcVar14 == '\0')) && (pcVar14[0x128] == 'A')) {
+        bVar9 = true;
         break;
       }
-      iVar22 = iVar22 + 1;
-      puVar16 = puVar16 + 1;
-    } while (iVar22 < 10);
+      iVar23 = iVar23 + 1;
+      piVar17 = piVar17 + 1;
+    } while (iVar23 < 10);
   }
-  local_84 = (uint)_DAT_00748ff0->tile_y;
-  local_70 = local_84 & 1;
+  local_84 = (City_0x1b8_plus *)(int)*(short *)&_DAT_00748ff0->field_0x1c;
+  local_70 = (uint)local_84 & 1;
   local_74 = 0;
   local_6c = 0;
   local_94 = pcVar13;
   if (DAT_0074c858 == (City_0x1b8_plus *)0x0) {
     if (bVar1 != 0) {
-      sVar2 = _DAT_00748ff0->tile_x;
-      iVar22 = 0;
-      pcVar24 = pcVar13;
+      sVar2 = *(short *)&_DAT_00748ff0->field_0x1a;
+      iVar23 = 0;
+      pcVar14 = pcVar13;
       do {
-        iVar17 = *(int *)((int)&DAT_00589374 + local_70 * 0x20 + iVar22) + (int)sVar2;
-        iVar19 = *(int *)((int)&DAT_005893b4 + local_70 * 0x20 + iVar22) + local_84;
-        *(undefined4 *)((int)aiStack_20 + iVar22) = 0;
-        if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
-           (((-1 < iVar17 && (iVar17 < g_map_width_tiles)) ||
+        iVar21 = *(int *)((int)&DAT_00589374 + local_70 * 0x20 + iVar23) + (int)sVar2;
+        pbVar18 = (byte *)((int)local_84 + *(int *)((int)&DAT_005893b4 + local_70 * 0x20 + iVar23));
+        *(undefined4 *)((int)aiStack_20 + iVar23) = 0;
+        if (((-1 < (int)pbVar18) && ((int)pbVar18 < g_map_height_tiles)) &&
+           (((-1 < iVar21 && (iVar21 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-          if (iVar17 < 0) {
-            iVar17 = iVar17 + g_map_width_tiles;
+          if (iVar21 < 0) {
+            iVar21 = iVar21 + g_map_width_tiles;
           }
-          if (g_map_width_tiles <= iVar17) {
-            iVar17 = iVar17 - g_map_width_tiles;
+          if (g_map_width_tiles <= iVar21) {
+            iVar21 = iVar21 - g_map_width_tiles;
           }
           switch(g_map_size_mode) {
           case 0:
-            iVar14 = iVar17 + iVar19 * 0x138;
+            iVar25 = iVar21 + (int)pbVar18 * 0x138;
             break;
           case 1:
-            iVar14 = iVar17 + iVar19 * 0x9c;
+            iVar25 = iVar21 + (int)pbVar18 * 0x9c;
             break;
           case 2:
-            iVar14 = iVar17 + iVar19 * 0x4e;
+            iVar25 = iVar21 + (int)pbVar18 * 0x4e;
             break;
           case 3:
-            iVar14 = iVar19 * 0x27 + iVar17;
+            iVar25 = (int)pbVar18 * 0x27 + iVar21;
             break;
           default:
             goto switchD_00407461_default;
           }
-          pcVar24 = (char *)(iVar14 * 0x100 + _g_land_tiles);
+          pcVar14 = (char *)(iVar25 * 0x100 + _g_land_tiles);
 switchD_00407461_default:
-          if ((0 < *(short *)(pcVar24 + 0x10)) &&
-             (((pcVar24[0x27] == _DAT_00748e34 && ((int)pcVar24[0x7c] + (int)pcVar24[0x50] < 10)) ||
-              ((pcVar24[0x50] == '\0' && (pcVar24[0x7c] == '\0')))))) {
-            bVar11 = true;
-            *(undefined4 *)((int)aiStack_20 + iVar22) = 1;
-            *(int *)((int)aiStack_60 + iVar22) = iVar17;
-            *(int *)((int)aiStack_40 + iVar22) = iVar19;
+          if ((0 < *(short *)(pcVar14 + 0x10)) &&
+             (((pcVar14[0x27] == _DAT_00748e34 && ((int)pcVar14[0x7c] + (int)pcVar14[0x50] < 10)) ||
+              ((pcVar14[0x50] == '\0' && (pcVar14[0x7c] == '\0')))))) {
+            bVar10 = true;
+            *(undefined4 *)((int)aiStack_20 + iVar23) = 1;
+            *(int *)((int)aiStack_60 + iVar23) = iVar21;
+            *(byte **)((int)aiStack_40 + iVar23) = pbVar18;
           }
         }
-        iVar22 = iVar22 + 4;
-      } while (iVar22 < 0x20);
-      if (bVar11) {
-        local_90 = 0;
-        iVar22 = _g_land_tiles;
+        iVar23 = iVar23 + 4;
+      } while (iVar23 < 0x20);
+      if (bVar10) {
+        local_90 = (City_0x1b8_plus *)0x0;
+        iVar23 = _g_land_tiles;
         do {
-          if (_DAT_00748ff0->cargo_or_subunit_count == 0) break;
-          if (*(int *)((int)aiStack_20 + local_90) == 1) {
-            iVar19 = *(int *)((int)aiStack_60 + local_90);
-            iVar17 = *(int *)((int)aiStack_40 + local_90);
+          if (_DAT_00748ff0->field_0x148 == 0) break;
+          if (*(int *)((int)aiStack_20 + (int)local_90) == 1) {
+            iVar21 = *(int *)((int)aiStack_60 + (int)local_90);
+            iVar25 = *(int *)((int)aiStack_40 + (int)local_90);
             switch(g_map_size_mode) {
             case 0:
-              iVar14 = iVar19 + iVar17 * 0x138;
+              iVar26 = iVar21 + iVar25 * 0x138;
               break;
             case 1:
-              iVar14 = iVar19 + iVar17 * 0x9c;
+              iVar26 = iVar21 + iVar25 * 0x9c;
               break;
             case 2:
-              iVar14 = iVar19 + iVar17 * 0x4e;
+              iVar26 = iVar21 + iVar25 * 0x4e;
               break;
             case 3:
-              iVar14 = iVar17 * 0x27 + iVar19;
+              iVar26 = iVar25 * 0x27 + iVar21;
               break;
             default:
               goto switchD_0040754e_default;
             }
-            pcVar13 = (char *)(iVar14 * 0x100 + iVar22);
+            pcVar13 = (char *)(iVar26 * 0x100 + iVar23);
 switchD_0040754e_default:
-            pcVar24 = (char *)((int)g_land_record_buffers[_DAT_00748e34] +
+            pcVar14 = (char *)((int)g_land_record_buffers[_DAT_00748e34] +
                               *(short *)(pcVar13 + 0x10) * 4);
-            if ((*pcVar24 == '\0') || ((*(short *)(pcVar24 + 2) == 0 && (bVar10)))) {
-              local_88 = 0x28;
+            if ((*pcVar14 == '\0') || ((*(short *)(pcVar14 + 2) == 0 && (bVar9)))) {
+              local_88 = (City_0x1b8_plus *)0x28;
               do {
-                pAVar23 = *(ArmyUnit_0x164_plus **)(local_88 + DAT_0075597c);
-                if ((pAVar23 != (ArmyUnit_0x164_plus *)0x0) &&
-                   (pAVar23->transport_parent == _DAT_00748ff0)) {
-                  pAVar23->target_tile_x_or_anim_x = (short)iVar19;
-                  pAVar23->target_tile_y_or_anim_y = (short)iVar17;
-                  pAVar23->mission_action_id = 0x20;
-                  TestRoad(pAVar23);
-                  if ('\0' < (char)pAVar23->active_anim_step_count) {
-                    Add_OrderQueue_Army(pAVar23,0x42,0x54,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                        (int)pAVar23->target_tile_x_or_anim_x,
-                                        (int)pAVar23->target_tile_y_or_anim_y);
+                pAVar24 = *(ArmyUnit_0x164_plus **)
+                           (DAT_0075597c->name_bytes + (int)(local_88->name_bytes + -6));
+                if ((pAVar24 != (ArmyUnit_0x164_plus *)0x0) &&
+                   ((City_0x1b8_plus *)pAVar24->transport_parent == _DAT_00748ff0)) {
+                  pAVar24->target_tile_x_or_anim_x = (short)iVar21;
+                  pAVar24->target_tile_y_or_anim_y = (short)iVar25;
+                  pAVar24->mission_action_id = 0x20;
+                  TestRoad(pAVar24);
+                  if ('\0' < (char)pAVar24->active_anim_step_count) {
+                    Add_OrderQueue_Army(pAVar24,0x42,0x54,-1,-1,(ArmyUnit_0x164_plus *)0x0,
+                                        (int)pAVar24->target_tile_x_or_anim_x,
+                                        (int)pAVar24->target_tile_y_or_anim_y);
                     DAT_0070684c = 1;
                     return;
                   }
-                  pAVar23->mission_action_id = 0x41;
-                  iVar22 = _g_land_tiles;
+                  pAVar24->mission_action_id = 0x41;
+                  iVar23 = _g_land_tiles;
                 }
-                local_88 = local_88 + 4;
-              } while (local_88 < 0x50);
+                local_88 = (City_0x1b8_plus *)(local_88->name_bytes + 1);
+              } while ((int)local_88 < 0x50);
             }
           }
-          local_90 = local_90 + 4;
-        } while (local_90 < 0x20);
+          local_90 = (City_0x1b8_plus *)(local_90->name_bytes + 1);
+        } while ((int)local_90 < 0x20);
       }
     }
 LAB_00407369:
-    iVar19 = FUN_004c3510(*(undefined4 *)(_DAT_0074a0b8 + 0x120));
-    iVar22 = _g_land_tiles;
-    if ((0 < DAT_00734c4c) && (iVar19 < 7)) {
+    iVar21 = Search_Round(*(int *)(_DAT_0074a0b8 + 0x120));
+    pCVar19 = extraout_ECX;
+    iVar23 = _g_land_tiles;
+    if ((0 < g_search_round_best_score) && (iVar21 < 7)) {
       switch(g_map_size_mode) {
       case 0:
-        local_8c = (char *)((_DAT_00734c58 + DAT_00734c5c * 0x138) * 0x100 + _g_land_tiles);
+        local_8c = (City_0x1b8_plus *)
+                   ((g_search_round_best_tile_x + g_search_round_best_tile_y * 0x138) * 0x100 +
+                   _g_land_tiles);
         break;
       case 1:
-        local_8c = (char *)((_DAT_00734c58 + DAT_00734c5c * 0x9c) * 0x100 + _g_land_tiles);
+        local_8c = (City_0x1b8_plus *)
+                   ((g_search_round_best_tile_x + g_search_round_best_tile_y * 0x9c) * 0x100 +
+                   _g_land_tiles);
         break;
       case 2:
-        local_8c = (char *)((_DAT_00734c58 + DAT_00734c5c * 0x4e) * 0x100 + _g_land_tiles);
+        local_8c = (City_0x1b8_plus *)
+                   ((g_search_round_best_tile_x + g_search_round_best_tile_y * 0x4e) * 0x100 +
+                   _g_land_tiles);
         break;
       case 3:
-        local_8c = (char *)((DAT_00734c5c * 0x27 + _DAT_00734c58) * 0x100 + _g_land_tiles);
+        local_8c = (City_0x1b8_plus *)
+                   ((g_search_round_best_tile_y * 0x27 + g_search_round_best_tile_x) * 0x100 +
+                   _g_land_tiles);
       }
-      pcVar13 = local_8c;
-      sVar2 = *(short *)(local_8c + 0x10);
-      if ((sVar2 < 1) || (!bVar11)) {
+      pCVar22 = local_8c;
+      sVar2 = *(short *)(local_8c->name_bytes + 0xd);
+      if ((sVar2 < 1) || (!bVar10)) {
         if (((0 < sVar2) && (0 < *(int *)(_DAT_0074a0b8 + 0xf8))) ||
-           ((sVar2 < 0 && (0 < *(int *)(_DAT_0074a0b8 + 0xfc))))) {
-          _DAT_00748ff0->target_tile_x_or_anim_x = (short)_DAT_00734c58;
-          _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
-          TestRoad(_DAT_00748ff0);
-          if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-            iVar22 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                  (int)_DAT_00748ff0->target_tile_x_or_anim_x,
-                                  (int)_DAT_00748ff0->target_tile_y_or_anim_y,0);
-            if ((iVar22 == 1) && (iVar19 == 4)) {
-              _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->target_tile_x_or_anim_x;
-              _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->target_tile_y_or_anim_y;
-              iVar22 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                   (int)_DAT_00748ff0->render_or_anim_x,
-                                   (int)_DAT_00748ff0->render_or_anim_y);
-              Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3d,-1,iVar22,(ArmyUnit_0x164_plus *)0x0,-1,-1
-                                 );
+           ((pCVar19 = (City_0x1b8_plus *)g_search_round_best_tile_x, sVar2 < 0 &&
+            (0 < *(int *)(_DAT_0074a0b8 + 0xfc))))) {
+          *(short *)&_DAT_00748ff0->development_level = (short)g_search_round_best_tile_x;
+          *(short *)&_DAT_00748ff0->stored_population_or_value = (short)g_search_round_best_tile_y;
+          TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+          pCVar19 = (City_0x1b8_plus *)
+                    CONCAT31((int3)((uint)extraout_ECX_01 >> 8),_DAT_00748ff0->field_0x120);
+          if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+            iVar23 = Tile_Distance_With_Wrap
+                               ((int)*(short *)&_DAT_00748ff0->field_0x1a,
+                                (int)*(short *)&_DAT_00748ff0->field_0x1c,
+                                (int)*(short *)&_DAT_00748ff0->development_level,
+                                (int)(short)_DAT_00748ff0->stored_population_or_value,(byte *)0x0);
+            if ((iVar23 == 1) && (iVar21 == 4)) {
+              uVar11 = _DAT_00748ff0->field_0x23;
+              pCVar19 = _DAT_00748ff0;
+              pCVar19->field_0x1e = _DAT_00748ff0->development_level;
+              pCVar19->field_0x1f = uVar11;
+              uVar3 = (undefined2)_DAT_00748ff0->stored_population_or_value;
+              pCVar19 = _DAT_00748ff0;
+              pCVar19->max_worker_slots = (char)uVar3;
+              pCVar19->city_type_or_terrain_class = (char)((ushort)uVar3 >> 8);
+              sVar2._0_1_ = _DAT_00748ff0->max_worker_slots;
+              sVar2._1_1_ = _DAT_00748ff0->city_type_or_terrain_class;
+              iVar23 = Find_Direct((int)*(short *)&_DAT_00748ff0->field_0x1a,
+                                   (int)*(short *)&_DAT_00748ff0->field_0x1c,
+                                   (int)*(short *)&_DAT_00748ff0->field_0x1e,(int)sVar2);
+              Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x29,0x3d,-1,iVar23,
+                                  (ArmyUnit_0x164_plus *)0x0,-1,-1);
               return;
             }
-            Add_OrderQueue_Army(_DAT_00748ff0,0x24,9,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+            Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,9,-1,-1,
+                                (ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
           }
         }
-        iVar22 = _g_land_tiles;
-        if (bVar11) {
-          iVar19 = 0;
-          pcVar24 = local_94;
+        iVar23 = _g_land_tiles;
+        if (bVar10) {
+          iVar21 = 0;
+          pcVar13 = local_94;
           do {
-            if (*(int *)((int)aiStack_20 + iVar19) == 1) {
+            if (*(int *)((int)aiStack_20 + iVar21) == 1) {
               switch(g_map_size_mode) {
               case 0:
-                iVar17 = *(int *)((int)aiStack_60 + iVar19) +
-                         *(int *)((int)aiStack_40 + iVar19) * 0x138;
+                iVar25 = *(int *)((int)aiStack_60 + iVar21) +
+                         *(int *)((int)aiStack_40 + iVar21) * 0x138;
                 break;
               case 1:
-                iVar17 = *(int *)((int)aiStack_60 + iVar19) +
-                         *(int *)((int)aiStack_40 + iVar19) * 0x9c;
+                pCVar19 = (City_0x1b8_plus *)(*(int *)((int)aiStack_40 + iVar21) * 0x27);
+                iVar25 = *(int *)((int)aiStack_60 + iVar21) +
+                         *(int *)((int)aiStack_40 + iVar21) * 0x9c;
                 break;
               case 2:
-                iVar17 = *(int *)((int)aiStack_60 + iVar19) +
-                         *(int *)((int)aiStack_40 + iVar19) * 0x4e;
+                pCVar19 = (City_0x1b8_plus *)(*(int *)((int)aiStack_40 + iVar21) * 0x27);
+                iVar25 = *(int *)((int)aiStack_60 + iVar21) +
+                         *(int *)((int)aiStack_40 + iVar21) * 0x4e;
                 break;
               case 3:
-                iVar17 = *(int *)((int)aiStack_40 + iVar19) * 0x27 +
-                         *(int *)((int)aiStack_60 + iVar19);
+                iVar25 = *(int *)((int)aiStack_40 + iVar21) * 0x27 +
+                         *(int *)((int)aiStack_60 + iVar21);
                 break;
               default:
                 goto switchD_0040791e_default;
               }
-              pcVar24 = (char *)(iVar17 * 0x100 + iVar22);
+              pcVar13 = (char *)(iVar25 * 0x100 + iVar23);
 switchD_0040791e_default:
-              if (*(short *)(pcVar24 + 0x10) == *(short *)(pcVar13 + 0x10)) {
-                local_9c = 0x28;
+              if (*(short *)(pcVar13 + 0x10) == *(short *)(pCVar22->name_bytes + 0xd)) {
+                local_9c = (City_0x1b8_plus *)0x28;
                 do {
-                  pAVar23 = *(ArmyUnit_0x164_plus **)(local_9c + DAT_0075597c);
-                  if ((pAVar23 != (ArmyUnit_0x164_plus *)0x0) &&
-                     (pAVar23->transport_parent == _DAT_00748ff0)) {
-                    sVar2 = *(short *)((int)aiStack_40 + iVar19);
-                    pAVar23->target_tile_x_or_anim_x = *(short *)((int)aiStack_60 + iVar19);
-                    pAVar23->target_tile_y_or_anim_y = sVar2;
-                    pAVar23->mission_action_id = 0x20;
-                    TestRoad(pAVar23);
-                    if ('\0' < (char)pAVar23->active_anim_step_count) {
+                  pAVar24 = *(ArmyUnit_0x164_plus **)(DAT_0075597c->name_bytes + (int)local_9c + -3)
+                  ;
+                  pCVar19 = DAT_0075597c;
+                  if ((pAVar24 != (ArmyUnit_0x164_plus *)0x0) &&
+                     (pCVar19 = (City_0x1b8_plus *)pAVar24->transport_parent,
+                     pCVar19 == _DAT_00748ff0)) {
+                    sVar2 = *(short *)((int)aiStack_40 + iVar21);
+                    pAVar24->target_tile_x_or_anim_x = *(short *)((int)aiStack_60 + iVar21);
+                    pAVar24->target_tile_y_or_anim_y = sVar2;
+                    pAVar24->mission_action_id = 0x20;
+                    TestRoad(pAVar24);
+                    if ('\0' < (char)pAVar24->active_anim_step_count) {
 LAB_00407a04:
-                      Add_OrderQueue_Army(pAVar23,0x42,0x58,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                          (int)pAVar23->target_tile_x_or_anim_x,
-                                          (int)pAVar23->target_tile_y_or_anim_y);
+                      Add_OrderQueue_Army(pAVar24,0x42,0x58,-1,-1,(ArmyUnit_0x164_plus *)0x0,
+                                          (int)pAVar24->target_tile_x_or_anim_x,
+                                          (int)pAVar24->target_tile_y_or_anim_y);
                       DAT_0070684c = 1;
                       return;
                     }
-                    pAVar23->mission_action_id = 0x41;
-                    iVar22 = _g_land_tiles;
+                    pAVar24->mission_action_id = 0x41;
+                    pCVar19 = extraout_ECX_02;
+                    iVar23 = _g_land_tiles;
                   }
-                  local_9c = local_9c + 4;
+                  local_9c = (City_0x1b8_plus *)((int)local_9c + 4);
                 } while ((int)local_9c < 0x50);
               }
             }
-            iVar19 = iVar19 + 4;
-            pcVar13 = local_8c;
-          } while (iVar19 < 0x20);
+            iVar21 = iVar21 + 4;
+            pCVar22 = local_8c;
+          } while (iVar21 < 0x20);
         }
       }
       else {
-        iVar19 = 0;
+        iVar21 = 0;
         pcVar13 = local_94;
         do {
-          if (*(int *)((int)aiStack_20 + iVar19) == 1) {
+          pCVar19 = *(City_0x1b8_plus **)((int)aiStack_20 + iVar21);
+          if (*(City_0x1b8_plus **)((int)aiStack_20 + iVar21) == (City_0x1b8_plus *)0x1) {
             switch(g_map_size_mode) {
             case 0:
-              iVar22 = *(int *)((int)aiStack_60 + iVar19) +
-                       *(int *)((int)aiStack_40 + iVar19) * 0x138;
+              iVar23 = *(int *)((int)aiStack_60 + iVar21) +
+                       *(int *)((int)aiStack_40 + iVar21) * 0x138;
               break;
             case 1:
-              iVar22 = *(int *)((int)aiStack_60 + iVar19) +
-                       *(int *)((int)aiStack_40 + iVar19) * 0x9c;
+              iVar23 = *(int *)((int)aiStack_60 + iVar21) +
+                       *(int *)((int)aiStack_40 + iVar21) * 0x9c;
               break;
             case 2:
-              iVar22 = *(int *)((int)aiStack_60 + iVar19) +
-                       *(int *)((int)aiStack_40 + iVar19) * 0x4e;
+              iVar23 = *(int *)((int)aiStack_60 + iVar21) +
+                       *(int *)((int)aiStack_40 + iVar21) * 0x4e;
               break;
             case 3:
-              iVar22 = *(int *)((int)aiStack_40 + iVar19) * 0x27 +
-                       *(int *)((int)aiStack_60 + iVar19);
+              iVar23 = *(int *)((int)aiStack_40 + iVar21) * 0x27 +
+                       *(int *)((int)aiStack_60 + iVar21);
               break;
             default:
               goto switchD_004076ec_default;
             }
-            pcVar13 = (char *)(iVar22 * 0x100 + _g_land_tiles);
+            pcVar13 = (char *)(iVar23 * 0x100 + _g_land_tiles);
 switchD_004076ec_default:
-            if (*(short *)(pcVar13 + 0x10) == *(short *)(local_8c + 0x10)) {
-              iVar22 = 0x28;
+            pCVar19 = local_8c;
+            if (*(short *)(pcVar13 + 0x10) == *(short *)(local_8c->name_bytes + 0xd)) {
+              iVar23 = 0x28;
               do {
-                pAVar23 = *(ArmyUnit_0x164_plus **)(iVar22 + DAT_0075597c);
-                if ((pAVar23 != (ArmyUnit_0x164_plus *)0x0) &&
-                   (pAVar23->transport_parent == _DAT_00748ff0)) {
-                  sVar2 = *(short *)((int)aiStack_40 + iVar19);
-                  pAVar23->target_tile_x_or_anim_x = *(short *)((int)aiStack_60 + iVar19);
-                  pAVar23->target_tile_y_or_anim_y = sVar2;
-                  pAVar23->mission_action_id = 0x20;
-                  TestRoad(pAVar23);
-                  if ('\0' < (char)pAVar23->active_anim_step_count) goto LAB_00407a04;
-                  pAVar23->mission_action_id = 0x41;
+                pAVar24 = *(ArmyUnit_0x164_plus **)(DAT_0075597c->name_bytes + iVar23 + -3);
+                if ((pAVar24 != (ArmyUnit_0x164_plus *)0x0) &&
+                   (pCVar19 = (City_0x1b8_plus *)pAVar24->transport_parent, pCVar19 == _DAT_00748ff0
+                   )) {
+                  sVar2 = *(short *)((int)aiStack_40 + iVar21);
+                  pAVar24->target_tile_x_or_anim_x = *(short *)((int)aiStack_60 + iVar21);
+                  pAVar24->target_tile_y_or_anim_y = sVar2;
+                  pAVar24->mission_action_id = 0x20;
+                  TestRoad(pAVar24);
+                  if ('\0' < (char)pAVar24->active_anim_step_count) goto LAB_00407a04;
+                  pAVar24->mission_action_id = 0x41;
+                  pCVar19 = extraout_ECX_00;
                 }
-                iVar22 = iVar22 + 4;
-              } while (iVar22 < 0x50);
+                iVar23 = iVar23 + 4;
+              } while (iVar23 < 0x50);
             }
           }
-          iVar19 = iVar19 + 4;
-          iVar22 = _g_land_tiles;
-        } while (iVar19 < 0x20);
+          iVar21 = iVar21 + 4;
+          iVar23 = _g_land_tiles;
+        } while (iVar21 < 0x20);
       }
     }
-    if ((!bVar10) && (g_active_country->special_rule_level != 0)) {
-      local_80 = 0xffffffff;
-      iVar19 = g_map_width_tiles + g_map_height_tiles;
-      local_90 = iVar19;
+    if ((!bVar9) &&
+       (pCVar19 = (City_0x1b8_plus *)
+                  CONCAT31((int3)((uint)pCVar19 >> 8),g_active_country->special_rule_level),
+       g_active_country->special_rule_level != 0)) {
+      local_80 = (City_0x1b8_plus *)0xffffffff;
+      pCVar22 = (City_0x1b8_plus *)(g_map_width_tiles + g_map_height_tiles);
+      pCVar19 = (City_0x1b8_plus *)0x0;
+      local_90 = pCVar22;
       if (DAT_0074c858 == (City_0x1b8_plus *)0x0) {
 LAB_00407bd6:
-        local_84 = 0;
-        local_9c = 0x628;
-        pcVar13 = local_8c;
-        pcVar24 = local_94;
+        local_84 = (City_0x1b8_plus *)0x0;
+        local_9c = (City_0x1b8_plus *)0x628;
+        pCVar22 = local_8c;
+        pcVar13 = local_94;
         do {
-          sVar2 = *(short *)(g_active_country->name_bytes + local_9c + -0x18);
+          sVar2 = *(short *)(g_active_country->name_bytes + (int)local_9c + -0x18);
+          pCVar19 = (City_0x1b8_plus *)CONCAT22((short)((uint)pCVar19 >> 0x10),sVar2);
           if ((-1 < sVar2) &&
-             (sVar3 = *(short *)(g_active_country->name_bytes + local_9c + -4), -1 < sVar3)) {
+             (sVar4 = *(short *)(g_active_country->name_bytes + (int)local_9c + -4), -1 < sVar4)) {
             switch(g_map_size_mode) {
             case 0:
-              iVar19 = (int)sVar2 + sVar3 * 0x138;
+              iVar21 = (int)sVar2 + sVar4 * 0x138;
               break;
             case 1:
-              iVar19 = (int)sVar2 + sVar3 * 0x9c;
+              iVar21 = (int)sVar2 + sVar4 * 0x9c;
               break;
             case 2:
-              iVar19 = (int)sVar2 + sVar3 * 0x4e;
+              iVar21 = (int)sVar2 + sVar4 * 0x4e;
               break;
             case 3:
-              iVar19 = sVar3 * 0x27 + (int)sVar2;
+              iVar21 = sVar4 * 0x27 + (int)sVar2;
               break;
             default:
               goto switchD_00407c1d_default;
             }
-            pcVar13 = (char *)(iVar19 * 0x100 + iVar22);
-            local_8c = pcVar13;
+            pCVar22 = (City_0x1b8_plus *)(iVar21 * 0x100 + iVar23);
+            local_8c = pCVar22;
 switchD_00407c1d_default:
-            sVar4 = *(short *)(pcVar13 + 0x10);
-            if (sVar4 < 1) {
-              if (((!bVar8) &&
-                  (((sVar4 == *(short *)(DAT_0075597c + 0x10) ||
-                    (pcVar18 = pcVar13 + 0x12, pcVar13 = local_8c,
-                    (short)*pcVar18 == *(short *)(DAT_0075597c + 0x10))) ||
-                   (sVar4 == *(char *)(DAT_0075597c + 0x12))))) &&
-                 (iVar19 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                        (int)sVar2,(int)sVar3,0), iVar22 = _g_land_tiles,
-                 iVar19 < local_90)) {
+            sVar5 = *(short *)(pCVar22->name_bytes + 0xd);
+            if (sVar5 < 1) {
+              if (((!bVar7) &&
+                  (((sVar5 == *(short *)(DAT_0075597c->name_bytes + 0xd) ||
+                    (pcVar14 = pCVar22->name_bytes, pCVar22 = local_8c,
+                    (short)pcVar14[0xf] == *(short *)(DAT_0075597c->name_bytes + 0xd))) ||
+                   (sVar5 == DAT_0075597c->name_bytes[0xf])))) &&
+                 (pCVar15 = (City_0x1b8_plus *)
+                            Tile_Distance_With_Wrap
+                                      ((int)*(short *)&_DAT_00748ff0->field_0x1a,
+                                       (int)*(short *)&_DAT_00748ff0->field_0x1c,(int)sVar2,
+                                       (int)sVar4,(byte *)0x0), pCVar19 = local_90,
+                 iVar23 = _g_land_tiles, (int)pCVar15 < (int)local_90)) {
                 local_80 = local_84;
-                local_90 = iVar19;
+                pCVar19 = local_84;
+                local_90 = pCVar15;
               }
             }
             else if (*(int *)(_DAT_0074a0b8 + 0x130) != 0) {
-              local_78 = (uint)sVar3;
-              local_64 = 0;
+              local_78 = (uint)sVar4;
+              local_64 = (City_0x1b8_plus *)0x0;
               local_94 = (char *)(int)sVar2;
-              piVar20 = &DAT_00589374 + (local_78 & 1) * 8;
-              local_88 = 0;
+              piVar17 = &DAT_00589374 + (local_78 & 1) * 8;
+              local_88 = (City_0x1b8_plus *)0x0;
               local_68 = 8;
               do {
-                pcVar18 = local_94 + *piVar20;
-                iVar19 = *piVar20 + local_78;
-                if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
-                   (((-1 < (int)pcVar18 && ((int)pcVar18 < g_map_width_tiles)) ||
+                pCVar19 = (City_0x1b8_plus *)(local_94 + *piVar17);
+                iVar21 = *piVar17 + local_78;
+                if (((-1 < iVar21) && (iVar21 < g_map_height_tiles)) &&
+                   (((-1 < (int)pCVar19 && ((int)pCVar19 < g_map_width_tiles)) ||
                     (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-                  if ((int)pcVar18 < 0) {
-                    pcVar18 = pcVar18 + g_map_width_tiles;
+                  if ((int)pCVar19 < 0) {
+                    pCVar19 = (City_0x1b8_plus *)(pCVar19->name_bytes + g_map_width_tiles + -3);
                   }
-                  if (g_map_width_tiles <= (int)pcVar18) {
-                    pcVar18 = pcVar18 + -g_map_width_tiles;
+                  if (g_map_width_tiles <= (int)pCVar19) {
+                    pCVar19 = (City_0x1b8_plus *)((int)pCVar19 - g_map_width_tiles);
                   }
                   switch(g_map_size_mode) {
                   case 0:
-                    pcVar18 = pcVar18 + iVar19 * 0x138;
+                    pcVar13 = pCVar19->name_bytes + iVar21 * 0x138 + -3;
                     break;
                   case 1:
-                    pcVar18 = pcVar18 + iVar19 * 0x9c;
+                    pcVar13 = pCVar19->name_bytes + iVar21 * 0x9c + -3;
                     break;
                   case 2:
-                    pcVar18 = pcVar18 + iVar19 * 0x4e;
+                    pcVar13 = pCVar19->name_bytes + iVar21 * 0x4e + -3;
                     break;
                   case 3:
-                    pcVar18 = pcVar18 + iVar19 * 0x27;
+                    pcVar13 = pCVar19->name_bytes + iVar21 * 0x27 + -3;
                     break;
                   default:
                     goto switchD_00407d18_default;
                   }
-                  pcVar24 = (char *)((int)pcVar18 * 0x100 + iVar22);
+                  pcVar13 = (char *)((int)pcVar13 * 0x100 + iVar23);
 switchD_00407d18_default:
-                  if (*(short *)(pcVar24 + 0x10) < 0) {
-                    local_64 = (int)*(short *)(pcVar24 + 0x10);
+                  if (*(short *)(pcVar13 + 0x10) < 0) {
+                    local_64 = (City_0x1b8_plus *)(int)*(short *)(pcVar13 + 0x10);
                   }
-                  if (pcVar24[0x12] < '\0') {
-                    local_88 = (int)pcVar24[0x12];
+                  if (pcVar13[0x12] < '\0') {
+                    pCVar19 = (City_0x1b8_plus *)(int)pcVar13[0x12];
+                    local_88 = pCVar19;
                   }
                 }
-                piVar20 = piVar20 + 1;
+                piVar17 = piVar17 + 1;
                 local_68 = local_68 + -1;
               } while (local_68 != 0);
-              if (((local_64 < 0) || (local_88 < 0)) &&
-                 ((local_64 == *(short *)(DAT_0075597c + 0x10) ||
-                  (((local_88 == *(short *)(DAT_0075597c + 0x10) ||
-                    (local_64 == *(char *)(DAT_0075597c + 0x12))) ||
-                   (local_88 == *(char *)(DAT_0075597c + 0x12))))))) {
+              if ((((int)local_64 < 0) || ((int)local_88 < 0)) &&
+                 ((pCVar19 = DAT_0075597c,
+                  local_64 == (City_0x1b8_plus *)(int)*(short *)(DAT_0075597c->name_bytes + 0xd) ||
+                  (((local_88 == (City_0x1b8_plus *)(int)*(short *)(DAT_0075597c->name_bytes + 0xd)
+                    || (local_64 == (City_0x1b8_plus *)(int)DAT_0075597c->name_bytes[0xf])) ||
+                   (local_88 == (City_0x1b8_plus *)(int)DAT_0075597c->name_bytes[0xf])))))) {
                 if (DAT_0074c034 == 0x20) {
-                  if (*pcVar13 < '\r') {
+                  if (*(char *)pCVar22 < '\r') {
 LAB_00407dd6:
-                    if (*pcVar13 < '\x0e') goto LAB_00407de0;
+                    if (*(char *)pCVar22 < '\x0e') goto LAB_00407de0;
                   }
                 }
                 else {
                   if (DAT_0074c034 == 0x21) goto LAB_00407dd6;
 LAB_00407de0:
-                  iVar19 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                        local_94,local_78,0);
-                  iVar22 = _g_land_tiles;
-                  if (iVar19 < local_90) {
+                  pCVar15 = (City_0x1b8_plus *)
+                            Tile_Distance_With_Wrap
+                                      ((int)*(short *)&_DAT_00748ff0->field_0x1a,
+                                       (int)*(short *)&_DAT_00748ff0->field_0x1c,(int)local_94,
+                                       local_78,(byte *)0x0);
+                  pCVar19 = local_90;
+                  iVar23 = _g_land_tiles;
+                  if ((int)pCVar15 < (int)local_90) {
                     local_80 = local_84;
-                    local_90 = iVar19;
+                    local_90 = pCVar15;
                   }
                 }
               }
             }
           }
-          local_9c = local_9c + 2;
-          local_84 = local_84 + 1;
+          local_9c = (City_0x1b8_plus *)((int)local_9c + 2);
+          local_84 = (City_0x1b8_plus *)&local_84->owner_country_id;
         } while ((int)local_9c < 0x63c);
       }
       else {
-        local_9c = 0;
-        local_90 = 0x614;
-        iVar17 = local_74;
+        local_9c = (City_0x1b8_plus *)0x0;
+        local_90 = (City_0x1b8_plus *)0x614;
+        pCVar19 = DAT_0074c858;
+        iVar21 = local_74;
         pcVar13 = local_94;
         do {
-          sVar2 = *(short *)(g_active_country->name_bytes + local_90 + -4);
+          sVar2 = *(short *)(g_active_country->name_bytes + (int)local_90 + -4);
+          pCVar19 = (City_0x1b8_plus *)CONCAT22((short)((uint)pCVar19 >> 0x10),sVar2);
           if ((-1 < sVar2) &&
-             (sVar3 = *(short *)(g_active_country->name_bytes + local_90 + 0x10), -1 < sVar3)) {
+             (sVar4 = *(short *)(g_active_country->name_bytes + (int)local_90 + 0x10), -1 < sVar4))
+          {
             switch(g_map_size_mode) {
             case 0:
-              iVar14 = (int)sVar2 + sVar3 * 0x138;
+              iVar25 = (int)sVar2 + sVar4 * 0x138;
               break;
             case 1:
-              iVar14 = (int)sVar2 + sVar3 * 0x9c;
+              iVar25 = (int)sVar2 + sVar4 * 0x9c;
               break;
             case 2:
-              iVar14 = (int)sVar2 + sVar3 * 0x4e;
+              iVar25 = (int)sVar2 + sVar4 * 0x4e;
               break;
             case 3:
-              iVar14 = sVar3 * 0x27 + (int)sVar2;
+              iVar25 = sVar4 * 0x27 + (int)sVar2;
               break;
             default:
               goto switchD_00407aca_default;
             }
-            pcVar13 = (char *)(iVar14 * 0x100 + iVar22);
+            pcVar13 = (char *)(iVar25 * 0x100 + iVar23);
 switchD_00407aca_default:
             if (((local_6c < 0) &&
-                ((iVar17 = local_74, *(short *)(pcVar13 + 0x10) == local_6c ||
+                ((iVar21 = local_74, *(short *)(pcVar13 + 0x10) == local_6c ||
                  (pcVar13[0x12] == local_6c)))) ||
-               ((iVar17 < 0 && ((*(short *)(pcVar13 + 0x10) == iVar17 || (pcVar13[0x12] == iVar17)))
+               ((iVar21 < 0 && ((*(short *)(pcVar13 + 0x10) == iVar21 || (pcVar13[0x12] == iVar21)))
                 ))) {
               if (DAT_0074c034 == 0x20) {
                 if (*pcVar13 < '\r') {
@@ -503,164 +569,193 @@ LAB_00407b6c:
               else {
                 if (DAT_0074c034 == 0x21) goto LAB_00407b6c;
 LAB_00407b71:
-                iVar14 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                      (int)sVar2,(int)sVar3,0);
-                iVar22 = _g_land_tiles;
-                if (iVar14 < iVar19) {
+                pCVar15 = (City_0x1b8_plus *)
+                          Tile_Distance_With_Wrap
+                                    ((int)*(short *)&_DAT_00748ff0->field_0x1a,
+                                     (int)*(short *)&_DAT_00748ff0->field_0x1c,(int)sVar2,(int)sVar4
+                                     ,(byte *)0x0);
+                pCVar19 = extraout_ECX_03;
+                iVar23 = _g_land_tiles;
+                if ((int)pCVar15 < (int)pCVar22) {
                   local_80 = local_9c;
-                  iVar19 = iVar14;
+                  pCVar19 = local_9c;
+                  pCVar22 = pCVar15;
                 }
               }
             }
           }
-          local_9c = local_9c + 1;
-          local_90 = local_90 + 2;
-        } while (local_90 < 0x628);
-        local_90 = iVar19;
-        if (local_80 == 0xffffffff) goto LAB_00407bd6;
+          local_9c = (City_0x1b8_plus *)&local_9c->owner_country_id;
+          local_90 = (City_0x1b8_plus *)((int)local_90 + 2);
+        } while ((int)local_90 < 0x628);
+        local_90 = pCVar22;
+        if (local_80 == (City_0x1b8_plus *)0xffffffff) goto LAB_00407bd6;
       }
       if (-1 < (int)local_80) {
-        _DAT_00748ff0->target_tile_x_or_anim_x =
-             *(short *)(&g_active_country->field_0x614 + local_80 * 2);
-        _DAT_00748ff0->target_tile_y_or_anim_y =
-             *(short *)((int)g_active_country->science_status + local_80 * 2 + -0x7c);
-        TestRoad(_DAT_00748ff0);
-        iVar22 = _g_land_tiles;
-        if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-          Add_OrderQueue_Army(_DAT_00748ff0,0x24,10,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+        *(short *)&_DAT_00748ff0->development_level =
+             *(short *)(&g_active_country->field_0x614 + (int)local_80 * 2);
+        *(short *)&_DAT_00748ff0->stored_population_or_value =
+             *(short *)((int)g_active_country->science_status + (int)local_80 * 2 + -0x7c);
+        TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+        pCVar19 = (City_0x1b8_plus *)
+                  CONCAT31((int3)((uint)extraout_ECX_04 >> 8),_DAT_00748ff0->field_0x120);
+        iVar23 = _g_land_tiles;
+        if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+          Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,10,-1,-1,
+                              (ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
         }
       }
     }
-    if (((g_active_country->field_0x67c != '\0') && (_DAT_00748ff0->cargo_or_subunit_count != 0)) &&
-       (bVar10)) {
-      iVar19 = 0x654;
+    if (((g_active_country->field_0x67c != '\0') &&
+        (pCVar19 = (City_0x1b8_plus *)
+                   CONCAT31((int3)((uint)pCVar19 >> 8),_DAT_00748ff0->field_0x148),
+        _DAT_00748ff0->field_0x148 != 0)) && (bVar9)) {
+      iVar21 = 0x654;
       pcVar13 = local_94;
       do {
         if (g_active_country->field_0x67c == '\0') break;
-        sVar2 = *(short *)(g_active_country->name_bytes + iVar19 + -4);
+        sVar2 = *(short *)(g_active_country->name_bytes + iVar21 + -4);
         if (-1 < sVar2) {
           switch(g_map_size_mode) {
           case 0:
-            iVar17 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar19 + 0x10) * 0x138;
+            iVar25 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar21 + 0x10) * 0x138;
             break;
           case 1:
-            iVar17 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar19 + 0x10) * 0x9c;
+            iVar25 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar21 + 0x10) * 0x9c;
             break;
           case 2:
-            iVar17 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar19 + 0x10) * 0x4e;
+            iVar25 = (int)sVar2 + *(short *)(g_active_country->name_bytes + iVar21 + 0x10) * 0x4e;
             break;
           case 3:
-            iVar17 = *(short *)(g_active_country->name_bytes + iVar19 + 0x10) * 0x27 + (int)sVar2;
+            iVar25 = *(short *)(g_active_country->name_bytes + iVar21 + 0x10) * 0x27 + (int)sVar2;
             break;
           default:
             goto switchD_00407f98_default;
           }
-          pcVar13 = (char *)(iVar17 * 0x100 + iVar22);
+          pcVar13 = (char *)(iVar25 * 0x100 + iVar23);
 switchD_00407f98_default:
-          if (*(short *)((int)g_land_record_buffers[_DAT_00748e34] +
-                        *(short *)(pcVar13 + 0x10) * 4 + 2) == 0) {
-            if ((pcVar13[0x50] == '\0') && (pcVar13[0x7c] == '\0')) {
-              _DAT_00748ff0->target_tile_x_or_anim_x = sVar2;
-              _DAT_00748ff0->target_tile_y_or_anim_y =
-                   *(short *)(g_active_country->name_bytes + iVar19 + 0x10);
-              TestRoad(_DAT_00748ff0);
-              iVar22 = _g_land_tiles;
-              if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-                Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x29,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+          pCVar19 = (City_0x1b8_plus *)(int)*(short *)(pcVar13 + 0x10);
+          if (*(short *)((int)g_land_record_buffers[_DAT_00748e34] + (int)pCVar19 * 4 + 2) == 0) {
+            iVar20 = (int3)(char)((ushort)*(short *)(pcVar13 + 0x10) >> 8);
+            pCVar19 = (City_0x1b8_plus *)CONCAT31(iVar20,pcVar13[0x50]);
+            if ((pcVar13[0x50] == '\0') &&
+               (pCVar19 = (City_0x1b8_plus *)CONCAT31(iVar20,pcVar13[0x7c]), pcVar13[0x7c] == '\0'))
+            {
+              *(short *)&_DAT_00748ff0->development_level = sVar2;
+              *(short *)&_DAT_00748ff0->stored_population_or_value =
+                   *(short *)(g_active_country->name_bytes + iVar21 + 0x10);
+              TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+              pCVar19 = (City_0x1b8_plus *)
+                        CONCAT31((int3)((uint)extraout_ECX_05 >> 8),_DAT_00748ff0->field_0x120);
+              iVar23 = _g_land_tiles;
+              if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+                Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,0x29,-1,-1,
+                                    (ArmyUnit_0x164_plus *)0x0,-1,-1);
                 return;
               }
             }
           }
           else {
-            pbVar6 = g_active_country->name_bytes;
-            (pbVar6 + iVar19 + -4)[0] = 0xff;
-            (pbVar6 + iVar19 + -4)[1] = 0xff;
+            pbVar18 = g_active_country->name_bytes;
+            (pbVar18 + iVar21 + -4)[0] = 0xff;
+            (pbVar18 + iVar21 + -4)[1] = 0xff;
             g_active_country->field_0x67c = g_active_country->field_0x67c + -1;
-            iVar22 = _g_land_tiles;
+            iVar23 = _g_land_tiles;
           }
         }
-        iVar19 = iVar19 + 2;
-      } while (iVar19 < 0x668);
+        iVar21 = iVar21 + 2;
+      } while (iVar21 < 0x668);
     }
-    if ((_DAT_00748ff0->cargo_or_subunit_count == 0) && (bVar8)) {
+    if ((_DAT_00748ff0->field_0x148 == 0) && (bVar7)) {
       cVar12 = Near_Beach_City_With_Army_Found(0xf,&local_94,&local_78);
+      pCVar19 = extraout_ECX_06;
       if (cVar12 != '\0') {
-        _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_94;
-        _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_78;
-        TestRoad(_DAT_00748ff0);
-        if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-          Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2a,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+        *(short *)&_DAT_00748ff0->development_level = (short)local_94;
+        *(short *)&_DAT_00748ff0->stored_population_or_value = (short)local_78;
+        TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+        pCVar19 = extraout_ECX_07;
+        if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+          Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,0x2a,-1,-1,
+                              (ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
         }
       }
-      pCVar7 = _DAT_00748ff0->stationed_city;
-      iVar22 = _g_land_tiles;
-      if ((pCVar7 != (City_0x1b8_plus *)0x0) && ((char)pCVar7->owner_country_id == _DAT_00748e34)) {
-        _DAT_00748ff0->target_tile_x_or_anim_x = pCVar7->tile_x;
-        _DAT_00748ff0->target_tile_y_or_anim_y = _DAT_00748ff0->stationed_city->tile_y;
-        TestRoad(_DAT_00748ff0);
-        iVar22 = _g_land_tiles;
-        if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-          Add_OrderQueue_Army(_DAT_00748ff0,0x24,8,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+      pCVar22 = *(City_0x1b8_plus **)&_DAT_00748ff0->field_0x154;
+      iVar23 = _g_land_tiles;
+      if ((pCVar22 != (City_0x1b8_plus *)0x0) && ((char)pCVar22->owner_country_id == _DAT_00748e34))
+      {
+        *(ushort *)&_DAT_00748ff0->development_level = pCVar22->tile_x;
+        *(ushort *)&_DAT_00748ff0->stored_population_or_value =
+             (*(City_0x1b8_plus **)&_DAT_00748ff0->field_0x154)->tile_y;
+        TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+        pCVar19 = extraout_ECX_08;
+        iVar23 = _g_land_tiles;
+        if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+          Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,8,-1,-1,
+                              (ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
         }
       }
     }
-    if ((DAT_0074c858 != (City_0x1b8_plus *)0x0) ||
-       (bVar8 = true, _DAT_00748ff0->cargo_or_subunit_count == 0)) {
-      bVar8 = false;
+    if ((DAT_0074c858 != (City_0x1b8_plus *)0x0) || (bVar7 = true, _DAT_00748ff0->field_0x148 == 0))
+    {
+      bVar7 = false;
     }
-    if ((0 < local_7c) || (bVar8)) {
+    if ((0 < local_7c) || (bVar7)) {
       if ((2 < g_current_map_scenario_info.difficulty_level) &&
-         ((((_DAT_00748e34 != g_human_country_index &&
+         ((((pCVar19 = (City_0x1b8_plus *)g_human_country_index,
+            _DAT_00748e34 != g_human_country_index &&
             (g_active_country->diplomacy_state_by_country[g_human_country_index] == 0)) &&
-           ('\0' < (char)(&g_country_states)[g_human_country_index * 0xe68])) &&
-          (iVar19 = *(int *)(&DAT_007350f0 + g_human_country_index * 0xe68), iVar19 != 0)))) {
-        uVar21 = (uint)*(ushort *)(iVar19 + 0x16);
-        uVar5 = *(ushort *)(iVar19 + 0x18);
-        uVar15 = (uint)uVar5;
+           (pCVar19 = (City_0x1b8_plus *)(g_human_country_index * 0xe68),
+           '\0' < (char)pCVar19[0x4317].field_0x130)) &&
+          (iVar21 = *(int *)&pCVar19[0x4317].field_0x168, iVar21 != 0)))) {
+        uVar16 = (uint)*(ushort *)(iVar21 + 0x16);
+        uVar6 = *(ushort *)(iVar21 + 0x18);
+        pCVar19 = (City_0x1b8_plus *)(uint)uVar6;
         pcVar13 = local_94;
         switch(g_map_size_mode) {
         case 0:
-          pcVar13 = (char *)((uVar21 + uVar15 * 0x138) * 0x100 + iVar22);
+          pcVar13 = (char *)((uVar16 + (int)pCVar19 * 0x138) * 0x100 + iVar23);
           break;
         case 1:
-          pcVar13 = (char *)((uVar21 + uVar15 * 0x9c) * 0x100 + iVar22);
+          pcVar13 = (char *)((uVar16 + (int)pCVar19 * 0x9c) * 0x100 + iVar23);
           break;
         case 2:
-          pcVar13 = (char *)((uVar21 + uVar15 * 0x4e) * 0x100 + iVar22);
+          pcVar13 = (char *)((uVar16 + (int)pCVar19 * 0x4e) * 0x100 + iVar23);
           break;
         case 3:
-          pcVar13 = (char *)((uVar15 * 0x27 + uVar21) * 0x100 + iVar22);
+          pcVar13 = (char *)(((int)pCVar19 * 0x27 + uVar16) * 0x100 + iVar23);
         }
         if (pcVar13[_DAT_00748e34 + 0xb5] == '\0') {
-          _DAT_00748ff0->target_tile_x_or_anim_x = *(ushort *)(iVar19 + 0x16);
-          _DAT_00748ff0->target_tile_y_or_anim_y = uVar5;
-          TestRoad(_DAT_00748ff0);
-          if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-            Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+          *(ushort *)&_DAT_00748ff0->development_level = *(ushort *)(iVar21 + 0x16);
+          *(ushort *)&_DAT_00748ff0->stored_population_or_value = uVar6;
+          TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+          pCVar19 = (City_0x1b8_plus *)
+                    CONCAT31((int3)((uint)extraout_ECX_09 >> 8),_DAT_00748ff0->field_0x120);
+          if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+            Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,0xb,-1,-1,
+                                (ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
           }
         }
       }
-      uVar15 = FUN_004fbf50(_DAT_0074a3b0);
-      iVar22 = (uVar15 & 0xffff) + 1;
-      iVar19 = (int)_DAT_00748ff0->tile_x +
-               (int)*(short *)((int)g_edit_dest_round_buffers[local_70] + iVar22 * 8);
-      iVar22 = (int)*(short *)((int)g_edit_dest_round_buffers[local_70] + iVar22 * 8 + 2) +
-               (int)_DAT_00748ff0->tile_y;
-      if (((-1 < iVar22) && (iVar22 < g_map_height_tiles)) &&
-         (((-1 < iVar19 && (iVar19 < g_map_width_tiles)) ||
+      uVar16 = Game_Random_Mod(CONCAT22((short)((uint)pCVar19 >> 0x10),_DAT_0074a3b0));
+      iVar23 = (uVar16 & 0xffff) + 1;
+      iVar21 = (int)*(short *)&_DAT_00748ff0->field_0x1a +
+               (int)*(short *)((int)g_edit_dest_round_buffers[local_70] + iVar23 * 8);
+      iVar23 = (int)*(short *)((int)g_edit_dest_round_buffers[local_70] + iVar23 * 8 + 2) +
+               (int)*(short *)&_DAT_00748ff0->field_0x1c;
+      if (((-1 < iVar23) && (iVar23 < g_map_height_tiles)) &&
+         (((-1 < iVar21 && (iVar21 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-        if (iVar19 < 0) {
-          iVar19 = iVar19 + g_map_width_tiles;
+        if (iVar21 < 0) {
+          iVar21 = iVar21 + g_map_width_tiles;
         }
-        if (g_map_width_tiles <= iVar19) {
-          iVar19 = iVar19 - g_map_width_tiles;
+        if (g_map_width_tiles <= iVar21) {
+          iVar21 = iVar21 - g_map_width_tiles;
         }
         if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
-          if ((iVar19 < 0x4b) || (((iVar22 < 0x43 || (0x9e < iVar19)) || (0xa4 < iVar22)))) {
+          if ((iVar21 < 0x4b) || (((iVar23 < 0x43 || (0x9e < iVar21)) || (0xa4 < iVar23)))) {
             if (_DAT_00749a50 == 0) goto switchD_004083d4_switchD;
           }
           else if (_DAT_00749a50 == 2) goto switchD_004083d4_switchD;
@@ -670,16 +765,16 @@ switchD_004083d4_switchD:
           pcVar13 = local_94;
           switch(g_map_size_mode) {
           case 0:
-            pcVar13 = (char *)((iVar19 + iVar22 * 0x138) * 0x100 + _g_land_tiles);
+            pcVar13 = (char *)((iVar21 + iVar23 * 0x138) * 0x100 + _g_land_tiles);
             break;
           case 1:
-            pcVar13 = (char *)((iVar19 + iVar22 * 0x9c) * 0x100 + _g_land_tiles);
+            pcVar13 = (char *)((iVar21 + iVar23 * 0x9c) * 0x100 + _g_land_tiles);
             break;
           case 2:
-            pcVar13 = (char *)((iVar19 + iVar22 * 0x4e) * 0x100 + _g_land_tiles);
+            pcVar13 = (char *)((iVar21 + iVar23 * 0x4e) * 0x100 + _g_land_tiles);
             break;
           case 3:
-            pcVar13 = (char *)((iVar22 * 0x27 + iVar19) * 0x100 + _g_land_tiles);
+            pcVar13 = (char *)((iVar23 * 0x27 + iVar21) * 0x100 + _g_land_tiles);
           }
           if (DAT_0074c034 == 0x20) {
             if (*pcVar13 < '\r') {
@@ -690,17 +785,17 @@ LAB_00408459:
           else {
             if (DAT_0074c034 == 0x21) goto LAB_00408459;
 LAB_00408462:
-            if (bVar8) {
-              if ((*(short *)(pcVar13 + 0x10) == *(short *)(DAT_0075597c + 0x10)) ||
-                 ((*(char *)(DAT_0075597c + 0x12) < '\0' &&
-                  (*(char *)(DAT_0075597c + 0x12) == pcVar13[0x12])))) {
+            if (bVar7) {
+              if ((*(short *)(pcVar13 + 0x10) == *(short *)(DAT_0075597c->name_bytes + 0xd)) ||
+                 ((DAT_0075597c->name_bytes[0xf] < '\0' &&
+                  (DAT_0075597c->name_bytes[0xf] == pcVar13[0x12])))) {
 LAB_004084bb:
-                _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar19;
-                _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar22;
-                TestRoad(_DAT_00748ff0);
-                if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-                  Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1)
-                  ;
+                *(short *)&_DAT_00748ff0->development_level = (short)iVar21;
+                *(short *)&_DAT_00748ff0->stored_population_or_value = (short)iVar23;
+                TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+                if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+                  Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,0xb,-1,-1,
+                                      (ArmyUnit_0x164_plus *)0x0,-1,-1);
                   return;
                 }
               }
@@ -716,71 +811,75 @@ LAB_004084bb:
     }
   }
   else {
-    if (bVar9) {
-      if (*(char *)(DAT_0075597c + 0x50) == '\x01') {
-        Add_OrderQueue_Army(_DAT_00748ff0,3,0x3c,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+    if (bVar8) {
+      if ((char)DAT_0075597c->safety_score == '\x01') {
+        Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,3,0x3c,-1,-1,
+                            (ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
     }
-    else if ((((_DAT_00748ff0->stationed_city == (City_0x1b8_plus *)0x0) &&
-              (DAT_0074c858->city_policy_mode < 3)) && (DAT_0074c858->max_worker_slots != 0)) &&
+    else if ((((*(int *)&_DAT_00748ff0->field_0x154 == 0) && (DAT_0074c858->city_policy_mode < 3))
+             && (DAT_0074c858->max_worker_slots != 0)) &&
             (0 < DAT_0074c858->collapse_delay_or_army_count)) {
-      Add_OrderQueue_Army(_DAT_00748ff0,5,0x66,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+      Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,5,0x66,-1,-1,
+                          (ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
-    if (bVar8) {
+    if (bVar7) {
       if (bVar1 == 0) {
-        if (*(char *)(DAT_0075597c + 0x50) == '\n') {
-          iVar22 = 0;
-          iVar19 = 0;
-          local_9c = 0;
-          puVar16 = (undefined4 *)(DAT_0075597c + 0x28);
-          iVar17 = 10;
+        if ((char)DAT_0075597c->safety_score == '\n') {
+          iVar23 = 0;
+          iVar21 = 0;
+          local_9c = (City_0x1b8_plus *)0x0;
+          piVar17 = &DAT_0075597c->city_policy_mode;
+          iVar25 = 10;
           do {
-            pbVar6 = (byte *)*puVar16;
-            if ((pbVar6 != (byte *)0x0) && (pbVar6[0x127] == 0)) {
-              if ((g_army_type_table[*pbVar6].unit_class == 0) && (*(int *)(pbVar6 + 0x144) == 0)) {
-                iVar19 = iVar19 + 1;
+            pbVar18 = (byte *)*piVar17;
+            if ((pbVar18 != (byte *)0x0) && (pbVar18[0x127] == 0)) {
+              if ((g_army_type_table[*pbVar18].unit_class == 0) && (*(int *)(pbVar18 + 0x144) == 0))
+              {
+                iVar21 = iVar21 + 1;
               }
-              else if (g_army_type_table[*pbVar6].unit_class == 1) {
-                iVar22 = iVar22 + 1;
+              else if (g_army_type_table[*pbVar18].unit_class == 1) {
+                iVar23 = iVar23 + 1;
               }
-              if ((g_army_type_table[*pbVar6].transportable_mask & *(uint *)(_DAT_0074a0b8 + 0x140))
-                  != 0) {
-                local_9c = local_9c + 1;
+              if ((g_army_type_table[*pbVar18].transportable_mask & *(uint *)(_DAT_0074a0b8 + 0x140)
+                  ) != 0) {
+                local_9c = (City_0x1b8_plus *)((int)local_9c + 1);
               }
             }
-            puVar16 = puVar16 + 1;
-            iVar17 = iVar17 + -1;
-          } while (iVar17 != 0);
-          if ((iVar19 < iVar22) || (local_9c == 0)) {
+            piVar17 = piVar17 + 1;
+            iVar25 = iVar25 + -1;
+          } while (iVar25 != 0);
+          if ((iVar21 < iVar23) || (local_9c == (City_0x1b8_plus *)0x0)) {
             local_7c = 4;
           }
         }
         else {
-          iVar22 = 0;
-          iVar19 = 0;
-          local_9c = 0;
-          puVar16 = (undefined4 *)(DAT_0075597c + 0x28);
-          iVar17 = 10;
+          iVar23 = 0;
+          iVar21 = 0;
+          local_9c = (City_0x1b8_plus *)0x0;
+          piVar17 = &DAT_0075597c->city_policy_mode;
+          iVar25 = 10;
           do {
-            pbVar6 = (byte *)*puVar16;
-            if ((pbVar6 != (byte *)0x0) && (pbVar6[0x127] == 0)) {
-              if ((g_army_type_table[*pbVar6].unit_class == 0) && (*(int *)(pbVar6 + 0x144) == 0)) {
-                iVar19 = iVar19 + 1;
+            pbVar18 = (byte *)*piVar17;
+            if ((pbVar18 != (byte *)0x0) && (pbVar18[0x127] == 0)) {
+              if ((g_army_type_table[*pbVar18].unit_class == 0) && (*(int *)(pbVar18 + 0x144) == 0))
+              {
+                iVar21 = iVar21 + 1;
               }
-              else if ((g_army_type_table[*pbVar6].unit_class == 1) && (pbVar6[0x128] == 0)) {
-                iVar22 = iVar22 + 1;
+              else if ((g_army_type_table[*pbVar18].unit_class == 1) && (pbVar18[0x128] == 0)) {
+                iVar23 = iVar23 + 1;
               }
-              if ((g_army_type_table[*pbVar6].transportable_mask & *(uint *)(_DAT_0074a0b8 + 0x140))
-                  != 0) {
-                local_9c = local_9c + 1;
+              if ((g_army_type_table[*pbVar18].transportable_mask & *(uint *)(_DAT_0074a0b8 + 0x140)
+                  ) != 0) {
+                local_9c = (City_0x1b8_plus *)((int)local_9c + 1);
               }
             }
-            puVar16 = puVar16 + 1;
-            iVar17 = iVar17 + -1;
-          } while (iVar17 != 0);
-          if ((iVar19 < iVar22) || (local_9c == 0)) {
+            piVar17 = piVar17 + 1;
+            iVar25 = iVar25 + -1;
+          } while (iVar25 != 0);
+          if ((iVar21 < iVar23) || (local_9c == (City_0x1b8_plus *)0x0)) {
             local_7c = 4;
           }
         }
@@ -792,37 +891,37 @@ LAB_004084bb:
     else {
       local_7c = 3;
     }
-    iVar22 = local_70 << 5;
-    local_88 = 8;
+    iVar23 = local_70 << 5;
+    local_88 = (City_0x1b8_plus *)0x8;
     do {
-      iVar19 = *(int *)((int)&DAT_00589374 + iVar22) + (int)_DAT_00748ff0->tile_x;
-      iVar17 = *(int *)((int)&DAT_005893b4 + iVar22) + local_84;
-      if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
-         (((-1 < iVar19 && (iVar19 < g_map_width_tiles)) ||
+      iVar21 = *(int *)((int)&DAT_00589374 + iVar23) + (int)*(short *)&_DAT_00748ff0->field_0x1a;
+      pbVar18 = (byte *)((int)local_84 + *(int *)((int)&DAT_005893b4 + iVar23));
+      if (((-1 < (int)pbVar18) && ((int)pbVar18 < g_map_height_tiles)) &&
+         (((-1 < iVar21 && (iVar21 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-        if (iVar19 < 0) {
-          iVar19 = iVar19 + g_map_width_tiles;
+        if (iVar21 < 0) {
+          iVar21 = iVar21 + g_map_width_tiles;
         }
-        if (g_map_width_tiles <= iVar19) {
-          iVar19 = iVar19 - g_map_width_tiles;
+        if (g_map_width_tiles <= iVar21) {
+          iVar21 = iVar21 - g_map_width_tiles;
         }
         switch(g_map_size_mode) {
         case 0:
-          iVar19 = iVar19 + iVar17 * 0x138;
+          iVar21 = iVar21 + (int)pbVar18 * 0x138;
           break;
         case 1:
-          iVar19 = iVar19 + iVar17 * 0x9c;
+          iVar21 = iVar21 + (int)pbVar18 * 0x9c;
           break;
         case 2:
-          iVar19 = iVar19 + iVar17 * 0x4e;
+          iVar21 = iVar21 + (int)pbVar18 * 0x4e;
           break;
         case 3:
-          iVar19 = iVar17 * 0x27 + iVar19;
+          iVar21 = (int)pbVar18 * 0x27 + iVar21;
           break;
         default:
           goto switchD_004072f0_default;
         }
-        pcVar13 = (char *)(iVar19 * 0x100 + _g_land_tiles);
+        pcVar13 = (char *)(iVar21 * 0x100 + _g_land_tiles);
 switchD_004072f0_default:
         if (*(short *)(pcVar13 + 0x10) < 0) {
           local_6c = (int)*(short *)(pcVar13 + 0x10);
@@ -831,30 +930,33 @@ switchD_004072f0_default:
           local_74 = (int)pcVar13[0x12];
         }
       }
-      iVar22 = iVar22 + 4;
-      local_88 = local_88 + -1;
-    } while (local_88 != 0);
-    local_88 = 0;
+      iVar23 = iVar23 + 4;
+      local_88 = (City_0x1b8_plus *)((int)local_88 + -1);
+    } while (local_88 != (City_0x1b8_plus *)0x0);
+    local_88 = (City_0x1b8_plus *)0x0;
     if (local_7c != 0) goto LAB_00407369;
   }
-  if ((_DAT_00748ff0->stationed_city == (City_0x1b8_plus *)0x0) &&
+  if ((*(City_0x1b8_plus **)&_DAT_00748ff0->field_0x154 == (City_0x1b8_plus *)0x0) &&
      (cVar12 = Near_Beach_City_Found(0xf,&local_94,&local_78), cVar12 != '\0')) {
-    _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_94;
-    _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_78;
-    TestRoad(_DAT_00748ff0);
-    if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-      Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xc,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+    *(short *)&_DAT_00748ff0->development_level = (short)local_94;
+    *(short *)&_DAT_00748ff0->stored_population_or_value = (short)local_78;
+    TestRoad((ArmyUnit_0x164_plus *)_DAT_00748ff0);
+    if ('\0' < (char)_DAT_00748ff0->field_0x120) {
+      Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,0x24,0xc,-1,-1,
+                          (ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
   }
 LAB_0040858d:
   if ((g_active_country->available_special_project_flags[DAT_0074c034 + 0x1a] == 2) &&
-     (_DAT_00748ff0->cargo_or_subunit_count == 0)) {
-    Add_OrderQueue_Army(_DAT_00748ff0,9,0x46,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+     (_DAT_00748ff0->field_0x148 == '\0')) {
+    Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,9,0x46,-1,-1,(ArmyUnit_0x164_plus *)0x0
+                        ,-1,-1);
     return;
   }
   if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
-    Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+    Add_OrderQueue_Army((ArmyUnit_0x164_plus *)_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0
+                        ,-1,-1);
   }
   if (DAT_00706838 == '\x01') {
     DAT_0070684c = 1;

@@ -130,20 +130,21 @@ void AI_AirPlane(void)
       }
 LAB_00402a40:
       local_18 = iVar14;
-      iVar14 = FUN_004c3510((*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
+      iVar14 = Search_Round((*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
                             g_current_map_scenario_info.movement_base);
-      if (((0 < DAT_00734c4c) && (iVar14 < 5)) &&
+      if (((0 < g_search_round_best_score) && (iVar14 < 5)) &&
          (cVar6 = Near_City_Found_CapAble
-                            ((*(int *)(_DAT_0074a0b8 + 0x110) - DAT_00734c68) *
+                            ((*(int *)(_DAT_0074a0b8 + 0x110) - g_search_round_best_radius_left) *
                              g_current_map_scenario_info.movement_base,&local_14,&local_10),
          cVar6 != '\0')) {
-        _DAT_00748ff0->target_tile_x_or_anim_x = DAT_00734c58;
-        _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
+        _DAT_00748ff0->target_tile_x_or_anim_x = (short)g_search_round_best_tile_x;
+        _DAT_00748ff0->target_tile_y_or_anim_y = (short)g_search_round_best_tile_y;
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-          iVar13 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                (int)_DAT_00748ff0->target_tile_x_or_anim_x,
-                                (int)_DAT_00748ff0->target_tile_y_or_anim_y,0);
+          iVar13 = Tile_Distance_With_Wrap
+                             ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                              (int)_DAT_00748ff0->target_tile_x_or_anim_x,
+                              (int)_DAT_00748ff0->target_tile_y_or_anim_y,(byte *)0x0);
           if ((iVar13 == 1) && (iVar14 == 4)) {
             _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->target_tile_x_or_anim_x;
             _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->target_tile_y_or_anim_y;
@@ -226,7 +227,8 @@ LAB_00402a40:
           uVar10 = iVar9 * 0x100 + iVar14;
 switchD_00402dc0_default:
           if (0 < *(short *)(uVar10 + 0x10)) {
-            iVar7 = FUN_004c6ed0((int)pAVar8->tile_x,(int)pAVar8->tile_y,iVar12,iVar7,0);
+            iVar7 = Tile_Distance_With_Wrap
+                              ((int)pAVar8->tile_x,(int)pAVar8->tile_y,iVar12,iVar7,(byte *)0x0);
             if ((*(short *)(uVar10 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
                (iVar7 <= *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base
                )) {
@@ -310,15 +312,17 @@ switchD_00402dc0_default:
           iVar7 = (int)*(short *)(g_active_country->name_bytes + iVar13 + -0x18);
           iVar12 = (int)*(short *)(g_active_country->name_bytes + iVar13 + -4);
           if (((-1 < iVar7) && (-1 < iVar12)) &&
-             ((iVar9 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,
-                                    iVar12,0),
+             ((iVar9 = Tile_Distance_With_Wrap
+                                 ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,iVar12
+                                  ,(byte *)0x0),
               *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base < iVar9 &&
               ((cVar5 = Near_City_Found_XY(iVar7,iVar12,
                                            (*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
                                            g_current_map_scenario_info.movement_base,&local_14,
                                            &local_10), cVar5 != '\0' &&
-               (iVar7 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,
-                                     iVar12,0), iVar7 < local_24)))))) {
+               (iVar7 = Tile_Distance_With_Wrap
+                                  ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,
+                                   iVar12,(byte *)0x0), iVar7 < local_24)))))) {
             local_24 = iVar7;
             local_20 = iVar14;
           }
@@ -373,7 +377,9 @@ LAB_004032f1:
     return;
   }
   if (g_active_country->special_rule_level == 0) {
-    uVar10 = FUN_004fbf50((short)g_tile_radius_offset_counts[(ushort)pAVar8->cached_stat_c >> 1]);
+    uVar10 = Game_Random_Mod(CONCAT22((short)((uint)pAVar8 >> 0x10),
+                                      (short)g_tile_radius_offset_counts
+                                             [(ushort)pAVar8->cached_stat_c >> 1]));
     iVar14 = (uVar10 & 0xffff) + 1;
     iVar13 = (int)_DAT_00748ff0->tile_x +
              (int)*(short *)((int)g_edit_dest_round_buffers[local_c] + iVar14 * 8);

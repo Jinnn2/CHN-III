@@ -14,7 +14,7 @@ void Battle_AutoArrange(int param_1,uint param_2)
   double dVar2;
   double dVar3;
   char cVar4;
-  short sVar5;
+  uint uVar5;
   int iVar6;
   int iVar7;
   int iVar8;
@@ -170,8 +170,8 @@ void Battle_AutoArrange(int param_1,uint param_2)
             DAT_005d91e0 = 3;
           }
           else {
-            sVar5 = FUN_004fbf50(3);
-            DAT_005d91e0 = (-(uint)(sVar5 != 0) & 0xfffffffe) + 2;
+            uVar5 = Game_Random_Mod(3);
+            DAT_005d91e0 = (-(uint)((short)uVar5 != 0) & 0xfffffffe) + 2;
           }
           goto LAB_00415a2b;
         }

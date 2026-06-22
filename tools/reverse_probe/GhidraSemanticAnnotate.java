@@ -1185,10 +1185,15 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4c35f0L, "Set_Color"),
             new Rename(0x4c60a0L, "ShutDown_Game"),
             new Rename(0x4c6490L, "Clear_All_Memory"),
+            new Rename(0x4c2f00L, "Search_Round_Candidate"),
+            new Rename(0x4c3510L, "Search_Round"),
             new Rename(0x4c6e60L, "DiagCoords_To_TileX"),
             new Rename(0x4c6e80L, "DiagCoords_To_TileY"),
             new Rename(0x4c6e90L, "Tile_To_DiagCoordA"),
             new Rename(0x4c6eb0L, "Tile_To_DiagCoordB"),
+            new Rename(0x4c6ed0L, "Tile_Distance_With_Wrap"),
+            new Rename(0x4c7160L, "Tile_Direction_DeltaX"),
+            new Rename(0x4c7330L, "Tile_Direction_DeltaY"),
             new Rename(0x4d2cc0L, "TestRoad"),
             new Rename(0x4c50d0L, "Draw_MainMenu_Number"),
             new Rename(0x4d91a0L, "Put_City_Citizen"),
@@ -1211,10 +1216,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x468320L, "MakeColorTable"),
             new Rename(0x4f81e0L, "Init_Surface_Pixel_State"),
             new Rename(0x4f00b0L, "Get_Game_Tick"),
+            new Rename(0x4fbf50L, "Game_Random_Mod"),
             new Rename(0x4fa910L, "Clear_Surface"),
             new Rename(0x5035c0L, "Set_Draw_Clip_Rect"),
             new Rename(0x503730L, "Format_Text"),
             new Rename(0x41f900L, "Restore_DirectDraw_Surfaces"),
+            new Rename(0x48a280L, "Mission_Direct"),
             new Rename(0x5047f0L, "Fatal_Exit")
         };
         for (Rename r : renames) {
@@ -1240,6 +1247,20 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00588b88L, "g_map_height_tiles", IntegerDataType.dataType),
             new GlobalRename(0x00588b8cL, "g_map_width_tiles_cached", IntegerDataType.dataType),
             new GlobalRename(0x00588b90L, "g_map_half_height_tiles", IntegerDataType.dataType),
+            new GlobalRename(0x00734c4cL, "g_search_round_best_score", IntegerDataType.dataType),
+            new GlobalRename(0x00734c50L, "g_search_round_friendly_power", IntegerDataType.dataType),
+            new GlobalRename(0x00734c54L, "g_search_round_friendly_count", IntegerDataType.dataType),
+            new GlobalRename(0x00734c58L, "g_search_round_best_tile_x", IntegerDataType.dataType),
+            new GlobalRename(0x00734c5cL, "g_search_round_best_tile_y", IntegerDataType.dataType),
+            new GlobalRename(0x00734c60L, "g_search_round_own_city_army_count", IntegerDataType.dataType),
+            new GlobalRename(0x00734c64L, "g_search_round_own_city_army_power", IntegerDataType.dataType),
+            new GlobalRename(0x00734c68L, "g_search_round_best_radius_left", IntegerDataType.dataType),
+            new GlobalRename(0x00734c6cL, "g_search_round_enemy_count", IntegerDataType.dataType),
+            new GlobalRename(0x00734c70L, "g_search_round_enemy_power", IntegerDataType.dataType),
+            new GlobalRename(0x00734c74L, "g_search_round_enemy_city_army_count", IntegerDataType.dataType),
+            new GlobalRename(0x00734c78L, "g_search_round_enemy_city_army_power", IntegerDataType.dataType),
+            new GlobalRename(0x00734c7cL, "g_search_round_first_enemy_tile_x", IntegerDataType.dataType),
+            new GlobalRename(0x00734c80L, "g_search_round_first_enemy_tile_y", IntegerDataType.dataType),
             new GlobalRename(0x007350b8L, "g_country_states", new ArrayDataType(country, 24, country.getLength())),
             new GlobalRename(0x00749a54L, "g_active_country_index", IntegerDataType.dataType),
             new GlobalRename(0x0074c82cL, "g_human_country_index", IntegerDataType.dataType),
@@ -1497,6 +1518,20 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "event_id", IntegerDataType.dataType, "result_action_id", IntegerDataType.dataType,
             "direction_or_mode", IntegerDataType.dataType, "related_army", armyUnit,
             "target_x", IntegerDataType.dataType, "target_y", IntegerDataType.dataType);
+        pointerArg(0x4c2f00L, "Search_Round_Candidate", IntegerDataType.dataType,
+            "offset_x", IntegerDataType.dataType, "offset_y", IntegerDataType.dataType,
+            "radius_left", IntegerDataType.dataType, "offset_index", IntegerDataType.dataType);
+        pointerArg(0x4c3510L, "Search_Round", IntegerDataType.dataType,
+            "search_radius", IntegerDataType.dataType);
+        pointerArg(0x4c6ed0L, "Tile_Distance_With_Wrap", IntegerDataType.dataType,
+            "from_x", IntegerDataType.dataType, "from_y", IntegerDataType.dataType,
+            "to_x", IntegerDataType.dataType, "to_y", IntegerDataType.dataType,
+            "wrap_adjusted", new PointerDataType(ByteDataType.dataType, dtm));
+        pointerArg(0x4c7160L, "Tile_Direction_DeltaX", IntegerDataType.dataType,
+            "to_x", IntegerDataType.dataType, "to_y", IntegerDataType.dataType,
+            "from_x", IntegerDataType.dataType, "from_y", IntegerDataType.dataType);
+        pointerArg(0x4c7330L, "Tile_Direction_DeltaY", IntegerDataType.dataType,
+            "to_y", IntegerDataType.dataType, "from_y", IntegerDataType.dataType);
         pointerArg(0x4c6e60L, "DiagCoords_To_TileX", IntegerDataType.dataType,
             "diag_a", IntegerDataType.dataType, "diag_b", IntegerDataType.dataType);
         pointerArg(0x4c6e80L, "DiagCoords_To_TileY", IntegerDataType.dataType,
@@ -1509,6 +1544,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
         pointerArg(0x4b8f60L, "Cancel_All_Army_On_Tile", VoidDataType.dataType, "tile", landTile);
         pointerArg(0x4d2cc0L, "TestRoad", IntegerDataType.dataType, "army", armyUnit);
+        pointerArg(0x4fbf50L, "Game_Random_Mod", UnsignedIntegerDataType.dataType,
+            "bound", UnsignedIntegerDataType.dataType);
+        pointerArg(0x48a280L, "Mission_Direct", IntegerDataType.dataType,
+            "delta_x", IntegerDataType.dataType, "delta_y", IntegerDataType.dataType);
         pointerArg(0x4f02d0L, "Present_Dirty_Rects", VoidDataType.dataType,
             "dst_x", IntegerDataType.dataType, "dst_y", IntegerDataType.dataType);
     }

@@ -28,8 +28,8 @@ void Read_Keyboard(void)
   int iVar14;
   undefined *puVar15;
   int local_20;
-  undefined4 local_1c;
-  undefined4 local_18;
+  int local_1c;
+  int local_18;
   int local_14;
   int local_10;
   char local_c [4];
@@ -322,13 +322,14 @@ LAB_004b11d8:
                     local_14 = 99;
                   }
                   iVar4 = local_14;
-                  iVar5 = FUN_004c6ed0((int)DAT_007584dc->tile_x,(int)DAT_007584dc->tile_y,local_20,
-                                       iVar8,0);
+                  iVar5 = Tile_Distance_With_Wrap
+                                    ((int)DAT_007584dc->tile_x,(int)DAT_007584dc->tile_y,local_20,
+                                     iVar8,(byte *)0x0);
                   army = DAT_007584dc;
                   if (iVar4 < iVar5) {
                     cVar3 = InRange_NearDest_City_Found(local_20,iVar8,iVar4,&local_1c,&local_18);
                     if (cVar3 != '\0') {
-                      iVar4 = FUN_004c6ed0(local_1c,local_18,local_20,iVar8,0);
+                      iVar4 = Tile_Distance_With_Wrap(local_1c,local_18,local_20,iVar8,(byte *)0x0);
                       if ((iVar4 < iVar5) &&
                          (*(int *)(DAT_007584e4 + 0x110) * g_current_map_scenario_info.movement_base
                           >> 1 <= iVar5 - iVar4)) {
@@ -384,13 +385,16 @@ LAB_004b11d8:
 switchD_004b1746_default:
                             if ((((10 < (int)(army->cargo_or_subunit_count + 1 +
                                              (int)*(char *)(puVar6 + 0x14))) ||
-                                 (iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
-                                                       (int)*(short *)(pbVar11 + 0x1c),
-                                                       (int)army->tile_x,(int)army->tile_y,0),
-                                 puVar13 = _g_land_tiles, army = DAT_007584dc, local_14 < iVar4)) ||
-                                (iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
-                                                      (int)*(short *)(pbVar11 + 0x1c),local_20,iVar8
-                                                      ,0), puVar13 = _g_land_tiles,
+                                 (iVar4 = Tile_Distance_With_Wrap
+                                                    ((int)*(short *)(pbVar11 + 0x1a),
+                                                     (int)*(short *)(pbVar11 + 0x1c),
+                                                     (int)army->tile_x,(int)army->tile_y,(byte *)0x0
+                                                    ), puVar13 = _g_land_tiles, army = DAT_007584dc,
+                                 local_14 < iVar4)) ||
+                                (iVar4 = Tile_Distance_With_Wrap
+                                                   ((int)*(short *)(pbVar11 + 0x1a),
+                                                    (int)*(short *)(pbVar11 + 0x1c),local_20,iVar8,
+                                                    (byte *)0x0), puVar13 = _g_land_tiles,
                                 army = DAT_007584dc, iVar5 <= iVar4)) ||
                                (iVar5 - iVar4 <
                                 *(int *)(DAT_007584e4 + 0x110) *
@@ -431,17 +435,19 @@ LAB_004b1821:
 switchD_004b161a_default:
                             if ((((int)(*(char *)(puVar6 + 0x14) + 1 +
                                        (uint)army->cargo_or_subunit_count) < 0xb) &&
-                                (iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
-                                                      (int)*(short *)(pbVar11 + 0x1c),
-                                                      (int)army->tile_x,(int)army->tile_y,0),
-                                puVar13 = _g_land_tiles, army = DAT_007584dc, iVar4 <= local_10)) &&
-                               ((iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
-                                                      (int)*(short *)(pbVar11 + 0x1c),local_20,iVar8
-                                                      ,0), puVar13 = _g_land_tiles,
-                                army = DAT_007584dc, iVar4 < iVar5 &&
-                                (*(int *)(DAT_007584e4 + 0x110) *
-                                 g_current_map_scenario_info.movement_base >> 1 <= iVar5 - iVar4))))
-                            goto LAB_004b1821;
+                                (iVar4 = Tile_Distance_With_Wrap
+                                                   ((int)*(short *)(pbVar11 + 0x1a),
+                                                    (int)*(short *)(pbVar11 + 0x1c),
+                                                    (int)army->tile_x,(int)army->tile_y,(byte *)0x0)
+                                , puVar13 = _g_land_tiles, army = DAT_007584dc, iVar4 <= local_10))
+                               && ((iVar4 = Tile_Distance_With_Wrap
+                                                      ((int)*(short *)(pbVar11 + 0x1a),
+                                                       (int)*(short *)(pbVar11 + 0x1c),local_20,
+                                                       iVar8,(byte *)0x0), puVar13 = _g_land_tiles,
+                                   army = DAT_007584dc, iVar4 < iVar5 &&
+                                   (*(int *)(DAT_007584e4 + 0x110) *
+                                    g_current_map_scenario_info.movement_base >> 1 <= iVar5 - iVar4)
+                                   ))) goto LAB_004b1821;
                           }
 LAB_004b184d:
                           pbVar11 = *(byte **)(pbVar11 + 0x160);

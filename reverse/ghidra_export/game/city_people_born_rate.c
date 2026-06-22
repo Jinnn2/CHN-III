@@ -11,8 +11,7 @@ void City_People_Born_Rate(void)
 
 {
   int iVar1;
-  ushort uVar2;
-  short sVar3;
+  uint uVar2;
   double local_10;
 
   Trace_Function(s_City_People_Born_Rate_00515a30);
@@ -57,43 +56,43 @@ void City_People_Born_Rate(void)
   }
   switch(g_active_country->population_growth_policy) {
   case 0:
-    uVar2 = FUN_004fbf50(5);
-    local_10 = (double)uVar2 * _DAT_0050f368;
-    sVar3 = FUN_004fbf50(2);
-    if (sVar3 == 0) {
+    uVar2 = Game_Random_Mod(5);
+    local_10 = (double)(uVar2 & 0xffff) * _DAT_0050f368;
+    uVar2 = Game_Random_Mod(2);
+    if ((short)uVar2 == 0) {
       _DAT_007068c8 = _DAT_007068c8 + -local_10;
       return;
     }
     break;
   case 1:
-    uVar2 = FUN_004fbf50(3);
-    local_10 = (double)uVar2 * _DAT_0050f368;
-    sVar3 = FUN_004fbf50(2);
-    if (sVar3 == 0) {
+    uVar2 = Game_Random_Mod(3);
+    local_10 = (double)(uVar2 & 0xffff) * _DAT_0050f368;
+    uVar2 = Game_Random_Mod(2);
+    if ((short)uVar2 == 0) {
       local_10 = -local_10;
     }
-    uVar2 = FUN_004fbf50(5);
-    _DAT_007068c8 = _DAT_007068c8 + (double)uVar2 * _DAT_0050f368 + local_10;
+    uVar2 = Game_Random_Mod(5);
+    _DAT_007068c8 = _DAT_007068c8 + (double)(uVar2 & 0xffff) * _DAT_0050f368 + local_10;
     return;
   case 2:
-    uVar2 = FUN_004fbf50(5);
-    local_10 = (double)uVar2 * _DAT_0050f368;
-    sVar3 = FUN_004fbf50(2);
-    if (sVar3 == 0) {
+    uVar2 = Game_Random_Mod(5);
+    local_10 = (double)(uVar2 & 0xffff) * _DAT_0050f368;
+    uVar2 = Game_Random_Mod(2);
+    if ((short)uVar2 == 0) {
       local_10 = -local_10;
     }
-    uVar2 = FUN_004fbf50(3);
-    _DAT_007068c8 = _DAT_007068c8 + (local_10 - (double)uVar2 * _DAT_0050f368);
+    uVar2 = Game_Random_Mod(3);
+    _DAT_007068c8 = _DAT_007068c8 + (local_10 - (double)(uVar2 & 0xffff) * _DAT_0050f368);
     return;
   case 3:
-    uVar2 = FUN_004fbf50(3);
-    local_10 = (double)uVar2 * _DAT_0050f368;
-    sVar3 = FUN_004fbf50(2);
-    if (sVar3 == 0) {
+    uVar2 = Game_Random_Mod(3);
+    local_10 = (double)(uVar2 & 0xffff) * _DAT_0050f368;
+    uVar2 = Game_Random_Mod(2);
+    if ((short)uVar2 == 0) {
       local_10 = -local_10;
     }
-    uVar2 = FUN_004fbf50(3);
-    _DAT_007068c8 = _DAT_007068c8 + (local_10 - (double)uVar2 * _DAT_0050f368);
+    uVar2 = Game_Random_Mod(3);
+    _DAT_007068c8 = _DAT_007068c8 + (local_10 - (double)(uVar2 & 0xffff) * _DAT_0050f368);
     return;
   }
   _DAT_007068c8 = _DAT_007068c8 + local_10;

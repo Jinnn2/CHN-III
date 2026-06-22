@@ -39,6 +39,11 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_land_tiles` | `load_dat.c`, `do_city.c` tile address arithmetic. | Base pointer for `LandTile_0x100[]`. |
 | `g_map_width_tiles` | Map width-like dimension after `load_dat.c` map-size switch. | Map width in tiles. |
 | `g_map_height_tiles` | Map height-like dimension after `load_dat.c` map-size switch. | Map height in tiles. |
+| `g_search_round_best_score` | `Search_Round` clears it, `Search_Round_Candidate` raises it when a scanned radius tile is a better target, and AI branches require it positive before using the result. | Best score from the current AI radius scan. |
+| `g_search_round_best_tile_x/y` | Written by `Search_Round_Candidate` with the selected candidate tile; AI army/ship/air paths assign these to unit target coordinates. | Best target tile from `Search_Round`. |
+| `g_search_round_best_radius_left` | Set from the radius-offset entry that produced the winning candidate; air/ship AI subtracts it from movement range. | Remaining radius/movement value for the best search result. |
+| `g_search_round_first_enemy_tile_x/y` | Initialized to `-1`; set when `Search_Round_Candidate` sees the first enemy or hostile city army tile. | Fallback hostile tile from a radius scan. |
+| `g_search_round_*_count/power` | `Search_Round_Candidate` accumulates friendly/enemy visible unit counts and weighted power totals while scanning. | Radius-scan force summary counters. |
 | `g_country_states` | Country table base, stride `0xe68`. | `CountryState_0xe68[]`. |
 | `g_active_country_index` | Used as index into country table in city simulation. | Active country/player index. |
 | `g_human_country_index` | Compared against active country; used after load. | Human/current player country index. |
@@ -244,6 +249,20 @@ tile coordinates and this stamp-friendly coordinate pair. The template tables
 at `g_editor_template_diag_offset_a/b` hold the per-entry diagonal offsets,
 while `g_editor_template_terrain_kind` and `g_editor_template_road_mode` hold
 the tile kind and road/detail mode to write before calling `Decode_NewMap`.
+
+The same map-geometry cluster now includes broader runtime helpers:
+
+- `Tile_Distance_With_Wrap` computes the hex/staggered-tile distance between
+  two tile coordinates and can report when horizontal wrap adjusted the target
+  x-coordinate.
+- `Tile_Direction_DeltaX`, `Tile_Direction_DeltaY`, and `Mission_Direct`
+  convert a target/source pair into an eight-way mission/facing direction used
+  by AI and order setup.
+- `Search_Round` walks the shared radius-offset buffers around the active army,
+  calls `Search_Round_Candidate`, and publishes the best result through the
+  `g_search_round_*` globals.
+- `Game_Random_Mod` is the game's 15-bit LCG helper; map generation, diplomacy,
+  city simulation, and battle code all use it for bounded random choices.
 
 ## Useful Offsets
 

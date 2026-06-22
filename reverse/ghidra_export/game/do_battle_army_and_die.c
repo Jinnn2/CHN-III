@@ -16,291 +16,289 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
   bool bVar4;
   bool bVar5;
   char cVar6;
-  short sVar7;
-  int iVar8;
-  uint uVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  int iVar12;
-  undefined2 *puVar13;
-  int iVar14;
-  undefined2 uVar16;
-  undefined4 uVar15;
+  int iVar7;
+  uint uVar8;
+  int iVar9;
+  undefined4 *puVar10;
+  int iVar11;
+  undefined2 *puVar12;
+  int iVar13;
+  undefined2 uVar14;
+  int iVar15;
+  int iVar16;
   int iVar17;
   int iVar18;
-  int iVar19;
-  int iVar20;
-  bool bVar21;
-  int local_50;
+  bool bVar19;
+  uint local_50;
   int local_4c;
-  int local_48;
+  uint local_48;
   int *local_44;
   int local_40 [16];
 
   pBVar1 = battle_unit;
   Trace_Function(s_Do_Battle_Army_00514940);
-  iVar18 = battle_unit->army_type_id;
-  iVar8 = iVar18 * 0x400;
-  iVar19 = g_army_type_table[iVar18].unit_class;
+  iVar16 = battle_unit->army_type_id;
+  iVar7 = iVar16 * 0x400;
+  iVar17 = g_army_type_table[iVar16].unit_class;
   if (battle_unit->moving_or_animating != 0) {
-    iVar19 = battle_unit->step_frame + 1;
-    battle_unit->step_frame = iVar19;
-    if (iVar19 < g_army_type_table[iVar18].battlefield_movement_frames) {
+    iVar17 = battle_unit->step_frame + 1;
+    battle_unit->step_frame = iVar17;
+    if (iVar17 < g_army_type_table[iVar16].battlefield_movement_frames) {
       return;
     }
     battle_unit->step_frame = 0;
-    iVar19 = battle_unit->action_frame + 1;
-    battle_unit->action_frame = iVar19;
-    if (iVar19 < g_army_type_table[iVar18].battle_action_frame_count) {
+    iVar17 = battle_unit->action_frame + 1;
+    battle_unit->action_frame = iVar17;
+    if (iVar17 < g_army_type_table[iVar16].battle_action_frame_count) {
       return;
     }
-    iVar19 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
-    iVar8 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
-    iVar18 = battle_unit->battle_x + battle_unit->battle_y * 0x18;
+    iVar17 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
+    iVar7 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
+    iVar16 = battle_unit->battle_x + battle_unit->battle_y * 0x18;
     battle_unit->action_frame = 0;
     battle_unit->moving_or_animating = 0;
     battle_unit->action_state = 0;
     if (battle_unit->battle_layer_or_unit_class_flag == 0) {
-      (&g_battle_grid_front_units)[iVar18 * 0xc] = (BattleUnit_0x64 *)0x0;
-      iVar18 = iVar8 + iVar19 * 0x18;
-      (&g_battle_grid_front_units)[iVar18 * 0xc] = battle_unit;
-      (&g_battle_grid_front_aux_units)[iVar18 * 0xc] = (BattleUnit_0x64 *)0x0;
-      battle_unit->battle_x = iVar8;
-      battle_unit->battle_y = iVar19;
+      (&g_battle_grid_front_units)[iVar16 * 0xc] = (BattleUnit_0x64 *)0x0;
+      iVar16 = iVar7 + iVar17 * 0x18;
+      (&g_battle_grid_front_units)[iVar16 * 0xc] = battle_unit;
+      (&g_battle_grid_front_aux_units)[iVar16 * 0xc] = (BattleUnit_0x64 *)0x0;
+      battle_unit->battle_x = iVar7;
+      battle_unit->battle_y = iVar17;
       return;
     }
-    (&g_battle_grid_back_units)[iVar18 * 0xc] = (BattleUnit_0x64 *)0x0;
-    iVar18 = iVar8 + iVar19 * 0x18;
-    (&g_battle_grid_back_units)[iVar18 * 0xc] = battle_unit;
-    (&g_battle_grid_back_aux_units)[iVar18 * 0xc] = (BattleUnit_0x64 *)0x0;
-    battle_unit->battle_x = iVar8;
-    battle_unit->battle_y = iVar19;
+    (&g_battle_grid_back_units)[iVar16 * 0xc] = (BattleUnit_0x64 *)0x0;
+    iVar16 = iVar7 + iVar17 * 0x18;
+    (&g_battle_grid_back_units)[iVar16 * 0xc] = battle_unit;
+    (&g_battle_grid_back_aux_units)[iVar16 * 0xc] = (BattleUnit_0x64 *)0x0;
+    battle_unit->battle_x = iVar7;
+    battle_unit->battle_y = iVar17;
     return;
   }
-  iVar17 = battle_unit->battle_side;
+  iVar15 = battle_unit->battle_side;
   switch(battle_unit->action_state) {
   case 0:
-    bVar21 = false;
-    if ((((g_army_type_table[iVar18].attack_stat_a < 2) &&
-         (g_army_type_table[iVar18].attack_stat_b < 2)) &&
-        (g_army_type_table[iVar18].attack_stat_c < 2)) ||
-       ('\x01' < (char)g_army_type_table[iVar18].capture_mode)) goto LAB_00417738;
-    if (g_army_type_table[iVar18].attack_farthest_preference < 2) {
-      iVar18 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
-      iVar19 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
-      cVar6 = FUN_00415c90(iVar18,iVar19);
+    bVar19 = false;
+    if ((((g_army_type_table[iVar16].attack_stat_a < 2) &&
+         (g_army_type_table[iVar16].attack_stat_b < 2)) &&
+        (g_army_type_table[iVar16].attack_stat_c < 2)) ||
+       ('\x01' < (char)g_army_type_table[iVar16].capture_mode)) goto LAB_00417738;
+    if (g_army_type_table[iVar16].attack_farthest_preference < 2) {
+      iVar16 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
+      iVar17 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
+      cVar6 = FUN_00415c90(iVar16,iVar17);
       if ((((cVar6 != '\0') &&
-           (pBVar1 = (&g_battle_grid_front_units)[(iVar18 + iVar19 * 0x18) * 0xc],
+           (pBVar1 = (&g_battle_grid_front_units)[(iVar16 + iVar17 * 0x18) * 0xc],
            pBVar1 != (BattleUnit_0x64 *)0x0)) &&
           ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-           ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4) !=
+           ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4) !=
              0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
-         ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-        bVar21 = true;
+         ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+        bVar19 = true;
         battle_unit->action_state = 0x29;
         battle_unit->action_substate = 1;
         battle_unit->step_frame = 0;
       }
       if (battle_unit->action_state == 0) {
-        iVar18 = 0;
+        iVar16 = 0;
         do {
           if (battle_unit->action_state != 0) goto LAB_00417020;
-          if (iVar18 != battle_unit->facing_or_direction) {
-            iVar19 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
-            iVar20 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar19,iVar20);
+          if (iVar16 != battle_unit->facing_or_direction) {
+            iVar17 = (&DAT_00513b08)[iVar16] + battle_unit->battle_x;
+            iVar18 = (&DAT_00513b28)[iVar16] + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar17,iVar18);
             if (((((cVar6 != '\0') &&
-                  (pBVar1 = (&g_battle_grid_front_units)[(iVar19 + iVar20 * 0x18) * 0xc],
+                  (pBVar1 = (&g_battle_grid_front_units)[(iVar17 + iVar18 * 0x18) * 0xc],
                   pBVar1 != (BattleUnit_0x64 *)0x0)) &&
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
+                ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
                           ) != 0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0))))
-               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-              bVar21 = true;
+               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+              bVar19 = true;
               battle_unit->action_state = 0x29;
               battle_unit->action_substate = 1;
-              battle_unit->facing_or_direction = iVar18;
+              battle_unit->facing_or_direction = iVar16;
               battle_unit->step_frame = 0;
             }
           }
-          iVar18 = iVar18 + 1;
-        } while (iVar18 < 8);
+          iVar16 = iVar16 + 1;
+        } while (iVar16 < 8);
         if (battle_unit->action_state == 0) {
-          iVar18 = 1;
+          iVar16 = 1;
           do {
             if (battle_unit->action_state != 0) goto LAB_004170fb;
-            iVar20 = battle_unit->battle_x;
-            iVar19 = iVar18 + iVar20;
-            if ((((-1 < iVar19) && (iVar19 < 0x18)) &&
+            iVar18 = battle_unit->battle_x;
+            iVar17 = iVar16 + iVar18;
+            if ((((-1 < iVar17) && (iVar17 < 0x18)) &&
                 (((pBVar1 = (&g_battle_grid_front_units)
-                            [(iVar19 + battle_unit->battle_y * 0x18) * 0xc],
+                            [(iVar17 + battle_unit->battle_y * 0x18) * 0xc],
                   pBVar1 != (BattleUnit_0x64 *)0x0 &&
                   (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                 ((*(int *)(iVar8 + 0x5aa3f8 +
+                 ((*(int *)(iVar7 + 0x5aa3f8 +
                            g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                   (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
-              bVar21 = true;
-              battle_unit->facing_or_direction = ((pBVar1->battle_x <= iVar20) - 1 & 4) + 3;
+              bVar19 = true;
+              battle_unit->facing_or_direction = ((pBVar1->battle_x <= iVar18) - 1 & 4) + 3;
             }
-            iVar19 = iVar20 - iVar18;
-            if (((((-1 < iVar19) && (iVar19 < 0x18)) &&
+            iVar17 = iVar18 - iVar16;
+            if (((((-1 < iVar17) && (iVar17 < 0x18)) &&
                  (pBVar1 = (&g_battle_grid_front_units)
-                           [(iVar19 + battle_unit->battle_y * 0x18) * 0xc],
+                           [(iVar17 + battle_unit->battle_y * 0x18) * 0xc],
                  pBVar1 != (BattleUnit_0x64 *)0x0)) &&
                 ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-                 ((*(int *)(iVar8 + 0x5aa3f8 +
+                 ((*(int *)(iVar7 + 0x5aa3f8 +
                            g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                   (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
-              bVar21 = true;
-              battle_unit->facing_or_direction = ((pBVar1->battle_x <= iVar20) - 1 & 4) + 3;
+              bVar19 = true;
+              battle_unit->facing_or_direction = ((pBVar1->battle_x <= iVar18) - 1 & 4) + 3;
             }
-            iVar18 = iVar18 + 1;
-          } while (iVar18 < 0x18);
+            iVar16 = iVar16 + 1;
+          } while (iVar16 < 0x18);
         }
       }
 LAB_00417020:
       if (battle_unit->action_state == 0) {
-        iVar18 = 0;
+        iVar16 = 0;
         local_48 = 0;
         do {
           if (battle_unit->action_state != 0) break;
-          iVar19 = 0;
+          iVar17 = 0;
           do {
             if (battle_unit->action_state != 0) break;
-            pBVar1 = (&g_battle_grid_front_units)[(local_48 + iVar19) * 0xc];
+            pBVar1 = (&g_battle_grid_front_units)[(local_48 + iVar17) * 0xc];
             if ((((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
+                ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
                           ) != 0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0))))
-               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-              bVar21 = true;
-              sVar7 = FUN_004fbf50(5);
-              if (sVar7 == 0) {
+               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+              bVar19 = true;
+              uVar8 = Game_Random_Mod(5);
+              if ((short)uVar8 == 0) {
                 battle_unit->action_state = 0x24;
                 battle_unit->action_frame = 0;
-                if (iVar18 < battle_unit->battle_y) {
+                if (iVar16 < battle_unit->battle_y) {
                   battle_unit->facing_or_direction = 5;
                 }
-                if (battle_unit->battle_y < iVar18) {
+                if (battle_unit->battle_y < iVar16) {
                   battle_unit->facing_or_direction = 1;
                 }
               }
             }
-            iVar19 = iVar19 + 1;
-          } while (iVar19 < 0x18);
-          iVar18 = iVar18 + 1;
+            iVar17 = iVar17 + 1;
+          } while (iVar17 < 0x18);
+          iVar16 = iVar16 + 1;
           local_48 = local_48 + 0x18;
-        } while (local_48 < 0x240);
+        } while ((int)local_48 < 0x240);
       }
     }
     else {
       if ((battle_unit->battle_layer_or_unit_class_flag != 0) ||
-         (g_army_type_table[iVar18].transport_mask != 0)) {
-        iVar20 = g_army_type_table[iVar18].attack_nearest_preference;
-        if (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference) {
+         (g_army_type_table[iVar16].transport_mask != 0)) {
+        iVar18 = g_army_type_table[iVar16].attack_nearest_preference;
+        if (iVar18 <= g_army_type_table[iVar16].attack_farthest_preference) {
           do {
             if (battle_unit->action_state != 0) goto LAB_0041630f;
-            iVar12 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar20 +
+            iVar11 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar18 +
                      battle_unit->battle_x;
-            iVar14 = (&DAT_00513b28)[battle_unit->facing_or_direction] * iVar20 +
+            iVar13 = (&DAT_00513b28)[battle_unit->facing_or_direction] * iVar18 +
                      battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar12,iVar14);
+            cVar6 = FUN_00415c90(iVar11,iVar13);
             if (cVar6 != '\0') {
-              iVar12 = iVar12 + iVar14 * 0x18;
-              pBVar1 = (&g_battle_grid_back_units)[iVar12 * 0xc];
-              pBVar2 = (&g_battle_grid_back_aux_units)[iVar12 * 0xc];
+              iVar11 = iVar11 + iVar13 * 0x18;
+              pBVar1 = (&g_battle_grid_back_units)[iVar11 * 0xc];
+              pBVar2 = (&g_battle_grid_back_aux_units)[iVar11 * 0xc];
               if ((((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                    (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                  ((*(int *)(iVar8 + 0x5aa3f8 +
+                  ((*(int *)(iVar7 + 0x5aa3f8 +
                             g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                    (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
-                 (((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
+                 (((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')) &&
                   (pBVar1->moving_or_animating == 0)))) {
-                bVar21 = true;
+                bVar19 = true;
                 battle_unit->action_state = 0x29;
-                battle_unit->action_substate = iVar20;
+                battle_unit->action_substate = iVar18;
                 battle_unit->step_frame = 0;
               }
               if ((((battle_unit->action_state != 0x29) && (pBVar2 != (BattleUnit_0x64 *)0x0)) &&
                   ((pBVar2->owner_country_id != battle_unit->owner_country_id &&
-                   ((iVar12 = pBVar2->army_type_id,
-                    *(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar12].unit_class * 4) != 0 ||
+                   ((iVar11 = pBVar2->army_type_id,
+                    *(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[iVar11].unit_class * 4) != 0 ||
                     (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)))))) &&
-                 (((iVar12 != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
-                  (pBVar2->action_frame < g_army_type_table[iVar12].battle_action_frame_count / 2)))
+                 (((iVar11 != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')) &&
+                  (pBVar2->action_frame < g_army_type_table[iVar11].battle_action_frame_count / 2)))
                  ) {
-                bVar21 = true;
+                bVar19 = true;
                 battle_unit->action_state = 0x29;
-                battle_unit->action_substate = iVar20;
+                battle_unit->action_substate = iVar18;
                 battle_unit->step_frame = 0;
               }
             }
-            iVar20 = iVar20 + 1;
-          } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference);
+            iVar18 = iVar18 + 1;
+          } while (iVar18 <= g_army_type_table[iVar16].attack_farthest_preference);
         }
         if (battle_unit->action_state == 0) {
           local_4c = -1;
           local_50 = 0;
           do {
             if (battle_unit->action_state != 0) break;
-            iVar20 = 1;
-            if (0 < g_army_type_table[iVar18].attack_farthest_preference) {
+            iVar18 = 1;
+            if (0 < g_army_type_table[iVar16].attack_farthest_preference) {
               do {
                 if (battle_unit->action_state != 0) break;
-                iVar12 = (&DAT_00513b08)[local_50] * iVar20 + battle_unit->battle_x;
-                iVar14 = (&DAT_00513b28)[local_50] * iVar20 + battle_unit->battle_y;
-                cVar6 = FUN_00415c90(iVar12,iVar14);
+                iVar11 = (&DAT_00513b08)[local_50] * iVar18 + battle_unit->battle_x;
+                iVar13 = (&DAT_00513b28)[local_50] * iVar18 + battle_unit->battle_y;
+                cVar6 = FUN_00415c90(iVar11,iVar13);
                 if (cVar6 != '\0') {
-                  iVar12 = iVar12 + iVar14 * 0x18;
-                  pBVar1 = (&g_battle_grid_back_units)[iVar12 * 0xc];
+                  iVar11 = iVar11 + iVar13 * 0x18;
+                  pBVar1 = (&g_battle_grid_back_units)[iVar11 * 0xc];
                   if ((((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                        (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                      ((*(int *)(iVar8 + 0x5aa3f8 +
+                      ((*(int *)(iVar7 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
-                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-                    bVar21 = true;
-                    if (iVar20 < g_army_type_table[iVar18].attack_nearest_preference) {
+                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+                    bVar19 = true;
+                    if (iVar18 < g_army_type_table[iVar16].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else if (pBVar1->moving_or_animating == 0) {
                       battle_unit->action_state = 0x29;
-                      battle_unit->action_substate = iVar20;
+                      battle_unit->action_substate = iVar18;
                       battle_unit->facing_or_direction = local_50;
                       battle_unit->step_frame = 0;
                     }
                   }
-                  pBVar1 = (&g_battle_grid_back_aux_units)[iVar12 * 0xc];
+                  pBVar1 = (&g_battle_grid_back_aux_units)[iVar11 * 0xc];
                   if (((((battle_unit->action_state != 0x29) && (pBVar1 != (BattleUnit_0x64 *)0x0))
                        && (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                      ((*(int *)(iVar8 + 0x5aa3f8 +
+                      ((*(int *)(iVar7 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
-                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-                    bVar21 = true;
-                    if (iVar20 < g_army_type_table[iVar18].attack_nearest_preference) {
+                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+                    bVar19 = true;
+                    if (iVar18 < g_army_type_table[iVar16].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else {
                       battle_unit->action_state = 0x29;
-                      battle_unit->action_substate = iVar20;
+                      battle_unit->action_substate = iVar18;
                       battle_unit->facing_or_direction = local_50;
                       battle_unit->step_frame = 0;
                     }
                   }
                 }
-                iVar20 = iVar20 + 1;
-              } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference);
+                iVar18 = iVar18 + 1;
+              } while (iVar18 <= g_army_type_table[iVar16].attack_farthest_preference);
             }
             local_50 = local_50 + 1;
-          } while (local_50 < 8);
-          iVar20 = 0;
+          } while ((int)local_50 < 8);
+          iVar18 = 0;
           if ((-1 < local_4c) && (battle_unit->action_state == 0)) {
             local_44 = local_40 + 8;
             local_40[0] = 4;
@@ -314,60 +312,60 @@ LAB_00417020:
             local_50 = 0;
             do {
               if (battle_unit->action_state != 0) break;
-              if ((iVar20 != local_4c) && (iVar20 != local_40[battle_unit->facing_or_direction])) {
-                iVar12 = (&DAT_00513b08)[iVar20] + battle_unit->battle_x;
-                iVar14 = (&DAT_00513b28)[iVar20] + battle_unit->battle_y;
-                cVar6 = FUN_00415c90(iVar12,iVar14);
+              if ((iVar18 != local_4c) && (iVar18 != local_40[battle_unit->facing_or_direction])) {
+                iVar11 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
+                iVar13 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
+                cVar6 = FUN_00415c90(iVar11,iVar13);
                 if ((cVar6 != '\0') &&
-                   ((iVar12 = iVar12 + iVar14 * 0x18,
-                    (&g_battle_grid_back_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0 &&
-                    ((&g_battle_grid_back_aux_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0)))) {
+                   ((iVar11 = iVar11 + iVar13 * 0x18,
+                    (&g_battle_grid_back_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0 &&
+                    ((&g_battle_grid_back_aux_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0)))) {
                   local_50 = local_50 + 1;
-                  *local_44 = iVar20;
+                  *local_44 = iVar18;
                   local_44 = local_44 + 1;
                 }
               }
-              iVar20 = iVar20 + 1;
-            } while (iVar20 < 8);
-            if (0 < local_50) {
+              iVar18 = iVar18 + 1;
+            } while (iVar18 < 8);
+            if (0 < (int)local_50) {
               battle_unit->action_state = 0x24;
-              uVar9 = FUN_004fbf50(local_50);
-              battle_unit->facing_or_direction = local_40[(uVar9 & 0xffff) + 8];
+              uVar8 = Game_Random_Mod(local_50);
+              battle_unit->facing_or_direction = local_40[(uVar8 & 0xffff) + 8];
             }
             if (battle_unit->action_state == 0) {
-              iVar20 = 0;
+              iVar18 = 0;
               do {
                 if (battle_unit->action_state != 0) goto LAB_0041630f;
-                if (iVar20 != local_4c) {
-                  iVar12 = (&DAT_00513b08)[iVar20] + battle_unit->battle_x;
-                  iVar14 = (&DAT_00513b28)[iVar20] + battle_unit->battle_y;
-                  cVar6 = FUN_00415c90(iVar12,iVar14);
+                if (iVar18 != local_4c) {
+                  iVar11 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
+                  iVar13 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
+                  cVar6 = FUN_00415c90(iVar11,iVar13);
                   if (((cVar6 != '\0') &&
-                      (iVar12 = iVar12 + iVar14 * 0x18,
-                      (&g_battle_grid_back_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                     ((&g_battle_grid_back_aux_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                      (iVar11 = iVar11 + iVar13 * 0x18,
+                      (&g_battle_grid_back_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                     ((&g_battle_grid_back_aux_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                     battle_unit->action_state = 0x24;
-                    battle_unit->facing_or_direction = iVar20;
+                    battle_unit->facing_or_direction = iVar18;
                   }
                 }
-                iVar20 = iVar20 + 1;
-              } while (iVar20 < 8);
+                iVar18 = iVar18 + 1;
+              } while (iVar18 < 8);
               if (battle_unit->action_state == 0) {
-                iVar20 = 0;
+                iVar18 = 0;
                 do {
                   if (battle_unit->action_state != 0) break;
-                  iVar12 = (&DAT_00513b08)[iVar20] + battle_unit->battle_x;
-                  iVar14 = (&DAT_00513b28)[iVar20] + battle_unit->battle_y;
-                  cVar6 = FUN_00415c90(iVar12,iVar14);
+                  iVar11 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
+                  iVar13 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
+                  cVar6 = FUN_00415c90(iVar11,iVar13);
                   if (((cVar6 != '\0') &&
-                      (iVar12 = iVar12 + iVar14 * 0x18,
-                      (&g_battle_grid_back_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                     ((&g_battle_grid_back_aux_units)[iVar12 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                      (iVar11 = iVar11 + iVar13 * 0x18,
+                      (&g_battle_grid_back_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                     ((&g_battle_grid_back_aux_units)[iVar11 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                     battle_unit->action_state = 0x24;
-                    battle_unit->facing_or_direction = iVar20;
+                    battle_unit->facing_or_direction = iVar18;
                   }
-                  iVar20 = iVar20 + 1;
-                } while (iVar20 < 8);
+                  iVar18 = iVar18 + 1;
+                } while (iVar18 < 8);
               }
             }
           }
@@ -377,39 +375,39 @@ LAB_0041630f:
           local_4c = 1;
           do {
             if (battle_unit->action_state != 0) break;
-            iVar12 = battle_unit->battle_x;
-            iVar20 = iVar12 + local_4c;
-            if ((((-1 < iVar20) && (iVar20 < 0x18)) &&
+            iVar11 = battle_unit->battle_x;
+            iVar18 = iVar11 + local_4c;
+            if ((((-1 < iVar18) && (iVar18 < 0x18)) &&
                 ((pBVar1 = (&g_battle_grid_back_units)
-                           [(iVar20 + battle_unit->battle_y * 0x18) * 0xc],
+                           [(iVar18 + battle_unit->battle_y * 0x18) * 0xc],
                  pBVar1 != (BattleUnit_0x64 *)0x0 &&
                  ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-                  (*(int *)(iVar8 + 0x5aa3f8 +
+                  (*(int *)(iVar7 + 0x5aa3f8 +
                            g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0)))))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
-              bVar21 = true;
-              if (iVar12 < pBVar1->battle_x) {
+              bVar19 = true;
+              if (iVar11 < pBVar1->battle_x) {
                 battle_unit->facing_or_direction = 7;
               }
               else {
                 battle_unit->facing_or_direction = 3;
               }
             }
-            iVar20 = iVar12 - local_4c;
-            if (((((-1 < iVar20) && (iVar20 < 0x18)) &&
+            iVar18 = iVar11 - local_4c;
+            if (((((-1 < iVar18) && (iVar18 < 0x18)) &&
                  (pBVar1 = (&g_battle_grid_back_units)
-                           [(iVar20 + battle_unit->battle_y * 0x18) * 0xc],
+                           [(iVar18 + battle_unit->battle_y * 0x18) * 0xc],
                  pBVar1 != (BattleUnit_0x64 *)0x0)) &&
                 ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-                 (*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
+                 (*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
                           ) != 0)))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
-              bVar21 = true;
-              if (iVar12 < pBVar1->battle_x) {
+              bVar19 = true;
+              if (iVar11 < pBVar1->battle_x) {
                 battle_unit->facing_or_direction = 7;
               }
               else {
@@ -419,89 +417,89 @@ LAB_0041630f:
             local_4c = local_4c + 1;
           } while (local_4c < 0x18);
           if (battle_unit->action_state == 0) {
-            iVar20 = 0;
-            iVar12 = 0;
+            iVar18 = 0;
+            iVar11 = 0;
             do {
               if (battle_unit->action_state != 0) break;
-              iVar14 = 0;
+              iVar13 = 0;
               do {
                 if (battle_unit->action_state != 0) break;
-                pBVar1 = (&g_battle_grid_back_units)[(iVar14 + iVar12) * 0xc];
+                pBVar1 = (&g_battle_grid_back_units)[(iVar13 + iVar11) * 0xc];
                 if (((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                     (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                   ((*(int *)(iVar8 + 0x5aa3f8 +
+                   ((*(int *)(iVar7 + 0x5aa3f8 +
                              g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 &&
-                    ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
-                  bVar21 = true;
-                  sVar7 = FUN_004fbf50(5);
-                  if ((sVar7 == 0) || (battle_unit->battle_layer_or_unit_class_flag != 0)) {
+                    ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))))) {
+                  bVar19 = true;
+                  uVar8 = Game_Random_Mod(5);
+                  if (((short)uVar8 == 0) || (battle_unit->battle_layer_or_unit_class_flag != 0)) {
                     battle_unit->action_state = 0x24;
                     battle_unit->action_frame = 0;
-                    if (iVar20 < battle_unit->battle_y) {
+                    if (iVar18 < battle_unit->battle_y) {
                       battle_unit->facing_or_direction = 5;
                     }
-                    if (battle_unit->battle_y < iVar20) {
+                    if (battle_unit->battle_y < iVar18) {
                       battle_unit->facing_or_direction = 1;
                     }
                   }
                 }
-                iVar14 = iVar14 + 1;
-              } while (iVar14 < 0x18);
-              iVar12 = iVar12 + 0x18;
-              iVar20 = iVar20 + 1;
-            } while (iVar12 < 0x240);
+                iVar13 = iVar13 + 1;
+              } while (iVar13 < 0x18);
+              iVar11 = iVar11 + 0x18;
+              iVar18 = iVar18 + 1;
+            } while (iVar11 < 0x240);
           }
         }
       }
       if (battle_unit->action_state == 0) {
-        iVar20 = g_army_type_table[iVar18].attack_nearest_preference;
-        if (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference + 1) {
+        iVar18 = g_army_type_table[iVar16].attack_nearest_preference;
+        if (iVar18 <= g_army_type_table[iVar16].attack_farthest_preference + 1) {
           do {
             if (battle_unit->action_state != 0) goto LAB_00416c73;
-            iVar12 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar20 +
+            iVar11 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar18 +
                      battle_unit->battle_x;
-            iVar14 = (&DAT_00513b28)[battle_unit->facing_or_direction] * iVar20 +
+            iVar13 = (&DAT_00513b28)[battle_unit->facing_or_direction] * iVar18 +
                      battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar12,iVar14);
+            cVar6 = FUN_00415c90(iVar11,iVar13);
             if (cVar6 != '\0') {
-              iVar12 = iVar12 + iVar14 * 0x18;
-              pBVar1 = (&g_battle_grid_front_units)[iVar12 * 0xc];
-              pBVar2 = (&g_battle_grid_front_aux_units)[iVar12 * 0xc];
+              iVar11 = iVar11 + iVar13 * 0x18;
+              pBVar1 = (&g_battle_grid_front_units)[iVar11 * 0xc];
+              pBVar2 = (&g_battle_grid_front_aux_units)[iVar11 * 0xc];
               if ((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) {
-                iVar12 = pBVar1->army_type_id;
-                if (((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar12].unit_class * 4) != 0) ||
+                iVar11 = pBVar1->army_type_id;
+                if (((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[iVar11].unit_class * 4) != 0) ||
                     (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
-                   ((((iVar12 != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
-                     (bVar21 = true, pBVar1->moving_or_animating == 0)) &&
+                   ((((iVar11 != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')) &&
+                     (bVar19 = true, pBVar1->moving_or_animating == 0)) &&
                     (pBVar1->action_state == 0)))) {
-                  if ((iVar20 == 1) ||
+                  if ((iVar18 == 1) ||
                      ((battle_unit->army_type_id != 0x1b && (battle_unit->army_type_id != 0x1d)))) {
-                    if ((((*(int *)(iVar12 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0) ||
-                         ((*(int *)(iVar12 * 0x400 + 0x5aa3c0 + iVar19 * 4) < 4 ||
-                          (iVar20 <= g_army_type_table[iVar12].attack_farthest_preference)))) ||
-                        (iVar20 < 3)) || ('\x01' < (char)g_army_type_table[iVar12].capture_mode)) {
+                    if ((((*(int *)(iVar11 * 0x400 + 0x5aa3f8 + iVar17 * 4) == 0) ||
+                         ((*(int *)(iVar11 * 0x400 + 0x5aa3c0 + iVar17 * 4) < 4 ||
+                          (iVar18 <= g_army_type_table[iVar11].attack_farthest_preference)))) ||
+                        (iVar18 < 3)) || ('\x01' < (char)g_army_type_table[iVar11].capture_mode)) {
                       battle_unit->action_state = 0x29;
-                      battle_unit->action_substate = iVar20;
+                      battle_unit->action_substate = iVar18;
                     }
                     else {
                       battle_unit->action_state = 0x29;
-                      battle_unit->action_substate = iVar20 + -2;
+                      battle_unit->action_substate = iVar18 + -2;
                     }
                     battle_unit->step_frame = 0;
                   }
                   else {
-                    iVar12 = battle_unit->battle_y;
+                    iVar11 = battle_unit->battle_y;
                     battle_unit->action_state = 0x24;
                     battle_unit->action_frame = 0;
-                    iVar14 = pBVar1->battle_y;
-                    iVar10 = iVar14 - iVar12;
-                    if (iVar14 < iVar12) {
+                    iVar13 = pBVar1->battle_y;
+                    iVar9 = iVar13 - iVar11;
+                    if (iVar13 < iVar11) {
                       battle_unit->facing_or_direction = 5;
-                      iVar14 = pBVar1->battle_y;
-                      iVar10 = iVar14 - iVar12;
+                      iVar13 = pBVar1->battle_y;
+                      iVar9 = iVar13 - iVar11;
                     }
-                    if (iVar14 != iVar12 && SBORROW4(iVar14,iVar12) == iVar10 < 0) {
+                    if (iVar13 != iVar11 && SBORROW4(iVar13,iVar11) == iVar9 < 0) {
                       battle_unit->facing_or_direction = 1;
                     }
                   }
@@ -509,72 +507,72 @@ LAB_0041630f:
               }
               if ((((battle_unit->action_state == 0) && (pBVar2 != (BattleUnit_0x64 *)0x0)) &&
                   (pBVar2->owner_country_id != battle_unit->owner_country_id)) &&
-                 (((*(int *)(iVar8 + 0x5aa3f8 +
+                 (((*(int *)(iVar7 + 0x5aa3f8 +
                             g_army_type_table[pBVar2->army_type_id].unit_class * 4) != 0 ||
                    (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)) &&
-                  ((pBVar2->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
-                iVar12 = 1;
-                bVar21 = true;
-                if ((iVar20 == 1) ||
+                  ((pBVar2->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))))) {
+                iVar11 = 1;
+                bVar19 = true;
+                if ((iVar18 == 1) ||
                    ((battle_unit->army_type_id != 0x1b && (battle_unit->army_type_id != 0x1d)))) {
                   battle_unit->action_state = 0x29;
-                  if (iVar20 != 1) {
-                    iVar12 = iVar20 + -1;
+                  if (iVar18 != 1) {
+                    iVar11 = iVar18 + -1;
                   }
-                  battle_unit->action_substate = iVar12;
+                  battle_unit->action_substate = iVar11;
                   battle_unit->step_frame = 0;
                 }
                 else {
-                  iVar12 = battle_unit->battle_y;
+                  iVar11 = battle_unit->battle_y;
                   battle_unit->action_state = 0x24;
                   battle_unit->action_frame = 0;
-                  iVar14 = pBVar2->battle_y;
-                  iVar10 = iVar14 - iVar12;
-                  if (iVar14 < iVar12) {
+                  iVar13 = pBVar2->battle_y;
+                  iVar9 = iVar13 - iVar11;
+                  if (iVar13 < iVar11) {
                     battle_unit->facing_or_direction = 5;
-                    iVar14 = pBVar2->battle_y;
-                    iVar10 = iVar14 - iVar12;
+                    iVar13 = pBVar2->battle_y;
+                    iVar9 = iVar13 - iVar11;
                   }
-                  if (iVar14 != iVar12 && SBORROW4(iVar14,iVar12) == iVar10 < 0) {
+                  if (iVar13 != iVar11 && SBORROW4(iVar13,iVar11) == iVar9 < 0) {
                     battle_unit->facing_or_direction = 1;
                   }
                 }
               }
             }
-            iVar20 = iVar20 + 1;
-          } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference + 1);
+            iVar18 = iVar18 + 1;
+          } while (iVar18 <= g_army_type_table[iVar16].attack_farthest_preference + 1);
         }
         if (battle_unit->action_state == 0) {
           local_4c = -1;
           local_50 = 0;
           do {
             if (battle_unit->action_state != 0) break;
-            iVar19 = 1;
-            if (0 < g_army_type_table[iVar18].attack_farthest_preference) {
+            iVar17 = 1;
+            if (0 < g_army_type_table[iVar16].attack_farthest_preference) {
               do {
                 if (battle_unit->action_state != 0) break;
-                iVar20 = (&DAT_00513b08)[local_50] * iVar19 + battle_unit->battle_x;
-                iVar12 = (&DAT_00513b28)[local_50] * iVar19 + battle_unit->battle_y;
-                cVar6 = FUN_00415c90(iVar20,iVar12);
+                iVar18 = (&DAT_00513b08)[local_50] * iVar17 + battle_unit->battle_x;
+                iVar11 = (&DAT_00513b28)[local_50] * iVar17 + battle_unit->battle_y;
+                cVar6 = FUN_00415c90(iVar18,iVar11);
                 if (cVar6 != '\0') {
-                  iVar20 = iVar20 + iVar12 * 0x18;
-                  pBVar1 = (&g_battle_grid_front_units)[iVar20 * 0xc];
+                  iVar18 = iVar18 + iVar11 * 0x18;
+                  pBVar1 = (&g_battle_grid_front_units)[iVar18 * 0xc];
                   if ((((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                        (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                      ((*(int *)(iVar8 + 0x5aa3f8 +
+                      ((*(int *)(iVar7 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
-                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
-                    bVar21 = true;
-                    if (iVar19 < g_army_type_table[iVar18].attack_nearest_preference) {
+                     ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
+                    bVar19 = true;
+                    if (iVar17 < g_army_type_table[iVar16].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else if (pBVar1->moving_or_animating == 0) {
-                      if ((iVar19 == 1) ||
+                      if ((iVar17 == 1) ||
                          ((battle_unit->army_type_id != 0x1b && (battle_unit->army_type_id != 0x1d))
                          )) {
                         battle_unit->action_state = 0x29;
-                        battle_unit->action_substate = iVar19;
+                        battle_unit->action_substate = iVar17;
                         battle_unit->facing_or_direction = local_50;
                         battle_unit->step_frame = 0;
                       }
@@ -585,22 +583,22 @@ LAB_0041630f:
                       }
                     }
                   }
-                  pBVar1 = (&g_battle_grid_front_aux_units)[iVar20 * 0xc];
+                  pBVar1 = (&g_battle_grid_front_aux_units)[iVar18 * 0xc];
                   if ((((battle_unit->action_state != 0x29) && (pBVar1 != (BattleUnit_0x64 *)0x0))
                       && (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                     (((*(int *)(iVar8 + 0x5aa3f8 +
+                     (((*(int *)(iVar7 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
-                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
-                    bVar21 = true;
-                    if (iVar19 < g_army_type_table[iVar18].attack_nearest_preference) {
+                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))))) {
+                    bVar19 = true;
+                    if (iVar17 < g_army_type_table[iVar16].attack_nearest_preference) {
                       local_4c = local_50;
                     }
-                    else if ((iVar19 == 1) ||
+                    else if ((iVar17 == 1) ||
                             ((battle_unit->army_type_id != 0x1b &&
                              (battle_unit->army_type_id != 0x1d)))) {
                       battle_unit->action_state = 0x29;
-                      battle_unit->action_substate = iVar19;
+                      battle_unit->action_substate = iVar17;
                       battle_unit->facing_or_direction = local_50;
                       battle_unit->step_frame = 0;
                     }
@@ -611,62 +609,62 @@ LAB_0041630f:
                     }
                   }
                 }
-                iVar19 = iVar19 + 1;
-              } while (iVar19 <= g_army_type_table[iVar18].attack_farthest_preference);
+                iVar17 = iVar17 + 1;
+              } while (iVar17 <= g_army_type_table[iVar16].attack_farthest_preference);
             }
             local_50 = local_50 + 1;
-          } while (local_50 < 8);
+          } while ((int)local_50 < 8);
           if (local_4c < 0) {
 LAB_00416b3c:
             if (battle_unit->action_state == 0) {
-              iVar18 = 1;
+              iVar16 = 1;
               do {
                 if (battle_unit->action_state != 0) break;
-                iVar20 = battle_unit->battle_x;
-                iVar19 = iVar20 + iVar18;
-                if ((((-1 < iVar19) && (iVar19 < 0x18)) &&
+                iVar18 = battle_unit->battle_x;
+                iVar17 = iVar18 + iVar16;
+                if ((((-1 < iVar17) && (iVar17 < 0x18)) &&
                     ((pBVar1 = (&g_battle_grid_front_units)
-                               [(iVar19 + battle_unit->battle_y * 0x18) * 0xc],
+                               [(iVar17 + battle_unit->battle_y * 0x18) * 0xc],
                      pBVar1 != (BattleUnit_0x64 *)0x0 &&
                      ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-                      (*(int *)(iVar8 + 0x5aa3f8 +
+                      (*(int *)(iVar7 + 0x5aa3f8 +
                                g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0)))))) &&
-                   ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+                   ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
                   battle_unit->action_state = 0x24;
                   battle_unit->action_frame = 0;
-                  bVar21 = true;
-                  if (iVar20 < pBVar1->battle_x) {
+                  bVar19 = true;
+                  if (iVar18 < pBVar1->battle_x) {
                     battle_unit->facing_or_direction = 7;
                   }
                   else {
                     battle_unit->facing_or_direction = 3;
                   }
                 }
-                iVar19 = iVar20 - iVar18;
-                if (((((-1 < iVar19) && (iVar19 < 0x18)) &&
+                iVar17 = iVar18 - iVar16;
+                if (((((-1 < iVar17) && (iVar17 < 0x18)) &&
                      (pBVar1 = (&g_battle_grid_front_units)
-                               [(iVar19 + battle_unit->battle_y * 0x18) * 0xc],
+                               [(iVar17 + battle_unit->battle_y * 0x18) * 0xc],
                      pBVar1 != (BattleUnit_0x64 *)0x0)) &&
                     ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
-                     (*(int *)(iVar8 + 0x5aa3f8 +
+                     (*(int *)(iVar7 + 0x5aa3f8 +
                               g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0)))) &&
-                   ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+                   ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))) {
                   battle_unit->action_state = 0x24;
                   battle_unit->action_frame = 0;
-                  bVar21 = true;
-                  if (iVar20 < pBVar1->battle_x) {
+                  bVar19 = true;
+                  if (iVar18 < pBVar1->battle_x) {
                     battle_unit->facing_or_direction = 7;
                   }
                   else {
                     battle_unit->facing_or_direction = 3;
                   }
                 }
-                iVar18 = iVar18 + 1;
-              } while (iVar18 < 0x18);
+                iVar16 = iVar16 + 1;
+              } while (iVar16 < 0x18);
             }
           }
           else if (battle_unit->action_state == 0) {
-            iVar18 = 0;
+            iVar16 = 0;
             local_44 = local_40 + 8;
             local_40[0] = 4;
             local_40[1] = 5;
@@ -679,111 +677,111 @@ LAB_00416b3c:
             local_48 = 0;
             do {
               if (battle_unit->action_state != 0) break;
-              if ((iVar18 != local_4c) && (iVar18 != local_40[battle_unit->facing_or_direction])) {
-                iVar19 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
-                iVar20 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
-                cVar6 = FUN_00415c90(iVar19,iVar20);
+              if ((iVar16 != local_4c) && (iVar16 != local_40[battle_unit->facing_or_direction])) {
+                iVar17 = (&DAT_00513b08)[iVar16] + battle_unit->battle_x;
+                iVar18 = (&DAT_00513b28)[iVar16] + battle_unit->battle_y;
+                cVar6 = FUN_00415c90(iVar17,iVar18);
                 if ((cVar6 != '\0') &&
-                   ((iVar19 = iVar19 + iVar20 * 0x18,
-                    (&g_battle_grid_front_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0 &&
-                    ((&g_battle_grid_front_aux_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0)))) {
+                   ((iVar17 = iVar17 + iVar18 * 0x18,
+                    (&g_battle_grid_front_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0 &&
+                    ((&g_battle_grid_front_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)))) {
                   local_48 = local_48 + 1;
-                  *local_44 = iVar18;
+                  *local_44 = iVar16;
                   local_44 = local_44 + 1;
                 }
               }
-              iVar18 = iVar18 + 1;
-            } while (iVar18 < 8);
-            if (0 < local_48) {
+              iVar16 = iVar16 + 1;
+            } while (iVar16 < 8);
+            if (0 < (int)local_48) {
               battle_unit->action_state = 0x24;
-              uVar9 = FUN_004fbf50(local_48);
-              battle_unit->facing_or_direction = local_40[(uVar9 & 0xffff) + 8];
+              uVar8 = Game_Random_Mod(local_48);
+              battle_unit->facing_or_direction = local_40[(uVar8 & 0xffff) + 8];
             }
             if (battle_unit->action_state == 0) {
-              iVar18 = 0;
+              iVar16 = 0;
               do {
                 if (battle_unit->action_state != 0) goto LAB_00416c73;
-                if (iVar18 != local_4c) {
-                  iVar19 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
-                  iVar20 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
-                  cVar6 = FUN_00415c90(iVar19,iVar20);
+                if (iVar16 != local_4c) {
+                  iVar17 = (&DAT_00513b08)[iVar16] + battle_unit->battle_x;
+                  iVar18 = (&DAT_00513b28)[iVar16] + battle_unit->battle_y;
+                  cVar6 = FUN_00415c90(iVar17,iVar18);
                   if (((cVar6 != '\0') &&
-                      (iVar19 = iVar19 + iVar20 * 0x18,
-                      (&g_battle_grid_front_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                     ((&g_battle_grid_front_aux_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                      (iVar17 = iVar17 + iVar18 * 0x18,
+                      (&g_battle_grid_front_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                     ((&g_battle_grid_front_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                     battle_unit->action_state = 0x24;
-                    battle_unit->facing_or_direction = iVar18;
+                    battle_unit->facing_or_direction = iVar16;
                   }
                 }
-                iVar18 = iVar18 + 1;
-              } while (iVar18 < 8);
+                iVar16 = iVar16 + 1;
+              } while (iVar16 < 8);
               if (battle_unit->action_state == 0) {
-                iVar18 = 0;
+                iVar16 = 0;
                 do {
                   if (battle_unit->action_state != 0) goto LAB_00416c73;
-                  iVar19 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
-                  iVar20 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
-                  cVar6 = FUN_00415c90(iVar19,iVar20);
+                  iVar17 = (&DAT_00513b08)[iVar16] + battle_unit->battle_x;
+                  iVar18 = (&DAT_00513b28)[iVar16] + battle_unit->battle_y;
+                  cVar6 = FUN_00415c90(iVar17,iVar18);
                   if (((cVar6 != '\0') &&
-                      (iVar19 = iVar19 + iVar20 * 0x18,
-                      (&g_battle_grid_front_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                     ((&g_battle_grid_front_aux_units)[iVar19 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                      (iVar17 = iVar17 + iVar18 * 0x18,
+                      (&g_battle_grid_front_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                     ((&g_battle_grid_front_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                     battle_unit->action_state = 0x24;
-                    battle_unit->facing_or_direction = iVar18;
+                    battle_unit->facing_or_direction = iVar16;
                   }
-                  iVar18 = iVar18 + 1;
-                } while (iVar18 < 8);
+                  iVar16 = iVar16 + 1;
+                } while (iVar16 < 8);
                 goto LAB_00416b3c;
               }
             }
           }
         }
 LAB_00416c73:
-        iVar18 = 0;
+        iVar16 = 0;
         if (battle_unit->action_state == 0) {
           local_48 = 0;
           do {
             if (battle_unit->action_state != 0) goto LAB_004170fb;
-            iVar19 = 0;
+            iVar17 = 0;
             do {
               if (battle_unit->action_state != 0) break;
-              pBVar1 = (&g_battle_grid_front_units)[(local_48 + iVar19) * 0xc];
+              pBVar1 = (&g_battle_grid_front_units)[(local_48 + iVar17) * 0xc];
               if (((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                   (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
-                 (((*(int *)(iVar8 + 0x5aa3f8 +
+                 (((*(int *)(iVar7 + 0x5aa3f8 +
                             g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
                    (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
-                  ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
-                bVar21 = true;
-                sVar7 = FUN_004fbf50(5);
-                if ((sVar7 == 0) || (battle_unit->battle_layer_or_unit_class_flag != 0)) {
+                  ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar15] == '\x01')))))) {
+                bVar19 = true;
+                uVar8 = Game_Random_Mod(5);
+                if (((short)uVar8 == 0) || (battle_unit->battle_layer_or_unit_class_flag != 0)) {
                   battle_unit->action_state = 0x24;
                   battle_unit->action_frame = 0;
-                  if (iVar18 < battle_unit->battle_y) {
+                  if (iVar16 < battle_unit->battle_y) {
                     battle_unit->facing_or_direction = 5;
                   }
-                  if (battle_unit->battle_y < iVar18) {
+                  if (battle_unit->battle_y < iVar16) {
                     battle_unit->facing_or_direction = 1;
                   }
                 }
               }
-              iVar19 = iVar19 + 1;
-            } while (iVar19 < 0x18);
-            iVar18 = iVar18 + 1;
+              iVar17 = iVar17 + 1;
+            } while (iVar17 < 0x18);
+            iVar16 = iVar16 + 1;
             local_48 = local_48 + 0x18;
-          } while (local_48 < 0x240);
-          bVar21 = !bVar21;
+          } while ((int)local_48 < 0x240);
+          bVar19 = !bVar19;
           goto LAB_00417732;
         }
       }
     }
 LAB_004170fb:
-    bVar21 = !bVar21;
+    bVar19 = !bVar19;
     goto LAB_00417732;
   case 6:
-    iVar19 = battle_unit->step_frame + 1;
-    battle_unit->step_frame = iVar19;
-    if (g_army_type_table[iVar18].post_attack_delay <= iVar19) {
+    iVar17 = battle_unit->step_frame + 1;
+    battle_unit->step_frame = iVar17;
+    if (g_army_type_table[iVar16].post_attack_delay <= iVar17) {
       battle_unit->step_frame = 0;
       battle_unit->action_state = 0;
     }
@@ -792,61 +790,61 @@ LAB_004170fb:
     if (battle_unit->action_frame != 0) {
       return;
     }
-    iVar17 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
-    iVar19 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
-    cVar6 = FUN_00415c90(iVar19,iVar17);
+    iVar15 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
+    iVar17 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
+    cVar6 = FUN_00415c90(iVar17,iVar15);
     if (cVar6 == '\0') {
       battle_unit->action_state = 0;
     }
     else {
-      bVar21 = false;
-      iVar19 = iVar19 + iVar17 * 0x18;
+      bVar19 = false;
+      iVar17 = iVar17 + iVar15 * 0x18;
       bVar4 = false;
       if (battle_unit->battle_layer_or_unit_class_flag == 0) {
 LAB_0041740e:
-        bVar21 = true;
+        bVar19 = true;
       }
       else {
-        pBVar1 = (&g_battle_grid_back_units)[iVar19 * 0xc];
-        pBVar2 = (&g_battle_grid_back_aux_units)[iVar19 * 0xc];
+        pBVar1 = (&g_battle_grid_back_units)[iVar17 * 0xc];
+        pBVar2 = (&g_battle_grid_back_aux_units)[iVar17 * 0xc];
         if (pBVar1 == (BattleUnit_0x64 *)0x0) {
           if (pBVar2 == (BattleUnit_0x64 *)0x0) goto LAB_0041740e;
           if ((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
-             ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
+             ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
                == 0 && (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0))))
           goto LAB_00417409;
-          if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
+          if ((1 < *(int *)(iVar7 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
-             (g_army_type_table[iVar18].attack_nearest_preference == 1)) {
+             (g_army_type_table[iVar16].attack_nearest_preference == 1)) {
             battle_unit->action_state = 0x29;
             battle_unit->action_substate = 1;
             battle_unit->step_frame = 0;
           }
         }
         else if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
-                ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
+                ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
                           ) == 0 && (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0))))
         {
           bVar3 = false;
           if (battle_unit->facing_or_direction == 7) {
-            iVar17 = battle_unit->battle_x + DAT_00513b08;
-            iVar20 = DAT_00513b28 + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar17,iVar20);
+            iVar15 = battle_unit->battle_x + DAT_00513b08;
+            iVar18 = DAT_00513b28 + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar15,iVar18);
             if (((cVar6 != '\0') &&
-                (iVar17 = iVar17 + iVar20 * 0x18,
-                (&g_battle_grid_back_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-               ((&g_battle_grid_back_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                (iVar15 = iVar15 + iVar18 * 0x18,
+                (&g_battle_grid_back_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+               ((&g_battle_grid_back_aux_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) {
               battle_unit->facing_or_direction = 0;
               bVar3 = true;
             }
             if (battle_unit->facing_or_direction == 7) {
-              iVar17 = battle_unit->battle_x + DAT_00513b20;
-              iVar20 = DAT_00513b40 + battle_unit->battle_y;
-              cVar6 = FUN_00415c90(iVar17,iVar20);
+              iVar15 = battle_unit->battle_x + DAT_00513b20;
+              iVar18 = DAT_00513b40 + battle_unit->battle_y;
+              cVar6 = FUN_00415c90(iVar15,iVar18);
               if (((cVar6 != '\0') &&
-                  (iVar17 = iVar17 + iVar20 * 0x18,
-                  (&g_battle_grid_back_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                 ((&g_battle_grid_back_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                  (iVar15 = iVar15 + iVar18 * 0x18,
+                  (&g_battle_grid_back_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                 ((&g_battle_grid_back_aux_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                 battle_unit->facing_or_direction = 6;
                 goto LAB_00417413;
               }
@@ -855,24 +853,24 @@ LAB_00417337:
             if (bVar3) goto LAB_00417413;
           }
           else if (battle_unit->facing_or_direction == 3) {
-            iVar17 = battle_unit->battle_x + DAT_00513b10;
-            iVar20 = DAT_00513b30 + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar17,iVar20);
+            iVar15 = battle_unit->battle_x + DAT_00513b10;
+            iVar18 = DAT_00513b30 + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar15,iVar18);
             if (((cVar6 != '\0') &&
-                (iVar17 = iVar17 + iVar20 * 0x18,
-                (&g_battle_grid_back_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-               ((&g_battle_grid_back_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                (iVar15 = iVar15 + iVar18 * 0x18,
+                (&g_battle_grid_back_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+               ((&g_battle_grid_back_aux_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) {
               battle_unit->facing_or_direction = 2;
               bVar3 = true;
             }
             if (battle_unit->facing_or_direction == 3) {
-              iVar17 = battle_unit->battle_x + DAT_00513b18;
-              iVar20 = DAT_00513b38 + battle_unit->battle_y;
-              cVar6 = FUN_00415c90(iVar17,iVar20);
+              iVar15 = battle_unit->battle_x + DAT_00513b18;
+              iVar18 = DAT_00513b38 + battle_unit->battle_y;
+              cVar6 = FUN_00415c90(iVar15,iVar18);
               if (((cVar6 != '\0') &&
-                  (iVar17 = iVar17 + iVar20 * 0x18,
-                  (&g_battle_grid_back_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-                 ((&g_battle_grid_back_aux_units)[iVar17 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                  (iVar15 = iVar15 + iVar18 * 0x18,
+                  (&g_battle_grid_back_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+                 ((&g_battle_grid_back_aux_units)[iVar15 * 0xc] == (BattleUnit_0x64 *)0x0)) {
                 battle_unit->facing_or_direction = 4;
                 goto LAB_00417413;
               }
@@ -880,27 +878,27 @@ LAB_00417337:
             goto LAB_00417337;
           }
           bVar3 = false;
-          iVar17 = 0;
+          iVar15 = 0;
           do {
             if (bVar3) goto LAB_00417413;
-            iVar20 = (&DAT_00513b08)[iVar17] + battle_unit->battle_x;
-            iVar12 = (&DAT_00513b28)[iVar17] + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar20,iVar12);
+            iVar18 = (&DAT_00513b08)[iVar15] + battle_unit->battle_x;
+            iVar11 = (&DAT_00513b28)[iVar15] + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar18,iVar11);
             if (((cVar6 != '\0') &&
-                (iVar20 = iVar20 + iVar12 * 0x18,
-                (&g_battle_grid_back_units)[iVar20 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-               ((&g_battle_grid_back_aux_units)[iVar20 * 0xc] == (BattleUnit_0x64 *)0x0)) {
-              battle_unit->facing_or_direction = iVar17;
+                (iVar18 = iVar18 + iVar11 * 0x18,
+                (&g_battle_grid_back_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+               ((&g_battle_grid_back_aux_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+              battle_unit->facing_or_direction = iVar15;
               bVar3 = true;
             }
-            iVar17 = iVar17 + 1;
-          } while (iVar17 < 8);
+            iVar15 = iVar15 + 1;
+          } while (iVar15 < 8);
           if (!bVar3) {
             battle_unit->action_state = 0;
           }
         }
-        else if ((*(int *)(iVar8 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
-                          ) < 2) || (g_army_type_table[iVar18].attack_nearest_preference != 1)) {
+        else if ((*(int *)(iVar7 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
+                          ) < 2) || (g_army_type_table[iVar16].attack_nearest_preference != 1)) {
 LAB_00417409:
           battle_unit->action_state = 0;
         }
@@ -911,20 +909,20 @@ LAB_00417409:
         }
       }
 LAB_00417413:
-      pBVar1 = (&g_battle_grid_front_units)[iVar19 * 0xc];
-      pBVar2 = (&g_battle_grid_front_aux_units)[iVar19 * 0xc];
+      pBVar1 = (&g_battle_grid_front_units)[iVar17 * 0xc];
+      pBVar2 = (&g_battle_grid_front_aux_units)[iVar17 * 0xc];
       if (pBVar1 == (BattleUnit_0x64 *)0x0) {
         if (pBVar2 == (BattleUnit_0x64 *)0x0) {
           bVar4 = true;
         }
         else {
           if ((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
-             ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
+             ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
                == 0 && (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0))))
           goto LAB_00417481;
-          if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
+          if ((1 < *(int *)(iVar7 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
-             (g_army_type_table[iVar18].attack_nearest_preference == 1)) {
+             (g_army_type_table[iVar16].attack_nearest_preference == 1)) {
             battle_unit->action_state = 0x29;
             battle_unit->action_substate = 1;
             battle_unit->step_frame = 0;
@@ -932,30 +930,30 @@ LAB_00417413:
         }
       }
       else if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
-              ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
+              ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
                 == 0 && (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) {
         bVar3 = false;
         bVar5 = false;
         if (battle_unit->facing_or_direction == 7) {
-          iVar18 = battle_unit->battle_x + DAT_00513b08;
-          iVar8 = DAT_00513b28 + battle_unit->battle_y;
-          cVar6 = FUN_00415c90(iVar18,iVar8);
+          iVar16 = battle_unit->battle_x + DAT_00513b08;
+          iVar7 = DAT_00513b28 + battle_unit->battle_y;
+          cVar6 = FUN_00415c90(iVar16,iVar7);
           if (((cVar6 != '\0') &&
-              (iVar18 = iVar18 + iVar8 * 0x18,
-              (&g_battle_grid_front_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-             ((&g_battle_grid_front_aux_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+              (iVar16 = iVar16 + iVar7 * 0x18,
+              (&g_battle_grid_front_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+             ((&g_battle_grid_front_aux_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) {
             bVar3 = true;
             battle_unit->facing_or_direction = 0;
             bVar5 = true;
           }
           if (battle_unit->facing_or_direction == 7) {
-            iVar18 = battle_unit->battle_x + DAT_00513b20;
-            iVar8 = DAT_00513b40 + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar18,iVar8);
+            iVar16 = battle_unit->battle_x + DAT_00513b20;
+            iVar7 = DAT_00513b40 + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar16,iVar7);
             if (((cVar6 != '\0') &&
-                (iVar18 = iVar18 + iVar8 * 0x18,
-                (&g_battle_grid_front_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-               ((&g_battle_grid_front_aux_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                (iVar16 = iVar16 + iVar7 * 0x18,
+                (&g_battle_grid_front_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+               ((&g_battle_grid_front_aux_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) {
               battle_unit->facing_or_direction = 6;
               goto LAB_004176e5;
             }
@@ -964,52 +962,52 @@ LAB_00417602:
           if (bVar3) goto LAB_004176e5;
         }
         else if (battle_unit->facing_or_direction == 3) {
-          iVar18 = battle_unit->battle_x + DAT_00513b10;
-          iVar8 = DAT_00513b30 + battle_unit->battle_y;
-          cVar6 = FUN_00415c90(iVar18,iVar8);
+          iVar16 = battle_unit->battle_x + DAT_00513b10;
+          iVar7 = DAT_00513b30 + battle_unit->battle_y;
+          cVar6 = FUN_00415c90(iVar16,iVar7);
           if (((cVar6 != '\0') &&
-              (iVar18 = iVar18 + iVar8 * 0x18,
-              (&g_battle_grid_front_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-             ((&g_battle_grid_front_aux_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+              (iVar16 = iVar16 + iVar7 * 0x18,
+              (&g_battle_grid_front_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+             ((&g_battle_grid_front_aux_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) {
             bVar3 = true;
             battle_unit->facing_or_direction = 2;
             bVar5 = true;
           }
           if (battle_unit->facing_or_direction == 3) {
-            iVar18 = battle_unit->battle_x + DAT_00513b18;
-            iVar8 = DAT_00513b38 + battle_unit->battle_y;
-            cVar6 = FUN_00415c90(iVar18,iVar8);
+            iVar16 = battle_unit->battle_x + DAT_00513b18;
+            iVar7 = DAT_00513b38 + battle_unit->battle_y;
+            cVar6 = FUN_00415c90(iVar16,iVar7);
             if (((cVar6 != '\0') &&
-                (iVar18 = iVar18 + iVar8 * 0x18,
-                (&g_battle_grid_front_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-               ((&g_battle_grid_front_aux_units)[iVar18 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+                (iVar16 = iVar16 + iVar7 * 0x18,
+                (&g_battle_grid_front_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+               ((&g_battle_grid_front_aux_units)[iVar16 * 0xc] == (BattleUnit_0x64 *)0x0)) {
               battle_unit->facing_or_direction = 4;
               goto LAB_004176e5;
             }
           }
           goto LAB_00417602;
         }
-        iVar18 = 0;
+        iVar16 = 0;
         do {
           if (bVar5) goto LAB_004176e5;
-          iVar8 = (&DAT_00513b08)[iVar18] + battle_unit->battle_x;
-          iVar17 = (&DAT_00513b28)[iVar18] + battle_unit->battle_y;
-          cVar6 = FUN_00415c90(iVar8,iVar17);
+          iVar7 = (&DAT_00513b08)[iVar16] + battle_unit->battle_x;
+          iVar15 = (&DAT_00513b28)[iVar16] + battle_unit->battle_y;
+          cVar6 = FUN_00415c90(iVar7,iVar15);
           if (((cVar6 != '\0') &&
-              (iVar8 = iVar8 + iVar17 * 0x18,
-              (&g_battle_grid_front_units)[iVar8 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
-             ((&g_battle_grid_front_aux_units)[iVar8 * 0xc] == (BattleUnit_0x64 *)0x0)) {
-            battle_unit->facing_or_direction = iVar18;
+              (iVar7 = iVar7 + iVar15 * 0x18,
+              (&g_battle_grid_front_units)[iVar7 * 0xc] == (BattleUnit_0x64 *)0x0)) &&
+             ((&g_battle_grid_front_aux_units)[iVar7 * 0xc] == (BattleUnit_0x64 *)0x0)) {
+            battle_unit->facing_or_direction = iVar16;
             bVar5 = true;
           }
-          iVar18 = iVar18 + 1;
-        } while (iVar18 < 8);
+          iVar16 = iVar16 + 1;
+        } while (iVar16 < 8);
         if (!bVar5) {
           battle_unit->action_state = 0;
         }
       }
-      else if ((*(int *)(iVar8 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
-                < 2) || (g_army_type_table[iVar18].attack_nearest_preference != 1)) {
+      else if ((*(int *)(iVar7 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
+                < 2) || (g_army_type_table[iVar16].attack_nearest_preference != 1)) {
 LAB_00417481:
         battle_unit->action_state = 0;
       }
@@ -1019,157 +1017,157 @@ LAB_00417481:
         battle_unit->step_frame = 0;
       }
 LAB_004176e5:
-      if (((battle_unit->action_state == 0x24) && (bVar21)) && (bVar4)) {
+      if (((battle_unit->action_state == 0x24) && (bVar19)) && (bVar4)) {
         battle_unit->moving_or_animating = 1;
         if (battle_unit->battle_layer_or_unit_class_flag == 0) {
-          (&g_battle_grid_front_aux_units)[iVar19 * 0xc] = battle_unit;
+          (&g_battle_grid_front_aux_units)[iVar17 * 0xc] = battle_unit;
           battle_unit->step_frame = 0;
         }
         else {
-          (&g_battle_grid_back_aux_units)[iVar19 * 0xc] = battle_unit;
+          (&g_battle_grid_back_aux_units)[iVar17 * 0xc] = battle_unit;
           battle_unit->step_frame = 0;
         }
       }
     }
-    bVar21 = battle_unit->action_state == 0;
+    bVar19 = battle_unit->action_state == 0;
 LAB_00417732:
-    if (bVar21) {
+    if (bVar19) {
 LAB_00417738:
       (&DAT_005dfe74)[battle_unit->battle_side] = (&DAT_005dfe74)[battle_unit->battle_side] + 1;
       return;
     }
     break;
   case 0x29:
-    iVar17 = battle_unit->step_frame + 1;
-    battle_unit->step_frame = iVar17;
-    if (iVar17 < g_army_type_table[iVar18].attack_speed) {
+    iVar15 = battle_unit->step_frame + 1;
+    battle_unit->step_frame = iVar15;
+    if (iVar15 < g_army_type_table[iVar16].attack_speed) {
       return;
     }
     battle_unit->step_frame = 0;
-    iVar17 = battle_unit->action_frame + 1;
-    battle_unit->action_frame = iVar17;
-    if (iVar17 < g_army_type_table[iVar18].mission_range_limit) {
-      if (iVar17 != 3) {
+    iVar15 = battle_unit->action_frame + 1;
+    battle_unit->action_frame = iVar15;
+    if (iVar15 < g_army_type_table[iVar16].mission_range_limit) {
+      if (iVar15 != 3) {
         return;
       }
-      if (iVar18 != 6) {
+      if (iVar16 != 6) {
         return;
       }
-      iVar18 = (&DAT_00513b08)[battle_unit->facing_or_direction] * battle_unit->action_substate +
+      iVar16 = (&DAT_00513b08)[battle_unit->facing_or_direction] * battle_unit->action_substate +
                battle_unit->battle_x;
-      iVar19 = (&DAT_00513b28)[battle_unit->facing_or_direction] * battle_unit->action_substate +
+      iVar17 = (&DAT_00513b28)[battle_unit->facing_or_direction] * battle_unit->action_substate +
                battle_unit->battle_y;
-      cVar6 = FUN_00415c90(iVar18,iVar19);
+      cVar6 = FUN_00415c90(iVar16,iVar17);
       if (cVar6 == '\0') {
         return;
       }
       battle_unit = (BattleUnit_0x64 *)battle_unit->attack_stats[0];
-      iVar8 = iVar18 + iVar19 * 0x18;
+      iVar7 = iVar16 + iVar17 * 0x18;
       if ((int)battle_unit < 10) {
-        if ((&g_battle_grid_front_units)[iVar8 * 0xc] == (BattleUnit_0x64 *)0x0) {
-          if ((&g_battle_grid_front_aux_units)[iVar8 * 0xc] != (BattleUnit_0x64 *)0x0) {
+        if ((&g_battle_grid_front_units)[iVar7 * 0xc] == (BattleUnit_0x64 *)0x0) {
+          if ((&g_battle_grid_front_aux_units)[iVar7 * 0xc] != (BattleUnit_0x64 *)0x0) {
             battle_unit = (BattleUnit_0x64 *)
                           (&g_army_type_table[6].attack_stat_a)
                           [g_army_type_table
-                           [(&g_battle_grid_front_aux_units)[iVar8 * 0xc]->army_type_id].unit_class]
+                           [(&g_battle_grid_front_aux_units)[iVar7 * 0xc]->army_type_id].unit_class]
             ;
           }
         }
         else {
           battle_unit = (BattleUnit_0x64 *)
                         (&g_army_type_table[6].attack_stat_a)
-                        [g_army_type_table[(&g_battle_grid_front_units)[iVar8 * 0xc]->army_type_id].
+                        [g_army_type_table[(&g_battle_grid_front_units)[iVar7 * 0xc]->army_type_id].
                          unit_class];
         }
       }
-      puVar13 = (undefined2 *)FUN_0047de30(0x3fc,s_Stone_00514910,0x11);
-      puVar13[0x1f7] = battle_unit._0_2_;
-      *puVar13 = (short)pBVar1->battle_x;
-      puVar13[1] = (short)pBVar1->battle_y;
-      puVar13[2] = (short)iVar18;
-      puVar13[3] = (short)iVar19;
-      *(undefined1 *)(puVar13 + 0x1f6) = 8;
-      *(undefined *)(puVar13 + 0x1f5) = (&DAT_0074b310)[(iVar18 + iVar19 * 0x29) * 4];
-      FUN_0040b170(0,0,puVar13,iVar18 - pBVar1->battle_x,iVar19 - pBVar1->battle_y);
-      *(int *)(puVar13 + 0x1f8) = g_frame_tick;
-      FUN_00472b50(puVar13);
+      puVar12 = (undefined2 *)FUN_0047de30(0x3fc,s_Stone_00514910,0x11);
+      puVar12[0x1f7] = battle_unit._0_2_;
+      *puVar12 = (short)pBVar1->battle_x;
+      puVar12[1] = (short)pBVar1->battle_y;
+      puVar12[2] = (short)iVar16;
+      puVar12[3] = (short)iVar17;
+      *(undefined1 *)(puVar12 + 0x1f6) = 8;
+      *(undefined *)(puVar12 + 0x1f5) = (&DAT_0074b310)[(iVar16 + iVar17 * 0x29) * 4];
+      FUN_0040b170(0,0,puVar12,iVar16 - pBVar1->battle_x,iVar17 - pBVar1->battle_y);
+      *(int *)(puVar12 + 0x1f8) = g_frame_tick;
+      FUN_00472b50(puVar12);
       return;
     }
     battle_unit->action_frame = 0;
-    if (iVar18 == 6) {
+    if (iVar16 == 6) {
       battle_unit->action_state = 6;
       battle_unit->action_frame = 0;
       return;
     }
-    iVar17 = (&DAT_00513b08)[battle_unit->facing_or_direction] * battle_unit->action_substate +
+    iVar15 = (&DAT_00513b08)[battle_unit->facing_or_direction] * battle_unit->action_substate +
              battle_unit->battle_x;
-    iVar20 = (&DAT_00513b28)[battle_unit->facing_or_direction] * battle_unit->action_substate +
+    iVar18 = (&DAT_00513b28)[battle_unit->facing_or_direction] * battle_unit->action_substate +
              battle_unit->battle_y;
-    cVar6 = FUN_00415c90(iVar17,iVar20);
+    cVar6 = FUN_00415c90(iVar15,iVar18);
     if (cVar6 == '\0') {
       return;
     }
-    iVar17 = iVar17 + iVar20 * 0x18;
-    if (*(int *)&g_army_type_table[iVar18].field_0x11c != 0) {
-      (&g_battle_grid_update_markers)[iVar17 * 0xc] = 0;
+    iVar15 = iVar15 + iVar18 * 0x18;
+    if (*(int *)&g_army_type_table[iVar16].field_0x11c != 0) {
+      (&g_battle_grid_update_markers)[iVar15 * 0xc] = 0;
     }
-    uVar16 = (undefined2)((uint)(g_army_type_table + iVar18) >> 0x10);
+    uVar14 = (undefined2)((uint)(g_army_type_table + iVar16) >> 0x10);
     if ((battle_unit->battle_layer_or_unit_class_flag == 0) &&
-       (g_army_type_table[iVar18].transport_mask == 0)) goto LAB_00417c7f;
-    pBVar1 = (&g_battle_grid_back_units)[iVar17 * 0xc];
-    pBVar2 = (&g_battle_grid_back_aux_units)[iVar17 * 0xc];
+       (g_army_type_table[iVar16].transport_mask == 0)) goto LAB_00417c7f;
+    pBVar1 = (&g_battle_grid_back_units)[iVar15 * 0xc];
+    pBVar2 = (&g_battle_grid_back_aux_units)[iVar15 * 0xc];
     if (pBVar1 == (BattleUnit_0x64 *)0x0) {
       if (pBVar2 != (BattleUnit_0x64 *)0x0) {
-        iVar20 = pBVar2->army_type_id;
+        iVar18 = pBVar2->army_type_id;
         if (((pBVar2->owner_country_id != battle_unit->owner_country_id) &&
-            (g_army_type_table[iVar20].battle_action_frame_count / 2 <= pBVar2->action_frame)) &&
-           ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar20].unit_class * 4) != 0 ||
+            (g_army_type_table[iVar18].battle_action_frame_count / 2 <= pBVar2->action_frame)) &&
+           ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[iVar18].unit_class * 4) != 0 ||
             (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)))) {
           if (battle_unit->attack_stats[2] < 1) {
-            iVar12 = 1;
+            iVar11 = 1;
           }
           else {
-            uVar9 = FUN_004fbf50(CONCAT22((short)((uint)g_army_type_table[iVar20].unit_class >> 0x10
-                                                 ),(short)battle_unit->attack_stats[2]));
-            iVar12 = (uVar9 & 0xffff) + battle_unit->attack_stats[2] * 8;
+            uVar8 = Game_Random_Mod(CONCAT22((short)((uint)g_army_type_table[iVar18].unit_class >>
+                                                    0x10),(short)battle_unit->attack_stats[2]));
+            iVar11 = (uVar8 & 0xffff) + battle_unit->attack_stats[2] * 8;
           }
           if (pBVar2->defense_stats[2] < 1) {
-            iVar14 = 1;
+            iVar13 = 1;
           }
-          else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
-            iVar14 = pBVar2->facing_or_direction;
-            if (iVar14 == battle_unit->facing_or_direction) {
-              uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar14 >> 0x10),
-                                            (short)pBVar2->defense_stats[2]));
-              iVar14 = (uVar9 & 0xffff) + pBVar2->defense_stats[2] * 2;
+          else if (g_army_type_table[iVar16].attack_farthest_preference == 1) {
+            iVar13 = pBVar2->facing_or_direction;
+            if (iVar13 == battle_unit->facing_or_direction) {
+              uVar8 = Game_Random_Mod(CONCAT22((short)((uint)iVar13 >> 0x10),
+                                               (short)pBVar2->defense_stats[2]));
+              iVar13 = (uVar8 & 0xffff) + pBVar2->defense_stats[2] * 2;
             }
             else {
-              uVar15 = CONCAT22((short)((uint)*(int *)(&DAT_00512378 +
-                                                      battle_unit->facing_or_direction * 4) >> 0x10)
-                                ,(short)pBVar2->defense_stats[2]);
-              if (iVar14 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4))
+              uVar8 = CONCAT22((short)((uint)*(int *)(&DAT_00512378 +
+                                                     battle_unit->facing_or_direction * 4) >> 0x10),
+                               (short)pBVar2->defense_stats[2]);
+              if (iVar13 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4))
               goto LAB_00417b17;
-              uVar9 = FUN_004fbf50(uVar15);
-              iVar14 = (uVar9 & 0xffff) + pBVar2->defense_stats[2] * 4;
+              uVar8 = Game_Random_Mod(uVar8);
+              iVar13 = (uVar8 & 0xffff) + pBVar2->defense_stats[2] * 4;
             }
           }
           else {
-            uVar15 = CONCAT22(uVar16,(short)pBVar2->defense_stats[2]);
+            uVar8 = CONCAT22(uVar14,(short)pBVar2->defense_stats[2]);
 LAB_00417b17:
-            uVar9 = FUN_004fbf50(uVar15);
-            iVar14 = (uVar9 & 0xffff) + pBVar2->defense_stats[2] * 8;
+            uVar8 = Game_Random_Mod(uVar8);
+            iVar13 = (uVar8 & 0xffff) + pBVar2->defense_stats[2] * 8;
           }
-          if (iVar12 < iVar14) {
-            iVar14 = (iVar12 << 4) / iVar14;
-            if (iVar14 < 1) {
+          if (iVar11 < iVar13) {
+            iVar13 = (iVar11 << 4) / iVar13;
+            if (iVar13 < 1) {
 LAB_00417bbe:
               pBVar2->strength_chunk = pBVar2->strength_chunk + -1;
             }
             else {
-              iVar12 = pBVar2->strength_chunk;
-              if (iVar14 < iVar12) {
+              iVar11 = pBVar2->strength_chunk;
+              if (iVar13 < iVar11) {
 LAB_00417bb7:
-                pBVar2->strength_chunk = iVar12 - iVar14;
+                pBVar2->strength_chunk = iVar11 - iVar13;
               }
               else {
                 pBVar2->strength_chunk = 0;
@@ -1177,17 +1175,17 @@ LAB_00417bb7:
             }
           }
           else {
-            iVar10 = iVar12;
-            if (iVar14 != 0) {
-              iVar10 = iVar12 / iVar14;
+            iVar9 = iVar11;
+            if (iVar13 != 0) {
+              iVar9 = iVar11 / iVar13;
             }
-            if ((iVar10 < 2) ||
-               ((g_army_type_table[iVar18].unit_class == 1 &&
-                (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) != 0)))) {
-              iVar14 = (iVar12 << 4) / iVar14;
-              if (iVar14 < 1) goto LAB_00417bbe;
-              iVar12 = pBVar2->strength_chunk;
-              if (iVar14 < iVar12) goto LAB_00417bb7;
+            if ((iVar9 < 2) ||
+               ((g_army_type_table[iVar16].unit_class == 1 &&
+                (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) != 0)))) {
+              iVar13 = (iVar11 << 4) / iVar13;
+              if (iVar13 < 1) goto LAB_00417bbe;
+              iVar11 = pBVar2->strength_chunk;
+              if (iVar13 < iVar11) goto LAB_00417bb7;
               pBVar2->strength_chunk = 0;
             }
             else {
@@ -1195,24 +1193,24 @@ LAB_00417bb7:
             }
           }
           if (pBVar2->strength_chunk < 1) {
-            puVar11 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
-            puVar11[1] = iVar20;
-            puVar11[4] = 0;
-            puVar11[5] = 0;
-            puVar11[2] = pBVar2->owner_country_id;
-            puVar11[3] = pBVar2->facing_or_direction;
-            puVar11[6] = pBVar2->map_unit_extra_id;
-            *puVar11 = 0;
-            puVar11[8] = 0;
-            puVar11[7] = 0;
-            (&g_battle_grid_effect_or_projectile)[iVar17 * 0xc] = puVar11;
-            FUN_00472a90(puVar11);
+            puVar10 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
+            puVar10[1] = iVar18;
+            puVar10[4] = 0;
+            puVar10[5] = 0;
+            puVar10[2] = pBVar2->owner_country_id;
+            puVar10[3] = pBVar2->facing_or_direction;
+            puVar10[6] = pBVar2->map_unit_extra_id;
+            *puVar10 = 0;
+            puVar10[8] = 0;
+            puVar10[7] = 0;
+            (&g_battle_grid_effect_or_projectile)[iVar15 * 0xc] = puVar10;
+            FUN_00472a90(puVar10);
             if (pBVar2->battle_layer_or_unit_class_flag == 0) {
               if (pBVar2->moving_or_animating != 0) {
                 (&g_battle_grid_front_units)[(pBVar2->battle_x + pBVar2->battle_y * 0x18) * 0xc] =
                      (BattleUnit_0x64 *)0x0;
               }
-              (&g_battle_grid_front_aux_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+              (&g_battle_grid_front_aux_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
               FUN_00472a20(pBVar2);
             }
             else {
@@ -1220,7 +1218,7 @@ LAB_00417bb7:
                 (&g_battle_grid_back_units)[(pBVar2->battle_x + pBVar2->battle_y * 0x18) * 0xc] =
                      (BattleUnit_0x64 *)0x0;
               }
-              (&g_battle_grid_back_aux_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+              (&g_battle_grid_back_aux_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
               FUN_00472a20(pBVar2);
             }
           }
@@ -1232,54 +1230,54 @@ LAB_00417c71:
       battle_unit->action_frame = 0;
     }
     else {
-      iVar20 = pBVar1->army_type_id;
+      iVar18 = pBVar1->army_type_id;
       if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
-         ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar20].unit_class * 4) == 0 &&
+         ((*(int *)(iVar7 + 0x5aa3f8 + g_army_type_table[iVar18].unit_class * 4) == 0 &&
           (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) goto LAB_00417c71;
       if (battle_unit->attack_stats[2] < 1) {
-        iVar12 = 1;
+        iVar11 = 1;
       }
       else {
-        uVar9 = FUN_004fbf50(battle_unit->attack_stats[2]);
-        iVar12 = (uVar9 & 0xffff) + battle_unit->attack_stats[2] * 8;
+        uVar8 = Game_Random_Mod(battle_unit->attack_stats[2]);
+        iVar11 = (uVar8 & 0xffff) + battle_unit->attack_stats[2] * 8;
       }
       if (pBVar1->defense_stats[2] < 1) {
-        iVar14 = 1;
+        iVar13 = 1;
       }
-      else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
-        iVar14 = pBVar1->facing_or_direction;
-        if (iVar14 == battle_unit->facing_or_direction) {
-          uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar14 >> 0x10),
-                                        (short)pBVar1->defense_stats[2]));
-          iVar14 = (uVar9 & 0xffff) + pBVar1->defense_stats[2] * 2;
+      else if (g_army_type_table[iVar16].attack_farthest_preference == 1) {
+        iVar13 = pBVar1->facing_or_direction;
+        if (iVar13 == battle_unit->facing_or_direction) {
+          uVar8 = Game_Random_Mod(CONCAT22((short)((uint)iVar13 >> 0x10),
+                                           (short)pBVar1->defense_stats[2]));
+          iVar13 = (uVar8 & 0xffff) + pBVar1->defense_stats[2] * 2;
         }
         else {
-          uVar15 = CONCAT22((short)((uint)*(int *)(&DAT_00512378 +
-                                                  battle_unit->facing_or_direction * 4) >> 0x10),
-                            (short)pBVar1->defense_stats[2]);
-          if (iVar14 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4))
+          uVar8 = CONCAT22((short)((uint)*(int *)(&DAT_00512378 +
+                                                 battle_unit->facing_or_direction * 4) >> 0x10),
+                           (short)pBVar1->defense_stats[2]);
+          if (iVar13 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4))
           goto LAB_004178c0;
-          uVar9 = FUN_004fbf50(uVar15);
-          iVar14 = (uVar9 & 0xffff) + pBVar1->defense_stats[2] * 4;
+          uVar8 = Game_Random_Mod(uVar8);
+          iVar13 = (uVar8 & 0xffff) + pBVar1->defense_stats[2] * 4;
         }
       }
       else {
-        uVar15 = CONCAT22(uVar16,(short)pBVar1->defense_stats[2]);
+        uVar8 = CONCAT22(uVar14,(short)pBVar1->defense_stats[2]);
 LAB_004178c0:
-        uVar9 = FUN_004fbf50(uVar15);
-        iVar14 = (uVar9 & 0xffff) + pBVar1->defense_stats[2] * 8;
+        uVar8 = Game_Random_Mod(uVar8);
+        iVar13 = (uVar8 & 0xffff) + pBVar1->defense_stats[2] * 8;
       }
-      if (iVar12 < iVar14) {
-        iVar14 = (iVar12 << 4) / iVar14;
-        if (iVar14 < 1) {
+      if (iVar11 < iVar13) {
+        iVar13 = (iVar11 << 4) / iVar13;
+        if (iVar13 < 1) {
 LAB_00417967:
           pBVar1->strength_chunk = pBVar1->strength_chunk + -1;
         }
         else {
-          iVar12 = pBVar1->strength_chunk;
-          if (iVar14 < iVar12) {
+          iVar11 = pBVar1->strength_chunk;
+          if (iVar13 < iVar11) {
 LAB_00417960:
-            pBVar1->strength_chunk = iVar12 - iVar14;
+            pBVar1->strength_chunk = iVar11 - iVar13;
           }
           else {
             pBVar1->strength_chunk = 0;
@@ -1287,17 +1285,17 @@ LAB_00417960:
         }
       }
       else {
-        iVar10 = iVar12;
-        if (iVar14 != 0) {
-          iVar10 = iVar12 / iVar14;
+        iVar9 = iVar11;
+        if (iVar13 != 0) {
+          iVar9 = iVar11 / iVar13;
         }
-        if ((iVar10 < 2) ||
-           ((g_army_type_table[iVar18].unit_class == 1 &&
-            (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) != 0)))) {
-          iVar14 = (iVar12 << 4) / iVar14;
-          if (iVar14 < 1) goto LAB_00417967;
-          iVar12 = pBVar1->strength_chunk;
-          if (iVar14 < iVar12) goto LAB_00417960;
+        if ((iVar9 < 2) ||
+           ((g_army_type_table[iVar16].unit_class == 1 &&
+            (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) != 0)))) {
+          iVar13 = (iVar11 << 4) / iVar13;
+          if (iVar13 < 1) goto LAB_00417967;
+          iVar11 = pBVar1->strength_chunk;
+          if (iVar13 < iVar11) goto LAB_00417960;
           pBVar1->strength_chunk = 0;
         }
         else {
@@ -1305,20 +1303,20 @@ LAB_00417960:
         }
       }
       if (pBVar1->strength_chunk < 1) {
-        puVar11 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
-        puVar11[1] = iVar20;
-        puVar11[4] = 0;
-        puVar11[5] = 0;
-        puVar11[2] = pBVar1->owner_country_id;
-        puVar11[3] = pBVar1->facing_or_direction;
-        puVar11[6] = pBVar1->map_unit_extra_id;
-        *puVar11 = 0;
-        puVar11[8] = 0;
-        puVar11[7] = 0;
-        (&g_battle_grid_effect_or_projectile)[iVar17 * 0xc] = puVar11;
-        FUN_00472a90(puVar11);
+        puVar10 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
+        puVar10[1] = iVar18;
+        puVar10[4] = 0;
+        puVar10[5] = 0;
+        puVar10[2] = pBVar1->owner_country_id;
+        puVar10[3] = pBVar1->facing_or_direction;
+        puVar10[6] = pBVar1->map_unit_extra_id;
+        *puVar10 = 0;
+        puVar10[8] = 0;
+        puVar10[7] = 0;
+        (&g_battle_grid_effect_or_projectile)[iVar15 * 0xc] = puVar10;
+        FUN_00472a90(puVar10);
         if (pBVar1->battle_layer_or_unit_class_flag == 0) {
-          (&g_battle_grid_front_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+          (&g_battle_grid_front_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
           if (pBVar1->moving_or_animating != 0) {
             (&g_battle_grid_front_aux_units)
             [((&DAT_00513b08)[pBVar1->facing_or_direction] +
@@ -1327,7 +1325,7 @@ LAB_00417960:
           }
         }
         else {
-          (&g_battle_grid_back_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+          (&g_battle_grid_back_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
           if (pBVar1->moving_or_animating != 0) {
             (&g_battle_grid_back_aux_units)
             [((&DAT_00513b08)[pBVar1->facing_or_direction] +
@@ -1341,138 +1339,138 @@ LAB_00417960:
       }
     }
 LAB_00417c7f:
-    pBVar1 = (&g_battle_grid_front_units)[iVar17 * 0xc];
-    pBVar2 = (&g_battle_grid_front_aux_units)[iVar17 * 0xc];
+    pBVar1 = (&g_battle_grid_front_units)[iVar15 * 0xc];
+    pBVar2 = (&g_battle_grid_front_aux_units)[iVar15 * 0xc];
     if (pBVar1 == (BattleUnit_0x64 *)0x0) {
       if (pBVar2 == (BattleUnit_0x64 *)0x0) goto LAB_00417fc1;
-      iVar20 = pBVar2->army_type_id;
-      iVar12 = g_army_type_table[iVar20].unit_class;
+      iVar18 = pBVar2->army_type_id;
+      iVar11 = g_army_type_table[iVar18].unit_class;
       if (((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
-          (pBVar2->action_frame < g_army_type_table[iVar20].battle_action_frame_count / 2)) ||
-         ((*(int *)(iVar8 + 0x5aa3f8 + iVar12 * 4) == 0 &&
+          (pBVar2->action_frame < g_army_type_table[iVar18].battle_action_frame_count / 2)) ||
+         ((*(int *)(iVar7 + 0x5aa3f8 + iVar11 * 4) == 0 &&
           (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0)))) {
         battle_unit->action_state = 6;
         battle_unit->action_frame = 0;
         return;
       }
-      if (((iVar18 == 5) || (iVar18 == 0x34)) &&
-         ((((iVar20 == 7 ||
-            ((((iVar20 == 8 || (iVar20 == 10)) || (iVar20 == 0xb)) ||
-             ((iVar20 == 0xc || (iVar20 == 0x31)))))) || (iVar20 == 0xf)) || (iVar20 == 0x35)))) {
-        battle_unit->attack_stats[iVar12] = battle_unit->attack_stats[iVar12] << 1;
+      if (((iVar16 == 5) || (iVar16 == 0x34)) &&
+         ((((iVar18 == 7 ||
+            ((((iVar18 == 8 || (iVar18 == 10)) || (iVar18 == 0xb)) ||
+             ((iVar18 == 0xc || (iVar18 == 0x31)))))) || (iVar18 == 0xf)) || (iVar18 == 0x35)))) {
+        battle_unit->attack_stats[iVar11] = battle_unit->attack_stats[iVar11] << 1;
       }
-      if (((iVar18 == 9) || (iVar18 == 0x30)) &&
-         ((iVar20 == 4 || (((iVar20 == 0x2f || (iVar20 == 8)) || (iVar20 == 0xf)))))) {
-        battle_unit->attack_stats[iVar12] = battle_unit->attack_stats[iVar12] / 2;
+      if (((iVar16 == 9) || (iVar16 == 0x30)) &&
+         ((iVar18 == 4 || (((iVar18 == 0x2f || (iVar18 == 8)) || (iVar18 == 0xf)))))) {
+        battle_unit->attack_stats[iVar11] = battle_unit->attack_stats[iVar11] / 2;
       }
-      if (battle_unit->attack_stats[iVar12] < 1) {
-        iVar8 = 1;
-      }
-      else {
-        uVar9 = FUN_004fbf50(battle_unit->attack_stats[iVar12]);
-        iVar8 = (uVar9 & 0xffff) + battle_unit->attack_stats[iVar12] * 8;
-      }
-      if (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0) {
-        iVar14 = 1;
+      if (battle_unit->attack_stats[iVar11] < 1) {
+        iVar7 = 1;
       }
       else {
-        if (pBVar2->defense_stats[iVar19] < 1) {
-          iVar12 = 1;
+        uVar8 = Game_Random_Mod(battle_unit->attack_stats[iVar11]);
+        iVar7 = (uVar8 & 0xffff) + battle_unit->attack_stats[iVar11] * 8;
+      }
+      if (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) == 0) {
+        iVar13 = 1;
+      }
+      else {
+        if (pBVar2->defense_stats[iVar17] < 1) {
+          iVar11 = 1;
         }
-        else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
-          iVar12 = pBVar2->facing_or_direction;
-          if (iVar12 == battle_unit->facing_or_direction) {
-            uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),
-                                          (short)pBVar2->defense_stats[iVar19]));
-            iVar12 = (uVar9 & 0xffff) + pBVar2->defense_stats[iVar19] * 2;
+        else if (g_army_type_table[iVar16].attack_farthest_preference == 1) {
+          iVar11 = pBVar2->facing_or_direction;
+          if (iVar11 == battle_unit->facing_or_direction) {
+            uVar8 = Game_Random_Mod(CONCAT22((short)((uint)iVar11 >> 0x10),
+                                             (short)pBVar2->defense_stats[iVar17]));
+            iVar11 = (uVar8 & 0xffff) + pBVar2->defense_stats[iVar17] * 2;
           }
           else {
-            uVar15 = CONCAT22(uVar16,(short)pBVar2->defense_stats[iVar19]);
-            if (iVar12 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4)) {
-              uVar9 = FUN_004fbf50(uVar15);
-              iVar12 = (uVar9 & 0xffff) + pBVar2->defense_stats[iVar19] * 8;
+            uVar8 = CONCAT22(uVar14,(short)pBVar2->defense_stats[iVar17]);
+            if (iVar11 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4)) {
+              uVar8 = Game_Random_Mod(uVar8);
+              iVar11 = (uVar8 & 0xffff) + pBVar2->defense_stats[iVar17] * 8;
             }
             else {
-              uVar9 = FUN_004fbf50(uVar15);
-              iVar12 = (uVar9 & 0xffff) + pBVar2->defense_stats[iVar19] * 4;
+              uVar8 = Game_Random_Mod(uVar8);
+              iVar11 = (uVar8 & 0xffff) + pBVar2->defense_stats[iVar17] * 4;
             }
           }
         }
         else {
-          uVar9 = FUN_004fbf50(CONCAT22(uVar16,(short)pBVar2->defense_stats[iVar19]));
-          iVar12 = (uVar9 & 0xffff) + pBVar2->defense_stats[iVar19] * 8;
+          uVar8 = Game_Random_Mod(CONCAT22(uVar14,(short)pBVar2->defense_stats[iVar17]));
+          iVar11 = (uVar8 & 0xffff) + pBVar2->defense_stats[iVar17] * 8;
         }
-        iVar14 = iVar12;
+        iVar13 = iVar11;
         if (((pBVar2->battle_side == 1) && (g_battle_tile_has_object_by_side[1] != 0)) &&
-           (iVar14 = iVar12 << 1,
+           (iVar13 = iVar11 << 1,
            *(char *)((int)g_battle_defender_land_tile->linked_record + 0x7c) == '\x02')) {
-          iVar14 = iVar12 << 2;
+          iVar13 = iVar11 << 2;
         }
-        if ((((iVar20 == 0) || (iVar20 == 1)) ||
-            ((iVar20 == 0x3e || ((iVar20 == 0x2b || (iVar20 == 0x2c)))))) && (iVar8 <= iVar14)) {
-          iVar8 = iVar8 + 1;
-          iVar14 = 1;
+        if ((((iVar18 == 0) || (iVar18 == 1)) ||
+            ((iVar18 == 0x3e || ((iVar18 == 0x2b || (iVar18 == 0x2c)))))) && (iVar7 <= iVar13)) {
+          iVar7 = iVar7 + 1;
+          iVar13 = 1;
         }
-        if ((iVar18 == 0x27) && (iVar20 == 0x29)) {
-          iVar8 = iVar8 << 1;
-          iVar14 = iVar14 >> 1;
+        if ((iVar16 == 0x27) && (iVar18 == 0x29)) {
+          iVar7 = iVar7 << 1;
+          iVar13 = iVar13 >> 1;
         }
       }
-      if (iVar8 < iVar14) {
-        iVar14 = (iVar8 << 4) / iVar14;
-        if (iVar14 < 1) {
+      if (iVar7 < iVar13) {
+        iVar13 = (iVar7 << 4) / iVar13;
+        if (iVar13 < 1) {
 LAB_0041823c:
           pBVar2->strength_chunk = pBVar2->strength_chunk + -1;
           goto LAB_0041823f;
         }
-        iVar18 = pBVar2->strength_chunk;
-        if (iVar18 <= iVar14) {
+        iVar16 = pBVar2->strength_chunk;
+        if (iVar16 <= iVar13) {
           pBVar2->strength_chunk = 0;
           goto LAB_0041823f;
         }
       }
       else {
-        iVar12 = iVar8;
-        if (iVar14 != 0) {
-          iVar12 = iVar8 / iVar14;
+        iVar11 = iVar7;
+        if (iVar13 != 0) {
+          iVar11 = iVar7 / iVar13;
         }
-        if ((1 < iVar12) &&
-           ((g_army_type_table[iVar18].unit_class != 1 ||
-            (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0)))) {
+        if ((1 < iVar11) &&
+           ((g_army_type_table[iVar16].unit_class != 1 ||
+            (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) == 0)))) {
           pBVar2->strength_chunk = 0;
           goto LAB_0041823f;
         }
-        iVar14 = (iVar8 << 4) / iVar14;
-        if (iVar14 < 1) goto LAB_0041823c;
-        iVar18 = pBVar2->strength_chunk;
-        if (iVar18 <= iVar14) {
+        iVar13 = (iVar7 << 4) / iVar13;
+        if (iVar13 < 1) goto LAB_0041823c;
+        iVar16 = pBVar2->strength_chunk;
+        if (iVar16 <= iVar13) {
           pBVar2->strength_chunk = 0;
           goto LAB_0041823f;
         }
       }
-      pBVar2->strength_chunk = iVar18 - iVar14;
+      pBVar2->strength_chunk = iVar16 - iVar13;
 LAB_0041823f:
       if (0 < pBVar2->strength_chunk) {
         return;
       }
-      puVar11 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
-      puVar11[1] = iVar20;
-      puVar11[4] = 0;
-      puVar11[5] = 0;
-      puVar11[2] = pBVar2->owner_country_id;
-      puVar11[3] = pBVar2->facing_or_direction;
-      puVar11[6] = pBVar2->map_unit_extra_id;
-      *puVar11 = 0;
-      puVar11[8] = 0;
-      puVar11[7] = 0;
-      (&g_battle_grid_effect_or_projectile)[iVar17 * 0xc] = puVar11;
-      FUN_00472a90(puVar11);
+      puVar10 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
+      puVar10[1] = iVar18;
+      puVar10[4] = 0;
+      puVar10[5] = 0;
+      puVar10[2] = pBVar2->owner_country_id;
+      puVar10[3] = pBVar2->facing_or_direction;
+      puVar10[6] = pBVar2->map_unit_extra_id;
+      *puVar10 = 0;
+      puVar10[8] = 0;
+      puVar10[7] = 0;
+      (&g_battle_grid_effect_or_projectile)[iVar15 * 0xc] = puVar10;
+      FUN_00472a90(puVar10);
       if (pBVar2->battle_layer_or_unit_class_flag == 0) {
         if (pBVar2->moving_or_animating != 0) {
           (&g_battle_grid_front_units)[(pBVar2->battle_x + pBVar2->battle_y * 0x18) * 0xc] =
                (BattleUnit_0x64 *)0x0;
         }
-        (&g_battle_grid_front_aux_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+        (&g_battle_grid_front_aux_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
         FUN_00472a20(pBVar2);
         return;
       }
@@ -1480,109 +1478,109 @@ LAB_0041823f:
         (&g_battle_grid_back_units)[(pBVar2->battle_x + pBVar2->battle_y * 0x18) * 0xc] =
              (BattleUnit_0x64 *)0x0;
       }
-      (&g_battle_grid_back_aux_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+      (&g_battle_grid_back_aux_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
       FUN_00472a20(pBVar2);
       return;
     }
-    iVar20 = pBVar1->army_type_id;
-    iVar12 = g_army_type_table[iVar20].unit_class;
+    iVar18 = pBVar1->army_type_id;
+    iVar11 = g_army_type_table[iVar18].unit_class;
     if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
-       ((*(int *)(iVar8 + 0x5aa3f8 + iVar12 * 4) == 0 &&
+       ((*(int *)(iVar7 + 0x5aa3f8 + iVar11 * 4) == 0 &&
         (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) {
 LAB_00417fc1:
       battle_unit->action_state = 6;
       battle_unit->action_frame = 0;
       return;
     }
-    if (((iVar18 == 5) || (iVar18 == 0x34)) &&
-       ((((iVar20 == 7 || (((iVar20 == 8 || (iVar20 == 10)) || (iVar20 == 0xb)))) ||
-         (((iVar20 == 0xc || (iVar20 == 0x31)) || (iVar20 == 0xf)))) || (iVar20 == 0x35)))) {
-      battle_unit->attack_stats[iVar12] = battle_unit->attack_stats[iVar12] << 1;
+    if (((iVar16 == 5) || (iVar16 == 0x34)) &&
+       ((((iVar18 == 7 || (((iVar18 == 8 || (iVar18 == 10)) || (iVar18 == 0xb)))) ||
+         (((iVar18 == 0xc || (iVar18 == 0x31)) || (iVar18 == 0xf)))) || (iVar18 == 0x35)))) {
+      battle_unit->attack_stats[iVar11] = battle_unit->attack_stats[iVar11] << 1;
     }
-    if (((iVar18 == 9) || (iVar18 == 0x30)) &&
-       ((iVar20 == 4 || (((iVar20 == 0x2f || (iVar20 == 8)) || (iVar20 == 0xf)))))) {
-      battle_unit->attack_stats[iVar12] = battle_unit->attack_stats[iVar12] >> 1;
+    if (((iVar16 == 9) || (iVar16 == 0x30)) &&
+       ((iVar18 == 4 || (((iVar18 == 0x2f || (iVar18 == 8)) || (iVar18 == 0xf)))))) {
+      battle_unit->attack_stats[iVar11] = battle_unit->attack_stats[iVar11] >> 1;
     }
-    if (battle_unit->attack_stats[iVar12] < 1) {
-      iVar8 = 1;
+    if (battle_unit->attack_stats[iVar11] < 1) {
+      iVar7 = 1;
     }
     else {
-      uVar9 = FUN_004fbf50(battle_unit->attack_stats[iVar12]);
-      iVar8 = (uVar9 & 0xffff) + battle_unit->attack_stats[iVar12] * 8;
+      uVar8 = Game_Random_Mod(battle_unit->attack_stats[iVar11]);
+      iVar7 = (uVar8 & 0xffff) + battle_unit->attack_stats[iVar11] * 8;
     }
-    if (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0) {
+    if (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) == 0) {
 LAB_00417e68:
-      iVar14 = 1;
+      iVar13 = 1;
 LAB_00417e6d:
-      if (iVar14 <= iVar8) goto LAB_00417e71;
-      iVar14 = (iVar8 << 4) / iVar14;
-      if (iVar14 < 1) goto LAB_00417ed6;
-      iVar18 = pBVar1->strength_chunk;
-      if (iVar14 < iVar18) goto LAB_00417ecf;
+      if (iVar13 <= iVar7) goto LAB_00417e71;
+      iVar13 = (iVar7 << 4) / iVar13;
+      if (iVar13 < 1) goto LAB_00417ed6;
+      iVar16 = pBVar1->strength_chunk;
+      if (iVar13 < iVar16) goto LAB_00417ecf;
       pBVar1->strength_chunk = 0;
     }
     else {
-      if (pBVar1->defense_stats[iVar19] < 1) {
-        iVar12 = 1;
+      if (pBVar1->defense_stats[iVar17] < 1) {
+        iVar11 = 1;
       }
-      else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
-        iVar12 = pBVar1->facing_or_direction;
-        if (iVar12 == battle_unit->facing_or_direction) {
-          uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),
-                                        (short)pBVar1->defense_stats[iVar19]));
-          iVar12 = (uVar9 & 0xffff) + pBVar1->defense_stats[iVar19] * 2;
+      else if (g_army_type_table[iVar16].attack_farthest_preference == 1) {
+        iVar11 = pBVar1->facing_or_direction;
+        if (iVar11 == battle_unit->facing_or_direction) {
+          uVar8 = Game_Random_Mod(CONCAT22((short)((uint)iVar11 >> 0x10),
+                                           (short)pBVar1->defense_stats[iVar17]));
+          iVar11 = (uVar8 & 0xffff) + pBVar1->defense_stats[iVar17] * 2;
         }
         else {
-          uVar15 = CONCAT22(uVar16,(short)pBVar1->defense_stats[iVar19]);
-          if (iVar12 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4)) {
-            uVar9 = FUN_004fbf50(uVar15);
-            iVar12 = (uVar9 & 0xffff) + pBVar1->defense_stats[iVar19] * 8;
+          uVar8 = CONCAT22(uVar14,(short)pBVar1->defense_stats[iVar17]);
+          if (iVar11 == *(int *)(&DAT_00512378 + battle_unit->facing_or_direction * 4)) {
+            uVar8 = Game_Random_Mod(uVar8);
+            iVar11 = (uVar8 & 0xffff) + pBVar1->defense_stats[iVar17] * 8;
           }
           else {
-            uVar9 = FUN_004fbf50(uVar15);
-            iVar12 = (uVar9 & 0xffff) + pBVar1->defense_stats[iVar19] * 4;
+            uVar8 = Game_Random_Mod(uVar8);
+            iVar11 = (uVar8 & 0xffff) + pBVar1->defense_stats[iVar17] * 4;
           }
         }
       }
       else {
-        uVar9 = FUN_004fbf50(CONCAT22(uVar16,(short)pBVar1->defense_stats[iVar19]));
-        iVar12 = (uVar9 & 0xffff) + pBVar1->defense_stats[iVar19] * 8;
+        uVar8 = Game_Random_Mod(CONCAT22(uVar14,(short)pBVar1->defense_stats[iVar17]));
+        iVar11 = (uVar8 & 0xffff) + pBVar1->defense_stats[iVar17] * 8;
       }
-      iVar14 = iVar12;
+      iVar13 = iVar11;
       if (((pBVar1->battle_side == 1) && (g_battle_tile_has_object_by_side[1] != 0)) &&
-         (iVar14 = iVar12 << 1,
+         (iVar13 = iVar11 << 1,
          *(char *)((int)g_battle_defender_land_tile->linked_record + 0x7c) == '\x02')) {
-        iVar14 = iVar12 << 2;
+        iVar13 = iVar11 << 2;
       }
-      if ((iVar18 == 0x27) && (iVar20 == 0x29)) {
-        iVar8 = iVar8 << 1;
-        iVar14 = iVar14 >> 1;
+      if ((iVar16 == 0x27) && (iVar18 == 0x29)) {
+        iVar7 = iVar7 << 1;
+        iVar13 = iVar13 >> 1;
         goto LAB_00417e6d;
       }
-      if ((((iVar20 != 0) && (iVar20 != 1)) && (iVar20 != 0x3e)) &&
-         ((iVar20 != 0x2b && (iVar20 != 0x2c)))) goto LAB_00417e6d;
-      if (iVar8 <= iVar14) {
-        iVar8 = iVar8 + 1;
+      if ((((iVar18 != 0) && (iVar18 != 1)) && (iVar18 != 0x3e)) &&
+         ((iVar18 != 0x2b && (iVar18 != 0x2c)))) goto LAB_00417e6d;
+      if (iVar7 <= iVar13) {
+        iVar7 = iVar7 + 1;
         goto LAB_00417e68;
       }
 LAB_00417e71:
-      iVar12 = iVar8;
-      if (iVar14 != 0) {
-        iVar12 = iVar8 / iVar14;
+      iVar11 = iVar7;
+      if (iVar13 != 0) {
+        iVar11 = iVar7 / iVar13;
       }
-      if ((iVar12 < 2) ||
-         ((g_army_type_table[iVar18].unit_class == 1 &&
-          (*(int *)(iVar20 * 0x400 + 0x5aa3f8 + iVar19 * 4) != 0)))) {
-        iVar14 = (iVar8 << 4) / iVar14;
-        if (iVar14 < 1) {
+      if ((iVar11 < 2) ||
+         ((g_army_type_table[iVar16].unit_class == 1 &&
+          (*(int *)(iVar18 * 0x400 + 0x5aa3f8 + iVar17 * 4) != 0)))) {
+        iVar13 = (iVar7 << 4) / iVar13;
+        if (iVar13 < 1) {
 LAB_00417ed6:
           pBVar1->strength_chunk = pBVar1->strength_chunk + -1;
         }
         else {
-          iVar18 = pBVar1->strength_chunk;
-          if (iVar14 < iVar18) {
+          iVar16 = pBVar1->strength_chunk;
+          if (iVar13 < iVar16) {
 LAB_00417ecf:
-            pBVar1->strength_chunk = iVar18 - iVar14;
+            pBVar1->strength_chunk = iVar16 - iVar13;
           }
           else {
             pBVar1->strength_chunk = 0;
@@ -1594,20 +1592,20 @@ LAB_00417ecf:
       }
     }
     if (pBVar1->strength_chunk < 1) {
-      puVar11 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
-      puVar11[1] = iVar20;
-      puVar11[4] = 0;
-      puVar11[5] = 0;
-      puVar11[2] = pBVar1->owner_country_id;
-      puVar11[3] = pBVar1->facing_or_direction;
-      puVar11[6] = pBVar1->map_unit_extra_id;
-      *puVar11 = 0;
-      puVar11[8] = 0;
-      puVar11[7] = 0;
-      (&g_battle_grid_effect_or_projectile)[iVar17 * 0xc] = puVar11;
-      FUN_00472a90(puVar11);
+      puVar10 = (undefined4 *)FUN_0047de30(0x24,s_Battle__Battle_Die_00514918,6);
+      puVar10[1] = iVar18;
+      puVar10[4] = 0;
+      puVar10[5] = 0;
+      puVar10[2] = pBVar1->owner_country_id;
+      puVar10[3] = pBVar1->facing_or_direction;
+      puVar10[6] = pBVar1->map_unit_extra_id;
+      *puVar10 = 0;
+      puVar10[8] = 0;
+      puVar10[7] = 0;
+      (&g_battle_grid_effect_or_projectile)[iVar15 * 0xc] = puVar10;
+      FUN_00472a90(puVar10);
       if (pBVar1->battle_layer_or_unit_class_flag == 0) {
-        (&g_battle_grid_front_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+        (&g_battle_grid_front_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
         if (pBVar1->moving_or_animating != 0) {
           (&g_battle_grid_front_aux_units)
           [((&DAT_00513b08)[pBVar1->facing_or_direction] +
@@ -1616,7 +1614,7 @@ LAB_00417ecf:
         }
       }
       else {
-        (&g_battle_grid_back_units)[iVar17 * 0xc] = (BattleUnit_0x64 *)0x0;
+        (&g_battle_grid_back_units)[iVar15 * 0xc] = (BattleUnit_0x64 *)0x0;
         if (pBVar1->moving_or_animating != 0) {
           (&g_battle_grid_back_aux_units)
           [((&DAT_00513b08)[pBVar1->facing_or_direction] +

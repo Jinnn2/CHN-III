@@ -134,7 +134,9 @@ void AI_Transport(void)
             iVar11 = iVar11 * 0x100 + iVar13;
 switchD_00409033_default:
             if (0 < *(short *)(iVar11 + 0x10)) {
-              iVar8 = FUN_004c6ed0((int)pAVar9->tile_x,(int)pAVar9->tile_y,(int)sVar1,(int)sVar2,0);
+              iVar8 = Tile_Distance_With_Wrap
+                                ((int)pAVar9->tile_x,(int)pAVar9->tile_y,(int)sVar1,(int)sVar2,
+                                 (byte *)0x0);
               if ((*(short *)(iVar11 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
                  (iVar8 <= *(int *)(_DAT_0074a0b8 + 0x110) *
                            g_current_map_scenario_info.movement_base)) {

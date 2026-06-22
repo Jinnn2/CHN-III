@@ -11,13 +11,14 @@ undefined1 Diplomat_Go_Buy_City(void)
 
 {
   City_0x1b8_plus *city;
-  short sVar1;
+  int iVar1;
   int iVar2;
-  undefined4 uVar3;
-  undefined *puVar4;
-  bool bVar5;
-  undefined *puVar6;
-  undefined8 uVar7;
+  uint uVar3;
+  undefined4 uVar4;
+  undefined *puVar5;
+  bool bVar6;
+  undefined *puVar7;
+  undefined8 uVar8;
   undefined1 local_c5;
   undefined1 local_c0 [192];
 
@@ -55,27 +56,28 @@ switchD_004384d4_default:
   if (g_active_country->science_budget_or_treasury < (double)iVar2) {
     local_c5 = 1;
     if (_DAT_00748e34 == g_human_country_index) {
-      uVar3 = __ftol();
-      Format_Text(local_c0,&DAT_005190fc,city->name_bytes,iVar2,uVar3);
+      uVar4 = __ftol();
+      Format_Text(local_c0,&DAT_005190fc,city->name_bytes,iVar2,uVar4);
       FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);
       UI_YesNo_Message(local_c0,0,0,1);
     }
     goto LAB_0043896d;
   }
   FUN_0041f2b0(_DAT_00748e34,(double)-iVar2);
+  iVar1 = -city->growth_or_industry_score;
   iVar2 = (char)city->owner_country_id * 0xe68;
-  if ((-city->growth_or_industry_score != -100 && -1 < -city->growth_or_industry_score + 100) &&
-     (sVar1 = FUN_004fbf50(), sVar1 == 0)) {
+  if ((iVar1 != -100 && -1 < iVar1 + 100) &&
+     (uVar3 = Game_Random_Mod(city->growth_or_industry_score / 10 + 1), (short)uVar3 == 0)) {
     local_c5 = 1;
     if (_DAT_00748e34 == g_human_country_index) {
-      bVar5 = DAT_0074a2cc == '\x01';
-      if (bVar5) {
+      bVar6 = DAT_0074a2cc == '\x01';
+      if (bVar6) {
         Format_Text(local_c0,&DAT_005126cc,&DAT_007350bc + iVar2,
                     &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5);
         UI_YesNo_Message(local_c0,0,0,1);
       }
       Event_City_View(city,0xffffffff,0xffffffff,0);
-      if (bVar5) goto LAB_00438674;
+      if (bVar6) goto LAB_00438674;
     }
     else if ((char)city->owner_country_id == g_human_country_index) {
       if (DAT_0074a2cc == '\x01') {
@@ -100,34 +102,34 @@ LAB_00438674:
   }
   if (_DAT_00748e34 == g_human_country_index) {
     if (DAT_0074a2cc != '\x01') goto LAB_0043896d;
-    sVar1 = FUN_004fbf50();
-    if (sVar1 == 0) {
-      puVar4 = &DAT_007350bc + iVar2;
-      uVar7 = CONCAT44(city->name_bytes,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5);
-      puVar6 = &DAT_00512678;
+    uVar3 = Game_Random_Mod(2);
+    if ((short)uVar3 == 0) {
+      puVar5 = &DAT_007350bc + iVar2;
+      uVar8 = CONCAT44(city->name_bytes,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5);
+      puVar7 = &DAT_00512678;
     }
     else {
-      puVar4 = &DAT_007350bc + iVar2;
-      uVar7 = CONCAT44(city->name_bytes,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5);
-      puVar6 = &DAT_0051264c;
+      puVar5 = &DAT_007350bc + iVar2;
+      uVar8 = CONCAT44(city->name_bytes,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5);
+      puVar7 = &DAT_0051264c;
     }
 LAB_00438849:
-    Format_Text(local_c0,puVar6,puVar4,uVar7);
+    Format_Text(local_c0,puVar7,puVar5,uVar8);
     UI_YesNo_Message(local_c0,0,0,1);
   }
   else {
     if ((char)city->owner_country_id == g_human_country_index) {
       if (DAT_0074a2cc != '\x01') goto LAB_0043896d;
-      sVar1 = FUN_004fbf50();
-      if (sVar1 == 0) {
-        uVar7 = CONCAT44(g_active_country->name_bytes,city->name_bytes);
-        puVar4 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
-        puVar6 = &DAT_0051262c;
+      uVar3 = Game_Random_Mod(2);
+      if ((short)uVar3 == 0) {
+        uVar8 = CONCAT44(g_active_country->name_bytes,city->name_bytes);
+        puVar5 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
+        puVar7 = &DAT_0051262c;
       }
       else {
-        uVar7 = CONCAT44(g_active_country->name_bytes,city->name_bytes);
-        puVar4 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
-        puVar6 = &DAT_00512614;
+        uVar8 = CONCAT44(g_active_country->name_bytes,city->name_bytes);
+        puVar5 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
+        puVar7 = &DAT_00512614;
       }
       goto LAB_00438849;
     }

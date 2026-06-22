@@ -18,9 +18,9 @@ void AI_ActShip(void)
   int iVar6;
   int iVar7;
   int iVar8;
-  uint uVar9;
-  int iVar10;
-  int *piVar11;
+  uint to_y;
+  int iVar9;
+  int *piVar10;
   int local_24;
   int local_20;
   int local_1c;
@@ -66,12 +66,12 @@ void AI_ActShip(void)
       return;
     }
     local_8 = (int)_DAT_00748ff0->tile_x;
-    iVar10 = local_4 << 5;
+    iVar9 = local_4 << 5;
     local_c = 8;
     uVar5 = local_4;
     do {
-      iVar8 = *(int *)((int)&DAT_00589374 + iVar10) + local_8;
-      iVar6 = *(int *)((int)&DAT_005893b4 + iVar10) + (int)_DAT_00748ff0->tile_y;
+      iVar8 = *(int *)((int)&DAT_00589374 + iVar9) + local_8;
+      iVar6 = *(int *)((int)&DAT_005893b4 + iVar9) + (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
          (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -106,25 +106,29 @@ switchD_004011db_default:
           local_1c = (int)*(char *)(uVar5 + 0x12);
         }
       }
-      iVar10 = iVar10 + 4;
+      iVar9 = iVar9 + 4;
       local_c = local_c + -1;
     } while (local_c != 0);
   }
-  iVar10 = FUN_004c3510(*(undefined4 *)(_DAT_0074a0b8 + 0x120));
-  if ((0 < DAT_00734c4c) && (iVar10 < 5)) {
+  iVar9 = Search_Round(*(int *)(_DAT_0074a0b8 + 0x120));
+  if ((0 < g_search_round_best_score) && (iVar9 < 5)) {
     uVar5 = local_4;
     switch(g_map_size_mode) {
     case 0:
-      uVar5 = (_DAT_00734c58 + DAT_00734c5c * 0x138) * 0x100 + _g_land_tiles;
+      uVar5 = (g_search_round_best_tile_x + g_search_round_best_tile_y * 0x138) * 0x100 +
+              _g_land_tiles;
       break;
     case 1:
-      uVar5 = (_DAT_00734c58 + DAT_00734c5c * 0x9c) * 0x100 + _g_land_tiles;
+      uVar5 = (g_search_round_best_tile_x + g_search_round_best_tile_y * 0x9c) * 0x100 +
+              _g_land_tiles;
       break;
     case 2:
-      uVar5 = (_DAT_00734c58 + DAT_00734c5c * 0x2e) * 0x100 + _g_land_tiles;
+      uVar5 = (g_search_round_best_tile_x + g_search_round_best_tile_y * 0x2e) * 0x100 +
+              _g_land_tiles;
       break;
     case 3:
-      uVar5 = (DAT_00734c5c * 0x27 + _DAT_00734c58) * 0x100 + _g_land_tiles;
+      uVar5 = (g_search_round_best_tile_y * 0x27 + g_search_round_best_tile_x) * 0x100 +
+              _g_land_tiles;
     }
     sVar1 = *(short *)(uVar5 + 0x10);
     if ((sVar1 < 0) || (*(char *)(uVar5 + 0x12) < '\0')) {
@@ -138,21 +142,22 @@ switchD_004011db_default:
       else if (local_24 < 0) {
         if ((local_24 == sVar1) || (local_24 == *(char *)(uVar5 + 0x12))) {
 LAB_004015de:
-          _DAT_00748ff0->target_tile_x_or_anim_x = (short)_DAT_00734c58;
-          _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
+          _DAT_00748ff0->target_tile_x_or_anim_x = (short)g_search_round_best_tile_x;
+          _DAT_00748ff0->target_tile_y_or_anim_y = (short)g_search_round_best_tile_y;
           TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
-            iVar8 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                 (int)_DAT_00748ff0->target_tile_x_or_anim_x,
-                                 (int)_DAT_00748ff0->target_tile_y_or_anim_y,0);
-            if ((iVar8 == 1) && (iVar10 == 4)) {
+            iVar8 = Tile_Distance_With_Wrap
+                              ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                               (int)_DAT_00748ff0->target_tile_x_or_anim_x,
+                               (int)_DAT_00748ff0->target_tile_y_or_anim_y,(byte *)0x0);
+            if ((iVar8 == 1) && (iVar9 == 4)) {
               _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->target_tile_x_or_anim_x;
               _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->target_tile_y_or_anim_y;
-              iVar10 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                   (int)_DAT_00748ff0->render_or_anim_x,
-                                   (int)_DAT_00748ff0->render_or_anim_y);
-              Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3d,-1,iVar10,(ArmyUnit_0x164_plus *)0x0,-1,-1
-                                 );
+              iVar9 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                                  (int)_DAT_00748ff0->render_or_anim_x,
+                                  (int)_DAT_00748ff0->render_or_anim_y);
+              Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3d,-1,iVar9,(ArmyUnit_0x164_plus *)0x0,-1,-1)
+              ;
               return;
             }
             goto LAB_00401537;
@@ -164,13 +169,13 @@ LAB_004015de:
     }
     else {
       local_10 = 0;
-      iVar8 = (DAT_00734c5c & 1) << 5;
+      iVar8 = (g_search_round_best_tile_y & 1U) << 5;
       local_18 = 0;
       local_c = 8;
       uVar5 = local_4;
       do {
-        iVar6 = *(int *)((int)&DAT_00589374 + iVar8) + _DAT_00734c58;
-        iVar7 = *(int *)((int)&DAT_005893b4 + iVar8) + DAT_00734c5c;
+        iVar6 = *(int *)((int)&DAT_00589374 + iVar8) + g_search_round_best_tile_x;
+        iVar7 = *(int *)((int)&DAT_005893b4 + iVar8) + g_search_round_best_tile_y;
         if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
            (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -228,19 +233,20 @@ joined_r0x0040145f:
             if (iVar8 != local_18) goto LAB_004016a9;
           }
         }
-        iVar8 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,_DAT_00734c58,
-                             DAT_00734c5c,0);
-        if ((iVar8 == 1) && (iVar10 != 1)) {
-          _DAT_00748ff0->render_or_anim_x = DAT_00734c58;
-          _DAT_00748ff0->render_or_anim_y = (short)DAT_00734c5c;
-          iVar10 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                               (int)_DAT_00748ff0->render_or_anim_x,
-                               (int)_DAT_00748ff0->render_or_anim_y);
-          Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3e,-1,iVar10,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+        iVar8 = Tile_Distance_With_Wrap
+                          ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                           g_search_round_best_tile_x,g_search_round_best_tile_y,(byte *)0x0);
+        if ((iVar8 == 1) && (iVar9 != 1)) {
+          _DAT_00748ff0->render_or_anim_x = (short)g_search_round_best_tile_x;
+          _DAT_00748ff0->render_or_anim_y = (short)g_search_round_best_tile_y;
+          iVar9 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                              (int)_DAT_00748ff0->render_or_anim_x,
+                              (int)_DAT_00748ff0->render_or_anim_y);
+          Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3e,-1,iVar9,(ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
         }
-        _DAT_00748ff0->target_tile_x_or_anim_x = DAT_00734c58;
-        _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
+        _DAT_00748ff0->target_tile_x_or_anim_x = (short)g_search_round_best_tile_x;
+        _DAT_00748ff0->target_tile_y_or_anim_y = (short)g_search_round_best_tile_y;
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
 LAB_00401537:
@@ -260,38 +266,39 @@ LAB_004016a9:
 LAB_004017f2:
       local_1c = 0;
       local_c = 0x628;
-      iVar10 = local_24;
+      iVar9 = local_24;
       uVar5 = local_4;
       do {
         iVar8 = (int)*(short *)(g_active_country->name_bytes + local_c + -0x18);
-        uVar9 = (uint)*(short *)(g_active_country->name_bytes + local_c + -4);
-        if ((-1 < iVar8) && (-1 < (int)uVar9)) {
+        to_y = (uint)*(short *)(g_active_country->name_bytes + local_c + -4);
+        if ((-1 < iVar8) && (-1 < (int)to_y)) {
           switch(g_map_size_mode) {
           case 0:
-            iVar10 = iVar8 + uVar9 * 0x138;
+            iVar9 = iVar8 + to_y * 0x138;
             break;
           case 1:
-            iVar10 = iVar8 + uVar9 * 0x9c;
+            iVar9 = iVar8 + to_y * 0x9c;
             break;
           case 2:
-            iVar10 = iVar8 + uVar9 * 0x4e;
+            iVar9 = iVar8 + to_y * 0x4e;
             break;
           case 3:
-            iVar10 = uVar9 * 0x27 + iVar8;
+            iVar9 = to_y * 0x27 + iVar8;
             break;
           default:
             goto switchD_00401836_default;
           }
-          iVar10 = iVar10 * 0x100 + _g_land_tiles;
-          local_24 = iVar10;
+          iVar9 = iVar9 * 0x100 + _g_land_tiles;
+          local_24 = iVar9;
 switchD_00401836_default:
-          sVar1 = *(short *)(iVar10 + 0x10);
+          sVar1 = *(short *)(iVar9 + 0x10);
           if (sVar1 < 1) {
             if ((((sVar1 == *(short *)(DAT_0075597c + 0x10)) ||
-                 ((short)*(char *)(iVar10 + 0x12) == *(short *)(DAT_0075597c + 0x10))) ||
+                 ((short)*(char *)(iVar9 + 0x12) == *(short *)(DAT_0075597c + 0x10))) ||
                 (sVar1 == *(char *)(DAT_0075597c + 0x12))) &&
-               (iVar8 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar8,
-                                     uVar9,0), iVar8 < local_20)) {
+               (iVar8 = Tile_Distance_With_Wrap
+                                  ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar8,to_y,
+                                   (byte *)0x0), iVar8 < local_20)) {
               local_18 = local_1c;
               local_20 = iVar8;
             }
@@ -299,13 +306,13 @@ switchD_00401836_default:
           else {
             local_14 = 0;
             local_10 = 0;
-            piVar11 = &DAT_00589374 + (uVar9 & 1) * 8;
+            piVar10 = &DAT_00589374 + (to_y & 1) * 8;
             local_8 = 8;
             do {
-              iVar6 = iVar8 + *piVar11;
-              iVar7 = *piVar11 + uVar9;
+              iVar6 = iVar8 + *piVar10;
+              iVar7 = *piVar10 + to_y;
               if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
-                 (((-1 < iVar6 && (iVar10 = local_24, iVar6 < g_map_width_tiles)) ||
+                 (((-1 < iVar6 && (iVar9 = local_24, iVar6 < g_map_width_tiles)) ||
                   (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                 if (iVar6 < 0) {
                   iVar6 = iVar6 + g_map_width_tiles;
@@ -334,12 +341,12 @@ switchD_00401901_default:
                 if (*(short *)(uVar5 + 0x10) < 0) {
                   local_14 = (int)*(short *)(uVar5 + 0x10);
                 }
-                iVar10 = local_24;
+                iVar9 = local_24;
                 if (*(char *)(uVar5 + 0x12) < '\0') {
                   local_10 = (int)*(char *)(uVar5 + 0x12);
                 }
               }
-              piVar11 = piVar11 + 1;
+              piVar10 = piVar10 + 1;
               local_8 = local_8 + -1;
             } while (local_8 != 0);
             if ((((local_14 < 0) || (local_10 < 0)) &&
@@ -347,8 +354,9 @@ switchD_00401901_default:
                  (((local_10 == *(short *)(DAT_0075597c + 0x10) ||
                    (local_14 == *(char *)(DAT_0075597c + 0x12))) ||
                   (local_10 == *(char *)(DAT_0075597c + 0x12))))))) &&
-               (iVar8 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar8,
-                                     uVar9,0), iVar8 < local_20)) {
+               (iVar8 = Tile_Distance_With_Wrap
+                                  ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar8,to_y,
+                                   (byte *)0x0), iVar8 < local_20)) {
               local_18 = local_1c;
               local_20 = iVar8;
             }
@@ -360,12 +368,12 @@ switchD_00401901_default:
     }
     else {
       iVar8 = 0;
-      iVar10 = 0x614;
+      iVar9 = 0x614;
       uVar5 = local_4;
       do {
-        sVar1 = *(short *)(g_active_country->name_bytes + iVar10 + -4);
+        sVar1 = *(short *)(g_active_country->name_bytes + iVar9 + -4);
         if ((-1 < sVar1) &&
-           (sVar2 = *(short *)(g_active_country->name_bytes + iVar10 + 0x10), -1 < sVar2)) {
+           (sVar2 = *(short *)(g_active_country->name_bytes + iVar9 + 0x10), -1 < sVar2)) {
           switch(g_map_size_mode) {
           case 0:
             iVar6 = (int)sVar1 + sVar2 * 0x138;
@@ -388,30 +396,31 @@ switchD_0040171f_default:
                ((*(short *)(uVar5 + 0x10) == local_24 || (*(char *)(uVar5 + 0x12) == local_24)))) ||
               ((local_1c < 0 &&
                ((*(short *)(uVar5 + 0x10) == local_1c || (*(char *)(uVar5 + 0x12) == local_1c))))))
-             && (iVar6 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                      (int)sVar1,(int)sVar2,0), iVar6 < local_20)) {
+             && (iVar6 = Tile_Distance_With_Wrap
+                                   ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,(int)sVar1
+                                    ,(int)sVar2,(byte *)0x0), iVar6 < local_20)) {
             local_20 = iVar6;
             local_18 = iVar8;
           }
         }
-        iVar10 = iVar10 + 2;
+        iVar9 = iVar9 + 2;
         iVar8 = iVar8 + 1;
-      } while (iVar10 < 0x628);
+      } while (iVar9 < 0x628);
       if (local_18 == -1) goto LAB_004017f2;
     }
     if (-1 < local_18) {
       sVar1 = *(short *)((int)g_active_country->science_status + local_18 * 2 + -0x7c);
-      iVar10 = (int)sVar1;
-      if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
-         (((-1 < iVar10 && (iVar10 < g_map_width_tiles)) ||
+      iVar9 = (int)sVar1;
+      if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
+         (((-1 < iVar9 && (iVar9 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-        if (iVar10 < 0) {
-          iVar10 = iVar10 + g_map_width_tiles;
+        if (iVar9 < 0) {
+          iVar9 = iVar9 + g_map_width_tiles;
         }
-        if (g_map_width_tiles <= iVar10) {
-          iVar10 = iVar10 - g_map_width_tiles;
+        if (g_map_width_tiles <= iVar9) {
+          iVar9 = iVar9 - g_map_width_tiles;
         }
-        _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar10;
+        _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar9;
         _DAT_00748ff0->target_tile_y_or_anim_y = sVar1;
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
@@ -424,13 +433,13 @@ switchD_0040171f_default:
     }
   }
   if ((DAT_0074c858 != (City_0x1b8_plus *)0x0) && (g_active_country->special_rule_level == 0)) {
-    uVar5 = FUN_004fbf50(_DAT_0074a3b0);
-    iVar10 = (uVar5 & 0xffff) + 1;
+    uVar5 = Game_Random_Mod(CONCAT22((short)((uint)DAT_0074c858 >> 0x10),_DAT_0074a3b0));
+    iVar9 = (uVar5 & 0xffff) + 1;
     iVar8 = (int)_DAT_00748ff0->tile_x +
-            (int)*(short *)((int)g_edit_dest_round_buffers[local_4] + iVar10 * 8);
-    iVar10 = (int)*(short *)((int)g_edit_dest_round_buffers[local_4] + iVar10 * 8 + 2) +
-             (int)_DAT_00748ff0->tile_y;
-    if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
+            (int)*(short *)((int)g_edit_dest_round_buffers[local_4] + iVar9 * 8);
+    iVar9 = (int)*(short *)((int)g_edit_dest_round_buffers[local_4] + iVar9 * 8 + 2) +
+            (int)_DAT_00748ff0->tile_y;
+    if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
        (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
         (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
       if (iVar8 < 0) {
@@ -442,22 +451,22 @@ switchD_0040171f_default:
       uVar5 = local_4;
       switch(g_map_size_mode) {
       case 0:
-        uVar5 = (iVar8 + iVar10 * 0x138) * 0x100 + _g_land_tiles;
+        uVar5 = (iVar8 + iVar9 * 0x138) * 0x100 + _g_land_tiles;
         break;
       case 1:
-        uVar5 = (iVar8 + iVar10 * 0x9c) * 0x100 + _g_land_tiles;
+        uVar5 = (iVar8 + iVar9 * 0x9c) * 0x100 + _g_land_tiles;
         break;
       case 2:
-        uVar5 = (iVar8 + iVar10 * 0x4e) * 0x100 + _g_land_tiles;
+        uVar5 = (iVar8 + iVar9 * 0x4e) * 0x100 + _g_land_tiles;
         break;
       case 3:
-        uVar5 = (iVar10 * 0x27 + iVar8) * 0x100 + _g_land_tiles;
+        uVar5 = (iVar9 * 0x27 + iVar8) * 0x100 + _g_land_tiles;
       }
       if ((*(short *)(uVar5 + 0x10) == *(short *)(DAT_0075597c + 0x10)) ||
          ((*(char *)(DAT_0075597c + 0x12) < '\0' &&
           (*(char *)(DAT_0075597c + 0x12) == *(char *)(uVar5 + 0x12))))) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar8;
-        _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar10;
+        _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar9;
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,

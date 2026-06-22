@@ -55,8 +55,9 @@ void AI_AirOilPlane(void)
     }
     sVar4 = _DAT_00748ff0->tile_y;
     if (g_active_country->special_rule_level == 0) {
-      uVar9 = FUN_004fbf50((short)g_tile_radius_offset_counts
-                                  [(ushort)_DAT_00748ff0->cached_stat_c >> 1]);
+      uVar9 = Game_Random_Mod((uint)*(ushort *)
+                                     (g_tile_radius_offset_counts +
+                                     ((ushort)_DAT_00748ff0->cached_stat_c >> 1)));
       iVar10 = (uVar9 & 0xffff) + 1;
       iVar11 = (int)_DAT_00748ff0->tile_x +
                (int)*(short *)((int)g_edit_dest_round_buffers[(byte)sVar4 & 1] + iVar10 * 8);
@@ -139,11 +140,12 @@ LAB_00402016:
                   do {
                     if (((-1 < *(short *)(g_active_country->name_bytes + iVar6 + -0x18)) &&
                         (-1 < *(short *)(g_active_country->name_bytes + iVar6 + -4))) &&
-                       (iVar7 = FUN_004c6ed0((int)pAVar2->tile_x,(int)pAVar2->tile_y,
-                                             (int)*(short *)(g_active_country->name_bytes +
-                                                            iVar6 + -0x18),
-                                             (int)*(short *)(g_active_country->name_bytes +
-                                                            iVar6 + -4),0), iVar10 = _g_land_tiles,
+                       (iVar7 = Tile_Distance_With_Wrap
+                                          ((int)pAVar2->tile_x,(int)pAVar2->tile_y,
+                                           (int)*(short *)(g_active_country->name_bytes +
+                                                          iVar6 + -0x18),
+                                           (int)*(short *)(g_active_country->name_bytes + iVar6 + -4
+                                                          ),(byte *)0x0), iVar10 = _g_land_tiles,
                        iVar7 < iVar11)) {
                       iVar11 = iVar7;
                       local_34 = (int *)iVar12;
@@ -206,8 +208,10 @@ LAB_00402016:
           if (iVar11 != 0) {
             do {
               if (!bVar3) goto LAB_004021fd;
-              iVar6 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                   *(undefined2 *)(iVar11 + 0x16),*(undefined2 *)(iVar11 + 0x18),0);
+              iVar6 = Tile_Distance_With_Wrap
+                                ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                                 (uint)*(ushort *)(iVar11 + 0x16),(uint)*(ushort *)(iVar11 + 0x18),
+                                 (byte *)0x0);
               if (iVar6 <= local_30) {
                 bVar3 = false;
               }
@@ -215,8 +219,9 @@ LAB_00402016:
             } while (iVar11 != 0);
             if (!bVar3) goto LAB_004021fd;
           }
-          iVar11 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,(int)sVar4,
-                                local_2c,0);
+          iVar11 = Tile_Distance_With_Wrap
+                             ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,(int)sVar4,
+                              local_2c,(byte *)0x0);
           iVar11 = ((g_map_height_tiles + *local_38 * -0x1e) - iVar11) + g_map_width_tiles;
           if (iVar10 <= iVar11) {
             local_34 = local_3c;
@@ -237,9 +242,11 @@ LAB_004021fd:
          cVar5 != '\0')) {
         piVar13 = (int *)0xffffffff;
         local_34 = (int *)0xffffffff;
-        iVar11 = FUN_004c6ed0((int)*(short *)(&g_active_country->field_0x614 + (int)piVar14 * 2),
-                              (int)*(short *)((int)g_active_country->science_status +
-                                             (int)piVar14 * 2 + -0x7c),local_38,local_40,0);
+        iVar11 = Tile_Distance_With_Wrap
+                           ((int)*(short *)(&g_active_country->field_0x614 + (int)piVar14 * 2),
+                            (int)*(short *)((int)g_active_country->science_status +
+                                           (int)piVar14 * 2 + -0x7c),(int)local_38,local_40,
+                            (byte *)0x0);
         iVar10 = g_tile_radius_offset_counts[iVar11 >> 1];
         local_30 = g_tile_radius_offset_counts[(iVar11 >> 1) + 1];
         iVar11 = local_2c;

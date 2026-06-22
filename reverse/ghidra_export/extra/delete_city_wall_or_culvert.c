@@ -9,7 +9,7 @@ void Del_City_Wall_Or_Culvert(int param_1,int param_2)
 
 {
   int iVar1;
-  undefined2 uVar2;
+  uint uVar2;
   int iVar3;
   int iVar4;
 
@@ -26,8 +26,8 @@ void Del_City_Wall_Or_Culvert(int param_1,int param_2)
           *(undefined1 *)(iVar3 + 0xb) = 0xff;
           *(undefined2 *)(iVar3 + 8) = 0xffff;
           *(undefined1 *)(iVar3 + 10) = 0xff;
-          uVar2 = FUN_004fbf50(0xc);
-          *(undefined2 *)(iVar3 + 0xc) = uVar2;
+          uVar2 = Game_Random_Mod(0xc);
+          *(short *)(iVar3 + 0xc) = (short)uVar2;
         }
         iVar3 = iVar3 + 0x20;
         iVar4 = iVar4 + -1;

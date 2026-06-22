@@ -11,15 +11,16 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
 
 {
   byte bVar1;
-  short sVar2;
+  ushort uVar2;
   short sVar3;
   short sVar4;
-  short sVar5;
-  uint uVar6;
-  int iVar7;
+  uint uVar5;
+  int iVar6;
+  short sVar7;
   byte *pbVar8;
-  uint uVar9;
-  int iVar10;
+  short sVar9;
+  uint uVar10;
+  int iVar11;
   uint local_a4;
   uint local_a0;
   uint local_9c;
@@ -62,8 +63,8 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
   uint local_8;
   uint local_4;
 
-  uVar6 = Trace_Function(s_Decode_City_005188a4);
-  if ((((-1 < (int)param_1) && (uVar6 = param_2, -1 < (int)param_2)) && ((int)param_1 < 0x30)) &&
+  uVar5 = Trace_Function(s_Decode_City_005188a4);
+  if ((((-1 < (int)param_1) && (uVar5 = param_2, -1 < (int)param_2)) && ((int)param_1 < 0x30)) &&
      ((int)param_2 < 0x30)) {
     pbVar8 = (byte *)((param_2 * 0x30 + param_1) * 0x20 + *(int *)(param_3 + 0x1ac));
     local_10 = 0xffffffff;
@@ -108,8 +109,8 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
       local_a0 = (uint)pbVar8[0x600];
     }
     bVar1 = *pbVar8;
-    uVar9 = (uint)bVar1;
-    switch(uVar9) {
+    uVar10 = (uint)bVar1;
+    switch(uVar10) {
     case 0:
     case 1:
     case 2:
@@ -153,30 +154,30 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
       local_60 = 0x42;
       local_54 = 6;
       local_20 = 6;
-      local_9c = (uint)(uVar9 == local_14);
-      if (uVar9 == local_18) {
+      local_9c = (uint)(uVar10 == local_14);
+      if (uVar10 == local_18) {
         local_9c = local_9c + 2;
       }
-      if (uVar9 == local_a0) {
+      if (uVar10 == local_a0) {
         local_9c = local_9c + 4;
       }
-      if (uVar9 == local_a4) {
+      if (uVar10 == local_a4) {
         local_9c = local_9c + 8;
       }
-      if ((uVar9 == 0) || (local_9c == 0xf)) {
-        uVar6 = (int)param_1 / 9;
+      if ((uVar10 == 0) || (local_9c == 0xf)) {
+        uVar5 = (int)param_1 / 9;
         *(ushort *)(pbVar8 + 2) =
              ((short)((int)param_2 % 9) + (ushort)bVar1 * 9) * 9 + (short)((int)param_1 % 9);
       }
       else {
-        sVar5 = FUN_004fbf50(CONCAT22(0xffff,*(undefined2 *)(&local_58 + local_9c)));
-        uVar6 = (uint)(ushort)(sVar5 + *(short *)(&local_98 + local_9c));
-        *(ushort *)(pbVar8 + 2) =
-             sVar5 + *(short *)(&local_98 + local_9c) + 0x32eU + (ushort)bVar1 * 0x4d;
+        uVar5 = Game_Random_Mod(CONCAT22(0xffff,*(undefined2 *)(&local_58 + local_9c)));
+        uVar2 = (short)uVar5 + *(short *)(&local_98 + local_9c);
+        uVar5 = (uint)uVar2;
+        *(ushort *)(pbVar8 + 2) = uVar2 + 0x32e + (ushort)bVar1 * 0x4d;
       }
       if (-1 < *(short *)(pbVar8 + 0xe)) {
-        uVar6 = (uint)*(byte *)(param_3 + 0x23);
-        if (uVar6 == 1) {
+        uVar5 = (uint)*(byte *)(param_3 + 0x23);
+        if (uVar5 == 1) {
           local_74 = 10;
           local_1c = 10;
           local_98 = 0x42;
@@ -209,42 +210,42 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
           local_28 = 2;
           local_24 = 4;
           local_20 = 4;
-          sVar5 = -1;
+          sVar7 = -1;
           if (0 < (int)param_2) {
-            sVar5 = *(short *)(pbVar8 + -0x5f2);
+            sVar7 = *(short *)(pbVar8 + -0x5f2);
           }
-          sVar4 = -1;
+          sVar9 = -1;
           if (0 < (int)param_1) {
-            sVar4 = *(short *)(pbVar8 + -0x12);
+            sVar9 = *(short *)(pbVar8 + -0x12);
           }
-          sVar2 = -1;
+          sVar3 = -1;
           if ((int)param_1 < 0x2f) {
-            sVar2 = *(short *)(pbVar8 + 0x2e);
+            sVar3 = *(short *)(pbVar8 + 0x2e);
           }
-          iVar7 = -1;
+          iVar6 = -1;
           if ((int)param_2 < 0x2f) {
-            iVar7 = (int)*(short *)(pbVar8 + 0x60e);
+            iVar6 = (int)*(short *)(pbVar8 + 0x60e);
           }
-          uVar6 = (uint)(iVar7 != -1);
-          if (sVar4 != -1) {
-            uVar6 = uVar6 + 2;
+          uVar5 = (uint)(iVar6 != -1);
+          if (sVar9 != -1) {
+            uVar5 = uVar5 + 2;
           }
-          if (sVar5 != -1) {
-            uVar6 = uVar6 + 4;
+          if (sVar7 != -1) {
+            uVar5 = uVar5 + 4;
           }
-          if (sVar2 != -1) {
-            uVar6 = uVar6 + 8;
+          if (sVar3 != -1) {
+            uVar5 = uVar5 + 8;
           }
-          sVar4 = FUN_004fbf50(CONCAT22((short)((uint)iVar7 >> 0x10),
-                                        *(undefined2 *)(&local_58 + uVar6)));
-          sVar5 = *(short *)(&local_98 + uVar6);
-          *(short *)(pbVar8 + 0xe) = sVar4 + sVar5;
-          return (uint)(ushort)(sVar4 + sVar5);
+          uVar10 = Game_Random_Mod(CONCAT22((short)((uint)iVar6 >> 0x10),
+                                            *(undefined2 *)(&local_58 + uVar5)));
+          uVar2 = (short)uVar10 + *(short *)(&local_98 + uVar5);
+          *(ushort *)(pbVar8 + 0xe) = uVar2;
+          return (uint)uVar2;
         }
-        if (uVar6 == 2) {
+        if (uVar5 == 2) {
           bVar1 = pbVar8[0x10];
           if (bVar1 == 1) {
-            sVar4 = -1;
+            sVar9 = -1;
             local_98 = 0;
             local_94 = 0;
             local_90 = 0;
@@ -277,41 +278,41 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
             local_24 = 0;
             local_20 = 4;
             local_1c = 0;
-            sVar5 = -1;
+            sVar7 = -1;
             if (0 < (int)param_2) {
-              sVar5 = *(short *)(pbVar8 + -0x5f2);
+              sVar7 = *(short *)(pbVar8 + -0x5f2);
             }
             if (0 < (int)param_1) {
-              sVar4 = *(short *)(pbVar8 + -0x12);
-            }
-            sVar2 = -1;
-            if ((int)param_1 < 0x2f) {
-              sVar2 = *(short *)(pbVar8 + 0x2e);
+              sVar9 = *(short *)(pbVar8 + -0x12);
             }
             sVar3 = -1;
+            if ((int)param_1 < 0x2f) {
+              sVar3 = *(short *)(pbVar8 + 0x2e);
+            }
+            sVar4 = -1;
             if ((int)param_2 < 0x2f) {
-              sVar3 = *(short *)(pbVar8 + 0x60e);
+              sVar4 = *(short *)(pbVar8 + 0x60e);
             }
-            uVar9 = (uint)(sVar3 != -1);
-            if (sVar4 != -1) {
-              uVar9 = uVar9 + 2;
+            uVar10 = (uint)(sVar4 != -1);
+            if (sVar9 != -1) {
+              uVar10 = uVar10 + 2;
             }
-            if (sVar5 != -1) {
-              uVar9 = uVar9 + 4;
+            if (sVar7 != -1) {
+              uVar10 = uVar10 + 4;
             }
-            if (sVar2 != -1) {
-              uVar9 = uVar9 + 8;
+            if (sVar3 != -1) {
+              uVar10 = uVar10 + 8;
             }
-            uVar6 = (&local_58)[uVar9];
-            if (0 < (int)uVar6) {
-              sVar5 = FUN_004fbf50(CONCAT22(0xffff,(short)uVar6));
-              uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar9)) + 0x44;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
-              return uVar6;
+            uVar5 = (&local_58)[uVar10];
+            if (0 < (int)uVar5) {
+              uVar5 = Game_Random_Mod(CONCAT22(0xffff,(short)uVar5));
+              uVar5 = (ushort)((short)uVar5 + *(short *)(&local_98 + uVar10)) + 0x44;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
+              return uVar5;
             }
           }
           else if (bVar1 == 2) {
-            sVar4 = -1;
+            sVar9 = -1;
             local_98 = 0;
             local_94 = 0;
             local_90 = 0;
@@ -344,42 +345,42 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
             local_24 = 4;
             local_20 = 0;
             local_1c = 0;
-            sVar5 = -1;
+            sVar7 = -1;
             if (0 < (int)param_2) {
-              sVar5 = *(short *)(pbVar8 + -0x5f2);
+              sVar7 = *(short *)(pbVar8 + -0x5f2);
             }
             if (0 < (int)param_1) {
-              sVar4 = *(short *)(pbVar8 + -0x12);
-            }
-            sVar2 = -1;
-            if ((int)param_1 < 0x2f) {
-              sVar2 = *(short *)(pbVar8 + 0x2e);
+              sVar9 = *(short *)(pbVar8 + -0x12);
             }
             sVar3 = -1;
+            if ((int)param_1 < 0x2f) {
+              sVar3 = *(short *)(pbVar8 + 0x2e);
+            }
+            sVar4 = -1;
             if ((int)param_2 < 0x2f) {
-              sVar3 = *(short *)(pbVar8 + 0x60e);
+              sVar4 = *(short *)(pbVar8 + 0x60e);
             }
-            uVar9 = (uint)(sVar3 != -1);
-            if (sVar4 != -1) {
-              uVar9 = uVar9 + 2;
+            uVar10 = (uint)(sVar4 != -1);
+            if (sVar9 != -1) {
+              uVar10 = uVar10 + 2;
             }
-            if (sVar5 != -1) {
-              uVar9 = uVar9 + 4;
+            if (sVar7 != -1) {
+              uVar10 = uVar10 + 4;
             }
-            if (sVar2 != -1) {
-              uVar9 = uVar9 + 8;
+            if (sVar3 != -1) {
+              uVar10 = uVar10 + 8;
             }
-            uVar6 = (&local_58)[uVar9];
-            if (0 < (int)uVar6) {
-              sVar5 = FUN_004fbf50(CONCAT22(0xffff,(short)uVar6));
-              uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar9)) + 0x44;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
-              return uVar6;
+            uVar5 = (&local_58)[uVar10];
+            if (0 < (int)uVar5) {
+              uVar5 = Game_Random_Mod(CONCAT22(0xffff,(short)uVar5));
+              uVar5 = (ushort)((short)uVar5 + *(short *)(&local_98 + uVar10)) + 0x44;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
+              return uVar5;
             }
           }
           else {
             if (bVar1 != 3) {
-              iVar7 = -1;
+              iVar6 = -1;
               local_98 = 0;
               local_94 = 0x1a;
               local_90 = 0x1c;
@@ -413,78 +414,78 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
               local_20 = 2;
               local_1c = 2;
               if (0 < (int)param_2) {
-                iVar7 = (int)*(short *)(pbVar8 + -0x5f2);
+                iVar6 = (int)*(short *)(pbVar8 + -0x5f2);
               }
-              sVar5 = -1;
+              sVar7 = -1;
               if (0 < (int)param_1) {
-                sVar5 = *(short *)(pbVar8 + -0x12);
+                sVar7 = *(short *)(pbVar8 + -0x12);
               }
-              sVar4 = -1;
+              sVar9 = -1;
               if ((int)param_1 < 0x2f) {
-                sVar4 = *(short *)(pbVar8 + 0x2e);
+                sVar9 = *(short *)(pbVar8 + 0x2e);
               }
-              sVar2 = -1;
+              sVar3 = -1;
               if ((int)param_2 < 0x2f) {
-                sVar2 = *(short *)(pbVar8 + 0x60e);
+                sVar3 = *(short *)(pbVar8 + 0x60e);
               }
-              uVar6 = (uint)(sVar2 != -1);
-              if (sVar5 != -1) {
-                uVar6 = uVar6 + 2;
+              uVar5 = (uint)(sVar3 != -1);
+              if (sVar7 != -1) {
+                uVar5 = uVar5 + 2;
               }
-              if (iVar7 != -1) {
-                uVar6 = uVar6 + 4;
+              if (iVar6 != -1) {
+                uVar5 = uVar5 + 4;
               }
-              if (sVar4 != -1) {
-                uVar6 = uVar6 + 8;
+              if (sVar9 != -1) {
+                uVar5 = uVar5 + 8;
               }
-              sVar5 = FUN_004fbf50(CONCAT22((short)((uint)iVar7 >> 0x10),
-                                            *(undefined2 *)(&local_58 + uVar6)));
-              uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar6)) + 0x6c;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
-              return uVar6;
+              uVar10 = Game_Random_Mod(CONCAT22((short)((uint)iVar6 >> 0x10),
+                                                *(undefined2 *)(&local_58 + uVar5)));
+              uVar5 = (ushort)((short)uVar10 + *(short *)(&local_98 + uVar5)) + 0x6c;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
+              return uVar5;
             }
-            sVar5 = -1;
+            sVar7 = -1;
             if ((0 < (int)param_1) && (0 < (int)param_2)) {
-              sVar5 = *(short *)(pbVar8 + -0x612);
+              sVar7 = *(short *)(pbVar8 + -0x612);
             }
-            sVar4 = -1;
+            sVar9 = -1;
             if (((int)param_1 < 0x2f) && (0 < (int)param_2)) {
-              sVar4 = *(short *)(pbVar8 + -0x5d2);
-            }
-            sVar2 = -1;
-            if ((0 < (int)param_1) && ((int)param_2 < 0x2f)) {
-              sVar2 = *(short *)(pbVar8 + 0x5ee);
+              sVar9 = *(short *)(pbVar8 + -0x5d2);
             }
             sVar3 = -1;
+            if ((0 < (int)param_1) && ((int)param_2 < 0x2f)) {
+              sVar3 = *(short *)(pbVar8 + 0x5ee);
+            }
+            sVar4 = -1;
             if (((int)param_1 < 0x2f) && ((int)param_2 < 0x2f)) {
-              sVar3 = *(short *)(pbVar8 + 0x62e);
+              sVar4 = *(short *)(pbVar8 + 0x62e);
             }
-            uVar6 = param_1;
-            if (sVar5 == -1) {
-              iVar7 = FUN_004fbf50(2);
-              uVar6 = iVar7 + 0x54;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
+            uVar5 = param_1;
+            if (sVar7 == -1) {
+              uVar5 = Game_Random_Mod(2);
+              uVar5 = uVar5 + 0x54;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
             }
-            if (sVar4 == -1) {
-              iVar7 = FUN_004fbf50(2);
-              uVar6 = iVar7 + 0x56;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
-            }
-            if (sVar2 == -1) {
-              iVar7 = FUN_004fbf50(2);
-              uVar6 = iVar7 + 0x58;
-              *(short *)(pbVar8 + 0xe) = (short)uVar6;
+            if (sVar9 == -1) {
+              uVar5 = Game_Random_Mod(2);
+              uVar5 = uVar5 + 0x56;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
             }
             if (sVar3 == -1) {
-              iVar7 = FUN_004fbf50(2);
-              *(short *)(pbVar8 + 0xe) = (short)(iVar7 + 0x5aU);
-              return iVar7 + 0x5aU;
+              uVar5 = Game_Random_Mod(2);
+              uVar5 = uVar5 + 0x58;
+              *(short *)(pbVar8 + 0xe) = (short)uVar5;
+            }
+            if (sVar4 == -1) {
+              uVar5 = Game_Random_Mod(2);
+              *(short *)(pbVar8 + 0xe) = (short)(uVar5 + 0x5a);
+              return uVar5 + 0x5a;
             }
           }
         }
         else {
-          uVar6 = uVar6 - 3;
-          if (uVar6 == 0) {
+          uVar5 = uVar5 - 3;
+          if (uVar5 == 0) {
             bVar1 = pbVar8[0x10];
             if (bVar1 == 1) {
               local_2c = 4;
@@ -519,43 +520,43 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
               local_28 = 1;
               local_24 = 0;
               local_1c = 0;
-              sVar5 = -1;
+              sVar7 = -1;
               if (0 < (int)param_2) {
-                sVar5 = *(short *)(pbVar8 + -0x5f2);
+                sVar7 = *(short *)(pbVar8 + -0x5f2);
               }
-              sVar4 = -1;
+              sVar9 = -1;
               if (0 < (int)param_1) {
-                sVar4 = *(short *)(pbVar8 + -0x12);
+                sVar9 = *(short *)(pbVar8 + -0x12);
               }
               local_18 = -1;
               if ((int)param_1 < 0x2f) {
                 local_18 = (int)*(short *)(pbVar8 + 0x2e);
               }
-              sVar2 = -1;
+              sVar3 = -1;
               if ((int)param_2 < 0x2f) {
-                sVar2 = *(short *)(pbVar8 + 0x60e);
+                sVar3 = *(short *)(pbVar8 + 0x60e);
               }
-              uVar9 = (uint)(sVar2 != -1);
-              if (sVar4 != -1) {
-                uVar9 = uVar9 + 2;
+              uVar10 = (uint)(sVar3 != -1);
+              if (sVar9 != -1) {
+                uVar10 = uVar10 + 2;
               }
-              if (sVar5 != -1) {
-                uVar9 = uVar9 + 4;
+              if (sVar7 != -1) {
+                uVar10 = uVar10 + 4;
               }
               if (local_18 != -1) {
-                uVar9 = uVar9 + 8;
+                uVar10 = uVar10 + 8;
               }
-              uVar6 = (&local_58)[uVar9];
-              if ((int)uVar6 < 1) {
+              uVar5 = (&local_58)[uVar10];
+              if ((int)uVar5 < 1) {
                 pbVar8[0xe] = 0xa2;
                 pbVar8[0xf] = 0;
               }
               else {
-                sVar5 = FUN_004fbf50(CONCAT22(0xffff,(short)uVar6));
-                uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar9)) + 0x90;
-                *(short *)(pbVar8 + 0xe) = (short)uVar6;
+                uVar5 = Game_Random_Mod(CONCAT22(0xffff,(short)uVar5));
+                uVar5 = (ushort)((short)uVar5 + *(short *)(&local_98 + uVar10)) + 0x90;
+                *(short *)(pbVar8 + 0xe) = (short)uVar5;
               }
-              if (uVar9 == 0xb) {
+              if (uVar10 == 0xb) {
                 if (pbVar8[0x30] == 3) {
                   pbVar8[0xe] = 0xae;
                   pbVar8[0xf] = 0;
@@ -563,10 +564,10 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
                 if (pbVar8[-0x10] == 3) {
                   pbVar8[0xe] = 0xb2;
                   pbVar8[0xf] = 0;
-                  return uVar6;
+                  return uVar5;
                 }
               }
-              else if (uVar9 == 0xe) {
+              else if (uVar10 == 0xe) {
                 if (pbVar8[0x30] == 3) {
                   pbVar8[0xe] = 0xaf;
                   pbVar8[0xf] = 0;
@@ -574,18 +575,18 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
                 if (pbVar8[-0x10] == 3) {
                   pbVar8[0xe] = 0xb3;
                   pbVar8[0xf] = 0;
-                  return uVar6;
+                  return uVar5;
                 }
               }
             }
             else {
               if (bVar1 != 2) {
                 if (bVar1 == 3) {
-                  iVar7 = FUN_004fbf50(4);
-                  *(short *)(pbVar8 + 0xe) = (short)(iVar7 + 0xa0U);
-                  return iVar7 + 0xa0U;
+                  uVar5 = Game_Random_Mod(4);
+                  *(short *)(pbVar8 + 0xe) = (short)(uVar5 + 0xa0);
+                  return uVar5 + 0xa0;
                 }
-                iVar7 = -1;
+                iVar6 = -1;
                 local_98 = 0;
                 local_94 = 0x1a;
                 local_90 = 0x1c;
@@ -619,35 +620,35 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
                 local_20 = 2;
                 local_1c = 2;
                 if (0 < (int)param_2) {
-                  iVar7 = (int)*(short *)(pbVar8 + -0x5f2);
+                  iVar6 = (int)*(short *)(pbVar8 + -0x5f2);
                 }
-                sVar5 = -1;
+                sVar7 = -1;
                 if (0 < (int)param_1) {
-                  sVar5 = *(short *)(pbVar8 + -0x12);
+                  sVar7 = *(short *)(pbVar8 + -0x12);
                 }
-                sVar4 = -1;
+                sVar9 = -1;
                 if ((int)param_1 < 0x2f) {
-                  sVar4 = *(short *)(pbVar8 + 0x2e);
+                  sVar9 = *(short *)(pbVar8 + 0x2e);
                 }
-                sVar2 = -1;
+                sVar3 = -1;
                 if ((int)param_2 < 0x2f) {
-                  sVar2 = *(short *)(pbVar8 + 0x60e);
+                  sVar3 = *(short *)(pbVar8 + 0x60e);
                 }
-                uVar6 = (uint)(sVar2 != -1);
-                if (sVar5 != -1) {
-                  uVar6 = uVar6 + 2;
+                uVar5 = (uint)(sVar3 != -1);
+                if (sVar7 != -1) {
+                  uVar5 = uVar5 + 2;
                 }
-                if (iVar7 != -1) {
-                  uVar6 = uVar6 + 4;
+                if (iVar6 != -1) {
+                  uVar5 = uVar5 + 4;
                 }
-                if (sVar4 != -1) {
-                  uVar6 = uVar6 + 8;
+                if (sVar9 != -1) {
+                  uVar5 = uVar5 + 8;
                 }
-                sVar5 = FUN_004fbf50(CONCAT22((short)((uint)iVar7 >> 0x10),
-                                              *(undefined2 *)(&local_58 + uVar6)));
-                uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar6)) + 0xc0;
-                *(short *)(pbVar8 + 0xe) = (short)uVar6;
-                return uVar6;
+                uVar10 = Game_Random_Mod(CONCAT22((short)((uint)iVar6 >> 0x10),
+                                                  *(undefined2 *)(&local_58 + uVar5)));
+                uVar5 = (ushort)((short)uVar10 + *(short *)(&local_98 + uVar5)) + 0xc0;
+                *(short *)(pbVar8 + 0xe) = (short)uVar5;
+                return uVar5;
               }
               local_7c = 4;
               local_3c = 4;
@@ -681,43 +682,43 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
               local_28 = 1;
               local_20 = 0;
               local_1c = 0;
-              sVar5 = -1;
+              sVar7 = -1;
               if (0 < (int)param_2) {
-                sVar5 = *(short *)(pbVar8 + -0x5f2);
+                sVar7 = *(short *)(pbVar8 + -0x5f2);
               }
-              sVar4 = -1;
+              sVar9 = -1;
               if (0 < (int)param_1) {
-                sVar4 = *(short *)(pbVar8 + -0x12);
+                sVar9 = *(short *)(pbVar8 + -0x12);
               }
               local_18 = -1;
               if ((int)param_1 < 0x2f) {
                 local_18 = (int)*(short *)(pbVar8 + 0x2e);
               }
-              sVar2 = -1;
+              sVar3 = -1;
               if ((int)param_2 < 0x2f) {
-                sVar2 = *(short *)(pbVar8 + 0x60e);
+                sVar3 = *(short *)(pbVar8 + 0x60e);
               }
-              uVar9 = (uint)(sVar2 != -1);
-              if (sVar4 != -1) {
-                uVar9 = uVar9 + 2;
+              uVar10 = (uint)(sVar3 != -1);
+              if (sVar9 != -1) {
+                uVar10 = uVar10 + 2;
               }
-              if (sVar5 != -1) {
-                uVar9 = uVar9 + 4;
+              if (sVar7 != -1) {
+                uVar10 = uVar10 + 4;
               }
               if (local_18 != -1) {
-                uVar9 = uVar9 + 8;
+                uVar10 = uVar10 + 8;
               }
-              uVar6 = (&local_58)[uVar9];
-              if ((int)uVar6 < 1) {
+              uVar5 = (&local_58)[uVar10];
+              if ((int)uVar5 < 1) {
                 pbVar8[0xe] = 0xa2;
                 pbVar8[0xf] = 0;
               }
               else {
-                sVar5 = FUN_004fbf50(CONCAT22(0xffff,(short)uVar6));
-                uVar6 = (ushort)(sVar5 + *(short *)(&local_98 + uVar9)) + 0x90;
-                *(short *)(pbVar8 + 0xe) = (short)uVar6;
+                uVar5 = Game_Random_Mod(CONCAT22(0xffff,(short)uVar5));
+                uVar5 = (ushort)((short)uVar5 + *(short *)(&local_98 + uVar10)) + 0x90;
+                *(short *)(pbVar8 + 0xe) = (short)uVar5;
               }
-              if (uVar9 == 7) {
+              if (uVar10 == 7) {
                 if (pbVar8[0x610] == 3) {
                   pbVar8[0xe] = 0xb1;
                   pbVar8[0xf] = 0;
@@ -725,10 +726,10 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
                 if (pbVar8[-0x5f0] == 3) {
                   pbVar8[0xe] = 0xad;
                   pbVar8[0xf] = 0;
-                  return uVar6;
+                  return uVar5;
                 }
               }
-              else if (uVar9 == 0xd) {
+              else if (uVar10 == 0xd) {
                 if (pbVar8[0x610] == 3) {
                   pbVar8[0xe] = 0xb0;
                   pbVar8[0xf] = 0;
@@ -736,7 +737,7 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
                 if (pbVar8[-0x5f0] == 3) {
                   pbVar8[0xe] = 0xac;
                   pbVar8[0xf] = 0;
-                  return uVar6;
+                  return uVar5;
                 }
               }
             }
@@ -756,7 +757,7 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
       local_94 = 0;
       local_90 = 0;
       local_8c = 0;
-      iVar7 = 0;
+      iVar6 = 0;
       *(ushort *)(pbVar8 + 4) =
            ((short)((int)param_2 % 9) + (ushort)bVar1 * 0x48) * 9 + -0x14e3 +
            (short)((int)param_1 % 9);
@@ -765,42 +766,42 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
         local_9c = 1;
         local_98 = 1;
         local_94 = 1;
-        iVar7 = 1;
+        iVar6 = 1;
       }
-      uVar6 = 1;
+      uVar5 = 1;
       if ((-1 < (int)local_18) && ((int)local_18 < 0xb)) {
-        iVar7 = iVar7 + 2;
+        iVar6 = iVar6 + 2;
         local_94 = 1;
         local_90 = 1;
-        local_9c = iVar7;
+        local_9c = iVar6;
       }
       if ((-1 < (int)local_a0) && ((int)local_a0 < 0xb)) {
-        iVar7 = iVar7 + 4;
+        iVar6 = iVar6 + 4;
         local_90 = 1;
         local_8c = 1;
-        local_9c = iVar7;
+        local_9c = iVar6;
       }
       if ((-1 < (int)local_a4) && ((int)local_a4 < 0xb)) {
-        iVar7 = iVar7 + 8;
+        iVar6 = iVar6 + 8;
         local_98 = 1;
         local_8c = 1;
-        local_9c = iVar7;
+        local_9c = iVar6;
       }
-      iVar10 = 0;
+      iVar11 = 0;
       if (((-1 < (int)local_10) && ((int)local_10 < 0xb)) && (local_98 == 0)) {
-        iVar10 = 1;
+        iVar11 = 1;
       }
       if (((-1 < (int)local_c) && ((int)local_c < 0xb)) && (local_94 == 0)) {
-        iVar10 = iVar10 + 2;
+        iVar11 = iVar11 + 2;
       }
       if (((-1 < (int)local_4) && ((int)local_4 < 0xb)) && (local_90 == 0)) {
-        iVar10 = iVar10 + 4;
+        iVar11 = iVar11 + 4;
       }
       if (((-1 < (int)local_8) && ((int)local_8 < 0xb)) && (local_8c == 0)) {
-        iVar10 = iVar10 + 8;
+        iVar11 = iVar11 + 8;
       }
-      if (iVar7 == 0) {
-        if (iVar10 != 0) {
+      if (iVar6 == 0) {
+        if (iVar11 != 0) {
           local_58 = 0x20000;
           local_54 = 0x10002;
           local_50 = 0x10002;
@@ -817,14 +818,14 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
           local_84 = 0xe000d;
           local_80 = 0x10000f;
           local_7c = 0x120011;
-          sVar5 = FUN_004fbf50(CONCAT22((short)(local_8 >> 0x10),
-                                        *(undefined2 *)((int)&local_58 + iVar10 * 2)));
-          uVar6 = (ushort)(sVar5 + *(short *)((int)&local_98 + iVar10 * 2)) + 0x1169;
-          *(short *)(pbVar8 + 2) = (short)uVar6;
+          uVar5 = Game_Random_Mod(CONCAT22((short)(local_8 >> 0x10),
+                                           *(undefined2 *)((int)&local_58 + iVar11 * 2)));
+          uVar5 = (ushort)((short)uVar5 + *(short *)((int)&local_98 + iVar11 * 2)) + 0x1169;
+          *(short *)(pbVar8 + 2) = (short)uVar5;
         }
       }
       else {
-        if (iVar10 == 0) {
+        if (iVar11 == 0) {
           local_54 = CONCAT22(local_54._2_2_,5);
           local_98 = 0x50000;
           local_94 = 0x40005;
@@ -842,107 +843,107 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
           local_44 = 0x2c0027;
           local_40 = 0x32002e;
           local_3c = 0x360034;
-          sVar5 = FUN_004fbf50(*(undefined2 *)((int)&local_98 + iVar7 * 2));
-          uVar6 = (ushort)(sVar5 + *(short *)((int)&local_58 + local_9c * 2)) + 0x1115;
-          *(short *)(pbVar8 + 2) = (short)uVar6;
-          return uVar6;
+          uVar5 = Game_Random_Mod((uint)*(ushort *)((int)&local_98 + iVar6 * 2));
+          uVar5 = (ushort)((short)uVar5 + *(short *)((int)&local_58 + local_9c * 2)) + 0x1115;
+          *(short *)(pbVar8 + 2) = (short)uVar5;
+          return uVar5;
         }
-        if (iVar7 == 1) {
-          if (iVar10 == 8) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x114dU);
-            return iVar7 + 0x114dU;
+        if (iVar6 == 1) {
+          if (iVar11 == 8) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x114d);
+            return uVar5 + 0x114d;
           }
-          if (iVar10 == 4) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x114fU);
-            return iVar7 + 0x114fU;
+          if (iVar11 == 4) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x114f);
+            return uVar5 + 0x114f;
           }
-          if (iVar10 == 0xc) {
+          if (iVar11 == 0xc) {
             pbVar8[2] = 0x7c;
             pbVar8[3] = 0x11;
-            return uVar6;
+            return uVar5;
           }
         }
-        else if (iVar7 == 2) {
-          if (iVar10 == 8) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1151U);
-            return iVar7 + 0x1151U;
+        else if (iVar6 == 2) {
+          if (iVar11 == 8) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1151);
+            return uVar5 + 0x1151;
           }
-          if (iVar10 == 1) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1153U);
-            return iVar7 + 0x1153U;
+          if (iVar11 == 1) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1153);
+            return uVar5 + 0x1153;
           }
-          if (iVar10 == 9) {
+          if (iVar11 == 9) {
             pbVar8[2] = 0x7d;
             pbVar8[3] = 0x11;
-            return uVar6;
+            return uVar5;
           }
         }
-        else if (iVar7 == 3) {
-          if (iVar10 == 8) {
-            iVar7 = FUN_004fbf50(3);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1155U);
-            return iVar7 + 0x1155U;
+        else if (iVar6 == 3) {
+          if (iVar11 == 8) {
+            uVar5 = Game_Random_Mod(3);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1155);
+            return uVar5 + 0x1155;
           }
         }
-        else if (iVar7 == 4) {
-          if (iVar10 == 1) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1158U);
-            return iVar7 + 0x1158U;
+        else if (iVar6 == 4) {
+          if (iVar11 == 1) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1158);
+            return uVar5 + 0x1158;
           }
-          if (iVar10 == 2) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x115aU);
-            return iVar7 + 0x115aU;
+          if (iVar11 == 2) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x115a);
+            return uVar5 + 0x115a;
           }
-          if (iVar10 == 3) {
+          if (iVar11 == 3) {
             pbVar8[2] = 0x7e;
             pbVar8[3] = 0x11;
-            return uVar6;
+            return uVar5;
           }
         }
-        else if (iVar7 == 6) {
-          if (iVar10 == 1) {
-            iVar7 = FUN_004fbf50(3);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x115cU);
-            return iVar7 + 0x115cU;
+        else if (iVar6 == 6) {
+          if (iVar11 == 1) {
+            uVar5 = Game_Random_Mod(3);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x115c);
+            return uVar5 + 0x115c;
           }
         }
-        else if (iVar7 == 8) {
-          if (iVar10 == 2) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x115fU);
-            return iVar7 + 0x115fU;
+        else if (iVar6 == 8) {
+          if (iVar11 == 2) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x115f);
+            return uVar5 + 0x115f;
           }
-          if (iVar10 == 4) {
-            iVar7 = FUN_004fbf50(2);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1161U);
-            return iVar7 + 0x1161U;
+          if (iVar11 == 4) {
+            uVar5 = Game_Random_Mod(2);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1161);
+            return uVar5 + 0x1161;
           }
-          if (iVar10 == 6) {
+          if (iVar11 == 6) {
             pbVar8[2] = 0x7f;
             pbVar8[3] = 0x11;
-            return uVar6;
+            return uVar5;
           }
         }
-        else if (iVar7 == 9) {
-          if (iVar10 == 4) {
-            iVar7 = FUN_004fbf50(3);
-            *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1163U);
-            return iVar7 + 0x1163U;
+        else if (iVar6 == 9) {
+          if (iVar11 == 4) {
+            uVar5 = Game_Random_Mod(3);
+            *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1163);
+            return uVar5 + 0x1163;
           }
         }
-        else if ((iVar7 == 0xc) && (iVar10 == 2)) {
-          iVar7 = FUN_004fbf50(3);
-          *(short *)(pbVar8 + 2) = (short)(iVar7 + 0x1166U);
-          return iVar7 + 0x1166U;
+        else if ((iVar6 == 0xc) && (iVar11 == 2)) {
+          uVar5 = Game_Random_Mod(3);
+          *(short *)(pbVar8 + 2) = (short)(uVar5 + 0x1166);
+          return uVar5 + 0x1166;
         }
       }
     }
   }
-  return uVar6;
+  return uVar5;
 }

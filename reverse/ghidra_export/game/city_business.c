@@ -53,8 +53,9 @@ void City_Business(void)
           local_1c = (int)*(short *)(pcVar4 + 0xc);
         }
         else {
-          local_1c = FUN_004c6ed0(g_current_city_x,g_current_city_y,local_38->tile_x,
-                                  local_38->tile_y,0);
+          local_1c = Tile_Distance_With_Wrap
+                               (g_current_city_x,g_current_city_y,(uint)local_38->tile_x,
+                                (uint)local_38->tile_y,(byte *)0x0);
           if (*pcVar4 == '\x01') {
             local_1c = local_1c * 2;
           }
@@ -105,7 +106,7 @@ void City_Business(void)
               if (iVar10 == g_human_country_index) {
                 _DAT_0074a1d0 = _DAT_0074a1d0 + iVar11;
               }
-              FUN_0041f600(g_active_country_index,iVar12);
+              FUN_0041f600(g_active_country_index,iVar12,iVar6);
               FUN_0041f600(iVar10,iVar12,-iVar6,2);
             }
           }

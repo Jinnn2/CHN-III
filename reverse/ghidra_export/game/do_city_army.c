@@ -12,9 +12,9 @@ void Do_CityArmy(void)
   short sVar2;
   short sVar3;
   int iVar4;
-  ushort uVar5;
-  ushort uVar6;
-  int iVar7;
+  int iVar5;
+  uint uVar6;
+  uint uVar7;
   char cVar8;
   int iVar9;
   int iVar10;
@@ -44,13 +44,13 @@ void Do_CityArmy(void)
     }
     if (*(char *)(iVar4 + 10) == '\0') {
       if (*(char *)(iVar4 + 0xb) == '\0') {
-        uVar5 = FUN_004fbf50(0x30);
-        uVar6 = FUN_004fbf50(0x30);
-        if (*(byte *)(((uint)uVar6 * 0x30 + (uint)uVar5) * 0x20 + *(int *)(DAT_007584a8 + 0x1ac)) <
-            0xb) {
+        uVar6 = Game_Random_Mod(0x30);
+        uVar7 = Game_Random_Mod(0x30);
+        if (*(byte *)(((uVar7 & 0xffff) * 0x30 + (uVar6 & 0xffff)) * 0x20 +
+                     *(int *)(DAT_007584a8 + 0x1ac)) < 0xb) {
           *(undefined1 *)(iVar4 + 0xb) = 1;
-          *(ushort *)(iVar4 + 6) = uVar5;
-          *(ushort *)(iVar4 + 8) = uVar6;
+          *(short *)(iVar4 + 6) = (short)uVar6;
+          *(short *)(iVar4 + 8) = (short)uVar7;
 LAB_00451dc4:
           *(undefined1 *)(iVar4 + 0xd) = 0;
         }
@@ -113,9 +113,9 @@ LAB_00451dc4:
         iVar10 = local_40[*(byte *)(iVar4 + 0xc)] + (int)*(short *)(iVar4 + 2);
         iVar9 = local_40[*(byte *)(iVar4 + 0xc) + 8] + (int)*(short *)(iVar4 + 4);
         if ((((-1 < iVar10) && (-1 < iVar9)) && (iVar10 < 0x30)) && (iVar9 < 0x30)) {
-          iVar7 = (iVar9 * 0x30 + iVar10) * 0x20 + *(int *)(DAT_007584a8 + 0x1ac);
-          *(undefined4 *)(iVar7 + 0x18) = 0;
-          *(int *)(iVar7 + 0x14) = iVar4;
+          iVar5 = (iVar9 * 0x30 + iVar10) * 0x20 + *(int *)(DAT_007584a8 + 0x1ac);
+          *(undefined4 *)(iVar5 + 0x18) = 0;
+          *(int *)(iVar5 + 0x14) = iVar4;
           *(short *)(iVar4 + 2) = (short)iVar10;
           *(short *)(iVar4 + 4) = (short)iVar9;
         }

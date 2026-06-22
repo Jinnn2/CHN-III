@@ -47,11 +47,11 @@ void City_Size_Scale(int param_1)
     *(undefined1 *)(param_1 + 0xd0) = 1;
     uVar6 = uVar4;
     if (*(byte *)(param_1 + 0x21) < 7) {
-      uVar3 = FUN_004fbf50(3000);
+      uVar3 = Game_Random_Mod(3000);
       *(uint *)(param_1 + 0x24) = *(int *)(&DAT_00515c7c + uVar4 * 4) - (uVar3 & 0xffff);
     }
     else {
-      uVar4 = FUN_004fbf50(3000);
+      uVar4 = Game_Random_Mod(3000);
       *(uint *)(param_1 + 0x24) = 99999999 - (uVar4 & 0xffff);
     }
   }

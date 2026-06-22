@@ -13,14 +13,12 @@ void AI_UnClear(void)
   byte bVar1;
   int iVar2;
   CountryState_0xe68 *pCVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
-  int iVar6;
-  undefined4 *puVar7;
+  int iVar4;
+  int iVar5;
+  undefined4 *puVar6;
+  int iVar7;
   int iVar8;
   int iVar9;
-  int iVar10;
-  int iVar11;
   int local_158;
   short *local_154;
   int local_150;
@@ -58,85 +56,86 @@ LAB_004098fa:
   pCVar3 = g_active_country;
   do {
     if ((5 < *(int *)(local_150 + -0x2c0 + (int)pCVar3)) && (*local_154 != 0)) {
-      iVar11 = *(int *)(local_12c + local_150);
+      iVar4 = *(int *)(local_12c + local_150);
       local_140 = 0;
-      iVar9 = ((uint)(byte)(&pCVar3->field_0x5f8)[local_158] * 0x40 -
+      iVar8 = ((uint)(byte)(&pCVar3->field_0x5f8)[local_158] * 0x40 -
               *(int *)(pCVar3->name_bytes + local_150 + -4)) +
               *(int *)(local_150 + -0xb0 + (int)pCVar3);
       local_148 = 0;
-      local_128 = iVar9;
-      if (iVar11 == 0) {
+      local_128 = iVar8;
+      if (iVar4 == 0) {
 LAB_004096bb:
-        iVar9 = 0;
+        iVar8 = 0;
       }
       else {
         do {
-          iVar2 = FUN_004c6ed0(*(undefined2 *)(iVar11 + 0x16),*(undefined2 *)(iVar11 + 0x18),
-                               DAT_0070683c,DAT_00706840,0);
+          iVar2 = Tile_Distance_With_Wrap
+                            ((uint)*(ushort *)(iVar4 + 0x16),(uint)*(ushort *)(iVar4 + 0x18),
+                             DAT_0070683c,DAT_00706840,(byte *)0x0);
           if (5 < iVar2) {
-            iVar8 = 0;
+            iVar7 = 0;
             bVar1 = _DAT_00748ff0->army_type_id;
             if (bVar1 == 0x1e) {
-              iVar8 = 500;
+              iVar7 = 500;
             }
             else if (bVar1 == 0x3f) {
-              iVar8 = 0x19;
+              iVar7 = 0x19;
             }
             else if (bVar1 == 0x41) {
-              iVar8 = 0x46;
+              iVar7 = 0x46;
             }
-            if (iVar8 < iVar2) goto LAB_004096a0;
+            if (iVar7 < iVar2) goto LAB_004096a0;
             iVar2 = 0;
-            iVar8 = (uint)*(byte *)(iVar11 + 0x20) * 0x10;
+            iVar7 = (uint)*(byte *)(iVar4 + 0x20) * 0x10;
             switch(g_map_size_mode) {
             case 0:
-              iVar2 = (uint)*(ushort *)(iVar11 + 0x16) + (uint)*(ushort *)(iVar11 + 0x18) * 0x138;
+              iVar2 = (uint)*(ushort *)(iVar4 + 0x16) + (uint)*(ushort *)(iVar4 + 0x18) * 0x138;
               break;
             case 1:
-              iVar2 = (uint)*(ushort *)(iVar11 + 0x16) + (uint)*(ushort *)(iVar11 + 0x18) * 0x9c;
+              iVar2 = (uint)*(ushort *)(iVar4 + 0x16) + (uint)*(ushort *)(iVar4 + 0x18) * 0x9c;
               break;
             case 2:
-              iVar2 = (uint)*(ushort *)(iVar11 + 0x16) + (uint)*(ushort *)(iVar11 + 0x18) * 0x4e;
+              iVar2 = (uint)*(ushort *)(iVar4 + 0x16) + (uint)*(ushort *)(iVar4 + 0x18) * 0x4e;
               break;
             case 3:
-              iVar2 = (uint)*(ushort *)(iVar11 + 0x18) * 0x27 + (uint)*(ushort *)(iVar11 + 0x16);
+              iVar2 = (uint)*(ushort *)(iVar4 + 0x18) * 0x27 + (uint)*(ushort *)(iVar4 + 0x16);
               break;
             default:
               goto switchD_004095e1_default;
             }
             iVar2 = iVar2 * 0x100 + _g_land_tiles;
 switchD_004095e1_default:
-            iVar6 = (int)*(char *)(iVar2 + 0x50);
-            if (0 < iVar6) {
-              iVar8 = iVar8 + iVar6;
-              iVar10 = 0;
-              puVar7 = (undefined4 *)(iVar2 + 0x28);
+            iVar5 = (int)*(char *)(iVar2 + 0x50);
+            if (0 < iVar5) {
+              iVar7 = iVar7 + iVar5;
+              iVar9 = 0;
+              puVar6 = (undefined4 *)(iVar2 + 0x28);
               do {
-                if (iVar6 < 1) break;
-                if ((byte *)*puVar7 != (byte *)0x0) {
-                  if (g_army_type_table[*(byte *)*puVar7].attack_category == 2) {
-                    iVar8 = iVar8 + 100;
+                if (iVar5 < 1) break;
+                if ((byte *)*puVar6 != (byte *)0x0) {
+                  if (g_army_type_table[*(byte *)*puVar6].attack_category == 2) {
+                    iVar7 = iVar7 + 100;
                   }
-                  iVar6 = iVar6 + -1;
-                  iVar9 = local_128;
+                  iVar5 = iVar5 + -1;
+                  iVar8 = local_128;
                 }
-                iVar10 = iVar10 + 1;
-                puVar7 = puVar7 + 1;
-              } while (iVar10 < 10);
+                iVar9 = iVar9 + 1;
+                puVar6 = puVar6 + 1;
+              } while (iVar9 < 10);
             }
-            if (local_148 < iVar8) {
-              local_148 = iVar8;
-              local_140 = iVar11;
+            if (local_148 < iVar7) {
+              local_148 = iVar7;
+              local_140 = iVar4;
             }
           }
 LAB_004096a0:
-          iVar11 = *(int *)(iVar11 + 0x1b4);
-        } while (iVar11 != 0);
+          iVar4 = *(int *)(iVar4 + 0x1b4);
+        } while (iVar4 != 0);
         pCVar3 = g_active_country;
         if (local_140 == 0) goto LAB_004096bb;
       }
-      if (local_14c < iVar9) {
-        local_14c = iVar9;
+      if (local_14c < iVar8) {
+        local_14c = iVar8;
         local_144 = local_140;
       }
     }
@@ -158,18 +157,18 @@ LAB_004096a0:
   local_133 = DAT_005122e4;
   local_12e = DAT_005122dc;
   if (DAT_0074c034 == 0x1e) {
-    puVar7 = &local_132;
+    puVar6 = &local_132;
 LAB_004097ce:
-    Format_Text(local_124,&DAT_005122b0,pCVar3->name_bytes,puVar7,_DAT_0074a0b8 + 0x14,local_144 + 3
+    Format_Text(local_124,&DAT_005122b0,pCVar3->name_bytes,puVar6,_DAT_0074a0b8 + 0x14,local_144 + 3
                );
   }
   else {
     if (DAT_0074c034 == 0x3f) {
-      puVar7 = &local_13c;
+      puVar6 = &local_13c;
       goto LAB_004097ce;
     }
     if (DAT_0074c034 == 0x41) {
-      puVar7 = &local_137;
+      puVar6 = &local_137;
       goto LAB_004097ce;
     }
   }
@@ -190,12 +189,14 @@ LAB_00409828:
   DAT_007584e0->target_tile_y_or_anim_y = *(short *)(local_144 + 0x18);
   *(short *)&DAT_007584e0->field_0x122 = DAT_007584e0->tile_x;
   *(short *)&DAT_007584e0->field_0x124 = DAT_007584e0->tile_y;
-  uVar4 = FUN_004c7160((int)DAT_007584e0->target_tile_x_or_anim_x,
-                       (int)DAT_007584e0->target_tile_y_or_anim_y,(int)DAT_007584e0->tile_x,
-                       (int)DAT_007584e0->tile_y);
-  uVar5 = FUN_004c7330((int)DAT_007584e0->target_tile_y_or_anim_y,(int)DAT_007584e0->tile_y);
-  bVar1 = FUN_0048a280(uVar4,uVar5);
-  DAT_007584e0->facing_or_move_direction = bVar1;
+  iVar4 = Tile_Direction_DeltaX
+                    ((int)DAT_007584e0->target_tile_x_or_anim_x,
+                     (int)DAT_007584e0->target_tile_y_or_anim_y,(int)DAT_007584e0->tile_x,
+                     (int)DAT_007584e0->tile_y);
+  iVar8 = Tile_Direction_DeltaY
+                    ((int)DAT_007584e0->target_tile_y_or_anim_y,(int)DAT_007584e0->tile_y);
+  iVar4 = Mission_Direct(iVar4,iVar8);
+  DAT_007584e0->facing_or_move_direction = (byte)iVar4;
   *(undefined1 *)(DAT_0075597c + 0xb4) = 1;
   g_map_interaction_mode = 0xc;
   return;

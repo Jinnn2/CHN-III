@@ -21,25 +21,24 @@ void Make_City_Map(int param_1)
   ushort uVar9;
   ushort uVar10;
   byte bVar11;
-  short sVar12;
-  undefined2 uVar13;
-  int iVar14;
-  int iVar15;
-  byte bVar16;
-  int iVar17;
-  byte bVar18;
-  byte *pbVar19;
+  int iVar12;
+  int iVar13;
+  uint uVar14;
+  byte bVar15;
+  int iVar16;
+  byte bVar17;
+  byte *pbVar18;
+  byte bVar19;
   byte bVar20;
   byte bVar21;
-  byte bVar22;
-  int iVar23;
+  int iVar22;
   byte *local_88;
   byte *local_60 [8];
   int aiStack_40 [8];
   int aiStack_20 [8];
 
   Trace_Function(s_Make_City_Map_0057643c);
-  pbVar19 = *(byte **)(param_1 + 0x1ac);
+  pbVar18 = *(byte **)(param_1 + 0x1ac);
   switch(g_map_size_mode) {
   case 0:
     local_88 = (byte *)(((uint)*(ushort *)(param_1 + 0x16) +
@@ -58,7 +57,7 @@ void Make_City_Map(int param_1)
                         (uint)*(ushort *)(param_1 + 0x16)) * 0x100 + _g_land_tiles);
   }
   bVar1 = *local_88;
-  iVar17 = 0;
+  iVar16 = 0;
   bVar2 = bVar1;
   if ('\0' < (char)local_88[8]) {
     bVar2 = 6;
@@ -71,17 +70,17 @@ void Make_City_Map(int param_1)
   bVar4 = 0xff;
   bVar5 = 0xff;
   bVar6 = 0xff;
-  bVar20 = 0xff;
+  bVar19 = 0xff;
   bVar7 = 0xff;
-  bVar22 = 0xff;
-  bVar8 = 0xff;
-  bVar18 = 0xff;
   bVar21 = 0xff;
+  bVar8 = 0xff;
+  bVar17 = 0xff;
+  bVar20 = 0xff;
   bVar11 = 0xff;
-  bVar16 = 0xff;
+  bVar15 = 0xff;
   uVar10 = *(ushort *)(param_1 + 0x16);
   local_60[0] = (byte *)0x0;
-  iVar14 = (uVar9 & 1) * 0x20;
+  iVar12 = (uVar9 & 1) * 0x20;
   local_60[1] = (byte *)0x0;
   local_60[2] = (byte *)0x0;
   local_60[3] = (byte *)0x0;
@@ -90,39 +89,39 @@ void Make_City_Map(int param_1)
   local_60[6] = (byte *)0x0;
   local_60[7] = (byte *)0x0;
   do {
-    iVar15 = *(int *)((int)&DAT_005893b4 + iVar17 + iVar14) + (uint)uVar9;
-    iVar23 = *(int *)((int)&DAT_00589374 + iVar17 + iVar14) + (uint)uVar10;
-    *(int *)((int)aiStack_40 + iVar17) = iVar23;
-    *(int *)((int)aiStack_20 + iVar17) = iVar15;
-    if (((-1 < iVar15) && (iVar15 < g_map_height_tiles)) &&
-       (((-1 < iVar23 && (iVar23 < g_map_width_tiles)) ||
+    iVar13 = *(int *)((int)&DAT_005893b4 + iVar16 + iVar12) + (uint)uVar9;
+    iVar22 = *(int *)((int)&DAT_00589374 + iVar16 + iVar12) + (uint)uVar10;
+    *(int *)((int)aiStack_40 + iVar16) = iVar22;
+    *(int *)((int)aiStack_20 + iVar16) = iVar13;
+    if (((-1 < iVar13) && (iVar13 < g_map_height_tiles)) &&
+       (((-1 < iVar22 && (iVar22 < g_map_width_tiles)) ||
         (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
-      if (iVar23 < 0) {
-        *(int *)((int)aiStack_40 + iVar17) = iVar23 + g_map_width_tiles;
+      if (iVar22 < 0) {
+        *(int *)((int)aiStack_40 + iVar16) = iVar22 + g_map_width_tiles;
       }
-      if (g_map_width_tiles <= *(int *)((int)aiStack_40 + iVar17)) {
-        *(int *)((int)aiStack_40 + iVar17) = *(int *)((int)aiStack_40 + iVar17) - g_map_width_tiles;
+      if (g_map_width_tiles <= *(int *)((int)aiStack_40 + iVar16)) {
+        *(int *)((int)aiStack_40 + iVar16) = *(int *)((int)aiStack_40 + iVar16) - g_map_width_tiles;
       }
       switch(g_map_size_mode) {
       case 0:
-        *(int *)((int)local_60 + iVar17) =
-             (*(int *)((int)aiStack_40 + iVar17) + iVar15 * 0x138) * 0x100 + _g_land_tiles;
+        *(int *)((int)local_60 + iVar16) =
+             (*(int *)((int)aiStack_40 + iVar16) + iVar13 * 0x138) * 0x100 + _g_land_tiles;
         break;
       case 1:
-        *(int *)((int)local_60 + iVar17) =
-             (*(int *)((int)aiStack_40 + iVar17) + iVar15 * 0x9c) * 0x100 + _g_land_tiles;
+        *(int *)((int)local_60 + iVar16) =
+             (*(int *)((int)aiStack_40 + iVar16) + iVar13 * 0x9c) * 0x100 + _g_land_tiles;
         break;
       case 2:
-        *(int *)((int)local_60 + iVar17) =
-             (*(int *)((int)aiStack_40 + iVar17) + iVar15 * 0x4e) * 0x100 + _g_land_tiles;
+        *(int *)((int)local_60 + iVar16) =
+             (*(int *)((int)aiStack_40 + iVar16) + iVar13 * 0x4e) * 0x100 + _g_land_tiles;
         break;
       case 3:
-        *(int *)((int)local_60 + iVar17) =
-             (iVar15 * 0x27 + *(int *)((int)aiStack_40 + iVar17)) * 0x100 + _g_land_tiles;
+        *(int *)((int)local_60 + iVar16) =
+             (iVar13 * 0x27 + *(int *)((int)aiStack_40 + iVar16)) * 0x100 + _g_land_tiles;
       }
     }
-    iVar17 = iVar17 + 4;
-  } while (iVar17 < 0x20);
+    iVar16 = iVar16 + 4;
+  } while (iVar16 < 0x20);
   if (local_60[1] != (byte *)0x0) {
     bVar3 = *local_60[1];
   }
@@ -135,159 +134,159 @@ void Make_City_Map(int param_1)
   if (local_60[5] != (byte *)0x0) {
     bVar6 = *local_60[5];
   }
-  if ((local_60[2] != (byte *)0x0) && (bVar20 = *local_60[2], '\n' < (char)bVar20)) {
+  if ((local_60[2] != (byte *)0x0) && (bVar19 = *local_60[2], '\n' < (char)bVar19)) {
     bVar7 = local_60[2][2];
   }
-  if ((local_60[0] != (byte *)0x0) && (bVar22 = *local_60[0], '\n' < (char)bVar22)) {
+  if ((local_60[0] != (byte *)0x0) && (bVar21 = *local_60[0], '\n' < (char)bVar21)) {
     bVar8 = local_60[0][2];
   }
-  if ((local_60[4] != (byte *)0x0) && (bVar18 = *local_60[4], '\n' < (char)bVar18)) {
-    bVar21 = local_60[4][2];
+  if ((local_60[4] != (byte *)0x0) && (bVar17 = *local_60[4], '\n' < (char)bVar17)) {
+    bVar20 = local_60[4][2];
   }
   if ((local_60[6] != (byte *)0x0) && (bVar11 = *local_60[6], '\n' < (char)bVar11)) {
-    bVar16 = local_60[6][2];
+    bVar15 = local_60[6][2];
   }
-  if (((('\n' < (char)bVar1) && ('\n' < (char)bVar22)) && ('\n' < (char)bVar20)) &&
-     (('\n' < (char)bVar18 && ('\n' < (char)bVar11)))) {
+  if (((('\n' < (char)bVar1) && ('\n' < (char)bVar21)) && ('\n' < (char)bVar19)) &&
+     (('\n' < (char)bVar17 && ('\n' < (char)bVar11)))) {
     if ((char)bVar6 < '\v') {
-      bVar18 = bVar21;
-      bVar11 = bVar16;
+      bVar17 = bVar20;
+      bVar11 = bVar15;
     }
-    if (((char)bVar5 < '\v') && (bVar22 = bVar8, '\n' < (char)bVar11)) {
-      bVar11 = bVar16;
+    if (((char)bVar5 < '\v') && (bVar21 = bVar8, '\n' < (char)bVar11)) {
+      bVar11 = bVar15;
     }
-    if (((char)bVar4 < '\v') && (bVar20 = bVar7, '\n' < (char)bVar18)) {
-      bVar18 = bVar21;
+    if (((char)bVar4 < '\v') && (bVar19 = bVar7, '\n' < (char)bVar17)) {
+      bVar17 = bVar20;
     }
     if ((char)bVar3 < '\v') {
-      if ('\n' < (char)bVar20) {
-        bVar20 = bVar7;
+      if ('\n' < (char)bVar19) {
+        bVar19 = bVar7;
       }
-      if ('\n' < (char)bVar22) {
-        bVar22 = bVar8;
+      if ('\n' < (char)bVar21) {
+        bVar21 = bVar8;
       }
     }
   }
-  iVar17 = 0;
+  iVar16 = 0;
   do {
-    iVar14 = 0;
+    iVar12 = 0;
     do {
-      pbVar19[7] = 0xff;
-      pbVar19[10] = 0xff;
-      *(short *)(pbVar19 + 2) = (short)(iVar14 % 9) + (short)(iVar17 % 9) * 9;
+      pbVar18[7] = 0xff;
+      pbVar18[10] = 0xff;
+      *(short *)(pbVar18 + 2) = (short)(iVar12 % 9) + (short)(iVar16 % 9) * 9;
       if ((char)bVar2 < '\x05') {
         if ((char)bVar2 < '\x03') {
-          sVar12 = FUN_004fbf50(8);
-          if (sVar12 == 0) goto LAB_0047bc9d;
-          uVar13 = FUN_004fbf50(0xc);
-          *(undefined2 *)(pbVar19 + 0xc) = uVar13;
+          uVar14 = Game_Random_Mod(8);
+          if ((short)uVar14 == 0) goto LAB_0047bc9d;
+          uVar14 = Game_Random_Mod(0xc);
+          *(short *)(pbVar18 + 0xc) = (short)uVar14;
         }
         else {
-          sVar12 = FUN_004fbf50(0xf);
-          if (sVar12 != 0) goto LAB_0047bc9d;
-          uVar13 = FUN_004fbf50(0xc);
-          *(undefined2 *)(pbVar19 + 0xc) = uVar13;
+          uVar14 = Game_Random_Mod(0xf);
+          if ((short)uVar14 != 0) goto LAB_0047bc9d;
+          uVar14 = Game_Random_Mod(0xc);
+          *(short *)(pbVar18 + 0xc) = (short)uVar14;
         }
       }
       else {
 LAB_0047bc9d:
-        pbVar19[0xc] = 0xff;
-        pbVar19[0xd] = 0xff;
+        pbVar18[0xc] = 0xff;
+        pbVar18[0xd] = 0xff;
       }
-      pbVar19[0xe] = 0xff;
-      pbVar19[0xf] = 0xff;
-      pbVar19[0x10] = 0;
-      if ((((iVar14 < 4) || (0x2b < iVar14)) || (iVar17 < 4)) || (0x2b < iVar17)) {
-        if (iVar14 < 0) {
+      pbVar18[0xe] = 0xff;
+      pbVar18[0xf] = 0xff;
+      pbVar18[0x10] = 0;
+      if ((((iVar12 < 4) || (0x2b < iVar12)) || (iVar16 < 4)) || (0x2b < iVar16)) {
+        if (iVar12 < 0) {
 LAB_0047bce4:
-          if (3 < iVar14) goto LAB_0047bce9;
+          if (3 < iVar12) goto LAB_0047bce9;
 LAB_0047bcfd:
-          if (0x2b < iVar14) goto LAB_0047bd02;
+          if (0x2b < iVar12) goto LAB_0047bd02;
         }
         else {
-          if (iVar14 < 4) {
-            if ((-1 < iVar17) && (iVar17 < 4)) {
-              *pbVar19 = bVar3;
+          if (iVar12 < 4) {
+            if ((-1 < iVar16) && (iVar16 < 4)) {
+              *pbVar18 = bVar3;
             }
             goto LAB_0047bce4;
           }
 LAB_0047bce9:
-          if (iVar14 < 0x2c) {
-            if ((-1 < iVar17) && (iVar17 < 4)) {
-              *pbVar19 = bVar20;
+          if (iVar12 < 0x2c) {
+            if ((-1 < iVar16) && (iVar16 < 4)) {
+              *pbVar18 = bVar19;
             }
             goto LAB_0047bcfd;
           }
 LAB_0047bd02:
-          if (((iVar14 < 0x30) && (-1 < iVar17)) && (iVar17 < 4)) {
-            *pbVar19 = bVar4;
+          if (((iVar12 < 0x30) && (-1 < iVar16)) && (iVar16 < 4)) {
+            *pbVar18 = bVar4;
           }
         }
-        if (((-1 < iVar14) && (iVar14 < 4)) && ((3 < iVar17 && (iVar17 < 0x2c)))) {
-          *pbVar19 = bVar22;
+        if (((-1 < iVar12) && (iVar12 < 4)) && ((3 < iVar16 && (iVar16 < 0x2c)))) {
+          *pbVar18 = bVar21;
         }
-        if (((0x2b < iVar14) && (iVar14 < 0x30)) && ((3 < iVar17 && (iVar17 < 0x2c)))) {
-          *pbVar19 = bVar18;
+        if (((0x2b < iVar12) && (iVar12 < 0x30)) && ((3 < iVar16 && (iVar16 < 0x2c)))) {
+          *pbVar18 = bVar17;
         }
-        if (iVar14 < 0) {
+        if (iVar12 < 0) {
 LAB_0047bd62:
-          if (3 < iVar14) goto LAB_0047bd67;
+          if (3 < iVar12) goto LAB_0047bd67;
 LAB_0047bd7c:
-          if (iVar14 < 0x2c) goto LAB_0047bd96;
+          if (iVar12 < 0x2c) goto LAB_0047bd96;
         }
         else {
-          if (iVar14 < 4) {
-            if ((0x2b < iVar17) && (iVar17 < 0x30)) {
-              *pbVar19 = bVar5;
+          if (iVar12 < 4) {
+            if ((0x2b < iVar16) && (iVar16 < 0x30)) {
+              *pbVar18 = bVar5;
             }
             goto LAB_0047bd62;
           }
 LAB_0047bd67:
-          if (iVar14 < 0x2c) {
-            if ((0x2b < iVar17) && (iVar17 < 0x30)) {
-              *pbVar19 = bVar11;
+          if (iVar12 < 0x2c) {
+            if ((0x2b < iVar16) && (iVar16 < 0x30)) {
+              *pbVar18 = bVar11;
             }
             goto LAB_0047bd7c;
           }
         }
-        if (((iVar14 < 0x30) && (0x2b < iVar17)) && (iVar17 < 0x30)) {
-          *pbVar19 = bVar6;
+        if (((iVar12 < 0x30) && (0x2b < iVar16)) && (iVar16 < 0x30)) {
+          *pbVar18 = bVar6;
         }
       }
       else {
-        *pbVar19 = bVar2;
+        *pbVar18 = bVar2;
       }
 LAB_0047bd96:
-      if (*pbVar19 < 0xb) {
-        pbVar19[6] = 0;
+      if (*pbVar18 < 0xb) {
+        pbVar18[6] = 0;
       }
       else {
-        pbVar19[6] = 0xff;
+        pbVar18[6] = 0xff;
       }
-      pbVar19[0x14] = 0;
-      pbVar19[0x15] = 0;
-      pbVar19[0x16] = 0;
-      pbVar19[0x17] = 0;
-      pbVar19[0x18] = 0;
-      pbVar19[0x19] = 0;
-      pbVar19[0x1a] = 0;
-      pbVar19[0x1b] = 0;
-      pbVar19 = pbVar19 + 0x20;
-      iVar14 = iVar14 + 1;
-    } while (iVar14 < 0x30);
-    iVar17 = iVar17 + 1;
-    if (0x2f < iVar17) {
-      iVar17 = 0x80a0;
+      pbVar18[0x14] = 0;
+      pbVar18[0x15] = 0;
+      pbVar18[0x16] = 0;
+      pbVar18[0x17] = 0;
+      pbVar18[0x18] = 0;
+      pbVar18[0x19] = 0;
+      pbVar18[0x1a] = 0;
+      pbVar18[0x1b] = 0;
+      pbVar18 = pbVar18 + 0x20;
+      iVar12 = iVar12 + 1;
+    } while (iVar12 < 0x30);
+    iVar16 = iVar16 + 1;
+    if (0x2f < iVar16) {
+      iVar16 = 0x80a0;
       do {
-        iVar15 = 6;
-        iVar14 = iVar17;
+        iVar13 = 6;
+        iVar12 = iVar16;
         do {
-          iVar15 = iVar15 + -1;
-          *(undefined2 *)(iVar14 + 0xe + *(int *)(param_1 + 0x1ac)) = 0;
-          iVar14 = iVar14 + 0x20;
-        } while (iVar15 != 0);
-        iVar17 = iVar17 + 0x600;
-      } while (iVar17 < 0x9ea1);
+          iVar13 = iVar13 + -1;
+          *(undefined2 *)(iVar12 + 0xe + *(int *)(param_1 + 0x1ac)) = 0;
+          iVar12 = iVar12 + 0x20;
+        } while (iVar13 != 0);
+        iVar16 = iVar16 + 0x600;
+      } while (iVar16 < 0x9ea1);
       if (*(char *)(param_1 + 0x22) != '\x05') {
         Reflash_City_Road(param_1,*(undefined1 *)(param_1 + 0x21),1);
         return;

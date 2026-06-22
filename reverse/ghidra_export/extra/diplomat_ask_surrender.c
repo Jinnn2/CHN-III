@@ -12,7 +12,7 @@ bool Diplomat_Ask_Surrend(void)
 {
   byte bVar1;
   City_0x1b8_plus *city;
-  short sVar2;
+  uint uVar2;
   int iVar3;
   int iVar4;
   bool bVar5;
@@ -21,21 +21,26 @@ bool Diplomat_Ask_Surrend(void)
   undefined1 local_c0 [192];
 
   Trace_Function(s_Diplomat_Ask_Surrend_00519244);
+  iVar4 = g_human_country_index;
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar3 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
     iVar3 = 0;
     switch(g_map_size_mode) {
     case 0:
+      iVar4 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27;
       iVar3 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x138;
       break;
     case 1:
+      iVar4 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27;
       iVar3 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x9c;
       break;
     case 2:
+      iVar4 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27;
       iVar3 = (int)*(short *)(_DAT_00748ff0 + 0x1e) + *(short *)(_DAT_00748ff0 + 0x20) * 0x4e;
       break;
     case 3:
       iVar3 = *(short *)(_DAT_00748ff0 + 0x20) * 0x27 + (int)*(short *)(_DAT_00748ff0 + 0x1e);
+      iVar4 = _DAT_00748ff0;
       break;
     default:
       goto switchD_00438a04_default;
@@ -51,19 +56,20 @@ switchD_00438a04_default:
       local_c1 = true;
     }
     else {
-      sVar2 = FUN_004fbf50((short)city->growth_or_industry_score);
-      local_c1 = sVar2 == 0;
+      uVar2 = Game_Random_Mod(CONCAT22((short)((uint)iVar4 >> 0x10),
+                                       (short)city->growth_or_industry_score));
+      local_c1 = (short)uVar2 == 0;
     }
   }
-  iVar4 = (int)(char)city->owner_country_id;
-  iVar3 = iVar4 * 0xe68;
+  iVar3 = (int)(char)city->owner_country_id;
+  iVar4 = iVar3 * 0xe68;
   if (local_c1 != true) {
     if (_DAT_00748e34 == g_human_country_index) {
       if (DAT_0074a2cc != '\x01') {
         return local_c1;
       }
-      sVar2 = FUN_004fbf50(2);
-      if (sVar2 == 0) {
+      uVar2 = Game_Random_Mod(2);
+      if ((short)uVar2 == 0) {
         bVar1 = city->city_type_or_terrain_class;
         puVar6 = &DAT_005191c0;
       }
@@ -71,16 +77,16 @@ switchD_00438a04_default:
         bVar1 = city->city_type_or_terrain_class;
         puVar6 = &DAT_00519194;
       }
-      Format_Text(local_c0,puVar6,&DAT_007350bc + iVar3,&DAT_005a7bdc + (uint)bVar1 * 5,
+      Format_Text(local_c0,puVar6,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
                   city->name_bytes);
       UI_YesNo_Message(local_c0,0,0,1);
     }
-    else if (iVar4 == g_human_country_index) {
+    else if (iVar3 == g_human_country_index) {
       if (DAT_0074a2cc != '\x01') {
         return local_c1;
       }
-      sVar2 = FUN_004fbf50(2);
-      if (sVar2 == 0) {
+      uVar2 = Game_Random_Mod(2);
+      if ((short)uVar2 == 0) {
         bVar1 = city->city_type_or_terrain_class;
         puVar6 = &DAT_0051916c;
       }
@@ -98,14 +104,14 @@ switchD_00438a04_default:
           return local_c1;
         }
         if ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2) &&
-           (*(int *)(_DAT_00748e30 + 0x1ac + iVar4 * 4) < 2)) {
+           (*(int *)(_DAT_00748e30 + 0x1ac + iVar3 * 4) < 2)) {
           return local_c1;
         }
       }
       if (DAT_0074a2cd != '\x01') {
         return local_c1;
       }
-      Format_Text(local_c0,&DAT_00519138,g_active_country->name_bytes,&DAT_007350bc + iVar3,
+      Format_Text(local_c0,&DAT_00519138,g_active_country->name_bytes,&DAT_007350bc + iVar4,
                   &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
     }
     FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);
@@ -114,14 +120,14 @@ switchD_00438a04_default:
   if (_DAT_00748e34 == g_human_country_index) {
     bVar5 = DAT_0074a2cc == '\x01';
     if (bVar5) {
-      Format_Text(local_c0,&DAT_00519220,&DAT_007350bc + iVar3,
+      Format_Text(local_c0,&DAT_00519220,&DAT_007350bc + iVar4,
                   &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
       UI_YesNo_Message(local_c0,0,0,1);
     }
     Event_City_View(city,0xffffffff,0xffffffff,0,local_c0);
     if (!bVar5) goto LAB_00438b7a;
   }
-  else if (iVar4 == g_human_country_index) {
+  else if (iVar3 == g_human_country_index) {
     if (DAT_0074a2cc != '\x01') goto LAB_00438b7a;
     Format_Text(local_c0,&DAT_00519208,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,
                 city->name_bytes,g_active_country->name_bytes);
@@ -131,9 +137,9 @@ switchD_00438a04_default:
     if (((DAT_00755940 == 0) &&
         ((_DAT_00748e34 == 0 ||
          ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2 &&
-          (*(int *)(_DAT_00748e30 + 0x1ac + iVar4 * 4) < 2)))))) || (DAT_0074a2cd != '\x01'))
+          (*(int *)(_DAT_00748e30 + 0x1ac + iVar3 * 4) < 2)))))) || (DAT_0074a2cd != '\x01'))
     goto LAB_00438b7a;
-    Format_Text(local_c0,&DAT_005191ec,g_active_country->name_bytes,&DAT_007350bc + iVar3,
+    Format_Text(local_c0,&DAT_005191ec,g_active_country->name_bytes,&DAT_007350bc + iVar4,
                 &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
   }
   FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);

@@ -394,7 +394,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00489a50` | `FUN_00489a50` | 893 | 10 |
 | `0x00489dd0` | `FUN_00489dd0` | 68 | 3 |
 | `0x00489e20` | `FUN_00489e20` | 1064 | 3 |
-| `0x0048a280` | `FUN_0048a280` | 98 | 1 |
+| `0x0048a280` | `Mission_Direct` | 98 | 1 |
 | `0x0048a2f0` | `FUN_0048a2f0` | 1178 | 9 |
 | `0x0048a7c0` | `FUN_0048a7c0` | 424 | 5 |
 | `0x0048a970` | `FUN_0048a970` | 1554 | 12 |
@@ -558,8 +558,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004c2770` | `FUN_004c2770` | 244 | 1 |
 | `0x004c2c20` | `FUN_004c2c20` | 370 | 2 |
 | `0x004c2da0` | `Apply_Resolution_Mode` | 341 | 5 |
-| `0x004c2f00` | `FUN_004c2f00` | 1523 | 1 |
-| `0x004c3510` | `FUN_004c3510` | 210 | 2 |
+| `0x004c2f00` | `Search_Round_Candidate` | 1523 | 1 |
+| `0x004c3510` | `Search_Round` | 210 | 2 |
 | `0x004c35f0` | `Set_Color` | 1407 | 1 |
 | `0x004c3b70` | `FUN_004c3b70` | 1374 | 7 |
 | `0x004c44d0` | `FUN_004c44d0` | 2674 | 2 |
@@ -580,11 +580,11 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004c6e80` | `DiagCoords_To_TileY` | 16 | 0 |
 | `0x004c6e90` | `Tile_To_DiagCoordA` | 30 | 0 |
 | `0x004c6eb0` | `Tile_To_DiagCoordB` | 18 | 0 |
-| `0x004c6ed0` | `FUN_004c6ed0` | 142 | 0 |
+| `0x004c6ed0` | `Tile_Distance_With_Wrap` | 142 | 0 |
 | `0x004c6f60` | `FUN_004c6f60` | 490 | 0 |
 | `0x004c7150` | `FUN_004c7150` | 15 | 0 |
-| `0x004c7160` | `FUN_004c7160` | 463 | 0 |
-| `0x004c7330` | `FUN_004c7330` | 11 | 0 |
+| `0x004c7160` | `Tile_Direction_DeltaX` | 463 | 0 |
+| `0x004c7330` | `Tile_Direction_DeltaY` | 11 | 0 |
 | `0x004cf150` | `FUN_004cf150` | 4907 | 21 |
 | `0x004d0480` | `FUN_004d0480` | 737 | 1 |
 | `0x004d0770` | `FUN_004d0770` | 1593 | 4 |
@@ -738,7 +738,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004fbed0` | `FUN_004fbed0` | 50 | 2 |
 | `0x004fbf10` | `FUN_004fbf10` | 45 | 2 |
 | `0x004fbf40` | `FUN_004fbf40` | 10 | 0 |
-| `0x004fbf50` | `FUN_004fbf50` | 59 | 0 |
+| `0x004fbf50` | `Game_Random_Mod` | 59 | 0 |
 | `0x004fbf90` | `FUN_004fbf90` | 125 | 4 |
 | `0x004fc010` | `FUN_004fc010` | 209 | 3 |
 | `0x004fc0f0` | `FUN_004fc0f0` | 48 | 2 |

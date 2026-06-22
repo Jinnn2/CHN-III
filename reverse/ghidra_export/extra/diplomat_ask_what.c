@@ -255,7 +255,7 @@ LAB_004411a6:
   }
   Diplomat_Answer_Cond_Check(iVar3);
   if ((DAT_0070638c == 0) || (DAT_0070638c <= DAT_00706388)) {
-    uVar7 = FUN_004fbf50(DAT_0060b60c);
+    uVar7 = Game_Random_Mod(CONCAT22((short)((uint)DAT_0070638c >> 0x10),DAT_0060b60c));
     *(undefined4 *)(iVar3 + 0x2d8) = *(undefined4 *)(&DAT_0060b644 + (uVar7 & 0xffff) * 4);
   }
   else {

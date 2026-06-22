@@ -89,8 +89,9 @@ int TestRoad(ArmyUnit_0x164_plus *army)
   iVar16 = DAT_0075885c->cargo_or_subunit_count + 1;
   if (((iVar10 == 1) && (DAT_00758834 < 0)) &&
      ((DAT_00758850 < 0 &&
-      (iVar5 = FUN_004c6ed0(DAT_0075883c,DAT_00758840,DAT_00758858,DAT_00758854,0), 0x1e < iVar5))))
-  {
+      (iVar5 = Tile_Distance_With_Wrap
+                         (DAT_0075883c,DAT_00758840,DAT_00758858,DAT_00758854,(byte *)0x0),
+      0x1e < iVar5)))) {
     DAT_00758860 = 1;
   }
   FUN_0049b5e0();
@@ -159,7 +160,8 @@ switchD_004d3107_default:
            (('\0' < (char)pAVar18->field_0x50 &&
             (*(byte *)((int)&pAVar18->target_tile_y_or_anim_y + 1) != DAT_0075885c->owner_country_id
             )))) {
-          iVar5 = FUN_004c6ed0(DAT_0075883c,DAT_00758840,DAT_00758858,DAT_00758854,0);
+          iVar5 = Tile_Distance_With_Wrap
+                            (DAT_0075883c,DAT_00758840,DAT_00758858,DAT_00758854,(byte *)0x0);
           if (iVar5 == 1) {
             iVar5 = (int)(char)pAVar18->field_0x50;
             iVar13 = 0;
@@ -611,11 +613,14 @@ LAB_004d3c22:
         }
         DAT_0075885c->field_0x121 = DAT_0075885c->field_0x121 + '\x01';
         if ('\x02' < (char)DAT_0075885c->field_0x121) {
-          iVar10 = FUN_004c6ed0(DAT_00758858,DAT_00758854,(int)*(short *)&DAT_0075885c->field_0x122,
-                                (int)*(short *)&DAT_0075885c->field_0x124,0);
-          iVar16 = FUN_004c6ed0(DAT_00758858,DAT_00758854,
-                                (int)(&DAT_0075885c->target_tile_y_or_anim_y)[local_54],
-                                (int)*(short *)(&DAT_0075885c->field_0x88 + local_54 * 2),0);
+          iVar10 = Tile_Distance_With_Wrap
+                             (DAT_00758858,DAT_00758854,(int)*(short *)&DAT_0075885c->field_0x122,
+                              (int)*(short *)&DAT_0075885c->field_0x124,(byte *)0x0);
+          iVar16 = Tile_Distance_With_Wrap
+                             (DAT_00758858,DAT_00758854,
+                              (int)(&DAT_0075885c->target_tile_y_or_anim_y)[local_54],
+                              (int)*(short *)(&DAT_0075885c->field_0x88 + local_54 * 2),(byte *)0x0)
+          ;
           if (iVar10 < iVar16) {
             DAT_0075885c->field_0x121 = 0;
             DAT_0075885c->active_anim_step_count = 0;
@@ -659,15 +664,19 @@ LAB_004d3e3c:
         if (0 < local_54) {
           iVar16 = (int)*(short *)&DAT_0075885c->field_0x8a;
           iVar5 = (int)*(short *)&DAT_0075885c->field_0x26;
-          iVar10 = FUN_004c6ed0(iVar5,iVar16,(int)DAT_0075885c->tile_x,(int)DAT_0075885c->tile_y,0);
+          iVar10 = Tile_Distance_With_Wrap
+                             (iVar5,iVar16,(int)DAT_0075885c->tile_x,(int)DAT_0075885c->tile_y,
+                              (byte *)0x0);
           if (1 < iVar10) goto LAB_004d3f44;
           iVar10 = 1;
           if ('\x01' < (char)DAT_0075885c->active_anim_step_count) {
             iVar13 = 0x8c;
             do {
               if (bVar2) break;
-              iVar16 = FUN_004c6ed0(iVar5,iVar16,(int)*(short *)(iVar13 + -100 + (int)DAT_0075885c),
-                                    (int)*(short *)(&DAT_0075885c->army_type_id + iVar13),0);
+              iVar16 = Tile_Distance_With_Wrap
+                                 (iVar5,iVar16,(int)*(short *)(iVar13 + -100 + (int)DAT_0075885c),
+                                  (int)*(short *)(&DAT_0075885c->army_type_id + iVar13),(byte *)0x0)
+              ;
               if (1 < iVar16) {
                 bVar2 = true;
               }

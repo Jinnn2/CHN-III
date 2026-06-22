@@ -9,7 +9,7 @@ void City_Upgrade(int param_1)
 
 {
   char cVar1;
-  undefined1 uVar2;
+  uint uVar2;
   int iVar3;
   int *piVar4;
   int iVar5;
@@ -29,10 +29,10 @@ void City_Upgrade(int param_1)
       iVar6 = 0x30;
       do {
         if (('Y' < *(char *)(iVar5 + 7)) && (*(char *)(iVar5 + 7) < '`')) {
-          cVar1 = FUN_004fbf50(4);
-          *(char *)(iVar5 + 7) = cVar1 + 'Z';
-          uVar2 = FUN_004fbf50(4);
-          *(undefined1 *)(iVar5 + 0xb) = uVar2;
+          uVar2 = Game_Random_Mod(4);
+          *(char *)(iVar5 + 7) = (char)uVar2 + 'Z';
+          uVar2 = Game_Random_Mod(4);
+          *(char *)(iVar5 + 0xb) = (char)uVar2;
           *(short *)(iVar5 + 8) = g_building_defs[*(char *)(iVar5 + 7)].tile_object_variant_id;
         }
         iVar5 = iVar5 + 0x20;

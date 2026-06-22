@@ -11,14 +11,15 @@ void City_View(int param_1)
 
 {
   bool bVar1;
-  char cVar2;
+  byte bVar2;
   int iVar3;
   byte *pbVar4;
-  int iVar5;
+  uint uVar5;
   int iVar6;
   int iVar7;
-  short sVar8;
-  byte *pbVar9;
+  int iVar8;
+  short sVar9;
+  byte *pbVar10;
   undefined2 local_3c;
   int local_38;
   int local_34;
@@ -28,7 +29,7 @@ void City_View(int param_1)
   int local_18 [6];
 
   Trace_Function(s_City_View_00515d74);
-  iVar7 = 0x30;
+  iVar8 = 0x30;
   _DAT_005e0034 = (uint)*(ushort *)(param_1 + 0x1a);
   _DAT_005e0028 = (uint)*(ushort *)(param_1 + 0x1c);
   iVar3 = *(int *)(param_1 + 0x1ac);
@@ -38,15 +39,15 @@ void City_View(int param_1)
   DAT_005e0048 = _DAT_005e0034;
   DAT_005e004c = _DAT_005e0028;
   do {
-    iVar5 = 0x30;
+    iVar6 = 0x30;
     do {
       *(undefined4 *)(iVar3 + 0x14) = 0;
       iVar3 = iVar3 + 0x20;
-      iVar5 = iVar5 + -1;
-    } while (iVar5 != 0);
-    iVar7 = iVar7 + -1;
-  } while (iVar7 != 0);
-  sVar8 = 0;
+      iVar6 = iVar6 + -1;
+    } while (iVar6 != 0);
+    iVar8 = iVar8 + -1;
+  } while (iVar8 != 0);
+  sVar9 = 0;
   local_38 = DAT_005e0044;
   local_2c = -0x30;
   do {
@@ -59,34 +60,35 @@ void City_View(int param_1)
         do {
           if (bVar1) break;
           local_24 = -1;
-          iVar7 = local_34 + -1;
+          iVar8 = local_34 + -1;
           do {
             if (bVar1) break;
-            if ((((-1 < iVar7) && (-1 < iVar3)) && (iVar7 < 0x30)) &&
+            if ((((-1 < iVar8) && (-1 < iVar3)) && (iVar8 < 0x30)) &&
                (((iVar3 < 0x900 &&
-                 (iVar5 = (iVar3 + iVar7) * 0x20 + DAT_005e0044, *(char *)(iVar5 + 7) == -1)) &&
-                ((*(short *)(iVar5 + 0xc) == -1 && (*(int *)(iVar5 + 0x14) == 0)))))) {
+                 (iVar6 = (iVar3 + iVar8) * 0x20 + DAT_005e0044, *(char *)(iVar6 + 7) == -1)) &&
+                ((*(short *)(iVar6 + 0xc) == -1 && (*(int *)(iVar6 + 0x14) == 0)))))) {
               pbVar4 = (byte *)FUN_0047de30(0x20,s_City_View__City_Army_00515d5c,10);
               if (pbVar4 == (byte *)0x0) {
                 FUN_0046a230(s_Memory_Error___0051580c,s_City_View__carmy_NULL_00515d44);
               }
-              pbVar9 = pbVar4;
-              for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {
-                pbVar9[0] = 0;
-                pbVar9[1] = 0;
-                pbVar9[2] = 0;
-                pbVar9[3] = 0;
-                pbVar9 = pbVar9 + 4;
+              pbVar10 = pbVar4;
+              for (iVar7 = 8; iVar7 != 0; iVar7 = iVar7 + -1) {
+                pbVar10[0] = 0;
+                pbVar10[1] = 0;
+                pbVar10[2] = 0;
+                pbVar10[3] = 0;
+                pbVar10 = pbVar10 + 4;
               }
-              cVar2 = FUN_004fbf50(8);
-              local_3c = (undefined2)iVar7;
+              uVar5 = Game_Random_Mod(8);
+              local_3c = (undefined2)iVar8;
+              bVar2 = (char)uVar5 + 0x53;
               local_18[0] = 0;
-              *pbVar4 = cVar2 + 0x53U;
+              *pbVar4 = bVar2;
               pbVar4[1] = *(byte *)(param_1 + 1);
               *(undefined2 *)(pbVar4 + 2) = local_3c;
               pbVar4[10] = 0;
               pbVar4[0xb] = 0;
-              *(short *)(pbVar4 + 4) = sVar8 + -1;
+              *(short *)(pbVar4 + 4) = sVar9 + -1;
               pbVar4[6] = 0xff;
               pbVar4[7] = 0xff;
               pbVar4[8] = 0xff;
@@ -101,13 +103,13 @@ void City_View(int param_1)
               local_18[5] = 2;
               *(int *)(pbVar4 + 0x10) =
                    *(int *)(&DAT_00758580 + local_18[*(byte *)(param_1 + 0x22)] * 4) +
-                   g_army_type_table[(byte)(cVar2 + 0x53U)].city_view_image_id * 4;
+                   g_army_type_table[bVar2].city_view_image_id * 4;
               FUN_00471e70(pbVar4);
-              *(byte **)(iVar5 + 0x14) = pbVar4;
+              *(byte **)(iVar6 + 0x14) = pbVar4;
               bVar1 = true;
             }
             local_24 = local_24 + 1;
-            iVar7 = iVar7 + 1;
+            iVar8 = iVar8 + 1;
           } while (local_24 < 2);
           iVar3 = iVar3 + 0x30;
           local_20 = local_20 + 1;
@@ -117,7 +119,7 @@ void City_View(int param_1)
       local_34 = local_34 + 1;
     } while (local_34 < 0x30);
     local_2c = local_2c + 0x30;
-    sVar8 = sVar8 + 1;
+    sVar9 = sVar9 + 1;
     if (0x8cf < local_2c) {
       return;
     }
