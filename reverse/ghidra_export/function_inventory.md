@@ -18,7 +18,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00409960` | `FUN_00409960` | 5984 | 11 |
 | `0x0040b170` | `FUN_0040b170` | 721 | 3 |
 | `0x0040b450` | `FUN_0040b450` | 291 | 4 |
-| `0x0040b580` | `FUN_0040b580` | 7299 | 31 |
+| `0x0040b580` | `Start_Map_Battle_From_Army` | 7299 | 31 |
 | `0x0040d230` | `FUN_0040d230` | 1788 | 12 |
 | `0x0040d960` | `FUN_0040d960` | 263 | 2 |
 | `0x0040da80` | `FUN_0040da80` | 6518 | 21 |
@@ -45,7 +45,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00415c90` | `FUN_00415c90` | 32 | 0 |
 | `0x00415cb0` | `Do_Battle_Army_And_Battle_Die` | 10181 | 8 |
 | `0x004184c0` | `FUN_004184c0` | 75 | 1 |
-| `0x00418510` | `FUN_00418510` | 794 | 15 |
+| `0x00418510` | `Prepare_Battle_Tile_Object_Flags` | 794 | 15 |
 | `0x00418830` | `BattleArmy` | 385 | 3 |
 | `0x004189c0` | `Decode_Battle` | 2145 | 3 |
 | `0x00419240` | `Make_Battle_Map` | 2405 | 3 |
@@ -454,7 +454,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004966e0` | `FUN_004966e0` | 1220 | 2 |
 | `0x00496bd0` | `FUN_00496bd0` | 364 | 4 |
 | `0x00496d40` | `FUN_00496d40` | 161 | 3 |
-| `0x00496df0` | `FUN_00496df0` | 6963 | 29 |
+| `0x00496df0` | `Start_Map_Battle_From_Tile` | 6963 | 29 |
 | `0x00498950` | `FUN_00498950` | 1340 | 15 |
 | `0x00498f00` | `FUN_00498f00` | 260 | 4 |
 | `0x00499010` | `FUN_00499010` | 115 | 3 |

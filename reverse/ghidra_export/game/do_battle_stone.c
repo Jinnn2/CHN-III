@@ -41,7 +41,7 @@ void Do_Battle_Stone(void)
     pBVar4 = (&g_battle_grid_front_aux_units)[iVar1 * 0xc];
     if ((pBVar3 != (BattleUnit_0x64 *)0x0) &&
        ((g_army_type_table[pBVar3->army_type_id].unit_class < 2 ||
-        (iVar12 = pBVar3->battle_side, (&DAT_005d9230)[iVar12] != '\0')))) {
+        (iVar12 = pBVar3->battle_side, g_battle_tile_has_object_by_side[iVar12] != 0)))) {
       if (*(short *)(iVar5 + 0x3ee) < 1) {
         local_8 = 1;
       }
@@ -99,8 +99,8 @@ void Do_Battle_Stone(void)
       if (iVar9 <= iVar12) {
         if (1 < g_army_type_table[pBVar4->army_type_id].unit_class) {
           iVar12 = pBVar4->battle_side;
-          iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),(&DAT_005d9230)[iVar12]);
-          if ((&DAT_005d9230)[iVar12] == '\0') goto LAB_00419ea4;
+          iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),g_battle_tile_has_object_by_side[iVar12]);
+          if (g_battle_tile_has_object_by_side[iVar12] == 0) goto LAB_00419ea4;
         }
         uVar6 = (undefined2)((uint)iVar12 >> 0x10);
         if (*(short *)(iVar5 + 0x3ee) < 1) {

@@ -94,7 +94,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
            pBVar1 != (BattleUnit_0x64 *)0x0)) &&
           ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
            ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4) !=
-             0 || ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))))) &&
+             0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
          ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
         bVar21 = true;
         battle_unit->action_state = 0x29;
@@ -114,8 +114,8 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
                   pBVar1 != (BattleUnit_0x64 *)0x0)) &&
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                 ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
-                          ) != 0 || ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+                          ) != 0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0))))
+               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
               bVar21 = true;
               battle_unit->action_state = 0x29;
               battle_unit->action_substate = 1;
@@ -138,7 +138,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
                   (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                  ((*(int *)(iVar8 + 0x5aa3f8 +
                            g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                  ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))))) &&
+                  (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
                ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
@@ -153,7 +153,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
                 ((pBVar1->owner_country_id != battle_unit->owner_country_id &&
                  ((*(int *)(iVar8 + 0x5aa3f8 +
                            g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                  ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))))) &&
+                  (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))))) &&
                ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
               battle_unit->action_state = 0x24;
               battle_unit->action_frame = 0;
@@ -177,8 +177,8 @@ LAB_00417020:
             if ((((pBVar1 != (BattleUnit_0x64 *)0x0) &&
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                 ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
-                          ) != 0 || ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
-               ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
+                          ) != 0 || (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0))))
+               && ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
               bVar21 = true;
               sVar7 = FUN_004fbf50(5);
               if (sVar7 == 0) {
@@ -219,7 +219,7 @@ LAB_00417020:
                    (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                   ((*(int *)(iVar8 + 0x5aa3f8 +
                             g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                   ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
+                   (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                  (((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
                   (pBVar1->moving_or_animating == 0)))) {
                 bVar21 = true;
@@ -231,7 +231,7 @@ LAB_00417020:
                   ((pBVar2->owner_country_id != battle_unit->owner_country_id &&
                    ((iVar12 = pBVar2->army_type_id,
                     *(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar12].unit_class * 4) != 0 ||
-                    ((&DAT_005d9230)[pBVar2->battle_side] != '\0')))))) &&
+                    (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)))))) &&
                  (((iVar12 != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
                   (pBVar2->action_frame < g_army_type_table[iVar12].battle_action_frame_count / 2)))
                  ) {
@@ -263,7 +263,7 @@ LAB_00417020:
                        (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                       ((*(int *)(iVar8 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                       ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
+                       (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
                     if (iVar20 < g_army_type_table[iVar18].battle_min_range_or_rank) {
@@ -281,7 +281,7 @@ LAB_00417020:
                        && (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                       ((*(int *)(iVar8 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                       ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
+                       (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
                     if (iVar20 < g_army_type_table[iVar18].battle_min_range_or_rank) {
@@ -471,7 +471,7 @@ LAB_0041630f:
                  (pBVar1->owner_country_id != battle_unit->owner_country_id)) {
                 iVar12 = pBVar1->army_type_id;
                 if (((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar12].unit_class * 4) != 0) ||
-                    ((&DAT_005d9230)[pBVar1->battle_side] != '\0')) &&
+                    (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
                    ((((iVar12 != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')) &&
                      (bVar21 = true, pBVar1->moving_or_animating == 0)) &&
                     (pBVar1->action_state == 0)))) {
@@ -511,7 +511,7 @@ LAB_0041630f:
                   (pBVar2->owner_country_id != battle_unit->owner_country_id)) &&
                  (((*(int *)(iVar8 + 0x5aa3f8 +
                             g_army_type_table[pBVar2->army_type_id].unit_class * 4) != 0 ||
-                   ((&DAT_005d9230)[pBVar2->battle_side] != '\0')) &&
+                   (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)) &&
                   ((pBVar2->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
                 iVar12 = 1;
                 bVar21 = true;
@@ -563,7 +563,7 @@ LAB_0041630f:
                        (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                       ((*(int *)(iVar8 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                       ((&DAT_005d9230)[pBVar1->battle_side] != '\0')))) &&
+                       (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
                     if (iVar19 < g_army_type_table[iVar18].battle_min_range_or_rank) {
@@ -590,7 +590,7 @@ LAB_0041630f:
                       && (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                      (((*(int *)(iVar8 + 0x5aa3f8 +
                                 g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                       ((&DAT_005d9230)[pBVar1->battle_side] != '\0')) &&
+                       (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
                       ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
                     bVar21 = true;
                     if (iVar19 < g_army_type_table[iVar18].battle_min_range_or_rank) {
@@ -752,7 +752,7 @@ LAB_00416c73:
                   (pBVar1->owner_country_id != battle_unit->owner_country_id)) &&
                  (((*(int *)(iVar8 + 0x5aa3f8 +
                             g_army_type_table[pBVar1->army_type_id].unit_class * 4) != 0 ||
-                   ((&DAT_005d9230)[pBVar1->battle_side] != '\0')) &&
+                   (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
                   ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
                 bVar21 = true;
                 sVar7 = FUN_004fbf50(5);
@@ -813,7 +813,8 @@ LAB_0041740e:
           if (pBVar2 == (BattleUnit_0x64 *)0x0) goto LAB_0041740e;
           if ((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
              ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
-               == 0 && ((&DAT_005d9230)[pBVar2->battle_side] == '\0')))) goto LAB_00417409;
+               == 0 && (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0))))
+          goto LAB_00417409;
           if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
              (g_army_type_table[iVar18].battle_min_range_or_rank == 1)) {
@@ -824,7 +825,8 @@ LAB_0041740e:
         }
         else if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
                 ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
-                          ) == 0 && ((&DAT_005d9230)[pBVar1->battle_side] == '\0')))) {
+                          ) == 0 && (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0))))
+        {
           bVar3 = false;
           if (battle_unit->facing_or_direction == 7) {
             iVar17 = battle_unit->battle_x + DAT_00513b08;
@@ -918,7 +920,8 @@ LAB_00417413:
         else {
           if ((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
              ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar2->army_type_id].unit_class * 4)
-               == 0 && ((&DAT_005d9230)[pBVar2->battle_side] == '\0')))) goto LAB_00417481;
+               == 0 && (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0))))
+          goto LAB_00417481;
           if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
              (g_army_type_table[iVar18].battle_min_range_or_rank == 1)) {
@@ -930,7 +933,7 @@ LAB_00417413:
       }
       else if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
               ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
-                == 0 && ((&DAT_005d9230)[pBVar1->battle_side] == '\0')))) {
+                == 0 && (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) {
         bVar3 = false;
         bVar5 = false;
         if (battle_unit->facing_or_direction == 7) {
@@ -1121,7 +1124,7 @@ LAB_00417738:
         if (((pBVar2->owner_country_id != battle_unit->owner_country_id) &&
             (g_army_type_table[iVar20].battle_action_frame_count / 2 <= pBVar2->action_frame)) &&
            ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar20].unit_class * 4) != 0 ||
-            ((&DAT_005d9230)[pBVar2->battle_side] != '\0')))) {
+            (g_battle_tile_has_object_by_side[pBVar2->battle_side] != 0)))) {
           if (battle_unit->attack_stats[2] < 1) {
             iVar12 = 1;
           }
@@ -1232,7 +1235,7 @@ LAB_00417c71:
       iVar20 = pBVar1->army_type_id;
       if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
          ((*(int *)(iVar8 + 0x5aa3f8 + g_army_type_table[iVar20].unit_class * 4) == 0 &&
-          ((&DAT_005d9230)[pBVar1->battle_side] == '\0')))) goto LAB_00417c71;
+          (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) goto LAB_00417c71;
       if (battle_unit->attack_stats[2] < 1) {
         iVar12 = 1;
       }
@@ -1347,7 +1350,7 @@ LAB_00417c7f:
       if (((pBVar2->owner_country_id == battle_unit->owner_country_id) ||
           (pBVar2->action_frame < g_army_type_table[iVar20].battle_action_frame_count / 2)) ||
          ((*(int *)(iVar8 + 0x5aa3f8 + iVar12 * 4) == 0 &&
-          ((&DAT_005d9230)[pBVar2->battle_side] == '\0')))) {
+          (g_battle_tile_has_object_by_side[pBVar2->battle_side] == 0)))) {
         battle_unit->action_state = 6;
         battle_unit->action_frame = 0;
         return;
@@ -1400,8 +1403,9 @@ LAB_00417c7f:
           iVar12 = (uVar9 & 0xffff) + pBVar2->defense_stats[iVar19] * 8;
         }
         iVar14 = iVar12;
-        if (((pBVar2->battle_side == 1) && (DAT_005d9231 != '\0')) &&
-           (iVar14 = iVar12 << 1, *(char *)(*(int *)(DAT_005d9238 + 0x88) + 0x7c) == '\x02')) {
+        if (((pBVar2->battle_side == 1) && (g_battle_tile_has_object_by_side[1] != 0)) &&
+           (iVar14 = iVar12 << 1,
+           *(char *)((int)g_battle_defender_land_tile->linked_record + 0x7c) == '\x02')) {
           iVar14 = iVar12 << 2;
         }
         if ((((iVar20 == 0) || (iVar20 == 1)) ||
@@ -1484,7 +1488,7 @@ LAB_0041823f:
     iVar12 = g_army_type_table[iVar20].unit_class;
     if ((pBVar1->owner_country_id == battle_unit->owner_country_id) ||
        ((*(int *)(iVar8 + 0x5aa3f8 + iVar12 * 4) == 0 &&
-        ((&DAT_005d9230)[pBVar1->battle_side] == '\0')))) {
+        (g_battle_tile_has_object_by_side[pBVar1->battle_side] == 0)))) {
 LAB_00417fc1:
       battle_unit->action_state = 6;
       battle_unit->action_frame = 0;
@@ -1545,8 +1549,9 @@ LAB_00417e6d:
         iVar12 = (uVar9 & 0xffff) + pBVar1->defense_stats[iVar19] * 8;
       }
       iVar14 = iVar12;
-      if (((pBVar1->battle_side == 1) && (DAT_005d9231 != '\0')) &&
-         (iVar14 = iVar12 << 1, *(char *)(*(int *)(DAT_005d9238 + 0x88) + 0x7c) == '\x02')) {
+      if (((pBVar1->battle_side == 1) && (g_battle_tile_has_object_by_side[1] != 0)) &&
+         (iVar14 = iVar12 << 1,
+         *(char *)((int)g_battle_defender_land_tile->linked_record + 0x7c) == '\x02')) {
         iVar14 = iVar12 << 2;
       }
       if ((iVar18 == 0x27) && (iVar20 == 0x29)) {

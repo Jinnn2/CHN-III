@@ -9,7 +9,7 @@ void Make_Battle_Map(void)
 
 {
   int iVar1;
-  char *pcVar2;
+  LandTile_0x100 *pLVar2;
   short sVar3;
   int *piVar4;
   char cVar5;
@@ -21,7 +21,8 @@ void Make_Battle_Map(void)
   undefined4 *puVar11;
   int local_114 [2];
   int local_10c;
-  int local_108 [66];
+  LandTile_0x100 *local_108 [2];
+  int local_100 [64];
   
   Trace_Function(s_Make_Battle_Map_005149a0);
   puVar11 = (undefined4 *)&g_battle_grid_cells;
@@ -29,8 +30,8 @@ void Make_Battle_Map(void)
     *puVar11 = 0;
     puVar11 = puVar11 + 1;
   }
-  local_108[0] = DAT_005d9234;
-  local_108[1] = DAT_005d9238;
+  local_108[0] = g_battle_attacker_land_tile;
+  local_108[1] = g_battle_defender_land_tile;
   piVar4 = (int *)&g_battle_grid_cells;
   iVar6 = 0x18;
   do {
@@ -50,21 +51,21 @@ void Make_Battle_Map(void)
   local_114[0] = 0;
   local_114[1] = 0;
   do {
-    pcVar2 = (char *)local_108[iVar6];
-    cVar5 = *pcVar2;
+    pLVar2 = local_108[iVar6];
+    cVar5 = *(char *)pLVar2;
     if (cVar5 < '\v') {
 LAB_00419306:
       (&DAT_005dfeb8)[iVar6] = (int)cVar5;
     }
     else {
-      cVar5 = pcVar2[2];
+      cVar5 = pLVar2->field_0x2;
       if ((cVar5 < '\0') || ('\n' < cVar5)) {
         cVar5 = *(char *)local_108[iVar6 == 0];
         if (cVar5 < '\v') {
           (&DAT_005dfeb8)[iVar6] = (int)cVar5;
         }
         else {
-          cVar5 = ((char *)local_108[iVar6 == 0])[2];
+          cVar5 = local_108[iVar6 == 0]->field_0x2;
           if ((-1 < cVar5) && (cVar5 < '\v')) goto LAB_00419306;
         }
       }
@@ -72,7 +73,7 @@ LAB_00419306:
         (&DAT_005dfeb8)[iVar6] = (int)cVar5;
       }
     }
-    if (*pcVar2 < '\v') {
+    if (*(char *)pLVar2 < '\v') {
       if (*(char *)local_108[iVar6 == 0] < '\v') {
         (&DAT_005dfeb0)[iVar6] = 0xb;
       }
@@ -81,11 +82,11 @@ LAB_00419306:
       }
     }
     else {
-      (&DAT_005dfeb0)[iVar6] = (int)*pcVar2;
+      (&DAT_005dfeb0)[iVar6] = (int)*(char *)pLVar2;
     }
     iVar7 = g_battle_air_or_class1_units_by_side[iVar6];
     if (iVar7 < 1) {
-      if (*pcVar2 < '\v') {
+      if (*(char *)pLVar2 < '\v') {
 LAB_00419430:
         local_114[iVar6] = 0;
       }
@@ -96,7 +97,7 @@ LAB_00419430:
         }
         else {
           if (g_battle_air_or_class1_units_by_side[iVar6 == 0] != 0) goto LAB_004193c9;
-          if (*(int *)(pcVar2 + 0x88) == 0) goto LAB_00419382;
+          if (pLVar2->linked_record == (void *)0x0) goto LAB_00419382;
           local_114[iVar6] = 0;
         }
       }
@@ -106,7 +107,7 @@ LAB_004193c9:
       }
     }
     else if (iVar7 == g_battle_total_units_by_side[iVar6]) {
-      if (*pcVar2 < '\v') {
+      if (*(char *)pLVar2 < '\v') {
         if ((g_battle_air_or_class1_units_by_side[iVar6 == 0] < 1) &&
            (*(char *)local_108[iVar6 == 0] < '\v')) {
 LAB_00419382:
@@ -122,7 +123,7 @@ LAB_00419408:
       }
     }
     else if (g_battle_land_units_by_side[iVar6] < 1) {
-      if (*pcVar2 < '\v') goto LAB_00419430;
+      if (*(char *)pLVar2 < '\v') goto LAB_00419430;
       local_114[iVar6] = 4;
     }
     else {
@@ -130,77 +131,78 @@ LAB_00419408:
          ('\n' < *(char *)local_108[iVar6 == 0])) goto LAB_004193c9;
       local_114[iVar6] = 2;
     }
-    if ((*(int *)(pcVar2 + 0x88) != 0) && ((('\n' < *pcVar2 || (0 < iVar7)) || ('\n' < *pcVar2)))) {
+    if ((pLVar2->linked_record != (void *)0x0) &&
+       ((('\n' < *(char *)pLVar2 || (0 < iVar7)) || ('\n' < *(char *)pLVar2)))) {
       *(undefined1 *)((int)&local_10c + iVar6) = 1;
     }
     iVar6 = iVar6 + 1;
     if (1 < iVar6) {
-      local_108[0x2f] = 2;
-      local_108[7] = 0xffffffff;
-      local_108[8] = 0xffffffff;
-      local_108[9] = 0xffffffff;
-      local_108[0xb] = 0xffffffff;
-      local_108[0xc] = 0xffffffff;
-      local_108[0xd] = 0xffffffff;
-      local_108[0xe] = 0xffffffff;
-      local_108[0xf] = 0xffffffff;
-      local_108[0x10] = 0xffffffff;
-      local_108[0x11] = 0xffffffff;
-      local_108[0x13] = 0xffffffff;
-      local_108[0x14] = 0xffffffff;
-      local_108[0x15] = 0xffffffff;
-      local_108[0x16] = 0xffffffff;
-      local_108[0x17] = 0xffffffff;
-      local_108[0x18] = 0xffffffff;
-      local_108[0x19] = 0xffffffff;
-      local_108[0x1b] = 0xffffffff;
-      local_108[0x1c] = 0xffffffff;
-      local_108[0x1d] = 0xffffffff;
-      local_108[0x1e] = 0xffffffff;
-      local_108[0x1f] = 0xffffffff;
-      local_108[0x20] = 0xffffffff;
-      local_108[0x21] = 0xffffffff;
-      local_108[0x23] = 0xffffffff;
-      local_108[0x24] = 0xffffffff;
-      local_108[0x25] = 0xffffffff;
-      local_108[0x2a] = 0xffffffff;
-      local_108[0x2b] = 0xffffffff;
-      local_108[0x2c] = 0xffffffff;
-      local_108[0x2d] = 0xffffffff;
-      local_108[0x30] = 2;
-      local_108[0x31] = 2;
-      local_108[0x32] = 0xffffffff;
-      local_108[0x33] = 0xffffffff;
-      local_108[0x34] = 0xffffffff;
-      local_108[0x35] = 0xffffffff;
-      local_108[0x37] = 2;
-      local_108[0x38] = 2;
-      local_108[0x39] = 2;
-      local_108[0x3a] = 0xffffffff;
-      local_108[0x3b] = 0xffffffff;
-      local_108[0x3c] = 0xffffffff;
-      local_108[0x3d] = 0xffffffff;
-      local_108[0x3f] = 2;
-      local_108[0x40] = 2;
-      local_108[0x41] = 2;
+      local_100[0x2d] = 2;
+      local_100[5] = 0xffffffff;
+      local_100[6] = 0xffffffff;
+      local_100[7] = 0xffffffff;
+      local_100[9] = 0xffffffff;
+      local_100[10] = 0xffffffff;
+      local_100[0xb] = 0xffffffff;
+      local_100[0xc] = 0xffffffff;
+      local_100[0xd] = 0xffffffff;
+      local_100[0xe] = 0xffffffff;
+      local_100[0xf] = 0xffffffff;
+      local_100[0x11] = 0xffffffff;
+      local_100[0x12] = 0xffffffff;
+      local_100[0x13] = 0xffffffff;
+      local_100[0x14] = 0xffffffff;
+      local_100[0x15] = 0xffffffff;
+      local_100[0x16] = 0xffffffff;
+      local_100[0x17] = 0xffffffff;
+      local_100[0x19] = 0xffffffff;
+      local_100[0x1a] = 0xffffffff;
+      local_100[0x1b] = 0xffffffff;
+      local_100[0x1c] = 0xffffffff;
+      local_100[0x1d] = 0xffffffff;
+      local_100[0x1e] = 0xffffffff;
+      local_100[0x1f] = 0xffffffff;
+      local_100[0x21] = 0xffffffff;
+      local_100[0x22] = 0xffffffff;
+      local_100[0x23] = 0xffffffff;
+      local_100[0x28] = 0xffffffff;
+      local_100[0x29] = 0xffffffff;
+      local_100[0x2a] = 0xffffffff;
+      local_100[0x2b] = 0xffffffff;
+      local_100[0x2e] = 2;
+      local_100[0x2f] = 2;
+      local_100[0x30] = 0xffffffff;
+      local_100[0x31] = 0xffffffff;
+      local_100[0x32] = 0xffffffff;
+      local_100[0x33] = 0xffffffff;
+      local_100[0x35] = 2;
+      local_100[0x36] = 2;
+      local_100[0x37] = 2;
+      local_100[0x38] = 0xffffffff;
+      local_100[0x39] = 0xffffffff;
+      local_100[0x3a] = 0xffffffff;
+      local_100[0x3b] = 0xffffffff;
+      local_100[0x3d] = 2;
+      local_100[0x3e] = 2;
+      local_100[0x3f] = 2;
       iVar7 = 0;
-      local_108[2] = 1;
-      local_108[3] = 1;
-      local_108[4] = 1;
-      local_108[5] = 1;
-      local_108[6] = 1;
-      local_108[10] = 1;
-      local_108[0x12] = 1;
-      local_108[0x1a] = 1;
-      local_108[0x22] = 1;
-      local_108[0x26] = 0;
-      local_108[0x27] = 1;
-      local_108[0x28] = 1;
-      local_108[0x29] = 1;
-      local_108[0x2e] = 1;
-      local_108[0x36] = 1;
-      local_108[0x3e] = 1;
-      iVar6 = local_108[local_114[1] + local_114[0] * 8 + 2];
+      local_100[0] = 1;
+      local_100[1] = 1;
+      local_100[2] = 1;
+      local_100[3] = 1;
+      local_100[4] = 1;
+      local_100[8] = 1;
+      local_100[0x10] = 1;
+      local_100[0x18] = 1;
+      local_100[0x20] = 1;
+      local_100[0x24] = 0;
+      local_100[0x25] = 1;
+      local_100[0x26] = 1;
+      local_100[0x27] = 1;
+      local_100[0x2c] = 1;
+      local_100[0x34] = 1;
+      local_100[0x3c] = 1;
+      iVar6 = local_100[local_114[1] + local_114[0] * 8];
       do {
         iVar9 = DAT_005dfeb8;
         iVar8 = DAT_005dfeb0;

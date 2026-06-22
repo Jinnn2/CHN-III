@@ -51,6 +51,10 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_battle_special_or_class2_units_by_side` | `BattleArmy` increments it for non-0/non-1 unit classes. | Class-2/special army count by side. |
 | `g_battle_frontline_land_units_by_side` | `BattleArmy` increments it for land units outside the ranged/support condition. | Frontline land army count by side. |
 | `g_battle_ranged_land_units_by_side` | `BattleArmy` increments it for land units with low support value and attack stat above 1. | Ranged/support land army count by side. |
+| `g_battle_attacker_land_tile` / `g_battle_defender_land_tile` | Battle start paths assign them as `g_land_tiles + tile_index * 0x100`; `Map_To_Battle_Army`, `Make_Battle_Map`, and battle update read tile occupants/object links through them. | Map tiles that seed the current battle. |
+| `g_battle_tile_has_object_by_side` | `Prepare_Battle_Tile_Object_Flags` sets entries from `LandTile.linked_record != NULL`; battle resolution checks this when allowing special class/object interactions. | Per-side tile-object/city-present flags. |
+| `g_battle_attacker_slot_present` / `g_battle_defender_slot_present` | `Map_To_Battle_Army` marks `ArmyUnit.battle_slot_or_category` values while collecting units from each tile. | Per-side source army slot/category presence flags. |
+| `g_battle_attacker_source_group_count` / `g_battle_defender_source_group_count` | `Map_To_Battle_Army` counts primary army plus cargo/subunits for the attacker and collected defender groups. | Source map-unit group counts before battle records are expanded. |
 | `g_battle_grid_cells` | `Make_Battle_Map` clears and fills a `24 * 24` grid in `0x30`-byte strides; `Decode_Battle` derives rendered tile indices from it. | `BattleGridCell_0x30[0x240]`. |
 | `g_battle_grid_front_units` / `g_battle_grid_back_units` | Arrange and battle update code place `BattleUnit_0x64 *` at cell offsets `+0x14/+0x1c`. Ghidra renders them as pointer-array aliases with `idx * 0xc` because the real cell stride is `0x30`. | Front/back visible battle-unit slots inside each grid cell. |
 | `g_battle_grid_front_aux_units` / `g_battle_grid_back_aux_units` | Battle update stores moving/target unit pointers at cell offsets `+0x18/+0x20`. | Auxiliary front/back battle-unit slots. |
@@ -334,7 +338,8 @@ strings and surrounding behavior. Examples include:
   `City_Building_AI`, `City_Event_Happen`.
 - `Load_Dat`, `Decode_City`, `Decode_NewMap`, `Do_Map`.
 - `Battle_AutoArrange`, `Do_Battle_Army_And_Battle_Die`,
-  `Map_To_Battle_Army`.
+  `Map_To_Battle_Army`, `Start_Map_Battle_From_Army`,
+  `Start_Map_Battle_From_Tile`, and `Prepare_Battle_Tile_Object_Flags`.
 - `MainMenu_Init`, `PutScreen_Mainmenu`, `Present_Dirty_Rects`,
   `Load_TMG_Background`.
 - Utility/render helpers such as `Trace_Function`, `Font_Select`, `Draw_Text`,
