@@ -145,7 +145,8 @@ void City_Round_Check(void)
                 (*(int *)(&g_active_country->field_0x25c + *(char *)(iVar21 + 1) * 4) == 1)))) &&
               (cVar7 = FUN_0041beb0(g_current_city,iVar21), cVar7 == '\0')) &&
              (*(byte *)(iVar21 + 0x176) < 10)) {
-            if ((g_current_city->field_0x98 == '\x02') && (*(char *)(iVar21 + 0x98) == '\x02')) {
+            if ((g_current_city->building_status[0x34] == 2) && (*(char *)(iVar21 + 0x98) == '\x02')
+               ) {
               DAT_007068ee = 1;
               iVar12 = FUN_004c6ed0(g_current_city_x,g_current_city_y,local_294);
               iVar15 = iVar12 * 0x96 -
@@ -202,8 +203,8 @@ LAB_00428580:
                   }
                 }
               }
-              else if (((g_current_city->field_0x79 == '\x02') ||
-                       (g_current_city->field_0x91 == '\x02')) &&
+              else if (((g_current_city->building_status[0x15] == 2) ||
+                       (g_current_city->building_status[0x2d] == 2)) &&
                       ((*(char *)(iVar21 + 0x79) == '\x02' || (*(char *)(iVar21 + 0x91) == '\x02')))
                       ) {
                 local_268 = 0;
@@ -421,7 +422,7 @@ LAB_00428580:
                   }
                   _DAT_0074a348 = ((byte)g_current_city->tile_y & 1) + (uint)g_current_city->tile_x;
                   _DAT_0074a350 = (uint)g_current_city->tile_y;
-                  FUN_00503730(local_12c);
+                  Format_Text(local_12c);
                   UI_YesNo_Message(local_12c,0,1,1);
                   uVar2 = g_current_city->tile_y;
                   uVar3 = g_current_city->tile_x;
@@ -444,7 +445,7 @@ LAB_00428580:
                 }
                 _DAT_0074a348 = ((byte)g_current_city->tile_y & 1) + (uint)g_current_city->tile_x;
                 _DAT_0074a350 = (uint)g_current_city->tile_y;
-                FUN_00503730(local_250);
+                Format_Text(local_250);
                 UI_YesNo_Message(local_250,0,1,1);
                 uVar2 = g_current_city->tile_y;
                 uVar3 = g_current_city->tile_x;

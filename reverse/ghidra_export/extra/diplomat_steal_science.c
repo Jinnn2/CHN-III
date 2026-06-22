@@ -57,7 +57,7 @@ switchD_00438e64_default:
   local_c2 = 0;
   piVar9 = &DAT_005817a8;
   iVar7 = (char)puVar4[1] * 0xe68;
-  piVar8 = (int *)&g_active_country->field_0x6a4;
+  piVar8 = g_active_country->early_science_status;
   while (((*piVar9 == 0 ||
           (*(int *)((int)piVar8 + (int)(&g_country_states + (iVar7 - (int)g_active_country))) != 2))
          || (1 < *piVar8))) {
@@ -67,8 +67,8 @@ switchD_00438e64_default:
     if (199 < iVar12) {
 LAB_00438f47:
       if ((_DAT_00748e34 == g_human_country_index) && (DAT_0074a2cc == '\x01')) {
-        FUN_00503730(local_c0,&DAT_005193f8,&DAT_007350bc + iVar7,
-                     &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3);
+        Format_Text(local_c0,&DAT_005193f8,&DAT_007350bc + iVar7,
+                    &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3);
         FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar4 + 0x16),
                      *(undefined2 *)(puVar4 + 0x18));
         UI_YesNo_Message(local_c0,0,0,1);
@@ -98,8 +98,8 @@ LAB_00438f47:
           bVar1 = puVar4[0x21];
           puVar14 = &DAT_005192c8;
         }
-        FUN_00503730(local_c0,puVar14,&DAT_007350bc + iVar7,&DAT_005a7bdc + (uint)bVar1 * 5,
-                     puVar4 + 3);
+        Format_Text(local_c0,puVar14,&DAT_007350bc + iVar7,&DAT_005a7bdc + (uint)bVar1 * 5,
+                    puVar4 + 3);
         UI_YesNo_Message(local_c0,0,0,1);
       }
       else if ((char)puVar4[1] == g_human_country_index) {
@@ -115,8 +115,8 @@ LAB_00438f47:
           bVar1 = puVar4[0x21];
           puVar14 = &DAT_0051927c;
         }
-        FUN_00503730(local_c0,puVar14,&DAT_005a7bdc + (uint)bVar1 * 5,puVar4 + 3,
-                     g_active_country->name_bytes);
+        Format_Text(local_c0,puVar14,&DAT_005a7bdc + (uint)bVar1 * 5,puVar4 + 3,
+                    g_active_country->name_bytes);
         UI_YesNo_Message(local_c0,0,0,1);
       }
       else {
@@ -132,8 +132,8 @@ LAB_00438f47:
         if (DAT_0074a2cd != '\x01') {
           return 0;
         }
-        FUN_00503730(local_c0,&DAT_0051925c,g_active_country->name_bytes,&DAT_007350bc + iVar7,
-                     &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3);
+        Format_Text(local_c0,&DAT_0051925c,g_active_country->name_bytes,&DAT_007350bc + iVar7,
+                    &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3);
       }
       uVar2 = *(undefined2 *)(puVar4 + 0x18);
       uVar3 = *(undefined2 *)(puVar4 + 0x16);
@@ -158,7 +158,7 @@ LAB_00438f47:
           puVar13 = &DAT_00519390;
         }
 LAB_004390c8:
-        FUN_00503730(local_c0,puVar13,puVar11,puVar14,pbVar15,&DAT_005817ac + iVar12 * 0x88);
+        Format_Text(local_c0,puVar13,puVar11,puVar14,pbVar15,&DAT_005817ac + iVar12 * 0x88);
 LAB_004390d0:
         bVar5 = true;
       }
@@ -179,9 +179,9 @@ LAB_004390d5:
             puVar13 = &DAT_00519340;
             goto LAB_004390c8;
           }
-          FUN_00503730(local_c0,&DAT_0051936c,g_active_country->name_bytes,
-                       &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
-                       g_active_country->name_bytes,&DAT_005817ac + iVar12 * 0x88);
+          Format_Text(local_c0,&DAT_0051936c,g_active_country->name_bytes,
+                      &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
+                      g_active_country->name_bytes,&DAT_005817ac + iVar12 * 0x88);
           goto LAB_004390d0;
         }
         goto LAB_004390d5;
@@ -198,9 +198,9 @@ LAB_004390d5:
       if (DAT_0074a2cd != '\x01') {
         return 1;
       }
-      FUN_00503730(local_c0,&DAT_00519318,g_active_country->name_bytes,&DAT_007350bc + iVar7,
-                   &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
-                   &DAT_005817ac + iVar12 * 0x88);
+      Format_Text(local_c0,&DAT_00519318,g_active_country->name_bytes,&DAT_007350bc + iVar7,
+                  &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
+                  &DAT_005817ac + iVar12 * 0x88);
     }
     uVar2 = *(undefined2 *)(puVar4 + 0x18);
     uVar3 = *(undefined2 *)(puVar4 + 0x16);

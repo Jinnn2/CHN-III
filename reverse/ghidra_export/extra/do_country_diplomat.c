@@ -11,7 +11,7 @@ void Do_Country_Diplomat(void)
 
 {
   Trace_Function(s_Do_Country_Diplomat_0057e0c0);
-  _DAT_00716278 = FUN_004f00b0();
+  _DAT_00716278 = Get_Game_Tick();
   do {
     if (('\0' < (char)g_active_country->is_active) && (_DAT_0074a0f8 != 0)) {
       Diplomat_Turn();
@@ -25,8 +25,8 @@ void Do_Country_Diplomat(void)
     else {
       g_active_country = g_active_country + 1;
     }
-    DAT_007558fc = FUN_004f00b0();
-  } while ((DAT_0071628c == 7) && ((uint)(DAT_007558fc - _DAT_00716278) < 0x32));
+    g_frame_tick = Get_Game_Tick();
+  } while ((DAT_0071628c == 7) && ((uint)(g_frame_tick - _DAT_00716278) < 0x32));
   return;
 }
 

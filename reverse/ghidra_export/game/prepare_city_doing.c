@@ -79,7 +79,7 @@ void Prepare_City_Doing(void)
     piVar8 = piVar8 + 1;
   } while ((int)puVar5 < 0x748e24);
   DAT_00706950 = 0;
-  _DAT_0070686c = (float)iVar9 / (float)*(ushort *)&g_active_country->field_0x7c;
+  _DAT_0070686c = (float)iVar9 / (float)g_active_country->owned_city_count;
   if (g_city_turn_list_head == (City_0x1b8_plus *)0x0) {
 LAB_0045156d:
     DAT_0071628c = 3;

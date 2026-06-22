@@ -16,17 +16,19 @@ void City_Business_Change(City_0x1b8_plus *city)
   Trace_Function(s_City_Business_Change_00515360);
   if ((0x3b < city->safety_score) || (in_stack_00000008 < 0)) {
     iVar1 = city->science_or_resource_score + in_stack_00000008;
-    if ((0x1e < iVar1) && (((char)city->field_0x6a < '\x02' && ((char)city->field_0x82 < '\x02'))))
+    if ((0x1e < iVar1) &&
+       (((char)city->building_status[6] < '\x02' && ((char)city->building_status[0x1e] < '\x02'))))
     {
       city->science_or_resource_score = 0x1e;
       return;
     }
-    if ((0x3c < iVar1) && (((char)city->field_0x67 < '\x02' && ((char)city->field_0x7f < '\x02'))))
+    if ((0x3c < iVar1) &&
+       (((char)city->building_status[3] < '\x02' && ((char)city->building_status[0x1b] < '\x02'))))
     {
       city->science_or_resource_score = 0x3c;
       return;
     }
-    if ((0x5a < iVar1) && ((char)city->field_0x9d < '\x02')) {
+    if ((0x5a < iVar1) && ((char)city->building_status[0x39] < '\x02')) {
       city->science_or_resource_score = 0x5a;
       return;
     }

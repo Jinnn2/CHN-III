@@ -22,16 +22,16 @@ void MainMenu_Init(void)
   FUN_0048b780(10);
   g_view_center_x = 0x200;
   g_view_center_y = 0x180;
-  DAT_00714e24 = DAT_007558fc;
+  DAT_00714e24 = g_frame_tick;
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00575ee4);
-  if (DAT_00755984 != 0) {
-    FUN_0047de70(DAT_00755984,&DAT_00517890,1);
-    DAT_00755984 = 0;
+  if (g_loaded_tmg_background != (void *)0x0) {
+    FUN_0047de70(g_loaded_tmg_background,&DAT_00517890,1);
+    g_loaded_tmg_background = (void *)0x0;
   }
-  DAT_00755984 = Load_TMG_Background(s_MAINMENU_00575ed8,0);
+  g_loaded_tmg_background = (void *)Load_TMG_Background(s_MAINMENU_00575ed8,0);
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00575ec8);
-  FUN_004789e0(s_MENU_ITEM_EMG_00517874,&DAT_00707f8c);
-  FUN_00478ac0(s_MAINMENU_XMG_00575eb8,&g_mainmenu_sprite_bank);
+  Load_EMG_Resource(s_MENU_ITEM_EMG_00517874,&g_menu_item_emg_resource);
+  Load_XMG_Resource(s_MAINMENU_XMG_00575eb8,&g_mainmenu_sprite_bank);
   if (DAT_00588b94 != 1) {
     FUN_004f0170(1);
   }
@@ -42,9 +42,9 @@ void MainMenu_Init(void)
     puVar2 = puVar2 + 0x18;
   } while ((int)puVar2 < 0x575f14);
   DAT_00575bb4 = 0;
-  DAT_005dfed8 = 2;
-  DAT_007558fc = FUN_004f00b0();
-  DAT_0074c0a0 = DAT_007558fc;
+  g_app_screen_state = 2;
+  g_frame_tick = Get_Game_Tick();
+  g_menu_action_tick = g_frame_tick;
   return;
 }
 

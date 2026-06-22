@@ -88,7 +88,7 @@ void Diplomat_Turn(void)
             pCVar22 = g_active_country;
             if ((_DAT_0074a0f8 == g_human_country_index) &&
                (local_194 = local_194 - iVar14, DAT_0074a2d3 != '\0')) {
-              FUN_00503730(local_188,&DAT_0056ff68);
+              Format_Text(local_188,&DAT_0056ff68);
               FUN_004898b0(_DAT_0074a316,local_188,0,0xffffffff,0xffffffff);
               pCVar22 = g_active_country;
             }
@@ -96,7 +96,7 @@ void Diplomat_Turn(void)
           if (local_1a8 == g_human_country_index) {
             local_194 = local_194 + iVar14;
             if (DAT_0074a2d3 != '\0') {
-              FUN_00503730(local_c8,&DAT_0056ff44);
+              Format_Text(local_c8,&DAT_0056ff44);
               FUN_004898b0(DAT_0074c850,local_c8,0,0xffffffff,0xffffffff);
               pCVar22 = g_active_country;
             }
@@ -176,7 +176,7 @@ LAB_0044c620:
           bVar10 = false;
 LAB_0044b8ff:
           if ((0 < *(int *)(&pCVar22->field_0x46c + local_1a8 * 4)) || (bVar7)) {
-            if ((*(short *)&pCVar22->field_0x1aa != 0) && (1 < *(ushort *)&pCVar22->field_0x7c)) {
+            if ((*(short *)&pCVar22->field_0x1aa != 0) && (1 < pCVar22->owned_city_count)) {
               if ((!bVar6) && (iVar14 != 3)) {
                 if (local_1a8 != g_human_country_index) goto LAB_0044c59a;
                 if (!bVar7) goto LAB_0044ba2f;
@@ -193,7 +193,7 @@ LAB_0044b8ff:
               if (iVar14 == 3) {
                 local_1b4 = 1;
                 local_190 = (uint)*(ushort *)(local_1b8 + 0x7c);
-                local_1c4 = (uint)*(ushort *)&g_active_country->field_0x7c;
+                local_1c4 = (uint)g_active_country->owned_city_count;
                 pbVar16 = g_army_type_table + 0xf8;
                 puVar23 = (ushort *)&g_active_country->field_0x7e;
                 do {
@@ -609,11 +609,11 @@ LAB_0044ba2f:
   }
   if ((DAT_0074a2d3 == '\0') && (local_194 != 0)) {
     if (local_194 < 0) {
-      FUN_00503730(local_188,&DAT_0056fee8,-local_194);
+      Format_Text(local_188,&DAT_0056fee8,-local_194);
       FUN_004898b0(_DAT_0074a316,local_188,0,0xffffffff,0xffffffff);
       return;
     }
-    FUN_00503730(local_188,&DAT_0056fec8,local_194);
+    Format_Text(local_188,&DAT_0056fec8,local_194);
     FUN_004898b0(DAT_0074c850,local_188,0,0xffffffff,0xffffffff);
   }
   return;

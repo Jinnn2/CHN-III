@@ -18,7 +18,7 @@ void UI_YesNo_Message(undefined4 param_1,int param_2,int param_3,int param_4)
   if (g_back_surface_locked == 0) {
     FUN_0048b6e0();
   }
-  FUN_004789e0(s_UI_YN_EMG_0057cbd0,&DAT_00714e00);
+  Load_EMG_Resource(s_UI_YN_EMG_0057cbd0,&DAT_00714e00);
   DAT_00588b80 = 1;
   if (param_3 != 0) {
     FUN_004a1a00();
@@ -49,7 +49,7 @@ void UI_YesNo_Message(undefined4 param_1,int param_2,int param_3,int param_4)
   if (g_back_surface_locked == 0) {
     FUN_0048b6e0();
   }
-  FUN_00478b30(&DAT_00714e00);
+  Free_EMG_Resource(&DAT_00714e00);
   return;
 }
 

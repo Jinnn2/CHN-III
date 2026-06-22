@@ -32,7 +32,7 @@ void Do_City(void)
   undefined1 local_d4 [208];
   
   Trace_Function();
-  DAT_007068c0 = DAT_007558fc;
+  DAT_007068c0 = g_frame_tick;
   g_current_city = g_city_turn_list_head;
   if (g_city_turn_list_head != (City_0x1b8_plus *)0x0) {
     g_active_country = (CountryState_0xe68 *)(&g_country_states + g_active_country_index * 0xe68);
@@ -80,7 +80,8 @@ LAB_004505cb:
       if (((g_active_country->country_state_mode == 2) ||
           (g_active_country->leader_or_country_id == 0x22)) &&
          ((g_world_age_or_turn_phase < 4 ||
-          ((g_current_city->field_0x6a == '\x02' || (g_current_city->development_level == 5)))))) {
+          ((g_current_city->building_status[6] == 2 || (g_current_city->development_level == 5))))))
+      {
         DAT_00706940 = 1;
       }
       else {
@@ -113,13 +114,16 @@ LAB_004505cb:
       City_Business();
       iVar9 = g_city_turn_income_delta;
       uVar5 = g_city_turn_income_delta >> 0x1f;
-      if ((g_current_city->field_0x67 == '\x02') || (g_current_city->field_0x7f == '\x02')) {
+      if ((g_current_city->building_status[3] == 2) || (g_current_city->building_status[0x1b] == 2))
+      {
         g_city_turn_income_delta = g_city_turn_income_delta + g_city_turn_income_delta / 2;
       }
-      if ((g_current_city->field_0x73 == '\x02') || (g_current_city->field_0x8b == '\x02')) {
+      if ((g_current_city->building_status[0xf] == 2) ||
+         (g_current_city->building_status[0x27] == 2)) {
         g_city_turn_income_delta = g_city_turn_income_delta + ((int)(iVar9 + (uVar5 & 3)) >> 2);
       }
-      if ((g_current_city->field_0x74 == '\x02') || (g_current_city->field_0x8c == '\x02')) {
+      if ((g_current_city->building_status[0x10] == 2) ||
+         (g_current_city->building_status[0x28] == 2)) {
         g_city_turn_income_delta = g_city_turn_income_delta + iVar9 / 2;
       }
       if (g_active_country_index == g_human_country_index) {
@@ -129,7 +133,7 @@ LAB_004505cb:
       }
       g_city_turn_total_delta =
            g_city_turn_resource_delta + g_city_turn_food_delta + g_city_turn_income_delta;
-      if (g_current_city->field_0x9d == '\x02') {
+      if (g_current_city->building_status[0x39] == 2) {
         g_city_turn_total_delta = g_city_turn_total_delta + g_city_turn_total_delta / 2;
       }
       City_Resource_Change();
@@ -147,10 +151,11 @@ LAB_004505cb:
       if ((g_current_city->disaster_lock_a == 0) && (g_current_city->disaster_lock_b == 0)) {
         if (g_current_city->business_workers != 0) {
           iVar9 = 0;
-          if ((g_current_city->field_0x6f == '\x02') || (g_current_city->field_0x87 == '\x02')) {
+          if ((g_current_city->building_status[0xb] == 2) ||
+             (g_current_city->building_status[0x23] == 2)) {
             iVar9 = 1;
           }
-          if (g_current_city->field_0x94 == '\x02') {
+          if (g_current_city->building_status[0x30] == 2) {
             if (_DAT_00749d18 == g_active_country_index) {
               iVar9 = iVar9 + 4;
             }
@@ -189,10 +194,11 @@ LAB_004505cb:
           if ((((((0x59 < g_current_city->business_score) && (0x45 < g_current_city->safety_score))
                 && (0x4f < g_current_city->growth_or_industry_score)) &&
                ((_DAT_0070690c + _DAT_007068f0 == _DAT_00706904 &&
-                ((g_current_city->field_0x7a == '\x02' || (g_current_city->field_0x8d == '\x02')))))
-               ) && ((iVar9 <= g_current_city->population_or_stockpile &&
-                     ((g_active_country->government_or_ai_mode != 3 ||
-                      (g_active_country->special_rule_level < 2)))))) &&
+                ((g_current_city->building_status[0x16] == 2 ||
+                 (g_current_city->building_status[0x29] == 2)))))) &&
+              ((iVar9 <= g_current_city->population_or_stockpile &&
+               ((g_active_country->government_or_ai_mode != 3 ||
+                (g_active_country->special_rule_level < 2)))))) &&
              (g_current_city->event_lock == 0xff)) {
             City_Event_Happen(g_current_city);
           }
@@ -215,8 +221,9 @@ LAB_00450b25:
           if ((((((0x59 < g_current_city->business_score) && (0x45 < g_current_city->safety_score))
                 && (0x4f < g_current_city->growth_or_industry_score)) &&
                ((_DAT_0070690c + _DAT_007068f0 == _DAT_00706904 &&
-                ((g_current_city->field_0x7a == '\x02' || (g_current_city->field_0x8d == '\x02')))))
-               ) && (iVar9 <= g_current_city->population_or_stockpile)) &&
+                ((g_current_city->building_status[0x16] == 2 ||
+                 (g_current_city->building_status[0x29] == 2)))))) &&
+              (iVar9 <= g_current_city->population_or_stockpile)) &&
              (((g_active_country->government_or_ai_mode != 3 ||
                (g_active_country->special_rule_level < 2)) && (g_current_city->event_lock == 0xff)))
              ) {
@@ -230,7 +237,8 @@ LAB_00450b25:
               (g_current_city->safety_score < 0x46)) ||
              ((g_current_city->growth_or_industry_score < 0x50 ||
               (_DAT_00706904 < _DAT_0070690c + _DAT_007068f0)))) ||
-            ((g_current_city->field_0x7a != '\x02' && (g_current_city->field_0x8d != '\x02')))) ||
+            ((g_current_city->building_status[0x16] != 2 &&
+             (g_current_city->building_status[0x29] != 2)))) ||
            (((g_current_city->population_or_stockpile < iVar9 ||
              ((g_active_country->government_or_ai_mode == 3 &&
               (1 < g_active_country->special_rule_level)))) ||
@@ -247,11 +255,11 @@ LAB_00450b25:
       }
       if (g_active_country_index == 0) {
         if (((DAT_0074c764 == 2) &&
-            ((int)(char)g_current_city_land_tile->field_0x7c +
+            ((int)(char)g_current_city_land_tile->secondary_occupant_count +
              (int)(char)g_current_city_land_tile->army_count_or_occupant_count == 0)) &&
            ((g_current_city->round_or_protection_timer < g_world_age_or_turn_phase &&
             (0x1193 < g_current_city->stored_population_or_value)))) {
-          if (g_current_city->field_0xbe == '\0') {
+          if (g_current_city->has_special_capability == 0) {
             uVar6 = FUN_00414ab0();
             FUN_00479620(0,uVar6,g_current_city->tile_x,g_current_city->tile_y,0,100,100,0);
           }
@@ -271,7 +279,7 @@ LAB_00451331:
                   (g_auto_turn_or_ai_control_flag != 0)) &&
                  ((g_current_city->round_or_protection_timer == 0 &&
                   ((g_current_city_land_tile->army_count_or_occupant_count == 0 &&
-                   (g_current_city_land_tile->field_0x7c == '\0')))))) {
+                   (g_current_city_land_tile->secondary_occupant_count == 0)))))) {
                 if (DAT_005e0020 == 1) {
 LAB_00450bac:
                   g_city_removed_this_turn = 1;
@@ -302,9 +310,9 @@ LAB_00450bac:
                 piVar10 = &DAT_0059980c;
                 do {
                   iVar11 = *piVar12;
-                  if (((-1 < iVar11) && ((&g_current_city->field_0x64)[iVar9] == '\x02')) &&
-                     (((&g_current_city->field_0x64)[iVar11] == '\0' &&
-                      ((&g_active_country->field_0x9d4)[iVar11] != '\0')))) {
+                  if (((-1 < iVar11) && (g_current_city->building_status[iVar9] == 2)) &&
+                     ((g_current_city->building_status[iVar11] == 0 &&
+                      (g_active_country->available_building_flags[iVar11] != 0)))) {
                     if (3 < g_world_age_or_turn_phase) {
                       dVar2 = (double)(*piVar10 << 1) + dVar2;
                     }
@@ -327,20 +335,19 @@ LAB_00450bac:
                     iVar9 = __ftol();
                     DAT_0074cf20 = DAT_0074cf20 + iVar9;
                     if (DAT_0074a2ce != '\0') {
-                      FUN_00503730(local_1a0,&DAT_005706f4,
-                                   &DAT_005a7bdc +
-                                   (uint)g_current_city->city_type_or_terrain_class * 5,
-                                   &g_current_city->field_0x3);
+                      Format_Text(local_1a0,&DAT_005706f4,
+                                  &DAT_005a7bdc +
+                                  (uint)g_current_city->city_type_or_terrain_class * 5,
+                                  &g_current_city->field_0x3);
                       FUN_004898b0(DAT_0074c850,local_1a0,1,g_current_city->tile_x,
                                    g_current_city->tile_y);
                     }
                   }
                   else if ((DAT_00755958 != 0) || (DAT_0075595c != 0)) {
                     __ftol();
-                    FUN_00503730(local_d4,&DAT_005706b8,g_active_country->name_bytes,
-                                 &DAT_005a7bdc +
-                                 (uint)g_current_city->city_type_or_terrain_class * 5,
-                                 &g_current_city->field_0x3);
+                    Format_Text(local_d4,&DAT_005706b8,g_active_country->name_bytes,
+                                &DAT_005a7bdc + (uint)g_current_city->city_type_or_terrain_class * 5
+                                ,&g_current_city->field_0x3);
                     FUN_004898b0(DAT_0074c850,local_d4,1,g_current_city->tile_x,
                                  g_current_city->tile_y);
                   }
@@ -421,15 +428,15 @@ LAB_00450bac:
                   if ((g_current_city->unassigned_workers != 0) &&
                      (g_current_city->owner_or_active_flag == 5)) {
                     iVar11 = 100;
-                    if (((char)g_current_city->field_0x6a < '\x02') &&
-                       ((char)g_current_city->field_0x82 < '\x02')) {
+                    if (((char)g_current_city->building_status[6] < '\x02') &&
+                       ((char)g_current_city->building_status[0x1e] < '\x02')) {
                       iVar11 = 0x1e;
                     }
-                    else if (((char)g_current_city->field_0x67 < '\x02') &&
-                            ((char)g_current_city->field_0x7f < '\x02')) {
+                    else if (((char)g_current_city->building_status[3] < '\x02') &&
+                            ((char)g_current_city->building_status[0x1b] < '\x02')) {
                       iVar11 = 0x3c;
                     }
-                    else if ((char)g_current_city->field_0x9d < '\x02') {
+                    else if ((char)g_current_city->building_status[0x39] < '\x02') {
                       iVar11 = 0x5a;
                     }
                     if (g_current_city->science_or_resource_score < iVar11) {
@@ -529,8 +536,8 @@ LAB_00451341:
       }
 LAB_00451424:
       g_current_city = local_1ac;
-      DAT_007558fc = FUN_004f00b0();
-      if (0x13 < (uint)(DAT_007558fc - DAT_007068c0)) {
+      g_frame_tick = Get_Game_Tick();
+      if (0x13 < (uint)(g_frame_tick - DAT_007068c0)) {
         g_city_turn_list_head = g_current_city;
         if (g_current_city != (City_0x1b8_plus *)0x0) {
           return;

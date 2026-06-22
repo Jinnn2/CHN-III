@@ -379,8 +379,8 @@ LAB_0049ed11:
                 uStack_ac = 0x49f03c;
                 FUN_004af380();
                 pcStack_8c = (char *)DAT_0057e848;
-                if ((DAT_0057e840 == -1) || (0x4f < (uint)(DAT_007558fc - DAT_0057e840))) {
-                  DAT_0057e840 = DAT_007558fc;
+                if ((DAT_0057e840 == -1) || (0x4f < (uint)(g_frame_tick - DAT_0057e840))) {
+                  DAT_0057e840 = g_frame_tick;
                   DAT_00715180 = DAT_00715180 + 1;
                   if (0x19 < DAT_00715180) {
                     DAT_00715180 = 0;

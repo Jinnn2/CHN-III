@@ -15,15 +15,18 @@ void City_Safe_Change(City_0x1b8_plus *city)
   
   Trace_Function(s_City_Safe_Change_00515338);
   iVar1 = in_stack_00000008 + city->safety_score;
-  if (((0x3c < iVar1) && ((char)city->field_0x66 < '\x02')) && ((char)city->field_0x7e < '\x02')) {
+  if (((0x3c < iVar1) && ((char)city->building_status[2] < '\x02')) &&
+     ((char)city->building_status[0x1a] < '\x02')) {
     city->safety_score = 0x3c;
     return;
   }
-  if (((0x46 < iVar1) && ((char)city->field_0x72 < '\x02')) && ((char)city->field_0x8a < '\x02')) {
+  if (((0x46 < iVar1) && ((char)city->building_status[0xe] < '\x02')) &&
+     ((char)city->building_status[0x26] < '\x02')) {
     city->safety_score = 0x46;
     return;
   }
-  if (((0x50 < iVar1) && ((char)city->field_0x76 < '\x02')) && ((char)city->field_0x8e < '\x02')) {
+  if (((0x50 < iVar1) && ((char)city->building_status[0x12] < '\x02')) &&
+     ((char)city->building_status[0x2a] < '\x02')) {
     city->safety_score = 0x50;
     return;
   }

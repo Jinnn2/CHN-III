@@ -15,15 +15,15 @@ void City_Like_Change(City_0x1b8_plus *city)
   int in_stack_0000000c;
   
   Trace_Function(s_City_Like_Change_00515394);
-  iVar1 = (char)(&city->field_0x34)[in_stack_00000008] + in_stack_0000000c;
+  iVar1 = (char)city->building_status[in_stack_00000008 + -0x30] + in_stack_0000000c;
   if (iVar1 < 0) {
-    (&city->field_0x34)[in_stack_00000008] = 0;
+    city->building_status[in_stack_00000008 + -0x30] = 0;
     return;
   }
   if (100 < iVar1) {
     iVar1 = 100;
   }
-  (&city->field_0x34)[in_stack_00000008] = (char)iVar1;
+  city->building_status[in_stack_00000008 + -0x30] = (byte)iVar1;
   return;
 }
 

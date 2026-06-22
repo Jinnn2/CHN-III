@@ -71,7 +71,7 @@ void Battle_Arrange_Position(int param_1)
   local_31 = DAT_00514a00;
   local_2d = DAT_00514a04;
   local_2b = DAT_00514a06;
-  FUN_004789e0(s_UI_BATTLE_EMG_005149f0,&DAT_007585a8);
+  Load_EMG_Resource(s_UI_BATTLE_EMG_005149f0,&DAT_007585a8);
   iVar2 = (&DAT_005dfe88)[param_1];
   while (iVar2 != 0) {
     iVar12 = *(int *)(iVar2 + 0x60);
@@ -87,7 +87,7 @@ void Battle_Arrange_Position(int param_1)
   local_80 = -1;
   local_7c = -1;
   local_84 = (int *)0x0;
-  local_60 = FUN_004f00b0();
+  local_60 = Get_Game_Tick();
   FUN_0048b5a0();
   iVar2 = (&DAT_005dfe68)[param_1];
   DAT_0057e830 = 2;
@@ -95,9 +95,9 @@ void Battle_Arrange_Position(int param_1)
   do {
     FUN_004f0260();
     FUN_0048b6e0();
-    DAT_007558fc = FUN_004f00b0();
-    if (0x31 < (uint)(DAT_007558fc - local_60)) {
-      local_60 = DAT_007558fc;
+    g_frame_tick = Get_Game_Tick();
+    if (0x31 < (uint)(g_frame_tick - local_60)) {
+      local_60 = g_frame_tick;
     }
     if (0x3d8 < g_view_center_x) {
       if (DAT_0057e828 < 0xb) {
@@ -333,7 +333,7 @@ LAB_0041a597:
     if (bVar9) {
       FUN_0048b6e0();
       DAT_0057e830 = 1;
-      FUN_00478b30(&DAT_007585a8);
+      Free_EMG_Resource(&DAT_007585a8);
       return;
     }
   } while( true );

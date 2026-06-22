@@ -10,7 +10,7 @@
 void City_People_Change(void)
 
 {
-  char cVar1;
+  byte bVar1;
   City_0x1b8_plus *pCVar2;
   int iVar3;
   void **ppvVar4;
@@ -38,7 +38,7 @@ void City_People_Change(void)
     _DAT_007068c8 = _DAT_007068c8 - _DAT_0050f378;
   }
   if (_DAT_0050f358 < _DAT_007068c8) {
-    if (g_current_city->field_0xd0 == '\x01') {
+    if (g_current_city->population_growth_clamped == 1) {
       _DAT_007068c8 = 1.0;
     }
     else {
@@ -49,20 +49,22 @@ void City_People_Change(void)
         do {
           if (((((iVar6 != 7) && (iVar6 != 0x18)) &&
                ((iVar6 != 0x19 ||
-                ((g_current_city->field_0x64 == '\0' && (g_current_city->field_0xa1 == '\0')))))) &&
-              ((&g_active_country->field_0x9d4)[iVar6] != '\0')) &&
+                ((g_current_city->building_status[0] == 0 &&
+                 (g_current_city->building_status[0x3d] == 0)))))) &&
+              (g_active_country->available_building_flags[iVar6] != 0)) &&
              ((0 < piVar5[0x21] && (piVar5[0x21] <= g_current_city->stored_population_or_value)))) {
             if (iVar6 == 1) {
-              if (((g_current_city->field_0x65 != '\x02') && (g_current_city->field_0x64 != '\x02'))
-                 && (g_current_city->field_0x7d != '\x02')) {
-                cVar1 = g_current_city->field_0xa1;
+              if (((g_current_city->building_status[1] != 2) &&
+                  (g_current_city->building_status[0] != 2)) &&
+                 (g_current_city->building_status[0x19] != 2)) {
+                bVar1 = g_current_city->building_status[0x3d];
 joined_r0x0042606c:
-                if (((cVar1 != '\x02') && ((*piVar5 == -1 || (*piVar5 == 5)))) && (piVar5[-1] == 1))
+                if (((bVar1 != 2) && ((*piVar5 == -1 || (*piVar5 == 5)))) && (piVar5[-1] == 1))
                 goto LAB_004260ee;
               }
             }
             else if (1 < iVar6) {
-              cVar1 = (&g_current_city->field_0x64)[iVar6];
+              bVar1 = g_current_city->building_status[iVar6];
               goto joined_r0x0042606c;
             }
           }
@@ -74,10 +76,10 @@ joined_r0x0042606c:
         do {
           if ((0 < piVar5[0x21]) && (piVar5[0x21] <= g_current_city->stored_population_or_value)) {
             if (iVar6 == 1) {
-              if (g_current_city->field_0x65 != '\x02') {
-                cVar1 = g_current_city->field_0x64;
+              if (g_current_city->building_status[1] != 2) {
+                bVar1 = g_current_city->building_status[0];
 joined_r0x004260bd:
-                if ((cVar1 != '\x02') &&
+                if ((bVar1 != 2) &&
                    ((*piVar5 == -1 ||
                     (*(int *)(&DAT_0051578c + *piVar5 * 4) ==
                      *(int *)(&DAT_0051578c + (uint)g_current_city->development_level * 4)))))
@@ -85,7 +87,7 @@ joined_r0x004260bd:
               }
             }
             else if (1 < iVar6) {
-              cVar1 = (&g_current_city->field_0x64)[iVar6];
+              bVar1 = g_current_city->building_status[iVar6];
               goto joined_r0x004260bd;
             }
           }
@@ -103,7 +105,8 @@ LAB_0042610e:
      ((iVar3 = __ftol(), iVar3 == iVar6 || (fVar7 = extraout_ST0, iVar6 < 3000)))) {
     fVar7 = ((float10)_DAT_007068c8 + (float10)_DAT_0050f370) * (float10)iVar6;
   }
-  if (('\0' < (char)g_current_city_land_tile->field_0x7c) && (fVar7 <= (float10)_DAT_0050f358)) {
+  if (('\0' < (char)g_current_city_land_tile->secondary_occupant_count) &&
+     (fVar7 <= (float10)_DAT_0050f358)) {
     iVar6 = 0;
     ppvVar4 = g_current_city_land_tile->army_or_city_ptrs_b;
     do {
@@ -124,7 +127,7 @@ LAB_0042610e:
        ((g_active_country_index == g_human_country_index ||
         ((1 < *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4) &&
          (g_active_country_index != 0)))))) {
-      FUN_00503730(local_c0,&DAT_00515a48,g_active_country->name_bytes,&g_current_city->field_0x3);
+      Format_Text(local_c0,&DAT_00515a48,g_active_country->name_bytes,&g_current_city->field_0x3);
       FUN_004898b0(DAT_00755910,local_c0,1,g_current_city->tile_x,g_current_city->tile_y);
       if (g_active_country_index == g_human_country_index) {
         if (g_auto_turn_or_ai_control_flag == 0) {

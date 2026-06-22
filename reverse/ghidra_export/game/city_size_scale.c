@@ -124,15 +124,15 @@ void City_Size_Scale(int param_1)
                    (int)*(char *)(param_1 + 1),0);
       if ((*(char *)(param_1 + 1) == g_human_country_index) && (DAT_0074a2ce != '\0')) {
         if (*(byte *)(param_1 + 0x21) < uVar6) {
-          FUN_00503730(local_c0,&DAT_00515cf4,param_1 + 3,
-                       &DAT_005a7bdc + (uint)*(byte *)(param_1 + 0x21) * 5,&DAT_005a7bdc + uVar6 * 5
-                      );
+          Format_Text(local_c0,&DAT_00515cf4,param_1 + 3,
+                      &DAT_005a7bdc + (uint)*(byte *)(param_1 + 0x21) * 5,&DAT_005a7bdc + uVar6 * 5)
+          ;
           *(int *)(param_1 + 0xcc) = *(int *)(param_1 + 0xcc) / 3;
         }
         else {
-          FUN_00503730(local_c0,&DAT_00515cd8,param_1 + 3,
-                       &DAT_005a7bdc + (uint)*(byte *)(param_1 + 0x21) * 5,&DAT_005a7bdc + uVar6 * 5
-                      );
+          Format_Text(local_c0,&DAT_00515cd8,param_1 + 3,
+                      &DAT_005a7bdc + (uint)*(byte *)(param_1 + 0x21) * 5,&DAT_005a7bdc + uVar6 * 5)
+          ;
         }
         FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(param_1 + 0x16),
                      *(undefined2 *)(param_1 + 0x18));

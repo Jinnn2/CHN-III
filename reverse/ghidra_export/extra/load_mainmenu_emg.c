@@ -9,12 +9,12 @@ void Load_MAINMENU_EMG(void)
 
 {
   Trace_Function(s_Menu_Cast_Init_005781f8);
-  FUN_004789e0(s_MAINMENU_EMG_005781e8,&DAT_0070805c);
-  if (DAT_00755984 != 0) {
-    FUN_0047de70(DAT_00755984,&DAT_00517890,1);
-    DAT_00755984 = 0;
+  Load_EMG_Resource(s_MAINMENU_EMG_005781e8,&g_mainmenu_emg_resource);
+  if (g_loaded_tmg_background != (void *)0x0) {
+    FUN_0047de70(g_loaded_tmg_background,&DAT_00517890,1);
+    g_loaded_tmg_background = (void *)0x0;
   }
-  DAT_00755984 = Load_TMG_Background(&DAT_005781e0,0);
+  g_loaded_tmg_background = (void *)Load_TMG_Background(&DAT_005781e0,0);
   if (DAT_00588b94 != 3) {
     FUN_004f0170(3);
   }
@@ -22,9 +22,9 @@ void Load_MAINMENU_EMG(void)
   DAT_00577fec = 0x50;
   DAT_00577ff0 = 0x14;
   DAT_00708060 = 0;
-  DAT_005dfed8 = 0x12;
-  DAT_007558fc = FUN_004f00b0();
-  DAT_0074c0a0 = DAT_007558fc;
+  g_app_screen_state = 0x12;
+  g_frame_tick = Get_Game_Tick();
+  g_menu_action_tick = g_frame_tick;
   return;
 }
 

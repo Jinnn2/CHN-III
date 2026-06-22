@@ -15,33 +15,33 @@ void MLR_MainMenu(void)
   }
   switch(g_mainmenu_selected_index) {
   case 0:
-    DAT_005dfed8 = 4;
+    g_app_screen_state = 4;
     break;
   case 1:
     DAT_005153ac = 1;
-    DAT_005dfed8 = 0xb;
+    g_app_screen_state = 0xb;
     break;
   case 2:
     DAT_005153ac = 1;
-    DAT_005dfed8 = 0xe;
+    g_app_screen_state = 0xe;
     break;
   case 3:
-    DAT_005dfed8 = 0x11;
+    g_app_screen_state = 0x11;
     break;
   case 4:
-    DAT_005dfed8 = 0x14;
+    g_app_screen_state = 0x14;
     break;
   case 5:
     DAT_005153ac = 1;
-    DAT_005dfed8 = 0x18;
-    DAT_0074c0a0 = FUN_004f00b0();
+    g_app_screen_state = 0x18;
+    g_menu_action_tick = Get_Game_Tick();
     DAT_00707568 = 0;
-    DAT_007558fc = DAT_0074c0a0;
+    g_frame_tick = g_menu_action_tick;
     goto switchD_00479466_default;
   case 6:
-    DAT_005dfed8 = 0x15;
-    DAT_0074c0a0 = FUN_004f00b0();
-    DAT_007558fc = DAT_0074c0a0;
+    g_app_screen_state = 0x15;
+    g_menu_action_tick = Get_Game_Tick();
+    g_frame_tick = g_menu_action_tick;
     FUN_004d0dd0();
     goto switchD_00479466_default;
   case 7:
@@ -49,16 +49,16 @@ void MLR_MainMenu(void)
                   (LPCSTR)0x0,1);
     goto switchD_00479466_default;
   case 8:
-    FUN_00478b30(&DAT_00707f8c);
-    FUN_00478b90(&g_mainmenu_sprite_bank);
-    FUN_00478b30(&DAT_0070805c);
-    DAT_005dfed8 = 0x2a;
+    Free_EMG_Resource(&g_menu_item_emg_resource);
+    Free_XMG_Resource(&g_mainmenu_sprite_bank);
+    Free_EMG_Resource(&g_mainmenu_emg_resource);
+    g_app_screen_state = 0x2a;
     break;
   default:
     goto switchD_00479466_default;
   }
-  DAT_0074c0a0 = FUN_004f00b0();
-  DAT_007558fc = DAT_0074c0a0;
+  g_menu_action_tick = Get_Game_Tick();
+  g_frame_tick = g_menu_action_tick;
 switchD_00479466_default:
   if (0x13 < g_view_center_y) {
     if ((((g_view_center_y < 0x47) && (0x20c < g_view_center_x)) && (g_view_center_x < 0x240)) &&

@@ -9,11 +9,11 @@ void MainMenu_Quit(void)
 
 {
   Trace_Function(s_MainMenu_Quit_00575f10);
-  FUN_00478b30(&DAT_00707f8c);
-  FUN_00478b90(&g_mainmenu_sprite_bank);
-  DAT_005dfed8 = 0x24;
-  DAT_007558fc = FUN_004f00b0();
-  DAT_0074c0a0 = DAT_007558fc;
+  Free_EMG_Resource(&g_menu_item_emg_resource);
+  Free_XMG_Resource(&g_mainmenu_sprite_bank);
+  g_app_screen_state = 0x24;
+  g_frame_tick = Get_Game_Tick();
+  g_menu_action_tick = g_frame_tick;
   return;
 }
 

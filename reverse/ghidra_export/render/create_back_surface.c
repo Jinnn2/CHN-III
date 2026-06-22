@@ -14,7 +14,7 @@ undefined4 Create_Back_Surface(int param_1)
   undefined4 uVar2;
   undefined4 *puVar3;
   bool bVar4;
-  HWND pHVar5;
+  int *piVar5;
   int *piVar6;
   undefined1 *puStack_3e4;
   
@@ -27,14 +27,14 @@ undefined4 Create_Back_Surface(int param_1)
     if (-1 < iVar1) {
       Sleep(500);
       puStack_3e4 = (undefined1 *)0x4f0a4b;
-      GetClientRect(DAT_005dfee0,(LPRECT)&DAT_0075cf08);
+      GetClientRect(g_main_window,(LPRECT)&DAT_0075cf08);
       Sleep(500);
       _DAT_0075cf10 = 0x400;
       _DAT_0075cf14 = 0x300;
       puStack_3e4 = (undefined1 *)0x4f0a7b;
-      ClientToScreen(DAT_005dfee0,(LPPOINT)&DAT_0075cf08);
+      ClientToScreen(g_main_window,(LPPOINT)&DAT_0075cf08);
       puStack_3e4 = (undefined1 *)0x4f0a88;
-      ClientToScreen(DAT_005dfee0,(LPPOINT)&DAT_0075cf10);
+      ClientToScreen(g_main_window,(LPPOINT)&DAT_0075cf10);
       g_present_dest_offset_x = 0;
       g_present_dst_rect[1] = 0;
       g_present_dest_offset_y = 0;
@@ -49,7 +49,7 @@ LAB_004f0c42:
       puStack_3e4 = g_ddraw;
       iVar1 = (**(code **)(*(int *)g_ddraw + 0x2c))();
       if (iVar1 != 0) {
-        uVar2 = FUN_0046a300(DAT_005dfee0,&DAT_005cf98c);
+        uVar2 = FUN_0046a300(g_main_window,&DAT_005cf98c);
         return uVar2;
       }
       Sleep(500);
@@ -64,23 +64,23 @@ LAB_004f0c42:
       piVar6 = g_ddraw;
       iVar1 = (**(code **)(*(int *)g_ddraw + 0x18))(g_ddraw,&DAT_005dff10,&g_primary_surface,0);
       if (iVar1 != 0) {
-        uVar2 = FUN_0046a300(DAT_005dfee0,&DAT_005cf96c);
+        uVar2 = FUN_0046a300(g_main_window,&DAT_005cf96c);
         return uVar2;
       }
       if (g_present_use_blt_mode != 0) {
         uVar2 = 0;
         iVar1 = (**(code **)(*(int *)g_ddraw + 0x10))(g_ddraw,0,&puStack_3e4,0);
         if (iVar1 < 0) {
-          uVar2 = FUN_0046a300(DAT_005dfee0,&DAT_005cf958);
+          uVar2 = FUN_0046a300(g_main_window,&DAT_005cf958);
           return uVar2;
         }
-        pHVar5 = DAT_005dfee0;
+        piVar5 = g_main_window;
         (**(code **)(*piVar6 + 0x20))(piVar6,0);
         (**(code **)(*(int *)g_primary_surface + 0x70))(g_primary_surface,uVar2);
-        (**(code **)(pHVar5->unused + 8))(pHVar5);
+        (**(code **)(*piVar5 + 8))(piVar5);
       }
-      DAT_0075cf98 = FUN_004f09b0();
-      bVar4 = DAT_0075cf98 != 0;
+      g_back_surface_video_memory_flag = FUN_004f09b0();
+      bVar4 = g_back_surface_video_memory_flag != 0;
       puVar3 = &DAT_005dff10;
       for (iVar1 = 0x1f; iVar1 != 0; iVar1 = iVar1 + -1) {
         *puVar3 = 0;
@@ -94,11 +94,11 @@ LAB_004f0c42:
       iVar1 = (**(code **)(*(int *)g_ddraw + 0x18))(g_ddraw,&DAT_005dff10,&g_back_surface,0);
       if (iVar1 == 0) {
         if (g_back_surface == (void *)0x0) {
-          FUN_0046a300(DAT_005dfee0,s_lpDDSOne_Create_Error__005cf940);
+          FUN_0046a300(g_main_window,s_lpDDSOne_Create_Error__005cf940);
         }
         else {
           Init_Surface_Pixel_State(g_back_surface);
-          FUN_004fa910(g_back_surface);
+          Clear_Surface(g_back_surface);
           DAT_007350b0 = (int)DAT_005dff1c;
           DAT_00755810 = DAT_007350b0 + -1;
           g_present_src_top = 0;
@@ -108,10 +108,10 @@ LAB_004f0c42:
           g_present_src_right = g_resolution_width_table[g_resolution_mode_index];
           g_present_src_bottom = g_resolution_height_table[g_resolution_mode_index];
         }
-        FUN_005035c0(0,0,DAT_00755810 + -0x19,DAT_00755814 + -5);
+        Set_Draw_Clip_Rect(0,0,DAT_00755810 + -0x19,DAT_00755814 + -5);
         return 1;
       }
-      uVar2 = FUN_0046a300(DAT_005dfee0,&DAT_0058860c);
+      uVar2 = FUN_0046a300(g_main_window,&DAT_0058860c);
       return uVar2;
     }
 LAB_004f0adf:
@@ -147,7 +147,7 @@ LAB_004f0adf:
   }
   else if (iVar1 != -0x7789fdb2) goto LAB_004f0bf9;
   puStack_3e4 = &stack0xfffffc3c;
-  FUN_00503730();
+  Format_Text();
 LAB_004f0bf9:
   puStack_3e4 = (undefined1 *)0x4f0c09;
   uVar2 = FUN_0046a300();

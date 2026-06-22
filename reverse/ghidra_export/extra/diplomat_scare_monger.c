@@ -77,8 +77,8 @@ switchD_00439434_default:
           bVar1 = city->city_type_or_terrain_class;
           puVar7 = &DAT_005192c8;
         }
-        FUN_00503730(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
-                     &city->field_0x3);
+        Format_Text(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+                    &city->field_0x3);
       }
       else if ((char)city->field_0x1 == g_human_country_index) {
         if (DAT_0074a2cc != '\x01') {
@@ -86,14 +86,14 @@ switchD_00439434_default:
         }
         sVar3 = FUN_004fbf50(2);
         if (sVar3 == 0) {
-          FUN_00503730(local_c0,&DAT_00519490,
-                       &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
-                       g_active_country->name_bytes);
+          Format_Text(local_c0,&DAT_00519490,
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                      g_active_country->name_bytes);
         }
         else {
-          FUN_00503730(local_c0,&DAT_00519468,
-                       &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
-                       g_active_country->name_bytes);
+          Format_Text(local_c0,&DAT_00519468,
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                      g_active_country->name_bytes);
         }
       }
       else {
@@ -109,8 +109,8 @@ switchD_00439434_default:
         if (DAT_0074a2cd != '\x01') {
           return false;
         }
-        FUN_00503730(local_c0,&DAT_00519448,g_active_country->name_bytes,&DAT_007350bc + iVar4,
-                     &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+        Format_Text(local_c0,&DAT_00519448,g_active_country->name_bytes,&DAT_007350bc + iVar4,
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
       }
       FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);
       goto LAB_0043984b;
@@ -131,8 +131,8 @@ switchD_00439434_default:
       bVar1 = city->city_type_or_terrain_class;
       puVar7 = &DAT_00519564;
     }
-    FUN_00503730(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
-                 &city->field_0x3);
+    Format_Text(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+                &city->field_0x3);
   }
   else {
     if ((char)city->field_0x1 == g_human_country_index) {
@@ -141,9 +141,9 @@ switchD_00439434_default:
       }
       sVar3 = FUN_004fbf50(2);
       if (sVar3 != 0) {
-        FUN_00503730(local_c0,&DAT_0051950c,
-                     &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
-                     g_active_country->name_bytes);
+        Format_Text(local_c0,&DAT_0051950c,
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                    g_active_country->name_bytes);
         goto LAB_0043969c;
       }
       puVar7 = &city->field_0x3;
@@ -171,7 +171,7 @@ switchD_00439434_default:
       pbVar8 = g_active_country->name_bytes;
       puVar6 = &DAT_005194e0;
     }
-    FUN_00503730(local_c0,puVar6,pbVar8,puVar5,puVar7,pbVar9);
+    Format_Text(local_c0,puVar6,pbVar8,puVar5,puVar7,pbVar9);
   }
 LAB_0043969c:
   FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);

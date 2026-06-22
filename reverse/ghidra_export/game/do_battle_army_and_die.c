@@ -1107,7 +1107,7 @@ LAB_00417738:
       *(undefined1 *)(puVar15 + 0x1f6) = 8;
       *(undefined *)(puVar15 + 0x1f5) = (&DAT_0074b310)[(iVar14 + iVar10 * 0x29) * 4];
       FUN_0040b170(0,0,puVar15,iVar14 - piVar2[4],iVar10 - piVar2[5]);
-      *(undefined4 *)(puVar15 + 0x1f8) = DAT_007558fc;
+      *(int *)(puVar15 + 0x1f8) = g_frame_tick;
       FUN_00472b50(puVar15);
       return;
     }

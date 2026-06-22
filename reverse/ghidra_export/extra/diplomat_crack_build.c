@@ -84,12 +84,12 @@ switchD_004398c4_default:
             puVar6 = &DAT_007350bc + iVar5;
             puVar9 = &DAT_00519718;
 LAB_00439a48:
-            FUN_00503730(local_c0,puVar9,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
+            Format_Text(local_c0,puVar9,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
           }
           else {
-            FUN_00503730(local_c0,&DAT_005196e8,&DAT_007350bc + iVar5,
-                         &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
-                         &DAT_005997d4 + iVar8);
+            Format_Text(local_c0,&DAT_005196e8,&DAT_007350bc + iVar5,
+                        &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
+                        &DAT_005997d4 + iVar8);
           }
         }
         else {
@@ -130,7 +130,7 @@ LAB_00439a48:
             puVar11 = &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5;
             puVar9 = &DAT_00519664;
           }
-          FUN_00503730(local_c0,puVar9,pbVar10,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
+          Format_Text(local_c0,puVar9,pbVar10,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
         }
         FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar2 + 0x16),
                      *(undefined2 *)(puVar2 + 0x18));
@@ -155,7 +155,7 @@ LAB_00439bb7:
       bVar1 = puVar2[0x21];
       puVar11 = &DAT_005192c8;
     }
-    FUN_00503730(local_c0,puVar11,&DAT_007350bc + iVar5,&DAT_005a7bdc + (uint)bVar1 * 5,puVar2 + 3);
+    Format_Text(local_c0,puVar11,&DAT_007350bc + iVar5,&DAT_005a7bdc + (uint)bVar1 * 5,puVar2 + 3);
   }
   else if ((char)puVar2[1] == g_human_country_index) {
     if (DAT_0074a2cc != '\x01') {
@@ -163,12 +163,12 @@ LAB_00439bb7:
     }
     sVar4 = FUN_004fbf50(2);
     if (sVar4 == 0) {
-      FUN_00503730(local_c0,&DAT_00519618,&DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
-                   g_active_country->name_bytes);
+      Format_Text(local_c0,&DAT_00519618,&DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
+                  g_active_country->name_bytes);
     }
     else {
-      FUN_00503730(local_c0,&DAT_005195ec,&DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
-                   g_active_country->name_bytes);
+      Format_Text(local_c0,&DAT_005195ec,&DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
+                  g_active_country->name_bytes);
     }
   }
   else {
@@ -184,8 +184,8 @@ LAB_00439bb7:
     if (DAT_0074a2cd != '\x01') {
       return local_c1;
     }
-    FUN_00503730(local_c0,&DAT_005195cc,g_active_country->name_bytes,&DAT_007350bc + iVar5,
-                 &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3);
+    Format_Text(local_c0,&DAT_005195cc,g_active_country->name_bytes,&DAT_007350bc + iVar5,
+                &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3);
   }
   FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar2 + 0x16),*(undefined2 *)(puVar2 + 0x18)
               );

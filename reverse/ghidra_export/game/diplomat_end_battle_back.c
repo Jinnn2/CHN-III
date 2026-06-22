@@ -58,7 +58,7 @@ void Diplomat_End(void)
     }
   }
   FUN_004f0170(DAT_00705e98);
-  FUN_00478b30(&DAT_007585ac);
+  Free_EMG_Resource(&DAT_007585ac);
   return;
 }
 

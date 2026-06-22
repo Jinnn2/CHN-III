@@ -26,13 +26,13 @@ void Load_UI_String_EMG_XMG(void)
   char *local_4;
   
   Trace_Function(s_Game_String_Init_005741dc);
-  if (DAT_00755984 != 0) {
-    FUN_0047de70(DAT_00755984,&DAT_00517890,1);
-    DAT_00755984 = 0;
+  if (g_loaded_tmg_background != (void *)0x0) {
+    FUN_0047de70(g_loaded_tmg_background,&DAT_00517890,1);
+    g_loaded_tmg_background = (void *)0x0;
   }
-  DAT_00755984 = Load_TMG_Background(s_SCORELIST_00517884,0);
-  FUN_004789e0(s_UI_STRING_EMG_00573ec0,&DAT_007077fc);
-  FUN_00478ac0(s_UI_STRING_XMG_005741cc,&DAT_00707800);
+  g_loaded_tmg_background = (void *)Load_TMG_Background(s_SCORELIST_00517884,0);
+  Load_EMG_Resource(s_UI_STRING_EMG_00573ec0,&DAT_007077fc);
+  Load_XMG_Resource(s_UI_STRING_XMG_005741cc,&DAT_00707800);
   iVar4 = FUN_005082df(s_SCORE_DAT_005741c0,0);
   if (iVar4 == 0) {
     pvVar5 = CreateFileA(s_SCORE_DAT_005741c0,0x80000000,1,(LPSECURITY_ATTRIBUTES)0x0,3,0x80,
@@ -226,9 +226,9 @@ void Load_UI_String_EMG_XMG(void)
   }
   DAT_007077f0 = 0xfffffd00;
   DAT_007077f4 = 0;
-  DAT_005dfed8 = 0x19;
-  DAT_007558fc = FUN_004f00b0();
-  DAT_0074c0a0 = DAT_007558fc;
+  g_app_screen_state = 0x19;
+  g_frame_tick = Get_Game_Tick();
+  g_menu_action_tick = g_frame_tick;
   return;
 }
 

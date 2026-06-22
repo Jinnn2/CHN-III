@@ -50,10 +50,9 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   iVar10 = param_2 * 0xe68;
   if (((&DAT_007355a8)[param_1 + iVar10] == '\x01') && ((int)uVar9 < 0)) {
     if (param_1 == g_human_country_index) {
-      FUN_00503730(local_c0,&DAT_0051a94c,&DAT_007350bc + iVar10,
-                   &DAT_00596229 +
-                   (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar10] * 0x80] * 0x7c,
-                   &DAT_007350cd + iVar10);
+      Format_Text(local_c0,&DAT_0051a94c,&DAT_007350bc + iVar10,
+                  &DAT_00596229 + (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar10] * 0x80] * 0x7c
+                  ,&DAT_007350cd + iVar10);
       FUN_00443e00(param_1,local_c0,&DAT_0051a928,0,0);
       return;
     }
@@ -61,9 +60,9 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
       DAT_00705e90 = 0;
       return;
     }
-    FUN_00503730(local_c0,&DAT_0051a908,&DAT_007350bc + iVar7,
-                 &DAT_00596229 + (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar7] * 0x80] * 0x7c,
-                 &DAT_007350cd + iVar7);
+    Format_Text(local_c0,&DAT_0051a908,&DAT_007350bc + iVar7,
+                &DAT_00596229 + (&DAT_00589a50)[(uint)(byte)(&DAT_007350b9)[iVar7] * 0x80] * 0x7c,
+                &DAT_007350cd + iVar7);
     FUN_00443e00(param_1,local_c0,&DAT_0051a928,0,0);
     return;
   }
@@ -232,7 +231,7 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   FUN_00472120(&DAT_005c4738);
   FUN_00472120(&DAT_005c4350);
   FUN_00472120(&DAT_005c4418);
-  FUN_004789e0(s_UI_DIP_EMG_0051a8e4,&DAT_007585ac);
+  Load_EMG_Resource(s_UI_DIP_EMG_0051a8e4,&DAT_007585ac);
   if (*(int *)(&DAT_0060b674 + iVar1) == 0) {
     iVar14 = *(int *)(&DAT_0060b678 + iVar1);
   }

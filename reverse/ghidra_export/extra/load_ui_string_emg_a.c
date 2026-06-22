@@ -32,12 +32,12 @@ void Load_UI_String_EMG(void)
       *(int *)(iVar2 + 8) = *(int *)(iVar2 + 8) + 5;
     }
   }
-  if (DAT_00755984 != 0) {
-    FUN_0047de70(DAT_00755984,&DAT_00517890,1);
-    DAT_00755984 = 0;
+  if (g_loaded_tmg_background != (void *)0x0) {
+    FUN_0047de70(g_loaded_tmg_background,&DAT_00517890,1);
+    g_loaded_tmg_background = (void *)0x0;
   }
-  DAT_00755984 = Load_TMG_Background(s_SCORELIST_00517884,0);
-  FUN_004789e0(s_UI_STRING_EMG_00573ec0,&DAT_007077fc);
+  g_loaded_tmg_background = (void *)Load_TMG_Background(s_SCORELIST_00517884,0);
+  Load_EMG_Resource(s_UI_STRING_EMG_00573ec0,&DAT_007077fc);
   DAT_00707400 = DAT_00588b94;
   if (DAT_00588b94 != 0x10) {
     FUN_004f0170(0x10);
@@ -243,15 +243,15 @@ void Load_UI_String_EMG(void)
   DAT_00707564 = 0;
   DAT_00707290._0_1_ = 0;
   if ((local_8 != DAT_00707494 + 1 + DAT_0070749c) && (DAT_0075593e == '\0')) {
-    DAT_005dfed8 = 0x1c;
-    DAT_007558fc = FUN_004f00b0();
-    DAT_0074c0a0 = DAT_007558fc;
+    g_app_screen_state = 0x1c;
+    g_frame_tick = Get_Game_Tick();
+    g_menu_action_tick = g_frame_tick;
     return;
   }
   DAT_00707290._0_1_ = 1;
-  DAT_005dfed8 = 0x1e;
-  DAT_007558fc = FUN_004f00b0();
-  DAT_0074c0a0 = DAT_007558fc;
+  g_app_screen_state = 0x1e;
+  g_frame_tick = Get_Game_Tick();
+  g_menu_action_tick = g_frame_tick;
   return;
 }
 

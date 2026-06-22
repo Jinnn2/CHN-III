@@ -19,7 +19,7 @@ void City_Manager(int param_1)
   undefined *puVar7;
   
   Trace_Function(s_City_Manager_00515a20);
-  DAT_005e002c = DAT_007558fc;
+  DAT_005e002c = g_frame_tick;
   DAT_0074c838 = 2;
   DAT_005e0000 = 1;
   DAT_007584b4 = 0;
@@ -36,7 +36,7 @@ void City_Manager(int param_1)
       iVar2 = iVar1;
     }
   }
-  FUN_004789e0(s_UI_CITY_EMG_00515a14,&DAT_007585b4);
+  Load_EMG_Resource(s_UI_CITY_EMG_00515a14,&DAT_007585b4);
   DAT_005a8098 = (int)*(char *)(param_1 + 1);
   DAT_007584b0 = &g_country_states + DAT_005a8098 * 0xe68;
   uVar5 = (uint)*(ushort *)(param_1 + 0x16);
@@ -98,7 +98,7 @@ LAB_00425a6a:
 LAB_00425b8f:
   DAT_005cc140 = 1;
   DAT_005e000c = 0;
-  FUN_005035c0(0,0,DAT_00755810 + -5,DAT_00755814 + -5);
+  Set_Draw_Clip_Rect(0,0,DAT_00755810 + -5,DAT_00755814 + -5);
   return;
 }
 

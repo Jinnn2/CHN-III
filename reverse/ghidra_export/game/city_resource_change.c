@@ -48,7 +48,7 @@ void City_Resource_Change(void)
   if (g_active_country_index == g_human_country_index) {
     DAT_00755914 = DAT_00755914 + local_1b4;
   }
-  iVar4 = (int)(char)pCVar15->field_0x6a0 -
+  iVar4 = (int)(char)pCVar15->resource_pressure_level -
           *(int *)(&DAT_005992a8 + pCVar15->government_or_ai_mode * 0x74);
   if (iVar4 < 1) {
     if (iVar4 < 0) {
@@ -245,7 +245,8 @@ LAB_004265e9:
     g_current_city->population_or_stockpile = g_current_city->population_or_stockpile + DAT_007068e4
     ;
     iVar4 = *(int *)(&DAT_005a7c78 + (uint)g_current_city->city_type_or_terrain_class * 4);
-    if ((g_current_city->field_0x7a == '\x02') || (g_current_city->field_0x8d == '\x02')) {
+    if ((g_current_city->building_status[0x16] == 2) || (g_current_city->building_status[0x29] == 2)
+       ) {
       iVar4 = iVar4 * 4;
       if (g_current_city->population_or_stockpile < iVar4) {
         DAT_007068e0 = DAT_007068e0 + 0xf;
@@ -270,12 +271,12 @@ LAB_00426559:
     }
     pCVar14 = g_current_city;
     if (iVar4 <= g_current_city->population_or_stockpile) {
-      g_current_city->field_0xd0 = 0;
+      g_current_city->population_growth_clamped = 0;
       g_current_city->population_or_stockpile = iVar4;
       pCVar14 = g_current_city;
     }
   }
-  uVar8 = (uint)*(ushort *)&pCVar14->field_0xd4;
+  uVar8 = (uint)pCVar14->building_income_yield;
   if (_DAT_00749cc8 == g_active_country_index) {
     uVar8 = (uVar8 * 0x5a) / 100;
   }
@@ -286,13 +287,13 @@ LAB_00426559:
   if (pCVar14->safety_score < 0x1e) {
     iVar4 = iVar4 + 2;
   }
-  if ((pCVar14->field_0x66 == '\x02') || (pCVar14->field_0x7e == '\x02')) {
+  if ((pCVar14->building_status[2] == 2) || (pCVar14->building_status[0x1a] == 2)) {
     iVar4 = iVar4 + -2;
   }
-  if ((pCVar14->field_0x72 == '\x02') || (pCVar14->field_0x8a == '\x02')) {
+  if ((pCVar14->building_status[0xe] == 2) || (pCVar14->building_status[0x26] == 2)) {
     iVar4 = iVar4 + -2;
   }
-  if ((pCVar14->field_0x76 == '\x02') || (pCVar14->field_0x8e == '\x02')) {
+  if ((pCVar14->building_status[0x12] == 2) || (pCVar14->building_status[0x2a] == 2)) {
     iVar4 = iVar4 + -2;
   }
   iVar10 = 0;
@@ -302,27 +303,30 @@ LAB_00426559:
   DAT_007068c4 = (local_1b4 - uVar8) - iVar10;
   local_1b8 = 0;
   if (0 < DAT_007068c4) {
-    local_1b0 = (double)CONCAT44(local_1b0._4_4_,(int)(char)g_active_country->field_0x6a2);
-    local_1a8 = (double)(int)(char)g_active_country->field_0x6a1 * (double)DAT_007068c4 *
-                _DAT_0050f3a0;
-    local_1a0 = (double)(int)(char)g_active_country->field_0x6a2 * (double)DAT_007068c4 *
-                _DAT_0050f3a0;
+    local_1b0 = (double)CONCAT44(local_1b0._4_4_,
+                                 (int)(char)g_active_country->research_efficiency_level);
+    local_1a8 = (double)(int)(char)g_active_country->construction_efficiency_level *
+                (double)DAT_007068c4 * _DAT_0050f3a0;
+    local_1a0 = (double)(int)(char)g_active_country->research_efficiency_level *
+                (double)DAT_007068c4 * _DAT_0050f3a0;
     if ((-1 < g_active_country->build_or_draft_capacity) && (_DAT_0050f2c0 <= local_1a8)) {
       local_1b8 = __ftol();
       uVar8 = (uint)g_current_city->construction_workers;
       if (uVar8 != 0) {
         iVar4 = 0;
         uVar18 = 0;
-        if ((g_current_city->field_0x6e == '\x02') || (g_current_city->field_0x86 == '\x02')) {
+        if ((g_current_city->building_status[10] == 2) ||
+           (g_current_city->building_status[0x22] == 2)) {
           iVar4 = (int)uVar8 >> 1;
         }
-        if (g_current_city->field_0x9c == '\x02') {
+        if (g_current_city->building_status[0x38] == 2) {
           uVar18 = uVar8 / 5;
         }
         uVar8 = uVar8 + uVar18 + iVar4;
       }
       local_1b0 = 0.0;
-      if ((g_current_city->field_0x6d == '\x02') || (g_current_city->field_0x85 == '\x02')) {
+      if ((g_current_city->building_status[9] == 2) || (g_current_city->building_status[0x21] == 2))
+      {
         local_1b0 = ((double)(int)(uVar8 - g_current_city->mixed_workers) + (double)local_1b8) *
                     _DAT_0050f2c0;
       }
@@ -330,8 +334,10 @@ LAB_00426559:
       iVar4 = __ftol();
       bVar3 = false;
       local_1b4 = 7;
-      *(int *)&g_active_country->field_0x9c8 = *(int *)&g_active_country->field_0x9c8 + iVar4;
-      *(int *)&g_active_country->field_0x9cc = *(int *)&g_active_country->field_0x9cc + iVar4;
+      g_active_country->current_research_progress =
+           g_active_country->current_research_progress + iVar4;
+      g_active_country->lifetime_research_progress =
+           g_active_country->lifetime_research_progress + iVar4;
       iVar10 = (int)g_active_country->build_or_draft_capacity;
       iVar19 = (uint)g_active_country->leader_or_country_id * 0x200;
       iVar4 = (&DAT_005817cc)[iVar10 * 0x22];
@@ -358,9 +364,9 @@ LAB_00426559:
           iVar4 = ((0x10 - g_world_age_or_turn_phase) * iVar4 * 5) / 100;
         }
       }
-      if ((iVar4 <= *(int *)&g_active_country->field_0x9c8) ||
-         (*(int *)(&g_active_country->field_0x6a4 + iVar10 * 4) == 2)) {
-        if (*(int *)(&g_active_country->field_0x6a4 + iVar10 * 4) < 2) {
+      if ((iVar4 <= g_active_country->current_research_progress) ||
+         (g_active_country->early_science_status[iVar10] == 2)) {
+        if (g_active_country->early_science_status[iVar10] < 2) {
           if ((g_active_country_index == g_human_country_index) &&
              ((g_auto_turn_or_ai_control_flag == 0 || (DAT_00755940 != 0)))) {
             _DAT_007166dc = (undefined2)DAT_0074c6ec;
@@ -370,10 +376,10 @@ LAB_00426559:
           else if ((*(int *)(_DAT_00748e30 + 0x6a4 + iVar10 * 4) < 2) &&
                   (((iVar4 = *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4), 1 < iVar4
                     && (iVar4 < 6)) && (DAT_0074a2d0 != '\0')))) {
-            FUN_00503730(local_194,&DAT_00515be4,
-                         &DAT_00599708 +
-                         *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4) * 5,
-                         g_active_country->name_bytes);
+            Format_Text(local_194,&DAT_00515be4,
+                        &DAT_00599708 +
+                        *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4) * 5,
+                        g_active_country->name_bytes);
             FUN_004898b0(DAT_0074c850,local_194,0,0xffffffff,0xffffffff);
           }
         }
@@ -399,17 +405,16 @@ LAB_00426559:
           local_1a8 = (double)((ulonglong)local_1a8 & 0xffffffff00000000);
           piVar11 = &DAT_005817c8;
           piVar16 = (int *)&local_1b0;
-          piVar12 = (int *)&g_active_country->field_0x6a4;
+          piVar12 = g_active_country->early_science_status;
           local_1b0._4_4_ = -1;
           do {
             iVar10 = (int)local_1a8._0_4_;
             iVar19 = local_1b0._4_4_;
             if (1 < (int)local_1a8._0_4_) break;
             if (((piVar11[-8] != 0) && (iVar4 != 0x3a)) && (*piVar12 < 2)) {
-              if (((piVar11[-1] == -1) ||
-                  (*(int *)(&g_active_country->field_0x6a4 + piVar11[-1] * 4) == 2)) &&
-                 ((*piVar11 == -1 || (*(int *)(&g_active_country->field_0x6a4 + *piVar11 * 4) == 2))
-                 )) {
+              if (((piVar11[-1] == -1) || (g_active_country->early_science_status[piVar11[-1]] == 2)
+                  ) && ((*piVar11 == -1 || (g_active_country->early_science_status[*piVar11] == 2)))
+                 ) {
                 *piVar16 = iVar4;
                 piVar16 = piVar16 + 1;
                 local_1a8 = (double)CONCAT44(local_1a8._4_4_,iVar10 + 1);
@@ -422,8 +427,8 @@ LAB_00426559:
           } while (iVar4 < 200);
           if (g_active_country_index == g_human_country_index) {
             iVar4 = (int)local_1b0;
-            FUN_00503730(local_194,&DAT_00515ba4,&DAT_0058367c,&DAT_005817ac + (int)local_1b0 * 0x88
-                        );
+            Format_Text(local_194,&DAT_00515ba4,&DAT_0058367c,&DAT_005817ac + (int)local_1b0 * 0x88)
+            ;
             UI_YesNo_Result(local_194,0);
             if (-1 < iVar4) {
               FUN_004c0350(g_active_country_index);
@@ -466,7 +471,7 @@ LAB_00426559:
                                       g_active_country->name_bytes);
                     puVar21 = &DAT_00515b0c;
 LAB_0042711c:
-                    FUN_00503730(local_c8,puVar21,uVar22);
+                    Format_Text(local_c8,puVar21,uVar22);
                   }
                   else {
                     if (iVar10 == 1) {
@@ -502,7 +507,7 @@ LAB_0042711c:
                                     ,g_active_country->name_bytes);
                   puVar21 = &DAT_00515a80;
 LAB_0042725d:
-                  FUN_00503730(local_194,puVar21,puVar20,uVar22);
+                  Format_Text(local_194,puVar21,puVar20,uVar22);
                 }
                 else {
                   if (iVar10 == 1) {
@@ -536,7 +541,7 @@ LAB_004272a6:
           iVar4 = iVar4 + 1;
         } while (local_1b4 < 0x204);
         pCVar15->build_or_draft_capacity = -1;
-        *(undefined4 *)&g_active_country->field_0x9c8 = 0;
+        g_active_country->current_research_progress = 0;
         if ((DAT_0057dac8 == 7) && (g_active_country_index == g_human_country_index)) {
           DAT_007584bc = 0;
         }
@@ -554,11 +559,12 @@ LAB_004272a6:
      (FUN_0041f2b0(g_active_country_index,(double)DAT_007068c4), pCVar14 = g_current_city,
      0 < DAT_007068c4)) {
     _DAT_007068a0 =
-         (int)(char)g_active_country->field_0x6a3 + (char)g_active_country->field_0x6a0 * 4;
+         (int)(char)g_active_country->tax_efficiency_level +
+         (char)g_active_country->resource_pressure_level * 4;
   }
   pCVar15 = g_active_country;
   iVar4 = *(int *)(&DAT_005992c8 +
-                  ((int)(char)g_active_country->field_0x6a2 +
+                  ((int)(char)g_active_country->research_efficiency_level +
                   g_active_country->government_or_ai_mode * 0x1d) * 4);
   if (iVar4 < 1) {
     DAT_007068e0 = DAT_007068e0 + iVar4;
@@ -574,12 +580,12 @@ LAB_004272a6:
   uVar8 = (uint)pCVar14->business_workers;
   if (uVar8 != 0) {
     uVar18 = 0;
-    if ((pCVar14->field_0x6f == '\x02') || (pCVar14->field_0x87 == '\x02')) {
+    if ((pCVar14->building_status[0xb] == 2) || (pCVar14->building_status[0x23] == 2)) {
       uVar18 = uVar8 / 5;
     }
     uVar9 = 0;
-    if ((pCVar14->field_0x94 == '\x02') && (uVar9 = uVar8, _DAT_00749d18 != g_active_country_index))
-    {
+    if ((pCVar14->building_status[0x30] == 2) &&
+       (uVar9 = uVar8, _DAT_00749d18 != g_active_country_index)) {
       uVar9 = (int)uVar8 >> 1;
     }
     DAT_007068e0 = DAT_007068e0 + (uVar9 + uVar18 + uVar8) * 10;
@@ -588,21 +594,21 @@ LAB_004272a6:
   DAT_005705b4 = -1;
   piVar12 = &DAT_005999cc;
   do {
-    if (((((((&pCVar15->field_0x9d4)[iVar4] != '\0') &&
+    if ((((((pCVar15->available_building_flags[iVar4] != 0) &&
            ((((bVar1 = pCVar14->development_level, bVar1 < 5 &&
               ((pCVar15->upgrade_permission_level < 2 || (0 < piVar12[-1])))) ||
              (pCVar15->upgrade_permission_level < 2)) || ((bVar1 == 5 && (0 < piVar12[-1])))))) &&
           (((iVar4 != 0x14 &&
             ((((iVar4 != 0x15 && (iVar4 != 0x2c)) && (iVar4 != 0x2d)) && (iVar4 != 0x3c)))) ||
-           (pCVar14->field_0xbe != '\0')))) &&
+           (pCVar14->has_special_capability != 0)))) &&
          ((*piVar12 == -1 ||
           (*(int *)(&DAT_0051578c + *piVar12 * 4) == *(int *)(&DAT_0051578c + (uint)bVar1 * 4)))))
         && (((iVar4 != 0xf && (iVar4 != 0x27)) || (pCVar15->field_0x78 != '\0')))) &&
        (((iVar4 != 0x10 && (iVar4 != 0x28)) || (pCVar15->field_0x79 != '\0')))) {
       if ((iVar4 == 1) || (iVar4 == 0x19)) {
-        if ((pCVar14->field_0x64 != '\x02') &&
-           (((pCVar14->field_0xa1 != '\x02' && (pCVar14->field_0x65 != '\x02')) &&
-            (pCVar14->field_0x7d != '\x02')))) {
+        if ((pCVar14->building_status[0] != 2) &&
+           (((pCVar14->building_status[0x3d] != 2 && (pCVar14->building_status[1] != 2)) &&
+            (pCVar14->building_status[0x19] != 2)))) {
           iVar10 = piVar12[pCVar15->government_or_ai_mode + 0x19];
           goto LAB_00427595;
         }
@@ -624,7 +630,7 @@ LAB_004272a6:
           piVar11 = piVar11 + 1;
         } while ((int)piVar11 < 0x7068e0);
       }
-      else if ((&pCVar14->field_0x64)[iVar4] == '\x02') {
+      else if (pCVar14->building_status[iVar4] == 2) {
         DAT_007068e0 = DAT_007068e0 + piVar12[0x14];
         piVar16 = piVar12 + 0x25;
         piVar11 = &DAT_0070688c;
@@ -666,7 +672,7 @@ LAB_00427595:
   iVar4 = (int)local_1b0;
   do {
     if (piVar12[-1] == g_active_country_index) {
-      if ((piVar16[4] == 1) || ((&g_current_city->field_0xa5)[local_1b8] == '\x02')) {
+      if ((piVar16[4] == 1) || (g_current_city->special_project_status[local_1b8] == 2)) {
         if (0 < *piVar16) {
           DAT_007068e0 = DAT_007068e0 + *piVar16;
         }

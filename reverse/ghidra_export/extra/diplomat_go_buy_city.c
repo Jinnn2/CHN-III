@@ -56,7 +56,7 @@ switchD_004384d4_default:
     local_c5 = 1;
     if (_DAT_00748e34 == g_human_country_index) {
       uVar4 = __ftol();
-      FUN_00503730(local_c0,&DAT_005190fc,puVar1 + 3,iVar3,uVar4);
+      Format_Text(local_c0,&DAT_005190fc,puVar1 + 3,iVar3,uVar4);
       FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar1 + 0x16),
                    *(undefined2 *)(puVar1 + 0x18));
       UI_YesNo_Message(local_c0,0,0,1);
@@ -71,8 +71,8 @@ switchD_004384d4_default:
     if (_DAT_00748e34 == g_human_country_index) {
       bVar6 = DAT_0074a2cc == '\x01';
       if (bVar6) {
-        FUN_00503730(local_c0,&DAT_005126cc,&DAT_007350bc + iVar3,
-                     &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
+        Format_Text(local_c0,&DAT_005126cc,&DAT_007350bc + iVar3,
+                    &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
         UI_YesNo_Message(local_c0,0,0,1);
       }
       Event_City_View(puVar1,0xffffffff,0xffffffff,0,local_c0);
@@ -80,8 +80,8 @@ switchD_004384d4_default:
     }
     else if ((char)puVar1[1] == g_human_country_index) {
       if (DAT_0074a2cc == '\x01') {
-        FUN_00503730(local_c0,&DAT_005126b4,&DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3,
-                     g_active_country->name_bytes);
+        Format_Text(local_c0,&DAT_005126b4,&DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3,
+                    g_active_country->name_bytes);
         UI_YesNo_Message(local_c0,0,0,1);
 LAB_00438674:
         FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar1 + 0x16),
@@ -93,8 +93,8 @@ LAB_00438674:
               ((1 < *(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) ||
                (1 < *(int *)(_DAT_00748e30 + 0x1ac + (char)puVar1[1] * 4))))))) &&
             (DAT_0074a2cd == '\x01')) {
-      FUN_00503730(local_c0,&DAT_005126a0,g_active_country->name_bytes,&DAT_007350bc + iVar3,
-                   &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
+      Format_Text(local_c0,&DAT_005126a0,g_active_country->name_bytes,&DAT_007350bc + iVar3,
+                  &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
       goto LAB_00438674;
     }
     City_Belong_Change(puVar1,_DAT_00748e34);
@@ -114,7 +114,7 @@ LAB_00438674:
       puVar7 = &DAT_0051264c;
     }
 LAB_00438849:
-    FUN_00503730(local_c0,puVar7,puVar5,uVar8);
+    Format_Text(local_c0,puVar7,puVar5,uVar8);
     UI_YesNo_Message(local_c0,0,0,1);
   }
   else {
@@ -138,8 +138,8 @@ LAB_00438849:
          ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2 &&
           (*(int *)(_DAT_00748e30 + 0x1ac + (char)puVar1[1] * 4) < 2)))))) ||
        (DAT_0074a2cd != '\x01')) goto LAB_0043896d;
-    FUN_00503730(local_c0,&DAT_005125f8,g_active_country->name_bytes,&DAT_007350bc + iVar3,
-                 &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
+    Format_Text(local_c0,&DAT_005125f8,g_active_country->name_bytes,&DAT_007350bc + iVar3,
+                &DAT_005a7bdc + (uint)(byte)puVar1[0x21] * 5,puVar1 + 3);
   }
   FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar1 + 0x16),*(undefined2 *)(puVar1 + 0x18)
               );

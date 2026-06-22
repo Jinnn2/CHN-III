@@ -31,7 +31,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
   if (0 < DAT_005c20f8) {
     FUN_00472320(&DAT_005c20f0);
   }
-  FUN_004789e0(s_UI_YN_EMG_0057cbd0,&DAT_00714e00);
+  Load_EMG_Resource(s_UI_YN_EMG_0057cbd0,&DAT_00714e00);
   Font_Select(DAT_005dffbc,0x12,DAT_005dffb8,0x12);
   uVar5 = DAT_005cff46;
   uVar4 = DAT_005cff42;
@@ -56,7 +56,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
     cVar7 = *pcVar12;
     pcVar12 = pcVar12 + 1;
   } while (cVar7 != '\0');
-  iVar8 = FUN_004f00b0();
+  iVar8 = Get_Game_Tick();
   param_2 = -1;
   bVar1 = false;
   FUN_0048b5a0();
@@ -65,7 +65,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
     FUN_0048b6e0();
     FUN_00502a30();
     FUN_00502a30();
-    DAT_007558fc = FUN_004f00b0();
+    g_frame_tick = Get_Game_Tick();
     cVar7 = FUN_00502b00(&DAT_00748f2e);
     FUN_004f5f9c(0x80,0xfa,*DAT_00714e00);
     Draw_Text_Centered(0x200 - (int)((~uVar10 - 1) * 9) / 2,0x154,param_1,0xffffffff,
@@ -93,7 +93,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
       DAT_00588b80 = 1;
       param_2 = iVar11;
     }
-    if ((DAT_00755940 != 0) && (iVar9 = FUN_004f00b0(), 2999 < (uint)(iVar9 - iVar8))) {
+    if ((DAT_00755940 != 0) && (iVar9 = Get_Game_Tick(), 2999 < (uint)(iVar9 - iVar8))) {
       iVar11 = 1;
       bVar1 = true;
     }
@@ -145,7 +145,7 @@ LAB_00489504:
       DAT_005cff42 = uVar4;
       DAT_005cff46 = uVar5;
       FUN_0048b780(uVar6);
-      FUN_00478b30(&DAT_00714e00);
+      Free_EMG_Resource(&DAT_00714e00);
       return iVar11;
     }
   } while( true );

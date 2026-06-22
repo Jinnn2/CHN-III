@@ -25,15 +25,15 @@ void PutScreen_Mainmenu(void)
   char *pcVar9;
   undefined4 uVar10;
   undefined4 uVar11;
-  undefined4 uVar12;
+  void *pvVar12;
   
   Trace_Function(s_PutScreen_Mainmenu_00575f44);
   iVar8 = 0;
   uVar11 = 0;
   uVar10 = 0;
-  uVar12 = DAT_00755984;
+  pvVar12 = g_loaded_tmg_background;
   Draw_Image_To_Backbuffer();
-  Font_Select(s_Courier_New_Bold_005745a0,0x18,s_SimSun_005745dc,0x18,uVar10,uVar11,uVar12);
+  Font_Select(s_Courier_New_Bold_005745a0,0x18,s_SimSun_005745dc,0x18,uVar10,uVar11,pvVar12);
   uVar5 = extraout_var_01;
   if (DAT_0075593e == '\x01') {
     Draw_Text(0,0x2e5,&DAT_00575f3c,0xffffffff,CONCAT22(extraout_var_00,DAT_007350b4),0xffffffff,

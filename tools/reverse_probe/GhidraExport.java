@@ -32,6 +32,10 @@ public class GhidraExport extends GhidraScript {
 
     private static final Target[] TARGETS = new Target[] {
         new Target(0x46d310L, "render/init_directdraw_runtime.c"),
+        new Target(0x4789e0L, "ui/load_emg_resource.c"),
+        new Target(0x478ac0L, "ui/load_xmg_resource.c"),
+        new Target(0x478b30L, "ui/free_emg_resource.c"),
+        new Target(0x478b90L, "ui/free_xmg_resource.c"),
         new Target(0x478eb0L, "ui/main_menu_init.c"),
         new Target(0x479000L, "ui/main_menu_quit.c"),
         new Target(0x479040L, "ui/main_menu_putscreen.c"),
@@ -45,6 +49,10 @@ public class GhidraExport extends GhidraScript {
         new Target(0x4f0ce0L, "render/create_front_surface.c"),
         new Target(0x4f0de0L, "render/create_back_surface.c"),
         new Target(0x4f81e0L, "render/init_surface_pixel_state.c"),
+        new Target(0x4f00b0L, "render/get_game_tick.c"),
+        new Target(0x4fa910L, "render/clear_surface.c"),
+        new Target(0x5035c0L, "render/set_draw_clip_rect.c"),
+        new Target(0x503730L, "extra/format_text.c"),
 
         new Target(0x414b70L, "game/battle_peace_place.c"),
         new Target(0x414c50L, "game/battle_first_line.c"),

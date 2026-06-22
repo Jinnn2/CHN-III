@@ -96,6 +96,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "checked before iterating tile occupants");
         replaceAt(landTile, 0x54, new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 10, 4), 0x28,
             "army_or_city_ptrs_b", "secondary occupant pointer list");
+        replaceAt(landTile, 0x7c, ByteDataType.dataType, 1, "secondary_occupant_count",
+            "count-like field paired with army_count_or_occupant_count in city build/population checks");
         replaceAt(landTile, 0x88, new PointerDataType(VoidDataType.dataType, dtm), 4, "linked_record",
             "dereferenced during load-time repair");
         resolve(landTile);
@@ -116,15 +118,33 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(city, 0x50, IntegerDataType.dataType, 4, "safety_score", "city safety/happiness threshold");
         replaceAt(city, 0x54, IntegerDataType.dataType, 4, "science_or_resource_score", "worker/resource threshold");
         replaceAt(city, 0x5d, ByteDataType.dataType, 1, "forced_worker_mode", "controls worker reassignment");
+        replaceAt(city, 0x60, IntegerDataType.dataType, 4, "build_progress",
+            "accumulates until army/building/special-project cost is reached");
+        replaceAt(city, 0x64, new ArrayDataType(ByteDataType.dataType, 0x41, 1), 0x41,
+            "building_status", "per-building state bytes; 0=missing, 2=completed in city build logic");
+        replaceAt(city, 0xa5, new ArrayDataType(ByteDataType.dataType, 0x19, 1), 0x19,
+            "special_project_status", "per-special-project state bytes, completed through city building mode 2");
+        replaceAt(city, 0xbe, ByteDataType.dataType, 1, "has_special_capability",
+            "gates special building classes and special AI production branches");
         replaceAt(city, 0xc0, ShortDataType.dataType, 2, "upgrade_cost_base", "used in city upgrade cost");
         replaceAt(city, 0xc2, ShortDataType.dataType, 2, "policy_timer_or_progress", "compared with +0xd2");
         replaceAt(city, 0xc4, ShortDataType.dataType, 2, "base_income", "copied into turn income accumulator");
         replaceAt(city, 0xc6, ShortDataType.dataType, 2, "worker_reassign_percent", "scales worker reassignment");
         replaceAt(city, 0xcc, IntegerDataType.dataType, 4, "population_or_stockpile", "used as production/population threshold");
+        replaceAt(city, 0xd0, ByteDataType.dataType, 1, "population_growth_clamped",
+            "forces growth rate to 1.0 and is cleared when population hits capacity");
         replaceAt(city, 0xd1, ByteDataType.dataType, 1, "event_lock", "must be -1 for some random city events");
         replaceAt(city, 0xd2, UnsignedShortDataType.dataType, 2, "policy_target_or_required_progress",
             "paired with +0xc2");
+        replaceAt(city, 0xd4, UnsignedShortDataType.dataType, 2, "building_income_yield",
+            "increased/decreased by completed buildings and added during city resource change");
         replaceAt(city, 0xd6, ShortDataType.dataType, 2, "collapse_delay_or_army_count", "checked before empty city removal");
+        replaceAt(city, 0xd8, new ArrayDataType(ShortDataType.dataType, 10, 2), 20,
+            "build_queue_entries", "queued production entries; ranges select army/building/special-project mode");
+        replaceAt(city, 0xec, new ArrayDataType(ByteDataType.dataType, 10, 1), 10,
+            "build_queue_tile_x", "per-queued item x/slot byte passed to build placement helpers");
+        replaceAt(city, 0xf6, new ArrayDataType(ByteDataType.dataType, 10, 1), 10,
+            "build_queue_tile_y", "per-queued item y/slot byte passed to build placement helpers");
         replaceAt(city, 0x100, ByteDataType.dataType, 1, "has_build_queue", "gates City_Building");
         replaceAt(city, 0x102, ShortDataType.dataType, 2, "round_or_protection_timer", "checked against age/turn");
         replaceAt(city, 0x164, ByteDataType.dataType, 1, "disaster_lock_a", "blocks happiness/safety decay");
@@ -146,12 +166,42 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(country, 0x00, ByteDataType.dataType, 1, "is_active", "checked before per-country loops");
         replaceAt(country, 0x01, ByteDataType.dataType, 1, "leader_or_country_id", "compared against literal 0x22");
         replaceAt(country, 0x04, new ArrayDataType(ByteDataType.dataType, 32, 1), 32, "name_bytes", "used in diplomacy text");
+        replaceAt(country, 0x38, new PointerDataType(city, dtm), 4, "capital_city",
+            "city building completion stores the current city here when founding/capital-class buildings finish");
         replaceAt(country, 0x60, IntegerDataType.dataType, 4, "government_or_ai_mode", "city event condition");
+        replaceAt(country, 0x7c, UnsignedShortDataType.dataType, 2, "owned_city_count",
+            "used as divisor for per-city country pressure and diplomacy city-count checks");
         replaceAt(country, 0x688, DoubleDataType.dataType, 8, "science_budget_or_treasury", "used by city upgrade cost");
         replaceAt(country, 0x698, DoubleDataType.dataType, 8, "population_or_score_total", "increased when city removed");
-        replaceAt(country, 0x714, IntegerDataType.dataType, 4, "country_state_mode", "city event condition");
         replaceAt(country, 0x63c, ByteDataType.dataType, 1, "special_rule_level", "city event condition");
+        replaceAt(country, 0x6a0, ByteDataType.dataType, 1, "resource_pressure_level",
+            "compared against government tables before city resource scoring");
+        replaceAt(country, 0x6a1, ByteDataType.dataType, 1, "construction_efficiency_level",
+            "scales construction/research production in City_Resource_Change");
+        replaceAt(country, 0x6a2, ByteDataType.dataType, 1, "research_efficiency_level",
+            "indexes government tables and scales research production");
+        replaceAt(country, 0x6a3, ByteDataType.dataType, 1, "tax_efficiency_level",
+            "combined with resource pressure for positive treasury delta display");
+        replaceAt(country, 0x6a4, new ArrayDataType(IntegerDataType.dataType, 0x1c, 4), 0x70,
+            "early_science_status", "early per-science status words; value 2 means completed/unlocked");
+        replaceAt(country, 0x714, IntegerDataType.dataType, 4, "country_state_mode", "city event condition");
         replaceAt(country, 0x9c4, ShortDataType.dataType, 2, "build_or_draft_capacity", "worker allocation condition");
+        replaceAt(country, 0x9c8, IntegerDataType.dataType, 4, "current_research_progress",
+            "increased by construction workers and reset after research completion");
+        replaceAt(country, 0x9cc, IntegerDataType.dataType, 4, "lifetime_research_progress",
+            "accumulates alongside current research progress");
+        replaceAt(country, 0x9d4, new ArrayDataType(ByteDataType.dataType, 0x41, 1), 0x41,
+            "available_building_flags", "per-building availability/unlock flags checked before city construction");
+        replaceAt(country, 0xa15, new ArrayDataType(ByteDataType.dataType, 0x19, 1), 0x19,
+            "available_special_project_flags", "per-special-project availability flags for city building mode 2");
+        replaceAt(country, 0xa2e, ByteDataType.dataType, 1, "available_special_project_count",
+            "count compared before special-project AI build selection");
+        replaceAt(country, 0xa2f, new ArrayDataType(ByteDataType.dataType, 0x58, 1), 0x58,
+            "trainable_army_flags", "per-army availability/buildability flags used by city army production AI");
+        replaceAt(country, 0xa87, new ArrayDataType(ByteDataType.dataType, 0x19, 1), 0x19,
+            "special_project_pending_counts", "per-special-project pending countdown/count cleared on completion");
+        replaceAt(country, 0xaa0, ByteDataType.dataType, 1, "pending_special_project_count",
+            "decremented when special project pending count reaches zero");
         replaceAt(country, 0xa82, ShortDataType.dataType, 2, "turn_timer", "decremented in do_city");
         replaceAt(country, 0xa86, ByteDataType.dataType, 1, "timer_state", "set when turn_timer expires");
         replaceAt(country, 0xe18, ByteDataType.dataType, 1, "upgrade_permission_level", "city upgrade gate");
@@ -246,6 +296,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x46d310L, "Init_DirectDraw_Runtime"),
             new Rename(0x473270L, "Load_Dat"),
             new Rename(0x478eb0L, "MainMenu_Init"),
+            new Rename(0x4789e0L, "Load_EMG_Resource"),
+            new Rename(0x478ac0L, "Load_XMG_Resource"),
+            new Rename(0x478b30L, "Free_EMG_Resource"),
+            new Rename(0x478b90L, "Free_XMG_Resource"),
             new Rename(0x479000L, "MainMenu_Quit"),
             new Rename(0x479040L, "PutScreen_Mainmenu"),
             new Rename(0x479420L, "MLR_MainMenu"),
@@ -295,6 +349,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4f0de0L, "Create_Back_Surface"),
             new Rename(0x4f5ce9L, "Draw_Image_To_Backbuffer"),
             new Rename(0x4f81e0L, "Init_Surface_Pixel_State"),
+            new Rename(0x4f00b0L, "Get_Game_Tick"),
+            new Rename(0x4fa910L, "Clear_Surface"),
+            new Rename(0x5035c0L, "Set_Draw_Clip_Rect"),
+            new Rename(0x503730L, "Format_Text"),
             new Rename(0x41f900L, "Restore_DirectDraw_Surfaces"),
             new Rename(0x5047f0L, "Fatal_Exit")
         };
@@ -343,6 +401,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005d9274L, "g_battle_grid_back_units", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005aa2c8L, "g_army_type_table", new ArrayDataType(ByteDataType.dataType, 0x100, 1)),
             new GlobalRename(0x005dfedcL, "g_directdraw_ready", IntegerDataType.dataType),
+            new GlobalRename(0x005dfee0L, "g_main_window", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x005dfed8L, "g_app_screen_state", IntegerDataType.dataType),
             new GlobalRename(0x005dff90L, "g_ddraw", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff94L, "g_primary_surface", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff98L, "g_back_surface", new PointerDataType(VoidDataType.dataType, dtm)),
@@ -368,10 +428,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0075cf7cL, "g_present_dest_offset_x", IntegerDataType.dataType),
             new GlobalRename(0x0075cf80L, "g_present_width", IntegerDataType.dataType),
             new GlobalRename(0x0075cf84L, "g_present_height", IntegerDataType.dataType),
+            new GlobalRename(0x0075cf98L, "g_back_surface_video_memory_flag", IntegerDataType.dataType),
             new GlobalRename(0x0057d078L, "g_dirty_rect_prev_x", IntegerDataType.dataType),
             new GlobalRename(0x0057d07cL, "g_dirty_rect_prev_y", IntegerDataType.dataType),
             new GlobalRename(0x0057d080L, "g_dirty_rect_x", IntegerDataType.dataType),
             new GlobalRename(0x0057d084L, "g_dirty_rect_y", IntegerDataType.dataType),
+            new GlobalRename(0x00755984L, "g_loaded_tmg_background", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x007558fcL, "g_frame_tick", IntegerDataType.dataType),
+            new GlobalRename(0x0074c0a0L, "g_menu_action_tick", IntegerDataType.dataType),
+            new GlobalRename(0x00707f8cL, "g_menu_item_emg_resource", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x0070805cL, "g_mainmenu_emg_resource", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x00707f90L, "g_mainmenu_sprite_bank", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x00707f70L, "g_mainmenu_intro_completed_count", IntegerDataType.dataType),
             new GlobalRename(0x00707f74L, "g_mainmenu_intro_spawn_index", IntegerDataType.dataType),

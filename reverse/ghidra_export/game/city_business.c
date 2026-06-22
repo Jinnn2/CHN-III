@@ -136,7 +136,7 @@ void City_Business(void)
         if (local_38->development_level == 5) {
           iVar10 = iVar10 + iVar12;
         }
-        if (g_current_city->field_0xb3 == '\x02') {
+        if (g_current_city->special_project_status[0xe] == 2) {
           iVar10 = iVar10 << 1;
         }
         if (g_active_country->leader_or_country_id == 0x22) {
