@@ -232,8 +232,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00458d80` | `FUN_00458d80` | 254 | 1 |
 | `0x004596a0` | `FUN_004596a0` | 2242 | 2 |
 | `0x00459f90` | `FUN_00459f90` | 385 | 5 |
-| `0x0045b1d0` | `FUN_0045b1d0` | 275 | 1 |
-| `0x0045b2f0` | `FUN_0045b2f0` | 2658 | 15 |
+| `0x0045b1d0` | `MouseOn_Edit_Sel_Custom_Map` | 275 | 1 |
+| `0x0045b2f0` | `MLR_Edit_SelCustomMap` | 2658 | 15 |
 | `0x0045c330` | `FUN_0045c330` | 263 | 1 |
 | `0x0045c5d0` | `FUN_0045c5d0` | 102 | 3 |
 | `0x0045c640` | `FUN_0045c640` | 207 | 4 |
@@ -363,10 +363,10 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0047e580` | `FUN_0047e580` | 59 | 2 |
 | `0x0047e5c0` | `FUN_0047e5c0` | 1629 | 7 |
 | `0x0047ec20` | `FUN_0047ec20` | 342 | 3 |
-| `0x0047ee50` | `FUN_0047ee50` | 148 | 6 |
-| `0x0047eef0` | `FUN_0047eef0` | 428 | 6 |
-| `0x0047f0a0` | `FUN_0047f0a0` | 2149 | 9 |
-| `0x0047f910` | `FUN_0047f910` | 371 | 5 |
+| `0x0047ee50` | `Menu_EditMenu_Init` | 148 | 6 |
+| `0x0047eef0` | `Menu_EditMenu_Quit` | 428 | 6 |
+| `0x0047f0a0` | `Put_Sub_EditMenu` | 2149 | 9 |
+| `0x0047f910` | `MLR_NewEdit` | 371 | 5 |
 | `0x0047fa90` | `FUN_0047fa90` | 134 | 4 |
 | `0x0047fb20` | `FUN_0047fb20` | 137 | 4 |
 | `0x0047fbe0` | `FUN_0047fbe0` | 1304 | 8 |

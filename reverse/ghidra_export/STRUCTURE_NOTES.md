@@ -66,6 +66,12 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_editor_brush_size_index` | Press/drag handlers map this through `{0,1,2,4}` and then into brush offset/count tables at `0x0074c830`/`0x0074a360`. | Editor brush radius/shape selector. |
 | `g_editor_selected_country_id` | City/unit/ownership tools validate it against `0..0x15` and use it to create cities, create armies, and paint owner/visibility bytes. | Selected country/faction for editor tools. |
 | `g_editor_selected_city_resource_id` | Resource tool `6` assigns it to `LandTile_0x100 +0x17`; hover/render code validates it before drawing a resource preview. | Selected city resource/feature id. |
+| `g_edit_menu_page` | `Menu_EditMenu_Init` resets it to `0`; `MLR_NewEdit` advances it through pages `0`, `1`, and `2` for new-map editing choices. | New editor-menu page/step. |
+| `g_edit_menu_selected_mode` | `MLR_NewEdit` sets it from the hovered item on page `0`; `Menu_EditMenu_Quit` treats value `0` as the new-map generation path. | New editor menu mode choice. |
+| `g_edit_menu_selected_map_size` | Selected on page `1` and passed with the template choice to the map-generation helper. | New map size choice. |
+| `g_edit_menu_selected_template` | Selected on page `2` and passed with the map-size choice to the map-generation helper. | New map template/seed choice. |
+| `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes records with stride `0x16c`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
+| `g_selected_custom_map_index` | Set from `g_custom_map_hover_index`; drives load, delete, and list compaction in `MLR_Edit_SelCustomMap`. | Selected custom map row. |
 
 ## Editor And Startup
 
@@ -81,6 +87,12 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `App_WinMain_Entry` | Creates the app mutex, calls command-line/setup routines, chooses initial `g_app_screen_state`, then runs the Windows message loop. | Main WinMain-style entry function. |
 | `App_Frame_Pump` | Default idle-loop frame pump used when `g_app_screen_state != 0x25`; updates frame timing, reads input, dispatches `Read_Keyboard`, draws, and presents. | Non-game/main-menu frame loop. |
 | `Game_Frame_Pump` | Idle-loop frame pump used when `g_app_screen_state == 0x25`; updates game/map timers, dispatches `Read_Keyboard`, redraws active map UI, and can call `Prepare_City_Doing`. | In-game/map/editor frame loop. |
+| `Menu_EditMenu_Init` | Trace string `Menu_EditMenu_Init`; loads `DRAGON` background, sets screen state `0x16`, and resets the editor menu page. | Editor/new-map menu setup. |
+| `Put_Sub_EditMenu` | Trace string `Put_Sub_EditMenu`; draws the three-step editor menu using `g_edit_menu_page`, hover index, and selected mode/map-size/template values. | Editor menu draw routine. |
+| `MLR_NewEdit` | Trace string `MLR_NewEdit`; handles editor menu clicks. It either delegates to custom-map selection or advances/selects the three new-map menu pages before entering state `0x17`. | Editor menu click handler. |
+| `Menu_EditMenu_Quit` | Trace string `Menu_EditMenu_Quit`; when the new-map path is confirmed, enables editor mode, calls the map-generation helper with size/template selections, allocates the editor tile backup, and enters screen state `3`. | Transition from editor menu into map editing. |
+| `MouseOn_Edit_Sel_Custom_Map` | Trace string `MouseOn_Edit_Sel_Custom_Map`; tracks hover over up to 20 custom-map list rows and sets action ids `0`, `1`, or `2` for load/delete/close buttons. | Custom-map picker hover handler. |
+| `MLR_Edit_SelCustomMap` | Trace string `MLR_Edit_SelCustomMap`; selects a custom map, loads it through `Load_Dat`, enables editor state/backup allocation, or deletes the map and associated sidecar files before compacting the list. | Custom-map picker click handler. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
@@ -450,11 +462,16 @@ important code-first files are:
   `game/init_setup.c`: startup path, `/EDIT` mode detection, editor resource
   loading, and initial screen-state selection.
 - `game/app_frame_pump.c`, `game/game_frame_pump.c`,
-  `extra/playgame_init.c`, `extra/edit_start.c`, and
+  `extra/menu_editmenu_init.c`, `extra/put_sub_editmenu.c`,
+  `extra/mlr_newedit.c`, `extra/menu_editmenu_quit.c`,
+  `extra/mouse_on_edit_sel_custom_map.c`,
+  `extra/mlr_edit_sel_custom_map.c`, `extra/playgame_init.c`,
+  `extra/edit_start.c`, and
   `extra/edit_finish.c`, `extra/read_keyboard.c`,
   `extra/mlr_edit_gamemap.c`, and `extra/read_mrr_edit.c`: runtime path into
-  map/editor mode, editor toggle, whole-map backup allocation, and the
-  left/right-click editor map mutation paths.
+  map/editor mode, editor menu selection, custom-map loading/deletion, editor
+  toggle, whole-map backup allocation, and the left/right-click editor map
+  mutation paths.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.
