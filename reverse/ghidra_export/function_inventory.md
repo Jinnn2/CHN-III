@@ -231,10 +231,10 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004578a0` | `Before_Edit_Empire_Country` | 2182 | 16 |
 | `0x00458d80` | `FUN_00458d80` | 254 | 1 |
 | `0x004596a0` | `Before_Window_Edit_File_Detail` | 2242 | 2 |
-| `0x00459f90` | `FUN_00459f90` | 385 | 5 |
+| `0x00459f90` | `Put_Edit_File_Detail` | 385 | 5 |
 | `0x0045b1d0` | `MouseOn_Edit_Sel_Custom_Map` | 275 | 1 |
 | `0x0045b2f0` | `MLR_Edit_SelCustomMap` | 2658 | 15 |
-| `0x0045c330` | `FUN_0045c330` | 263 | 1 |
+| `0x0045c330` | `MouseOn_Edit_Sel_Pcx_File` | 263 | 1 |
 | `0x0045c5d0` | `Before_Edit_Empire_Flag` | 102 | 3 |
 | `0x0045c640` | `After_Edit_Empire_Flag` | 207 | 4 |
 | `0x0045d0d0` | `Save_IMG_Flag` | 341 | 7 |
