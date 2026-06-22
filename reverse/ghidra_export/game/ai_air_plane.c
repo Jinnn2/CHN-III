@@ -261,7 +261,7 @@ switchD_00402dc0_default:
       } while (iVar13 < 0x63c);
       if ((-1 < local_20) &&
          (cVar5 = Near_City_Found_XY((int)*(short *)(&g_active_country->field_0x614 + local_20 * 2),
-                                     (int)*(short *)((int)g_active_country->early_science_status +
+                                     (int)*(short *)((int)g_active_country->science_status +
                                                     local_20 * 2 + -0x7c),0x14,&local_10,&local_14),
          pAVar8 = _DAT_00748ff0, cVar5 != '\0')) {
         if ((local_10 == _DAT_00748ff0->tile_x) && (local_14 == _DAT_00748ff0->tile_y)) {
@@ -329,7 +329,7 @@ switchD_00402dc0_default:
         if ((((-1 < local_20) &&
              (cVar5 = Near_City_Found_XY_NoLand
                                 ((int)*(short *)(&g_active_country->field_0x614 + local_20 * 2),
-                                 (int)*(short *)((int)g_active_country->early_science_status +
+                                 (int)*(short *)((int)g_active_country->science_status +
                                                 local_20 * 2 + -0x7c),0xf,&local_14,&local_10),
              pAVar8 = _DAT_00748ff0, cVar5 != '\0')) &&
             (cVar5 = InRange_NearDest_City_Found

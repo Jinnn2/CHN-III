@@ -232,13 +232,13 @@ LAB_004021fd:
       if ((-1 < (int)local_34) &&
          (cVar5 = Near_City_Found_XY_NoLand
                             ((int)*(short *)(&g_active_country->field_0x614 + (int)local_34 * 2),
-                             (int)*(short *)((int)g_active_country->early_science_status +
+                             (int)*(short *)((int)g_active_country->science_status +
                                             (int)local_34 * 2 + -0x7c),0x3c,&local_38,&local_40),
          cVar5 != '\0')) {
         piVar13 = (int *)0xffffffff;
         local_34 = (int *)0xffffffff;
         iVar11 = FUN_004c6ed0((int)*(short *)(&g_active_country->field_0x614 + (int)piVar14 * 2),
-                              (int)*(short *)((int)g_active_country->early_science_status +
+                              (int)*(short *)((int)g_active_country->science_status +
                                              (int)piVar14 * 2 + -0x7c),local_38,local_40,0);
         iVar10 = g_tile_radius_offset_counts[iVar11 >> 1];
         local_30 = g_tile_radius_offset_counts[(iVar11 >> 1) + 1];

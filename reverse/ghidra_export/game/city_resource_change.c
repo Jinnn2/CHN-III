@@ -311,7 +311,7 @@ LAB_00426559:
                 (double)DAT_007068c4 * _DAT_0050f3a0;
     local_1a0 = (double)(int)(char)g_active_country->research_efficiency_level *
                 (double)DAT_007068c4 * _DAT_0050f3a0;
-    if ((-1 < g_active_country->build_or_draft_capacity) && (_DAT_0050f2c0 <= local_1a8)) {
+    if ((-1 < g_active_country->current_research_science_id) && (_DAT_0050f2c0 <= local_1a8)) {
       local_1b8 = __ftol();
       uVar9 = (uint)g_current_city->construction_workers;
       if (uVar9 != 0) {
@@ -340,7 +340,7 @@ LAB_00426559:
            g_active_country->current_research_progress + iVar4;
       g_active_country->lifetime_research_progress =
            g_active_country->lifetime_research_progress + iVar4;
-      iVar12 = (int)g_active_country->build_or_draft_capacity;
+      iVar12 = (int)g_active_country->current_research_science_id;
       iVar4 = g_science_defs[iVar12].research_cost_or_score;
       local_1a8 = (double)CONCAT44(local_1a8._4_4_,
                                    (uint)g_active_country->leader_or_country_id * 0x200 + 0x589a7c);
@@ -369,12 +369,12 @@ LAB_00426559:
         }
       }
       if ((iVar4 <= g_active_country->current_research_progress) ||
-         (g_active_country->early_science_status[iVar12] == 2)) {
-        if (g_active_country->early_science_status[iVar12] < 2) {
+         (g_active_country->science_status[iVar12] == 2)) {
+        if (g_active_country->science_status[iVar12] < 2) {
           if ((g_active_country_index == g_human_country_index) &&
              ((g_auto_turn_or_ai_control_flag == 0 || (DAT_00755940 != 0)))) {
             _DAT_007166dc = (undefined2)g_current_map_scenario_info.current_year;
-            DAT_00716298 = g_active_country->build_or_draft_capacity;
+            DAT_00716298 = g_active_country->current_research_science_id;
             FUN_00472120();
           }
           else if ((*(int *)(_DAT_00748e30 + 0x6a4 + iVar12 * 4) < 2) &&
@@ -388,7 +388,7 @@ LAB_00426559:
           }
         }
         bVar3 = false;
-        if (g_active_country->build_or_draft_capacity == 0x3a) {
+        if (g_active_country->current_research_science_id == 0x3a) {
           bVar3 = true;
           pcVar6 = &g_country_states;
           iVar4 = 0;
@@ -409,7 +409,7 @@ LAB_00426559:
           local_1a8 = (double)((ulonglong)local_1a8 & 0xffffffff00000000);
           piVar7 = &g_science_defs[0].prerequisite_science_b;
           piVar11 = (int *)&local_1b0;
-          piVar16 = g_active_country->early_science_status;
+          piVar16 = g_active_country->science_status;
           local_1b0._4_4_ = -1;
           do {
             iVar12 = (int)local_1a8._0_4_;
@@ -417,8 +417,8 @@ LAB_00426559:
             if (1 < (int)local_1a8._0_4_) break;
             if (((((ScienceDef_0x88 *)(piVar7 + -8))->is_enabled != 0) && (iVar4 != 0x3a)) &&
                (*piVar16 < 2)) {
-              if (((piVar7[-1] == -1) || (g_active_country->early_science_status[piVar7[-1]] == 2))
-                 && ((*piVar7 == -1 || (g_active_country->early_science_status[*piVar7] == 2)))) {
+              if (((piVar7[-1] == -1) || (g_active_country->science_status[piVar7[-1]] == 2)) &&
+                 ((*piVar7 == -1 || (g_active_country->science_status[*piVar7] == 2)))) {
                 *piVar11 = iVar4;
                 piVar11 = piVar11 + 1;
                 local_1a8 = (double)CONCAT44(local_1a8._4_4_,iVar12 + 1);
@@ -447,7 +447,7 @@ LAB_00426559:
         pCVar15 = g_active_country;
         do {
           if (('\0' < (char)puVar20[-4]) && (iVar4 != g_active_country_index)) {
-            sVar18 = pCVar15->build_or_draft_capacity;
+            sVar18 = pCVar15->current_research_science_id;
             if (*(int *)(puVar20 + sVar18 * 4 + 0x6a0) < 2) {
               if (*(int *)(pCVar15->capital_name_bytes + local_1b4 + 0x1c) == 1) {
                 iVar12 = 0;
@@ -469,22 +469,22 @@ LAB_00426559:
                 _DAT_00515a78 = iVar12;
                 if (DAT_0074a2d0 != '\0') {
                   if (iVar12 == 0) {
-                    uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
-                                      g_active_country->name_bytes);
+                    uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 +
+                                      0x5817ac,g_active_country->name_bytes);
                     puVar21 = &DAT_00515b0c;
 LAB_0042711c:
                     Format_Text(local_c8,puVar21,uVar22);
                   }
                   else {
                     if (iVar12 == 1) {
-                      uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
-                                        g_active_country->name_bytes);
+                      uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 +
+                                        0x5817ac,g_active_country->name_bytes);
                       puVar21 = &DAT_00515b40;
                       goto LAB_0042711c;
                     }
                     if (iVar12 == 2) {
-                      uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
-                                        g_active_country->name_bytes);
+                      uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 +
+                                        0x5817ac,g_active_country->name_bytes);
                       puVar21 = &DAT_00515b70;
                       goto LAB_0042711c;
                     }
@@ -493,7 +493,7 @@ LAB_0042711c:
                 }
                 if (g_auto_turn_or_ai_control_flag == 0) {
                   _DAT_007166dc = (undefined2)g_current_map_scenario_info.current_year;
-                  DAT_00716298 = g_active_country->build_or_draft_capacity;
+                  DAT_00716298 = g_active_country->current_research_science_id;
                   FUN_00472120();
                 }
               }
@@ -503,7 +503,7 @@ LAB_0042711c:
                          (0 < *(int *)(_DAT_00748e30 + 0x1ac + _DAT_0074a0f8 * 4))))))) &&
                       (DAT_0074a2d0 != '\0')) {
                 if (iVar12 == 0) {
-                  uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
+                  uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 + 0x5817ac,
                                     g_active_country->name_bytes);
                   puVar21 = &DAT_00515a80;
 LAB_0042725d:
@@ -511,14 +511,14 @@ LAB_0042725d:
                 }
                 else {
                   if (iVar12 == 1) {
-                    uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
-                                      g_active_country->name_bytes);
+                    uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 +
+                                      0x5817ac,g_active_country->name_bytes);
                     puVar21 = &DAT_00515ab0;
                     goto LAB_0042725d;
                   }
                   if (iVar12 == 2) {
-                    uVar22 = CONCAT44(g_active_country->build_or_draft_capacity * 0x88 + 0x5817ac,
-                                      g_active_country->name_bytes);
+                    uVar22 = CONCAT44(g_active_country->current_research_science_id * 0x88 +
+                                      0x5817ac,g_active_country->name_bytes);
                     puVar21 = &DAT_00515adc;
                     goto LAB_0042725d;
                   }
@@ -538,7 +538,7 @@ LAB_004272a6:
           local_1b4 = local_1b4 + 4;
           iVar4 = iVar4 + 1;
         } while (local_1b4 < 0x204);
-        pCVar15->build_or_draft_capacity = -1;
+        pCVar15->current_research_science_id = -1;
         g_active_country->current_research_progress = 0;
         if ((DAT_0057dac8 == 7) && (g_active_country_index == g_human_country_index)) {
           DAT_007584bc = 0;

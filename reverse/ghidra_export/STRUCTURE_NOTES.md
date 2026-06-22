@@ -508,9 +508,9 @@ higher ids.
 | `+0x688` | Compared against upgrade cost in `Do_City`. | `science_budget_or_treasury`. |
 | `+0x698` | Increased by city stored value when a city is removed. | `population_or_score_total`. |
 | `+0x6a0..0x6a3` | `city_resource_change.c` compares/scales city economic and research deltas with these byte levels; `After_Edit_Country` normalizes `+0x6a1..0x6a3` until their sum is `10`. | resource/construction/research/tax efficiency levels. |
-| `+0x6a4..0x713` | `city_resource_change.c` and `diplomat_steal_science.c` index words by science id; value `2` means completed. | early per-country science status array. |
+| `+0x6a4..0x713` | `city_resource_change.c`, `Before_Edit_Science_Set`, and `diplomat_steal_science.c` index words by science id; value `2` means completed. This typed prefix covers early entries, while several paths reach later science ids by raw country-base arithmetic. | per-country science status array prefix. |
 | `+0x714` | Compared with `2` in city-event condition. | `country_state_mode`. |
-| `+0x9c4` | Negative value blocks construction worker allocation. | `build_or_draft_capacity`. |
+| `+0x9c4` | `city_resource_change.c` uses this as the selected science id, indexes `g_science_defs`, and treats `-1` as no current research, which blocks construction-worker research allocation. | `current_research_science_id`. |
 | `+0x9c8/+0x9cc` | `city_resource_change.c` increments both with construction-worker research output and resets `+0x9c8` on completion. | current/lifetime research progress. |
 | `+0x9d4..0xa14` | Checked before city building availability in `do_city.c`, `city_building_ai.c`, and `city_people_change.c`. | available building flags. |
 | `+0xa15..0xa2d` | Checked before special project construction in `city_building_ai.c`. | available special project flags. |

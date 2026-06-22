@@ -478,9 +478,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(country, 0x6a3, ByteDataType.dataType, 1, "tax_efficiency_level",
             "combined with resource pressure for positive treasury delta display; After_Edit_Country keeps 0x6a1..0x6a3 sum at 10");
         replaceAt(country, 0x6a4, new ArrayDataType(IntegerDataType.dataType, 0x1c, 4), 0x70,
-            "early_science_status", "early per-science status words; value 2 means completed/unlocked");
+            "science_status", "per-science status words; value 2 means completed/unlocked");
         replaceAt(country, 0x714, IntegerDataType.dataType, 4, "country_state_mode", "city event condition");
-        replaceAt(country, 0x9c4, ShortDataType.dataType, 2, "build_or_draft_capacity", "worker allocation condition");
+        replaceAt(country, 0x9c4, ShortDataType.dataType, 2, "current_research_science_id",
+            "current science id; -1 disables construction-worker research allocation");
         replaceAt(country, 0x9c8, IntegerDataType.dataType, 4, "current_research_progress",
             "increased by construction workers and reset after research completion");
         replaceAt(country, 0x9cc, IntegerDataType.dataType, 4, "lifetime_research_progress",

@@ -31,9 +31,8 @@ These names are useful but not yet final:
 | `Country +0x688` | `science_budget_or_treasury` | It pays for city upgrades; could be treasury, science, or a mixed resource. |
 | `Country +0x698` | `population_or_score_total` | Receives removed-city stored value; exact aggregate label unknown. |
 | `Country +0x6a0..0x6a3` | efficiency/resource level names | They clearly scale or index resource, construction, research, and positive cash/resource deltas, but the exact UI/stat labels are not confirmed. |
-| `Country +0x6a4..0x713` | `early_science_status` | Value `2` means completed/unlocked for the recovered early entries. The full science table overlaps other confirmed country fields in the decompiler type view, so later IDs still need a more precise nested layout. |
+| `Country +0x6a4..0x713` | `science_status` | Value `2` means completed/unlocked. The typed prefix covers early entries; later science ids are still reached by raw country-base arithmetic because the full 200-entry logical table overlaps other confirmed country fields in the decompiler type view. |
 | `Country +0x714` | `country_state_mode` | A mode value used in city event conditions, not yet tied to UI labels. |
-| `Country +0x9c4` | `build_or_draft_capacity` | Controls construction-worker allocation, but the exact strategic resource is unclear. |
 | `Country +0x9d4..0xa14` | `available_building_flags` | Strongly per-building availability, but individual IDs and the relation to science/building tables are still inferred. |
 | `Country +0xa15..0xa2d` | `available_special_project_flags` | Strong special-project availability shape, exact project class/name not confirmed. |
 | `Country +0xa2f..0xa86` | `trainable_army_flags` | Clearly indexed by army/unit build mode, but exact state values need more production UI tracing. |

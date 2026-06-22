@@ -388,7 +388,7 @@ LAB_00450bac:
                 g_current_city->science_workers = g_current_city->science_workers - 1;
                 g_current_city->unassigned_workers = g_current_city->unassigned_workers + 1;
               }
-              if ((g_active_country->build_or_draft_capacity < 0) &&
+              if ((g_active_country->current_research_science_id < 0) &&
                  (g_current_city->construction_workers != 0)) {
                 g_current_city->construction_workers = g_current_city->construction_workers - 1;
                 g_current_city->unassigned_workers = g_current_city->unassigned_workers + 1;
@@ -455,7 +455,7 @@ LAB_00450bac:
                 if ((0 < (int)uVar5) &&
                    (((g_current_city->forced_worker_mode == 0xff ||
                      (g_current_city->owner_or_active_flag == 4)) &&
-                    (-1 < g_active_country->build_or_draft_capacity)))) {
+                    (-1 < g_active_country->current_research_science_id)))) {
                   g_current_city->construction_workers = g_current_city->construction_workers + 1;
                   g_current_city->unassigned_workers = g_current_city->unassigned_workers - 1;
                 }

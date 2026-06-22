@@ -76,7 +76,7 @@ void City_Building_AI(void)
   bVar4 = false;
   bVar23 = false;
   if ((g_active_country->leader_or_country_id != 6) ||
-     (bVar5 = true, g_active_country->early_science_status[0xe] != 2)) {
+     (bVar5 = true, g_active_country->science_status[0xe] != 2)) {
     bVar5 = false;
   }
   local_284 = (int *)0x0;

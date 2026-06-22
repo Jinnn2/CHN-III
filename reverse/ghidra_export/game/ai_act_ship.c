@@ -400,7 +400,7 @@ switchD_0040171f_default:
       if (local_18 == -1) goto LAB_004017f2;
     }
     if (-1 < local_18) {
-      sVar1 = *(short *)((int)g_active_country->early_science_status + local_18 * 2 + -0x7c);
+      sVar1 = *(short *)((int)g_active_country->science_status + local_18 * 2 + -0x7c);
       iVar10 = (int)sVar1;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar10 && (iVar10 < g_map_width_tiles)) ||

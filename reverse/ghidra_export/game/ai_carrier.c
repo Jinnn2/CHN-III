@@ -408,7 +408,7 @@ switchD_00404d02_default:
           _DAT_00748ff0->target_tile_x_or_anim_x =
                *(short *)(&g_active_country->field_0x614 + local_38 * 2);
           _DAT_00748ff0->target_tile_y_or_anim_y =
-               *(short *)((int)g_active_country->early_science_status + local_38 * 2 + -0x7c);
+               *(short *)((int)g_active_country->science_status + local_38 * 2 + -0x7c);
           TestRoad(_DAT_00748ff0);
           pCVar15 = extraout_EDX;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {

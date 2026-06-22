@@ -289,7 +289,7 @@ switchD_00409f1d_switchD:
         }
         pLVar13 = (LandTile_0x100 *)(iVar14 * 0x100 + _g_land_tiles);
 switchD_00409f1d_default:
-        if ((g_active_country->early_science_status[0xf] == 2) &&
+        if ((g_active_country->science_status[0xf] == 2) &&
            (iVar14 = Irrigate_Able(pLVar13,iVar7,iVar20,
                                    CONCAT31((int3)((uint)pCVar12 >> 8),
                                             *(int *)&g_active_country->field_0x72c == 2)),
@@ -310,7 +310,7 @@ switchD_00409f1d_default:
           }
           pLVar13->field_0x1a = uVar2;
         }
-        if ((g_active_country->early_science_status[0xe] == 2) &&
+        if ((g_active_country->science_status[0xe] == 2) &&
            (iVar14 = Pasturage_Able(pLVar13), (char)iVar14 != '\0')) {
           FUN_0041d170(pLVar13,&local_64,&local_50,&local_48,_DAT_00748e34,
                        _DAT_00748ff0->stationed_city);
@@ -328,7 +328,7 @@ switchD_00409f1d_default:
           }
           pLVar13->field_0x1a = uVar2;
         }
-        if ((g_active_country->early_science_status[0xd] == 2) &&
+        if ((g_active_country->science_status[0xd] == 2) &&
            (iVar14 = Fish_Able(pLVar13), (char)iVar14 != '\0')) {
           FUN_0041d170(pLVar13,&local_5c,&local_38,&local_54,_DAT_00748e34,
                        _DAT_00748ff0->stationed_city);
@@ -738,14 +738,14 @@ LAB_0040ad9b:
               }
               pLVar13 = (LandTile_0x100 *)(iVar14 * 0x100 + _g_land_tiles);
 switchD_0040ae05_default:
-              if ((((g_active_country->early_science_status[0xf] != 2) ||
+              if ((((g_active_country->science_status[0xf] != 2) ||
                    (iVar7 = Irrigate_Able(pLVar13,iVar20,iVar7,
                                           CONCAT31((int3)((uint)psVar19 >> 8),
                                                    *(int *)&g_active_country->field_0x72c == 2)),
                    (char)iVar7 == '\0')) &&
-                  ((g_active_country->early_science_status[0xe] != 2 ||
+                  ((g_active_country->science_status[0xe] != 2 ||
                    (iVar7 = Pasturage_Able(pLVar13), (char)iVar7 == '\0')))) &&
-                 (((g_active_country->early_science_status[0xd] != 2 ||
+                 (((g_active_country->science_status[0xd] != 2 ||
                    (iVar7 = Fish_Able(pLVar13), (char)iVar7 == '\0')) &&
                   ((*(int *)&g_active_country->field_0x718 != 2 ||
                    (iVar7 = Mine_Able(pLVar13), (char)iVar7 == '\0')))))) goto LAB_0040aecf;

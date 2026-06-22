@@ -57,7 +57,7 @@ switchD_00438e64_default:
   local_c2 = 0;
   pSVar9 = g_science_defs;
   iVar7 = (char)puVar4[1] * 0xe68;
-  piVar8 = g_active_country->early_science_status;
+  piVar8 = g_active_country->science_status;
   while (((pSVar9->is_enabled == 0 ||
           (*(int *)((int)piVar8 + (int)(&g_country_states + (iVar7 - (int)g_active_country))) != 2))
          || (1 < *piVar8))) {

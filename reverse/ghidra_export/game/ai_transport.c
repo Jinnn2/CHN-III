@@ -170,7 +170,7 @@ switchD_00409033_default:
         } while (local_8 < 0x628);
         if ((-1 < local_4) &&
            (cVar7 = Near_City_Found_XY((int)*(short *)(&pCVar12->field_0x614 + local_4 * 2),
-                                       (int)*(short *)((int)pCVar12->early_science_status +
+                                       (int)*(short *)((int)pCVar12->science_status +
                                                       local_4 * 2 + -0x7c),0xf,&local_4,&local_8),
            pAVar9 = _DAT_00748ff0, cVar7 != '\0')) {
           if ((local_4 == _DAT_00748ff0->tile_x) && (local_8 == _DAT_00748ff0->tile_y)) {
