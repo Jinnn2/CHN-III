@@ -120,7 +120,7 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
     if (army->mission_action_id == 3) {
       iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
       unit_class = g_army_type_table[uVar7].unit_class;
-      zone_mask = *(int *)&g_army_type_table[uVar7].field_0x148;
+      zone_mask = g_army_type_table[uVar7].visibility_zone_mask;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode = 2;
@@ -128,7 +128,7 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
     else {
       iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
       unit_class = g_army_type_table[uVar7].unit_class;
-      zone_mask = *(int *)&g_army_type_table[uVar7].field_0x148;
+      zone_mask = g_army_type_table[uVar7].visibility_zone_mask;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode = 1;
@@ -137,7 +137,7 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
                  iVar8);
     if (army->mission_state != 0) {
       Add_New_View((int)army->render_or_anim_x,(int)army->render_or_anim_y,1,new_owner_country_id,0,
-                   *(int *)&g_army_type_table[uVar7].field_0x148,g_army_type_table[uVar7].unit_class
+                   g_army_type_table[uVar7].visibility_zone_mask,g_army_type_table[uVar7].unit_class
                    ,g_army_type_table[uVar7].special_visibility_attack_gate);
     }
   }

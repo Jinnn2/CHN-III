@@ -399,6 +399,7 @@ higher ids.
 | `+0x3c` | Battle action loops compare animation/action counters against it. | battle action frame count. |
 | `+0x60` | `Load_Dat` validates mission `0x29` counter `ArmyUnit +0x12a` against it. | mission range limit. |
 | `+0x90` | `Load_Dat` validates idle class-2 mission counter against it. | special mission range limit. |
+| `+0xe8` | `Apply_OrderQueue_Army` plays this id through the sound helper for visible unit action transitions when the byte is nonnegative. | order/action sound id. |
 | `+0xec` | Unit production UI and AI classify/order unit choices with this late table field. | build priority / AI rank. |
 | `+0xf0` | `City_Building` and `Put_City_Make` compare city build progress against it. | build cost. |
 | `+0xf4` | Derived by `Load_Dat` from the magnitude of `build_cost`. | build cost digit count/display width. |
@@ -407,14 +408,20 @@ higher ids.
 | `+0x110` | `Load_Dat` caches it into `ArmyUnit +0x138` after scaling; UI displays it divided by 9. | movement/speed. |
 | `+0x114` | Battle AI compares range/rank counters with this value. | battle minimum range / rank. |
 | `+0x118..` | Early indexes are used by battle class interactions; city support code can render later offsets from this base in Ghidra output. | combat/support value block. |
+| `+0x124` | Battle entry and unclear/offensive AI give special handling to values `1` and `2` when selecting or allowing defenders. | battle entry target class. |
 | `+0x128` | Battle entry paths compute rank-up retry thresholds as `3 << value`; value `1` also enables an alternate defender-scan path. | battle entry rank threshold shift. |
 | `+0x12c` | Transport validation in `Load_Dat`, `AI_Diplomat`, and `Map_To_Battle_Army` requires this to be nonzero for carriers. | transport capacity. |
 | `+0x130/+0x134` | Battle entry paths combine these flags with carried/subunit types and `transport_mask` when deciding defender interaction coverage. | battle entry capability flags. |
 | `+0x138` | Load repair intersects this with carried-unit capability masks. | transport mask. |
+| `+0x13c` | `Order_Check`, `Order_Join_Sel`, `Order_Join_All`, and `AI_Army` require matching positive values before same-tile units can merge. | join group id. |
 | `+0x140/+0x144` | Near-city/air and transport checks compare capability bitmasks through these fields. | capability / transportable masks. |
+| `+0x148` | `Add_New_View`, `BreakOut`, `Army_Belong_Change`, and the order applier pass this as the visibility/zone mask when adding or removing unit vision. | visibility zone mask. |
 | `+0x160` | `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battle step frame count. |
 | `+0x164/+0x184` | `City_Belong_Change` adds/removes shorts from city protection/resource counters while units are stationed. | city support deltas. |
+| `+0x1a4` | `City_Building_AI` compares this value between candidate unit types to bias production choice. | city AI unit weight. |
 | `+0x1b4/+0x1b8` | `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |
+| `+0x1c8` | `Do_Battle_Army_And_Battle_Die` changes attack action selection when this byte is greater than `1`. | battle attack mode. |
+| `+0x1cc` | `Do_Army_TurnJob`, `City_Resource_Change`, and keyboard/UI display paths recharge or show `ArmyUnit +0x132` against this limit. | supply/charge limit. |
 | `+0x1d4` | Battle entry paths pass it to the rank-up handler when a unit reaches veteran/power level `4`; negative values gate rank growth past level `3`. | elite rank reward or unlock. |
 | `+0x1d8` | Special battle entry path for army type `0x29` tests this with defender tile visibility before allowing interaction. | special visibility attack gate. |
 | `+0x1f8..` | `Put_City_Make` compares 40 resource slots against city/country resource availability. | resource cost by kind. |

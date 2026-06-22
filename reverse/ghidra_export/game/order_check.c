@@ -841,7 +841,7 @@ LAB_00494c05:
           if ((((pAVar3 != (ArmyUnit_0x164_plus *)0x0) && (pAVar3 != DAT_007584dc)) &&
               (pAVar3->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
              (*(int *)(DAT_007584e4 + 0x13c) ==
-              *(int *)&g_army_type_table[pAVar3->army_type_id].field_0x13c)) {
+              g_army_type_table[pAVar3->army_type_id].join_group_id)) {
             bVar2 = pAVar3->mission_action_id;
             uVar12 = 0xffffffff;
             pcVar17 = &DAT_0057e230;

@@ -611,7 +611,7 @@ LAB_0040cb46:
                 (g_battle_defender_land_tile->linked_record == (void *)0x0)))))) ||
              ((bVar11 ||
               ((pAVar8 != (ArmyUnit_0x164_plus *)0x0 &&
-               (*(int *)&g_army_type_table[uVar27].field_0x124 != 1)))))) goto LAB_0040cf2e;
+               (g_army_type_table[uVar27].battle_entry_target_class != 1)))))) goto LAB_0040cf2e;
           iVar26 = 0;
           if (g_army_type_table[uVar15].unit_class == 0) {
             if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {

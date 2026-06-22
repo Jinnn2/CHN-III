@@ -87,7 +87,7 @@ switchD_004132fe_switchD:
       do {
         pbVar3 = *(byte **)pcVar10;
         if (((pbVar3 != (byte *)0x0) && (*(int *)(pbVar3 + 0x144) == 0)) &&
-           (*(int *)&g_army_type_table[*pbVar3].field_0x148 != 0)) goto LAB_004133c9;
+           (g_army_type_table[*pbVar3].visibility_zone_mask != 0)) goto LAB_004133c9;
         iVar12 = iVar12 + 1;
         pcVar10 = pcVar10 + 4;
       } while (iVar12 < 10);
@@ -98,7 +98,7 @@ switchD_004132fe_switchD:
       do {
         pbVar3 = *(byte **)pcVar10;
         if (((pbVar3 != (byte *)0x0) && (*(int *)(pbVar3 + 0x144) == 0)) &&
-           (*(int *)&g_army_type_table[*pbVar3].field_0x148 != 0)) goto LAB_004133c9;
+           (g_army_type_table[*pbVar3].visibility_zone_mask != 0)) goto LAB_004133c9;
         iVar12 = iVar12 + 1;
         pcVar10 = pcVar10 + 4;
       } while (iVar12 < 10);

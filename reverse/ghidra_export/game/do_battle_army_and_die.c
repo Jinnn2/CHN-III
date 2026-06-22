@@ -84,7 +84,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
     if ((((g_army_type_table[iVar18].attack_stat_a < 2) &&
          (g_army_type_table[iVar18].attack_stat_b < 2)) &&
         (g_army_type_table[iVar18].attack_stat_c < 2)) ||
-       ('\x01' < (char)g_army_type_table[iVar18].field_0x1c8)) goto LAB_00417738;
+       ('\x01' < (char)g_army_type_table[iVar18].battle_attack_mode)) goto LAB_00417738;
     if (g_army_type_table[iVar18].combat_or_support_values[0] < 2) {
       iVar18 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
       iVar19 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
@@ -480,7 +480,8 @@ LAB_0041630f:
                     if ((((*(int *)(iVar12 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0) ||
                          ((*(int *)(iVar12 * 0x400 + 0x5aa3c0 + iVar19 * 4) < 4 ||
                           (iVar20 <= g_army_type_table[iVar12].combat_or_support_values[0])))) ||
-                        (iVar20 < 3)) || ('\x01' < (char)g_army_type_table[iVar12].field_0x1c8)) {
+                        (iVar20 < 3)) ||
+                       ('\x01' < (char)g_army_type_table[iVar12].battle_attack_mode)) {
                       battle_unit->action_state = 0x29;
                       battle_unit->action_substate = iVar20;
                     }

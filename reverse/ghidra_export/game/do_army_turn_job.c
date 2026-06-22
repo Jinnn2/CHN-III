@@ -88,7 +88,7 @@ switchD_004913b2_default:
           }
         }
         if ((pAVar3->stationed_city == (City_0x1b8_plus *)0x0) &&
-           ((int)(char)pAVar3->field_0x132 < *(int *)&g_army_type_table[uVar6].field_0x1cc)) {
+           ((int)(char)pAVar3->field_0x132 < g_army_type_table[uVar6].supply_charge_limit)) {
           pAVar3->field_0x132 = pAVar3->field_0x132 + '\x01';
         }
         if (g_army_type_table[uVar6].unit_class == 2) {
@@ -109,7 +109,7 @@ switchD_004913b2_default:
                 ppAVar7 = ppAVar7 + 1;
               } while (iVar11 < 10);
             }
-            if ((int)(char)pAVar3->field_0x132 < *(int *)&g_army_type_table[uVar6].field_0x1cc) {
+            if ((int)(char)pAVar3->field_0x132 < g_army_type_table[uVar6].supply_charge_limit) {
               pAVar3->field_0x132 = pAVar3->field_0x132 + '\x01';
             }
           }

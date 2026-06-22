@@ -125,7 +125,7 @@ LAB_0047152a:
         *(undefined2 *)&pAVar7->field_0x124 = *(undefined2 *)&pAVar4->field_0x124;
         Add_New_View((int)pAVar7->render_or_anim_x,(int)pAVar7->render_or_anim_y,1,
                      (int)(char)pAVar7->owner_country_id,0,
-                     *(int *)&g_army_type_table[bVar2].field_0x148,
+                     g_army_type_table[bVar2].visibility_zone_mask,
                      g_army_type_table[bVar2].unit_class,
                      g_army_type_table[bVar2].special_visibility_attack_gate);
       }
@@ -137,7 +137,7 @@ LAB_0047152a:
       }
       Add_New_View((int)pAVar7->tile_x,(int)pAVar7->tile_y,iVar11,
                    (int)(char)pAVar7->owner_country_id,0,
-                   *(int *)&g_army_type_table[bVar2].field_0x148,g_army_type_table[bVar2].unit_class
+                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
                    ,g_army_type_table[bVar2].special_visibility_attack_gate);
 LAB_004716de:
       uVar6 = (uint)pAVar4->cargo_or_subunit_count;
@@ -257,7 +257,7 @@ LAB_0047173e:
       pAVar4->mission_action_id = 0;
       pAVar4[1].army_type_id = 0x28;
       Add_New_View((int)pAVar4->tile_x,(int)pAVar4->tile_y,1,(int)(char)pAVar4->owner_country_id,0,
-                   *(int *)&g_army_type_table[bVar1].field_0x148,g_army_type_table[bVar1].unit_class
+                   g_army_type_table[bVar1].visibility_zone_mask,g_army_type_table[bVar1].unit_class
                    ,g_army_type_table[bVar1].special_visibility_attack_gate);
       return;
     }
@@ -313,12 +313,12 @@ LAB_0047173e:
       *(undefined2 *)&pAVar4->field_0x124 = *(undefined2 *)&pAVar7->field_0x124;
     }
     Add_New_View((int)pAVar4->tile_x,(int)pAVar4->tile_y,1,(int)(char)pAVar4->owner_country_id,0,
-                 *(int *)&g_army_type_table[bVar1].field_0x148,g_army_type_table[bVar1].unit_class,
+                 g_army_type_table[bVar1].visibility_zone_mask,g_army_type_table[bVar1].unit_class,
                  g_army_type_table[bVar1].special_visibility_attack_gate);
     if (pAVar4->mission_state != 0) {
       Add_New_View((int)pAVar4->render_or_anim_x,(int)pAVar4->render_or_anim_y,1,
                    (int)(char)pAVar4->owner_country_id,0,
-                   *(int *)&g_army_type_table[bVar1].field_0x148,g_army_type_table[bVar1].unit_class
+                   g_army_type_table[bVar1].visibility_zone_mask,g_army_type_table[bVar1].unit_class
                    ,g_army_type_table[bVar1].special_visibility_attack_gate);
     }
   }

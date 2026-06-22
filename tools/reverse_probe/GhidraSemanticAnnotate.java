@@ -527,6 +527,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Load_Dat validates mission counter 0x12a against it for mission 0x29");
         replaceAt(armyTypeDef, 0x90, IntegerDataType.dataType, 4, "special_mission_range_limit",
             "Load_Dat validates type class 2 idle mission counter against it");
+        replaceAt(armyTypeDef, 0xe8, ByteDataType.dataType, 1, "order_action_sound_id",
+            "Apply_OrderQueue_Army plays this sound id for visible unit action transitions when nonnegative");
         replaceAt(armyTypeDef, 0xec, IntegerDataType.dataType, 4, "build_priority_or_ai_rank",
             "city build AI and production UI classify units through this late table field");
         replaceAt(armyTypeDef, 0xf0, IntegerDataType.dataType, 4, "build_cost",
@@ -551,6 +553,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle AI compares this field against action counters");
         replaceAt(armyTypeDef, 0x118, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
             "combat_or_support_values", "battle resolution indexes early entries by defender unit class; city support code can render later offsets as distant indexes from this base");
+        replaceAt(armyTypeDef, 0x124, IntegerDataType.dataType, 4, "battle_entry_target_class",
+            "battle entry and AI target selection treat values 1 and 2 as special defender/priority classes");
         replaceAt(armyTypeDef, 0x128, IntegerDataType.dataType, 4, "battle_entry_rank_threshold_shift",
             "battle entry paths compute veteran/rank retry threshold as 3 shifted by this value");
         replaceAt(armyTypeDef, 0x12c, IntegerDataType.dataType, 4, "transport_capacity",
@@ -561,20 +565,30 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle entry paths combine this with carried/subunit types beside capability_a and transport_mask");
         replaceAt(armyTypeDef, 0x138, IntegerDataType.dataType, 4, "transport_mask",
             "load repair intersects this bitmask with carried unit capability masks");
+        replaceAt(armyTypeDef, 0x13c, IntegerDataType.dataType, 4, "join_group_id",
+            "join/order handlers require matching positive values before merging same-tile units");
         replaceAt(armyTypeDef, 0x140, IntegerDataType.dataType, 4, "air_or_city_capability_mask",
             "near-city-with-air logic compares this with active unit capability masks");
         replaceAt(armyTypeDef, 0x144, IntegerDataType.dataType, 4, "transportable_mask",
             "AI diplomat checks parent transport capacity against this mask");
+        replaceAt(armyTypeDef, 0x148, IntegerDataType.dataType, 4, "visibility_zone_mask",
+            "Add_New_View and army ownership/visibility transitions use this as the zone mask argument");
         replaceAt(armyTypeDef, 0x160, IntegerDataType.dataType, 4, "battle_step_frame_count",
             "battle animation and auto-arrange compare step/action counters against this field");
         replaceAt(armyTypeDef, 0x164, ShortDataType.dataType, 2, "city_support_delta_a",
             "City_Belong_Change adds/removes this short while units are stationed in a city");
         replaceAt(armyTypeDef, 0x184, ShortDataType.dataType, 2, "city_support_delta_b",
             "City_Belong_Change adds/removes this short while units are stationed in a city");
+        replaceAt(armyTypeDef, 0x1a4, IntegerDataType.dataType, 4, "city_ai_unit_weight",
+            "City_Building_AI compares this weight between candidate unit types when selecting production");
         replaceAt(armyTypeDef, 0x1b4, IntegerDataType.dataType, 4, "prerequisite_building_a",
             "Put_City_Make requires this completed unless -1, with several special cases");
         replaceAt(armyTypeDef, 0x1b8, IntegerDataType.dataType, 4, "prerequisite_building_b",
             "second building prerequisite for unit production");
+        replaceAt(armyTypeDef, 0x1c8, ByteDataType.dataType, 1, "battle_attack_mode",
+            "battle action selection treats values above 1 as a restricted/special attack mode");
+        replaceAt(armyTypeDef, 0x1cc, IntegerDataType.dataType, 4, "supply_charge_limit",
+            "Do_Army_TurnJob and city resource change recharge ArmyUnit +0x132 up to this limit");
         replaceAt(armyTypeDef, 0x1d4, IntegerDataType.dataType, 4, "elite_rank_reward_or_unlock",
             "battle entry paths pass this to the rank-up handler when a unit reaches veteran/power level 4; negative values gate rank growth past level 3");
         replaceAt(armyTypeDef, 0x1d8, IntegerDataType.dataType, 4, "special_visibility_attack_gate",
