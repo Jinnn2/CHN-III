@@ -40,7 +40,7 @@ void City_Resource_Change(void)
   double local_1a0;
   undefined1 local_194 [204];
   undefined1 local_c8 [196];
-  
+
   Trace_Function();
   pCVar15 = g_active_country;
   local_1a0 = 0.0;
@@ -49,7 +49,7 @@ void City_Resource_Change(void)
     DAT_00755914 = DAT_00755914 + local_1b4;
   }
   iVar4 = (int)(char)pCVar15->resource_pressure_level -
-          *(int *)(&DAT_005992a8 + pCVar15->government_or_ai_mode * 0x74);
+          g_government_defs[pCVar15->government_or_ai_mode].resource_pressure_tolerance;
   if (iVar4 < 1) {
     if (iVar4 < 0) {
       DAT_007068e0 = DAT_007068e0 + iVar4 * -5;
@@ -284,7 +284,7 @@ LAB_00426559:
   if (g_active_country_index == g_human_country_index) {
     DAT_0074d4e8 = DAT_0074d4e8 + uVar9;
   }
-  iVar4 = *(int *)(&DAT_0059929c + g_active_country->government_or_ai_mode * 0x74);
+  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].income_loss_or_tax_rate;
   if (pCVar14->safety_score < 0x1e) {
     iVar4 = iVar4 + 2;
   }
@@ -558,9 +558,8 @@ LAB_004272a6:
          (char)g_active_country->resource_pressure_level * 4;
   }
   pCVar15 = g_active_country;
-  iVar4 = *(int *)(&DAT_005992c8 +
-                  ((int)(char)g_active_country->research_efficiency_level +
-                  g_active_country->government_or_ai_mode * 0x1d) * 4);
+  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].research_efficiency_modifiers
+          [(char)g_active_country->research_efficiency_level];
   if (iVar4 < 1) {
     DAT_007068e0 = DAT_007068e0 + iVar4;
     if (iVar4 != 0) {
@@ -748,17 +747,19 @@ LAB_004277b9:
     DAT_007068d8 = DAT_007068d8 + 0x1e;
   }
   DAT_007068e0 = DAT_007068e0 +
-                 *(int *)(&DAT_00599290 + g_active_country->government_or_ai_mode * 0x74) * 10;
-  if (0 < *(int *)(&DAT_005992ac + g_active_country->government_or_ai_mode * 0x74)) {
+                 g_government_defs[g_active_country->government_or_ai_mode].
+                 morale_or_happiness_modifier * 10;
+  if (0 < g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count) {
     if ((int)(char)g_current_city_land_tile->army_count_or_occupant_count <
-        *(int *)(&DAT_005992ac + g_active_country->government_or_ai_mode * 0x74)) {
+        g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count) {
       DAT_007068e0 = DAT_007068e0 + -10;
       DAT_007068d8 = DAT_007068d8 + 10;
     }
     else {
       DAT_007068d8 = DAT_007068d8 + -0x1e;
       if (DAT_007068e0 < 0x32) {
-        if (*(int *)(&DAT_005992b0 + g_active_country->government_or_ai_mode * 0x74) == -1) {
+        if (g_government_defs[g_active_country->government_or_ai_mode].
+            maximum_garrison_count_or_bonus_mode == -1) {
           iVar4 = (char)g_current_city_land_tile->army_count_or_occupant_count * 0x14;
           if (0x32 < iVar4) {
             iVar4 = 0x32;
@@ -771,13 +772,15 @@ LAB_004277b9:
       }
     }
   }
-  if ((0 < *(int *)(&DAT_005992b0 + g_active_country->government_or_ai_mode * 0x74)) &&
-     (*(int *)(&DAT_005992b0 + g_active_country->government_or_ai_mode * 0x74) <
+  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].
+           maximum_garrison_count_or_bonus_mode) &&
+     (g_government_defs[g_active_country->government_or_ai_mode].
+      maximum_garrison_count_or_bonus_mode <
       (int)(char)g_current_city_land_tile->army_count_or_occupant_count)) {
     DAT_007068e0 = DAT_007068e0 + -10;
     DAT_007068d8 = DAT_007068d8 + 0x14;
   }
-  iVar4 = *(int *)(&DAT_005992b4 + g_active_country->government_or_ai_mode * 0x74);
+  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].stationed_unit_away_limit;
   local_1b0 = (double)CONCAT44(local_1b0._4_4_,iVar4);
   if (0 < iVar4) {
     iVar19 = 0;
@@ -798,8 +801,8 @@ LAB_004277b9:
       DAT_007068d8 = DAT_007068d8 + 0x14;
     }
   }
-  if ((0 < *(int *)(&DAT_005992b8 + g_active_country->government_or_ai_mode * 0x74)) &&
-     (*(int *)(&DAT_005992b8 + g_active_country->government_or_ai_mode * 0x74) <
+  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].city_round_timer_limit) &&
+     (g_government_defs[g_active_country->government_or_ai_mode].city_round_timer_limit <
       (int)g_current_city->round_or_protection_timer)) {
     DAT_007068e0 = DAT_007068e0 + -10;
     DAT_007068d8 = DAT_007068d8 + 0x14;
@@ -882,4 +885,3 @@ LAB_00427ae5:
   }
   return;
 }
-

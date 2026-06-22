@@ -35,7 +35,7 @@ void City_Building(void)
   undefined4 uVar22;
   undefined1 local_188 [192];
   undefined1 local_c8 [196];
-  
+
   Trace_Function();
   iVar15 = 0;
   if ((char)g_active_country->production_freeze_flag < '\x01') {
@@ -185,9 +185,9 @@ LAB_00422234:
            g_current_city->building_income_yield + g_building_defs[iVar14].income_yield_delta;
       City_Loyal_Change(g_current_city);
       City_Happy_Change(g_current_city,
-                        (*(int *)(&DAT_00599290 + g_active_country->government_or_ai_mode * 0x74) *
-                         g_building_defs[iVar14].business_delta * 10) / 100 +
-                        g_building_defs[iVar14].business_delta);
+                        (g_government_defs[g_active_country->government_or_ai_mode].
+                         morale_or_happiness_modifier * g_building_defs[iVar14].business_delta * 10)
+                        / 100 + g_building_defs[iVar14].business_delta);
       City_Safe_Change(g_current_city);
       City_Business_Change(g_current_city);
       bVar12 = g_current_city->forced_worker_mode;
@@ -616,4 +616,3 @@ LAB_004224d1:
   g_current_city->build_progress = 0;
   return;
 }
-

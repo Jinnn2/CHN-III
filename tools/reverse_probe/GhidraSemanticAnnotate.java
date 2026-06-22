@@ -44,6 +44,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType specialProjectDef;
     private StructureDataType scienceDef;
     private StructureDataType countryProfileDef;
+    private StructureDataType governmentDef;
     private StructureDataType mapScenarioInfo;
     private StructureDataType dataFormat;
 
@@ -787,6 +788,43 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Before_Edit_Empire_Hero binds this dword to an option-list editor control");
         resolve(countryProfileDef);
 
+        governmentDef = fixedStruct("GovernmentDef_0x74", 0x74);
+        replaceAt(governmentDef, 0x08, IntegerDataType.dataType, 4, "morale_or_happiness_modifier",
+            "city building completion and resource-change stability paths use this as a government happiness/stability modifier");
+        replaceAt(governmentDef, 0x0c, IntegerDataType.dataType, 4, "government_value_0c",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x10, IntegerDataType.dataType, 4, "trade_or_city_business_multiplier",
+            "City_Business multiplies inter-city yield by this government factor");
+        replaceAt(governmentDef, 0x14, IntegerDataType.dataType, 4, "income_loss_or_tax_rate",
+            "City_Resource_Change uses this as a percent-like income loss/tax factor adjusted by safety/buildings");
+        replaceAt(governmentDef, 0x18, IntegerDataType.dataType, 4, "government_value_18",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x1c, IntegerDataType.dataType, 4, "government_value_1c",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x20, IntegerDataType.dataType, 4, "resource_pressure_tolerance",
+            "City_Resource_Change subtracts this from country resource_pressure_level before applying stability effects");
+        replaceAt(governmentDef, 0x24, IntegerDataType.dataType, 4, "minimum_garrison_count",
+            "City_Resource_Change penalizes cities with fewer tile occupants than this threshold");
+        replaceAt(governmentDef, 0x28, IntegerDataType.dataType, 4, "maximum_garrison_count_or_bonus_mode",
+            "City_Resource_Change applies bonuses for -1 and penalties when tile occupants exceed this positive threshold");
+        replaceAt(governmentDef, 0x2c, IntegerDataType.dataType, 4, "stationed_unit_away_limit",
+            "City_Resource_Change counts stationed units away from the city tile and penalizes excess");
+        replaceAt(governmentDef, 0x30, IntegerDataType.dataType, 4, "city_round_timer_limit",
+            "City_Resource_Change penalizes cities whose round/protection timer exceeds this threshold");
+        replaceAt(governmentDef, 0x34, IntegerDataType.dataType, 4, "government_value_34",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x38, IntegerDataType.dataType, 4, "ai_force_threshold",
+            "City_Building_AI compares total force/unit count against this government threshold");
+        replaceAt(governmentDef, 0x3c, IntegerDataType.dataType, 4, "government_value_3c",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x40, new ArrayDataType(IntegerDataType.dataType, 11, 4), 0x2c,
+            "research_efficiency_modifiers", "City_Resource_Change indexes this eleven-dword block by country research_efficiency_level");
+        replaceAt(governmentDef, 0x6c, IntegerDataType.dataType, 4, "government_value_6c",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x70, IntegerDataType.dataType, 4, "government_value_70",
+            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        resolve(governmentDef);
+
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
         resolve(new TypedefDataType(cat, "LandTilePtr", new PointerDataType(landTile, dtm)));
         resolve(new TypedefDataType(cat, "CountryStatePtr", new PointerDataType(country, dtm)));
@@ -866,6 +904,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x42f290L, "Add_New_DataFormat"),
             new Rename(0x452110L, "Before_Edit_Army"),
             new Rename(0x454570L, "Before_Edit_Build"),
+            new Rename(0x45d6f0L, "Before_Edit_Goverment"),
             new Rename(0x45ee10L, "Before_Edit_Empire_Hero"),
             new Rename(0x450490L, "Do_City"),
             new Rename(0x4514f0L, "Prepare_City_Doing"),
@@ -1046,6 +1085,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005a19d4L, "g_special_project_defs", new ArrayDataType(specialProjectDef, 0x19, specialProjectDef.getLength())),
             new GlobalRename(0x005817a8L, "g_science_defs", new ArrayDataType(scienceDef, 200, scienceDef.getLength())),
             new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
+            new GlobalRename(0x00599288L, "g_government_defs", new ArrayDataType(governmentDef, 8, governmentDef.getLength())),
             new GlobalRename(0x0075cf00L, "g_present_use_blt_mode", IntegerDataType.dataType),
             new GlobalRename(0x0075cf18L, "g_present_dst_rect", new ArrayDataType(IntegerDataType.dataType, 4, 4)),
             new GlobalRename(0x0075cf38L, "g_present_src_left", IntegerDataType.dataType),

@@ -22,6 +22,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
+| `GovernmentDef_0x74` | Static table starts at `0x00599288`; `Load_Dat` copies `0x3a0` bytes, i.e. 8 records of `0x74`; country `government_or_ai_mode` indexes this table. | Government/civic modifier table. |
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 | `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
 | `MapScenarioInfo_0x16c` | `Load_Map_GameInfo` reads custom-map metadata in `0x16c` records; `Load_Dat` reads the same shape into `g_current_map_scenario_info`; `Before_Window_Edit_File_Detail` builds an editor form over the current record. | Map/scenario header and editor-visible rules. |
@@ -44,6 +45,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_special_project_defs` | `0x005a19d4`, 25 records, `0x200` byte stride. | Static special-project definitions. |
 | `g_science_defs` | `0x005817a8`, 200 records, `0x88` byte stride. | Static science/research definitions. |
 | `g_country_profile_defs` | `0x00596218`, 100 records, `0x7c` byte stride. | Static country profile definitions and modifiers. |
+| `g_government_defs` | `0x00599288`, 8 records, `0x74` byte stride. | Static government/civic modifier definitions. |
 | `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
 | `g_battle_unit_count_by_side` | `Battle_AutoArrange` sizes an 8-byte work array from it; `Map_To_Battle_Army` clears both entries before battle setup. | Battle unit/formation count for side 0/1. |
 | `g_battle_unit_list_head_by_side` | `Battle_AutoArrange` and arrange/UI code traverse `BattleUnit_0x64.next_battle_unit` from these heads. | Per-side linked-list heads for battle records. |
@@ -103,6 +105,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
+| `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
@@ -445,6 +448,31 @@ table editor calls around `0x0045ee10` expose many columns with base
 | `+0x74` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
 | `+0x78` | `Before_Edit_Empire_Hero` binds this dword to an option-list control. | editor-visible profile selector. |
 
+### `GovernmentDef_0x74`
+
+`Load_Dat` copies a `0x3a0` byte static government table from the save/static
+data stream into `0x00599288`. `Before_Edit_Goverment` exposes the same base
+with stride `0x74`, so the table is 8 records. Active countries index it with
+`CountryState_0xe68.government_or_ai_mode`.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x08` | `City_Building` applies it to building `business_delta`; `City_Resource_Change` adds `value * 10` to city stability/happiness. | morale or happiness modifier. |
+| `+0x0c` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
+| `+0x10` | `City_Business` multiplies inter-city yield by this value. | trade / city business multiplier. |
+| `+0x14` | `City_Resource_Change` uses it as a percent-like income loss/tax factor, adjusted by safety and buildings. | income loss or tax rate. |
+| `+0x18/+0x1c` | `Before_Edit_Goverment` exposes these dwords as editable numeric fields. | editor-visible government values. |
+| `+0x20` | `City_Resource_Change` subtracts it from country resource-pressure level before applying stability effects. | resource pressure tolerance. |
+| `+0x24` | `City_Resource_Change` penalizes cities with fewer tile occupants than this threshold. | minimum garrison count. |
+| `+0x28` | `City_Resource_Change` treats `-1` as a garrison bonus mode and positive values as an over-garrison penalty threshold. | maximum garrison count or bonus mode. |
+| `+0x2c` | `City_Resource_Change` counts stationed units away from the city tile and penalizes excess. | stationed unit away limit. |
+| `+0x30` | `City_Resource_Change` penalizes cities whose round/protection timer exceeds this threshold. | city round timer limit. |
+| `+0x34` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
+| `+0x38` | `City_Building_AI` compares total force/unit count against this value before choosing a build branch. | AI force threshold. |
+| `+0x3c` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
+| `+0x40..0x6b` | `City_Resource_Change` indexes this 11-dword block by country `research_efficiency_level`. | research efficiency modifiers. |
+| `+0x6c/+0x70` | `Before_Edit_Goverment` exposes these dwords as editable numeric fields. | editor-visible government values. |
+
 ## Resource Containers
 
 `.EMG` and `.XMG` resources share a compact container shape used by
@@ -524,10 +552,11 @@ important code-first files are:
   toggle, whole-map backup allocation, and the left/right-click editor map
   mutation paths.
 - `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
-  `editor/before_edit_army.c`, `editor/before_edit_build.c`, and
-  `editor/before_edit_empire_hero.c`: generic editor form binding plus
-  unit/building/country-profile table setup, useful for recovering static
-  data-table semantics from editor controls.
+  `editor/before_edit_army.c`, `editor/before_edit_build.c`,
+  `editor/before_edit_government.c`, and `editor/before_edit_empire_hero.c`:
+  generic editor form binding plus unit/building/government/country-profile
+  table setup, useful for recovering static data-table semantics from editor
+  controls.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

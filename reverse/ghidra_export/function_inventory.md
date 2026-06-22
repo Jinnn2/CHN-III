@@ -239,7 +239,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0045c640` | `FUN_0045c640` | 207 | 4 |
 | `0x0045d0d0` | `FUN_0045d0d0` | 341 | 7 |
 | `0x0045d2c0` | `FUN_0045d2c0` | 436 | 1 |
-| `0x0045d6f0` | `FUN_0045d6f0` | 1993 | 4 |
+| `0x0045d6f0` | `Before_Edit_Goverment` | 1993 | 4 |
 | `0x0045e4d0` | `FUN_0045e4d0` | 931 | 4 |
 | `0x0045ee10` | `Before_Edit_Empire_Hero` | 2641 | 17 |
 | `0x00464a20` | `FUN_00464a20` | 88 | 1 |

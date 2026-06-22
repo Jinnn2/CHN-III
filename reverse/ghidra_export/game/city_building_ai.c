@@ -71,7 +71,7 @@ void City_Building_AI(void)
   int local_248;
   int local_244 [68];
   undefined4 auStack_134 [76];
-  
+
   Trace_Function(s_City_Building_AI_005157dc);
   bVar4 = false;
   bVar23 = false;
@@ -1000,7 +1000,7 @@ LAB_00424be1:
       }
       if ((19999 < pCVar18->stored_population_or_value) &&
          ((int)(uint)pCVar13->total_force_or_unit_count <
-          *(int *)(&DAT_005992c0 + pCVar13->government_or_ai_mode * 0x74))) {
+          g_government_defs[pCVar13->government_or_ai_mode].ai_force_threshold)) {
         if (*(ushort *)&pCVar13->field_0x7e == 0) {
           uVar24 = 0;
           goto LAB_00424ce2;
@@ -1090,4 +1090,3 @@ LAB_00423ebc:
   (*(code *)(&PTR_LAB_00424d08)[iVar19])();
   return;
 }
-
