@@ -138,8 +138,8 @@ int Find_Direct(int from_tile_x,uint from_tile_y,int to_tile_x,int to_tile_y)
     }
     else {
       iVar5 = uVar4 << 5;
-      while ((iVar1 != *(int *)((int)&DAT_00589374 + iVar5) ||
-             (iVar2 != *(int *)((int)&DAT_005893b4 + iVar5)))) {
+      while ((iVar1 != *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar5) ||
+             (iVar2 != *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar5)))) {
         iVar3 = iVar3 + 1;
         iVar5 = iVar5 + 4;
         if (7 < iVar3) {
@@ -263,8 +263,8 @@ int Find_Direct(int from_tile_x,uint from_tile_y,int to_tile_x,int to_tile_y)
     }
     else {
       iVar5 = uVar4 << 5;
-      while ((iVar1 != *(int *)((int)&DAT_00589374 + iVar5) ||
-             (iVar2 != *(int *)((int)&DAT_005893b4 + iVar5)))) {
+      while ((iVar1 != *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar5) ||
+             (iVar2 != *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar5)))) {
         iVar3 = iVar3 + 1;
         iVar5 = iVar5 + 4;
         if (7 < iVar3) {
@@ -388,8 +388,8 @@ int Find_Direct(int from_tile_x,uint from_tile_y,int to_tile_x,int to_tile_y)
     }
     else {
       iVar5 = uVar4 << 5;
-      while ((iVar1 != *(int *)((int)&DAT_00589374 + iVar5) ||
-             (iVar2 != *(int *)((int)&DAT_005893b4 + iVar5)))) {
+      while ((iVar1 != *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar5) ||
+             (iVar2 != *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar5)))) {
         iVar3 = iVar3 + 1;
         iVar5 = iVar5 + 4;
         if (7 < iVar3) {
@@ -513,8 +513,8 @@ int Find_Direct(int from_tile_x,uint from_tile_y,int to_tile_x,int to_tile_y)
     }
     else {
       iVar5 = uVar4 << 5;
-      while ((iVar1 != *(int *)((int)&DAT_00589374 + iVar5) ||
-             (iVar2 != *(int *)((int)&DAT_005893b4 + iVar5)))) {
+      while ((iVar1 != *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar5) ||
+             (iVar2 != *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar5)))) {
         iVar3 = iVar3 + 1;
         iVar5 = iVar5 + 4;
         if (7 < iVar3) {

@@ -89,8 +89,8 @@ void Make_City_Map(int param_1)
   local_60[6] = (byte *)0x0;
   local_60[7] = (byte *)0x0;
   do {
-    iVar13 = *(int *)((int)&DAT_005893b4 + iVar16 + iVar12) + (uint)uVar9;
-    iVar22 = *(int *)((int)&DAT_00589374 + iVar16 + iVar12) + (uint)uVar10;
+    iVar13 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar16 + iVar12) + (uint)uVar9;
+    iVar22 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar16 + iVar12) + (uint)uVar10;
     *(int *)((int)aiStack_40 + iVar16) = iVar22;
     *(int *)((int)aiStack_20 + iVar16) = iVar13;
     if (((-1 < iVar13) && (iVar13 < g_map_height_tiles)) &&

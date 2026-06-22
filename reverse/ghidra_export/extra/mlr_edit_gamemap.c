@@ -254,8 +254,7 @@ LAB_004b71a9:
       }
       if ((g_city_resource_defs[g_editor_selected_city_resource_id].
            requires_battle_feature_or_clearable != 0) &&
-         (*(int *)(&DAT_00589644 + (char)g_current_land_tile->battle_resource_or_feature_id * 4) < 1
-         )) {
+         (g_battle_feature_values[(char)g_current_land_tile->battle_resource_or_feature_id] < 1)) {
         FUN_00469f90(&DAT_0057f5d4,1);
         return;
       }

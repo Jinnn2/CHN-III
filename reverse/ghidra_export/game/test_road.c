@@ -287,8 +287,8 @@ switchD_004d32af_default:
       iVar15 = (g_testroad_start_y & 1U) << 5;
       pAVar5 = army;
       do {
-        iVar4 = *(int *)((int)&DAT_00589374 + iVar15) + g_testroad_start_x;
-        iVar12 = *(int *)((int)&DAT_005893b4 + iVar15) + g_testroad_start_y;
+        iVar4 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar15) + g_testroad_start_x;
+        iVar12 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar15) + g_testroad_start_y;
         if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
            (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -338,8 +338,8 @@ switchD_004d34fc_default:
         iVar15 = (g_testroad_target_y & 1U) << 5;
         pAVar5 = army;
         do {
-          iVar14 = *(int *)((int)&DAT_00589374 + iVar15) + g_testroad_target_x;
-          iVar12 = *(int *)((int)&DAT_005893b4 + iVar15) + g_testroad_target_y;
+          iVar14 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar15) + g_testroad_target_x;
+          iVar12 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar15) + g_testroad_target_y;
           if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
              (((-1 < iVar14 && (iVar14 < g_map_width_tiles)) ||
               (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -380,8 +380,8 @@ switchD_004d34fc_default:
         iVar15 = (g_testroad_target_y & 1U) << 5;
         pAVar17 = army;
         do {
-          iVar12 = *(int *)((int)&DAT_00589374 + iVar15) + g_testroad_target_x;
-          iVar14 = *(int *)((int)&DAT_005893b4 + iVar15) + g_testroad_target_y;
+          iVar12 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar15) + g_testroad_target_x;
+          iVar14 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar15) + g_testroad_target_y;
           if (((-1 < iVar14) && (iVar14 < g_map_height_tiles)) &&
              (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
               (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

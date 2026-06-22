@@ -41,8 +41,8 @@ void Reflash_City_Road(int param_1,int param_2,undefined1 param_3)
   local_60[4] = (char *)0x0;
   local_60[6] = (char *)0x0;
   do {
-    iVar8 = *(int *)((int)&DAT_005893b4 + iVar10 + iVar7) + (uint)uVar5;
-    iVar11 = (uint)uVar6 + *(int *)((int)&DAT_00589374 + iVar10 + iVar7);
+    iVar8 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar10 + iVar7) + (uint)uVar5;
+    iVar11 = (uint)uVar6 + *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar10 + iVar7);
     *(int *)((int)aiStack_40 + iVar10) = iVar11;
     *(int *)((int)aiStack_20 + iVar10) = iVar8;
     if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&

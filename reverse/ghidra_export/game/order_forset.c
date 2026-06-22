@@ -40,8 +40,8 @@ void Order_Forset(void)
     iVar4 = (DAT_00706840 & 1) << 5;
     iVar6 = iVar4;
     do {
-      local_5c = *(int *)((int)&DAT_00589374 + iVar6) + DAT_0070683c;
-      iVar10 = *(int *)((int)&DAT_005893b4 + iVar6) + DAT_00706840;
+      local_5c = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar6) + DAT_0070683c;
+      iVar10 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar6) + DAT_00706840;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < local_5c && (local_5c < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

@@ -42,8 +42,10 @@ void Order_Check(void)
       local_8 = 0;
       iVar11 = (int)DAT_007584dc->tile_x;
       do {
-        iVar15 = *(int *)((int)&DAT_00589374 + iVar8) + (int)DAT_007584dc->tile_x;
-        iVar10 = *(int *)((int)&DAT_005893b4 + iVar8) + (int)DAT_007584dc->tile_y;
+        iVar15 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar8) + (int)DAT_007584dc->tile_x
+        ;
+        iVar10 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar8) + (int)DAT_007584dc->tile_y
+        ;
         if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
            (((-1 < iVar15 && (iVar15 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

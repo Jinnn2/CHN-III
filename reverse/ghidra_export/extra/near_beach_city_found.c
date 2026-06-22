@@ -69,8 +69,8 @@ switchD_0048dcd1_default:
           param_1 = 0;
           iVar5 = (uVar11 & 1) << 5;
           do {
-            iVar10 = *(int *)((int)&DAT_00589374 + iVar5) + iVar9;
-            iVar6 = *(int *)((int)&DAT_005893b4 + iVar5) + uVar11;
+            iVar10 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar5) + iVar9;
+            iVar6 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar5) + uVar11;
             if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
                (((-1 < iVar10 && (iVar10 < g_map_width_tiles)) ||
                 (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

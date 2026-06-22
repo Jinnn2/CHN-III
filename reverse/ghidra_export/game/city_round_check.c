@@ -215,8 +215,10 @@ LAB_00428580:
                 iVar10 = uVar17 << 5;
                 iVar15 = 8;
                 do {
-                  iVar16 = *(int *)((int)&DAT_00589374 + iVar10) + g_current_city_x;
-                  iVar11 = *(int *)((int)&DAT_005893b4 + iVar10) + g_current_city_y;
+                  iVar16 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar10) +
+                           g_current_city_x;
+                  iVar11 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar10) +
+                           g_current_city_y;
                   if (((-1 < iVar11) && (iVar11 < g_map_height_tiles)) &&
                      (((-1 < iVar16 && (iVar16 < g_map_width_tiles)) ||
                       (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -254,8 +256,10 @@ LAB_00428580:
                 local_2a0 = 0;
                 local_258 = 8;
                 do {
-                  iVar11 = *(int *)((int)&DAT_00589374 + iVar10) + (uint)*(ushort *)(iVar21 + 0x16);
-                  iVar15 = *(int *)((int)&DAT_005893b4 + iVar10) + (uint)*(ushort *)(iVar21 + 0x18);
+                  iVar11 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar10) +
+                           (uint)*(ushort *)(iVar21 + 0x16);
+                  iVar15 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar10) +
+                           (uint)*(ushort *)(iVar21 + 0x18);
                   if (((-1 < iVar15) && (iVar15 < g_map_height_tiles)) &&
                      (((-1 < iVar11 && (iVar11 < g_map_width_tiles)) ||
                       (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

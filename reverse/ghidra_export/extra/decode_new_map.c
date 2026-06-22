@@ -132,8 +132,8 @@ void Decode_NewMap(int param_1,uint param_2)
   local_d8 = -1;
   iVar12 = (int)(param_2 & 1) * 0x20;
   do {
-    iVar6 = *(int *)((int)&DAT_00589374 + iVar9 + iVar12) + param_1;
-    iVar1 = *(int *)((int)&DAT_005893b4 + iVar9 + iVar12);
+    iVar6 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar9 + iVar12) + param_1;
+    iVar1 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar9 + iVar12);
     *(int *)((int)&local_104 + iVar9) = iVar6;
     iVar1 = iVar1 + param_2;
     *(int *)((int)local_40 + iVar9) = iVar1;
@@ -480,8 +480,8 @@ switchD_00431b84_default:
     cVar14 = -1;
     local_f4 = 2;
     local_f0 = 2;
-    iVar12 = (&DAT_0058937c)[(int)local_c4 * 8] + param_1;
-    iVar9 = (&DAT_005893bc)[(int)local_c4 * 8] + param_2;
+    iVar12 = g_hex_neighbor_delta_x_by_parity[(int)local_c4 * 8 + 2] + param_1;
+    iVar9 = g_hex_neighbor_delta_y_by_parity[(int)local_c4 * 8 + 2] + param_2;
     cVar15 = -1;
     local_b8 = -1;
     local_54 = -1;
@@ -526,8 +526,8 @@ switchD_00431b84_default:
       local_58 = (int)*pcVar7;
       local_50 = (&local_104)[pcVar7[8]];
     }
-    iVar12 = (&DAT_00589374)[(int)local_c4 * 8] + param_1;
-    iVar9 = (&DAT_005893b4)[(int)local_c4 * 8] + param_2;
+    iVar12 = g_hex_neighbor_delta_x_by_parity[(int)local_c4 * 8] + param_1;
+    iVar9 = g_hex_neighbor_delta_y_by_parity[(int)local_c4 * 8] + param_2;
     if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
        (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
         (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -556,8 +556,8 @@ switchD_00431b84_default:
       local_c8 = (int)*pcVar7;
       local_d0 = (&local_104)[pcVar7[8]];
     }
-    iVar12 = (&DAT_00589384)[(int)local_c4 * 8] + param_1;
-    iVar9 = (&DAT_005893c4)[(int)local_c4 * 8] + param_2;
+    iVar12 = g_hex_neighbor_delta_x_by_parity[(int)local_c4 * 8 + 4] + param_1;
+    iVar9 = g_hex_neighbor_delta_y_by_parity[(int)local_c4 * 8 + 4] + param_2;
     if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
        (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
         (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -586,8 +586,8 @@ switchD_00431b84_default:
       local_a8 = (int)*pcVar7;
       local_a4 = (&local_104)[pcVar7[8]];
     }
-    iVar12 = (&DAT_0058938c)[(int)local_c4 * 8] + param_1;
-    iVar9 = (&DAT_005893cc)[(int)local_c4 * 8] + param_2;
+    iVar12 = g_hex_neighbor_delta_x_by_parity[(int)local_c4 * 8 + 6] + param_1;
+    iVar9 = g_hex_neighbor_delta_y_by_parity[(int)local_c4 * 8 + 6] + param_2;
     if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
        (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
         (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

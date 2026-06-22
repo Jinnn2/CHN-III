@@ -274,7 +274,7 @@ LAB_0041e2d1:
           }
           if (-1 < *(char *)(local_1c + 0x16)) {
             FUN_0041f600((int)*(char *)(param_1 + 1),10,
-                         *(undefined4 *)(&DAT_00589644 + *(char *)(local_1c + 0x16) * 4),0);
+                         g_battle_feature_values[*(char *)(local_1c + 0x16)],0);
             if ((*(int *)(&DAT_00735884 + iVar7) == 2) &&
                (uVar6 = Game_Random_Mod(0x1e), (short)uVar6 == 0)) {
               FUN_0041f600((int)*(char *)(param_1 + 1),0xf,1,0);

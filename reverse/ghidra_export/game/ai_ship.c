@@ -104,8 +104,11 @@ void AI_Ship(void)
       iVar23 = 0;
       pcVar14 = pcVar13;
       do {
-        iVar21 = *(int *)((int)&DAT_00589374 + local_70 * 0x20 + iVar23) + (int)sVar2;
-        pbVar18 = (byte *)((int)local_84 + *(int *)((int)&DAT_005893b4 + local_70 * 0x20 + iVar23));
+        iVar21 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + local_70 * 0x20 + iVar23) +
+                 (int)sVar2;
+        pbVar18 = (byte *)((int)local_84 +
+                          *(int *)((int)g_hex_neighbor_delta_y_by_parity + local_70 * 0x20 + iVar23)
+                          );
         *(undefined4 *)((int)aiStack_20 + iVar23) = 0;
         if (((-1 < (int)pbVar18) && ((int)pbVar18 < g_map_height_tiles)) &&
            (((-1 < iVar21 && (iVar21 < g_map_width_tiles)) ||
@@ -447,7 +450,7 @@ switchD_00407c1d_default:
               local_78 = (uint)sVar4;
               local_64 = (City_0x1b8_plus *)0x0;
               local_94 = (char *)(int)sVar2;
-              piVar17 = &DAT_00589374 + (local_78 & 1) * 8;
+              piVar17 = g_hex_neighbor_delta_x_by_parity + (local_78 & 1) * 8;
               local_88 = (City_0x1b8_plus *)0x0;
               local_68 = 8;
               do {
@@ -894,8 +897,9 @@ LAB_004084bb:
     iVar23 = local_70 << 5;
     local_88 = (City_0x1b8_plus *)0x8;
     do {
-      iVar21 = *(int *)((int)&DAT_00589374 + iVar23) + (int)*(short *)&_DAT_00748ff0->field_0x1a;
-      pbVar18 = (byte *)((int)local_84 + *(int *)((int)&DAT_005893b4 + iVar23));
+      iVar21 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar23) +
+               (int)*(short *)&_DAT_00748ff0->field_0x1a;
+      pbVar18 = (byte *)((int)local_84 + *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar23));
       if (((-1 < (int)pbVar18) && ((int)pbVar18 < g_map_height_tiles)) &&
          (((-1 < iVar21 && (iVar21 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

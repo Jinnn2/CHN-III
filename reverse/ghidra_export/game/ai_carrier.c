@@ -118,8 +118,9 @@ void AI_Carrier(void)
     iVar15 = 8;
     iVar20 = uVar9 << 5;
     do {
-      iVar17 = *(int *)((int)&DAT_00589374 + iVar20) + (int)_DAT_00748ff0->tile_x;
-      iVar14 = *(int *)((int)&DAT_005893b4 + iVar20) + local_8;
+      iVar17 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar20) + (int)_DAT_00748ff0->tile_x
+      ;
+      iVar14 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar20) + local_8;
       if (((-1 < iVar14) && (iVar14 < g_map_height_tiles)) &&
          (((-1 < iVar17 && (iVar17 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -295,7 +296,7 @@ switchD_00404e29_default:
                 pCVar18 = (CountryState_0xe68 *)(int)sVar3;
                 local_c = 0;
                 local_28 = 0;
-                piVar22 = &DAT_00589374 + ((uint)pCVar18 & 1) * 8;
+                piVar22 = g_hex_neighbor_delta_x_by_parity + ((uint)pCVar18 & 1) * 8;
                 local_8 = 8;
                 do {
                   iVar15 = (int)sVar2 + *piVar22;

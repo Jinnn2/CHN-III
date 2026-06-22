@@ -27,8 +27,8 @@ byte Irrigate_Able(LandTile_0x100 *tile,int tile_x,int tile_y,int allow_dry_neig
     tile = (LandTile_0x100 *)0x0;
     iVar2 = allow_dry_neighbor;
     do {
-      iVar4 = *(int *)((int)&DAT_00589374 + iVar1) + tile_x;
-      iVar3 = *(int *)((int)&DAT_005893b4 + iVar1) + tile_y;
+      iVar4 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar1) + tile_x;
+      iVar3 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar1) + tile_y;
       if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
          (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

@@ -43,8 +43,8 @@ LAB_00493c24:
     iVar8 = _g_land_tiles;
     iVar3 = g_map_width_tiles;
     do {
-      iVar7 = *(int *)((int)&DAT_00589374 + iVar10) + tile_x;
-      iVar4 = *(int *)((int)&DAT_005893b4 + iVar10) + tile_y;
+      iVar7 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar10) + tile_x;
+      iVar4 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar10) + tile_y;
       if (((-1 < iVar4) && (iVar4 < g_map_height_tiles)) &&
          (((-1 < iVar7 && (iVar7 < iVar3)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -137,8 +137,8 @@ switchD_00493c9b_default:
     do {
       if (bVar1) goto LAB_00493f3d;
       iVar3 = _variant + uVar6 * 8;
-      iVar5 = (&DAT_00589374)[iVar3] + tile_x;
-      iVar3 = (&DAT_005893b4)[iVar3] + tile_y;
+      iVar5 = g_hex_neighbor_delta_x_by_parity[iVar3] + tile_x;
+      iVar3 = g_hex_neighbor_delta_y_by_parity[iVar3] + tile_y;
       if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
          (((-1 < iVar5 && (iVar5 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -187,8 +187,8 @@ LAB_00493f3d:
       pcVar9 = (char *)tile_y;
       do {
         if (bVar2) break;
-        iVar3 = *(int *)((int)&DAT_00589374 + iVar8) + tile_x;
-        iVar5 = *(int *)((int)&DAT_005893b4 + iVar8) + tile_y;
+        iVar3 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar8) + tile_x;
+        iVar5 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar8) + tile_y;
         if (((-1 < iVar5) && (iVar5 < g_map_height_tiles)) &&
            (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

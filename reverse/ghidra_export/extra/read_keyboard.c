@@ -147,8 +147,8 @@ LAB_004b0d47:
     if ((uint)g_frame_tick < DAT_0071620c + 0x15eU) {
       if (DAT_00716204 + 0x32 <= (uint)g_frame_tick) {
         iVar10 = DAT_00589408 + (_DAT_0074a350 & 1) * 8;
-        _DAT_007161f8 = (&DAT_00589374)[iVar10];
-        iVar6 = (&DAT_005893b4)[iVar10];
+        _DAT_007161f8 = g_hex_neighbor_delta_x_by_parity[iVar10];
+        iVar6 = g_hex_neighbor_delta_y_by_parity[iVar10];
 joined_r0x004b0ef5:
         _DAT_007161fc = _DAT_0074a350 + iVar6;
         _DAT_007161f8 = _DAT_0074a348 + _DAT_007161f8;
@@ -164,8 +164,8 @@ joined_r0x004b0ef5:
     if ((uint)g_frame_tick < DAT_00716204 + 0x32) break;
     DAT_00716204 = g_frame_tick;
     iVar10 = DAT_00589408 + (_DAT_0074a350 & 1) * 8;
-    _DAT_007161fc = _DAT_0074a350 + (&DAT_005893b4)[iVar10] * 2;
-    _DAT_007161f8 = _DAT_0074a348 + (&DAT_00589374)[iVar10] * 2;
+    _DAT_007161fc = _DAT_0074a350 + g_hex_neighbor_delta_y_by_parity[iVar10] * 2;
+    _DAT_007161f8 = _DAT_0074a348 + g_hex_neighbor_delta_x_by_parity[iVar10] * 2;
     if (((int)_DAT_007161fc < 0) || (g_map_height_tiles <= (int)_DAT_007161fc)) break;
     if (((-1 < _DAT_007161f8) && (_DAT_007161f8 < g_map_width_tiles)) ||
        (g_current_map_scenario_info.horizontal_wrap_setting == 1)) {
@@ -193,8 +193,8 @@ joined_r0x004b0ef5:
     if (DAT_00716204 + 0x14 <= DAT_005e0030) {
       DAT_00716204 = DAT_005e0030;
       iVar10 = DAT_00589408 + (DAT_005e004c & 1) * 8;
-      _DAT_007161f8 = (&DAT_00589374)[iVar10] + DAT_005e0048;
-      _DAT_007161fc = (&DAT_005893b4)[iVar10] + DAT_005e004c;
+      _DAT_007161f8 = g_hex_neighbor_delta_x_by_parity[iVar10] + DAT_005e0048;
+      _DAT_007161fc = g_hex_neighbor_delta_y_by_parity[iVar10] + DAT_005e004c;
       if (_DAT_007161f8 < 0) {
         _DAT_007161f8 = 0;
       }
@@ -222,8 +222,8 @@ joined_r0x004b0ef5:
       if (DAT_00716204 + 0x32 <= (uint)g_frame_tick) {
         DAT_00716204 = g_frame_tick;
         iVar10 = DAT_00589408 + (_DAT_0074a350 & 1) * 8;
-        _DAT_007161fc = _DAT_0074a350 + (&DAT_005893b4)[iVar10] * 0xf;
-        _DAT_007161f8 = _DAT_0074a348 + (&DAT_00589374)[iVar10] * 0xc;
+        _DAT_007161fc = _DAT_0074a350 + g_hex_neighbor_delta_y_by_parity[iVar10] * 0xf;
+        _DAT_007161f8 = _DAT_0074a348 + g_hex_neighbor_delta_x_by_parity[iVar10] * 0xc;
         if ((-1 < (int)_DAT_007161fc) && ((int)_DAT_007161fc < g_map_height_tiles)) {
           if (((_DAT_007161f8 < 0) || (g_map_width_tiles <= _DAT_007161f8)) &&
              (g_current_map_scenario_info.horizontal_wrap_setting != 1)) goto LAB_004b11d8;
@@ -244,8 +244,8 @@ joined_r0x004b0fa5:
     }
     else if (DAT_00716204 + 0x32 <= (uint)g_frame_tick) {
       iVar10 = DAT_00589408 + (_DAT_0074a350 & 1) * 8;
-      iVar6 = (&DAT_005893b4)[iVar10] * 0xf;
-      _DAT_007161f8 = (&DAT_00589374)[iVar10] * 0xc;
+      iVar6 = g_hex_neighbor_delta_y_by_parity[iVar10] * 0xf;
+      _DAT_007161f8 = g_hex_neighbor_delta_x_by_parity[iVar10] * 0xc;
       goto joined_r0x004b0ef5;
     }
   }
@@ -732,8 +732,8 @@ LAB_004b1f53:
             iVar10 = 4;
           }
           iVar10 = iVar10 + ((int)_DAT_00748ff0->tile_y & 1U) * 8;
-          iVar6 = (&DAT_00589374)[iVar10] + (int)_DAT_00748ff0->tile_x;
-          iVar10 = (&DAT_005893b4)[iVar10] + (int)_DAT_00748ff0->tile_y;
+          iVar6 = g_hex_neighbor_delta_x_by_parity[iVar10] + (int)_DAT_00748ff0->tile_x;
+          iVar10 = g_hex_neighbor_delta_y_by_parity[iVar10] + (int)_DAT_00748ff0->tile_y;
           if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
              (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
               (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

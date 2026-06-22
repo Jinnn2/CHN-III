@@ -139,8 +139,8 @@ switchD_004b86b7_default:
             local_140 = 8;
             iVar12 = (uVar13 & 1) << 5;
             do {
-              Decode_Road(*(int *)((int)&DAT_00589374 + iVar12) + iVar15,
-                          *(int *)((int)&DAT_005893b4 + iVar12) + uVar13);
+              Decode_Road(*(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar12) + iVar15,
+                          *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar12) + uVar13);
               iVar12 = iVar12 + 4;
               local_140 = local_140 + -1;
               iVar9 = g_editor_tool_mode;

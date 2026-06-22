@@ -74,8 +74,8 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
   }
   iVar25 = *(int *)(&DAT_00589344 + (uint)param_1->facing_or_move_direction * 4) +
            ((int)param_1->tile_y & 1U) * 8;
-  local_58 = (&DAT_00589374)[iVar25] + (int)param_1->tile_x;
-  iVar25 = (&DAT_005893b4)[iVar25] + (int)param_1->tile_y;
+  local_58 = g_hex_neighbor_delta_x_by_parity[iVar25] + (int)param_1->tile_x;
+  iVar25 = g_hex_neighbor_delta_y_by_parity[iVar25] + (int)param_1->tile_y;
   if (((-1 < iVar25) && (iVar25 < g_map_height_tiles)) &&
      (((-1 < local_58 && (local_58 < g_map_width_tiles)) ||
       (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -259,9 +259,8 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
                   }
                 }
                 if ((-1 < (char)g_battle_defender_land_tile->battle_resource_or_feature_id) &&
-                   (1 < *(int *)(&DAT_00589644 +
-                                (char)g_battle_defender_land_tile->battle_resource_or_feature_id * 4
-                                ))) {
+                   (1 < g_battle_feature_values
+                        [(char)g_battle_defender_land_tile->battle_resource_or_feature_id])) {
                   iVar27 = iVar27 + (iVar29 >> 3);
                 }
               }
@@ -486,9 +485,8 @@ LAB_004980fc:
                 }
               }
               if ((-1 < (char)g_battle_defender_land_tile->battle_resource_or_feature_id) &&
-                 (1 < *(int *)(&DAT_00589644 +
-                              (char)g_battle_defender_land_tile->battle_resource_or_feature_id * 4))
-                 ) {
+                 (1 < g_battle_feature_values
+                      [(char)g_battle_defender_land_tile->battle_resource_or_feature_id])) {
                 uVar33 = uVar33 + ((int)uVar22 >> 3);
               }
             }

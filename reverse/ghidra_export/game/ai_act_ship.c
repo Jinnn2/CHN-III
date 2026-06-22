@@ -70,8 +70,8 @@ void AI_ActShip(void)
     local_c = 8;
     uVar5 = local_4;
     do {
-      iVar8 = *(int *)((int)&DAT_00589374 + iVar9) + local_8;
-      iVar6 = *(int *)((int)&DAT_005893b4 + iVar9) + (int)_DAT_00748ff0->tile_y;
+      iVar8 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar9) + local_8;
+      iVar6 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar9) + (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
          (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -174,8 +174,10 @@ LAB_004015de:
       local_c = 8;
       uVar5 = local_4;
       do {
-        iVar6 = *(int *)((int)&DAT_00589374 + iVar8) + g_search_round_best_tile_x;
-        iVar7 = *(int *)((int)&DAT_005893b4 + iVar8) + g_search_round_best_tile_y;
+        iVar6 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar8) + g_search_round_best_tile_x
+        ;
+        iVar7 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar8) + g_search_round_best_tile_y
+        ;
         if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
            (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -306,7 +308,7 @@ switchD_00401836_default:
           else {
             local_14 = 0;
             local_10 = 0;
-            piVar10 = &DAT_00589374 + (to_y & 1) * 8;
+            piVar10 = g_hex_neighbor_delta_x_by_parity + (to_y & 1) * 8;
             local_8 = 8;
             do {
               iVar6 = iVar8 + *piVar10;

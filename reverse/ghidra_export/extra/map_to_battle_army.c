@@ -272,8 +272,8 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
         iVar8 = iVar16;
         iVar17 = iVar7;
         if ((-1 < (char)g_battle_attacker_land_tile->battle_resource_or_feature_id) &&
-           (1 < *(int *)(&DAT_00589644 +
-                        (char)g_battle_attacker_land_tile->battle_resource_or_feature_id * 4))) {
+           (1 < g_battle_feature_values
+                [(char)g_battle_attacker_land_tile->battle_resource_or_feature_id])) {
           iVar19 = iVar19 + (local_a0 >> 3);
           iVar13 = iVar13 + (local_9c >> 3);
           iVar11 = iVar11 + (local_98 >> 3);
@@ -482,9 +482,8 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
               iVar4 = iVar6;
               iVar8 = iVar18;
               if ((-1 < (char)g_battle_attacker_land_tile->battle_resource_or_feature_id) &&
-                 (1 < *(int *)(&DAT_00589644 +
-                              (char)g_battle_attacker_land_tile->battle_resource_or_feature_id * 4))
-                 ) {
+                 (1 < g_battle_feature_values
+                      [(char)g_battle_attacker_land_tile->battle_resource_or_feature_id])) {
                 iVar20 = iVar20 + (local_a0 >> 3);
                 iVar14 = iVar14 + (local_9c >> 3);
                 local_48 = local_48 + (local_98 >> 3);
@@ -714,9 +713,8 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
                 iVar4 = iVar6;
                 iVar8 = iVar18;
                 if ((-1 < (char)g_battle_defender_land_tile->battle_resource_or_feature_id) &&
-                   (1 < *(int *)(&DAT_00589644 +
-                                (char)g_battle_defender_land_tile->battle_resource_or_feature_id * 4
-                                ))) {
+                   (1 < g_battle_feature_values
+                        [(char)g_battle_defender_land_tile->battle_resource_or_feature_id])) {
                   iVar21 = iVar21 + (local_94 >> 3);
                   iVar16 = iVar16 + (local_90 >> 3);
                   local_48 = local_48 + (local_8c >> 3);

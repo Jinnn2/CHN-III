@@ -64,8 +64,8 @@ void Decode_LongWall(int param_1,uint param_2)
       cVar4 = -1;
       cVar6 = -1;
       cVar8 = -1;
-      iVar12 = (&DAT_0058937c)[uVar14 * 8] + param_1;
-      iVar10 = (&DAT_005893bc)[uVar14 * 8] + param_2;
+      iVar12 = g_hex_neighbor_delta_x_by_parity[uVar14 * 8 + 2] + param_1;
+      iVar10 = g_hex_neighbor_delta_y_by_parity[uVar14 * 8 + 2] + param_2;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -92,8 +92,8 @@ void Decode_LongWall(int param_1,uint param_2)
         cVar1 = *(char *)(uVar11 + 0x24);
         cVar2 = *(char *)(uVar11 + 0xf);
       }
-      iVar12 = (&DAT_00589374)[uVar14 * 8] + param_1;
-      iVar10 = (&DAT_005893b4)[uVar14 * 8] + param_2;
+      iVar12 = g_hex_neighbor_delta_x_by_parity[uVar14 * 8] + param_1;
+      iVar10 = g_hex_neighbor_delta_y_by_parity[uVar14 * 8] + param_2;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -120,8 +120,8 @@ void Decode_LongWall(int param_1,uint param_2)
         cVar3 = *(char *)(uVar11 + 0x24);
         cVar4 = *(char *)(uVar11 + 0xf);
       }
-      iVar12 = (&DAT_00589384)[uVar14 * 8] + param_1;
-      iVar10 = (&DAT_005893c4)[uVar14 * 8] + param_2;
+      iVar12 = g_hex_neighbor_delta_x_by_parity[uVar14 * 8 + 4] + param_1;
+      iVar10 = g_hex_neighbor_delta_y_by_parity[uVar14 * 8 + 4] + param_2;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
@@ -148,8 +148,8 @@ void Decode_LongWall(int param_1,uint param_2)
         cVar5 = *(char *)(uVar11 + 0x24);
         cVar6 = *(char *)(uVar11 + 0xf);
       }
-      iVar12 = (&DAT_0058938c)[uVar14 * 8] + param_1;
-      iVar10 = (&DAT_005893cc)[uVar14 * 8] + param_2;
+      iVar12 = g_hex_neighbor_delta_x_by_parity[uVar14 * 8 + 6] + param_1;
+      iVar10 = g_hex_neighbor_delta_y_by_parity[uVar14 * 8 + 6] + param_2;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
           (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {

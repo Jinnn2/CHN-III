@@ -84,8 +84,8 @@ switchD_0048f776_default:
           local_18 = 0;
           iVar4 = (uVar9 & 1) << 5;
           do {
-            iVar7 = *(int *)((int)&DAT_00589374 + iVar4) + iVar8;
-            iVar5 = *(int *)((int)&DAT_005893b4 + iVar4) + uVar9;
+            iVar7 = *(int *)((int)g_hex_neighbor_delta_x_by_parity + iVar4) + iVar8;
+            iVar5 = *(int *)((int)g_hex_neighbor_delta_y_by_parity + iVar4) + uVar9;
             if (((-1 < iVar5) && (iVar5 < g_map_height_tiles)) &&
                (((-1 < iVar7 && (iVar7 < g_map_width_tiles)) ||
                 (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
