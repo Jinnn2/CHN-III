@@ -5,8 +5,6 @@
  */
 
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void Before_Edit_Ground(void)
 
 {
@@ -16,19 +14,19 @@ void Before_Edit_Ground(void)
   uint uVar4;
   GroundDef_0x24 *pGVar5;
   char *pcVar6;
-  undefined4 *puVar7;
+  GroundDef_0x24 *pGVar7;
   char *pcVar8;
   char *pcVar9;
   char local_12c [296];
 
   Trace_Function(s_Before_Edit_Ground_0057246c);
-  _DAT_00706e7c = (undefined4 *)FUN_0047de30(0x21c,s_Ground_00572464,1);
+  g_ground_defs_edit_backup = (GroundDef_0x24 *)FUN_0047de30(0x21c,s_Ground_00572464,1);
   pGVar5 = g_ground_defs;
-  puVar7 = _DAT_00706e7c;
+  pGVar7 = g_ground_defs_edit_backup;
   for (iVar2 = 0x87; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = *(undefined4 *)pGVar5->surface_name_bytes;
+    *(undefined4 *)pGVar7->surface_name_bytes = *(undefined4 *)pGVar5->surface_name_bytes;
     pGVar5 = (GroundDef_0x24 *)(pGVar5->surface_name_bytes + 4);
-    puVar7 = puVar7 + 1;
+    pGVar7 = (GroundDef_0x24 *)(pGVar7->surface_name_bytes + 4);
   }
   uVar3 = 0xffffffff;
   pcVar6 = &DAT_0075525c;
@@ -87,25 +85,30 @@ void Before_Edit_Ground(void)
     pcVar9 = pcVar9 + 1;
   }
   iVar2 = FUN_005082df(local_12c,0);
-  DAT_00706e80 = iVar2 == 0;
-  Add_New_DataFormat(2,0xce,10,&DAT_0057244c,&DAT_005723f0,0,g_ground_defs + DAT_005723f0,0,0,0,0,5,
-                     0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,g_ground_defs,5,1,0,0,0,0);
-  Add_New_DataFormat(3,0xce,0x24,&DAT_00572440,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589430,0,0,0,
-                     &PTR_DAT_005723e4,0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589430,4,1,0,0
-                     ,0,0);
-  Add_New_DataFormat(3,0xce,0x3e,&DAT_00572434,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589434,0,0,0,
-                     &PTR_DAT_005723e4,0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589434,4,1,0,0
-                     ,0,0);
-  Add_New_DataFormat(3,0xce,0x58,&DAT_00572428,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589438,0,0,0,
-                     &PTR_DAT_005723e4,0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589438,4,1,0,0
-                     ,0,0);
-  Add_New_DataFormat(1,0xce,0x72,&DAT_0057241c,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x58943c,0,0,3,0,
-                     0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x58943c,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xce,0x8c,&DAT_00572410,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589440,0,0,3,0,
-                     0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589440,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xce,0xa6,&DAT_00572404,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589444,0,0,3,0,
-                     0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589444,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xce,0xc0,&DAT_005723f8,&DAT_005723f0,DAT_005723f0 * 0x24 + 0x589448,0,0,3,0,
-                     0,0,0,0,0,0,&DAT_005c6998,g_ground_defs,0x24,0x589448,4,1,0,0,0,0);
+  g_ground_default_file_exists = iVar2 == 0;
+  Add_New_DataFormat(2,0xce,10,&DAT_0057244c,&g_ground_editor_selected_row,0,
+                     g_ground_defs + g_ground_editor_selected_row,0,0,0,0,5,0,0,0,0,&DAT_005c6998,
+                     g_ground_defs,0x24,g_ground_defs,5,1,0,0,0,0);
+  Add_New_DataFormat(3,0xce,0x24,&DAT_00572440,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589430,0,0,0,&PTR_DAT_005723e4,0,0,0,0,
+                     0,0,&DAT_005c6998,g_ground_defs,0x24,0x589430,4,1,0,0,0,0);
+  Add_New_DataFormat(3,0xce,0x3e,&DAT_00572434,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589434,0,0,0,&PTR_DAT_005723e4,0,0,0,0,
+                     0,0,&DAT_005c6998,g_ground_defs,0x24,0x589434,4,1,0,0,0,0);
+  Add_New_DataFormat(3,0xce,0x58,&DAT_00572428,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589438,0,0,0,&PTR_DAT_005723e4,0,0,0,0,
+                     0,0,&DAT_005c6998,g_ground_defs,0x24,0x589438,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xce,0x72,&DAT_0057241c,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x58943c,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6998,g_ground_defs,0x24,0x58943c,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xce,0x8c,&DAT_00572410,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589440,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6998,g_ground_defs,0x24,0x589440,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xce,0xa6,&DAT_00572404,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589444,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6998,g_ground_defs,0x24,0x589444,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xce,0xc0,&DAT_005723f8,&g_ground_editor_selected_row,
+                     g_ground_editor_selected_row * 0x24 + 0x589448,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6998,g_ground_defs,0x24,0x589448,4,1,0,0,0,0);
   return;
 }
