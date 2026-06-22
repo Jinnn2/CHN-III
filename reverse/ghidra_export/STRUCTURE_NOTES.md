@@ -264,6 +264,25 @@ The same map-geometry cluster now includes broader runtime helpers:
 - `Game_Random_Mod` is the game's 15-bit LCG helper; map generation, diplomacy,
   city simulation, and battle code all use it for bounded random choices.
 
+### `LandTile_0x100` Map Work Fields
+
+The map editor is an unusually good semantic oracle here because the left-click
+handler creates improvements, the right-click handler erases them, AI worker
+code temporarily writes candidate values to evaluate yields, and the normal
+turn loop advances the same fields to completion.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x19` | `Make_New_Work`, `Make_New_Make`, and `Clear_Forest_Or_Resource` reset it; `Do_Army_TurnJob` increments or decrements it against work thresholds before applying improvements/removals. | `tile_work_progress`. |
+| `+0x1a` | `Read_MLP_Edit` overlay actions call `Make_New_Work(tile, 0..3)` after `Irrigate_Able`, `Pasturage_Able`, `Mine_Able`, or `Fish_Able`; `AI_Worker` writes the same values while scoring yields; `Read_MRP_Edit` clears it to `0xff`; `Order_Check` tests it to offer clear/cancel commands. | `tile_work_kind`: `0` irrigation/farmland, `1` pasture, `2` mine, `3` fishery, `-1` none. |
+| `+0x1c` | `Make_New_Work` seeds irrigation/pasture countdowns from `DAT_0074a310/DAT_0074a311`; the first map scan in `Do_Army_TurnJob` decrements this field and clears `+0x19/+0x1a/+0x1c` when it expires. | `tile_work_expire_turns`. |
+| `+0x20` | `Make_New_Work` stores `g_frame_tick` for newly applied visible work kinds; no gameplay caller found yet. | `tile_work_timestamp_tick`. |
+
+The neighboring `+0x1d/+0x1e` bytes are probably visual/variant state for
+improvements. Mine creation computes `+0x1d` from nearby terrain/height bytes
+and randomness, while irrigation/pasture/fishery reset both bytes, but these
+remain deliberately unnamed until more render/decode callers are tied down.
+
 ## Useful Offsets
 
 ### `MapScenarioInfo_0x16c`

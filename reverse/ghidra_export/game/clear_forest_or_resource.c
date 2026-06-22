@@ -19,10 +19,10 @@ void Clear_Forest_Or_Resource(LandTile_0x100 *tile)
     tile->city_resource_or_feature_stockpile = 0;
     tile->city_resource_or_feature_id = 0xff;
     tile->battle_resource_or_feature_id = 0xff;
-    tile->field_0x19 = 0;
+    tile->tile_work_progress = 0;
     return;
   }
   tile->battle_resource_or_feature_id = 0xff;
-  tile->field_0x19 = 0;
+  tile->tile_work_progress = 0;
   return;
 }

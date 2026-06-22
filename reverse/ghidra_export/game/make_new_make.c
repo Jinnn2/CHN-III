@@ -24,7 +24,7 @@ void Make_New_Make(LandTile_0x100 *tile,int tile_x,int tile_y,int make_kind,byte
 
   Trace_Function(s_Make_New_Make_0057e1d8);
   uVar6 = tile_y & 1;
-  tile->field_0x19 = 0;
+  tile->tile_work_progress = 0;
   switch(make_kind) {
   case 0:
     tile->region_or_terrain_marker_b = 0;

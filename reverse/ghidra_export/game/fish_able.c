@@ -13,7 +13,7 @@ byte Fish_Able(LandTile_0x100 *tile)
   char cVar1;
 
   Trace_Function(s_Fish_Able_00514ee0);
-  if ((((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\x03')) &&
+  if ((((tile->battle_stat_terrain_mode == 0) && (tile->tile_work_kind != 3)) &&
       (tile->linked_record == (void *)0x0)) &&
      (cVar1 = *(char *)tile, g_ground_defs[cVar1].fishery_enabled != 0)) {
     if (cVar1 == '\f') {

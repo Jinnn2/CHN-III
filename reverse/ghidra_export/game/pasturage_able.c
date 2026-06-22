@@ -12,7 +12,7 @@ byte Pasturage_Able(LandTile_0x100 *tile)
 {
   Trace_Function(s_Pasturage_Able_00514ec4);
   if ((((tile->battle_stat_terrain_mode == 0) || (tile->battle_stat_terrain_mode == 3)) &&
-      (tile->field_0x1a != '\x01')) &&
+      (tile->tile_work_kind != 1)) &&
      ((tile->linked_record == (void *)0x0 && (g_ground_defs[*(char *)tile].pasture_enabled != 0))))
   {
     return 1;

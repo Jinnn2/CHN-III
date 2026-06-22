@@ -621,7 +621,7 @@ LAB_00494657:
             pcVar16 = pcVar16 + 1;
           }
         }
-        if ((pLVar6->field_0x1a == -1) && (pLVar6->linked_record == (void *)0x0)) {
+        if ((pLVar6->tile_work_kind == 0xff) && (pLVar6->linked_record == (void *)0x0)) {
           if (DAT_007584dc->army_type_id == 1) {
             if ((*(int *)(_DAT_00748e30 + 0x6e0) == 2) &&
                (bVar7 = Irrigate_Able(pLVar6,DAT_005c0ec8,DAT_005c0ecc,
@@ -771,7 +771,7 @@ LAB_00494657:
     }
 LAB_00494c05:
     pLVar6 = DAT_007584ec;
-    if (-1 < (char)DAT_007584ec->field_0x1a) {
+    if (-1 < (char)DAT_007584ec->tile_work_kind) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e240;
       do {
@@ -801,7 +801,7 @@ LAB_00494c05:
     pAVar2 = DAT_007584dc;
     if ((((DAT_007584dc->army_type_id == 0x2a) && (DAT_007584dc->cargo_or_subunit_count == 0)) &&
         (pLVar6->city_resource_or_feature_id == 0x26)) &&
-       (((pLVar6->linked_record == (void *)0x0 && (pLVar6->field_0x1a == -1)) &&
+       (((pLVar6->linked_record == (void *)0x0 && (pLVar6->tile_work_kind == 0xff)) &&
         ('\n' < *(char *)pLVar6)))) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e238;

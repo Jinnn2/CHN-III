@@ -15,43 +15,44 @@ void __fastcall Do_Army_TurnJob(LandTile_0x100 *param_1)
   ArmyUnit_0x164_plus *pAVar3;
   ArmyUnit_0x164_plus *pAVar4;
   int iVar5;
-  uint uVar6;
-  ArmyUnit_0x164_plus **ppAVar7;
-  char cVar8;
+  byte bVar6;
+  uint uVar7;
+  ArmyUnit_0x164_plus **ppAVar8;
   char cVar9;
-  int iVar10;
+  char cVar10;
   int iVar11;
-  bool bVar12;
+  int iVar12;
+  bool bVar13;
 
   Trace_Function(s_Do_Army_TurnJob_0057defc);
-  iVar11 = 0;
+  iVar12 = 0;
   iVar5 = _g_land_tiles;
   if (0 < g_map_height_tiles) {
     do {
-      iVar10 = 0;
+      iVar11 = 0;
       if (0 < g_map_width_tiles) {
         do {
           if ((((*(char *)(iVar5 + 0x1a) == '\0') && (DAT_0074a310 != '\0')) ||
               ((*(char *)(iVar5 + 0x1a) == '\x01' && (DAT_0074a311 != '\0')))) &&
-             (cVar8 = *(char *)(iVar5 + 0x1c) + -1, *(char *)(iVar5 + 0x1c) = cVar8, cVar8 < '\x01')
+             (cVar9 = *(char *)(iVar5 + 0x1c) + -1, *(char *)(iVar5 + 0x1c) = cVar9, cVar9 < '\x01')
              ) {
             *(undefined1 *)(iVar5 + 0x1a) = 0xff;
             *(undefined1 *)(iVar5 + 0x1c) = 0;
             *(undefined1 *)(iVar5 + 0x19) = 0;
           }
           iVar5 = iVar5 + 0x100;
-          iVar10 = iVar10 + 1;
-        } while (iVar10 < g_map_width_tiles);
+          iVar11 = iVar11 + 1;
+        } while (iVar11 < g_map_width_tiles);
       }
-      iVar11 = iVar11 + 1;
-    } while (iVar11 < g_map_height_tiles);
+      iVar12 = iVar12 + 1;
+    } while (iVar12 < g_map_height_tiles);
   }
   _DAT_00716278 = Get_Game_Tick();
   do {
     if ('\0' < (char)g_active_country->is_active) {
       for (pAVar3 = *(ArmyUnit_0x164_plus **)(&DAT_0074a05c + _DAT_0074a0f8 * 4);
           pAVar3 != (ArmyUnit_0x164_plus *)0x0; pAVar3 = pAVar3->next_army) {
-        uVar6 = (uint)pAVar3->army_type_id;
+        uVar7 = (uint)pAVar3->army_type_id;
         switch(g_map_size_mode) {
         case 0:
           iVar5 = (int)pAVar3->tile_x + pAVar3->tile_y * 0x138;
@@ -71,7 +72,7 @@ void __fastcall Do_Army_TurnJob(LandTile_0x100 *param_1)
         param_1 = (LandTile_0x100 *)(iVar5 * 0x100 + _g_land_tiles);
 switchD_004913b2_default:
         pAVar3->map_presence_or_cargo_state = 0;
-        iVar5 = g_army_type_table[uVar6].movement_or_speed *
+        iVar5 = g_army_type_table[uVar7].movement_or_speed *
                 g_current_map_scenario_info.movement_base;
         if (pAVar3->movement_points_remaining < iVar5) {
           pAVar3->movement_points_remaining = (short)iVar5;
@@ -88,43 +89,43 @@ switchD_004913b2_default:
           }
         }
         if ((pAVar3->stationed_city == (City_0x1b8_plus *)0x0) &&
-           ((int)(char)pAVar3->field_0x132 < g_army_type_table[uVar6].supply_or_hunger_turn_limit))
+           ((int)(char)pAVar3->field_0x132 < g_army_type_table[uVar7].supply_or_hunger_turn_limit))
         {
           pAVar3->field_0x132 = pAVar3->field_0x132 + '\x01';
         }
-        if (g_army_type_table[uVar6].unit_class == 2) {
+        if (g_army_type_table[uVar7].unit_class == 2) {
           if ((param_1->linked_record == (void *)0x0) &&
              (pAVar3->transport_parent == (ArmyUnit_0x164_plus *)0x0)) {
-            if ((uVar6 != 0x3a) &&
+            if ((uVar7 != 0x3a) &&
                (iVar5 = (int)(char)param_1->army_count_or_occupant_count, 1 < iVar5)) {
-              iVar11 = 0;
-              ppAVar7 = param_1->army_or_city_ptrs_a;
+              iVar12 = 0;
+              ppAVar8 = param_1->army_or_city_ptrs_a;
               do {
                 if (iVar5 < 1) break;
-                pAVar4 = *ppAVar7;
+                pAVar4 = *ppAVar8;
                 if (pAVar4 != (ArmyUnit_0x164_plus *)0x0) {
                   if ((pAVar4 != pAVar3) && (pAVar4->army_type_id == 0x3b)) goto LAB_0049154e;
                   iVar5 = iVar5 + -1;
                 }
-                iVar11 = iVar11 + 1;
-                ppAVar7 = ppAVar7 + 1;
-              } while (iVar11 < 10);
+                iVar12 = iVar12 + 1;
+                ppAVar8 = ppAVar8 + 1;
+              } while (iVar12 < 10);
             }
             if ((int)(char)pAVar3->field_0x132 <
-                g_army_type_table[uVar6].supply_or_hunger_turn_limit) {
+                g_army_type_table[uVar7].supply_or_hunger_turn_limit) {
               pAVar3->field_0x132 = pAVar3->field_0x132 + '\x01';
             }
           }
           else {
-            cVar8 = pAVar3->field_0x132;
-            if ('\0' < cVar8) {
-              if (0 < g_army_type_table[uVar6].resource_cost_by_kind[0x26]) {
-                if (*(short *)&g_active_country->field_0xb16 < (short)cVar8) {
-                  pAVar3->field_0x132 = cVar8 - g_active_country->field_0xb16;
+            cVar9 = pAVar3->field_0x132;
+            if ('\0' < cVar9) {
+              if (0 < g_army_type_table[uVar7].resource_cost_by_kind[0x26]) {
+                if (*(short *)&g_active_country->field_0xb16 < (short)cVar9) {
+                  pAVar3->field_0x132 = cVar9 - g_active_country->field_0xb16;
                   FUN_0041f600(_DAT_0074a0f8,0x26,-(int)*(short *)&g_active_country->field_0xb16,0);
                   goto LAB_00491555;
                 }
-                FUN_0041f600(_DAT_0074a0f8,0x26,-(int)cVar8,0);
+                FUN_0041f600(_DAT_0074a0f8,0x26,-(int)cVar9,0);
               }
 LAB_0049154e:
               pAVar3->field_0x132 = 0;
@@ -133,19 +134,19 @@ LAB_0049154e:
         }
 LAB_00491555:
         if (pAVar3->owner_country_id != pAVar3->target_or_previous_owner_id) {
-          cVar8 = pAVar3->field_0x17;
-          if (cVar8 < 'd') {
-            cVar9 = (char)g_government_defs
-                          [*(int *)(&DAT_00735118 + (char)pAVar3->owner_country_id * 0xe68)].
-                          loyalty_effect;
+          cVar9 = pAVar3->field_0x17;
+          if (cVar9 < 'd') {
+            cVar10 = (char)g_government_defs
+                           [*(int *)(&DAT_00735118 + (char)pAVar3->owner_country_id * 0xe68)].
+                           loyalty_effect;
             if ((char)(&g_country_states)[(char)pAVar3->target_or_previous_owner_id * 0xe68] <
                 '\x01') {
-              cVar8 = cVar8 + cVar9 + '\n';
+              cVar9 = cVar9 + cVar10 + '\n';
             }
             else {
-              cVar8 = cVar8 + cVar9;
+              cVar9 = cVar9 + cVar10;
             }
-            pAVar3->field_0x17 = cVar8;
+            pAVar3->field_0x17 = cVar9;
           }
           if ('c' < (char)pAVar3->field_0x17) {
             pAVar3->field_0x17 = 100;
@@ -155,15 +156,15 @@ LAB_00491555:
         switch(pAVar3->mission_action_id) {
         case 4:
           if ((char)param_1->battle_stat_bonus_mode < '\0') {
-            cVar8 = param_1->field_0x19 + -5;
+            bVar6 = param_1->tile_work_progress - 5;
           }
           else {
-            cVar8 = param_1->field_0x19 + -2;
+            bVar6 = param_1->tile_work_progress - 2;
           }
-          param_1->field_0x19 = cVar8;
-          if (cVar8 < '\x01') {
-            param_1->field_0x19 = 0;
-            param_1->field_0x1a = 0xff;
+          param_1->tile_work_progress = bVar6;
+          if ((char)bVar6 < '\x01') {
+            param_1->tile_work_progress = 0;
+            param_1->tile_work_kind = 0xff;
             param_1->field_0x18 = 0xff;
             param_1->region_or_terrain_marker_b = 0xff;
             param_1->battle_stat_bonus_mode = 0xff;
@@ -173,10 +174,11 @@ LAB_00491555:
           }
           break;
         case 0xe:
-          cVar8 = param_1->field_0x19 + (1 < g_active_country->upgrade_permission_level) + '\x01';
-          param_1->field_0x19 = cVar8;
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + '\x01';
+          param_1->tile_work_progress = bVar6;
           if ((char)param_1->battle_resource_or_feature_id < '\0') {
-            if ((('\x02' < cVar8) || (param_1->field_0x1a == '\0')) ||
+            if ((('\x02' < (char)bVar6) || (param_1->tile_work_kind == 0)) ||
                ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
               pAVar3->mission_action_id = 0;
               pAVar3[1].army_type_id = 0x2a;
@@ -186,8 +188,8 @@ LAB_00491555:
           }
           else {
 LAB_00491698:
-            if (cVar8 < '\x02') {
-              bVar12 = _DAT_0074a0f8 == g_human_country_index;
+            if ((char)bVar6 < '\x02') {
+              bVar13 = _DAT_0074a0f8 == g_human_country_index;
               goto LAB_00491b77;
             }
 LAB_00491b8a:
@@ -195,10 +197,11 @@ LAB_00491b8a:
           }
           break;
         case 0xf:
-          cVar8 = param_1->field_0x19 + (1 < g_active_country->upgrade_permission_level) + '\x01';
-          param_1->field_0x19 = cVar8;
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + '\x01';
+          param_1->tile_work_progress = bVar6;
           if ((char)param_1->battle_resource_or_feature_id < '\0') {
-            if ((('\x01' < cVar8) || (param_1->field_0x1a == '\x01')) ||
+            if ((('\x01' < (char)bVar6) || (param_1->tile_work_kind == 1)) ||
                ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
               pAVar3->mission_action_id = 0;
               pAVar3[1].army_type_id = 0x2b;
@@ -207,19 +210,19 @@ LAB_00491b8a:
             }
           }
           else {
-            if ('\x01' < cVar8) goto LAB_00491b8a;
-            bVar12 = _DAT_0074a0f8 == g_human_country_index;
+            if ('\x01' < (char)bVar6) goto LAB_00491b8a;
+            bVar13 = _DAT_0074a0f8 == g_human_country_index;
 LAB_00491b77:
-            if ((bVar12) && (DAT_0075596e == '\x01')) goto LAB_00491b8a;
+            if ((bVar13) && (DAT_0075596e == '\x01')) goto LAB_00491b8a;
           }
           break;
         case 0x10:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
+          param_1->tile_work_progress = bVar6;
           if (-1 < (char)param_1->battle_resource_or_feature_id) goto LAB_00491698;
-          if ((('\x03' < cVar8) || (param_1->field_0x1a == '\x02')) ||
+          if ((('\x03' < (char)bVar6) || (param_1->tile_work_kind == 2)) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x2d;
@@ -228,9 +231,10 @@ LAB_00491b77:
           }
           break;
         case 0x11:
-          cVar8 = param_1->field_0x19 + (1 < g_active_country->upgrade_permission_level) + '\x01';
-          param_1->field_0x19 = cVar8;
-          if ((('\x02' < cVar8) || (param_1->field_0x1a == '\x03')) ||
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + '\x01';
+          param_1->tile_work_progress = bVar6;
+          if ((('\x02' < (char)bVar6) || (param_1->tile_work_kind == 3)) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x2c;
@@ -239,19 +243,19 @@ LAB_00491b77:
           }
           break;
         case 0x12:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
+          param_1->tile_work_progress = bVar6;
           if (-1 < (char)param_1->battle_resource_or_feature_id) {
 joined_r0x004918b4:
-            if (cVar8 < '\x02') {
-              bVar12 = _DAT_0074a0f8 == g_human_country_index;
+            if ((char)bVar6 < '\x02') {
+              bVar13 = _DAT_0074a0f8 == g_human_country_index;
               goto LAB_00491b77;
             }
             goto LAB_00491b8a;
           }
-          if ((('\t' < cVar8) || (-1 < (char)param_1->battle_stat_bonus_mode)) ||
+          if ((('\t' < (char)bVar6) || (-1 < (char)param_1->battle_stat_bonus_mode)) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x32;
@@ -261,11 +265,11 @@ joined_r0x004918b4:
           }
           break;
         case 0x13:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
-          if ((('\x1d' < cVar8) ||
+          param_1->tile_work_progress = bVar6;
+          if ((('\x1d' < (char)bVar6) ||
               ((*(char *)param_1 != '\n' && (param_1->alternate_battle_terrain_kind != 10)))) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
@@ -277,13 +281,13 @@ LAB_00491c49:
           }
           break;
         case 0x14:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
+          param_1->tile_work_progress = bVar6;
           if (-1 < (char)param_1->battle_resource_or_feature_id) goto joined_r0x004918b4;
           iVar5 = Bridge_Able(param_1);
-          if (((((int)(char)param_1->field_0x19 <
+          if (((((int)(char)param_1->tile_work_progress <
                  (int)((((uint)(0 < iVar5) - (uint)(*(int *)&g_active_country->field_0x71c == 2)) +
                        2) * 3)) && ((char)param_1->field_0x15 < '\0')) &&
               ((char)param_1->region_or_terrain_marker_b < '\0')) &&
@@ -293,16 +297,16 @@ LAB_00491c49:
               sVar1 = pAVar3->tile_y;
               sVar2 = pAVar3->tile_x;
               iVar5 = 0;
-              iVar11 = 0;
+              iVar12 = 0;
               goto LAB_00491949;
             }
           }
           else {
             sVar1 = pAVar3->tile_y;
-            iVar11 = 3;
+            iVar12 = 3;
             sVar2 = pAVar3->tile_x;
 LAB_00491949:
-            Make_New_Make(param_1,(int)sVar2,(int)sVar1,iVar11,(byte)iVar5);
+            Make_New_Make(param_1,(int)sVar2,(int)sVar1,iVar12,(byte)iVar5);
           }
           if ((char)pAVar3->active_anim_step_count < '\x01') {
             pAVar3->mission_action_id = 0;
@@ -314,12 +318,12 @@ LAB_00491949:
           }
           break;
         case 0x15:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
+          param_1->tile_work_progress = bVar6;
           if (-1 < (char)param_1->battle_resource_or_feature_id) goto joined_r0x004918b4;
-          if ((('\x04' < cVar8) || (-1 < (char)param_1->field_0x15)) ||
+          if ((('\x04' < (char)bVar6) || (-1 < (char)param_1->field_0x15)) ||
              (((-1 < (char)param_1->region_or_terrain_marker_b && (param_1->field_0x14 == '\x02'))
               || ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))))) {
             Make_New_Make(param_1,(int)pAVar3->tile_x,(int)pAVar3->tile_y,2,0);
@@ -334,13 +338,13 @@ LAB_00491949:
           }
           break;
         case 0x16:
-          cVar8 = param_1->field_0x19 +
-                  (1 < g_active_country->upgrade_permission_level) + (uVar6 == 0x3e) * '\x02' +
+          bVar6 = param_1->tile_work_progress +
+                  (1 < g_active_country->upgrade_permission_level) + (uVar7 == 0x3e) * '\x02' +
                   '\x01';
-          param_1->field_0x19 = cVar8;
+          param_1->tile_work_progress = bVar6;
           if ((char)param_1->battle_resource_or_feature_id < '\0') {
             if ((((int)((4 - (uint)(*(int *)&g_active_country->field_0x77c == 2)) * 2) <=
-                  (int)(char)param_1->field_0x19) ||
+                  (int)(char)param_1->tile_work_progress) ||
                 (-1 < (char)param_1->region_or_terrain_marker_a)) ||
                ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
               Make_New_Make(param_1,(int)pAVar3->tile_x,(int)pAVar3->tile_y,6,0);
@@ -354,7 +358,7 @@ LAB_00491949:
               }
             }
           }
-          else if (('\x01' < cVar8) ||
+          else if (('\x01' < (char)bVar6) ||
                   ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             Clear_Forest_Or_Resource(param_1);
           }

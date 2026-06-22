@@ -191,6 +191,14 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Map_To_Battle_Army indexes a feature table at 0x00589644 and adds stat bonuses when the value is valid");
         replaceAt(landTile, 0x17, ByteDataType.dataType, 1, "city_resource_or_feature_id",
             "editor tool 6 assigns this id; city resource code grows/consumes the paired stockpile and clears it at zero");
+        replaceAt(landTile, 0x19, ByteDataType.dataType, 1, "tile_work_progress",
+            "editor, worker AI, and Do_Army_TurnJob use this as the construction/progress counter for tile improvements");
+        replaceAt(landTile, 0x1a, ByteDataType.dataType, 1, "tile_work_kind",
+            "Make_New_Work writes 0 irrigation, 1 pasture, 2 mine, 3 fishery; right-click/editor erases it with -1");
+        replaceAt(landTile, 0x1c, ByteDataType.dataType, 1, "tile_work_expire_turns",
+            "Make_New_Work seeds temporary irrigation/pasture countdowns and Do_Army_TurnJob decrements them each turn");
+        replaceAt(landTile, 0x20, IntegerDataType.dataType, 4, "tile_work_timestamp_tick",
+            "Make_New_Work stores g_frame_tick here for newly applied visible tile work");
         replaceAt(landTile, 0x24, ByteDataType.dataType, 1, "battle_stat_bonus_mode",
             "Map_To_Battle_Army treats negative values as terrain-dependent modifiers and nonnegative values as doubled defense/support bonuses");
         replaceAt(landTile, 0x25, ByteDataType.dataType, 1, "tile_owner_country_id",

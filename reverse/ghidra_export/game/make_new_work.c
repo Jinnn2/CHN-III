@@ -13,7 +13,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
 {
   bool bVar1;
   LandTile_0x100 *pLVar2;
-  char cVar4;
+  byte bVar4;
   uint uVar3;
   int *piVar5;
   int iVar6;
@@ -22,8 +22,8 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
 
   pLVar2 = tile;
   Trace_Function(s_Make_New_Work_0057e1c8);
-  tile->field_0x1a = (char)work_kind;
-  tile->field_0x19 = 0;
+  tile->tile_work_kind = (byte)work_kind;
+  tile->tile_work_progress = 0;
   switch(work_kind) {
   case 0:
     if (-1 < (char)tile->battle_resource_or_feature_id) {
@@ -31,9 +31,9 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
     }
     tile->field_0x1d = 0;
     tile->field_0x1e = 0;
-    *(int *)&tile->field_0x20 = g_frame_tick;
-    if (DAT_0074a310 != '\0') {
-      tile->field_0x1c = DAT_0074a310;
+    tile->tile_work_timestamp_tick = g_frame_tick;
+    if (DAT_0074a310 != 0) {
+      tile->tile_work_expire_turns = DAT_0074a310;
       return;
     }
     break;
@@ -41,13 +41,13 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
     if (-1 < (char)tile->battle_resource_or_feature_id) {
       tile->battle_resource_or_feature_id = 0xff;
     }
-    tile->field_0x19 = 0;
+    tile->tile_work_progress = 0;
     tile->field_0x1d = 0;
     tile->field_0x1e = 0;
-    *(int *)&tile->field_0x20 = g_frame_tick;
-    cVar4 = (char)((uint)_DAT_0074a310 >> 8);
-    if (cVar4 != '\0') {
-      tile->field_0x1c = cVar4;
+    tile->tile_work_timestamp_tick = g_frame_tick;
+    bVar4 = (byte)((uint)_DAT_0074a310 >> 8);
+    if (bVar4 != 0) {
+      tile->tile_work_expire_turns = bVar4;
       return;
     }
     break;
@@ -95,7 +95,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
   case 3:
     tile->field_0x1d = 0;
     tile->field_0x1e = 0;
-    *(int *)&tile->field_0x20 = g_frame_tick;
+    tile->tile_work_timestamp_tick = g_frame_tick;
   }
   return;
 }

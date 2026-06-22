@@ -214,7 +214,7 @@ switchD_004b8314_default:
               }
             }
             else {
-              g_current_land_tile->field_0x1a = 0xff;
+              g_current_land_tile->tile_work_kind = 0xff;
             }
             iVar14 = 0;
             iVar7 = g_editor_overlay_kind;
