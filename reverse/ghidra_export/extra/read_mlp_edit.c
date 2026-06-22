@@ -514,17 +514,18 @@ switchD_004b377a_default:
           case 2:
             if (((*(char *)g_current_land_tile < '\v') ||
                 (0 < g_current_land_tile->linked_count_or_city_count)) ||
-               ((-1 < (char)g_current_land_tile->field_0x15 && (g_editor_overlay_kind == 2)))) {
-              g_current_land_tile->region_or_terrain_marker_b = 0;
-              g_current_land_tile->field_0x14 = (undefined1)g_editor_overlay_kind;
+               ((-1 < (char)g_current_land_tile->bridge_variant_id && (g_editor_overlay_kind == 2)))
+               ) {
+              g_current_land_tile->road_connection_tile_id = 0;
+              g_current_land_tile->road_overlay_kind = (byte)g_editor_overlay_kind;
               g_current_land_tile->battle_resource_or_feature_id = 0xff;
             }
             break;
           case 3:
             if ((*(char *)g_current_land_tile == '\f') &&
                (iVar5 = Bridge_Able(g_current_land_tile), 0 < iVar5)) {
-              g_current_land_tile->field_0x15 = (char)iVar5 + -1;
-              g_current_land_tile->region_or_terrain_marker_b = 0xff;
+              g_current_land_tile->bridge_variant_id = (char)iVar5 - 1;
+              g_current_land_tile->road_connection_tile_id = 0xff;
               g_current_land_tile->field_0xf = 0;
             }
             break;

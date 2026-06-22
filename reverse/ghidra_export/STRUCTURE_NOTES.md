@@ -283,6 +283,24 @@ improvements. Mine creation computes `+0x1d` from nearby terrain/height bytes
 and randomness, while irrigation/pasture/fishery reset both bytes, but these
 remain deliberately unnamed until more render/decode callers are tied down.
 
+### `LandTile_0x100` Road, Bridge, And Long-Wall Fields
+
+The road/bridge/long-wall overlay cluster is driven by the same edit and worker
+paths as the work fields above, but final rendering state is recomputed from
+neighboring tiles by the decode helpers.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x13` | `Read_MLP_Edit` and `Make_New_Make` seed this to `0` when placing road-like overlays; `Read_MRP_Edit` clears it to `-1`; `Decode_Road` recomputes the final connected road sprite id from neighboring `+0x13` roads and `+0x15` bridges. | `road_connection_tile_id`. |
+| `+0x14` | Editor overlay kinds `0..2` are written here; the country/statistics pass counts roads by this byte when `+0x13` is present; worker action `0x15` checks for value `2` when completing/upgrading a road-like overlay. | `road_overlay_kind`. |
+| `+0x15` | `Bridge_Able` requires this to be absent; bridge placement stores `Bridge_Able(tile) - 1`; `Decode_Road` treats nonnegative values as road connectors; bridge erase clears it together with road fields. | `bridge_variant_id`. |
+| `+0x24` | `Make_New_Make(kind 4)` starts long-wall placement here and `Read_MRP_Edit` erases it; `Decode_LongWall` recomputes connected long-wall ids; `Map_To_Battle_Army` also reads its sign to select terrain-dependent versus doubled defense/support stat modifiers. | `long_wall_or_battle_bonus_mode`. |
+
+`Decode_Road` and `Decode_LongWall` still show some raw `+0x13/+0x14/+0x24`
+accesses because their local tile pointers decompile as `char *` or integer
+addresses. The field names are nevertheless validated by the typed editor,
+worker, predicate, and battle-conversion callers.
+
 ## Useful Offsets
 
 ### `MapScenarioInfo_0x16c`
@@ -337,10 +355,13 @@ from an isolated editor label.
 | `+0x02` | `Make_Battle_Map` uses this as a fallback when the primary tile kind is outside `0..10`. | alternate battle terrain kind. |
 | `+0x08` | `Map_To_Battle_Army` changes battle stat modifiers when this signed value is positive, especially value `4`. | battle stat terrain mode. |
 | `+0x10` | `load_dat.c` checks and counts. | city/land occupancy count or resource count. |
-| `+0x12/+0x13` | `city_round_check.c`, `near_beach_city_found.c`, and `no_dpa_near_city_near_sea.c` treat these as signed markers beside `+0x10`. | region / terrain / link markers. |
+| `+0x12` | `city_round_check.c`, `near_beach_city_found.c`, `Bridge_Able`, `LongWall_Able`, and irrigation/worker paths treat this as a signed marker beside `+0x10`. | region / terrain / link marker. |
+| `+0x13` | `Decode_Road` recomputes it from neighboring road and bridge markers; editor/right-click erase clears it to `-1`; road/rail placement seeds it at `0` before refresh. | road connection tile id. |
+| `+0x14` | `Read_MLP_Edit` and `Make_New_Make` store editor overlay kinds `0..2`; road statistics count by this byte when `+0x13` is present; worker rail/road actions distinguish value `2`. | road overlay kind. |
+| `+0x15` | `Bridge_Able` requires it to be `-1`; bridge placement stores `Bridge_Able(tile) - 1`; `Decode_Road` treats nonnegative bridge variants as road connectors; right-click bridge erase clears this with the road bytes. | bridge variant id. |
 | `+0x16` | `Map_To_Battle_Army` indexes table `0x00589644` and adds battle stat bonuses when valid. | battle resource or feature id. |
 | `+0x17` | `MLR_Edit_GameMap` tool `6` assigns this from the editor selector; `Do_Map` and `Calc_City_Resource` grow/consume the paired stockpile and clear the id at zero. | city resource or feature id. |
-| `+0x24` | `Map_To_Battle_Army` switches between terrain-dependent modifiers and doubled defense/support bonuses based on the sign of this byte. | battle stat bonus mode. |
+| `+0x24` | `Make_New_Make(kind 4)` seeds it for long-wall placement; `Decode_LongWall` recomputes connected long-wall ids; `LongWall_Able` requires `-1`; `Map_To_Battle_Army` also switches between terrain-dependent modifiers and doubled defense/support bonuses based on its sign. | long-wall connection / battle bonus mode. |
 | `+0x25` | `City_Belong_Change` writes the new city owner here; near-city scans require it to match the active country. | tile owner/controller country id. |
 | `+0x27` | `City_Belong_Change` writes the same new owner; `Diplomat_Allow` compares it with source/target ownership pairs. | secondary or previous owner country id. |
 | `+0x28` | `load_dat.c` stores pointers indexed by `army_slot * 4`; city/battle scans now type these as `ArmyUnit_0x164_plus *`. | primary army pointer list. |

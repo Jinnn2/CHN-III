@@ -27,15 +27,15 @@ void Make_New_Make(LandTile_0x100 *tile,int tile_x,int tile_y,int make_kind,byte
   tile->tile_work_progress = 0;
   switch(make_kind) {
   case 0:
-    tile->region_or_terrain_marker_b = 0;
-    tile->field_0x14 = 0;
+    tile->road_connection_tile_id = 0;
+    tile->road_overlay_kind = 0;
     goto LAB_00493c24;
   case 2:
-    tile->region_or_terrain_marker_b = 0;
-    tile->field_0x14 = 2;
+    tile->road_connection_tile_id = 0;
+    tile->road_overlay_kind = 2;
     goto LAB_00493c24;
   case 3:
-    tile->field_0x15 = variant - 1;
+    tile->bridge_variant_id = variant - 1;
 LAB_00493c24:
     tile = (LandTile_0x100 *)0x8;
     iVar5 = uVar6 << 5;
@@ -100,7 +100,7 @@ switchD_00493c9b_default:
     }
     break;
   case 4:
-    tile->battle_stat_bonus_mode = 0;
+    tile->long_wall_or_battle_bonus_mode = 0;
     iVar10 = 0;
     if (-1 < g_tile_radius_offset_counts[1]) {
       do {

@@ -11,7 +11,7 @@ byte LongWall_Able(LandTile_0x100 *tile)
 
 {
   Trace_Function(s_LongWall_Able_00514eec);
-  if ((((tile->battle_stat_bonus_mode == 0xff) && (tile->linked_record == (void *)0x0)) &&
+  if ((((tile->long_wall_or_battle_bonus_mode == 0xff) && (tile->linked_record == (void *)0x0)) &&
       (0 < tile->linked_count_or_city_count)) && (tile->region_or_terrain_marker_a == 0)) {
     return 1;
   }

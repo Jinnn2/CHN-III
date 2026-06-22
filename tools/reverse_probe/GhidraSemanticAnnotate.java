@@ -185,8 +185,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Map_To_Battle_Army changes stat modifiers when this signed terrain mode is positive or equals 4");
         replaceAt(landTile, 0x12, ByteDataType.dataType, 1, "region_or_terrain_marker_a",
             "signed marker used by city-round and near-city checks beside linked_count_or_city_count");
-        replaceAt(landTile, 0x13, ByteDataType.dataType, 1, "region_or_terrain_marker_b",
-            "second signed marker used by city-round and near-city checks");
+        replaceAt(landTile, 0x13, ByteDataType.dataType, 1, "road_connection_tile_id",
+            "Decode_Road recomputes this road sprite/connection id from neighboring road and bridge markers; -1 means no road overlay");
+        replaceAt(landTile, 0x14, ByteDataType.dataType, 1, "road_overlay_kind",
+            "editor and Make_New_Make store road overlay kind 0..2 here; road counts and worker road/rail actions read it");
+        replaceAt(landTile, 0x15, ByteDataType.dataType, 1, "bridge_variant_id",
+            "Bridge_Able requires -1; Make_New_Make kind 3 stores variant - 1 and Decode_Road treats nonnegative values as road connectors");
         replaceAt(landTile, 0x16, ByteDataType.dataType, 1, "battle_resource_or_feature_id",
             "Map_To_Battle_Army indexes a feature table at 0x00589644 and adds stat bonuses when the value is valid");
         replaceAt(landTile, 0x17, ByteDataType.dataType, 1, "city_resource_or_feature_id",
@@ -199,8 +203,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Make_New_Work seeds temporary irrigation/pasture countdowns and Do_Army_TurnJob decrements them each turn");
         replaceAt(landTile, 0x20, IntegerDataType.dataType, 4, "tile_work_timestamp_tick",
             "Make_New_Work stores g_frame_tick here for newly applied visible tile work");
-        replaceAt(landTile, 0x24, ByteDataType.dataType, 1, "battle_stat_bonus_mode",
-            "Map_To_Battle_Army treats negative values as terrain-dependent modifiers and nonnegative values as doubled defense/support bonuses");
+        replaceAt(landTile, 0x24, ByteDataType.dataType, 1, "long_wall_or_battle_bonus_mode",
+            "Decode_LongWall recomputes long-wall connection ids here; Map_To_Battle_Army also treats nonnegative values as doubled defense/support bonuses");
         replaceAt(landTile, 0x25, ByteDataType.dataType, 1, "tile_owner_country_id",
             "City_Belong_Change writes the new owner; near-city scans require active-country ownership");
         replaceAt(landTile, 0x27, ByteDataType.dataType, 1, "tile_secondary_owner_id",

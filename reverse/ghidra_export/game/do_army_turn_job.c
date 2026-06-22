@@ -155,7 +155,7 @@ LAB_00491555:
         }
         switch(pAVar3->mission_action_id) {
         case 4:
-          if ((char)param_1->battle_stat_bonus_mode < '\0') {
+          if ((char)param_1->long_wall_or_battle_bonus_mode < '\0') {
             bVar6 = param_1->tile_work_progress - 5;
           }
           else {
@@ -166,8 +166,8 @@ LAB_00491555:
             param_1->tile_work_progress = 0;
             param_1->tile_work_kind = 0xff;
             param_1->field_0x18 = 0xff;
-            param_1->region_or_terrain_marker_b = 0xff;
-            param_1->battle_stat_bonus_mode = 0xff;
+            param_1->road_connection_tile_id = 0xff;
+            param_1->long_wall_or_battle_bonus_mode = 0xff;
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x2a;
             pAVar3->mission_progress_counter = 0;
@@ -255,7 +255,7 @@ joined_r0x004918b4:
             }
             goto LAB_00491b8a;
           }
-          if ((('\t' < (char)bVar6) || (-1 < (char)param_1->battle_stat_bonus_mode)) ||
+          if ((('\t' < (char)bVar6) || (-1 < (char)param_1->long_wall_or_battle_bonus_mode)) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x32;
@@ -289,11 +289,11 @@ LAB_00491c49:
           iVar5 = Bridge_Able(param_1);
           if (((((int)(char)param_1->tile_work_progress <
                  (int)((((uint)(0 < iVar5) - (uint)(*(int *)&g_active_country->field_0x71c == 2)) +
-                       2) * 3)) && ((char)param_1->field_0x15 < '\0')) &&
-              ((char)param_1->region_or_terrain_marker_b < '\0')) &&
+                       2) * 3)) && ((char)param_1->bridge_variant_id < '\0')) &&
+              ((char)param_1->road_connection_tile_id < '\0')) &&
              ((_DAT_0074a0f8 != g_human_country_index || (DAT_0075596e != '\x01')))) break;
           if (iVar5 < 1) {
-            if (param_1->field_0x15 == -1) {
+            if (param_1->bridge_variant_id == 0xff) {
               sVar1 = pAVar3->tile_y;
               sVar2 = pAVar3->tile_x;
               iVar5 = 0;
@@ -323,9 +323,9 @@ LAB_00491949:
                   '\x01';
           param_1->tile_work_progress = bVar6;
           if (-1 < (char)param_1->battle_resource_or_feature_id) goto joined_r0x004918b4;
-          if ((('\x04' < (char)bVar6) || (-1 < (char)param_1->field_0x15)) ||
-             (((-1 < (char)param_1->region_or_terrain_marker_b && (param_1->field_0x14 == '\x02'))
-              || ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))))) {
+          if ((('\x04' < (char)bVar6) || (-1 < (char)param_1->bridge_variant_id)) ||
+             (((-1 < (char)param_1->road_connection_tile_id && (param_1->road_overlay_kind == 2)) ||
+              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))))) {
             Make_New_Make(param_1,(int)pAVar3->tile_x,(int)pAVar3->tile_y,2,0);
             if ((char)pAVar3->active_anim_step_count < '\x01') {
               pAVar3->mission_action_id = 0;

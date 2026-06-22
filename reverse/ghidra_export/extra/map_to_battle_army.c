@@ -225,7 +225,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
     iVar13 = 0;
     iVar11 = 0;
     if (local_28 == 0) {
-      if ((char)g_battle_attacker_land_tile->battle_stat_bonus_mode < '\0') {
+      if ((char)g_battle_attacker_land_tile->long_wall_or_battle_bonus_mode < '\0') {
         if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {
           iVar21 = iVar4;
           iVar16 = iVar8;
@@ -434,7 +434,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
           iVar20 = 0;
           local_48 = 0;
           if (local_34->unit_class == 0) {
-            if ((char)g_battle_attacker_land_tile->battle_stat_bonus_mode < '\0') {
+            if ((char)g_battle_attacker_land_tile->long_wall_or_battle_bonus_mode < '\0') {
               if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {
                 iVar5 = iVar13;
                 iVar6 = iVar4;
@@ -664,7 +664,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
             iVar4 = 0;
             local_48 = 0;
             if (local_4 == 0) {
-              if ((char)g_battle_defender_land_tile->battle_stat_bonus_mode < '\0') {
+              if ((char)g_battle_defender_land_tile->long_wall_or_battle_bonus_mode < '\0') {
                 if ((char)g_battle_defender_land_tile->battle_stat_terrain_mode < '\x01') {
                   iVar5 = iVar7;
                   iVar6 = iVar4;

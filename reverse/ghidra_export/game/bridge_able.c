@@ -14,7 +14,7 @@ int Bridge_Able(LandTile_0x100 *tile)
 
   Trace_Function(s_Bridge_Able_00514e70);
   if (((((char)tile->region_or_terrain_marker_a < '\0') || (g_editor_mode_enabled != 0)) &&
-      (tile->field_0x15 == -1)) &&
+      (tile->bridge_variant_id == 0xff)) &&
      (((tile->linked_record == (void *)0x0 && (sVar1 = *(short *)&tile->field_0x4, 0x1114 < sVar1))
       && (sVar1 < 0x12c1)))) {
     return *(int *)("GetModuleFileNameA" + sVar1 * 4 + 0xc);
