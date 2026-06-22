@@ -69,7 +69,7 @@ switchD_0048e75f_default:
           do {
             pbVar2 = (byte *)*puVar7;
             if ((pbVar2 != (byte *)0x0) && (pbVar2[0x127] == 0)) {
-              iVar3 = *(int *)(g_army_type_table + (uint)*pbVar2 * 0x400 + 0xc);
+              iVar3 = g_army_type_table[*pbVar2].unit_class;
               if (iVar3 == 0) {
                 if (*(int *)(pbVar2 + 0x144) == 0) {
                   iVar6 = iVar6 + 1 + (uint)pbVar2[0x148];

@@ -11,9 +11,9 @@ undefined4 Near_City_With_Air_Found(undefined4 *param_1,int *param_2,int *param_
 
 {
   int iVar1;
-  byte *pbVar2;
-  short *psVar3;
-  int iVar4;
+  byte bVar2;
+  byte *pbVar3;
+  short *psVar4;
   int iVar5;
   int iVar6;
   int iVar7;
@@ -27,10 +27,10 @@ undefined4 Near_City_With_Air_Found(undefined4 *param_1,int *param_2,int *param_
   iVar1 = (int)param_1 * 4;
   if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
     iVar5 = (int)param_1;
-    psVar3 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar4 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
-      iVar6 = (int)psVar3[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
-      iVar7 = (int)psVar3[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
+      iVar6 = (int)psVar4[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
+      iVar7 = (int)psVar4[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
          (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
         if (iVar6 < 0) {
@@ -65,16 +65,16 @@ switchD_0048f05c_default:
           local_20 = 0;
           param_1 = (undefined4 *)(iVar5 + 0x28);
           do {
-            pbVar2 = (byte *)*param_1;
-            if ((pbVar2 != (byte *)0x0) && (pbVar2[0x127] == 0)) {
-              iVar4 = (uint)*pbVar2 * 0x400;
-              if ((*(int *)(g_army_type_table + iVar4 + 0xc) == 1) &&
-                 ((pbVar2[0x148] == 0 && (*pbVar2 == 0x28)))) {
+            pbVar3 = (byte *)*param_1;
+            if ((pbVar3 != (byte *)0x0) && (pbVar3[0x127] == 0)) {
+              bVar2 = *pbVar3;
+              if ((g_army_type_table[bVar2].unit_class == 1) &&
+                 ((pbVar3[0x148] == 0 && (bVar2 == 0x28)))) {
                 local_1c = local_1c + 1;
               }
-              else if ((*(int *)(g_army_type_table + iVar4 + 0xc) == 2) &&
-                      ((*(uint *)(&DAT_005aa40c + iVar4) & *(uint *)(_DAT_0074a0b8 + 0x140)) != 0))
-              {
+              else if ((g_army_type_table[bVar2].unit_class == 2) &&
+                      ((g_army_type_table[bVar2].transportable_mask &
+                       *(uint *)(_DAT_0074a0b8 + 0x140)) != 0)) {
                 local_20 = local_20 + 1;
               }
             }
@@ -89,7 +89,7 @@ switchD_0048f05c_default:
         }
       }
       local_14 = local_14 + 1;
-      psVar3 = psVar3 + 4;
+      psVar4 = psVar4 + 4;
     } while (local_14 <= *(int *)(&DAT_0074a360 + iVar1));
   }
   return 0;

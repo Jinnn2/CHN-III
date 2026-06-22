@@ -22,6 +22,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
+| `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 
 ## Important Globals
 
@@ -40,6 +41,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_special_project_defs` | `0x005a19d4`, 25 records, `0x200` byte stride. | Static special-project definitions. |
 | `g_science_defs` | `0x005817a8`, 200 records, `0x88` byte stride. | Static science/research definitions. |
 | `g_country_profile_defs` | `0x00596218`, 100 records, `0x7c` byte stride. | Static country profile definitions and modifiers. |
+| `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
 
 ## Useful Offsets
 
@@ -83,6 +85,39 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x14c` | Cargo/subunit scans compare this pointer against the current unit. | transport or carrier link. |
 | `+0x154` | `City_Belong_Change` assigns a city pointer; `Map_To_Battle_Army` reads `building_status[...]` through it. | stationed/associated city. |
 | `+0x160` | Country army traversals follow this pointer. | next army in linked list. |
+
+### `ArmyTypeDef_0x400`
+
+`Load_Dat` copies the full table as `0x5b00` dwords (`0x16c00` bytes), then
+derives `+0xf4` from `build_cost` for each record. City production normally
+iterates the first `0x4b` trainable types, while battle/UI code can reference
+higher ids.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | `Put_City_Make` and table/UI paths skip zero entries. | enabled/display flag. |
+| `+0x0c` | `BattleArmy`, `Map_To_Battle_Army`, near-city scans, and battle resolution compare values `0`, `1`, and `2`. | unit class/domain. |
+| `+0x10` | `City_Building` reads this when completing unit production. | land/domain flag. |
+| `+0x2c` | `BattleArmy` copies it into battle record slot `0x16`. | battle sprite/effect id. |
+| `+0x38` | `City_View` uses it to select the unit image. | city-view image id. |
+| `+0x3c` | Battle action loops compare animation/action counters against it. | battle action frame count. |
+| `+0x60` | `Load_Dat` validates mission `0x29` counter `ArmyUnit +0x12a` against it. | mission range limit. |
+| `+0x90` | `Load_Dat` validates idle class-2 mission counter against it. | special mission range limit. |
+| `+0xec` | Unit production UI and AI classify/order unit choices with this late table field. | build priority / AI rank. |
+| `+0xf0` | `City_Building` and `Put_City_Make` compare city build progress against it. | build cost. |
+| `+0xf4` | Derived by `Load_Dat` from the magnitude of `build_cost`. | build cost digit count/display width. |
+| `+0xf8/+0xfc/+0x100` | `Map_To_Battle_Army`, `BattleArmy`, production UI, and city threat logic use these as primary combat numbers. | attack/combat stats A/B/C. |
+| `+0x104/+0x108/+0x10c` | `Map_To_Battle_Army` mirrors these into defensive/support stat arrays. | defense/support stats A/B/C. |
+| `+0x110` | `Load_Dat` caches it into `ArmyUnit +0x138` after scaling; UI displays it divided by 9. | movement/speed. |
+| `+0x114` | Battle AI compares range/rank counters with this value. | battle minimum range / rank. |
+| `+0x118..` | Early indexes are used by battle class interactions; city support code can render later offsets from this base in Ghidra output. | combat/support value block. |
+| `+0x12c` | Transport validation in `Load_Dat`, `AI_Diplomat`, and `Map_To_Battle_Army` requires this to be nonzero for carriers. | transport capacity. |
+| `+0x138` | Load repair intersects this with carried-unit capability masks. | transport mask. |
+| `+0x140/+0x144` | Near-city/air and transport checks compare capability bitmasks through these fields. | capability / transportable masks. |
+| `+0x160` | `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battle step frame count. |
+| `+0x164/+0x184` | `City_Belong_Change` adds/removes shorts from city protection/resource counters while units are stationed. | city support deltas. |
+| `+0x1b4/+0x1b8` | `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |
+| `+0x1f8..` | `Put_City_Make` compares 40 resource slots against city/country resource availability. | resource cost by kind. |
 
 ### `City_0x1b8_plus`
 

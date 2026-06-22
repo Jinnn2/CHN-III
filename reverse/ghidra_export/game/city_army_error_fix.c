@@ -14,7 +14,6 @@ void City_Army_Error_Fix(void)
   uint *puVar4;
   ushort *puVar5;
   uint uVar6;
-  undefined *puVar7;
   int local_378;
   int local_374;
   int local_370;
@@ -59,20 +58,20 @@ void City_Army_Error_Fix(void)
       }
       local_374 = 0;
       puVar4 = local_12c;
-      puVar7 = (undefined *)0x5aa2dc;
+      iVar3 = 0x5aa2dc;
       do {
-        if (((puVar7 != &DAT_005b1edc) && (puVar7 != &DAT_005ba2dc)) && (puVar7 != &DAT_005bb2dc)) {
+        if (((iVar3 != 0x5b1edc) && (iVar3 != 0x5ba2dc)) && (iVar3 != 0x5bb2dc)) {
           if ((uint)*(ushort *)(&DAT_00735136 + (local_378 + local_374) * 2) != *puVar4) {
-            Format_Text(local_2ac,&DAT_00573940,puVar5 + -0xd3,puVar7,
+            Format_Text(local_2ac,&DAT_00573940,puVar5 + -0xd3,iVar3,
                         (uint)*(ushort *)(&DAT_00735136 + (local_378 + local_374) * 2),*puVar4);
             FUN_00469f90(local_2ac,1);
             *(short *)(&DAT_00735136 + (local_378 + local_374) * 2) = (short)*puVar4;
           }
         }
-        puVar7 = puVar7 + 0x400;
+        iVar3 = iVar3 + 0x400;
         local_374 = local_374 + 1;
         puVar4 = puVar4 + 1;
-      } while ((int)puVar7 < 0x5bcedc);
+      } while (iVar3 < 0x5bcedc);
     }
     puVar5 = puVar5 + 0x734;
     local_370 = local_370 + 4;

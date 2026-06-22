@@ -78,7 +78,7 @@ void Put_City_Make(void)
     _DAT_0074a568 = 0;
     _DAT_00749940 = 0;
     iVar9 = 0;
-    local_2c = &DAT_005aa47c;
+    local_2c = &g_army_type_table[0].prerequisite_building_a;
     do {
       if (*(char *)(iVar13 + 0xa2f + iVar9) == '\x01') {
         iVar10 = *(int *)(iVar15 + 0x24);
@@ -314,12 +314,11 @@ LAB_004dfaeb:
       sVar3 = *(short *)(DAT_007584a8 + 0xd8 + local_30 * 2);
       if (-1 < sVar3) {
         if (sVar3 < 0x4b) {
-          iVar10 = sVar3 * 0x400;
-          Draw_Text_Centered(iVar13 + 0x16,local_34,iVar10 + 0x5aa2dc,0xffffffff,DAT_007350b4,
-                             0xffffffff,0xffffffff);
+          iVar10 = (int)sVar3;
+          Draw_Text_Centered(iVar13 + 0x16,local_34,iVar10 * 0x400 + 0x5aa2dc,0xffffffff,
+                             DAT_007350b4,0xffffffff,0xffffffff);
           Draw_MainMenu_Number
-                    (iVar13 + 0x7b,local_34,(double)*(int *)(g_army_type_table + iVar10 + 0xf0),0,5,
-                     1);
+                    (iVar13 + 0x7b,local_34,(double)g_army_type_table[iVar10].build_cost,0,5,1);
           if (local_30 == 0) {
             if (0 < *(int *)(DAT_007584a8 + 0x60)) {
               iVar15 = __ftol(iVar9 + 0xd2,DAT_0074c850);
@@ -330,10 +329,10 @@ LAB_004dfaeb:
             Draw_Text_Centered(iVar13 + 0x69,iVar9 + 0xc2,&DAT_005cbd18,0xffffffff,DAT_007350b4,
                                0xffffffff,0xffffffff);
             Draw_MainMenu_Number
-                      (iVar13 + 0x70,iVar9 + 0xc1,
-                       (double)*(int *)(g_army_type_table + iVar10 + 0xf0),0,5,0);
+                      (iVar13 + 0x70,iVar9 + 0xc1,(double)g_army_type_table[iVar10].build_cost,0,5,0
+                      );
             local_28 = (int *)0x0;
-            iVar15 = *(int *)(g_army_type_table + iVar10 + 0xf0) - *(int *)(DAT_007584a8 + 0x60);
+            iVar15 = g_army_type_table[iVar10].build_cost - *(int *)(DAT_007584a8 + 0x60);
           }
         }
         else if (sVar3 < 0x8c) {
@@ -477,8 +476,7 @@ LAB_004dfaeb:
                                0xffffffff,uVar8,0xffffffff,0xffffffff);
             Draw_MainMenu_Number
                       (iVar13 + 0x82,iVar10 + -2,
-                       (double)*(int *)(g_army_type_table + (&DAT_00734e48)[iVar16] * 0x400 + 0xf0),
-                       0,5,1);
+                       (double)g_army_type_table[(&DAT_00734e48)[iVar16]].build_cost,0,5,1);
             local_34 = local_34 + 1;
             iVar10 = iVar10 + 0x18;
             iVar16 = iVar16 + 1;
@@ -622,44 +620,42 @@ LAB_004dfaeb:
                            DAT_007350b4,0xffffffff,0xffffffff);
         Draw_Text_Centered(DAT_00714e6c + 5,DAT_00714e68 + 0x10,&DAT_005cc5c0,0xffffffff,
                            DAT_007350b4,0xffffffff,0xffffffff);
-        FUN_004c51f0(DAT_00714e6c + 0x1e,DAT_00714e68 + 0x10,
-                     *(undefined4 *)(g_army_type_table + iVar13 + 0xf8),0,5,0);
+        FUN_004c51f0(DAT_00714e6c + 0x1e,DAT_00714e68 + 0x10,g_army_type_table[iVar15].attack_stat_a
+                     ,0,5,0);
         Draw_Text_Centered(DAT_00714e6c + 5,DAT_00714e68 + 0x1d,&DAT_005cc5bc,0xffffffff,
                            DAT_007350b4,0xffffffff,0xffffffff);
-        FUN_004c51f0(DAT_00714e6c + 0x1e,DAT_00714e68 + 0x1d,(&DAT_005aa3cc)[iVar15 * 0x100],0,5,0);
+        FUN_004c51f0(DAT_00714e6c + 0x1e,DAT_00714e68 + 0x1d,
+                     g_army_type_table[iVar15].defense_or_support_stat_a,0,5,0);
         Draw_Text_Centered(DAT_00714e6c + 5,DAT_00714e68 + 0x2a,&DAT_005cc5b8,0xffffffff,
                            DAT_007350b4,0xffffffff,0xffffffff);
         FUN_004c51f0(DAT_00714e6c + 0x1e,DAT_00714e68 + 0x2a,
-                     (int)(&DAT_005aa3d8)[iVar15 * 0x100] / 9,0,5,0);
+                     g_army_type_table[iVar15].movement_or_speed / 9,0,5,0);
         Draw_Text_Centered(DAT_00714e6c + 5,DAT_00714e68 + 0x37,&DAT_005cc5b0,0xffffffff,
                            DAT_007350b4,0xffffffff,0xffffffff);
         FUN_004c51f0(DAT_00714e6c + 0x28,DAT_00714e68 + 0x37,
-                     *(undefined4 *)(&DAT_005aa42c + *(int *)(DAT_007584b0 + 0x60) * 4 + iVar13),0,3
-                     ,0);
+                     *(undefined4 *)(iVar13 + 0x5aa42c + *(int *)(DAT_007584b0 + 0x60) * 4),0,3,0);
         Draw_Text_Centered(DAT_00714e6c + 5,DAT_00714e68 + 0x44,&DAT_005cc5a8,0xffffffff,
                            DAT_007350b4,0xffffffff,0xffffffff);
         FUN_004c51f0(DAT_00714e6c + 0x28,DAT_00714e68 + 0x44,
-                     *(undefined4 *)(&DAT_005aa44c + *(int *)(DAT_007584b0 + 0x60) * 4 + iVar13),0,3
-                     ,0);
+                     *(undefined4 *)(iVar13 + 0x5aa44c + *(int *)(DAT_007584b0 + 0x60) * 4),0,3,0);
         local_28 = &DAT_00570838;
         local_34 = 0;
         do {
           iVar15 = *local_28;
-          if (0 < *(int *)(&DAT_005aa4c0 + iVar15 * 4 + iVar13)) {
-            iVar9 = (local_34 % 6) * 0xd;
-            Draw_Text_Centered(DAT_00714e6c + 0x4b + (local_34 / 6) * 0x32,iVar9 + 3 + DAT_00714e68,
-                               &DAT_005a80b4 + iVar15 * 0x36,0xffffffff,DAT_0074c850,0xffffffff,
+          if (0 < *(int *)(iVar13 + 0x5aa4c0 + iVar15 * 4)) {
+            iVar10 = (local_34 % 6) * 0xd;
+            Draw_Text_Centered(DAT_00714e6c + 0x4b + (local_34 / 6) * 0x32,iVar10 + 3 + DAT_00714e68
+                               ,&DAT_005a80b4 + iVar15 * 0x36,0xffffffff,DAT_0074c850,0xffffffff,
                                0xffffffff);
-            if ((int)*(short *)(_DAT_00748e30 + 0xaca + iVar15 * 2) <
-                *(int *)(&DAT_005aa4c0 + iVar15 * 4 + iVar13)) {
+            iVar9 = *(int *)(iVar13 + 0x5aa4c0 + iVar15 * 4);
+            if (*(short *)(_DAT_00748e30 + 0xaca + iVar15 * 2) < iVar9) {
               uVar20 = 3;
             }
             else {
               uVar20 = 1;
             }
             FUN_004c51f0(DAT_00714e6c + ((local_34 / 6) * 5 + 10) * 10,
-                         CONCAT44(*(int *)(&DAT_005aa4c0 + iVar15 * 4 + iVar13),
-                                  iVar9 + 3 + DAT_00714e68),0,3,uVar20);
+                         CONCAT44(iVar9,iVar10 + 3 + DAT_00714e68),0,3,uVar20);
             local_34 = local_34 + 1;
           }
           local_28 = local_28 + 1;

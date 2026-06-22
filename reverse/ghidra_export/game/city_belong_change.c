@@ -113,12 +113,12 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
       if (*(City_0x1b8_plus **)(pbVar11 + 0x154) == city) {
         city->policy_target_or_required_progress =
              city->policy_target_or_required_progress -
-             *(short *)(&DAT_005aa42c +
-                       ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar1)) * 4);
+             (short)g_army_type_table[*pbVar11].combat_or_support_values
+                    [*(int *)(&DAT_00735118 + iVar1) + 0x13];
         city->building_income_yield =
              city->building_income_yield -
-             *(short *)(&DAT_005aa44c +
-                       ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar1)) * 4);
+             (short)g_army_type_table[*pbVar11].combat_or_support_values
+                    [*(int *)(&DAT_00735118 + iVar1) + 0x1b];
         pbVar11[0x154] = 0;
         pbVar11[0x155] = 0;
         pbVar11[0x156] = 0;
@@ -176,12 +176,12 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
           *(City_0x1b8_plus **)(pbVar11 + 0x154) = pCVar4;
           pCVar4->policy_target_or_required_progress =
                pCVar4->policy_target_or_required_progress +
-               *(short *)(&DAT_005aa42c +
-                         ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar7)) * 4);
+               (short)g_army_type_table[*pbVar11].combat_or_support_values
+                      [*(int *)(&DAT_00735118 + iVar7) + 0x13];
           pCVar4->building_income_yield =
                pCVar4->building_income_yield +
-               *(short *)(&DAT_005aa44c +
-                         ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar7)) * 4);
+               (short)g_army_type_table[*pbVar11].combat_or_support_values
+                      [*(int *)(&DAT_00735118 + iVar7) + 0x1b];
           pCVar4->round_or_protection_timer = pCVar4->round_or_protection_timer + 1;
           pCVar10 = city;
         }
@@ -205,12 +205,12 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
           *(City_0x1b8_plus **)(pbVar11 + 0x154) = pCVar4;
           pCVar4->policy_target_or_required_progress =
                pCVar4->policy_target_or_required_progress +
-               *(short *)(&DAT_005aa42c +
-                         ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar7)) * 4);
+               (short)g_army_type_table[*pbVar11].combat_or_support_values
+                      [*(int *)(&DAT_00735118 + iVar7) + 0x13];
           pCVar4->building_income_yield =
                pCVar4->building_income_yield +
-               *(short *)(&DAT_005aa44c +
-                         ((uint)*pbVar11 * 0x100 + *(int *)(&DAT_00735118 + iVar7)) * 4);
+               (short)g_army_type_table[*pbVar11].combat_or_support_values
+                      [*(int *)(&DAT_00735118 + iVar7) + 0x1b];
           pCVar4->round_or_protection_timer = pCVar4->round_or_protection_timer + 1;
         }
         city = (City_0x1b8_plus *)((int)&city[-1].next_city + 3);

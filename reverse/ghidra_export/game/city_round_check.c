@@ -166,7 +166,8 @@ LAB_0042858c:
               local_298 = (undefined2)iVar19;
               if (*(short *)(pcVar10 + 0x10) == g_current_city_land_tile->linked_count_or_city_count
                  ) {
-                _DAT_0075c60c = (short)_DAT_0074c7f4 * (short)DAT_005aa7d8;
+                _DAT_0075c60c = (short)_DAT_0074c7f4 * (short)g_army_type_table[1].movement_or_speed
+                ;
                 DAT_007068ec = 1;
                 DAT_0075c4e1 = (undefined1)g_active_country_index;
                 DAT_0075c608 = 0x1f;
@@ -285,7 +286,8 @@ LAB_00428580:
                    && (((local_254 < 0 && ((local_254 == local_2a0 || (local_254 == local_290)))) ||
                        ((local_268 < 0 && ((local_268 == local_2a0 || (local_268 == local_290)))))))
                    ) {
-                  _DAT_0075c60c = (short)DAT_005b2bd8 * (short)_DAT_0074c7f4;
+                  _DAT_0075c60c =
+                       (short)g_army_type_table[0x22].movement_or_speed * (short)_DAT_0074c7f4;
                   DAT_0075c4e1 = (undefined1)g_active_country_index;
                   DAT_0075c4fa = (ushort)g_current_city_x;
                   DAT_007068ed = 1;
@@ -345,8 +347,7 @@ LAB_00428580:
                   if (iVar9 < 1) break;
                   pbVar3 = *(byte **)pcVar17;
                   if (pbVar3 != (byte *)0x0) {
-                    iVar11 = (int)(char)pbVar3[0x12f] *
-                             *(int *)(g_army_type_table + (uint)*pbVar3 * 0x400 + 0xf8);
+                    iVar11 = (int)(char)pbVar3[0x12f] * g_army_type_table[*pbVar3].attack_stat_a;
                     if ((char)pbVar3[1] == g_active_country_index) {
                       _DAT_00706904 = _DAT_00706904 + _DAT_0050f3ac;
                       _DAT_00706908 = (float)iVar11 + _DAT_00706908;
@@ -364,11 +365,9 @@ LAB_00428580:
                       else {
                         _DAT_007068f0 = _DAT_007068f0 + _DAT_0050f3ac;
                         _DAT_007068f4 = (float)iVar11 + _DAT_007068f4;
-                        *(float *)(&DAT_007068f8 +
-                                  *(int *)(g_army_type_table + (uint)*pbVar3 * 0x400 + 0xc) * 4) =
-                             *(float *)(&DAT_007068f8 +
-                                       *(int *)(g_army_type_table + (uint)*pbVar3 * 0x400 + 0xc) * 4
-                                       ) + _DAT_0050f3ac;
+                        *(float *)(&DAT_007068f8 + g_army_type_table[*pbVar3].unit_class * 4) =
+                             *(float *)(&DAT_007068f8 + g_army_type_table[*pbVar3].unit_class * 4) +
+                             _DAT_0050f3ac;
                       }
                     }
                     iVar9 = iVar9 + -1;

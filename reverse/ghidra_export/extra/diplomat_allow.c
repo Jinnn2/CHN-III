@@ -208,8 +208,7 @@ LAB_0043f336:
               do {
                 if (iVar13 < 1) break;
                 if (((byte *)*puVar9 != (byte *)0x0) &&
-                   (iVar13 = iVar13 + -1,
-                   1 < *(int *)(g_army_type_table + (uint)*(byte *)*puVar9 * 0x400 + 0xf8))) {
+                   (iVar13 = iVar13 + -1, 1 < g_army_type_table[*(byte *)*puVar9].attack_stat_a)) {
                   param_2 = param_2 + 1;
                   break;
                 }

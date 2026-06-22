@@ -101,7 +101,7 @@ void City_View(int param_1)
               local_18[5] = 2;
               *(int *)(pbVar4 + 0x10) =
                    *(int *)(&DAT_00758580 + local_18[*(byte *)(param_1 + 0x22)] * 4) +
-                   *(int *)(g_army_type_table + (uint)(byte)(cVar2 + 0x53U) * 0x400 + 0x38) * 4;
+                   g_army_type_table[(byte)(cVar2 + 0x53U)].city_view_image_id * 4;
               FUN_00471e70(pbVar4);
               *(byte **)(iVar5 + 0x14) = pbVar4;
               bVar1 = true;

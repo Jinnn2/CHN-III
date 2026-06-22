@@ -137,7 +137,7 @@ void Load_UI_String_EMG(void)
         }
       }
       if (local_4[-0x97] != 0) {
-        piVar2 = &DAT_005aa3d8;
+        piVar2 = &g_army_type_table[0].movement_or_speed;
         puVar8 = (ushort *)(local_4 + -0x96);
         iVar3 = 0x4b;
         do {

@@ -26,14 +26,13 @@ void Diplomat_Turn(void)
   int iVar13;
   int iVar14;
   int *piVar15;
-  byte *pbVar16;
-  int iVar17;
-  uint uVar18;
-  char *pcVar19;
-  ushort *puVar20;
-  int iVar21;
-  CountryState_0xe68 *pCVar22;
-  ushort *puVar23;
+  int iVar16;
+  uint uVar17;
+  char *pcVar18;
+  ushort *puVar19;
+  int iVar20;
+  CountryState_0xe68 *pCVar21;
+  ushort *puVar22;
   uint local_1c4;
   char *local_1b8;
   int local_1b4;
@@ -56,7 +55,7 @@ void Diplomat_Turn(void)
   local_1b8 = &DAT_00735f20;
   local_1a8 = 1;
   iVar13 = (uint)g_active_country->leader_or_country_id * 0x200;
-  pCVar22 = g_active_country;
+  pCVar21 = g_active_country;
   if (1 < _DAT_0074a0fc) {
     do {
       if (bVar5) break;
@@ -68,29 +67,29 @@ void Diplomat_Turn(void)
         }
         bVar8 = false;
         bVar9 = false;
-        if (pCVar22->diplomacy_state_by_country[local_1a8] == 4) {
-          dVar3 = pCVar22->science_budget_or_treasury * _DAT_0050f440;
-          iVar14 = pCVar22->tribute_or_payment_by_country[local_1a8];
+        if (pCVar21->diplomacy_state_by_country[local_1a8] == 4) {
+          dVar3 = pCVar21->science_budget_or_treasury * _DAT_0050f440;
+          iVar14 = pCVar21->tribute_or_payment_by_country[local_1a8];
           if (_DAT_0050f480 < dVar3) {
             dVar3 = _DAT_0050f480;
           }
           if ((dVar3 < (double)iVar14) || (dVar3 < _DAT_0050f358)) {
             FUN_0041f490(_DAT_0074a0f8,local_1a8,2);
             bVar9 = true;
-            pCVar22 = g_active_country;
+            pCVar21 = g_active_country;
           }
-          if (pCVar22->science_budget_or_treasury < (double)iVar14) {
+          if (pCVar21->science_budget_or_treasury < (double)iVar14) {
             iVar14 = __ftol();
           }
           if (0 < iVar14) {
             FUN_0041f2b0(_DAT_0074a0f8,(double)-iVar14);
             FUN_0041f2b0(local_1a8);
-            pCVar22 = g_active_country;
+            pCVar21 = g_active_country;
             if ((_DAT_0074a0f8 == g_human_country_index) &&
                (local_194 = local_194 - iVar14, DAT_0074a2d3 != '\0')) {
               Format_Text(local_188,&DAT_0056ff68);
               FUN_004898b0(_DAT_0074a316,local_188,0,0xffffffff,0xffffffff);
-              pCVar22 = g_active_country;
+              pCVar21 = g_active_country;
             }
           }
           if (local_1a8 == g_human_country_index) {
@@ -98,61 +97,61 @@ void Diplomat_Turn(void)
             if (DAT_0074a2d3 != '\0') {
               Format_Text(local_c8,&DAT_0056ff44);
               FUN_004898b0(DAT_0074c850,local_c8,0,0xffffffff,0xffffffff);
-              pCVar22 = g_active_country;
+              pCVar21 = g_active_country;
             }
             if (_DAT_00748e30 != 0) {
               iVar14 = 0;
               piVar15 = (int *)(_DAT_00748e30 + 0x1ac);
-              pcVar19 = &g_country_states;
+              pcVar18 = &g_country_states;
               do {
-                if ((((iVar14 != local_1a8) && (iVar14 != _DAT_0074a0f8)) && ('\0' < *pcVar19)) &&
-                   (((5 < *(int *)(((int)pCVar22 - _DAT_00748e30) + (int)piVar15) && (0 < *piVar15))
+                if ((((iVar14 != local_1a8) && (iVar14 != _DAT_0074a0f8)) && ('\0' < *pcVar18)) &&
+                   (((5 < *(int *)(((int)pCVar21 - _DAT_00748e30) + (int)piVar15) && (0 < *piVar15))
                     && (*piVar15 < 6)))) {
                   bVar8 = true;
                   break;
                 }
-                pcVar19 = pcVar19 + 0xe68;
+                pcVar18 = pcVar18 + 0xe68;
                 iVar14 = iVar14 + 1;
                 piVar15 = piVar15 + 1;
-              } while ((int)pcVar19 < 0x748da8);
+              } while ((int)pcVar18 < 0x748da8);
             }
           }
         }
         bVar7 = false;
-        if (3 < pCVar22->diplomacy_contact_cooldown_by_country[local_1a8]) {
-          if (pCVar22->diplomacy_state_by_country[local_1a8] < 6) {
+        if (3 < pCVar21->diplomacy_contact_cooldown_by_country[local_1a8]) {
+          if (pCVar21->diplomacy_state_by_country[local_1a8] < 6) {
             bVar7 = true;
           }
           else {
-            pCVar22->diplomacy_contact_cooldown_by_country[local_1a8] = 0;
-            pCVar22 = g_active_country;
+            pCVar21->diplomacy_contact_cooldown_by_country[local_1a8] = 0;
+            pCVar21 = g_active_country;
           }
         }
         if (((_DAT_0074a0f8 == g_human_country_index) && (g_auto_turn_or_ai_control_flag != 1)) ||
-           ((iVar14 = pCVar22->diplomacy_state_by_country[local_1a8], iVar14 < 1 ||
+           ((iVar14 = pCVar21->diplomacy_state_by_country[local_1a8], iVar14 < 1 ||
             (((!bVar6 && (iVar14 != 3)) && (!bVar7)))))) goto LAB_0044ba2f;
-        iVar21 = -1;
+        iVar20 = -1;
         if (((bVar4) && (DAT_00714f90 == '\x01')) &&
            ((_DAT_0074a0f8 != g_human_country_index &&
             ((local_1a8 == g_human_country_index &&
-             (0 < pCVar22->diplomacy_state_by_country[g_human_country_index])))))) {
+             (0 < pCVar21->diplomacy_state_by_country[g_human_country_index])))))) {
           bVar10 = true;
-          if (5 < pCVar22->diplomacy_state_by_country[g_human_country_index]) goto LAB_0044b8ff;
-          if (((pCVar22->diplomacy_pressure_by_country[g_human_country_index] <
+          if (5 < pCVar21->diplomacy_state_by_country[g_human_country_index]) goto LAB_0044b8ff;
+          if (((pCVar21->diplomacy_pressure_by_country[g_human_country_index] <
                 0x46 - *(int *)(&DAT_00589aa4 + iVar13)) &&
-              (0x1e < pCVar22->diplomacy_affinity_by_country[g_human_country_index])) &&
-             ((pCVar22->diplomacy_caution_by_country[g_human_country_index] < 0x46 &&
+              (0x1e < pCVar21->diplomacy_affinity_by_country[g_human_country_index])) &&
+             ((pCVar21->diplomacy_caution_by_country[g_human_country_index] < 0x46 &&
               (*(int *)(&DAT_00589aa0 + iVar13) + 4 <
-               (int)(uint)pCVar22->diplomacy_turn_counter_by_country[g_human_country_index]))))
+               (int)(uint)pCVar21->diplomacy_turn_counter_by_country[g_human_country_index]))))
           goto LAB_0044c065;
           FUN_0041f490(_DAT_0074a0f8,g_human_country_index,2);
           FUN_0041f4f0(_DAT_0074a0f8,g_human_country_index,0xfffffffe);
-          pCVar22 = g_active_country;
+          pCVar21 = g_active_country;
           if (g_active_country->diplomacy_contact_cooldown_by_country[local_1a8] < 4)
           goto LAB_0044ba2f;
           if (5 < g_active_country->diplomacy_state_by_country[local_1a8]) {
             g_active_country->diplomacy_contact_cooldown_by_country[local_1a8] = 0;
-            pCVar22 = g_active_country;
+            pCVar21 = g_active_country;
             goto LAB_0044ba2f;
           }
           if (local_1a8 == g_human_country_index) {
@@ -162,28 +161,28 @@ void Diplomat_Turn(void)
                g_active_country->diplomacy_contact_cooldown_by_country[local_1a8] - 3;
           iVar14 = *(int *)(&DAT_00589aa0 + iVar13);
 LAB_0044c5eb:
-          pCVar22 = g_active_country;
+          pCVar21 = g_active_country;
           if ((iVar14 + 0x37 < g_active_country->diplomacy_affinity_by_country[local_1a8]) &&
              (g_active_country->diplomacy_caution_by_country[local_1a8] < 0x50)) {
-            iVar21 = 0x36;
+            iVar20 = 0x36;
 LAB_0044c620:
-            pCVar22->pending_diplomatic_action_by_country[local_1a8] = (byte)iVar21;
+            pCVar21->pending_diplomatic_action_by_country[local_1a8] = (byte)iVar20;
             Diplomat_Start(_DAT_0074a0f8);
             bVar5 = true;
-            pCVar22 = g_active_country;
+            pCVar21 = g_active_country;
           }
         }
         else {
           bVar10 = false;
 LAB_0044b8ff:
-          if ((0 < pCVar22->diplomacy_pressure_by_country[local_1a8]) || (bVar7)) {
-            if ((pCVar22->total_force_or_unit_count != 0) && (1 < pCVar22->owned_city_count)) {
+          if ((0 < pCVar21->diplomacy_pressure_by_country[local_1a8]) || (bVar7)) {
+            if ((pCVar21->total_force_or_unit_count != 0) && (1 < pCVar21->owned_city_count)) {
               if ((!bVar6) && (iVar14 != 3)) {
                 if (local_1a8 != g_human_country_index) goto LAB_0044c59a;
                 if (!bVar7) goto LAB_0044ba2f;
               }
               sVar11 = FUN_004fbf50();
-              if (((sVar11 != 0) && (!bVar8)) && (pCVar22 = g_active_country, !bVar7))
+              if (((sVar11 != 0) && (!bVar8)) && (pCVar21 = g_active_country, !bVar7))
               goto LAB_0044ba2f;
               local_1b4 = 0;
               local_190 = 0;
@@ -195,60 +194,60 @@ LAB_0044b8ff:
                 local_1b4 = 1;
                 local_190 = (uint)*(ushort *)(local_1b8 + 0x7c);
                 local_1c4 = (uint)g_active_country->owned_city_count;
-                pbVar16 = g_army_type_table + 0xf8;
-                puVar23 = (ushort *)&g_active_country->field_0x7e;
+                piVar15 = &g_army_type_table[0].attack_stat_a;
+                puVar22 = (ushort *)&g_active_country->field_0x7e;
                 do {
-                  iVar14 = *(int *)pbVar16;
+                  iVar14 = *piVar15;
                   if (0 < iVar14) {
                     dVar3 = (double)(int)((uint)*(ushort *)
                                                  (((int)local_1b8 - (int)g_active_country) +
-                                                 (int)puVar23) * iVar14) + dVar3;
-                    local_1b0 = (double)(int)((uint)*puVar23 * iVar14) + local_1b0;
+                                                 (int)puVar22) * iVar14) + dVar3;
+                    local_1b0 = (double)(int)((uint)*puVar22 * iVar14) + local_1b0;
                   }
-                  pbVar16 = pbVar16 + 0x400;
-                  puVar23 = puVar23 + 1;
-                } while ((int)pbVar16 < 0x5bcfc0);
+                  piVar15 = piVar15 + 0x100;
+                  puVar22 = puVar22 + 1;
+                } while ((int)piVar15 < 0x5bcfc0);
               }
               else {
                 local_198 = g_active_country->diplomacy_state_by_country;
                 local_18c = 1;
-                puVar23 = (ushort *)&DAT_00735f9c;
+                puVar22 = (ushort *)&DAT_00735f9c;
                 do {
                   local_198 = local_198 + 1;
-                  if ('\0' < (char)puVar23[-0x3e]) {
+                  if ('\0' < (char)puVar22[-0x3e]) {
                     if (local_18c == _DAT_0074a0f8) {
 LAB_0044bb23:
-                      local_1c4 = local_1c4 + *puVar23;
-                      pbVar16 = g_army_type_table + 0xf8;
-                      puVar20 = puVar23;
+                      local_1c4 = local_1c4 + *puVar22;
+                      piVar15 = &g_army_type_table[0].attack_stat_a;
+                      puVar19 = puVar22;
                       do {
-                        puVar20 = puVar20 + 1;
-                        if (0 < *(int *)pbVar16) {
-                          local_1b0 = (double)(int)((uint)*puVar20 * *(int *)pbVar16) + local_1b0;
+                        puVar19 = puVar19 + 1;
+                        if (0 < *piVar15) {
+                          local_1b0 = (double)(int)((uint)*puVar19 * *piVar15) + local_1b0;
                         }
-                        pbVar16 = pbVar16 + 0x400;
-                      } while ((int)pbVar16 < 0x5bcfc0);
+                        piVar15 = piVar15 + 0x100;
+                      } while ((int)piVar15 < 0x5bcfc0);
                     }
                     else if (((*local_198 < 6) && (local_18c != local_1a8)) &&
-                            (((char)puVar23[-0xf] < '\0' ||
-                             (((char)puVar23[-0xf] != local_1b8[0x5e] || (iVar14 == 3)))))) {
+                            (((char)puVar22[-0xf] < '\0' ||
+                             (((char)puVar22[-0xf] != local_1b8[0x5e] || (iVar14 == 3)))))) {
                       if ((*local_198 == 3) && (iVar14 != 3)) goto LAB_0044bb23;
                     }
                     else {
                       local_1b4 = local_1b4 + 1;
-                      local_190 = local_190 + *puVar23;
-                      pbVar16 = g_army_type_table + 0xf8;
-                      puVar20 = puVar23;
+                      local_190 = local_190 + *puVar22;
+                      piVar15 = &g_army_type_table[0].attack_stat_a;
+                      puVar19 = puVar22;
                       do {
-                        puVar20 = puVar20 + 1;
-                        if (0 < *(int *)pbVar16) {
-                          dVar3 = (double)(int)((uint)*puVar20 * *(int *)pbVar16) + dVar3;
+                        puVar19 = puVar19 + 1;
+                        if (0 < *piVar15) {
+                          dVar3 = (double)(int)((uint)*puVar19 * *piVar15) + dVar3;
                         }
-                        pbVar16 = pbVar16 + 0x400;
-                      } while ((int)pbVar16 < 0x5bcfc0);
+                        piVar15 = piVar15 + 0x100;
+                      } while ((int)piVar15 < 0x5bcfc0);
                     }
                   }
-                  puVar23 = puVar23 + 0x734;
+                  puVar22 = puVar22 + 0x734;
                   local_18c = local_18c + 1;
                 } while (local_18c < 0x16);
               }
@@ -266,7 +265,7 @@ LAB_0044bb23:
                   g_active_country->diplomacy_caution_by_country[local_1a8] = 0x32;
                 }
               }
-              pCVar22 = g_active_country;
+              pCVar21 = g_active_country;
               switch(g_active_country->diplomacy_state_by_country[local_1a8]) {
               case 1:
                 if (bVar4) {
@@ -280,14 +279,14 @@ LAB_0044bb23:
                                || (0x23 - *(int *)(&DAT_00589aa4 + iVar13) <=
                                    g_active_country->diplomacy_pressure_by_country[local_1a8]))
                             break;
-                            iVar21 = 0x19;
+                            iVar20 = 0x19;
                           }
                           else {
                             if ((0x3b < g_active_country->diplomacy_caution_by_country[local_1a8])
                                || (0x2d - *(int *)(&DAT_00589aa4 + iVar13) <=
                                    g_active_country->diplomacy_pressure_by_country[local_1a8]))
                             break;
-                            iVar21 = 0x19;
+                            iVar20 = 0x19;
                           }
                           goto LAB_0044c620;
                         }
@@ -295,11 +294,11 @@ LAB_0044bb23:
                       else {
                         if (dVar2 <= _DAT_0050f318) {
 LAB_0044c065:
-                          iVar21 = 0x19;
+                          iVar20 = 0x19;
                           goto LAB_0044c620;
                         }
                         if (local_1b4 == 1) {
-                          iVar21 = 0x19;
+                          iVar20 = 0x19;
                           goto LAB_0044c620;
                         }
                       }
@@ -307,26 +306,26 @@ LAB_0044c065:
                   }
                   else {
                     iVar14 = g_active_country->diplomacy_affinity_by_country[local_1a8];
-                    iVar21 = *(int *)(&DAT_00589aa0 + iVar13);
-                    if ((iVar21 + 0x46 <= iVar14) &&
+                    iVar20 = *(int *)(&DAT_00589aa0 + iVar13);
+                    if ((iVar20 + 0x46 <= iVar14) &&
                        (g_active_country->diplomacy_caution_by_country[local_1a8] < 0x3c)) {
                       if (g_active_country->diplomacy_pressure_by_country[local_1a8] <
                           0x37 - *(int *)(&DAT_00589aa4 + iVar13)) {
                         if ((dVar2 <= _DAT_0050f360) || (local_1b4 == 1)) {
                           if ((local_1a8 == g_human_country_index) ||
                              (g_world_age_or_turn_phase < 3)) goto LAB_0044c065;
-                          if (((iVar14 <= iVar21 + 0x59) ||
+                          if (((iVar14 <= iVar20 + 0x59) ||
                               (0x27 < g_active_country->diplomacy_caution_by_country[local_1a8])) ||
                              (0x23 - *(int *)(&DAT_00589aa4 + iVar13) <=
                               g_active_country->diplomacy_pressure_by_country[local_1a8])) break;
-                          iVar21 = 0x19;
+                          iVar20 = 0x19;
                         }
                         else {
-                          if (((iVar14 <= iVar21 + 0x59) || (dVar2 < _DAT_0050f478)) ||
-                             ((uVar12 = FUN_004fbf50(), pCVar22 = g_active_country, 9 < uVar12 ||
+                          if (((iVar14 <= iVar20 + 0x59) || (dVar2 < _DAT_0050f478)) ||
+                             ((uVar12 = FUN_004fbf50(), pCVar21 = g_active_country, 9 < uVar12 ||
                               ((local_1a8 != g_human_country_index &&
                                (2 < g_world_age_or_turn_phase)))))) break;
-                          iVar21 = 0x19;
+                          iVar20 = 0x19;
                         }
                         goto LAB_0044c620;
                       }
@@ -343,7 +342,7 @@ LAB_0044c065:
                        (g_active_country->diplomacy_pressure_by_country[local_1a8] <
                         0xf - *(int *)(&DAT_00589aa4 + iVar13))) {
 LAB_0044c0fa:
-                      iVar21 = 0x18;
+                      iVar20 = 0x18;
                       goto LAB_0044c620;
                     }
                   }
@@ -363,16 +362,16 @@ LAB_0044c0fa:
                      (0x2d - *(int *)(&DAT_00589aa4 + iVar13) <=
                       g_active_country->diplomacy_pressure_by_country[local_1a8])) {
                     if ((dVar2 < _DAT_0050f418) || (local_1b4 == 1)) {
-                      iVar21 = 0xf;
+                      iVar20 = 0xf;
                       if (iVar14 + 0x19 < iVar1) {
-                        iVar17 = *(int *)(&DAT_00589aa4 + iVar13);
+                        iVar16 = *(int *)(&DAT_00589aa4 + iVar13);
                         if ((g_active_country->diplomacy_pressure_by_country[local_1a8] <
-                             0x4b - iVar17) && (_DAT_0050f430 <= local_1b0)) {
+                             0x4b - iVar16) && (_DAT_0050f430 <= local_1b0)) {
                           if (local_1a8 == g_human_country_index) goto LAB_0044c065;
                           if (g_world_age_or_turn_phase < 2) {
                             if (DAT_00714f90 != '\x01') {
-                              iVar21 = 0x19;
-                              pCVar22 = g_active_country;
+                              iVar20 = 0x19;
+                              pCVar21 = g_active_country;
                               goto LAB_0044c620;
                             }
 LAB_0044bff7:
@@ -380,7 +379,7 @@ LAB_0044bff7:
                                  < 1) || (*(int *)(local_1b8 + g_human_country_index * 4 + 0x1ac) <
                                           1)) goto LAB_0044c036;
                             if (iVar14 + 0x55 < iVar1) {
-                              iVar17 = 0x19 - iVar17;
+                              iVar16 = 0x19 - iVar16;
                               dVar3 = _DAT_0050f400;
                               goto joined_r0x0044c04a;
                             }
@@ -389,15 +388,15 @@ LAB_0044bff7:
                             if (DAT_00714f90 == '\x01') goto LAB_0044bff7;
 LAB_0044c036:
                             if (iVar14 + 0x41 < iVar1) {
-                              iVar17 = 0x2d - iVar17;
+                              iVar16 = 0x2d - iVar16;
                               dVar3 = _DAT_0050f470;
 joined_r0x0044c04a:
                               if ((g_active_country->diplomacy_pressure_by_country[local_1a8] <
-                                   iVar17) && (dVar3 <= local_1b0)) goto LAB_0044c065;
+                                   iVar16) && (dVar3 <= local_1b0)) goto LAB_0044c065;
                             }
                           }
-                          iVar21 = 0xf;
-                          pCVar22 = g_active_country;
+                          iVar20 = 0xf;
+                          pCVar21 = g_active_country;
                         }
                       }
                     }
@@ -407,14 +406,14 @@ joined_r0x0044c04a:
                           (g_active_country->diplomacy_treaty_flags_b[local_1a8] != 0)) &&
                          (g_active_country->diplomacy_blockade_or_truce_flags[local_1a8] != 0))
                       break;
-                      iVar21 = 0xf;
+                      iVar20 = 0xf;
                     }
                   }
                   else {
                     if (((dVar2 <= _DAT_0050f338) || (_DAT_0050f2b8 <= local_1b0)) ||
                        (local_1b4 == 1)) goto LAB_0044c0fa;
                     if (_DAT_0050f408 <= dVar2) break;
-                    iVar21 = 0xf;
+                    iVar20 = 0xf;
                   }
                 }
                 else {
@@ -423,7 +422,7 @@ LAB_0044c0ad:
                     if (local_1b4 != 1) break;
                   }
 LAB_0044c0b8:
-                  iVar21 = 0x18;
+                  iVar20 = 0x18;
                 }
                 goto LAB_0044c620;
               case 3:
@@ -439,10 +438,10 @@ LAB_0044c0b8:
                           (g_active_country->diplomacy_treaty_flags_b[local_1a8] != 0)) &&
                          (g_active_country->diplomacy_blockade_or_truce_flags[local_1a8] != 0))
                       break;
-                      iVar21 = 0xf;
+                      iVar20 = 0xf;
                     }
                     else {
-                      iVar21 = 0x37;
+                      iVar20 = 0x37;
                     }
                   }
                   else {
@@ -450,7 +449,7 @@ LAB_0044c0b8:
                        ((g_active_country->diplomacy_affinity_by_country[local_1a8] <
                          *(int *)(&DAT_00589aa0 + iVar13) + 0x41 || (dVar2 < _DAT_0050f408))))
                     break;
-                    iVar21 = 0x1c;
+                    iVar20 = 0x1c;
                   }
                   goto LAB_0044c620;
                 }
@@ -461,40 +460,40 @@ LAB_0044c0b8:
                       ((g_active_country->diplomacy_affinity_by_country[local_1a8] <
                         *(int *)(&DAT_00589aa0 + iVar13) + 0x4b && (local_1b0 < _DAT_0050f408)))) ||
                      ((_DAT_0050f318 < dVar2 && (local_1b4 != 1)))) {
-                    uVar18 = 1;
+                    uVar17 = 1;
                     if (local_1b8[0x5e] == local_1a8) {
-                      uVar18 = (uint)(byte)local_1b8[0x5f];
+                      uVar17 = (uint)(byte)local_1b8[0x5f];
                     }
-                    if ((int)uVar18 < local_1b4) {
+                    if ((int)uVar17 < local_1b4) {
                       local_1c4 = 1;
                       iVar14 = 0x1b0;
                       local_198 = (int *)&DAT_00735f20;
                       do {
-                        if (iVar21 != -1) goto LAB_0044c616;
+                        if (iVar20 != -1) goto LAB_0044c616;
                         if (((((local_1c4 != _DAT_0074a0f8) && (local_1c4 != local_1a8)) &&
                              ('\0' < (char)*local_198)) &&
-                            ((5 < *(int *)(pCVar22->name_bytes + iVar14 + -4) &&
+                            ((5 < *(int *)(pCVar21->name_bytes + iVar14 + -4) &&
                              (0 < *(int *)(local_1b8 + iVar14))))) &&
                            ((*(int *)(local_1b8 + iVar14) < 6 &&
-                            (sVar11 = FUN_004fbf50(), pCVar22 = g_active_country, sVar11 == 0)))) {
-                          iVar21 = (*(int *)(local_1b8 + iVar14) != 3) + 0x2a;
+                            (sVar11 = FUN_004fbf50(), pCVar21 = g_active_country, sVar11 == 0)))) {
+                          iVar20 = (*(int *)(local_1b8 + iVar14) != 3) + 0x2a;
                         }
                         iVar14 = iVar14 + 4;
                         local_1c4 = local_1c4 + 1;
                         local_198 = (int *)((int)local_198 + 0xe68);
                       } while (iVar14 < 0x204);
-                      if (iVar21 != -1) {
+                      if (iVar20 != -1) {
 LAB_0044c616:
-                        if (iVar21 < 0) goto LAB_0044ba2f;
+                        if (iVar20 < 0) goto LAB_0044ba2f;
                         goto LAB_0044c620;
                       }
                     }
                     if ((!bVar9) ||
-                       (sVar11 = FUN_004fbf50(), pCVar22 = g_active_country, sVar11 != 0)) break;
-                    iVar21 = 0x17;
+                       (sVar11 = FUN_004fbf50(), pCVar21 = g_active_country, sVar11 != 0)) break;
+                    iVar20 = 0x17;
                   }
                   else {
-                    iVar21 = 0x1b;
+                    iVar20 = 0x1b;
                   }
                   goto LAB_0044c620;
                 }
@@ -502,27 +501,27 @@ LAB_0044c616:
               case 5:
                 if (bVar4) {
                   if (local_1b0 <= _DAT_0050f360) {
-                    iVar21 = 0x1a;
+                    iVar20 = 0x1a;
                     goto LAB_0044c620;
                   }
                   if (1 < local_1b4) {
                     iVar14 = 1;
-                    iVar21 = 0x1b0;
-                    pcVar19 = &DAT_00735f20;
+                    iVar20 = 0x1b0;
+                    pcVar18 = &DAT_00735f20;
                     do {
                       if ((((((iVar14 != _DAT_0074a0f8) && (iVar14 != local_1a8)) &&
-                            ('\0' < *pcVar19)) &&
-                           ((5 < *(int *)(pCVar22->name_bytes + iVar21 + -4) &&
-                            (0 < *(int *)(local_1b8 + iVar21))))) &&
-                          (*(int *)(local_1b8 + iVar21) < 6)) &&
-                         (sVar11 = FUN_004fbf50(), pCVar22 = g_active_country, sVar11 == 0)) {
-                        iVar21 = (*(int *)(local_1b8 + iVar14 * 4 + 0x1ac) != 3) + 0x2a;
+                            ('\0' < *pcVar18)) &&
+                           ((5 < *(int *)(pCVar21->name_bytes + iVar20 + -4) &&
+                            (0 < *(int *)(local_1b8 + iVar20))))) &&
+                          (*(int *)(local_1b8 + iVar20) < 6)) &&
+                         (sVar11 = FUN_004fbf50(), pCVar21 = g_active_country, sVar11 == 0)) {
+                        iVar20 = (*(int *)(local_1b8 + iVar14 * 4 + 0x1ac) != 3) + 0x2a;
                         goto LAB_0044c620;
                       }
-                      iVar21 = iVar21 + 4;
+                      iVar20 = iVar20 + 4;
                       iVar14 = iVar14 + 1;
-                      pcVar19 = pcVar19 + 0xe68;
-                    } while (iVar21 < 0x204);
+                      pcVar18 = pcVar18 + 0xe68;
+                    } while (iVar20 < 0x204);
                   }
                 }
                 break;
@@ -537,14 +536,14 @@ LAB_0044c616:
                     if ((local_1b0 < _DAT_0050f408) || (_DAT_0050f418 <= dVar2)) {
 LAB_0044c51f:
                       if (dVar3 <= local_1b0) goto LAB_0044c50b;
-                      iVar21 = 4;
+                      iVar20 = 4;
                     }
                     else {
-                      iVar21 = 2;
+                      iVar20 = 2;
                     }
                   }
                   else {
-                    iVar21 = 2;
+                    iVar20 = 2;
                   }
                   goto LAB_0044c620;
                 }
@@ -558,53 +557,53 @@ LAB_0044c51f:
                     dVar3 = _DAT_0050f3d8;
                     if ((local_1b0 < _DAT_0050f468) || (_DAT_0050f2b8 <= dVar2)) goto LAB_0044c51f;
 LAB_0044c50b:
-                    iVar21 = 2;
+                    iVar20 = 2;
                   }
                   else {
-                    iVar21 = 2;
+                    iVar20 = 2;
                   }
                   goto LAB_0044c620;
                 }
               }
               if ((((*(int *)(local_1b8 + _DAT_0074a0f8 * 4 + 0x30c) != 1) ||
                    (local_1b0 <= _DAT_0050f360)) ||
-                  (pCVar22->diplomacy_affinity_by_country[local_1a8] <=
+                  (pCVar21->diplomacy_affinity_by_country[local_1a8] <=
                    *(int *)(&DAT_00589aa0 + iVar13) + 0x37)) ||
-                 ((pCVar22->diplomacy_affinity_by_country[local_1a8] != 100 &&
-                  (sVar11 = FUN_004fbf50(), pCVar22 = g_active_country, sVar11 != 0))))
+                 ((pCVar21->diplomacy_affinity_by_country[local_1a8] != 100 &&
+                  (sVar11 = FUN_004fbf50(), pCVar21 = g_active_country, sVar11 != 0))))
               goto LAB_0044c59a;
-              iVar21 = 0x20;
+              iVar20 = 0x20;
               goto LAB_0044c620;
             }
 LAB_0044c59a:
             if (bVar7) {
               if (local_1a8 == g_human_country_index) {
                 FUN_00443e00(_DAT_0074a0f8,&DAT_0056ff08,&DAT_0056ff18);
-                pCVar22 = g_active_country;
+                pCVar21 = g_active_country;
               }
-              pCVar22->diplomacy_contact_cooldown_by_country[local_1a8] =
-                   pCVar22->diplomacy_contact_cooldown_by_country[local_1a8] - 3;
+              pCVar21->diplomacy_contact_cooldown_by_country[local_1a8] =
+                   pCVar21->diplomacy_contact_cooldown_by_country[local_1a8] - 3;
               iVar14 = *(int *)(&DAT_00589aa0 + iVar13);
               goto LAB_0044c5eb;
             }
           }
         }
 LAB_0044ba2f:
-        iVar14 = pCVar22->diplomacy_state_by_country[local_1a8];
+        iVar14 = pCVar21->diplomacy_state_by_country[local_1a8];
         if ((iVar14 < 1) || (5 < iVar14)) {
-          if ((5 < iVar14) && (pCVar22->diplomacy_turn_counter_by_country[local_1a8] < 10000)) {
-            pCVar22->diplomacy_turn_counter_by_country[local_1a8] =
-                 pCVar22->diplomacy_turn_counter_by_country[local_1a8] + 1;
-            pCVar22 = g_active_country;
+          if ((5 < iVar14) && (pCVar21->diplomacy_turn_counter_by_country[local_1a8] < 10000)) {
+            pCVar21->diplomacy_turn_counter_by_country[local_1a8] =
+                 pCVar21->diplomacy_turn_counter_by_country[local_1a8] + 1;
+            pCVar21 = g_active_country;
           }
         }
         else {
-          pCVar22->diplomacy_turn_counter_by_country[local_1a8] =
-               pCVar22->diplomacy_turn_counter_by_country[local_1a8] + 1;
-          pCVar22 = g_active_country;
+          pCVar21->diplomacy_turn_counter_by_country[local_1a8] =
+               pCVar21->diplomacy_turn_counter_by_country[local_1a8] + 1;
+          pCVar21 = g_active_country;
           if (59999 < g_active_country->diplomacy_turn_counter_by_country[local_1a8]) {
             g_active_country->diplomacy_turn_counter_by_country[local_1a8] = 0;
-            pCVar22 = g_active_country;
+            pCVar21 = g_active_country;
           }
         }
       }

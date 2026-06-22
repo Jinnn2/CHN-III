@@ -18,10 +18,9 @@ void Do_Battle_Stone(void)
   undefined4 *puVar8;
   int iVar9;
   undefined2 *puVar10;
-  int iVar11;
   undefined2 extraout_var;
-  char cVar12;
-  int iVar13;
+  char cVar11;
+  int iVar12;
   int local_8;
   
   Trace_Function(s_Do_Battle_Stone_005149b8);
@@ -33,35 +32,35 @@ void Do_Battle_Stone(void)
         return;
       }
       iVar2 = *(int *)(iVar5 + 0x3f8);
-      cVar12 = *(char *)(iVar5 + 0x3ec) + '\x01';
-      *(char *)(iVar5 + 0x3ec) = cVar12;
-    } while (cVar12 < *(char *)(iVar5 + 0x3eb));
-    iVar13 = *(short *)(iVar5 + 6) * 3;
+      cVar11 = *(char *)(iVar5 + 0x3ec) + '\x01';
+      *(char *)(iVar5 + 0x3ec) = cVar11;
+    } while (cVar11 < *(char *)(iVar5 + 0x3eb));
+    iVar12 = *(short *)(iVar5 + 6) * 3;
     iVar1 = (int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18;
     pvVar3 = (&g_battle_grid_front_units)[iVar1 * 0xc];
     iVar4 = *(int *)(&DAT_005d9270 + iVar1 * 0x30);
     if ((pvVar3 != (void *)0x0) &&
-       ((*(int *)(g_army_type_table + *(int *)((int)pvVar3 + 4) * 0x400 + 0xc) < 2 ||
-        (iVar13 = *(int *)((int)pvVar3 + 0xc), (&DAT_005d9230)[iVar13] != '\0')))) {
+       ((g_army_type_table[*(int *)((int)pvVar3 + 4)].unit_class < 2 ||
+        (iVar12 = *(int *)((int)pvVar3 + 0xc), (&DAT_005d9230)[iVar12] != '\0')))) {
       if (*(short *)(iVar5 + 0x3ee) < 1) {
         local_8 = 1;
       }
       else {
-        uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar13 >> 0x10),*(short *)(iVar5 + 0x3ee)));
+        uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),*(short *)(iVar5 + 0x3ee)));
         local_8 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
       }
       if (*(int *)((int)pvVar3 + 0x40) < 1) {
-        iVar13 = 1;
+        iVar12 = 1;
       }
       else {
         uVar7 = FUN_004fbf50(*(int *)((int)pvVar3 + 0x40));
-        iVar13 = (uVar7 & 0xffff) + *(int *)((int)pvVar3 + 0x40) * 8;
+        iVar12 = (uVar7 & 0xffff) + *(int *)((int)pvVar3 + 0x40) * 8;
       }
-      if (local_8 < iVar13) {
-        iVar13 = (local_8 << 4) / iVar13;
-        if (0 < iVar13) {
-          if (iVar13 < *(int *)((int)pvVar3 + 0x30)) {
-            *(int *)((int)pvVar3 + 0x30) = *(int *)((int)pvVar3 + 0x30) - iVar13;
+      if (local_8 < iVar12) {
+        iVar12 = (local_8 << 4) / iVar12;
+        if (0 < iVar12) {
+          if (iVar12 < *(int *)((int)pvVar3 + 0x30)) {
+            *(int *)((int)pvVar3 + 0x30) = *(int *)((int)pvVar3 + 0x30) - iVar12;
           }
           else {
             *(undefined4 *)((int)pvVar3 + 0x30) = 0;
@@ -96,22 +95,21 @@ void Do_Battle_Stone(void)
       }
     }
     if (iVar4 != 0) {
-      iVar11 = *(int *)(iVar4 + 4) * 0x400;
-      iVar13 = *(int *)(iVar4 + 0x1c);
-      iVar9 = *(int *)(g_army_type_table + iVar11 + 0x3c) / 2;
-      if (iVar9 <= iVar13) {
-        if (1 < *(int *)(g_army_type_table + iVar11 + 0xc)) {
-          iVar13 = *(int *)(iVar4 + 0xc);
-          iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),(&DAT_005d9230)[iVar13]);
-          if ((&DAT_005d9230)[iVar13] == '\0') goto LAB_00419ea4;
+      iVar12 = *(int *)(iVar4 + 0x1c);
+      iVar9 = g_army_type_table[*(int *)(iVar4 + 4)].battle_action_frame_count / 2;
+      if (iVar9 <= iVar12) {
+        if (1 < g_army_type_table[*(int *)(iVar4 + 4)].unit_class) {
+          iVar12 = *(int *)(iVar4 + 0xc);
+          iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),(&DAT_005d9230)[iVar12]);
+          if ((&DAT_005d9230)[iVar12] == '\0') goto LAB_00419ea4;
         }
-        uVar6 = (undefined2)((uint)iVar13 >> 0x10);
+        uVar6 = (undefined2)((uint)iVar12 >> 0x10);
         if (*(short *)(iVar5 + 0x3ee) < 1) {
-          iVar13 = 1;
+          iVar12 = 1;
         }
         else {
           uVar7 = FUN_004fbf50(CONCAT22((short)((uint)iVar9 >> 0x10),*(short *)(iVar5 + 0x3ee)));
-          iVar13 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
+          iVar12 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
           uVar6 = extraout_var;
         }
         if (*(int *)(iVar4 + 0x40) < 1) {
@@ -121,8 +119,8 @@ void Do_Battle_Stone(void)
           uVar7 = FUN_004fbf50(CONCAT22(uVar6,(short)*(int *)(iVar4 + 0x40)));
           iVar9 = (uVar7 & 0xffff) + *(int *)(iVar4 + 0x40) * 8;
         }
-        if (iVar13 < iVar9) {
-          iVar9 = (iVar13 << 4) / iVar9;
+        if (iVar12 < iVar9) {
+          iVar9 = (iVar12 << 4) / iVar9;
           if (0 < iVar9) {
             if (iVar9 < *(int *)(iVar4 + 0x30)) {
               *(int *)(iVar4 + 0x30) = *(int *)(iVar4 + 0x30) - iVar9;

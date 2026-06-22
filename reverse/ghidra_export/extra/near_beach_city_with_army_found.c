@@ -74,13 +74,12 @@ switchD_0048df96_default:
           do {
             pbVar4 = (byte *)*puVar12;
             if ((pbVar4 != (byte *)0x0) && (pbVar4[0x127] == 0)) {
-              if (*(int *)(g_army_type_table + (uint)*pbVar4 * 0x400 + 0xc) == 0) {
+              if (g_army_type_table[*pbVar4].unit_class == 0) {
                 if (*(int *)(pbVar4 + 0x144) == 0) {
                   iVar9 = iVar9 + 1 + (uint)pbVar4[0x148];
                 }
               }
-              else if ((*(int *)(g_army_type_table + (uint)*pbVar4 * 0x400 + 0xc) == 1) &&
-                      (pbVar4[0x148] == 0)) {
+              else if ((g_army_type_table[*pbVar4].unit_class == 1) && (pbVar4[0x148] == 0)) {
                 local_1c = local_1c + 1;
               }
             }

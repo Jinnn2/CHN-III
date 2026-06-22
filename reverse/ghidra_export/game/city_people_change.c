@@ -111,7 +111,7 @@ LAB_0042610e:
     ppAVar4 = g_current_city_land_tile->army_or_city_ptrs_b;
     do {
       if ((*ppAVar4 != (ArmyUnit_0x164_plus *)0x0) &&
-         (*(int *)(g_army_type_table + (uint)(*ppAVar4)->army_type_id * 0x400 + 0xc) == 1)) break;
+         (g_army_type_table[(*ppAVar4)->army_type_id].unit_class == 1)) break;
       iVar6 = iVar6 + 1;
       ppAVar4 = ppAVar4 + 1;
     } while (iVar6 < 10);

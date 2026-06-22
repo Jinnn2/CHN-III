@@ -524,8 +524,7 @@ LAB_00451341:
             do {
               pbVar1 = *(byte **)((int)g_current_city_land_tile->army_or_city_ptrs_a + iVar9 + -0x28
                                  );
-              if ((pbVar1 != (byte *)0x0) &&
-                 (*(int *)(g_army_type_table + (uint)*pbVar1 * 0x400 + 0xc) == 1)) {
+              if ((pbVar1 != (byte *)0x0) && (g_army_type_table[*pbVar1].unit_class == 1)) {
                 FUN_0040d230(pbVar1);
               }
               iVar9 = iVar9 + 4;

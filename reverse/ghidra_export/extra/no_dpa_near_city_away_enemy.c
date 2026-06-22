@@ -79,7 +79,7 @@ NoDpa_Near_City_Away_Enemy
 switchD_0048f4f8_default:
         if ((((*(int *)(pbVar7 + 0x88) != 0) && ((char)pbVar7[0x25] == _DAT_00748e34)) &&
             ((iVar4 = g_map_width_tiles, *(short *)(pbVar7 + 0x10) == *(short *)(pbVar5 + 0x10) ||
-             (*(int *)(g_army_type_table + (uint)*param_1 * 0x400 + 0xc) == 2)))) &&
+             (g_army_type_table[*param_1].unit_class == 2)))) &&
            (((int)((uint)param_1[0x148] + (int)(char)pbVar7[0x7c] + 1 + (int)(char)pbVar7[0x50]) <
              0xb && (iVar2 = FUN_004c6ed0(iVar6,iVar8,param_2,param_3,0), iVar3 = _g_land_tiles,
                     iVar4 = g_map_width_tiles, iVar1 < iVar2)))) {

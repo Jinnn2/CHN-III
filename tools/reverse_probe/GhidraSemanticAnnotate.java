@@ -36,6 +36,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType city;
     private StructureDataType country;
     private StructureDataType armyUnit;
+    private StructureDataType armyTypeDef;
     private StructureDataType battleUnit;
     private StructureDataType tmgImage;
     private StructureDataType buildingDef;
@@ -327,6 +328,71 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "temporary city-resource accumulator consumed and cleared by City_Resource_Change");
         resolve(country);
 
+        armyTypeDef = fixedStruct("ArmyTypeDef_0x400", 0x400);
+        replaceAt(armyTypeDef, 0x00, IntegerDataType.dataType, 4, "is_enabled_or_displayed",
+            "unit production UI skips rows where the first word is zero");
+        replaceAt(armyTypeDef, 0x0c, IntegerDataType.dataType, 4, "unit_class",
+            "0=land, 1=air/naval-like, 2=special/transport-like in battle and near-city logic");
+        replaceAt(armyTypeDef, 0x10, IntegerDataType.dataType, 4, "land_or_domain_flag",
+            "city placement/building logic reads this early domain flag");
+        replaceAt(armyTypeDef, 0x2c, IntegerDataType.dataType, 4, "battle_sprite_or_effect_id",
+            "BattleArmy copies this into battle unit slot 0x16");
+        replaceAt(armyTypeDef, 0x38, IntegerDataType.dataType, 4, "city_view_image_id",
+            "City_View scales this value to select the unit image");
+        replaceAt(armyTypeDef, 0x3c, IntegerDataType.dataType, 4, "battle_action_frame_count",
+            "battle movement/action loops compare their animation frame counter against it");
+        replaceAt(armyTypeDef, 0x60, IntegerDataType.dataType, 4, "mission_range_limit",
+            "Load_Dat validates mission counter 0x12a against it for mission 0x29");
+        replaceAt(armyTypeDef, 0x90, IntegerDataType.dataType, 4, "special_mission_range_limit",
+            "Load_Dat validates type class 2 idle mission counter against it");
+        replaceAt(armyTypeDef, 0xec, IntegerDataType.dataType, 4, "build_priority_or_ai_rank",
+            "city build AI and production UI classify units through this late table field");
+        replaceAt(armyTypeDef, 0xf0, IntegerDataType.dataType, 4, "build_cost",
+            "city production and Put_City_Make compare build_progress against this cost");
+        replaceAt(armyTypeDef, 0xf4, IntegerDataType.dataType, 4, "build_cost_digit_count",
+            "Load_Dat derives this display helper from build_cost magnitude");
+        replaceAt(armyTypeDef, 0xf8, IntegerDataType.dataType, 4, "attack_stat_a",
+            "Map_To_Battle_Army and BattleArmy use it as a primary combat stat");
+        replaceAt(armyTypeDef, 0xfc, IntegerDataType.dataType, 4, "attack_stat_b",
+            "Map_To_Battle_Army and BattleArmy use it as a second combat stat");
+        replaceAt(armyTypeDef, 0x100, IntegerDataType.dataType, 4, "attack_stat_c",
+            "Map_To_Battle_Army reads it through DAT_005aa3c8 offset");
+        replaceAt(armyTypeDef, 0x104, IntegerDataType.dataType, 4, "defense_or_support_stat_a",
+            "Map_To_Battle_Army and production UI read it through DAT_005aa3cc offset");
+        replaceAt(armyTypeDef, 0x108, IntegerDataType.dataType, 4, "defense_or_support_stat_b",
+            "Map_To_Battle_Army reads it through DAT_005aa3d0 offset");
+        replaceAt(armyTypeDef, 0x10c, IntegerDataType.dataType, 4, "defense_or_support_stat_c",
+            "Map_To_Battle_Army reads it through DAT_005aa3d4 offset");
+        replaceAt(armyTypeDef, 0x110, IntegerDataType.dataType, 4, "movement_or_speed",
+            "Load_Dat caches this divided/scaled value and battle arrangement compares it");
+        replaceAt(armyTypeDef, 0x114, IntegerDataType.dataType, 4, "battle_min_range_or_rank",
+            "battle AI compares this field against action counters");
+        replaceAt(armyTypeDef, 0x118, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
+            "combat_or_support_values", "battle resolution indexes early entries by defender unit class; city support code can render later offsets as distant indexes from this base");
+        replaceAt(armyTypeDef, 0x12c, IntegerDataType.dataType, 4, "transport_capacity",
+            "AI diplomat and load repair check this when validating carried units");
+        replaceAt(armyTypeDef, 0x138, IntegerDataType.dataType, 4, "transport_mask",
+            "load repair intersects this bitmask with carried unit capability masks");
+        replaceAt(armyTypeDef, 0x140, IntegerDataType.dataType, 4, "air_or_city_capability_mask",
+            "near-city-with-air logic compares this with active unit capability masks");
+        replaceAt(armyTypeDef, 0x144, IntegerDataType.dataType, 4, "transportable_mask",
+            "AI diplomat checks parent transport capacity against this mask");
+        replaceAt(armyTypeDef, 0x160, IntegerDataType.dataType, 4, "battle_step_frame_count",
+            "battle animation and auto-arrange compare step/action counters against this field");
+        replaceAt(armyTypeDef, 0x164, ShortDataType.dataType, 2, "city_support_delta_a",
+            "City_Belong_Change adds/removes this short while units are stationed in a city");
+        replaceAt(armyTypeDef, 0x184, ShortDataType.dataType, 2, "city_support_delta_b",
+            "City_Belong_Change adds/removes this short while units are stationed in a city");
+        replaceAt(armyTypeDef, 0x1b4, IntegerDataType.dataType, 4, "prerequisite_building_a",
+            "Put_City_Make requires this completed unless -1, with several special cases");
+        replaceAt(armyTypeDef, 0x1b8, IntegerDataType.dataType, 4, "prerequisite_building_b",
+            "second building prerequisite for unit production");
+        replaceAt(armyTypeDef, 0x1f8, new ArrayDataType(IntegerDataType.dataType, 40, 4), 0xa0,
+            "resource_cost_by_kind", "Put_City_Make compares these against country/city resource availability");
+        replaceAt(armyTypeDef, 0x2c0, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "country_or_profile_build_modifiers", "production UI reads this late per-country/profile block");
+        resolve(armyTypeDef);
+
         battleUnit = fixedStruct("BattleUnit_approx", 0x40);
         replaceAt(battleUnit, 0x10, IntegerDataType.dataType, 4, "battle_x", "param_1[4] in battle grid logic");
         replaceAt(battleUnit, 0x14, IntegerDataType.dataType, 4, "battle_y", "param_1[5] in battle grid logic");
@@ -420,6 +486,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(new TypedefDataType(cat, "LandTilePtr", new PointerDataType(landTile, dtm)));
         resolve(new TypedefDataType(cat, "CountryStatePtr", new PointerDataType(country, dtm)));
         resolve(new TypedefDataType(cat, "ArmyUnitPtr", new PointerDataType(armyUnit, dtm)));
+        resolve(new TypedefDataType(cat, "ArmyTypeDefPtr", new PointerDataType(armyTypeDef, dtm)));
     }
 
     private void renameFunctions() {
@@ -598,7 +665,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00755964L, "g_auto_turn_or_ai_control_flag", IntegerDataType.dataType),
             new GlobalRename(0x005d926cL, "g_battle_grid_front_units", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005d9274L, "g_battle_grid_back_units", new PointerDataType(VoidDataType.dataType, dtm)),
-            new GlobalRename(0x005aa2c8L, "g_army_type_table", new ArrayDataType(ByteDataType.dataType, 0x100, 1)),
+            new GlobalRename(0x005aa2c8L, "g_army_type_table", new ArrayDataType(armyTypeDef, 0x5b, armyTypeDef.getLength())),
             new GlobalRename(0x005dfedcL, "g_directdraw_ready", IntegerDataType.dataType),
             new GlobalRename(0x005dfee0L, "g_main_window", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dfed8L, "g_app_screen_state", IntegerDataType.dataType),

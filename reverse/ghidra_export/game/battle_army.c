@@ -10,66 +10,67 @@
 void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *stat_a,uint *stat_b)
 
 {
-  ArmyUnit_0x164_plus *pAVar1;
-  int *piVar2;
-  uint *puVar3;
-  int iVar4;
+  byte bVar1;
+  ArmyUnit_0x164_plus *pAVar2;
+  int *piVar3;
+  uint *puVar4;
   uint uVar5;
   
-  pAVar1 = army;
+  pAVar2 = army;
   Trace_Function(s_Add_BattleArmy_00514980);
   uVar5 = (int)(char)army->strength_or_health << 3;
   (&DAT_005d9244)[side] = (&DAT_005d9244)[side] + 1;
-  iVar4 = (uint)army->army_type_id * 0x400;
-  if (*(int *)(g_army_type_table + iVar4 + 0xc) == 0) {
+  bVar1 = army->army_type_id;
+  if (g_army_type_table[bVar1].unit_class == 0) {
     *(int *)(&DAT_005d9210 + side * 4) = *(int *)(&DAT_005d9210 + side * 4) + 1;
-    if ((*(int *)(&DAT_005aa3e0 + iVar4) < 2) && (1 < *(int *)(g_army_type_table + iVar4 + 0xf8))) {
-      piVar2 = (int *)(&DAT_005d923c + side * 4);
+    if ((g_army_type_table[bVar1].combat_or_support_values[0] < 2) &&
+       (1 < g_army_type_table[bVar1].attack_stat_a)) {
+      piVar3 = (int *)(&DAT_005d923c + side * 4);
     }
     else {
-      piVar2 = (int *)(&DAT_005d9218 + side * 4);
+      piVar3 = (int *)(&DAT_005d9218 + side * 4);
     }
   }
-  else if (*(int *)(g_army_type_table + iVar4 + 0xc) == 1) {
-    piVar2 = &DAT_005dfe7c + side;
+  else if (g_army_type_table[bVar1].unit_class == 1) {
+    piVar3 = &DAT_005dfe7c + side;
   }
   else {
-    piVar2 = (int *)(&DAT_005d9208 + side * 4);
+    piVar3 = (int *)(&DAT_005d9208 + side * 4);
   }
   army = (ArmyUnit_0x164_plus *)0x0;
-  *piVar2 = *piVar2 + 1;
+  *piVar3 = *piVar3 + 1;
   if (0 < formation_count) {
     do {
-      puVar3 = (uint *)FUN_0047de30(100,s_Battle__BattleArmy_0051496c,5);
-      *puVar3 = (uint)(*(int *)(g_army_type_table + iVar4 + 0xc) == 2);
-      puVar3[1] = (uint)pAVar1->army_type_id;
-      puVar3[2] = (int)(char)pAVar1->owner_country_id;
-      puVar3[3] = side;
-      puVar3[4] = 0xffffffff;
-      puVar3[5] = 0xffffffff;
-      puVar3[6] = *(uint *)(&DAT_00514908 + side * 4);
-      puVar3[7] = 0;
-      puVar3[8] = 0;
-      puVar3[9] = 0;
-      puVar3[0xc] = uVar5;
+      puVar4 = (uint *)FUN_0047de30(100,s_Battle__BattleArmy_0051496c,5);
+      *puVar4 = (uint)(g_army_type_table[bVar1].unit_class == 2);
+      puVar4[1] = (uint)pAVar2->army_type_id;
+      puVar4[2] = (int)(char)pAVar2->owner_country_id;
+      puVar4[3] = side;
+      puVar4[4] = 0xffffffff;
+      puVar4[5] = 0xffffffff;
+      puVar4[6] = *(uint *)(&DAT_00514908 + side * 4);
+      puVar4[7] = 0;
+      puVar4[8] = 0;
+      puVar4[9] = 0;
+      puVar4[0xc] = uVar5;
       if (100 < (int)uVar5) {
-        puVar3[0xc] = 100;
+        puVar4[0xc] = 100;
       }
-      uVar5 = uVar5 - puVar3[0xc];
-      puVar3[0xb] = 0;
-      puVar3[0xd] = *stat_a;
-      puVar3[0xe] = stat_a[1];
-      puVar3[0xf] = stat_a[2];
-      puVar3[0x10] = *stat_b;
-      puVar3[0x11] = stat_b[1];
-      puVar3[0x12] = stat_b[2];
-      puVar3[0x13] = (uint)pAVar1->battle_slot_or_category;
-      puVar3[0x14] = (uint)army;
-      puVar3[0x15] = *(uint *)&pAVar1->field_0x13c;
-      puVar3[0x16] = *(uint *)(g_army_type_table + iVar4 + 0x2c);
-      puVar3[0x18] = 0;
-      puVar3[0x17] = 0;
-      FUN_004729c0(puVar3);
+      uVar5 = uVar5 - puVar4[0xc];
+      puVar4[0xb] = 0;
+      puVar4[0xd] = *stat_a;
+      puVar4[0xe] = stat_a[1];
+      puVar4[0xf] = stat_a[2];
+      puVar4[0x10] = *stat_b;
+      puVar4[0x11] = stat_b[1];
+      puVar4[0x12] = stat_b[2];
+      puVar4[0x13] = (uint)pAVar2->battle_slot_or_category;
+      puVar4[0x14] = (uint)army;
+      puVar4[0x15] = *(uint *)&pAVar2->field_0x13c;
+      puVar4[0x16] = g_army_type_table[bVar1].battle_sprite_or_effect_id;
+      puVar4[0x18] = 0;
+      puVar4[0x17] = 0;
+      FUN_004729c0(puVar4);
       army = (ArmyUnit_0x164_plus *)&army->owner_country_id;
     } while ((int)army < formation_count);
   }
