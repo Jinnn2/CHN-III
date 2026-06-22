@@ -77,9 +77,9 @@ uint Decode_Battle(int param_1,int param_2)
       *(undefined4 *)((int)&local_8c + iVar9) = 0;
     }
     else {
-      *(undefined4 **)((int)&local_8c + iVar9) =
-           &DAT_005d9258 +
-           (*(int *)((int)local_3c + iVar9) + *(int *)((int)&local_b8 + iVar9) * 0x18) * 0xc;
+      *(undefined **)((int)&local_8c + iVar9) =
+           &g_battle_grid_cells +
+           (*(int *)((int)local_3c + iVar9) + *(int *)((int)&local_b8 + iVar9) * 0x18) * 0x30;
     }
     iVar9 = iVar9 + 4;
   } while (iVar9 < 0x20);
@@ -109,7 +109,7 @@ uint Decode_Battle(int param_1,int param_2)
     uVar8 = *local_70;
     local_50 = uVar8;
   }
-  uVar3 = (&DAT_005d9258)[iVar2 * 0xc];
+  uVar3 = *(uint *)(&g_battle_grid_cells + iVar2 * 0x30);
   switch(uVar3) {
   case 0:
   case 1:
@@ -165,20 +165,22 @@ uint Decode_Battle(int param_1,int param_2)
     if ((uVar3 != 0) && (uVar8 != 0xf)) {
       uVar7 = FUN_004fbf50((short)local_3c[uVar8]);
       uVar8 = (uVar7 & 0xffff) + (&local_8c)[uVar8];
-      (&DAT_005d925c)[iVar2 * 0xc] = uVar8 + 0x32e + uVar3 * 0x4d;
+      (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8 + 0x32e + uVar3 * 0x4d;
       return uVar8;
     }
-    (&DAT_005d925c)[iVar2 * 0xc] = (uVar3 * 9 + param_2 % 9) * 9 + param_1 % 9;
+    (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] =
+         (uVar3 * 9 + param_2 % 9) * 9 + param_1 % 9;
     return param_1 / 9;
   case 0xb:
   case 0xc:
   case 0xd:
   case 0xe:
-    (&DAT_005d925c)[iVar2 * 0xc] = 0xffffffff;
+    (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = -1;
     bVar5 = false;
     iVar9 = 0;
     uVar8 = 1;
-    (&DAT_005d9260)[iVar2 * 0xc] = (param_2 % 9 + uVar3 * 0x48) * 9 + -0x14e3 + param_1 % 9;
+    (&g_battle_grid_overlay_tile_image_indices)[iVar2 * 0xc] =
+         (param_2 % 9 + uVar3 * 0x48) * 9 + -0x14e3 + param_1 % 9;
     bVar4 = false;
     local_b0 = 0;
     local_ac = 0;
@@ -241,7 +243,7 @@ uint Decode_Battle(int param_1,int param_2)
         local_74 = (int *)0x32002e;
         local_70 = (uint *)0x360034;
         uVar8 = FUN_004fbf50(*(undefined2 *)((int)&local_b8 + iVar9 * 2));
-        (&DAT_005d925c)[iVar2 * 0xc] =
+        (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] =
              (uVar8 & 0xffff) + 0x1115 + (int)*(short *)((int)&local_8c + iVar9 * 2);
         return uVar8 & 0xffff;
       }
@@ -250,19 +252,19 @@ uint Decode_Battle(int param_1,int param_2)
           if (iVar10 == 8) {
             uVar8 = FUN_004fbf50(2);
             uVar8 = (uVar8 & 0xffff) + 0x114d;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar10 != 4) {
             if (iVar10 != 0xc) {
               return 1;
             }
-            (&DAT_005d925c)[iVar2 * 0xc] = 0x117c;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117c;
             return uVar8;
           }
           uVar8 = FUN_004fbf50(2);
           uVar8 = (uVar8 & 0xffff) + 0x114f;
-          (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+          (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
         }
         if (iVar9 != 2) {
@@ -272,26 +274,26 @@ uint Decode_Battle(int param_1,int param_2)
             }
             uVar8 = FUN_004fbf50(3);
             uVar8 = (uVar8 & 0xffff) + 0x1155;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 4) {
             if (iVar10 == 1) {
               uVar8 = FUN_004fbf50(2);
               uVar8 = (uVar8 & 0xffff) + 0x1158;
-              (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+              (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
               return uVar8;
             }
             if (iVar10 != 2) {
               if (iVar10 != 3) {
                 return 1;
               }
-              (&DAT_005d925c)[iVar2 * 0xc] = 0x117e;
+              (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117e;
               return uVar8;
             }
             uVar8 = FUN_004fbf50(2);
             uVar8 = (uVar8 & 0xffff) + 0x115a;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 6) {
@@ -300,26 +302,26 @@ uint Decode_Battle(int param_1,int param_2)
             }
             uVar8 = FUN_004fbf50(3);
             uVar8 = (uVar8 & 0xffff) + 0x115c;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 8) {
             if (iVar10 == 2) {
               uVar8 = FUN_004fbf50(2);
               uVar8 = (uVar8 & 0xffff) + 0x115f;
-              (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+              (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
               return uVar8;
             }
             if (iVar10 != 4) {
               if (iVar10 != 6) {
                 return 1;
               }
-              (&DAT_005d925c)[iVar2 * 0xc] = 0x117f;
+              (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117f;
               return uVar8;
             }
             uVar8 = FUN_004fbf50(2);
             uVar8 = (uVar8 & 0xffff) + 0x1161;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 == 9) {
@@ -328,7 +330,7 @@ uint Decode_Battle(int param_1,int param_2)
             }
             uVar8 = FUN_004fbf50(3);
             uVar8 = (uVar8 & 0xffff) + 0x1163;
-            (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+            (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
             return uVar8;
           }
           if (iVar9 != 0xc) {
@@ -339,25 +341,25 @@ uint Decode_Battle(int param_1,int param_2)
           }
           uVar8 = FUN_004fbf50(3);
           uVar8 = (uVar8 & 0xffff) + 0x1166;
-          (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+          (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
         }
         if (iVar10 == 8) {
           uVar8 = FUN_004fbf50(2);
           uVar8 = (uVar8 & 0xffff) + 0x1151;
-          (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+          (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
           return uVar8;
         }
         if (iVar10 != 1) {
           if (iVar10 != 9) {
             return 1;
           }
-          (&DAT_005d925c)[iVar2 * 0xc] = 0x117d;
+          (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = 0x117d;
           return uVar8;
         }
         uVar8 = FUN_004fbf50(2);
         uVar8 = (uVar8 & 0xffff) + 0x1153;
-        (&DAT_005d925c)[iVar2 * 0xc] = uVar8;
+        (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] = uVar8;
         return uVar8;
       }
     }
@@ -386,7 +388,8 @@ uint Decode_Battle(int param_1,int param_2)
       local_9a = 0x12;
       uVar8 = FUN_004fbf50(*(undefined2 *)((int)&local_8c + iVar10 * 2));
       uVar8 = uVar8 & 0xffff;
-      (&DAT_005d925c)[iVar2 * 0xc] = uVar8 + 0x1169 + (int)*(short *)((int)&local_b8 + iVar10 * 2);
+      (&g_battle_grid_base_tile_image_indices)[iVar2 * 0xc] =
+           uVar8 + 0x1169 + (int)*(short *)((int)&local_b8 + iVar10 * 2);
     }
   }
   return uVar8;

@@ -24,14 +24,14 @@ void Make_Battle_Map(void)
   int local_108 [66];
   
   Trace_Function(s_Make_Battle_Map_005149a0);
-  puVar11 = &DAT_005d9258;
+  puVar11 = (undefined4 *)&g_battle_grid_cells;
   for (iVar6 = 0x1b00; iVar6 != 0; iVar6 = iVar6 + -1) {
     *puVar11 = 0;
     puVar11 = puVar11 + 1;
   }
   local_108[0] = DAT_005d9234;
   local_108[1] = DAT_005d9238;
-  piVar4 = &DAT_005d9258;
+  piVar4 = (int *)&g_battle_grid_cells;
   iVar6 = 0x18;
   do {
     iVar7 = 0x18;
@@ -217,7 +217,7 @@ LAB_00419408:
         switch(local_114[iVar7]) {
         case 0:
           if (iVar7 == 0) {
-            piVar4 = &DAT_005dc868;
+            piVar4 = (int *)&DAT_005dc868;
             do {
               iVar8 = 0x18;
               do {
@@ -230,7 +230,7 @@ LAB_00419408:
           }
           else {
             iVar8 = (&DAT_005dfeb8)[iVar7];
-            piVar4 = &DAT_005d9268;
+            piVar4 = &g_battle_grid_region_markers;
             do {
               iVar9 = 0x18;
               do {
@@ -250,12 +250,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x1f8) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -269,12 +269,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x48) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -290,12 +290,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x1b0) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -309,12 +309,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x90) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -330,12 +330,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x168) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -349,12 +349,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0xd8) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -364,7 +364,7 @@ LAB_00419408:
           break;
         case 4:
           if (iVar7 == 0) {
-            piVar4 = &DAT_005dc868;
+            piVar4 = (int *)&DAT_005dc868;
             do {
               iVar9 = 0x18;
               do {
@@ -377,7 +377,7 @@ LAB_00419408:
           }
           else {
             iVar8 = (&DAT_005dfeb0)[iVar7];
-            piVar4 = &DAT_005d9268;
+            piVar4 = &g_battle_grid_region_markers;
             do {
               iVar9 = 0x18;
               do {
@@ -397,12 +397,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x1f8) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -416,12 +416,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x48) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -437,12 +437,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x1b0) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -456,12 +456,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x90) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -477,12 +477,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0x168) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb0;
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = DAT_005dfeb8;
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -496,12 +496,12 @@ LAB_00419408:
               do {
                 iVar1 = iVar8 + iVar9;
                 if (iVar8 < 0xd8) {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb8)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
                 }
                 else {
-                  (&DAT_005d9258)[iVar1 * 0xc] = (&DAT_005dfeb0)[iVar7];
-                  (&DAT_005d9268)[iVar1 * 0xc] = 0xffffffff;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 iVar9 = iVar9 + 1;
               } while (iVar9 < 0x18);
@@ -511,7 +511,7 @@ LAB_00419408:
         }
         iVar7 = iVar7 + 1;
       } while (iVar7 < 2);
-      piVar4 = &DAT_005d9258;
+      piVar4 = (int *)&g_battle_grid_cells;
       local_10c = 0x18;
       do {
         iVar6 = 0x18;

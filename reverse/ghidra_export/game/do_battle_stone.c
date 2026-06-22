@@ -11,7 +11,7 @@ void Do_Battle_Stone(void)
   int iVar1;
   int iVar2;
   BattleUnit_0x64 *pBVar3;
-  int iVar4;
+  BattleUnit_0x64 *pBVar4;
   int iVar5;
   undefined2 uVar6;
   uint uVar7;
@@ -38,7 +38,7 @@ void Do_Battle_Stone(void)
     iVar12 = *(short *)(iVar5 + 6) * 3;
     iVar1 = (int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18;
     pBVar3 = (&g_battle_grid_front_units)[iVar1 * 0xc];
-    iVar4 = *(int *)(&DAT_005d9270 + iVar1 * 0x30);
+    pBVar4 = (&g_battle_grid_front_aux_units)[iVar1 * 0xc];
     if ((pBVar3 != (BattleUnit_0x64 *)0x0) &&
        ((g_army_type_table[pBVar3->army_type_id].unit_class < 2 ||
         (iVar12 = pBVar3->battle_side, (&DAT_005d9230)[iVar12] != '\0')))) {
@@ -81,25 +81,24 @@ void Do_Battle_Stone(void)
         *puVar8 = 0;
         puVar8[8] = 0;
         puVar8[7] = 0;
-        (&DAT_005d927c)[iVar1 * 0xc] = puVar8;
+        (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar8;
         FUN_00472a90(puVar8);
         (&g_battle_grid_front_units)[iVar1 * 0xc] = (BattleUnit_0x64 *)0x0;
         if (pBVar3->moving_or_animating != 0) {
-          *(undefined4 *)
-           (&DAT_005d9270 +
-           ((&DAT_00513b08)[pBVar3->facing_or_direction] +
+          (&g_battle_grid_front_aux_units)
+          [((&DAT_00513b08)[pBVar3->facing_or_direction] +
             ((&DAT_00513b28)[pBVar3->facing_or_direction] + pBVar3->battle_y) * 0x18 +
-           pBVar3->battle_x) * 0x30) = 0;
+           pBVar3->battle_x) * 0xc] = (BattleUnit_0x64 *)0x0;
         }
         FUN_00472a20(pBVar3);
       }
     }
-    if (iVar4 != 0) {
-      iVar12 = *(int *)(iVar4 + 0x1c);
-      iVar9 = g_army_type_table[*(int *)(iVar4 + 4)].battle_action_frame_count / 2;
+    if (pBVar4 != (BattleUnit_0x64 *)0x0) {
+      iVar12 = pBVar4->action_frame;
+      iVar9 = g_army_type_table[pBVar4->army_type_id].battle_action_frame_count / 2;
       if (iVar9 <= iVar12) {
-        if (1 < g_army_type_table[*(int *)(iVar4 + 4)].unit_class) {
-          iVar12 = *(int *)(iVar4 + 0xc);
+        if (1 < g_army_type_table[pBVar4->army_type_id].unit_class) {
+          iVar12 = pBVar4->battle_side;
           iVar9 = CONCAT31((int3)((uint)iVar9 >> 8),(&DAT_005d9230)[iVar12]);
           if ((&DAT_005d9230)[iVar12] == '\0') goto LAB_00419ea4;
         }
@@ -112,53 +111,52 @@ void Do_Battle_Stone(void)
           iVar12 = (uVar7 & 0xffff) + *(short *)(iVar5 + 0x3ee) * 8;
           uVar6 = extraout_var;
         }
-        if (*(int *)(iVar4 + 0x40) < 1) {
+        if (pBVar4->defense_stats[0] < 1) {
           iVar9 = 1;
         }
         else {
-          uVar7 = FUN_004fbf50(CONCAT22(uVar6,(short)*(int *)(iVar4 + 0x40)));
-          iVar9 = (uVar7 & 0xffff) + *(int *)(iVar4 + 0x40) * 8;
+          uVar7 = FUN_004fbf50(CONCAT22(uVar6,(short)pBVar4->defense_stats[0]));
+          iVar9 = (uVar7 & 0xffff) + pBVar4->defense_stats[0] * 8;
         }
         if (iVar12 < iVar9) {
           iVar9 = (iVar12 << 4) / iVar9;
           if (0 < iVar9) {
-            if (iVar9 < *(int *)(iVar4 + 0x30)) {
-              *(int *)(iVar4 + 0x30) = *(int *)(iVar4 + 0x30) - iVar9;
+            if (iVar9 < pBVar4->strength_chunk) {
+              pBVar4->strength_chunk = pBVar4->strength_chunk - iVar9;
             }
             else {
-              *(undefined4 *)(iVar4 + 0x30) = 0;
+              pBVar4->strength_chunk = 0;
             }
           }
         }
         else {
-          *(undefined4 *)(iVar4 + 0x30) = 0;
+          pBVar4->strength_chunk = 0;
         }
-        if (*(int *)(iVar4 + 0x30) < 1) {
+        if (pBVar4->strength_chunk < 1) {
           puVar8 = (undefined4 *)FUN_0047de30(0x24,s_Battle___Battle_Die_0051492c,6);
-          puVar8[1] = *(undefined4 *)(iVar4 + 4);
+          puVar8[1] = pBVar4->army_type_id;
           puVar8[4] = 0;
           puVar8[5] = 0;
-          puVar8[2] = *(undefined4 *)(iVar4 + 8);
-          puVar8[3] = *(undefined4 *)(iVar4 + 0x18);
-          puVar8[6] = *(undefined4 *)(iVar4 + 0x54);
+          puVar8[2] = pBVar4->owner_country_id;
+          puVar8[3] = pBVar4->facing_or_direction;
+          puVar8[6] = pBVar4->map_unit_extra_id;
           *puVar8 = 0;
           puVar8[8] = 0;
           puVar8[7] = 0;
-          (&DAT_005d927c)[iVar1 * 0xc] = puVar8;
+          (&g_battle_grid_effect_or_projectile)[iVar1 * 0xc] = puVar8;
           FUN_00472a90(puVar8);
-          if (*(int *)(iVar4 + 0x20) != 0) {
-            (&g_battle_grid_front_units)
-            [(*(int *)(iVar4 + 0x10) + *(int *)(iVar4 + 0x14) * 0x18) * 0xc] =
+          if (pBVar4->moving_or_animating != 0) {
+            (&g_battle_grid_front_units)[(pBVar4->battle_x + pBVar4->battle_y * 0x18) * 0xc] =
                  (BattleUnit_0x64 *)0x0;
           }
-          *(undefined4 *)(&DAT_005d9270 + iVar1 * 0x30) = 0;
-          FUN_00472a20(iVar4);
+          (&g_battle_grid_front_aux_units)[iVar1 * 0xc] = (BattleUnit_0x64 *)0x0;
+          FUN_00472a20(pBVar4);
         }
       }
     }
 LAB_00419ea4:
-    if ((int)(&DAT_005d9258)[((int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18) * 0xc] <
-        0xb) {
+    if (*(int *)(&g_battle_grid_cells +
+                ((int)*(short *)(iVar5 + 4) + *(short *)(iVar5 + 6) * 0x18) * 0x30) < 0xb) {
       puVar10 = (undefined2 *)FUN_0047de30(0x14,&DAT_005149b0,0x12);
       uVar6 = FUN_004fbf50(2);
       *puVar10 = uVar6;

@@ -23,6 +23,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
+| `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
 
 ## Important Globals
 
@@ -50,6 +51,10 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_battle_special_or_class2_units_by_side` | `BattleArmy` increments it for non-0/non-1 unit classes. | Class-2/special army count by side. |
 | `g_battle_frontline_land_units_by_side` | `BattleArmy` increments it for land units outside the ranged/support condition. | Frontline land army count by side. |
 | `g_battle_ranged_land_units_by_side` | `BattleArmy` increments it for land units with low support value and attack stat above 1. | Ranged/support land army count by side. |
+| `g_battle_grid_cells` | `Make_Battle_Map` clears and fills a `24 * 24` grid in `0x30`-byte strides; `Decode_Battle` derives rendered tile indices from it. | `BattleGridCell_0x30[0x240]`. |
+| `g_battle_grid_front_units` / `g_battle_grid_back_units` | Arrange and battle update code place `BattleUnit_0x64 *` at cell offsets `+0x14/+0x1c`. Ghidra renders them as pointer-array aliases with `idx * 0xc` because the real cell stride is `0x30`. | Front/back visible battle-unit slots inside each grid cell. |
+| `g_battle_grid_front_aux_units` / `g_battle_grid_back_aux_units` | Battle update stores moving/target unit pointers at cell offsets `+0x18/+0x20`. | Auxiliary front/back battle-unit slots. |
+| `g_battle_grid_effect_or_projectile` | `Do_Battle_Stone` and death/update paths store transient effect records at cell offset `+0x24`. | Per-cell effect/projectile pointer slot. |
 
 ## Useful Offsets
 
@@ -122,6 +127,26 @@ linked lists and grid pointers.
 | `+0x58` | Copied from `ArmyTypeDef.battle_sprite_or_effect_id`. | battle sprite/effect id. |
 | `+0x5c` | Zeroed at allocation; list/grid maintenance touches this slot. | previous or auxiliary link. |
 | `+0x60` | `Battle_AutoArrange` and arrange/UI code traverse this pointer. | next battle unit. |
+
+### `BattleGridCell_0x30`
+
+The battle map is a fixed 24x24 grid. The decompiler often renders fields as
+`(&field_alias)[cell_index * 0xc]`; that is a Ghidra artifact from treating a
+field within a `0x30`-byte cell as a separate dword/pointer array.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | `Make_Battle_Map` writes terrain ids/classes and `Decode_Battle` switches on values `0..0xe`. | terrain kind. |
+| `+0x04` | `Decode_Battle` writes resolved base tile image indices such as `0x32e + terrain * 0x4d + variant`. | base tile image index. |
+| `+0x08` | `Decode_Battle` writes overlay/transition image indices for terrain classes `0xb..0xe`. | overlay tile image index. |
+| `+0x0c` | `Make_Battle_Map` initializes it to `-1` and later stores random terrain variant choices. | terrain variant. |
+| `+0x10` | `Make_Battle_Map` writes side/region markers, commonly `-1`, `1`, or side-derived values. | battle region or owner marker. |
+| `+0x14` | Arrange/update code places and clears the primary front-layer `BattleUnit_0x64 *`. | front unit. |
+| `+0x18` | Battle update stores a front-layer auxiliary/moving/target unit pointer. | front auxiliary unit. |
+| `+0x1c` | Arrange/update code places and clears the primary back-layer `BattleUnit_0x64 *`. | back unit. |
+| `+0x20` | Battle update stores a back-layer auxiliary/moving/target unit pointer. | back auxiliary unit. |
+| `+0x24` | `Do_Battle_Stone` and death/update paths store allocated effect/projectile records. | effect or projectile pointer. |
+| `+0x2c` | Battle update clears this late per-cell marker during action resolution. | update marker. |
 
 ### `ArmyTypeDef_0x400`
 

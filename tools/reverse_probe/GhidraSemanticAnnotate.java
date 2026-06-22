@@ -38,6 +38,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType armyUnit;
     private StructureDataType armyTypeDef;
     private StructureDataType battleUnit;
+    private StructureDataType battleGridCell;
     private StructureDataType tmgImage;
     private StructureDataType buildingDef;
     private StructureDataType specialProjectDef;
@@ -438,6 +439,31 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Battle_AutoArrange and arrange UI traverse battle records through this pointer");
         resolve(battleUnit);
 
+        battleGridCell = fixedStruct("BattleGridCell_0x30", 0x30);
+        replaceAt(battleGridCell, 0x00, IntegerDataType.dataType, 4, "terrain_kind",
+            "Make_Battle_Map writes terrain/class ids and Decode_Battle branches on this value");
+        replaceAt(battleGridCell, 0x04, IntegerDataType.dataType, 4, "base_tile_image_index",
+            "Decode_Battle stores the resolved base tile image index here");
+        replaceAt(battleGridCell, 0x08, IntegerDataType.dataType, 4, "overlay_tile_image_index",
+            "Decode_Battle stores overlay/transition tile indices for terrain classes 0xb..0xe");
+        replaceAt(battleGridCell, 0x0c, IntegerDataType.dataType, 4, "terrain_variant",
+            "Make_Battle_Map initializes it to -1 and then picks a random variant from terrain tables");
+        replaceAt(battleGridCell, 0x10, IntegerDataType.dataType, 4, "battle_region_or_owner_marker",
+            "Make_Battle_Map writes side/map-region markers beside terrain_kind");
+        replaceAt(battleGridCell, 0x14, new PointerDataType(battleUnit, dtm), 4, "front_unit",
+            "front-layer battle unit pointer placed and cleared by arrange/update code");
+        replaceAt(battleGridCell, 0x18, new PointerDataType(battleUnit, dtm), 4, "front_aux_or_target_unit",
+            "battle update uses this adjacent front-layer pointer while resolving attacks/effects");
+        replaceAt(battleGridCell, 0x1c, new PointerDataType(battleUnit, dtm), 4, "back_unit",
+            "back-layer battle unit pointer placed and cleared by arrange/update code");
+        replaceAt(battleGridCell, 0x20, new PointerDataType(battleUnit, dtm), 4, "back_aux_or_target_unit",
+            "battle update uses this adjacent back-layer pointer while resolving attacks/effects");
+        replaceAt(battleGridCell, 0x24, new PointerDataType(VoidDataType.dataType, dtm), 4, "effect_or_projectile",
+            "Do_Battle_Stone and battle update store transient effect/projectile pointers here");
+        replaceAt(battleGridCell, 0x2c, IntegerDataType.dataType, 4, "update_marker",
+            "battle update clears this late cell marker during action resolution");
+        resolve(battleGridCell);
+
         tmgImage = fixedStruct("DecodedImageHeader", 4);
         replaceAt(tmgImage, 0x00, UnsignedShortDataType.dataType, 2, "width", "draw routine reads first word");
         replaceAt(tmgImage, 0x02, UnsignedShortDataType.dataType, 2, "height", "draw routine reads second word");
@@ -702,8 +728,17 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0074c6c0L, "g_world_age_or_turn_phase", IntegerDataType.dataType),
             new GlobalRename(0x00755928L, "g_map_size_mode", IntegerDataType.dataType),
             new GlobalRename(0x00755964L, "g_auto_turn_or_ai_control_flag", IntegerDataType.dataType),
+            new GlobalRename(0x005d9258L, "g_battle_grid_cells", new ArrayDataType(battleGridCell, 0x240, battleGridCell.getLength())),
+            new GlobalRename(0x005d925cL, "g_battle_grid_base_tile_image_indices", IntegerDataType.dataType),
+            new GlobalRename(0x005d9260L, "g_battle_grid_overlay_tile_image_indices", IntegerDataType.dataType),
+            new GlobalRename(0x005d9264L, "g_battle_grid_terrain_variants", IntegerDataType.dataType),
+            new GlobalRename(0x005d9268L, "g_battle_grid_region_markers", IntegerDataType.dataType),
             new GlobalRename(0x005d926cL, "g_battle_grid_front_units", new PointerDataType(battleUnit, dtm)),
+            new GlobalRename(0x005d9270L, "g_battle_grid_front_aux_units", new PointerDataType(battleUnit, dtm)),
             new GlobalRename(0x005d9274L, "g_battle_grid_back_units", new PointerDataType(battleUnit, dtm)),
+            new GlobalRename(0x005d9278L, "g_battle_grid_back_aux_units", new PointerDataType(battleUnit, dtm)),
+            new GlobalRename(0x005d927cL, "g_battle_grid_effect_or_projectile", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x005d9284L, "g_battle_grid_update_markers", IntegerDataType.dataType),
             new GlobalRename(0x005dfe68L, "g_battle_unit_count_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
             new GlobalRename(0x005dfe88L, "g_battle_unit_list_head_by_side", new ArrayDataType(new PointerDataType(battleUnit, dtm), 2, 4)),
             new GlobalRename(0x005d9244L, "g_battle_total_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
