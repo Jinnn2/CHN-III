@@ -133,6 +133,14 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Clear_Forest_Or_Resource` | Trace string `Forset_Disappear`; clears tile feature id `+0x16`, optionally clears city resource id `+0x17`, and awards resource value to the active country. | Removes forest/feature/resource state from a tile. |
 | `Do_Army_TurnJob` | Trace string `Do_Army_TurnJob`; advances per-army map jobs and calls `Make_New_Work`, `Make_New_Make`, and `Clear_Forest_Or_Resource` when progress thresholds are met. | Per-turn map-work completion loop. |
 | `Order_Check` | Trace string `Order_Check`; builds available command/order menu entries from unit type, tile state, improvement predicates, and current resources. | Active unit order availability builder. |
+| `Order_Follower_UseAble` | Trace string `Order_Follower_UseAble`; writes selected action ids into `ArmyUnit.mission_action_id` for normal/follower orders, with extra transport/cargo validation for order ids `0x41/0x47`. | Applies an order id to a follower/cargo-capable unit when the unit can accept it. |
+| `Order_Spy_Choice_Mission` | Trace string `Order_Spy_Chouice_Mission`; branches through buy-city, ask-surrender, steal-science, scare, sabotage-building, and commotion helpers, then sets spy result action ids `0x37/0x38/0x39`. | Spy mission picker/result dispatcher. |
+| `Order_Forset` | Trace string `Order_Forset`; looks for adjacent enemy/known units and special project/city states, then schedules battle, forest/action, or cleanup orders through the order executor. | Forest/rest-like order handler that can interrupt into combat or city support. |
+| `Order_Go` | Trace string `Order_Go`; follows queued path coordinates, handles no-path/enemy-blocked cases, and remaps pending build actions `0x17/0x18/0x19` back to executable actions `0x14/0x15/0x16`. | Main queued movement/path-follow order handler. |
+| `Order_Go_Act` | Trace string `Order_Go_Act`; executes queued path steps with the alternate movement executor and emits no-path/arrived events. | Active movement step executor. |
+| `Order_Guard` | Trace string `Order_Guard`; checks nearby known enemy/city threats, special project and carrier/city constraints, and either schedules an interrupt action or leaves the unit waiting. | Guard/sentry order handler. |
+| `Order_Join_Sel` | Trace string `Order_Join_Sel`; builds a same-tile list of compatible uncarried units, joins immediately when only one target exists, otherwise opens the join-selection form. | Select one compatible unit to join/merge with. |
+| `Order_Join_All` | Trace string `Order_Join_All`; iterates same-tile compatible idle units and joins each into the current unit before scheduling completion action `0x53`. | Join/merge all compatible same-tile units. |
 | `MouseOn_Edit_Sel_Pcx_File` | Trace string `MouseOn_Edit_Sel_Pcx_File`; maps mouse position to a 10-row PCX/file list hover index and three action-button states. | PCX/file selection hover handler. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
@@ -168,6 +176,25 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `MLR_Edit_GameMap` | Trace string `MLR_Edit_GameMap`; editor left-click map handler. Tool cases create cities, fill city buildings, create armies, assign resource/feature ids, register two classes of named points, and batch-paint terrain. | Main editor map mutation path. |
 | `Read_MRP_Edit` | Trace string `Read_MRP_Edit`; mirrors the backup-on-drag setup for right mouse input, then removes objects, armies, terrain overlays, resources, and ownership/visibility marks by tool mode. | Editor right-press/drag erase path. |
 | `Read_MRR_Edit` | Trace string `Read_MRR_Edit`; editor right-click map handler. Opens linked objects, removes named-point links for tools `7/8`, or asks before deleting tile occupants. | Editor map removal/inspection path. |
+
+### Editor-As-Semantics Probe
+
+The built-in map editor is useful as a semantic oracle because it exposes the
+same tables and tile fields that gameplay consumes. Editor setup functions bind
+UI controls directly to definition tables such as `g_army_type_table`,
+`g_ground_defs`, governments, buildings, sciences, and empire profiles; editor
+map tools then mutate live `LandTile` and `ArmyUnit` records through the same
+helpers used by normal gameplay. A productive recovery loop is therefore:
+
+1. Recover editor-visible fields from the edit form bindings.
+2. Follow those fields into gameplay predicates such as `Irrigate_Able`,
+   `Resource_Able`, `Order_Check`, and `Do_Army_TurnJob`.
+3. Name command/menu ids only when both the editor-facing data meaning and the
+   runtime order behavior agree.
+
+Current example: editor unit and terrain fields explain why `Order_Check` offers
+tile-improvement commands only for units whose type and current tile satisfy the
+same predicates used by the editor brush and turn-job completion chain.
 
 ### Editor Map Tool Modes
 
