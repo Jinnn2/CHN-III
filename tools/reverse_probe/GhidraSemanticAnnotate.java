@@ -749,14 +749,42 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         countryProfileDef = fixedStruct("CountryProfileDef_0x7c", 0x7c);
         replaceAt(countryProfileDef, 0x00, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
             "short_name_bytes", "profile/editor table text column starts at 0x00596218");
-        replaceAt(countryProfileDef, 0x11, new ArrayDataType(CharDataType.dataType, 38, 1), 38,
+        replaceAt(countryProfileDef, 0x11, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
             "display_name_bytes", "profile/editor table text column starts at 0x00596229");
-        replaceAt(countryProfileDef, 0x24, IntegerDataType.dataType, 4, "enabled_or_display_flag",
-            "editor and loader test this field for negative/zero/one state");
-        replaceAt(countryProfileDef, 0x28, IntegerDataType.dataType, 4, "profile_base_value",
-            "copied into active leader/country modifier table");
+        replaceAt(countryProfileDef, 0x24, IntegerDataType.dataType, 4, "portrait_enabled_or_display_flag",
+            "Before_Edit_Empire_Hero and loader test this field for negative/zero/one state before loading DIP resources");
+        replaceAt(countryProfileDef, 0x28, IntegerDataType.dataType, 4, "profile_portrait_resource_id",
+            "Before_Edit_Empire_Hero formats DIP_%02d IMG/IDI names from this paired resource id");
+        replaceAt(countryProfileDef, 0x2c, IntegerDataType.dataType, 4, "profile_value_2c",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x30, IntegerDataType.dataType, 4, "profile_value_30",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x34, IntegerDataType.dataType, 4, "profile_select_34",
+            "Before_Edit_Empire_Hero binds this dword to an option-list editor control");
+        replaceAt(countryProfileDef, 0x38, IntegerDataType.dataType, 4, "profile_select_38",
+            "Before_Edit_Empire_Hero binds this dword to an option-list editor control");
+        replaceAt(countryProfileDef, 0x3c, IntegerDataType.dataType, 4, "profile_value_3c",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
         replaceAt(countryProfileDef, 0x40, IntegerDataType.dataType, 4, "engineering_discount_percent",
             "city round/civil works cost subtracts this percent from route/canal costs");
+        replaceAt(countryProfileDef, 0x44, IntegerDataType.dataType, 4, "profile_value_44",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x48, IntegerDataType.dataType, 4, "profile_value_48",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x4c, IntegerDataType.dataType, 4, "profile_value_4c",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x50, IntegerDataType.dataType, 4, "profile_value_50",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x54, IntegerDataType.dataType, 4, "profile_value_54",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x58, IntegerDataType.dataType, 4, "profile_value_58",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x5c, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
+            "profile_value_block_5c", "Before_Edit_Empire_Hero exposes this as a six-dword editor block");
+        replaceAt(countryProfileDef, 0x74, IntegerDataType.dataType, 4, "profile_value_74",
+            "Before_Edit_Empire_Hero exposes this dword as an editable numeric field");
+        replaceAt(countryProfileDef, 0x78, IntegerDataType.dataType, 4, "profile_select_78",
+            "Before_Edit_Empire_Hero binds this dword to an option-list editor control");
         resolve(countryProfileDef);
 
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
@@ -838,6 +866,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x42f290L, "Add_New_DataFormat"),
             new Rename(0x452110L, "Before_Edit_Army"),
             new Rename(0x454570L, "Before_Edit_Build"),
+            new Rename(0x45ee10L, "Before_Edit_Empire_Hero"),
             new Rename(0x450490L, "Do_City"),
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),

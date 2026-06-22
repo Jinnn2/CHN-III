@@ -34,7 +34,7 @@ void MLR_Edit_SelCustomMap(void)
   int local_2b4;
   char local_2ac [292];
   undefined1 local_188 [392];
-  
+
   Trace_Function(s_MLR_Edit_SelCustomMap_00571fc0);
   if (DAT_00755904 == 0) {
     FUN_0044d030(2,0x32,0);
@@ -162,7 +162,7 @@ LAB_0045b379:
             piVar14 = &DAT_00714a18;
             do {
               if ((0 < *piVar11) &&
-                 (-1 < g_country_profile_defs[piVar11[0xe]].enabled_or_display_flag)) {
+                 (-1 < g_country_profile_defs[piVar11[0xe]].portrait_enabled_or_display_flag)) {
                 *piVar14 = iVar6;
                 piVar14 = piVar14 + 1;
                 local_2b4 = local_2b4 + 1;
@@ -184,8 +184,8 @@ LAB_0045b379:
             do {
               uVar8 = (uint)(byte)pcVar12[1];
               if ((('\0' < *pcVar12) && (0 < (int)(&DAT_00589a18)[uVar8 * 0x80])) &&
-                 (-1 < g_country_profile_defs[(&DAT_00589a50)[uVar8 * 0x80]].enabled_or_display_flag
-                 )) {
+                 (-1 < g_country_profile_defs[(&DAT_00589a50)[uVar8 * 0x80]].
+                       portrait_enabled_or_display_flag)) {
                 *puVar18 = uVar8;
                 iVar7 = iVar7 + 1;
                 puVar18 = puVar18 + 1;
@@ -772,4 +772,3 @@ LAB_0045bd11:
   }
   return;
 }
-

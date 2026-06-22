@@ -103,6 +103,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
+| `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
@@ -432,10 +433,17 @@ table editor calls around `0x0045ee10` expose many columns with base
 | Offset | Evidence | Working field |
 |---:|---|---|
 | `+0x00..0x10` | Profile editor text column at `0x00596218 + row * 0x7c`. | short name bytes. |
-| `+0x11..0x36` | Profile editor text column at `0x00596229 + row * 0x7c`; diplomacy start formats text from here. | display name bytes. |
-| `+0x24` | Editor/loader tests values `-1`, `0`, and `1`. | enabled/display flag. |
-| `+0x28` | Copied into active country modifier tables in initialization paths. | profile base value. |
+| `+0x11..0x21` | `Before_Edit_Empire_Hero` binds this as a second 17-byte text column at `0x00596229 + row * 0x7c`. | display name bytes. |
+| `+0x24` | `Before_Edit_Empire_Hero`, `Load_Dat`, `Edit_Finish`, and custom-map selection require this to be nonnegative before loading/showing `DIP_%02d` resources. | portrait enabled / display flag. |
+| `+0x28` | `Before_Edit_Empire_Hero`, `Load_Dat`, and `Edit_Finish` format `DIP_%02d.IMG`/`.IDI` resource names from this value. | profile portrait resource id. |
+| `+0x2c/+0x30` | `Before_Edit_Empire_Hero` exposes these dwords as editable numeric fields. | editor-visible profile values. |
+| `+0x34/+0x38` | `Before_Edit_Empire_Hero` binds these dwords to option-list controls. | editor-visible profile selectors. |
+| `+0x3c` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
 | `+0x40` | `City_Round_Check` subtracts this percent from city route/canal work costs. | engineering discount percent. |
+| `+0x44..0x58` | `Before_Edit_Empire_Hero` exposes this run of dwords as editable numeric fields. | editor-visible profile values. |
+| `+0x5c..0x73` | `Before_Edit_Empire_Hero` binds this as a six-dword control block. | profile value block. |
+| `+0x74` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
+| `+0x78` | `Before_Edit_Empire_Hero` binds this dword to an option-list control. | editor-visible profile selector. |
 
 ## Resource Containers
 
@@ -516,9 +524,10 @@ important code-first files are:
   toggle, whole-map backup allocation, and the left/right-click editor map
   mutation paths.
 - `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
-  `editor/before_edit_army.c`, and `editor/before_edit_build.c`: generic
-  editor form binding plus unit/building table setup, useful for recovering
-  static data-table semantics from editor controls.
+  `editor/before_edit_army.c`, `editor/before_edit_build.c`, and
+  `editor/before_edit_empire_hero.c`: generic editor form binding plus
+  unit/building/country-profile table setup, useful for recovering static
+  data-table semantics from editor controls.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

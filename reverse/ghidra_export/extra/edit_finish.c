@@ -22,7 +22,7 @@ undefined4 Edit_Finish(void)
   undefined4 *puVar10;
   undefined1 local_180 [192];
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Edit_Finish_0057ed30);
   if ((((_DAT_00748e30 == (char *)0x0) || (*_DAT_00748e30 < '\0')) ||
       ((_DAT_00748e30[1] == '\0' && (_DAT_00748e30[3] == '\0')))) ||
@@ -103,8 +103,9 @@ undefined4 Edit_Finish(void)
     puVar10 = &DAT_0074d524;
     piVar8 = &DAT_00589a50;
     do {
-      if ((0 < piVar8[-0xe]) && (-1 < g_country_profile_defs[*piVar8].enabled_or_display_flag)) {
-        iVar4 = g_country_profile_defs[*piVar8].profile_base_value;
+      if ((0 < piVar8[-0xe]) &&
+         (-1 < g_country_profile_defs[*piVar8].portrait_enabled_or_display_flag)) {
+        iVar4 = g_country_profile_defs[*piVar8].profile_portrait_resource_id;
         Format_Text(local_c0,s_DIP__02d_IMG_005178b8,iVar4);
         Format_Text(local_180,s_DIP__02d_IDI_005178a8,iVar4);
         iVar4 = FUN_00478bc0(local_c0,local_180);
@@ -141,4 +142,3 @@ undefined4 Edit_Finish(void)
   DAT_005c77a8 = 0xffffffff;
   return 1;
 }
-

@@ -82,7 +82,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
   char acStack_36c [292];
   char acStack_248 [292];
   undefined1 auStack_124 [292];
-  
+
   Trace_Function(s_Loading_0057458c);
   FUN_0044cf20();
   FUN_004f00a0();
@@ -3153,8 +3153,9 @@ LAB_0047702c:
       puVar12 = &DAT_0074d524;
       piVar9 = &DAT_00589a50;
       do {
-        if ((0 < piVar9[-0xe]) && (-1 < g_country_profile_defs[*piVar9].enabled_or_display_flag)) {
-          iVar6 = g_country_profile_defs[*piVar9].profile_base_value;
+        if ((0 < piVar9[-0xe]) &&
+           (-1 < g_country_profile_defs[*piVar9].portrait_enabled_or_display_flag)) {
+          iVar6 = g_country_profile_defs[*piVar9].profile_portrait_resource_id;
           Format_Text(acStack_36c,s_DIP__02d_IMG_005178b8,iVar6);
           Format_Text(acStack_248,s_DIP__02d_IDI_005178a8,iVar6);
           iVar6 = FUN_00478bc0(acStack_36c,acStack_248);
@@ -3187,4 +3188,3 @@ LAB_0047702c:
   UI_YesNo_Message(auStack_124,0,0,1);
   return 0;
 }
-
