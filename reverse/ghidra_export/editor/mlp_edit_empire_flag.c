@@ -21,26 +21,27 @@ void MLP_Edit_Empire_Flag(void)
   if ((((iVar4 + 0x90 <= g_view_center_y) && (g_view_center_y <= iVar4 + 399)) &&
       (iVar1 + 0x10 <= g_view_center_x)) && (g_view_center_x <= iVar1 + 0x24)) {
     iVar3 = (g_view_center_y - iVar4) + -0x90;
-    DAT_00706cd4 = (int)(iVar3 + (iVar3 >> 0x1f & 7U)) >> 3;
+    g_flag_editor_red_level = (int)(iVar3 + (iVar3 >> 0x1f & 7U)) >> 3;
   }
   if (((iVar4 + 0x90 <= g_view_center_y) && (g_view_center_y <= iVar4 + 399)) &&
      ((iVar1 + 0x2e <= g_view_center_x && (g_view_center_x <= iVar1 + 0x42)))) {
     iVar3 = (g_view_center_y - iVar4) + -0x90;
-    DAT_00706cdc = (int)(iVar3 + (iVar3 >> 0x1f & 7U)) >> 3;
+    g_flag_editor_green_level = (int)(iVar3 + (iVar3 >> 0x1f & 7U)) >> 3;
   }
   if (((iVar4 + 0x90 <= g_view_center_y) && (g_view_center_y <= iVar4 + 399)) &&
      ((iVar1 + 0x4c <= g_view_center_x && (g_view_center_x <= iVar1 + 0x60)))) {
     iVar4 = (g_view_center_y - iVar4) + -0x90;
-    DAT_00706cd8 = (int)(iVar4 + (iVar4 >> 0x1f & 7U)) >> 3;
+    g_flag_editor_blue_level = (int)(iVar4 + (iVar4 >> 0x1f & 7U)) >> 3;
   }
-  if (((DAT_00572094 == 0) && (-1 < DAT_00572098)) && (-1 < DAT_0057209c)) {
-    uVar2 = *(ushort *)(g_blue_to_pixel_table + DAT_00706cd8 * 8) |
-            *(ushort *)(g_green_to_pixel_table + DAT_00706cdc * 8) |
-            *(ushort *)(g_rgb_to_pixel_tables + DAT_00706cd4 * 8);
+  if (((g_flag_editor_pixel_write_blocked == 0) && (-1 < g_flag_editor_pixel_x)) &&
+     (-1 < g_flag_editor_pixel_y)) {
+    uVar2 = *(ushort *)(g_blue_to_pixel_table + g_flag_editor_blue_level * 8) |
+            *(ushort *)(g_green_to_pixel_table + g_flag_editor_green_level * 8) |
+            *(ushort *)(g_rgb_to_pixel_tables + g_flag_editor_red_level * 8);
     *(char *)(*(int *)((int)g_flag_img_bank + g_edit_flag_index * 4) + 4 +
-             (DAT_00572098 + DAT_0057209c * 0xe) * 2) = (char)uVar2;
+             (g_flag_editor_pixel_x + g_flag_editor_pixel_y * 0xe) * 2) = (char)uVar2;
     *(char *)(*(int *)((int)g_flag_img_bank + g_edit_flag_index * 4) + 5 +
-             (DAT_00572098 + DAT_0057209c * 0xe) * 2) = (char)(uVar2 >> 8);
+             (g_flag_editor_pixel_x + g_flag_editor_pixel_y * 0xe) * 2) = (char)(uVar2 >> 8);
   }
   return;
 }
