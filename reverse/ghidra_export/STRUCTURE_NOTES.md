@@ -21,6 +21,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `BuildingDef_0x200` | Building table starts at `0x005997b8`; UI/editor and city production index it with `building_id * 0x200`. | Per-building definition table. |
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
+| `CityResourceDef_0xd8` | Resource table starts at `0x005a80b0`; `Load_Dat` copies `0x21c0` bytes, i.e. 40 records of `0xd8`; editor map resource placement and city resource production index it by resource id. | City/special resource definition table. |
 | `g_science_priority_target_ids[12]` | `Before_Edit_Science_Power` backs up and edits 12 dwords at `0x00581778`; `Science_Next` splits them into two six-entry groups before consulting per-science priority weights. | Science AI/research-priority target table. |
 | `g_flag_img_bank` | `Load_EMG_Base` loads `FLAG.IMG` through `Safe_LoadIMG`; `Load_Dat` copies 100 `0x100`-byte flag blocks through this bank, and the flag editor modifies pixels inside the selected block. | Empire/country flag IMG resource bank. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
@@ -669,6 +670,32 @@ bindings, then cross-checked against `City_Building`, `City_Build_AI_Build_Able`
 `2` means known/completed, state `3` means blocked by prerequisites, and states
 `0`/`4` are treated by the editor as editable/unstarted-like states. State `1`
 is collected by `Science_Next` as available/current research.
+
+### `CityResourceDef_0xd8`
+
+`Load_Dat` copies `0x870` dwords into `g_city_resource_defs`, which is
+`0x21c0` bytes or 40 records at stride `0xd8`. The map editor's resource brush
+is a strong semantic oracle here: `MLR_Edit_GameMap` case `6` validates the
+selected resource against the same terrain and feature gates that
+`Resource_Able` uses, then writes `LandTile.city_resource_or_feature_id` and
+`LandTile.city_resource_or_feature_stockpile`. Runtime code cross-checks the
+same fields in `Do_Map`, `Cal_City_Resource`, `Put_City_Make`, and
+`City_Building_AI`.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | `Resource_Able` and editor placement accept value `2` on ordinary terrain kinds below `0x0b`; production gates compare this field against `< 2`. | `placement_or_resource_class`. |
+| `+0x04..0x2b` | UI paths format labels from `g_city_resource_defs + resource_id * 0xd8 + 4`, including resource cost display. | `name_bytes`. |
+| `+0x2c..0x4b` | `City_Business` indexes this eight-dword block by active government mode when valuing inter-city resource trade. | `trade_income_by_government[8]`. |
+| `+0x6c` | `Cal_City_Resource`, `Load_Dat`, and `Prepare_City_Doing` require tile work kind `2` or undeveloped/urban-like tile states depending on this flag. | `city_work_requirement_flag`. |
+| `+0x70` | `Load_Dat` enables each country's resource availability flag when this id is `-1` or the referenced country status entry is `2`. | `availability_science_or_condition_id`. |
+| `+0x74` | The same city-resource production paths require a completed city building status unless this value is `-1`. | `required_city_building_id`. |
+| `+0x7c..0xb7` | `Resource_Able` and `MLR_Edit_GameMap` index this block by `LandTile.terrain_kind` before allowing a resource on a terrain. | `terrain_compatibility_by_kind[15]`. |
+| `+0xbc` | `Resource_Able`, editor placement, and `Clear_Forest_Or_Resource` use this nonzero flag to require/clear a positive battle resource or feature marker. | `requires_battle_feature_or_clearable`. |
+| `+0xc0` | `Do_Map` and `Cal_City_Resource` add this to tile stockpiles, capped around 10000; city calculation uses one quarter of it. | `stockpile_growth_rate`. |
+| `+0xc8` | `Cal_City_Resource` modes `1` and `2` reduce consumed amount and award bonus score. | `stockpile_conversion_mode`. |
+| `+0xcc` | `Cal_City_Resource` multiplies this by consumed amount when converting resource consumption into income/trade buffer. | `conversion_income_per_unit`. |
+| `+0xd4` | `Put_City_Make` and `City_Building_AI` block resource-cost production when this is `1`, the resource class is below `2`, and the city lacks the resource. | `required_for_production_flag`. |
 
 ### `CountryProfileDef_0x7c`
 

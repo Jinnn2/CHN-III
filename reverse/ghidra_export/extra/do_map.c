@@ -103,10 +103,10 @@ switchD_00451f3b_default:
 LAB_0045204d:
           if (((g_current_map_scenario_info.city_resource_system_enabled != 0) &&
               (-1 < pcVar7[0x17])) &&
-             ((0 < *(int *)(&DAT_005a8170 + pcVar7[0x17] * 0xd8) &&
+             ((0 < g_city_resource_defs[pcVar7[0x17]].stockpile_growth_rate &&
               (*(int *)(pcVar7 + 0xf8) < 10000)))) {
             *(int *)(pcVar7 + 0xf8) =
-                 *(int *)(pcVar7 + 0xf8) + *(int *)(&DAT_005a8170 + pcVar7[0x17] * 0xd8);
+                 *(int *)(pcVar7 + 0xf8) + g_city_resource_defs[pcVar7[0x17]].stockpile_growth_rate;
           }
           pcVar7 = pcVar7 + 0x100;
           local_8 = local_8 + 1;

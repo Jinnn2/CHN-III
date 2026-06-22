@@ -46,6 +46,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType countryProfileDef;
     private StructureDataType governmentDef;
     private StructureDataType groundDef;
+    private StructureDataType cityResourceDef;
     private StructureDataType empireCountryDef;
     private StructureDataType mapScenarioInfo;
     private StructureDataType dataFormat;
@@ -893,6 +894,35 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Put_Edit_Science_Exp displays a second special-project name when this id is nonnegative");
         resolve(scienceDef);
 
+        cityResourceDef = fixedStruct("CityResourceDef_0xd8", 0xd8);
+        replaceAt(cityResourceDef, 0x00, IntegerDataType.dataType, 4, "placement_or_resource_class",
+            "Resource_Able and editor placement accept class 2 on ordinary terrain; production gates compare values below 2");
+        replaceAt(cityResourceDef, 0x04, new ArrayDataType(ByteDataType.dataType, 0x28, 1), 0x28,
+            "name_bytes", "city/resource UI formats labels from table base + resource_id * 0xd8 + 4");
+        replaceAt(cityResourceDef, 0x2c, new ArrayDataType(IntegerDataType.dataType, 8, 4), 0x20,
+            "trade_income_by_government",
+            "City_Business indexes this block by active government mode when valuing inter-city resource trade");
+        replaceAt(cityResourceDef, 0x6c, IntegerDataType.dataType, 4, "city_work_requirement_flag",
+            "city resource production checks this before requiring tile work kind 2 or an undeveloped/urban tile state");
+        replaceAt(cityResourceDef, 0x70, IntegerDataType.dataType, 4, "availability_science_or_condition_id",
+            "Load_Dat enables each country's resource availability flag when this id is -1 or the referenced country status is complete");
+        replaceAt(cityResourceDef, 0x74, IntegerDataType.dataType, 4, "required_city_building_id",
+            "city resource production requires this city building status to be complete unless the value is -1");
+        replaceAt(cityResourceDef, 0x7c, new ArrayDataType(IntegerDataType.dataType, 15, 4), 0x3c,
+            "terrain_compatibility_by_kind",
+            "Resource_Able and the map editor index this block by LandTile.terrain_kind when placing resources");
+        replaceAt(cityResourceDef, 0xbc, IntegerDataType.dataType, 4, "requires_battle_feature_or_clearable",
+            "Resource_Able requires a positive battle-resource/feature value when this is nonzero; clear work also uses it");
+        replaceAt(cityResourceDef, 0xc0, IntegerDataType.dataType, 4, "stockpile_growth_rate",
+            "Do_Map and Cal_City_Resource grow tile stockpile from this value up to 10000");
+        replaceAt(cityResourceDef, 0xc8, IntegerDataType.dataType, 4, "stockpile_conversion_mode",
+            "Cal_City_Resource modes 1 and 2 reduce required consumption and award bonus score");
+        replaceAt(cityResourceDef, 0xcc, IntegerDataType.dataType, 4, "conversion_income_per_unit",
+            "Cal_City_Resource multiplies this by consumed resource amount for income/trade conversion");
+        replaceAt(cityResourceDef, 0xd4, IntegerDataType.dataType, 4, "required_for_production_flag",
+            "Put_City_Make and City_Building_AI block resource-cost production when this is 1 and the city lacks the resource");
+        resolve(cityResourceDef);
+
         countryProfileDef = fixedStruct("CountryProfileDef_0x7c", 0x7c);
         replaceAt(countryProfileDef, 0x00, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
             "person_name_bytes", "editor label is person name; profile/editor table text column starts at 0x00596218");
@@ -1446,6 +1476,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005a19d4L, "g_special_project_defs", new ArrayDataType(specialProjectDef, 0x19, specialProjectDef.getLength())),
             new GlobalRename(0x00581778L, "g_science_priority_target_ids", new ArrayDataType(IntegerDataType.dataType, 12, 4)),
             new GlobalRename(0x005817a8L, "g_science_defs", new ArrayDataType(scienceDef, 200, scienceDef.getLength())),
+            new GlobalRename(0x005a80b0L, "g_city_resource_defs", new ArrayDataType(cityResourceDef, 40, cityResourceDef.getLength())),
             new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
             new GlobalRename(0x00599288L, "g_government_defs", new ArrayDataType(governmentDef, 8, governmentDef.getLength())),
             new GlobalRename(0x00589428L, "g_ground_defs", new ArrayDataType(groundDef, 15, groundDef.getLength())),

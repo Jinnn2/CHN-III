@@ -516,8 +516,8 @@ LAB_004235b3:
                                        iVar20 * 2 + 0x43) < piVar15[iVar20 + 0x11]) {
                       bVar22 = false;
                     }
-                    else if (((((((&DAT_005a8184)[iVar20 * 0x36] == 1) &&
-                                ((int)(&DAT_005a80b0)[iVar20 * 0x36] < 2)) &&
+                    else if ((((((g_city_resource_defs[iVar20].required_for_production_flag == 1) &&
+                                (g_city_resource_defs[iVar20].placement_or_resource_class < 2)) &&
                                (g_current_city->trade_resource_state[iVar20] == 0)) &&
                               ((*(int *)&g_active_country->field_0x7b4 != 2 ||
                                ((g_current_city->building_status[6] != 2 &&

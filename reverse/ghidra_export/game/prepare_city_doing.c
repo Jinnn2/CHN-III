@@ -123,14 +123,14 @@ LAB_0045156d:
           iVar10 = iVar10 * 0x100 + _g_land_tiles;
 switchD_004516e9_default:
           iVar9 = (int)*(char *)(iVar10 + 0x17);
-          if ((-1 < iVar9) && (local_10[iVar9] == '\x01')) {
-            if (((*(int *)(&DAT_005a8124 + iVar9 * 0xd8) == -1) ||
-                (*(char *)(*(int *)(&DAT_005a8124 + iVar9 * 0xd8) + 100 + iVar4) == '\x02')) &&
-               ((((*(int *)(&DAT_005a811c + iVar9 * 0xd8) == 0 ||
-                  (*(char *)(iVar10 + 0x1a) == '\x02')) || (*(char *)(iVar10 + 8) == '\0')) ||
-                (*(char *)(iVar10 + 8) == '\x03')))) {
-              *(undefined1 *)(iVar9 + 0x183 + iVar4) = 2;
-            }
+          if ((((-1 < iVar9) && (local_10[iVar9] == '\x01')) &&
+              ((g_city_resource_defs[iVar9].required_city_building_id == -1 ||
+               (*(char *)(g_city_resource_defs[iVar9].required_city_building_id + 100 + iVar4) ==
+                '\x02')))) &&
+             ((((g_city_resource_defs[iVar9].city_work_requirement_flag == 0 ||
+                (*(char *)(iVar10 + 0x1a) == '\x02')) || (*(char *)(iVar10 + 8) == '\0')) ||
+              (*(char *)(iVar10 + 8) == '\x03')))) {
+            *(undefined1 *)(iVar9 + 0x183 + iVar4) = 2;
           }
           if ((local_8 != (int *)&DAT_0074a1e4) && (1 < *(byte *)(iVar4 + 0x15e))) {
             pcVar7 = (char *)(iVar4 + 0x132);
@@ -167,15 +167,15 @@ switchD_004516e9_default:
                 local_4 = iVar6 * 0x100 + iVar9;
 switchD_00451840_default:
                 iVar6 = (int)*(char *)(local_4 + 0x17);
-                if ((-1 < iVar6) && (local_10[iVar6] == '\x01')) {
-                  if (((*(int *)(&DAT_005a8124 + iVar6 * 0xd8) == -1) ||
-                      (*(char *)(*(int *)(&DAT_005a8124 + iVar6 * 0xd8) + 100 + iVar4) == '\x02'))
-                     && ((((*(int *)(&DAT_005a811c + iVar6 * 0xd8) == 0 ||
-                           (*(char *)(iVar10 + 0x1a) == '\x02')) || (*(char *)(iVar10 + 8) == '\0'))
-                         || (*(char *)(iVar10 + 8) == '\x03')))) {
-                    *(undefined1 *)(iVar6 + 0x183 + iVar4) = 2;
-                    iVar9 = _g_land_tiles;
-                  }
+                if ((((-1 < iVar6) && (local_10[iVar6] == '\x01')) &&
+                    ((g_city_resource_defs[iVar6].required_city_building_id == -1 ||
+                     (*(char *)(g_city_resource_defs[iVar6].required_city_building_id + 100 + iVar4)
+                      == '\x02')))) &&
+                   ((((g_city_resource_defs[iVar6].city_work_requirement_flag == 0 ||
+                      (*(char *)(iVar10 + 0x1a) == '\x02')) || (*(char *)(iVar10 + 8) == '\0')) ||
+                    (*(char *)(iVar10 + 8) == '\x03')))) {
+                  *(undefined1 *)(iVar6 + 0x183 + iVar4) = 2;
+                  iVar9 = _g_land_tiles;
                 }
               }
 LAB_004518d6:

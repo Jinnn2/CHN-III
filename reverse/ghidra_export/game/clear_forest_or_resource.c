@@ -15,7 +15,8 @@ void Clear_Forest_Or_Resource(LandTile_0x100 *tile)
   FUN_0041f600(_DAT_0074a0f8,10,
                *(int *)(&DAT_00589644 + (char)tile->battle_resource_or_feature_id * 4) * 0xf,0);
   if ((-1 < (char)tile->city_resource_or_feature_id) &&
-     ((&DAT_005a816c)[(char)tile->city_resource_or_feature_id * 0x36] != 0)) {
+     (g_city_resource_defs[(char)tile->city_resource_or_feature_id].
+      requires_battle_feature_or_clearable != 0)) {
     tile->city_resource_or_feature_stockpile = 0;
     tile->city_resource_or_feature_id = 0xff;
     tile->battle_resource_or_feature_id = 0xff;

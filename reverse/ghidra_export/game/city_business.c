@@ -24,7 +24,7 @@ void City_Business(void)
   int iVar12;
   City_0x1b8_plus *local_38;
   int local_30;
-  undefined4 *local_28;
+  CityResourceDef_0xd8 *local_28;
   int local_24;
   int local_20;
   int local_1c;
@@ -64,7 +64,7 @@ void City_Business(void)
           }
         }
         local_20 = 0;
-        local_28 = &DAT_005a80b0;
+        local_28 = g_city_resource_defs;
         iVar12 = 0;
         local_30 = 0xbe4;
         local_24 = 0xb42;
@@ -113,7 +113,7 @@ void City_Business(void)
           if ((g_current_city->trade_resource_state[iVar12] == 2) &&
              ((char)local_38->trade_resource_state[iVar12] < '\x02')) {
             local_38->trade_resource_state[iVar12] = 1;
-            iVar11 = local_28[g_active_country->government_or_ai_mode + 0xb] *
+            iVar11 = local_28->trade_income_by_government[g_active_country->government_or_ai_mode] *
                      ((int)*(short *)(pcVar4 + 0xc) >> 1);
             if (cVar8 == '\x02') {
               iVar11 = iVar11 + (iVar11 >> 1);
@@ -126,7 +126,7 @@ void City_Business(void)
             }
             local_20 = local_20 + iVar11;
           }
-          local_28 = local_28 + 0x36;
+          local_28 = local_28 + 1;
           iVar12 = iVar12 + 1;
           local_24 = local_24 + 2;
           local_30 = local_30 + 4;

@@ -244,16 +244,16 @@ LAB_004b71a9:
     break;
   case 6:
     if (-1 < g_editor_selected_city_resource_id) {
-      if (((*(int *)(&DAT_005a812c +
-                    ((int)(char)g_current_land_tile->terrain_kind +
-                    g_editor_selected_city_resource_id * 0x36) * 4) < 1) &&
-          (((&DAT_005a80b0)[g_editor_selected_city_resource_id * 0x36] != 2 ||
-           ('\n' < (char)g_current_land_tile->terrain_kind)))) &&
+      if (((g_city_resource_defs[g_editor_selected_city_resource_id].terrain_compatibility_by_kind
+            [(char)g_current_land_tile->terrain_kind] < 1) &&
+          ((g_city_resource_defs[g_editor_selected_city_resource_id].placement_or_resource_class !=
+            2 || ('\n' < (char)g_current_land_tile->terrain_kind)))) &&
          (g_editor_selected_city_resource_id != 0x26)) {
         FUN_00469f90(&DAT_0057f5bc,1);
         return;
       }
-      if (((&DAT_005a816c)[g_editor_selected_city_resource_id * 0x36] != 0) &&
+      if ((g_city_resource_defs[g_editor_selected_city_resource_id].
+           requires_battle_feature_or_clearable != 0) &&
          (*(int *)(&DAT_00589644 + (char)g_current_land_tile->battle_resource_or_feature_id * 4) < 1
          )) {
         FUN_00469f90(&DAT_0057f5d4,1);

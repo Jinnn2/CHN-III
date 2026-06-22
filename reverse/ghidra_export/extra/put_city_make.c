@@ -126,8 +126,8 @@ LAB_004df808:
                   if (!bVar5) break;
                   if ((0 < local_2c[iVar13 + 0x11]) &&
                      (((int)*(short *)(DAT_007584b0 + 0xaca + iVar13 * 2) < local_2c[iVar13 + 0x11]
-                      || (((((((&DAT_005a8184)[iVar13 * 0x36] == 1 &&
-                              ((int)(&DAT_005a80b0)[iVar13 * 0x36] < 2)) &&
+                      || ((((((g_city_resource_defs[iVar13].required_for_production_flag == 1 &&
+                              (g_city_resource_defs[iVar13].placement_or_resource_class < 2)) &&
                              (*(char *)(iVar15 + 0x183 + iVar13) == '\0')) &&
                             ((*(int *)(_DAT_00748e30 + 0x7b4) != 2 ||
                              ((*(char *)(iVar15 + 0x6a) != '\x02' && (*(byte *)(iVar15 + 0x22) < 5))
@@ -645,7 +645,7 @@ LAB_004dfaeb:
           if (0 < *(int *)(iVar13 + 0x5aa4c0 + iVar15 * 4)) {
             iVar10 = (local_34 % 6) * 0xd;
             Draw_Text_Centered(DAT_00714e6c + 0x4b + (local_34 / 6) * 0x32,iVar10 + 3 + DAT_00714e68
-                               ,&DAT_005a80b4 + iVar15 * 0x36,0xffffffff,DAT_0074c850,0xffffffff,
+                               ,iVar15 * 0xd8 + 0x5a80b4,0xffffffff,DAT_0074c850,0xffffffff,
                                0xffffffff);
             iVar9 = *(int *)(iVar13 + 0x5aa4c0 + iVar15 * 4);
             if (*(short *)(_DAT_00748e30 + 0xaca + iVar15 * 2) < iVar9) {

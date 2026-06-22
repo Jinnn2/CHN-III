@@ -234,10 +234,9 @@ void Before_Edit_Army(void)
   piVar11 = &DAT_00570838;
   do {
     iVar2 = *piVar11;
-    Add_New_DataFormat(1,(iVar4 / 6) * 100 + 0x348,(iVar4 % 6) * 0x1a + 0x18,
-                       &DAT_005a80b4 + iVar2 * 0x36,&DAT_00570784,
-                       (DAT_00570784 * 0x100 + iVar2) * 4 + 0x5aa4c0,0,0,3,0,0,0,0,0,0,0,
-                       &DAT_005c68d0,g_army_type_table,0x400,iVar2 * 4 + 0x5aa4c0,4,1,0,0,0,0);
+    Add_New_DataFormat(1,(iVar4 / 6) * 100 + 0x348,(iVar4 % 6) * 0x1a + 0x18,iVar2 * 0xd8 + 0x5a80b4
+                       ,&DAT_00570784,(DAT_00570784 * 0x100 + iVar2) * 4 + 0x5aa4c0,0,0,3,0,0,0,0,0,
+                       0,0,&DAT_005c68d0,g_army_type_table,0x400,iVar2 * 4 + 0x5aa4c0,4,1,0,0,0,0);
     piVar11 = piVar11 + 1;
     iVar4 = iVar4 + 1;
   } while ((int)piVar11 < 0x570868);
