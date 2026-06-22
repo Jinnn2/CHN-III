@@ -519,7 +519,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004b08f0` | `FUN_004b08f0` | 745 | 4 |
 | `0x004b0c00` | `Read_Keyboard` | 6839 | 26 |
 | `0x004b29c0` | `FUN_004b29c0` | 2290 | 9 |
-| `0x004b3330` | `FUN_004b3330` | 3840 | 15 |
+| `0x004b3330` | `Read_MLP_Edit` | 3840 | 15 |
 | `0x004b4300` | `FUN_004b4300` | 6600 | 33 |
 | `0x004b5e00` | `FUN_004b5e00` | 340 | 2 |
 | `0x004b5f70` | `FUN_004b5f70` | 1633 | 10 |
@@ -528,7 +528,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004b6d30` | `FUN_004b6d30` | 64 | 2 |
 | `0x004b6d70` | `MLR_Edit_GameMap` | 3042 | 23 |
 | `0x004b7b60` | `FUN_004b7b60` | 1367 | 6 |
-| `0x004b80c0` | `FUN_004b80c0` | 1734 | 10 |
+| `0x004b80c0` | `Read_MRP_Edit` | 1734 | 10 |
 | `0x004b8820` | `FUN_004b8820` | 512 | 2 |
 | `0x004b8a30` | `FUN_004b8a30` | 751 | 6 |
 | `0x004b8db0` | `Read_MRR_Edit` | 424 | 5 |

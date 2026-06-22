@@ -37,11 +37,11 @@ void MLR_Edit_GameMap(void)
   undefined1 local_4;
   
   Trace_Function(s_MLR_Edit_GameMap_0057f7c8);
-  iVar11 = DAT_0057e994;
+  iVar11 = g_editor_selected_country_id;
   if (DAT_00716124 == 1) {
     DAT_00716124 = 2;
   }
-  switch(DAT_0057e94c) {
+  switch(g_editor_tool_mode) {
   case 1:
     if (DAT_0074c6b8 != 2) {
       FUN_00469f90(&DAT_0057f730,1);
@@ -56,30 +56,30 @@ void MLR_Edit_GameMap(void)
       FUN_00469f90(&DAT_0057f76c,1);
       return;
     }
-    if ((DAT_0057e994 < 0) || (0x15 < DAT_0057e994)) {
+    if ((g_editor_selected_country_id < 0) || (0x15 < g_editor_selected_country_id)) {
 LAB_004b709e:
       FUN_00469f90(&DAT_0057f788,1);
       return;
     }
-    if (DAT_0057e990 < 0) {
+    if (g_editor_selected_city_seed_id < 0) {
       FUN_00469f90(&DAT_0057f794,1);
       return;
     }
     g_current_land_tile->city_round_block_flag = 0;
     iVar10 = iVar11 * 0xe68;
     if ((&g_country_states)[iVar11 * 0xe68] == '\0') {
-      FUN_004b7b60(DAT_0057e994,(&DAT_007350b9)[iVar10],1);
+      FUN_004b7b60(g_editor_selected_country_id,(&DAT_007350b9)[iVar10],1);
     }
     if (DAT_0057e98c == 5) {
-      FUN_00467740(DAT_0057e994,0x48);
+      FUN_00467740(g_editor_selected_country_id,0x48);
     }
-    if (DAT_0057e990 == 0) {
+    if (g_editor_selected_city_seed_id == 0) {
       uVar17 = 10000;
     }
     else {
-      uVar17 = *(undefined4 *)(&DAT_00515c78 + DAT_0057e990 * 4);
+      uVar17 = *(undefined4 *)(&DAT_00515c78 + g_editor_selected_city_seed_id * 4);
     }
-    FUN_0047a0e0(DAT_0057e994,_DAT_00755908,_DAT_0075590c,uVar17,1,100);
+    FUN_0047a0e0(g_editor_selected_country_id,_DAT_00755908,_DAT_0075590c,uVar17,1,100);
     iVar11 = UI_YesNo_Dialog(&DAT_0057f7a4,0,0,0xffffffff,1,0xffffffff,1,DAT_007350b4);
     if ((iVar11 != 0) && (city = g_current_land_tile->linked_record, city != (City_0x1b8_plus *)0x0)
        ) {
@@ -127,13 +127,14 @@ LAB_004b709e:
       FUN_00469f90(&DAT_0057f62c,1);
       return;
     }
-    if ((DAT_0057e994 < 0) || (0x15 < DAT_0057e994)) goto LAB_004b709e;
-    if ((DAT_0057e998 < 0) || (DAT_0057e99c < 0)) {
+    if ((g_editor_selected_country_id < 0) || (0x15 < g_editor_selected_country_id))
+    goto LAB_004b709e;
+    if ((g_editor_selected_army_group < 0) || (g_editor_selected_army_slot < 0)) {
       FUN_00469f90(&DAT_0057f648,1);
       return;
     }
-    iVar10 = (&DAT_00715320)[DAT_0057e99c];
-    iVar11 = DAT_0057e994 * 0xe68;
+    iVar10 = (&DAT_00715320)[g_editor_selected_army_slot];
+    iVar11 = g_editor_selected_country_id * 0xe68;
     local_18 = &g_country_states + iVar11;
     if (iVar10 == 0x1f) {
       sVar1 = *(short *)(iVar11 + 0x735174);
@@ -156,7 +157,8 @@ joined_r0x004b723a:
         if (g_army_type_table[0x44]._4_4_ == 0) {
           *(undefined1 *)(iVar11 + 0x735b2b) = 1;
         }
-        FUN_00479620(DAT_0057e994,0x44,_DAT_00755908,_DAT_0075590c,DAT_0057e994,100,100,0);
+        FUN_00479620(g_editor_selected_country_id,0x44,_DAT_00755908,_DAT_0075590c,
+                     g_editor_selected_country_id,100,100,0);
         return;
       }
     }
@@ -178,7 +180,7 @@ LAB_004b71a9:
       if (*(char *)g_current_land_tile < '\v') goto LAB_004b71a9;
     }
     if ((g_current_land_tile->linked_record != (void *)0x0) &&
-       (*(char *)((int)g_current_land_tile->linked_record + 1) != DAT_0057e994)) {
+       (*(char *)((int)g_current_land_tile->linked_record + 1) != g_editor_selected_country_id)) {
       bVar2 = false;
       FUN_00469f90(&DAT_0057f6f0,1);
     }
@@ -198,7 +200,7 @@ LAB_004b71a9:
         do {
           if (*ppAVar14 != (ArmyUnit_0x164_plus *)0x0) {
             iVar11 = (int)(char)g_current_land_tile->army_or_city_ptrs_a[iVar11]->owner_country_id;
-            if ((iVar11 != -1) && (iVar11 != DAT_0057e994)) {
+            if ((iVar11 != -1) && (iVar11 != g_editor_selected_country_id)) {
               FUN_00469f90(&DAT_0057f664,1);
               return;
             }
@@ -209,7 +211,7 @@ LAB_004b71a9:
         } while (iVar11 < 10);
       }
       if (*local_18 == '\0') {
-        FUN_004b7b60(DAT_0057e994,local_18[1],1);
+        FUN_004b7b60(g_editor_selected_country_id,local_18[1],1);
       }
       if (*(int *)&g_army_type_table[iVar10].field_0x4 == 0) {
         pcVar15[iVar10 + 0xa2f] = '\x01';
@@ -217,14 +219,16 @@ LAB_004b71a9:
       }
       pvVar5 = g_current_land_tile->linked_record;
       if (pvVar5 == (void *)0x0) {
-        pvVar5 = (void *)NoDpa_Near_City_Found(_DAT_00755908,_DAT_0075590c,99,DAT_0057e994);
+        pvVar5 = (void *)NoDpa_Near_City_Found
+                                   (_DAT_00755908,_DAT_0075590c,99,g_editor_selected_country_id);
       }
-      FUN_00479620(DAT_0057e994,iVar10,_DAT_00755908,_DAT_0075590c,DAT_0057e994,100,100,pvVar5);
+      FUN_00479620(g_editor_selected_country_id,iVar10,_DAT_00755908,_DAT_0075590c,
+                   g_editor_selected_country_id,100,100,pvVar5);
       return;
     }
     break;
   case 5:
-    if (DAT_0057e954 == 4) {
+    if (g_editor_overlay_kind == 4) {
       cVar4 = FUN_0041b920(g_current_land_tile);
       if (cVar4 != '\0') {
         FUN_00493be0(g_current_land_tile,_DAT_00755908,_DAT_0075590c,4,0);
@@ -235,21 +239,24 @@ LAB_004b71a9:
     }
     break;
   case 6:
-    if (-1 < DAT_00716118) {
-      if (((*(int *)(&DAT_005a812c + ((int)*(char *)g_current_land_tile + DAT_00716118 * 0x36) * 4)
-            < 1) && (((&DAT_005a80b0)[DAT_00716118 * 0x36] != 2 ||
-                     ('\n' < *(char *)g_current_land_tile)))) && (DAT_00716118 != 0x26)) {
+    if (-1 < g_editor_selected_city_resource_id) {
+      if (((*(int *)(&DAT_005a812c +
+                    ((int)*(char *)g_current_land_tile + g_editor_selected_city_resource_id * 0x36)
+                    * 4) < 1) &&
+          (((&DAT_005a80b0)[g_editor_selected_city_resource_id * 0x36] != 2 ||
+           ('\n' < *(char *)g_current_land_tile)))) && (g_editor_selected_city_resource_id != 0x26))
+      {
         FUN_00469f90(&DAT_0057f5bc,1);
         return;
       }
-      if (((&DAT_005a816c)[DAT_00716118 * 0x36] != 0) &&
+      if (((&DAT_005a816c)[g_editor_selected_city_resource_id * 0x36] != 0) &&
          (*(int *)(&DAT_00589644 + (char)g_current_land_tile->battle_resource_or_feature_id * 4) < 1
          )) {
         FUN_00469f90(&DAT_0057f5d4,1);
         return;
       }
-      g_current_land_tile->city_resource_or_feature_id = (byte)DAT_00716118;
-      g_current_land_tile->city_resource_or_feature_stockpile = DAT_00572a90;
+      g_current_land_tile->city_resource_or_feature_id = (byte)g_editor_selected_city_resource_id;
+      g_current_land_tile->city_resource_or_feature_stockpile = g_editor_resource_initial_stockpile;
       return;
     }
     break;

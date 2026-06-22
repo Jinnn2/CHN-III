@@ -30,7 +30,7 @@ void Read_MRR_Edit(void)
       return;
     }
     if ((char)g_current_land_tile->army_count_or_occupant_count < '\x01') {
-      if (DAT_0057e94c == 7) {
+      if (g_editor_tool_mode == 7) {
         if (-1 < g_current_land_tile->editor_named_point_index_a) {
           (&DAT_005e7d54)[g_current_land_tile->editor_named_point_index_a * 8] = 0xffffffff;
           (&DAT_005e7d58)[pLVar1->editor_named_point_index_a * 8] = 0xffffffff;
@@ -44,7 +44,8 @@ void Read_MRR_Edit(void)
           return;
         }
       }
-      else if ((DAT_0057e94c == 8) && (-1 < g_current_land_tile->editor_named_point_index_b)) {
+      else if ((g_editor_tool_mode == 8) && (-1 < g_current_land_tile->editor_named_point_index_b))
+      {
         (&DAT_005e0050)[g_current_land_tile->editor_named_point_index_b * 0x20] = 0;
         (&DAT_005e0054)[pLVar1->editor_named_point_index_b * 8] = 0xffffffff;
         (&DAT_005e0058)[pLVar1->editor_named_point_index_b * 8] = 0xffffffff;

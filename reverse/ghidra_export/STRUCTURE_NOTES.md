@@ -62,6 +62,10 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_map_interaction_mode` | `PlayGame_Init` sets normal map mode `1`; city/diplomacy paths set other modes; `Edit_Start` sets `99` and `Edit_Finish` restores `1`. | Current map/input interaction mode. |
 | `g_current_land_tile` | Editor left/right-click handlers and `Load_Dat` use this as the selected/hovered tile pointer. | Current map tile under interaction. |
 | `g_editor_land_tile_backup` | `Edit_Start` allocates `width * height * 0x100` bytes under `Edit_MAP_TYPE_BackUp`; `Edit_Finish` frees it. | Whole-map tile backup for editor mode. |
+| `g_editor_tool_mode` | Editor mouse handlers switch on this value; left/right press and release paths give different behavior to modes `1`, `2`, `3`, `5`, `6`, `7`, `8`, `9`, and `0xb`. | Current editor map tool. |
+| `g_editor_brush_size_index` | Press/drag handlers map this through `{0,1,2,4}` and then into brush offset/count tables at `0x0074c830`/`0x0074a360`. | Editor brush radius/shape selector. |
+| `g_editor_selected_country_id` | City/unit/ownership tools validate it against `0..0x15` and use it to create cities, create armies, and paint owner/visibility bytes. | Selected country/faction for editor tools. |
+| `g_editor_selected_city_resource_id` | Resource tool `6` assigns it to `LandTile_0x100 +0x17`; hover/render code validates it before drawing a resource preview. | Selected city resource/feature id. |
 
 ## Editor And Startup
 
@@ -82,8 +86,28 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
 | `Read_Keyboard` | Trace string `Read_Keyboard`; game/map input dispatcher. Pressing `E/e` toggles `g_editor_mode_enabled`, calls `Edit_Start` when entering edit mode, and calls the editor-exit path when leaving. | Keyboard dispatcher, including editor toggle. |
 | `CheckMouseOnWindow` | Trace string `CheckMouseOnWindow`; when no UI window consumes the mouse, editor mode `99` keeps hover/selection timing alive for map interaction. | Mouse-window hit test with editor-map fallback. |
+| `Read_MLP_Edit` | Trace string `Read_MLP_Edit`; copies the full tile map into the editor backup at the start of a drag, then applies brush tools while the left mouse button is down. | Editor left-press/drag brush path. |
 | `MLR_Edit_GameMap` | Trace string `MLR_Edit_GameMap`; editor left-click map handler. Tool cases create cities, fill city buildings, create armies, assign resource/feature ids, register two classes of named points, and batch-paint terrain. | Main editor map mutation path. |
+| `Read_MRP_Edit` | Trace string `Read_MRP_Edit`; mirrors the backup-on-drag setup for right mouse input, then removes objects, armies, terrain overlays, resources, and ownership/visibility marks by tool mode. | Editor right-press/drag erase path. |
 | `Read_MRR_Edit` | Trace string `Read_MRR_Edit`; editor right-click map handler. Opens linked objects, removes named-point links for tools `7/8`, or asks before deleting tile occupants. | Editor map removal/inspection path. |
+
+### Editor Map Tool Modes
+
+These are working meanings recovered from the mouse handlers, not confirmed
+original enum names.
+
+| Mode | Evidence | Working meaning |
+|---:|---|---|
+| `1` | `MLR_Edit_GameMap` creates a city and can fill all valid buildings; `Read_MRP_Edit` deletes a linked city/object after confirmation. | City/object tool. |
+| `2` | `MLR_Edit_GameMap` validates `g_editor_selected_army_slot`, looks up `g_army_type_table`, and creates a map army; right-press removal deletes tile occupants. | Army/unit tool. |
+| `3` | `Read_MLP_Edit` paints primary terrain kinds or road modes across the brush; `Read_MRP_Edit` removes road/terrain detail and decodes roads. | Ground/road brush. |
+| `4` | Left-press writes random/selected battle resource ids at tile `+0x16`; right-press clears `+0x16`. | Battle resource/feature brush. |
+| `5` | Left/right press edit fields `+0x13..+0x16`, `+0x24`, and alternate terrain around road/long-wall decode calls. | Overlay/road/long-wall detail brush. |
+| `6` | `MLR_Edit_GameMap` assigns `g_editor_selected_city_resource_id` and initial stockpile; right-press clears tile `+0x17/+0xf8`. | City resource/feature brush. |
+| `7` | Left-release adds a row in the large named-point table at `0x005e7d50`; right-release clears it. | Named point table A. |
+| `8` | Left-release writes the secondary named-point table at `0x005e0050`; right-release clears it. | Named point table B. |
+| `9` | Left-press paints tile owner/visibility for `g_editor_selected_country_id`; right-press clears the same owner/visibility bytes. | Ownership/visibility brush. |
+| `0xb` | `MLR_Edit_GameMap` writes a fixed 27-tile terrain pattern using tables around `0x0057eac0`. | Batch terrain-template brush. |
 
 ## Useful Offsets
 
