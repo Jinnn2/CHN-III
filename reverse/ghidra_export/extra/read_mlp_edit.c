@@ -577,7 +577,7 @@ switchD_004b377a_default:
           iVar8 = Irrigate_Able(g_current_land_tile,g_editor_cursor_tile_x,g_editor_cursor_tile_y,1)
           ;
           if ((char)iVar8 != '\0') {
-            FUN_00493a30(g_current_land_tile,0);
+            Make_New_Work(g_current_land_tile,0);
             g_request_redraw = 1;
             return;
           }
@@ -585,7 +585,7 @@ switchD_004b377a_default:
         case 1:
           iVar8 = Pasturage_Able(g_current_land_tile);
           if ((char)iVar8 != '\0') {
-            FUN_00493a30(g_current_land_tile,1);
+            Make_New_Work(g_current_land_tile,1);
             g_request_redraw = 1;
             return;
           }
@@ -593,7 +593,7 @@ switchD_004b377a_default:
         case 2:
           iVar8 = Mine_Able(g_current_land_tile);
           if ((char)iVar8 != '\0') {
-            FUN_00493a30(g_current_land_tile,2);
+            Make_New_Work(g_current_land_tile,2);
             g_request_redraw = 1;
             return;
           }
@@ -601,7 +601,7 @@ switchD_004b377a_default:
         case 3:
           iVar8 = Fish_Able(g_current_land_tile);
           if ((char)iVar8 != '\0') {
-            FUN_00493a30(g_current_land_tile,3);
+            Make_New_Work(g_current_land_tile,3);
             g_request_redraw = 1;
             return;
           }

@@ -528,7 +528,7 @@ LAB_004b1a2d:
         do {
           if (bVar2) break;
           if (((uint)DAT_00748f2e == (int)pcVar10[-1]) || ((uint)DAT_00748f2e == (int)*pcVar10)) {
-            FUN_00494110();
+            Order_Check();
             iVar9 = 0;
             iVar6 = DAT_007584dc;
             if (0 < DAT_00714f94) {

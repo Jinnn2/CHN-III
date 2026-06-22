@@ -93,8 +93,8 @@ void Decode_NewMap(int param_1,uint param_2)
   if (g_map_width_tiles <= param_1) {
     param_1 = param_1 - g_map_width_tiles;
   }
-  local_a8 = FUN_004c6e90(param_1,param_2);
-  local_a4 = FUN_004c6eb0(param_1,param_2);
+  local_a8 = Tile_To_DiagCoordA(param_1,param_2);
+  local_a4 = Tile_To_DiagCoordB(param_1,param_2);
   switch(g_map_size_mode) {
   case 0:
     local_bc = param_1 + param_2 * 0x138;

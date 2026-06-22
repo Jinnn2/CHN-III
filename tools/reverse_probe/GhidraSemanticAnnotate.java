@@ -939,6 +939,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x41b830L, "Pasturage_Able"),
             new Rename(0x41b880L, "Mine_Able"),
             new Rename(0x41b8c0L, "Fish_Able"),
+            new Rename(0x41b920L, "LongWall_Able"),
             new Rename(0x41b960L, "Resource_Able"),
             new Rename(0x41daf0L, "UserSet_City_Resource"),
             new Rename(0x41dea0L, "Cal_City_JobPeople"),
@@ -1078,6 +1079,11 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x48c8f0L, "CheckMouseOnWindow"),
             new Rename(0x496df0L, "Start_Map_Battle_From_Tile"),
             new Rename(0x492760L, "Do_Country_Diplomat"),
+            new Rename(0x4912e0L, "Do_Army_TurnJob"),
+            new Rename(0x4939c0L, "Clear_Forest_Or_Resource"),
+            new Rename(0x493a30L, "Make_New_Work"),
+            new Rename(0x493be0L, "Make_New_Make"),
+            new Rename(0x494110L, "Order_Check"),
             new Rename(0x495320L, "Order_Diplomat_Choice_Mission"),
             new Rename(0x495780L, "Order_Diplomat_Sel_Buy"),
             new Rename(0x4959a0L, "Order_Diplomat_Sel_Take_City_or_Diplomat"),
@@ -1100,6 +1106,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4c35f0L, "Set_Color"),
             new Rename(0x4c60a0L, "ShutDown_Game"),
             new Rename(0x4c6490L, "Clear_All_Memory"),
+            new Rename(0x4c6e60L, "DiagCoords_To_TileX"),
+            new Rename(0x4c6e80L, "DiagCoords_To_TileY"),
+            new Rename(0x4c6e90L, "Tile_To_DiagCoordA"),
+            new Rename(0x4c6eb0L, "Tile_To_DiagCoordB"),
             new Rename(0x4c50d0L, "Draw_MainMenu_Number"),
             new Rename(0x4d91a0L, "Put_City_Citizen"),
             new Rename(0x4d40f0L, "Trace_Function"),
@@ -1285,6 +1295,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0057e94cL, "g_editor_tool_mode", IntegerDataType.dataType),
             new GlobalRename(0x00715da8L, "g_editor_brush_size_index", IntegerDataType.dataType),
             new GlobalRename(0x0074a360L, "g_tile_radius_offset_counts", new ArrayDataType(IntegerDataType.dataType, 5, 4)),
+            new GlobalRename(0x0057eac0L, "g_editor_template_diag_offset_a", new ArrayDataType(IntegerDataType.dataType, 27, 4)),
+            new GlobalRename(0x0057eb2cL, "g_editor_template_diag_offset_b", new ArrayDataType(IntegerDataType.dataType, 27, 4)),
+            new GlobalRename(0x0057eb98L, "g_editor_template_terrain_kind", new ArrayDataType(ByteDataType.dataType, 27, 4)),
+            new GlobalRename(0x0057ec04L, "g_editor_template_road_mode", new ArrayDataType(ByteDataType.dataType, 27, 4)),
             new GlobalRename(0x00588b80L, "g_request_redraw", ByteDataType.dataType),
             new GlobalRename(0x00716104L, "g_editor_left_press_active", IntegerDataType.dataType),
             new GlobalRename(0x00716108L, "g_editor_form_input_blocked", ByteDataType.dataType),
@@ -1351,6 +1365,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x41b830L, "Pasturage_Able", IntegerDataType.dataType, "tile", landTile);
         pointerArg(0x41b880L, "Mine_Able", IntegerDataType.dataType, "tile", landTile);
         pointerArg(0x41b8c0L, "Fish_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b920L, "LongWall_Able", IntegerDataType.dataType, "tile", landTile);
         pointerArg(0x41b960L, "Resource_Able", ByteDataType.dataType,
             "tile", landTile, "resource_id", IntegerDataType.dataType);
         pointerArg(0x41f700L, "City_Happy_Change", VoidDataType.dataType, "city", city, "delta", IntegerDataType.dataType);
@@ -1361,6 +1376,20 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x4254a0L, "City_Event_Happen", VoidDataType.dataType, "city", city);
         pointerArg(0x42eed0L, "NodeInsert_DataFormat", VoidDataType.dataType, "data_format", dataFormat);
         pointerArg(0x47c8b0L, "Map_To_Battle_Army", IntegerDataType.dataType, "army", armyUnit);
+        pointerArg(0x4939c0L, "Clear_Forest_Or_Resource", VoidDataType.dataType, "tile", landTile);
+        pointerArg(0x493a30L, "Make_New_Work", VoidDataType.dataType,
+            "tile", landTile, "work_kind", IntegerDataType.dataType);
+        pointerArg(0x493be0L, "Make_New_Make", VoidDataType.dataType,
+            "tile", landTile, "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
+            "make_kind", IntegerDataType.dataType, "variant", ByteDataType.dataType);
+        pointerArg(0x4c6e60L, "DiagCoords_To_TileX", IntegerDataType.dataType,
+            "diag_a", IntegerDataType.dataType, "diag_b", IntegerDataType.dataType);
+        pointerArg(0x4c6e80L, "DiagCoords_To_TileY", IntegerDataType.dataType,
+            "diag_a", IntegerDataType.dataType, "diag_b", IntegerDataType.dataType);
+        pointerArg(0x4c6e90L, "Tile_To_DiagCoordA", IntegerDataType.dataType,
+            "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
+        pointerArg(0x4c6eb0L, "Tile_To_DiagCoordB", IntegerDataType.dataType,
+            "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
         pointerArg(0x4b8820L, "Clear_Mountain", VoidDataType.dataType,
             "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
         pointerArg(0x4b8f60L, "Cancel_All_Army_On_Tile", VoidDataType.dataType, "tile", landTile);

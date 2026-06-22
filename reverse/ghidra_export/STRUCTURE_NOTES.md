@@ -123,10 +123,16 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Pasturage_Able` | Trace string `Pasturage_Able`; checks terrain definition support and no city/link record before overlay action `1`. | Tile pasture placement predicate. |
 | `Mine_Able` | Trace string `Mine_Able`; accepts road/rail-like base states and no linked record before overlay action `2`. | Tile mine placement predicate. |
 | `Fish_Able` | Trace string `Fish_Able`; checks terrain/resource markers for fishable water or coast-like tiles before overlay action `3`. | Tile fishing placement predicate. |
-| `Bridge_Able` | Trace string `Bridge_Able`; requires bridge-capable terrain image range and no linked record. | Tile bridge/long-wall placement predicate. |
+| `Bridge_Able` | Trace string `Bridge_Able`; requires bridge-capable terrain image range and no linked record. | Tile bridge placement predicate. |
+| `LongWall_Able` | Trace string `LongWall_Able`; requires no long-wall marker, no linked record, positive city/link count, and no region marker. | Tile long-wall placement predicate. |
 | `Resource_Able` | Trace string `Resource_Able`; validates selected resource id against terrain/resource tables before accepting city resource tool `6`. | Tile resource placement predicate. |
 | `Clear_Mountain` | Trace string `Clear_Mountain`; clears mountain/height road markers over radius pattern `1` and refreshes affected tiles. | Editor helper for clearing mountain-style tile overlay state. |
 | `Cancel_All_Army_On_Tile` | Trace string misspells `Cancle_All_Army`; removes up to ten army pointers from a tile and clears owner bytes when empty. | Editor helper for deleting all armies on a tile. |
+| `Make_New_Work` | Trace string `Make_New_Work`; writes the tile work kind at `LandTile +0x1a`, resets progress/state bytes, and is used by both editor overlay actions and unit turn jobs. | Starts or completes a tile work/improvement state. |
+| `Make_New_Make` | Trace string `Make_New_Make`; writes road/overlay/long-wall/terrain make fields, propagates adjacent road markers, and refreshes affected map/road/long-wall tiles. | Applies finished tile construction/overlay state. |
+| `Clear_Forest_Or_Resource` | Trace string `Forset_Disappear`; clears tile feature id `+0x16`, optionally clears city resource id `+0x17`, and awards resource value to the active country. | Removes forest/feature/resource state from a tile. |
+| `Do_Army_TurnJob` | Trace string `Do_Army_TurnJob`; advances per-army map jobs and calls `Make_New_Work`, `Make_New_Make`, and `Clear_Forest_Or_Resource` when progress thresholds are met. | Per-turn map-work completion loop. |
+| `Order_Check` | Trace string `Order_Check`; builds available command/order menu entries from unit type, tile state, improvement predicates, and current resources. | Active unit order availability builder. |
 | `MouseOn_Edit_Sel_Pcx_File` | Trace string `MouseOn_Edit_Sel_Pcx_File`; maps mouse position to a 10-row PCX/file list hover index and three action-button states. | PCX/file selection hover handler. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
@@ -179,7 +185,17 @@ original enum names.
 | `7` | Left-release adds a row in the large named-point table at `0x005e7d50`; right-release clears it. | Named point table A. |
 | `8` | Left-release writes the secondary named-point table at `0x005e0050`; right-release clears it. | Named point table B. |
 | `9` | Left-press paints tile owner/visibility for `g_editor_selected_country_id`; right-press clears the same owner/visibility bytes. | Ownership/visibility brush. |
-| `0xb` | `MLR_Edit_GameMap` writes a fixed 27-tile terrain pattern using tables around `0x0057eac0`. | Batch terrain-template brush. |
+| `0xb` | `MLR_Edit_GameMap` converts the cursor tile to diagonal coordinates, adds 27 template offsets from `g_editor_template_diag_offset_a/b`, converts back, and writes terrain/road template bytes. | Batch terrain-template brush. |
+
+### Editor Terrain Template
+
+Tool mode `0xb` applies a 27-tile stamp in a diagonal coordinate space. The
+four helpers `Tile_To_DiagCoordA`, `Tile_To_DiagCoordB`,
+`DiagCoords_To_TileX`, and `DiagCoords_To_TileY` convert between normal map
+tile coordinates and this stamp-friendly coordinate pair. The template tables
+at `g_editor_template_diag_offset_a/b` hold the per-entry diagonal offsets,
+while `g_editor_template_terrain_kind` and `g_editor_template_road_mode` hold
+the tile kind and road/detail mode to write before calling `Decode_NewMap`.
 
 ## Useful Offsets
 
