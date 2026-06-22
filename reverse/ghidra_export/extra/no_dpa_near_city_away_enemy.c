@@ -47,7 +47,7 @@ NoDpa_Near_City_Away_Enemy
   iVar3 = _g_land_tiles;
   iVar4 = g_map_width_tiles;
   pbVar7 = param_1;
-  if (0 < *(int *)(&DAT_0074a360 + param_4 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_4]) {
     do {
       iVar6 = *(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8) + param_2;
       iVar8 = (int)*(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8 + 2) +
@@ -91,7 +91,7 @@ switchD_0048f4f8_default:
         }
       }
       local_c = local_c + 1;
-    } while (local_c <= *(int *)(&DAT_0074a360 + param_4 * 4));
+    } while (local_c <= g_tile_radius_offset_counts[param_4]);
   }
   return 0;
 }

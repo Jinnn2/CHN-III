@@ -34,7 +34,7 @@ void Read_Keyboard(void)
   char local_c [4];
   char local_8 [4];
   char local_4 [4];
-  
+
   Trace_Function(s_Read_Keyboard_0057f2e0);
   DAT_00716208 = FUN_00502a40(0x82);
   DAT_00716200 = FUN_00502a40(0x83);
@@ -247,7 +247,7 @@ joined_r0x004b0fa5:
   }
 switchD_004b0e65_caseD_4:
 LAB_004b11d8:
-  iVar9 = _DAT_0075590c;
+  iVar9 = g_editor_cursor_tile_y;
   if (_DAT_0074a4f8 != 2) {
     return;
   }
@@ -262,15 +262,17 @@ LAB_004b11d8:
       if ((0x30 < DAT_00748f2e) && (DAT_00748f2e < 0x36)) {
         iVar4 = DAT_00748f2e - 0x31;
         if ((DAT_00716210 == '\x01') || (DAT_007161f5 == '\x01')) {
-          if ((((DAT_00758530 == 0) && (-1 < _DAT_00755908)) && (-1 < _DAT_0075590c)) &&
-             ((_DAT_00755908 < g_map_width_tiles && (_DAT_0075590c < g_map_height_tiles)))) {
+          if ((((DAT_00758530 == 0) && (-1 < g_editor_cursor_tile_x)) &&
+              (-1 < g_editor_cursor_tile_y)) &&
+             ((g_editor_cursor_tile_x < g_map_width_tiles &&
+              (g_editor_cursor_tile_y < g_map_height_tiles)))) {
             iVar5 = 0;
             do {
-              if (((&DAT_005c7810)[iVar4 * 4] == _DAT_00755908) &&
-                 ((&DAT_005c7814)[iVar4 * 4] == _DAT_0075590c)) goto LAB_004b1a2d;
+              if (((&DAT_005c7810)[iVar4 * 4] == g_editor_cursor_tile_x) &&
+                 ((&DAT_005c7814)[iVar4 * 4] == g_editor_cursor_tile_y)) goto LAB_004b1a2d;
               iVar5 = iVar5 + 1;
             } while (iVar5 < 5);
-            (&DAT_005c7810)[iVar4 * 4] = _DAT_00755908;
+            (&DAT_005c7810)[iVar4 * 4] = g_editor_cursor_tile_x;
             (&DAT_005c7814)[iVar4 * 4] = iVar9;
             (&DAT_005c7818)[iVar4 * 4] = 0;
             iVar6 = DAT_007584dc;
@@ -797,8 +799,8 @@ LAB_004b235d:
     if (0 < DAT_005c2738) {
       DAT_00734bf8 = 0;
     }
-    if (((DAT_00748f2e == 0x7a) || (DAT_00748f2e == 0x5a)) && (DAT_00716124 == 2)) {
-      DAT_00716124 = 0;
+    if (((DAT_00748f2e == 0x7a) || (DAT_00748f2e == 0x5a)) && (g_editor_map_backup_state == 2)) {
+      g_editor_map_backup_state = 0;
       pLVar12 = g_editor_land_tile_backup;
       puVar13 = _g_land_tiles;
       for (iVar9 = (g_map_width_tiles * g_map_height_tiles & 0xffffffU) << 6; iVar9 != 0;
@@ -936,7 +938,7 @@ switchD_004b120b_caseD_3:
     else {
       g_editor_mode_enabled = (int)(g_editor_mode_enabled == 0);
       FUN_004a16b0();
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
       if (g_editor_mode_enabled == 0) {
         cVar3 = Edit_Finish();
         if (cVar3 == '\0') {
@@ -1013,7 +1015,7 @@ switchD_004b120b_caseD_3:
       if (DAT_0075593e == '\x01') {
         DAT_0075595c = (uint)(DAT_0075595c == 0);
         FUN_004a16b0();
-        DAT_00588b80 = 1;
+        g_request_redraw = 1;
         return;
       }
       break;
@@ -1022,11 +1024,10 @@ switchD_004b120b_caseD_3:
       if (DAT_0075593e == '\x01') {
         DAT_00755958 = (uint)(DAT_00755958 == 0);
         FUN_004a16b0();
-        DAT_00588b80 = 1;
+        g_request_redraw = 1;
         return;
       }
     }
   }
   return;
 }
-

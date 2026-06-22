@@ -11,7 +11,7 @@ void App_Frame_Pump(void)
 
 {
   char cVar1;
-  
+
   FUN_0048b6e0();
   g_frame_tick = Get_Game_Tick();
   _DAT_007552d0 = g_frame_tick - DAT_0074d348;
@@ -22,7 +22,7 @@ void App_Frame_Pump(void)
     DAT_005dffa8 = DAT_005dffa4;
     DAT_005dffa4 = 0;
   }
-  DAT_00588b80 = DAT_007350aa != '\x01' && g_menu_action_tick + 0x32U <= (uint)g_frame_tick;
+  g_request_redraw = DAT_007350aa != '\x01' && g_menu_action_tick + 0x32U <= (uint)g_frame_tick;
   DAT_0074d348 = g_frame_tick;
   FUN_0048b810();
   FUN_004b8fe0();
@@ -32,7 +32,7 @@ void App_Frame_Pump(void)
   _DAT_0074a4f8 = (int)cVar1;
   Read_Keyboard();
   FUN_0049c5a0();
-  if (DAT_00588b80 != '\0') {
+  if (g_request_redraw != 0) {
     DAT_005dffa4 = DAT_005dffa4 + 1;
     DAT_007350aa = 1;
     g_menu_action_tick = g_frame_tick;
@@ -46,4 +46,3 @@ void App_Frame_Pump(void)
   Present_Dirty_Rects(0,0);
   return;
 }
-

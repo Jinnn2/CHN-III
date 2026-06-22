@@ -5,20 +5,19 @@
  */
 
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void Read_MRR_Edit(void)
 
 {
   LandTile_0x100 *pLVar1;
   int iVar2;
-  
+
   Trace_Function(s_Read_MRR_Edit_0057f920);
   pLVar1 = g_current_land_tile;
-  if ((((DAT_005c77a8 == -1) && (-1 < _DAT_00755908)) && (-1 < _DAT_0075590c)) &&
-     ((_DAT_00755908 < g_map_width_tiles && (_DAT_0075590c < g_map_height_tiles)))) {
-    if (DAT_00716124 == 1) {
-      DAT_00716124 = 2;
+  if ((((DAT_005c77a8 == -1) && (-1 < g_editor_cursor_tile_x)) && (-1 < g_editor_cursor_tile_y)) &&
+     ((g_editor_cursor_tile_x < g_map_width_tiles && (g_editor_cursor_tile_y < g_map_height_tiles)))
+     ) {
+    if (g_editor_map_backup_state == 1) {
+      g_editor_map_backup_state = 2;
     }
     if (0 < DAT_005c6d88) {
       FUN_00472320(&DAT_005c6d80);
@@ -61,11 +60,10 @@ void Read_MRR_Edit(void)
     else {
       iVar2 = UI_YesNo_Dialog(&DAT_0057f90c,0,0,0xffffffff,0,0xffffffff,0,DAT_007350b4);
       if (iVar2 == 1) {
-        FUN_004b8f60(g_current_land_tile);
+        Cancel_All_Army_On_Tile(g_current_land_tile);
         return;
       }
     }
   }
   return;
 }
-

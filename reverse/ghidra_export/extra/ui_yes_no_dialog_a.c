@@ -23,7 +23,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
   int iVar11;
   char *pcVar12;
   undefined4 in_stack_00000020;
-  
+
   Trace_Function(s_Message_YN_0057cbdc);
   if (g_back_surface_locked == 0) {
     FUN_0048b6e0();
@@ -38,7 +38,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
   uVar3 = DAT_005cff3e;
   uVar2 = DAT_005cff3a;
   DAT_005cff3e = DAT_00755810;
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   DAT_005cff3a = 0;
   DAT_005cff42 = 0;
   DAT_005cff46 = DAT_00755814;
@@ -78,7 +78,7 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
     else {
       FUN_004f5f9c(0x141,0x1a3,DAT_00714e00[3]);
       iVar11 = 1;
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
     }
     if (((g_view_center_y < 0x1a4) || (0x1bc < g_view_center_y)) ||
        ((g_view_center_x < 0x23e || (0x2b5 < g_view_center_x)))) {
@@ -87,10 +87,10 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
     else {
       FUN_004f5f9c(0x23e,0x1a3,DAT_00714e00[4]);
       iVar11 = 0;
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
     }
     if (param_2 != iVar11) {
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
       param_2 = iVar11;
     }
     if ((DAT_00755940 != 0) && (iVar9 = Get_Game_Tick(), 2999 < (uint)(iVar9 - iVar8))) {
@@ -135,10 +135,10 @@ LAB_004894ff:
 LAB_00489504:
     FUN_0048b5a0();
     Present_Dirty_Rects(0,0);
-    DAT_00588b80 = 0;
+    g_request_redraw = 0;
     if (bVar1) {
       FUN_0048b6e0();
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
       DAT_00714e04 = 0;
       DAT_005cff3a = uVar2;
       DAT_005cff3e = uVar3;
@@ -150,4 +150,3 @@ LAB_00489504:
     }
   } while( true );
 }
-

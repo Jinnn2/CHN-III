@@ -287,12 +287,12 @@ void Decode_LongWall(int param_1,uint param_2)
       local_144[0x50] = 8;
       if (local_144[iVar10] < 6) {
         local_168 = 0;
-        if (_DAT_0074a370 < 0) {
+        if (g_tile_radius_offset_counts[4] < 0) {
 LAB_0043377f:
           *(undefined1 *)(iVar9 + 0x24) = 8;
           return;
         }
-        local_164 = _DAT_0074a370 + 1;
+        local_164 = g_tile_radius_offset_counts[4] + 1;
         psVar15 = g_edit_dest_round_buffers[uVar14];
         do {
           iVar12 = *psVar15 + param_1;

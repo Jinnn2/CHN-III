@@ -32,7 +32,7 @@ void After_Edit_Country(void)
           iVar2 = DAT_00706b04;
           if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10)
           {
-            DAT_00716108 = 0;
+            g_editor_form_input_blocked = 0;
             return;
           }
         }
@@ -43,7 +43,7 @@ void After_Edit_Country(void)
           iVar2 = DAT_00706b04;
           if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10)
           {
-            DAT_00716108 = 0;
+            g_editor_form_input_blocked = 0;
             return;
           }
         }
@@ -54,13 +54,13 @@ void After_Edit_Country(void)
           iVar2 = DAT_00706b04;
           if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10)
           {
-            DAT_00716108 = 0;
+            g_editor_form_input_blocked = 0;
             return;
           }
         }
         iVar4 = iVar4 + -1;
       } while (2 < iVar4);
-      DAT_00716108 = 0;
+      g_editor_form_input_blocked = 0;
       return;
     }
     iVar4 = 0;
@@ -74,7 +74,7 @@ void After_Edit_Country(void)
         iVar3 = (int)cVar1;
         iVar2 = DAT_00706b04;
         if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10) {
-          DAT_00716108 = 0;
+          g_editor_form_input_blocked = 0;
           return;
         }
       }
@@ -84,7 +84,7 @@ void After_Edit_Country(void)
         iVar3 = (int)cVar1;
         iVar2 = DAT_00706b04;
         if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10) {
-          DAT_00716108 = 0;
+          g_editor_form_input_blocked = 0;
           return;
         }
       }
@@ -94,13 +94,13 @@ void After_Edit_Country(void)
         iVar3 = (int)cVar1;
         iVar2 = DAT_00706b04;
         if ((int)*(char *)(DAT_00706b04 + 0x6a2) + iVar3 + *(char *)(DAT_00706b04 + 0x6a3) == 10) {
-          DAT_00716108 = 0;
+          g_editor_form_input_blocked = 0;
           return;
         }
       }
       iVar4 = iVar4 + 1;
     } while (iVar4 < 4);
   }
-  DAT_00716108 = 0;
+  g_editor_form_input_blocked = 0;
   return;
 }

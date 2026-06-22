@@ -13,14 +13,14 @@ void Edit_Start(void)
   int iVar1;
   int *piVar2;
   int iVar3;
-  
+
   Trace_Function(s_Edit_Start_0057ecf8);
   if (DAT_007584dc != 0) {
     FUN_0041eb00();
   }
   g_map_interaction_mode = 99;
   _DAT_0075c964 = 1;
-  DAT_00716104 = 1;
+  g_editor_left_press_active = 1;
   DAT_0057ecdc = g_human_country_index;
   for (iVar3 = DAT_00758524; iVar3 != 0; iVar3 = *(int *)(iVar3 + 0xc4)) {
     if ((*(int *)(iVar3 + 4) != 0) && (0 < *(int *)(iVar3 + 8))) {
@@ -34,7 +34,8 @@ void Edit_Start(void)
   iVar3 = 0x73;
   do {
     iVar1 = *piVar2;
-    if (((9 < iVar1) && (piVar2[1] < 1)) && ((iVar1 == 10 || (iVar1 == DAT_00716104 + 0xb)))) {
+    if (((9 < iVar1) && (piVar2[1] < 1)) &&
+       ((iVar1 == 10 || (iVar1 == g_editor_left_press_active + 0xb)))) {
       FUN_00472120(piVar2 + -1);
     }
     piVar2 = piVar2 + 0x32;
@@ -56,4 +57,3 @@ void Edit_Start(void)
   DAT_0075852c = 0;
   return;
 }
-

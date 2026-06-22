@@ -43,7 +43,7 @@ undefined4 NoDpa_Near_City_Near_Sea(int param_1,int param_2,int *param_3,uint *p
                _g_land_tiles;
   }
   local_10 = 1;
-  if (0 < *(int *)(&DAT_0074a360 + param_2 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_2]) {
     iVar6 = param_1;
     iVar10 = param_1;
     psVar3 = g_edit_dest_round_buffers[(int)*(short *)(param_1 + 0x1c) & 1];
@@ -131,7 +131,7 @@ switchD_0048f86f_default:
       }
       local_10 = local_10 + 1;
       psVar3 = psVar3 + 4;
-    } while (local_10 <= *(int *)(&DAT_0074a360 + param_2 * 4));
+    } while (local_10 <= g_tile_radius_offset_counts[param_2]);
   }
   return 0;
 }

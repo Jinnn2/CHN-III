@@ -10,7 +10,7 @@
 undefined4 Near_City_With_Army_Found(int param_1,int *param_2,int *param_3)
 
 {
-  int iVar1;
+  int *piVar1;
   byte *pbVar2;
   int iVar3;
   short *psVar4;
@@ -25,8 +25,8 @@ undefined4 Near_City_With_Army_Found(int param_1,int *param_2,int *param_3)
 
   Trace_Function(s_Near_City_With_Army_Found_0057dc04);
   local_14 = 1;
-  iVar1 = param_1 * 4;
-  if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
+  piVar1 = g_tile_radius_offset_counts + param_1;
+  if (0 < *piVar1) {
     iVar5 = param_1;
     psVar4 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
@@ -97,7 +97,7 @@ switchD_0048e75f_default:
       }
       local_14 = local_14 + 1;
       psVar4 = psVar4 + 4;
-    } while (local_14 <= *(int *)(&DAT_0074a360 + iVar1));
+    } while (local_14 <= *piVar1);
   }
   return 0;
 }

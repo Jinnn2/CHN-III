@@ -56,7 +56,7 @@ void Start_Map_Battle_From_Army(ArmyUnit_0x164_plus *param_1)
   int iStack_3c;
   int local_38;
   int aiStack_34 [13];
-  
+
   Trace_Function(s_Army_Acting_005123c0);
   if (DAT_0074a2ac == '\0') {
     if ((char)param_1->map_presence_or_cargo_state < '\x03') {
@@ -757,7 +757,7 @@ LAB_0040cf2e:
     else {
       cVar14 = '\x01';
       FUN_00472120(&DAT_005c4f08);
-      DAT_00588b80 = 1;
+      g_request_redraw = 1;
       _DAT_0074a348 = (int)param_1->tile_x;
       _DAT_0074a350 = (int)param_1->tile_y;
       FUN_004a1af0();
@@ -1083,4 +1083,3 @@ LAB_0040cfd7:
   FUN_004b0130(param_1,9,0x4a,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
   return;
 }
-

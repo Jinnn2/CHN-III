@@ -934,6 +934,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x419bd0L, "Do_Battle_Stone"),
             new Rename(0x419f30L, "Battle_Arrange_Position"),
             new Rename(0x41a9f0L, "City_Belong_Change"),
+            new Rename(0x41b4a0L, "Bridge_Able"),
+            new Rename(0x41b6c0L, "Irrigate_Able"),
+            new Rename(0x41b830L, "Pasturage_Able"),
+            new Rename(0x41b880L, "Mine_Able"),
+            new Rename(0x41b8c0L, "Fish_Able"),
+            new Rename(0x41b960L, "Resource_Able"),
             new Rename(0x41daf0L, "UserSet_City_Resource"),
             new Rename(0x41dea0L, "Cal_City_JobPeople"),
             new Rename(0x41e200L, "Cal_City_Resource"),
@@ -1085,6 +1091,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4b6d70L, "MLR_Edit_GameMap"),
             new Rename(0x4b80c0L, "Read_MRP_Edit"),
             new Rename(0x4b8db0L, "Read_MRR_Edit"),
+            new Rename(0x4b8820L, "Clear_Mountain"),
+            new Rename(0x4b8f60L, "Cancel_All_Army_On_Tile"),
             new Rename(0x4bc720L, "PlayGame_Init"),
             new Rename(0x4c0350L, "Science_Know"),
             new Rename(0x4c05e0L, "Science_Next"),
@@ -1260,6 +1268,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00758570L, "g_flag_img_bank", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x00755954L, "g_editor_mode_enabled", IntegerDataType.dataType),
             new GlobalRename(0x00755978L, "g_current_land_tile", new PointerDataType(landTile, dtm)),
+            new GlobalRename(0x00755908L, "g_editor_cursor_tile_x", IntegerDataType.dataType),
+            new GlobalRename(0x0075590cL, "g_editor_cursor_tile_y", IntegerDataType.dataType),
             new GlobalRename(0x00716120L, "g_editor_land_tile_backup", new PointerDataType(landTile, dtm)),
             new GlobalRename(0x00708070L, "g_edit_menu_page", IntegerDataType.dataType),
             new GlobalRename(0x0070806cL, "g_edit_menu_hover_index", IntegerDataType.dataType),
@@ -1274,6 +1284,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00706cc4L, "g_custom_map_count", IntegerDataType.dataType),
             new GlobalRename(0x0057e94cL, "g_editor_tool_mode", IntegerDataType.dataType),
             new GlobalRename(0x00715da8L, "g_editor_brush_size_index", IntegerDataType.dataType),
+            new GlobalRename(0x0074a360L, "g_tile_radius_offset_counts", new ArrayDataType(IntegerDataType.dataType, 5, 4)),
+            new GlobalRename(0x00588b80L, "g_request_redraw", ByteDataType.dataType),
+            new GlobalRename(0x00716104L, "g_editor_left_press_active", IntegerDataType.dataType),
+            new GlobalRename(0x00716108L, "g_editor_form_input_blocked", ByteDataType.dataType),
+            new GlobalRename(0x00716109L, "g_editor_terrain_clear_guard", ByteDataType.dataType),
+            new GlobalRename(0x00716124L, "g_editor_map_backup_state", IntegerDataType.dataType),
             new GlobalRename(0x00715da4L, "g_editor_ground_edit_submode", IntegerDataType.dataType),
             new GlobalRename(0x00715f70L, "g_editor_selected_terrain_kind", IntegerDataType.dataType),
             new GlobalRename(0x00716110L, "g_editor_selected_road_mode", IntegerDataType.dataType),
@@ -1328,6 +1344,15 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "stat_b", new PointerDataType(UnsignedIntegerDataType.dataType, dtm));
         pointerArg(0x41a9f0L, "City_Belong_Change", VoidDataType.dataType,
             "city", city, "new_owner_country_id", IntegerDataType.dataType);
+        pointerArg(0x41b4a0L, "Bridge_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b6c0L, "Irrigate_Able", IntegerDataType.dataType, "tile", landTile,
+            "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
+            "allow_dry_neighbor", IntegerDataType.dataType);
+        pointerArg(0x41b830L, "Pasturage_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b880L, "Mine_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b8c0L, "Fish_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b960L, "Resource_Able", ByteDataType.dataType,
+            "tile", landTile, "resource_id", IntegerDataType.dataType);
         pointerArg(0x41f700L, "City_Happy_Change", VoidDataType.dataType, "city", city, "delta", IntegerDataType.dataType);
         pointerArg(0x41f730L, "City_Safe_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f7c0L, "City_Loyal_Change", VoidDataType.dataType, "city", city);
@@ -1336,6 +1361,9 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x4254a0L, "City_Event_Happen", VoidDataType.dataType, "city", city);
         pointerArg(0x42eed0L, "NodeInsert_DataFormat", VoidDataType.dataType, "data_format", dataFormat);
         pointerArg(0x47c8b0L, "Map_To_Battle_Army", IntegerDataType.dataType, "army", armyUnit);
+        pointerArg(0x4b8820L, "Clear_Mountain", VoidDataType.dataType,
+            "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
+        pointerArg(0x4b8f60L, "Cancel_All_Army_On_Tile", VoidDataType.dataType, "tile", landTile);
         pointerArg(0x4f02d0L, "Present_Dirty_Rects", VoidDataType.dataType,
             "dst_x", IntegerDataType.dataType, "dst_y", IntegerDataType.dataType);
     }

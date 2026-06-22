@@ -35,7 +35,7 @@ InRange_NearDest_City_Found
   iVar5 = _DAT_00748ff0;
   iVar6 = g_map_width_tiles;
   iVar9 = param_3;
-  if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_3]) {
     do {
       psVar1 = (short *)((int)g_edit_dest_round_buffers[bVar2 & 1] + local_14 * 8);
       iVar7 = (int)*(short *)(iVar5 + 0x1a) + (int)*psVar1;
@@ -79,7 +79,7 @@ switchD_0048ee93_default:
         }
       }
       local_14 = local_14 + 1;
-    } while (local_14 <= *(int *)(&DAT_0074a360 + param_3 * 4));
+    } while (local_14 <= g_tile_radius_offset_counts[param_3]);
     if (-1 < local_c) {
       *param_4 = local_c;
       *param_5 = local_4;

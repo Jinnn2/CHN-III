@@ -50,7 +50,7 @@ void Do_Map(void)
               pcVar7[0xb3] = pcVar7[0xb3] + '\x01';
               if ((*pcVar7 < '\v') || (*(short *)(pcVar7 + 0x10) < 1)) {
                 local_4 = (char *)0x1;
-                if (0 < _DAT_0074a364) {
+                if (0 < g_tile_radius_offset_counts[1]) {
                   psVar4 = (short *)((int)g_edit_dest_round_buffers[local_c & 1] + 8);
                   do {
                     iVar3 = *psVar4 + local_8;
@@ -90,7 +90,7 @@ switchD_00451f3b_default:
                     }
                     local_4 = (char *)((int)local_4 + 2);
                     psVar4 = psVar4 + 8;
-                  } while ((int)local_4 <= _DAT_0074a364);
+                  } while ((int)local_4 <= g_tile_radius_offset_counts[1]);
                 }
                 uVar2 = FUN_00414ab0(g_human_country_index);
                 FUN_00479620(0,uVar2,local_8,local_c,0,100,100,0);

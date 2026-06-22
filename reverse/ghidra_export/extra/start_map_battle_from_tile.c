@@ -62,7 +62,7 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
   short local_30 [2];
   int local_2c;
   int local_28 [10];
-  
+
   Trace_Function(s_Order_Jump_Act_0057e3f4);
   local_50 = 0xffffffff;
   if (DAT_0074a2ac == '\0') {
@@ -709,7 +709,7 @@ LAB_0049882a:
   else {
     cVar16 = '\x01';
     FUN_00472120(&DAT_005c4f08);
-    DAT_00588b80 = 1;
+    g_request_redraw = 1;
     _DAT_0074a348 = (int)param_1->tile_x;
     _DAT_0074a350 = (int)param_1->tile_y;
     FUN_004a1af0();
@@ -1124,4 +1124,3 @@ LAB_004988c6:
   }
   return 1;
 }
-

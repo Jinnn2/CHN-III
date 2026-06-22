@@ -29,7 +29,7 @@ undefined4 Near_City_Away_Enemy(int param_1,uint param_2,int param_3,int *param_
   iVar5 = _g_land_tiles;
   iVar6 = g_map_width_tiles;
   iVar8 = param_1;
-  if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_3]) {
     do {
       iVar7 = *(short *)((int)g_edit_dest_round_buffers[uVar3] + param_2 * 8) + param_1;
       iVar9 = (int)*(short *)((int)g_edit_dest_round_buffers[uVar3] + param_2 * 8 + 2) + uVar1;
@@ -72,7 +72,7 @@ switchD_0048f2ad_default:
         }
       }
       param_2 = param_2 + 1;
-    } while ((int)param_2 <= *(int *)(&DAT_0074a360 + param_3 * 4));
+    } while ((int)param_2 <= g_tile_radius_offset_counts[param_3]);
   }
   return 0;
 }

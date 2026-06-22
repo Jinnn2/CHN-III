@@ -10,7 +10,7 @@
 undefined4 Near_Beach_City_Cap_Army_Found(int param_1,int *param_2,uint *param_3,int param_4)
 
 {
-  int iVar1;
+  int *piVar1;
   short *psVar2;
   int iVar3;
   int iVar4;
@@ -23,8 +23,8 @@ undefined4 Near_Beach_City_Cap_Army_Found(int param_1,int *param_2,uint *param_3
 
   Trace_Function(s_Near_Beach_City_Cap_Army_Found_0057dbd0);
   local_14 = 1;
-  iVar1 = param_1 * 4;
-  if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
+  piVar1 = g_tile_radius_offset_counts + param_1;
+  if (0 < *piVar1) {
     iVar5 = param_1;
     iVar6 = param_1;
     psVar2 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
@@ -108,7 +108,7 @@ switchD_0048e3de_default:
       }
       local_14 = local_14 + 1;
       psVar2 = psVar2 + 4;
-    } while (local_14 <= *(int *)(&DAT_0074a360 + iVar1));
+    } while (local_14 <= *piVar1);
   }
   return 0;
 }

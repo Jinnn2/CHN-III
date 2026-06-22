@@ -114,7 +114,7 @@ joined_r0x00430321:
         if (DAT_00755904 == 0) {
           FUN_0044d030(5,0x5a,0);
         }
-        DAT_00588b80 = 1;
+        g_request_redraw = 1;
         pcVar6 = (char *)FUN_0047de30(pDVar12->value_limit_or_rows,s_BOX_STRING_00518880,1);
         uVar8 = pDVar12->value_limit_or_rows;
         pcVar14 = pcVar6;
@@ -283,7 +283,7 @@ LAB_00430177:
         if (DAT_00755904 == 0) {
           FUN_0044d030(5,0x5a,0);
         }
-        DAT_00588b80 = 1;
+        g_request_redraw = 1;
         pcVar6 = (char *)FUN_0047de30(pDVar12->value_limit_or_rows,s_BOX_STRING_00518880,1);
         uVar8 = pDVar12->value_limit_or_rows;
         pcVar14 = pcVar6;

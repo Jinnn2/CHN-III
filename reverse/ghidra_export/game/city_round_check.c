@@ -102,7 +102,7 @@ void City_Round_Check(void)
   local_274 = 1;
   iVar19 = 0;
   iVar20 = 0;
-  if (0 < *(int *)(&DAT_0074a360 + iVar9 * 4)) {
+  if (0 < g_tile_radius_offset_counts[iVar9]) {
     do {
       psVar1 = (short *)((int)g_edit_dest_round_buffers[uVar16] + local_274 * 8);
       local_294 = (int)*psVar1 + g_current_city_x;
@@ -463,7 +463,7 @@ LAB_00428ade:
       local_274 = local_274 + 1;
       iVar19 = local_26c;
       iVar20 = local_260;
-    } while (local_274 <= *(int *)(&DAT_0074a360 + local_288 * 4));
+    } while (local_274 <= g_tile_radius_offset_counts[local_288]);
   }
   __ftol();
   uVar8 = __ftol();

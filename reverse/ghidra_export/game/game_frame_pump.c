@@ -13,7 +13,7 @@ void Game_Frame_Pump(void)
   bool bVar1;
   char cVar2;
   int iVar3;
-  
+
   FUN_0048b6e0();
   g_frame_tick = Get_Game_Tick();
   _DAT_007552d0 = g_frame_tick - DAT_0074d348;
@@ -42,13 +42,13 @@ void Game_Frame_Pump(void)
     }
   }
   bVar1 = false;
-  DAT_00588b80 = '\0';
+  g_request_redraw = 0;
   if (DAT_0074c628 + DAT_005813c4 <= (uint)g_frame_tick) {
     DAT_00716292 = DAT_00716292 == '\0';
     bVar1 = true;
     DAT_0074c628 = g_frame_tick;
     if ((bool)DAT_00716292) {
-      DAT_00588b80 = '\x01';
+      g_request_redraw = 1;
     }
   }
   if (_DAT_0074946c == 2) {
@@ -80,7 +80,7 @@ void Game_Frame_Pump(void)
   }
   DAT_005dffa4 = DAT_005dffa4 + 1;
   if (bVar1) {
-    if (DAT_00588b80 == '\x01') {
+    if (g_request_redraw == 1) {
       DAT_00716280 = DAT_00716280 + 1;
       if (_DAT_0074a31c == 0) {
         FUN_004a1a00();
@@ -114,4 +114,3 @@ void Game_Frame_Pump(void)
   Present_Dirty_Rects(0,0);
   return;
 }
-

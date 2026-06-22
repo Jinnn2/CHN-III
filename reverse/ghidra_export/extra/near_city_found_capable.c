@@ -18,7 +18,7 @@ undefined4 Near_City_Found_CapAble(int param_1,int *param_2,int *param_3)
 
   Trace_Function(s_Near_City_Found_CapAble_0057dc50);
   local_c = 1;
-  if (0 < *(int *)(&DAT_0074a360 + param_1 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_1]) {
     iVar2 = (int)*(short *)(_DAT_00748ff0 + 0x1a);
     psVar1 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
@@ -61,7 +61,7 @@ switchD_0048ed0b_default:
       }
       local_c = local_c + 1;
       psVar1 = psVar1 + 4;
-    } while (local_c <= *(int *)(&DAT_0074a360 + param_1 * 4));
+    } while (local_c <= g_tile_radius_offset_counts[param_1]);
   }
   return 0;
 }

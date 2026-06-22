@@ -12,7 +12,7 @@ void __cdecl Present_Dirty_Rects(int dst_x,int dst_y)
 {
   int iVar1;
   int iVar2;
-  
+
   Trace_Function(s_PutSCR_005cf8e4);
   if ((g_directdraw_ready != 0) && (g_back_surface != (void *)0x0)) {
     if (g_back_surface_locked != 0) {
@@ -20,7 +20,7 @@ void __cdecl Present_Dirty_Rects(int dst_x,int dst_y)
     }
     do {
       if (g_present_use_blt_mode == 0) {
-        if (DAT_00588b80 != '\x01') {
+        if (g_request_redraw != 1) {
           if (g_client_width < g_dirty_rect_x) {
             return;
           }
@@ -87,7 +87,7 @@ void __cdecl Present_Dirty_Rects(int dst_x,int dst_y)
         iVar1 = (**(code **)(*(int *)g_primary_surface + 0x1c))
                           (g_primary_surface,dst_x,dst_y,g_back_surface,&g_present_src_left,0);
       }
-      else if (DAT_00588b80 == '\x01') {
+      else if (g_request_redraw == 1) {
         g_present_dst_rect[0] = g_present_dest_offset_y + dst_x;
         g_present_dst_rect[1] = g_present_dest_offset_x + dst_y;
         g_present_dst_rect[2] = g_present_width + dst_x;
@@ -191,4 +191,3 @@ joined_r0x004f072d:
   }
   return;
 }
-

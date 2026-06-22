@@ -18,7 +18,7 @@ int Near_City_UserKnow_Found(int param_1,uint param_2,int param_3)
 
   Trace_Function(s_Near_City_UserKnow_Found_0057dcf0);
   iVar4 = 0;
-  if (-1 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
+  if (-1 < g_tile_radius_offset_counts[param_3]) {
     psVar5 = g_edit_dest_round_buffers[param_2 & 1];
     uVar3 = param_2;
     do {
@@ -54,7 +54,7 @@ int Near_City_UserKnow_Found(int param_1,uint param_2,int param_3)
       }
       iVar4 = iVar4 + 1;
       psVar5 = psVar5 + 4;
-    } while (iVar4 <= *(int *)(&DAT_0074a360 + param_3 * 4));
+    } while (iVar4 <= g_tile_radius_offset_counts[param_3]);
   }
   return 0;
 }

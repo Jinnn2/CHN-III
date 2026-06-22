@@ -221,9 +221,10 @@ LAB_00441cc6:
       iVar9 = *(int *)(param_1 + 0x20);
       param_3 = (int *)((uint)param_3 & 0xffffff00);
       if (iVar9 != 0) {
-        local_c = (int *)&DAT_0074a364;
+        local_c = g_tile_radius_offset_counts;
         uVar6 = (uint)param_3;
         do {
+          local_c = local_c + 1;
           if (0x74a4ef < (int)local_c) {
             if ((char)param_3 == '\0') {
               return 0;
@@ -276,7 +277,6 @@ switchD_00441dd8_default:
               param_2 = param_2 + -1;
             } while (param_2 != 0);
           }
-          local_c = local_c + 1;
           if ((char)param_3 != '\0') {
             iVar9 = *(int *)(param_4 + 0x24) + 3000;
             return CONCAT44(iVar9,iVar9);

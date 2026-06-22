@@ -212,7 +212,7 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
       *(int *)(iVar14 + 8) = *(int *)(iVar14 + 8) + 5;
     }
   }
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   FUN_004a1a00();
   FUN_004f0780();
   FUN_0048b5a0();

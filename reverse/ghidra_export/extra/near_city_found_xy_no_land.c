@@ -19,7 +19,7 @@ undefined4 Near_City_Found_XY_NoLand(int param_1,uint param_2,int param_3,int *p
 
   Trace_Function(s_Near_City_Found_XY_NoLand_0057dc34);
   local_4 = 1;
-  if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_3]) {
     uVar3 = param_2;
     psVar1 = g_edit_dest_round_buffers[param_2 & 1];
     do {
@@ -62,7 +62,7 @@ switchD_0048eb85_default:
       }
       local_4 = local_4 + 1;
       psVar1 = psVar1 + 4;
-    } while (local_4 <= *(int *)(&DAT_0074a360 + param_3 * 4));
+    } while (local_4 <= g_tile_radius_offset_counts[param_3]);
   }
   return 0;
 }

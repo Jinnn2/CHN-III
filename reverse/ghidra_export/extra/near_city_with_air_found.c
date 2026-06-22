@@ -10,7 +10,7 @@
 undefined4 Near_City_With_Air_Found(undefined4 *param_1,int *param_2,int *param_3)
 
 {
-  int iVar1;
+  int *piVar1;
   byte bVar2;
   byte *pbVar3;
   short *psVar4;
@@ -24,8 +24,8 @@ undefined4 Near_City_With_Air_Found(undefined4 *param_1,int *param_2,int *param_
 
   Trace_Function(s_Near_City_With_Air_Found_0057dc84);
   local_14 = 1;
-  iVar1 = (int)param_1 * 4;
-  if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
+  piVar1 = g_tile_radius_offset_counts + (int)param_1;
+  if (0 < *piVar1) {
     iVar5 = (int)param_1;
     psVar4 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
@@ -91,7 +91,7 @@ switchD_0048f05c_default:
       }
       local_14 = local_14 + 1;
       psVar4 = psVar4 + 4;
-    } while (local_14 <= *(int *)(&DAT_0074a360 + iVar1));
+    } while (local_14 <= *piVar1);
   }
   return 0;
 }

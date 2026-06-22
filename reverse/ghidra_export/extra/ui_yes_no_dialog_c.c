@@ -22,7 +22,7 @@ void UI_YesNo_Result(char *param_1,int param_2)
   int iVar10;
   undefined4 uVar11;
   undefined4 uVar12;
-  
+
   Trace_Function(s_Important_Message_0057cbf8);
   if (g_back_surface_locked == 0) {
     FUN_0048b6e0();
@@ -33,7 +33,7 @@ void UI_YesNo_Result(char *param_1,int param_2)
   uVar3 = DAT_005cff3e;
   uVar2 = DAT_005cff3a;
   DAT_005cff3e = DAT_00755810;
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   DAT_005cff3a = 0;
   DAT_005cff42 = 0;
   DAT_005cff46 = DAT_00755814;
@@ -81,4 +81,3 @@ void UI_YesNo_Result(char *param_1,int param_2)
   Free_EMG_Resource(&DAT_00714e00);
   return;
 }
-

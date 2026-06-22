@@ -157,7 +157,7 @@ void Init_SetUp(void)
   FUN_004faa70(s_Courier_New_Bold_005745a0,0xf,s_SimSun_005745dc,0x12);
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00574594);
   DAT_00755988 = Load_TMG_Background(s_Loading_0057458c,0);
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   FUN_0048b6e0();
   Draw_Image_To_Backbuffer(0,0,DAT_00755988);
   FUN_0048b5a0();

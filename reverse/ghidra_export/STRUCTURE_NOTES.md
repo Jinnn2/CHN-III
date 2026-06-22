@@ -71,9 +71,16 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_battle_grid_effect_or_projectile` | `Do_Battle_Stone` and death/update paths store transient effect records at cell offset `+0x24`. | Per-cell effect/projectile pointer slot. |
 | `g_map_interaction_mode` | `PlayGame_Init` sets normal map mode `1`; city/diplomacy paths set other modes; `Edit_Start` sets `99` and `Edit_Finish` restores `1`. | Current map/input interaction mode. |
 | `g_current_land_tile` | Editor left/right-click handlers and `Load_Dat` use this as the selected/hovered tile pointer. | Current map tile under interaction. |
+| `g_editor_cursor_tile_x/y` | `MLR_Edit_GameMap`, editor press handlers, and keyboard hover tracking validate these against map dimensions before editing or previewing a tile. | Current editor cursor tile coordinates. |
 | `g_editor_land_tile_backup` | `Edit_Start` allocates `width * height * 0x100` bytes under `Edit_MAP_TYPE_BackUp`; `Edit_Finish` frees it. | Whole-map tile backup for editor mode. |
 | `g_editor_tool_mode` | Editor mouse handlers switch on this value; left/right press and release paths give different behavior to modes `1`, `2`, `3`, `5`, `6`, `7`, `8`, `9`, and `0xb`. | Current editor map tool. |
 | `g_editor_brush_size_index` | Press/drag handlers map this through `{0,1,2,4}` and then into brush offset/count tables at `0x0074c830`/`0x0074a360`. | Editor brush radius/shape selector. |
+| `g_tile_radius_offset_counts` | Editor brush loops, near-city scans, and AI range checks use this as the count side of shared tile-radius offset tables. | Number of x/y offsets for each tile-radius pattern. |
+| `g_edit_dest_round_buffers` | Allocated/freed as `DestRound_0/1`; editor brush code indexes them by y parity and reads `short x, short y` pairs. | Parity-specific tile-radius offset buffers. |
+| `g_request_redraw` | Frame pumps, dialog handlers, and editor mutations set this before `Present_Dirty_Rects` decides whether to redraw/present. | Global redraw request flag. |
+| `g_editor_left_press_active` | `Read_MLP_Edit` gates left-button map editing on this flag. | Left mouse press/drag active in the editor. |
+| `g_editor_form_input_blocked` | Editor data-format finalizers clear it; right-click map editing is blocked while it is nonzero. | Modal/form input blocks map editing. |
+| `g_editor_map_backup_state` | Left/right press handlers set it before copying `g_land_tiles` into `g_editor_land_tile_backup`; release/keyboard paths advance/reset it. | Editor transaction/undo backup state. |
 | `g_editor_selected_country_id` | City/unit/ownership tools validate it against `0..0x15` and use it to create cities, create armies, and paint owner/visibility bytes. | Selected country/faction for editor tools. |
 | `g_editor_selected_city_resource_id` | Resource tool `6` assigns it to `LandTile_0x100 +0x17`; hover/render code validates it before drawing a resource preview. | Selected city resource/feature id. |
 | `g_edit_menu_page` | `Menu_EditMenu_Init` resets it to `0`; `MLR_NewEdit` advances it through pages `0`, `1`, and `2` for new-map editing choices. | New editor-menu page/step. |
@@ -108,6 +115,18 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Load_Map_GameInfo` | Trace string `Load_Map_GameInfo`; reads custom-map scenario headers, handles older `0x168` payloads, and stores modern records as `MapScenarioInfo_0x16c`. | Custom-map/scenario header loader. |
 | `Before_Window_Edit_File_Detail` | Trace string `Before_Window_Edit_File_Detail`; initializes defaults and creates form controls bound to `g_current_map_scenario_info`. | Scenario/map-detail editor form setup. |
 | `Put_Edit_File_Detail` | Trace string `Put_Edit_File_Detail`; draws the scenario/map-detail window and highlights action buttons through `g_custom_map_action`. | Scenario/map-detail editor renderer. |
+| `Read_MLP_Edit` | Trace string `Read_MLP_Edit`; handles left-button press/drag painting, backs up the map on first mutation, applies terrain/road/overlay/resource/ownership tools, and marks `g_request_redraw`. | Map editor left-button paint dispatcher. |
+| `Read_MRP_Edit` | Trace string `Read_MRP_Edit`; handles right-button press/drag erasing, removing linked cities, armies, overlays, city resources, and ownership/visibility flags through the same radius-offset buffers. | Map editor right-button erase dispatcher. |
+| `Read_MRR_Edit` | Trace string `Read_MRR_Edit`; handles right-button release by opening linked records, clearing editor named points, or confirming army removal. | Map editor right-button release dispatcher. |
+| `MLR_Edit_GameMap` | Trace string `MLR_Edit_GameMap`; handles single-click placement for cities, armies, long-wall overlays, city resources, editor named points, and template stamps. | Map editor map-click placement dispatcher. |
+| `Irrigate_Able` | Trace string `Irrigate_Able`; checks terrain definition flags, no linked record, and neighboring water/irrigation markers before allowing overlay action `0`. | Tile irrigation placement predicate. |
+| `Pasturage_Able` | Trace string `Pasturage_Able`; checks terrain definition support and no city/link record before overlay action `1`. | Tile pasture placement predicate. |
+| `Mine_Able` | Trace string `Mine_Able`; accepts road/rail-like base states and no linked record before overlay action `2`. | Tile mine placement predicate. |
+| `Fish_Able` | Trace string `Fish_Able`; checks terrain/resource markers for fishable water or coast-like tiles before overlay action `3`. | Tile fishing placement predicate. |
+| `Bridge_Able` | Trace string `Bridge_Able`; requires bridge-capable terrain image range and no linked record. | Tile bridge/long-wall placement predicate. |
+| `Resource_Able` | Trace string `Resource_Able`; validates selected resource id against terrain/resource tables before accepting city resource tool `6`. | Tile resource placement predicate. |
+| `Clear_Mountain` | Trace string `Clear_Mountain`; clears mountain/height road markers over radius pattern `1` and refreshes affected tiles. | Editor helper for clearing mountain-style tile overlay state. |
+| `Cancel_All_Army_On_Tile` | Trace string misspells `Cancle_All_Army`; removes up to ten army pointers from a tile and clears owner bytes when empty. | Editor helper for deleting all armies on a tile. |
 | `MouseOn_Edit_Sel_Pcx_File` | Trace string `MouseOn_Edit_Sel_Pcx_File`; maps mouse position to a 10-row PCX/file list hover index and three action-button states. | PCX/file selection hover handler. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |

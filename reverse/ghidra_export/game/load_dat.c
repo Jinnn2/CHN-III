@@ -90,7 +90,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
   FUN_0044cf20();
   FUN_004f00a0();
   DAT_00714e24 = Get_Game_Tick();
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   DAT_0074c628 = DAT_00714e24;
   g_frame_tick = DAT_00714e24;
   FUN_0048b6e0();

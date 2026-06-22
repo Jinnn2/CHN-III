@@ -13,13 +13,13 @@ void UI_YesNo_Message(undefined4 param_1,int param_2,int param_3,int param_4)
   undefined4 uVar1;
   undefined4 uVar2;
   undefined4 uVar3;
-  
+
   Trace_Function(s_Game_Message_0057cbe8);
   if (g_back_surface_locked == 0) {
     FUN_0048b6e0();
   }
   Load_EMG_Resource(s_UI_YN_EMG_0057cbd0,&DAT_00714e00);
-  DAT_00588b80 = 1;
+  g_request_redraw = 1;
   if (param_3 != 0) {
     FUN_004a1a00();
   }
@@ -52,4 +52,3 @@ void UI_YesNo_Message(undefined4 param_1,int param_2,int param_3,int param_4)
   Free_EMG_Resource(&DAT_00714e00);
   return;
 }
-

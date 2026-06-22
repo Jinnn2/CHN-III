@@ -33,7 +33,7 @@ undefined4 Near_City_Found_XY(int param_1,uint param_2,int param_3,int *param_4,
     iVar5 = (param_2 * 0x27 + param_1) * 0x100 + _g_land_tiles;
   }
   local_4 = 1;
-  if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
+  if (0 < g_tile_radius_offset_counts[param_3]) {
     iVar2 = param_1;
     psVar1 = g_edit_dest_round_buffers[param_2 & 1];
     do {
@@ -77,7 +77,7 @@ switchD_0048e9f0_default:
       }
       local_4 = local_4 + 1;
       psVar1 = psVar1 + 4;
-    } while (local_4 <= *(int *)(&DAT_0074a360 + param_3 * 4));
+    } while (local_4 <= g_tile_radius_offset_counts[param_3]);
   }
   return 0;
 }
