@@ -328,7 +328,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       }
       DAT_00707920 = DAT_00707920 + 0x1a90;
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x6a40);
-      FUN_00464a20();
+      Clear_UnUsed_Science();
       Trace_Function(s_MemRead_005755ac);
       piVar9 = DAT_00707920;
       pAVar29 = g_army_type_table;

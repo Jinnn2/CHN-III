@@ -27,7 +27,7 @@ undefined1 Diplomat_Steal_Science(void)
   byte *pbVar15;
   undefined1 local_c2;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_Steal_Science_00519430);
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar7 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
@@ -140,7 +140,7 @@ LAB_00438f47:
       goto LAB_00439104;
     }
     local_c2 = 1;
-    FUN_004c0350(_DAT_00748e34,iVar12);
+    Science_Know(_DAT_00748e34,iVar12);
     bVar5 = false;
     if (_DAT_00748e34 == g_human_country_index) {
       if (DAT_0074a2cc == '\x01') {
@@ -209,4 +209,3 @@ LAB_00439104:
   }
   goto LAB_00438f47;
 }
-

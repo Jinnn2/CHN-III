@@ -21,6 +21,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `BuildingDef_0x200` | Building table starts at `0x005997b8`; UI/editor and city production index it with `building_id * 0x200`. | Per-building definition table. |
 | `SpecialProjectDef_0x200` | Special-project table starts at `0x005a19d4`; build queue maps entries `0x8c..0xa4` to project ids. | Wonder/special project definitions. |
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
+| `g_science_priority_target_ids[12]` | `Before_Edit_Science_Power` backs up and edits 12 dwords at `0x00581778`; `Science_Next` splits them into two six-entry groups before consulting per-science priority weights. | Science AI/research-priority target table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
 | `EmpireCountryDef_0x200` | Static table starts at `0x00589a18`; `Before_Edit_Empire_Country` reads/writes `EMPIRE.DAT` as `0xc800` bytes, i.e. 100 records of `0x200`; active countries store ids into this table. | Empire/country/leader definition table. |
 | `GovernmentDef_0x74` | Static table starts at `0x00599288`; `Load_Dat` copies `0x3a0` bytes, i.e. 8 records of `0x74`; country `government_or_ai_mode` indexes this table. | Government/civic modifier table. |
@@ -113,6 +114,11 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
 | `Before_Edit_Ground` | Trace string `Before_Edit_Ground`; backs up `g_ground_defs`, checks `GROUND.DAT`, and binds controls to the `GroundDef_0x24` table. | Ground/terrain definition table editor setup. |
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
+| `Before_Edit_Science_Power` | Trace string `Before_Edit_Science_Power`; backs up `g_science_priority_target_ids` and binds 12 editable dword controls. | Science priority/power target editor setup. |
+| `Before_Edit_Science_Set` | Trace string `Before_Edit_Science_Set`; inspects the selected country's 200-entry science status array and the selected `ScienceDef_0x88` prerequisites to set editor toggles. | Per-country science availability/status editor setup. |
+| `Clear_UnUsed_Science` | Trace string `Clear_UnUsed_Science`; after loading the science block, disables entries with empty names and resets prerequisites / related science links to `-1`. | Science definition cleanup. |
+| `Science_Know` | Trace string `Science_Know`; grants or marks science state based on prerequisite completion and cascades newly available/known science entries. | Science knowledge/status transition. |
+| `Science_Next` | Trace string `Science_Next`; collects available science entries and scores AI choices using `g_science_priority_target_ids` plus per-science weight blocks. | Next research selection. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
@@ -431,6 +437,14 @@ the city/building tooltip in `Put_City_View`.
 | `+0x1c/+0x20` | Research availability checks these prerequisite science ids for completion or `-1`. | prerequisite science ids. |
 | `+0x24` | Compared against `current_research_progress`. | `research_cost`. |
 | `+0x28` | Used in research pacing and AI evaluation. | `era_or_group_id`. |
+| `+0x2c..0x43` | `Science_Next` scans the first six `g_science_priority_target_ids` and adds these weights multiplied by 5000 when an unmet target science is found. | AI priority weight block A. |
+| `+0x44..0x5b` | `Science_Next` scans the second six `g_science_priority_target_ids` and adds these weights multiplied by 5000 when an unmet target science is found. | AI priority weight block B. |
+
+`Before_Edit_Science_Set` indexes the selected country's science status array at
+`0x0073575c + country_id * 0xe68`. In the recovered paths seen so far, state
+`2` means known/completed, state `3` means blocked by prerequisites, and states
+`0`/`4` are treated by the editor as editable/unstarted-like states. State `1`
+is collected by `Science_Next` as available/current research.
 
 ### `CountryProfileDef_0x7c`
 

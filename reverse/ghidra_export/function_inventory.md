@@ -242,9 +242,9 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0045d6f0` | `Before_Edit_Goverment` | 1993 | 4 |
 | `0x0045e4d0` | `Before_Edit_Ground` | 931 | 4 |
 | `0x0045ee10` | `Before_Edit_Empire_Hero` | 2641 | 17 |
-| `0x00464a20` | `FUN_00464a20` | 88 | 1 |
-| `0x00467010` | `FUN_00467010` | 149 | 3 |
-| `0x00467250` | `FUN_00467250` | 340 | 1 |
+| `0x00464a20` | `Clear_UnUsed_Science` | 88 | 1 |
+| `0x00467010` | `Before_Edit_Science_Power` | 149 | 3 |
+| `0x00467250` | `Before_Edit_Science_Set` | 340 | 1 |
 | `0x00467740` | `FUN_00467740` | 170 | 1 |
 | `0x00467dc0` | `FUN_00467dc0` | 522 | 6 |
 | `0x004681d0` | `FUN_004681d0` | 208 | 0 |
@@ -551,8 +551,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004be070` | `FUN_004be070` | 7001 | 14 |
 | `0x004bfbf0` | `FUN_004bfbf0` | 475 | 5 |
 | `0x004bfde0` | `FUN_004bfde0` | 1380 | 7 |
-| `0x004c0350` | `FUN_004c0350` | 649 | 4 |
-| `0x004c05e0` | `FUN_004c05e0` | 834 | 5 |
+| `0x004c0350` | `Science_Know` | 649 | 4 |
+| `0x004c05e0` | `Science_Next` | 834 | 5 |
 | `0x004c0930` | `FUN_004c0930` | 181 | 1 |
 | `0x004c09f0` | `FUN_004c09f0` | 430 | 4 |
 | `0x004c2770` | `FUN_004c2770` | 244 | 1 |

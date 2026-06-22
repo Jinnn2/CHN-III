@@ -401,7 +401,7 @@ LAB_00426559:
           } while (iVar4 < 0x16);
         }
         _DAT_00515a78 = -1;
-        FUN_004c0350(g_active_country_index);
+        Science_Know(g_active_country_index);
         if (bVar3) {
           iVar4 = 0;
           local_1b0 = -NAN;
@@ -433,10 +433,10 @@ LAB_00426559:
             Format_Text(local_194,&DAT_00515ba4,0x58367c,(int)local_1b0 * 0x88 + 0x5817ac);
             UI_YesNo_Result(local_194,0);
             if (-1 < iVar4) {
-              FUN_004c0350(g_active_country_index);
+              Science_Know(g_active_country_index);
             }
             if (-1 < iVar17) {
-              FUN_004c0350(g_active_country_index);
+              Science_Know(g_active_country_index);
             }
           }
         }
@@ -462,7 +462,7 @@ LAB_00426559:
                   iVar12 = 2;
                 }
               }
-              FUN_004c0350(iVar4);
+              Science_Know(iVar4);
               if (iVar4 == g_human_country_index) {
                 DAT_00515a7c = g_active_country_index;
                 _DAT_00515a78 = iVar12;

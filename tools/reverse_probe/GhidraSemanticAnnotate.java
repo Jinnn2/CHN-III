@@ -747,6 +747,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "compared against current_research_progress");
         replaceAt(scienceDef, 0x28, IntegerDataType.dataType, 4, "era_or_group_id",
             "used in research pacing and AI evaluation");
+        replaceAt(scienceDef, 0x2c, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
+            "ai_priority_weights_a",
+            "Science_Next multiplies this six-dword block by 5000 using the first science priority target table");
+        replaceAt(scienceDef, 0x44, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
+            "ai_priority_weights_b",
+            "Science_Next multiplies this six-dword block by 5000 using the second science priority target table");
         resolve(scienceDef);
 
         countryProfileDef = fixedStruct("CountryProfileDef_0x7c", 0x7c);
@@ -982,6 +988,9 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),
             new Rename(0x451de0L, "Do_Map"),
+            new Rename(0x464a20L, "Clear_UnUsed_Science"),
+            new Rename(0x467010L, "Before_Edit_Science_Power"),
+            new Rename(0x467250L, "Before_Edit_Science_Set"),
             new Rename(0x4596a0L, "Before_Window_Edit_File_Detail"),
             new Rename(0x45b1d0L, "MouseOn_Edit_Sel_Custom_Map"),
             new Rename(0x45b2f0L, "MLR_Edit_SelCustomMap"),
@@ -1047,6 +1056,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4b80c0L, "Read_MRP_Edit"),
             new Rename(0x4b8db0L, "Read_MRR_Edit"),
             new Rename(0x4bc720L, "PlayGame_Init"),
+            new Rename(0x4c0350L, "Science_Know"),
+            new Rename(0x4c05e0L, "Science_Next"),
             new Rename(0x4c2da0L, "Apply_Resolution_Mode"),
             new Rename(0x4c50d0L, "Draw_MainMenu_Number"),
             new Rename(0x4d91a0L, "Put_City_Citizen"),
@@ -1155,6 +1166,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0058941cL, "g_resolution_height_table", new ArrayDataType(IntegerDataType.dataType, 3, 4)),
             new GlobalRename(0x005997b8L, "g_building_defs", new ArrayDataType(buildingDef, 0x41, buildingDef.getLength())),
             new GlobalRename(0x005a19d4L, "g_special_project_defs", new ArrayDataType(specialProjectDef, 0x19, specialProjectDef.getLength())),
+            new GlobalRename(0x00581778L, "g_science_priority_target_ids", new ArrayDataType(IntegerDataType.dataType, 12, 4)),
             new GlobalRename(0x005817a8L, "g_science_defs", new ArrayDataType(scienceDef, 200, scienceDef.getLength())),
             new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
             new GlobalRename(0x00599288L, "g_government_defs", new ArrayDataType(governmentDef, 8, governmentDef.getLength())),
