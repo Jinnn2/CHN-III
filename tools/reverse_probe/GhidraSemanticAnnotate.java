@@ -286,23 +286,23 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0xc0, IntegerDataType.dataType, 4, "scenario_rule_c0",
             "scenario-rule dword initialized by new-map/custom-map setup; no direct edit-file-detail binding isolated yet");
         replaceAt(mapScenarioInfo, 0xc4, IntegerDataType.dataType, 4, "country_density_setting",
-            "editor label is density; options include near-player and random placement");
+            "edit-detail label: 密集程度; options are near-player and random placement");
         replaceAt(mapScenarioInfo, 0xc8, IntegerDataType.dataType, 4, "country_feature_setting",
-            "editor label is country feature; options include original, random, and custom");
+            "edit-detail label: 國家特色; options are original, random, and custom");
         replaceAt(mapScenarioInfo, 0xcc, IntegerDataType.dataType, 4, "disaster_frequency_setting",
-            "editor label is disaster count/frequency");
+            "edit-detail label: 災難次數; options are rare, occasional, and frequent");
         replaceAt(mapScenarioInfo, 0xd0, IntegerDataType.dataType, 4, "disaster_limit_setting",
-            "editor label is disaster limit");
+            "edit-detail label: 災難上限; options cap simultaneous disasters at 20/40/60");
         replaceAt(mapScenarioInfo, 0xd4, IntegerDataType.dataType, 4, "barbarian_setting",
-            "editor label is barbarian setting; battle/city event paths compare values 0, 1, and 2");
+            "edit-detail label: 蠻族設定; battle/city event paths compare fragile/normal/strong values 0, 1, and 2");
         replaceAt(mapScenarioInfo, 0xd8, IntegerDataType.dataType, 4, "barbarian_count_setting",
-            "editor label is barbarian count");
+            "edit-detail label: 蠻族數量; options are few, normal, and many");
         replaceAt(mapScenarioInfo, 0xdc, IntegerDataType.dataType, 4, "resource_setting",
-            "editor label is resource setting; custom-map initialization sets it when country/template validation fails");
+            "edit-detail label: 資源設定; custom-map initialization sets it when country/template validation fails");
         replaceAt(mapScenarioInfo, 0xe0, IntegerDataType.dataType, 4, "special_product_count_setting",
-            "editor label is specialty-product count");
+            "edit-detail label: 特產數量; options are few, normal, and many");
         replaceAt(mapScenarioInfo, 0xe4, IntegerDataType.dataType, 4, "origin_range_error_setting",
-            "editor label is origin range error");
+            "edit-detail label: 範圍誤差; options are none, five-tile, and ten-tile origin error");
         replaceAt(mapScenarioInfo, 0xe8, IntegerDataType.dataType, 4, "city_resource_system_enabled",
             "Do_Map, Cal_City_Resource, City_Business, and city build paths gate tile resources and trade resources on this field");
         replaceAt(mapScenarioInfo, 0xec, IntegerDataType.dataType, 4, "corruption_deduction_mode",
@@ -320,13 +320,13 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0x104, IntegerDataType.dataType, 4, "map_size_mode",
             "custom-map loader sets g_map_size_mode from this field before sizing the tile map");
         replaceAt(mapScenarioInfo, 0x108, IntegerDataType.dataType, 4, "science_table_choice",
-            "editor label is science selection; options choose one of five science tables");
+            "edit-detail label: 科技選擇; options choose one of five science tables");
         replaceAt(mapScenarioInfo, 0x10c, new ArrayDataType(CharDataType.dataType, 0x40, 1),
             0x40, "description_long_bytes", "Load_Map_GameInfo copies a 64-byte text field here");
         replaceAt(mapScenarioInfo, 0x14c, IntegerDataType.dataType, 4, "horizontal_wrap_setting",
-            "editor label is wrap setting; map tile neighborhood and decode paths allow x wrapping when this field is 1");
+            "edit-detail label: 環繞設定; map tile neighborhood and decode paths allow x wrapping when this field is 1");
         replaceAt(mapScenarioInfo, 0x150, IntegerDataType.dataType, 4, "place_name_setting",
-            "editor label is place-name setting; map editing checks it before allowing named-point placement");
+            "edit-detail label: 地名設定; map editing checks it before allowing named-point placement");
         replaceAt(mapScenarioInfo, 0x154, IntegerDataType.dataType, 4, "scenario_value_154",
             "late scenario metadata loaded from file");
         replaceAt(mapScenarioInfo, 0x158, IntegerDataType.dataType, 4, "scripted_start_or_generated_flag",
@@ -336,9 +336,9 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0x160, IntegerDataType.dataType, 4, "scenario_value_160",
             "late scenario metadata loaded from file");
         replaceAt(mapScenarioInfo, 0x164, IntegerDataType.dataType, 4, "movement_base",
-            "editor label is movement base; keyboard/map navigation uses it as a scroll or movement quantum");
-        replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "scenario_flag_168",
-            "last byte copied by Load_Map_GameInfo from legacy scenario-info files");
+            "edit-detail label: 行走基數; army movement and keyboard/map navigation multiply by this base value");
+        replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "score_history_scenario_flag",
+            "Load_UI_String_EMG_XMG stores this byte beside the year and score-history text after loading a scenario");
         resolve(mapScenarioInfo);
 
         dataFormat = fixedStruct("DataFormat_0xc8", 0xc8);
@@ -1518,6 +1518,25 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0074c690L, "g_current_map_scenario_info", mapScenarioInfo),
             new GlobalRename(0x00706b30L, "g_custom_map_table", new PointerDataType(mapScenarioInfo, dtm)),
             new GlobalRename(0x00706cc4L, "g_custom_map_count", IntegerDataType.dataType),
+            new GlobalRename(0x0057e948L, "g_edit_file_detail_context_mode", IntegerDataType.dataType),
+            new GlobalRename(0x00706cbcL, "g_new_map_ground_surface_choice", IntegerDataType.dataType),
+            new GlobalRename(0x0057295cL, "g_edit_status_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x005790a0L, "g_gameplay_mode_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x00578fa8L, "g_difficulty_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 7, 4)),
+            new GlobalRename(0x005790c0L, "g_country_density_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 3, 4)),
+            new GlobalRename(0x005790b0L, "g_origin_range_error_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x005790d8L, "g_country_feature_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x005790e8L, "g_disaster_frequency_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x005790f8L, "g_disaster_limit_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x00579108L, "g_barbarian_strength_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x00579118L, "g_barbarian_count_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x00579128L, "g_resource_setting_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 3, 4)),
+            new GlobalRename(0x00579140L, "g_special_product_count_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 4, 4)),
+            new GlobalRename(0x0057908cL, "g_map_size_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 5, 4)),
+            new GlobalRename(0x00579150L, "g_science_table_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 6, 4)),
+            new GlobalRename(0x00571a88L, "g_horizontal_wrap_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 3, 4)),
+            new GlobalRename(0x00571a94L, "g_place_name_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 3, 4)),
+            new GlobalRename(0x00579168L, "g_ground_surface_option_texts", new ArrayDataType(new PointerDataType(CharDataType.dataType, dtm), 16, 4)),
             new GlobalRename(0x0057e94cL, "g_editor_tool_mode", IntegerDataType.dataType),
             new GlobalRename(0x00715da8L, "g_editor_brush_size_index", IntegerDataType.dataType),
             new GlobalRename(0x0074a360L, "g_tile_radius_offset_counts", new ArrayDataType(IntegerDataType.dataType, 5, 4)),

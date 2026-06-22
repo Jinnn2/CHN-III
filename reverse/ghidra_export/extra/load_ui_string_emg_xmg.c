@@ -210,7 +210,7 @@ void Load_UI_String_EMG_XMG(void)
         pcVar11 = pcVar11 + 1;
       }
       (&DAT_007075a4)[iVar3 * 0x10] = DAT_00707568;
-      bVar2 = g_current_map_scenario_info.scenario_flag_168;
+      bVar2 = g_current_map_scenario_info.score_history_scenario_flag;
       (&DAT_007075a8)[iVar3 * 0x10] = iVar6;
       (&DAT_007075ac)[iVar10] = bVar2;
     }

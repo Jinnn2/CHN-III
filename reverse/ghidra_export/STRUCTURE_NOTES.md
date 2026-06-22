@@ -316,7 +316,13 @@ worker, predicate, and battle-conversion callers.
 `Before_Window_Edit_File_Detail` binds the editor-visible parts of this record,
 while `Load_Map_GameInfo` preserves additional rule/state dwords from the map
 file. Some late rule fields are therefore named from runtime use rather than
-from an isolated editor label.
+from an isolated editor label. The edit-detail option lists are CP950 text
+tables in the executable and are named as globals in the annotation script, so
+the form now exposes choices such as edit status, gameplay mode, difficulty,
+country density, origin range error, country feature mode, disaster frequency
+and limit, barbarian strength/count, resource mode, special-product count, map
+size, science table, horizontal wrapping, place names, and new-map ground
+surface.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
@@ -333,28 +339,35 @@ from an isolated editor label.
 | `+0x60/+0x64` | Editor labels are country count and country limit; custom-map initialization clamps count against the limit. | country count / limit. |
 | `+0x68` | Loader copies 22 dwords; custom-map selection uses this area while choosing active country setup. | country slot values. |
 | `+0xc0` | Loaded rule/config dword; no editor label has been isolated yet. | scenario rule. |
-| `+0xc4` | Editor label is density; options include near-player and random placement. | country density setting. |
-| `+0xc8` | Editor label is country feature; options include original, random, and custom. | country feature setting. |
-| `+0xcc/+0xd0` | Editor labels are disaster count/frequency and disaster limit. | disaster settings. |
-| `+0xd4` | Editor label is barbarian setting; battle setup halves attack or defense stat groups depending on values `0` or `1`, and city-round logic has a special value `2` path. | barbarian setting. |
-| `+0xd8` | Editor label is barbarian count. | barbarian count setting. |
-| `+0xdc` | Editor label is resource setting; custom-map initialization sets it when country/template validation fails. | resource setting. |
-| `+0xe0` | Editor label is specialty-product count. | special-product count setting. |
-| `+0xe4` | Editor label is origin range error. | origin range error setting. |
+| `+0xc4` | Edit-detail label is `密集程度`; option list is near-player or random placement. | country density setting. |
+| `+0xc8` | Edit-detail label is `國家特色`; option list is original, random, or custom. | country feature setting. |
+| `+0xcc/+0xd0` | Edit-detail labels are `災難次數` and `災難上限`; option lists choose rare/occasional/frequent disasters and simultaneous caps of 20/40/60. | disaster settings. |
+| `+0xd4` | Edit-detail label is `蠻族設定`; options are fragile, normal, and strong. Battle setup halves attack or defense stat groups depending on values `0` or `1`, and city-round logic has a special value `2` path. | barbarian setting. |
+| `+0xd8` | Edit-detail label is `蠻族數量`; options are few, normal, and many. | barbarian count setting. |
+| `+0xdc` | Edit-detail label is `資源設定`; option list is system setting or random. Custom-map initialization sets it when country/template validation fails. | resource setting. |
+| `+0xe0` | Edit-detail label is `特產數量`; options are few, normal, and many. | special-product count setting. |
+| `+0xe4` | Edit-detail label is `範圍誤差`; options are no origin error, five-tile origin error, or ten-tile origin error. | origin range error setting. |
 | `+0xe8` | `Do_Map`, `Cal_City_Resource`, `City_Business`, `City_Building_AI`, and `Put_City_Make` gate city resource stockpiles, trade resources, and resource-dependent build paths on this value. | city resource system enabled. |
 | `+0xec` | `City_Resource_Change` applies the government corruption deduction only when this value is zero. | corruption deduction mode. |
 | `+0xf0..0xfc` | Loaded rule/config dwords; editor labels and direct runtime consumers have not been isolated yet. | scenario rule values. |
 | `+0x100` | `Game_Frame_Pump` decrements it once per second and calls `Prepare_City_Doing` when automatic processing is enabled and the value reaches zero. | auto city processing countdown. |
 | `+0x104` | `Load_Dat` and `MLR_Edit_SelCustomMap` branch on it before setting map dimensions. | map size mode. |
-| `+0x108` | Editor label is science selection; options select one of five science tables. | science table choice. |
+| `+0x108` | Edit-detail label is `科技選擇`; options select one of five science tables. | science table choice. |
 | `+0x10c` | `Load_Map_GameInfo` copies a 64-byte text field here. | long description bytes. |
-| `+0x14c` | Editor label is wrap setting; map decode, road/long-wall decode, near-city scans, battle entry, and keyboard movement allow x wrapping when this is `1`. | horizontal wrap setting. |
-| `+0x150` | Editor label is place-name setting; map editing checks it before named-point placement. | place-name setting. |
+| `+0x14c` | Edit-detail label is `環繞設定`; map decode, road/long-wall decode, near-city scans, battle entry, and keyboard movement allow x wrapping when this is `1`. | horizontal wrap setting. |
+| `+0x150` | Edit-detail label is `地名設定`; map editing checks it before named-point placement. | place-name setting. |
 | `+0x154` | Late numeric value loaded from the scenario-info file; editor label has not been isolated yet. | scenario value. |
 | `+0x158` | `MLR_Edit_SelCustomMap` takes a different initialization path when nonzero. | scripted start or generated flag. |
 | `+0x15c/+0x160` | Late numeric values initialized by the detail form and read from the scenario-info file. | scenario values. |
-| `+0x164` | Editor label is movement base; keyboard/map navigation uses it as a scroll or movement quantum. | movement base. |
-| `+0x168` | Final byte copied from legacy scenario-info payloads. | scenario flag. |
+| `+0x164` | Edit-detail label is `行走基數`; army movement and keyboard/map navigation multiply by this base value. | movement base. |
+| `+0x168` | `Load_UI_String_EMG_XMG` stores it beside the current year and score-history text when writing `SCORE.DAT`. | score/history scenario flag. |
+
+`g_edit_file_detail_context_mode` controls how the same detail form is used:
+`-1` is normalized to context `3`, context `0` initializes a new record and
+enables the save/delete-style actions drawn by `Put_Edit_File_Detail`, and
+context `3` disables several scenario-rule controls when the record is already
+in normal-play edit status. `g_new_map_ground_surface_choice` is the temporary
+new-map terrain-surface selector shown only in context `0`.
 
 ### `LandTile_0x100`
 

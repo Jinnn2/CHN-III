@@ -287,7 +287,7 @@ void Load_Map_GameInfo(char *param_1,int param_2)
       g_custom_map_table[param_2].scenario_value_15c = local_134;
       g_custom_map_table[param_2].scenario_value_160 = local_130;
       g_custom_map_table[param_2].movement_base = local_12c;
-      g_custom_map_table[param_2].scenario_flag_168 = local_128;
+      g_custom_map_table[param_2].score_history_scenario_flag = local_128;
       CloseHandle(hFile);
       return;
     }

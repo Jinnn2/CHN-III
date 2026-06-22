@@ -264,7 +264,7 @@ LAB_0045b379:
         }
       }
       FUN_00472320(&DAT_005c5d18);
-      DAT_0057e948 = 0xffffffff;
+      g_edit_file_detail_context_mode = -1;
       DAT_005715b4 = 6;
       DAT_005715b0 = 6;
       DAT_005715bc = 6;
@@ -733,7 +733,7 @@ LAB_0045b379:
           g_custom_map_count = g_custom_map_count + -1;
           if (g_custom_map_count == 0) {
             FUN_00472320(&DAT_005c5d18);
-            DAT_0057e948 = 0xffffffff;
+            g_edit_file_detail_context_mode = -1;
           }
           else {
             if (g_selected_custom_map_index < g_custom_map_count) {
@@ -769,7 +769,7 @@ LAB_0045bd11:
       FUN_0044d030(2,0x32,0);
     }
     FUN_00472320(&DAT_005c5d18);
-    DAT_0057e948 = 0xffffffff;
+    g_edit_file_detail_context_mode = -1;
   }
   return;
 }

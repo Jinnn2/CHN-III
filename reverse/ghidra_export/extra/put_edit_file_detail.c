@@ -35,7 +35,7 @@ void Put_Edit_File_Detail(void)
       Draw_Text_Centered(iVar3 + 0x104,iVar4 + 0xe,&DAT_00571d4c,0xffffffff,_DAT_0074a316,0xffffffff
                          ,0xffffffff);
     }
-    if (DAT_0057e948 == 0) {
+    if (g_edit_file_detail_context_mode == 0) {
       FUN_004f3b30(iVar3 + 0x10e,iVar4 + 0x264,0x50,0x20,4,0xffffffff,0x10,0);
       uVar1 = DAT_0074c800;
       if (g_custom_map_action == 1) {
