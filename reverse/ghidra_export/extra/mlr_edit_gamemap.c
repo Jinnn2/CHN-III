@@ -269,7 +269,7 @@ LAB_004b71a9:
       if (0 < g_current_land_tile->linked_count_or_city_count) {
         if (g_current_land_tile->editor_named_point_index_a == -1) {
           iVar12 = 0;
-          piVar7 = &DAT_005e7d54;
+          piVar7 = &g_primary_named_points[0].tile_x;
           do {
             if (*piVar7 == -1) {
               if (-1 < iVar12) {
@@ -325,33 +325,33 @@ LAB_004b762a:
     if (iVar12 == -2) {
       return;
     }
-    iVar12 = (int)g_current_land_tile->linked_count_or_city_count;
-    if ((&DAT_005e0050)[iVar12 * 0x20] == '\0') goto switchD_004b7727_default;
-    iVar11 = (&DAT_005e0054)[iVar12 * 8];
-    iVar12 = (&DAT_005e0058)[iVar12 * 8];
-    if ((((iVar11 < 0) || (iVar12 < 0)) || (g_map_width_tiles <= iVar11)) ||
-       (g_map_height_tiles <= iVar12)) goto switchD_004b7727_default;
+    sVar1 = g_current_land_tile->linked_count_or_city_count;
+    if (g_secondary_named_points[sVar1].status == 0) goto switchD_004b7727_default;
+    iVar12 = g_secondary_named_points[sVar1].tile_x;
+    iVar11 = g_secondary_named_points[sVar1].tile_y;
+    if ((((iVar12 < 0) || (iVar11 < 0)) || (g_map_width_tiles <= iVar12)) ||
+       (g_map_height_tiles <= iVar11)) goto switchD_004b7727_default;
     switch(g_map_size_mode) {
     case 0:
-      iVar11 = iVar11 + iVar12 * 0x138;
+      iVar12 = iVar12 + iVar11 * 0x138;
       break;
     case 1:
-      iVar11 = iVar11 + iVar12 * 0x9c;
+      iVar12 = iVar12 + iVar11 * 0x9c;
       break;
     case 2:
-      iVar11 = iVar11 + iVar12 * 0x4e;
+      iVar12 = iVar12 + iVar11 * 0x4e;
       break;
     case 3:
-      *(undefined2 *)((iVar12 * 0x27 + iVar11) * 0x100 + 0xb0 + _g_land_tiles) = 0xffff;
+      *(undefined2 *)((iVar11 * 0x27 + iVar12) * 0x100 + 0xb0 + _g_land_tiles) = 0xffff;
     default:
       goto switchD_004b7727_default;
     }
-    *(undefined2 *)(iVar11 * 0x100 + 0xb0 + _g_land_tiles) = 0xffff;
+    *(undefined2 *)(iVar12 * 0x100 + 0xb0 + _g_land_tiles) = 0xffff;
 switchD_004b7727_default:
     pLVar3 = g_current_land_tile;
-    (&DAT_005e0050)[g_current_land_tile->linked_count_or_city_count * 0x20] = 1;
-    (&DAT_005e0054)[pLVar3->linked_count_or_city_count * 8] = g_editor_cursor_tile_x;
-    (&DAT_005e0058)[pLVar3->linked_count_or_city_count * 8] = g_editor_cursor_tile_y;
+    g_secondary_named_points[g_current_land_tile->linked_count_or_city_count].status = 1;
+    g_secondary_named_points[pLVar3->linked_count_or_city_count].tile_x = g_editor_cursor_tile_x;
+    g_secondary_named_points[pLVar3->linked_count_or_city_count].tile_y = g_editor_cursor_tile_y;
     uVar13 = 0xffffffff;
     pcVar16 = (char *)&local_14;
     do {
@@ -364,7 +364,7 @@ switchD_004b7727_default:
     } while (cVar4 != '\0');
     uVar13 = ~uVar13;
     pcVar16 = pcVar18 + -uVar13;
-    pcVar18 = (char *)(&DAT_005e005c + pLVar3->linked_count_or_city_count * 8);
+    pcVar18 = g_secondary_named_points[pLVar3->linked_count_or_city_count].name_bytes;
     for (uVar14 = uVar13 >> 2; uVar14 != 0; uVar14 = uVar14 - 1) {
       *(undefined4 *)pcVar18 = *(undefined4 *)pcVar16;
       pcVar16 = pcVar16 + 4;
@@ -435,8 +435,8 @@ code_r0x004b75d5:
   if (iVar11 == -2) {
     return;
   }
-  (&DAT_005e7d54)[iVar12 * 8] = g_editor_cursor_tile_x;
-  (&DAT_005e7d58)[iVar12 * 8] = g_editor_cursor_tile_y;
+  g_primary_named_points[iVar12].tile_x = g_editor_cursor_tile_x;
+  g_primary_named_points[iVar12].tile_y = g_editor_cursor_tile_y;
   uVar13 = 0xffffffff;
   pcVar16 = (char *)&local_14;
   do {
@@ -449,7 +449,7 @@ code_r0x004b75d5:
   } while (cVar4 != '\0');
   uVar13 = ~uVar13;
   pcVar16 = pcVar18 + -uVar13;
-  pcVar18 = &DAT_005e7d5c + iVar12 * 0x20;
+  pcVar18 = g_primary_named_points[iVar12].name_bytes;
   for (uVar14 = uVar13 >> 2; uVar14 != 0; uVar14 = uVar14 - 1) {
     *(undefined4 *)pcVar18 = *(undefined4 *)pcVar16;
     pcVar16 = pcVar16 + 4;

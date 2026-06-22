@@ -8,11 +8,13 @@
 void Read_MRR_Edit(void)
 
 {
-  LandTile_0x100 *pLVar1;
-  int iVar2;
+  short sVar1;
+  MapNamedPoint_0x20 *pMVar2;
+  LandTile_0x100 *pLVar3;
+  int iVar4;
 
   Trace_Function(s_Read_MRR_Edit_0057f920);
-  pLVar1 = g_current_land_tile;
+  pLVar3 = g_current_land_tile;
   if ((((DAT_005c77a8 == -1) && (-1 < g_editor_cursor_tile_x)) && (-1 < g_editor_cursor_tile_y)) &&
      ((g_editor_cursor_tile_x < g_map_width_tiles && (g_editor_cursor_tile_y < g_map_height_tiles)))
      ) {
@@ -31,35 +33,67 @@ void Read_MRR_Edit(void)
     if ((char)g_current_land_tile->army_count_or_occupant_count < '\x01') {
       if (g_editor_tool_mode == 7) {
         if (-1 < g_current_land_tile->editor_named_point_index_a) {
-          (&DAT_005e7d54)[g_current_land_tile->editor_named_point_index_a * 8] = 0xffffffff;
-          (&DAT_005e7d58)[pLVar1->editor_named_point_index_a * 8] = 0xffffffff;
-          iVar2 = (int)pLVar1->editor_named_point_index_a;
-          *(undefined4 *)(&DAT_005e7d5c + iVar2 * 0x20) = 0;
-          (&DAT_005e7d60)[iVar2 * 8] = 0;
-          (&DAT_005e7d64)[iVar2 * 8] = 0;
-          (&DAT_005e7d68)[iVar2 * 8] = 0;
-          (&DAT_005e7d6c)[iVar2 * 0x20] = 0;
-          pLVar1->editor_named_point_index_a = -1;
+          g_primary_named_points[g_current_land_tile->editor_named_point_index_a].tile_x = -1;
+          g_primary_named_points[pLVar3->editor_named_point_index_a].tile_y = -1;
+          sVar1 = pLVar3->editor_named_point_index_a;
+          pMVar2 = g_primary_named_points + sVar1;
+          pMVar2->name_bytes[0] = '\0';
+          pMVar2->name_bytes[1] = '\0';
+          pMVar2->name_bytes[2] = '\0';
+          pMVar2->name_bytes[3] = '\0';
+          pMVar2 = g_primary_named_points + sVar1;
+          pMVar2->name_bytes[4] = '\0';
+          pMVar2->name_bytes[5] = '\0';
+          pMVar2->name_bytes[6] = '\0';
+          pMVar2->name_bytes[7] = '\0';
+          pMVar2 = g_primary_named_points + sVar1;
+          pMVar2->name_bytes[8] = '\0';
+          pMVar2->name_bytes[9] = '\0';
+          pMVar2->name_bytes[10] = '\0';
+          pMVar2->name_bytes[0xb] = '\0';
+          pMVar2 = g_primary_named_points + sVar1;
+          pMVar2->name_bytes[0xc] = '\0';
+          pMVar2->name_bytes[0xd] = '\0';
+          pMVar2->name_bytes[0xe] = '\0';
+          pMVar2->name_bytes[0xf] = '\0';
+          g_primary_named_points[sVar1].name_bytes[0x10] = '\0';
+          pLVar3->editor_named_point_index_a = -1;
           return;
         }
       }
       else if ((g_editor_tool_mode == 8) && (-1 < g_current_land_tile->editor_named_point_index_b))
       {
-        (&DAT_005e0050)[g_current_land_tile->editor_named_point_index_b * 0x20] = 0;
-        (&DAT_005e0054)[pLVar1->editor_named_point_index_b * 8] = 0xffffffff;
-        (&DAT_005e0058)[pLVar1->editor_named_point_index_b * 8] = 0xffffffff;
-        iVar2 = (int)pLVar1->editor_named_point_index_b;
-        (&DAT_005e005c)[iVar2 * 8] = 0;
-        (&DAT_005e0060)[iVar2 * 8] = 0;
-        (&DAT_005e0064)[iVar2 * 8] = 0;
-        (&DAT_005e0068)[iVar2 * 8] = 0;
-        (&DAT_005e006c)[iVar2 * 0x20] = 0;
-        pLVar1->editor_named_point_index_b = -1;
+        g_secondary_named_points[g_current_land_tile->editor_named_point_index_b].status = 0;
+        g_secondary_named_points[pLVar3->editor_named_point_index_b].tile_x = -1;
+        g_secondary_named_points[pLVar3->editor_named_point_index_b].tile_y = -1;
+        sVar1 = pLVar3->editor_named_point_index_b;
+        pMVar2 = g_secondary_named_points + sVar1;
+        pMVar2->name_bytes[0] = '\0';
+        pMVar2->name_bytes[1] = '\0';
+        pMVar2->name_bytes[2] = '\0';
+        pMVar2->name_bytes[3] = '\0';
+        pMVar2 = g_secondary_named_points + sVar1;
+        pMVar2->name_bytes[4] = '\0';
+        pMVar2->name_bytes[5] = '\0';
+        pMVar2->name_bytes[6] = '\0';
+        pMVar2->name_bytes[7] = '\0';
+        pMVar2 = g_secondary_named_points + sVar1;
+        pMVar2->name_bytes[8] = '\0';
+        pMVar2->name_bytes[9] = '\0';
+        pMVar2->name_bytes[10] = '\0';
+        pMVar2->name_bytes[0xb] = '\0';
+        pMVar2 = g_secondary_named_points + sVar1;
+        pMVar2->name_bytes[0xc] = '\0';
+        pMVar2->name_bytes[0xd] = '\0';
+        pMVar2->name_bytes[0xe] = '\0';
+        pMVar2->name_bytes[0xf] = '\0';
+        g_secondary_named_points[sVar1].name_bytes[0x10] = '\0';
+        pLVar3->editor_named_point_index_b = -1;
       }
     }
     else {
-      iVar2 = UI_YesNo_Dialog(&DAT_0057f90c,0,0,0xffffffff,0,0xffffffff,0,DAT_007350b4);
-      if (iVar2 == 1) {
+      iVar4 = UI_YesNo_Dialog(&DAT_0057f90c,0,0,0xffffffff,0,0xffffffff,0,DAT_007350b4);
+      if (iVar4 == 1) {
         Cancel_All_Army_On_Tile(g_current_land_tile);
         return;
       }

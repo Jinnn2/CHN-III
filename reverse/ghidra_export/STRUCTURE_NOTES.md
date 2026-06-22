@@ -31,6 +31,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 | `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
 | `MapScenarioInfo_0x16c` | `Load_Map_GameInfo` reads custom-map metadata in `0x16c` records; `Load_Dat` reads the same shape into `g_current_map_scenario_info`; `Before_Window_Edit_File_Detail` builds an editor form over the current record. | Map/scenario header and editor-visible rules. |
+| `MapNamedPoint_0x20` | `Load_Dat` reads `1000 * 0x20` secondary place-name rows from `0x005e0050` and `4500 * 0x20` primary rows from `0x005e7d50`; editor tools `7`/`8` create and clear rows. | Map place-name/named-point table row. |
 | `DataFormat_0xc8` | `Add_New_DataFormat` allocates 200 bytes tagged `DATA_FORMAT`; `NodeInsert_DataFormat` links nodes through `+0xbc/+0xc0` and computes option/list layout by `control_type`. | Window/form field descriptor for editor/table controls. |
 
 ## Important Globals
@@ -80,6 +81,8 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_current_land_tile` | Editor left/right-click handlers and `Load_Dat` use this as the selected/hovered tile pointer. | Current map tile under interaction. |
 | `g_editor_cursor_tile_x/y` | `MLR_Edit_GameMap`, editor press handlers, and keyboard hover tracking validate these against map dimensions before editing or previewing a tile. | Current editor cursor tile coordinates. |
 | `g_editor_land_tile_backup` | `Edit_Start` allocates `width * height * 0x100` bytes under `Edit_MAP_TYPE_BackUp`; `Edit_Finish` frees it. | Whole-map tile backup for editor mode. |
+| `g_secondary_named_points` | `Load_Dat` reads 1000 `MapNamedPoint_0x20` rows; editor tool `8` writes rows keyed by `LandTile.linked_count_or_city_count`; `NewLand_Name` promotes status from unused/placed to discovered. | Secondary/new-land place-name table. |
+| `g_primary_named_points` | `Load_Dat` reads 4500 `MapNamedPoint_0x20` rows, trims names, rebuilds `LandTile.editor_named_point_index_a`, and matches rows against city names; editor tool `7` allocates free rows. | Primary/city-linked place-name table. |
 | `g_editor_tool_mode` | Editor mouse handlers switch on this value; left/right press and release paths give different behavior to modes `1`, `2`, `3`, `5`, `6`, `7`, `8`, `9`, and `0xb`. | Current editor map tool. |
 | `g_editor_brush_size_index` | Press/drag handlers map this through `{0,1,2,4}` and then into brush offset/count tables at `0x0074c830`/`0x0074a360`. | Editor brush radius/shape selector. |
 | `g_tile_radius_offset_counts` | Editor brush loops, near-city scans, and AI range checks use this as the count side of shared tile-radius offset tables. | Number of x/y offsets for each tile-radius pattern. |
@@ -267,8 +270,8 @@ original enum names.
 | `4` | Left-press writes random/selected battle resource ids at tile `+0x16`; right-press clears `+0x16`. | Battle resource/feature brush. |
 | `5` | Left/right press edit fields `+0x13..+0x16`, `+0x24`, and alternate terrain around road/long-wall decode calls. | Overlay/road/long-wall detail brush. |
 | `6` | `MLR_Edit_GameMap` assigns `g_editor_selected_city_resource_id` and initial stockpile; right-press clears tile `+0x17/+0xf8`. | City resource/feature brush. |
-| `7` | Left-release adds a row in the large named-point table at `0x005e7d50`; right-release clears it. | Named point table A. |
-| `8` | Left-release writes the secondary named-point table at `0x005e0050`; right-release clears it. | Named point table B. |
+| `7` | Left-release allocates a free `g_primary_named_points` row, stores cursor x/y and text, and writes `LandTile.editor_named_point_index_a`; right-release clears both sides. | Primary/city-linked named point. |
+| `8` | Left-release writes `g_secondary_named_points[LandTile.linked_count_or_city_count]`, clears any previous tile index for that row, and stores `LandTile.editor_named_point_index_b`; right-release clears both sides. | Secondary/new-land named point. |
 | `9` | Left-press paints tile owner/visibility for `g_editor_selected_country_id`; right-press clears the same owner/visibility bytes. | Ownership/visibility brush. |
 | `0xb` | `MLR_Edit_GameMap` converts the cursor tile to diagonal coordinates, adds 27 template offsets from `g_editor_template_diag_offset_a/b`, converts back, and writes terrain/road template bytes. | Batch terrain-template brush. |
 
@@ -420,8 +423,8 @@ new-map terrain-surface selector shown only in context `0`.
 | `+0x7c` | `do_city.c`, `city_building.c`, and `city_people_change.c` add/check it beside the primary occupant count. | secondary occupant/defender count. |
 | `+0x88` | `load_dat.c` dereferences during map repair. | linked record pointer or terrain object. |
 | `+0xaa` | `City_Round_Check` compares this marker against `'('` while testing nearby tiles. | terrain or resource marker. |
-| `+0xae` | `Load_Dat` rebuilds this from the large table at `0x005e7d50`; editor tool `7` creates it and `Read_MRR_Edit` clears it. | editor named point index A. |
-| `+0xb0` | Editor tool `8` creates this from the secondary table at `0x005e0050`; `Read_MRR_Edit` clears it and resets the table row. | editor named point index B. |
+| `+0xae` | `Load_Dat` rebuilds this from `g_primary_named_points`; editor tool `7` creates it and `Read_MRR_Edit` clears it. | editor named point index A. |
+| `+0xb0` | Editor tool `8` creates this from `g_secondary_named_points`; `Read_MRR_Edit` clears it and resets the table row. | editor named point index B. |
 | `+0xb3` | `City_Round_Check` tests this flag before allowing selected nearby-city actions. | city-round block flag. |
 | `+0xb5..0xca` | `Diplomat_Allow`, `Do_Map`, `near_city_user_know_found`, and `user_set_city_resource` index by country id. | per-country visible/known flags. |
 | `+0xcb..0xe0` | `City_Round_Check` tests `active_country + 0xcb` as a secondary exclusion/visibility gate. | per-country secondary visibility/exclusion flags. |

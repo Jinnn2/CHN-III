@@ -49,6 +49,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType cityResourceDef;
     private StructureDataType empireCountryDef;
     private StructureDataType mapScenarioInfo;
+    private StructureDataType mapNamedPoint;
     private StructureDataType dataFormat;
 
     private static class Rename {
@@ -340,6 +341,17 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "score_history_scenario_flag",
             "Load_UI_String_EMG_XMG stores this byte beside the year and score-history text after loading a scenario");
         resolve(mapScenarioInfo);
+
+        mapNamedPoint = fixedStruct("MapNamedPoint_0x20", 0x20);
+        replaceAt(mapNamedPoint, 0x00, ByteDataType.dataType, 1, "status",
+            "secondary table uses 0 unused, 1 placed, and NewLand_Name promotes discovered names to 2; primary city-name table marks matched capital names");
+        replaceAt(mapNamedPoint, 0x04, IntegerDataType.dataType, 4, "tile_x",
+            "editor tools 7/8 and Load_Dat map this coordinate back to LandTile named-point indices");
+        replaceAt(mapNamedPoint, 0x08, IntegerDataType.dataType, 4, "tile_y",
+            "editor tools 7/8 and Load_Dat map this coordinate back to LandTile named-point indices");
+        replaceAt(mapNamedPoint, 0x0c, new ArrayDataType(CharDataType.dataType, 20, 1), 0x14,
+            "name_bytes", "editor text input and NewLand_Name store the visible place-name string here");
+        resolve(mapNamedPoint);
 
         dataFormat = fixedStruct("DataFormat_0xc8", 0xc8);
         replaceAt(dataFormat, 0x00, IntegerDataType.dataType, 4, "control_type",
@@ -1459,6 +1471,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x007584c0L, "g_minimap_buffer", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x0074c830L, "g_edit_dest_round_buffers", new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 2, 4)),
             new GlobalRename(0x0074c838L, "g_map_interaction_mode", IntegerDataType.dataType),
+            new GlobalRename(0x005e0050L, "g_secondary_named_points", new ArrayDataType(mapNamedPoint, 1000, mapNamedPoint.getLength())),
+            new GlobalRename(0x005e7d50L, "g_primary_named_points", new ArrayDataType(mapNamedPoint, 4500, mapNamedPoint.getLength())),
             new GlobalRename(0x005dff90L, "g_ddraw", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff94L, "g_primary_surface", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff98L, "g_back_surface", new PointerDataType(VoidDataType.dataType, dtm)),
