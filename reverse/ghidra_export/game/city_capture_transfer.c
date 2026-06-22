@@ -87,7 +87,7 @@ int City_Capture_Transfer
     }
     if ((DAT_0074a2d1 != '\0') &&
        (((old_owner_country_id == g_human_country_index && (DAT_0074a2cc == '\x01')) ||
-        (((DAT_00755940 != 0 ||
+        (((g_commandline_demo_mode_enabled != 0 ||
           ((DAT_00755958 != 0 || (1 < *(int *)(_DAT_00748e30 + 0x1ac + old_owner_country_id * 4)))))
          && (DAT_0074a2cd == '\x01')))))) {
       FUN_004898b0(DAT_007350b4,local_124,1,city->tile_x,city->tile_y);
@@ -208,11 +208,11 @@ int City_Capture_Transfer
   if ((DAT_0074a2d1 != '\0') &&
      (((((new_owner_country_id == g_human_country_index ||
          (old_owner_country_id == g_human_country_index)) && (DAT_0074a2cc == '\x01')) ||
-       ((((DAT_00755940 != 0 || (DAT_00755958 != 0)) ||
+       ((((g_commandline_demo_mode_enabled != 0 || (DAT_00755958 != 0)) ||
          (1 < *(int *)(_DAT_00748e30 + 0x1ac + new_owner_country_id * 4))) &&
         (DAT_0074a2cd == '\x01')))) ||
       (((old_owner_country_id != 0 &&
-        (((DAT_00755940 != 0 || (DAT_00755958 != 0)) ||
+        (((g_commandline_demo_mode_enabled != 0 || (DAT_00755958 != 0)) ||
          (1 < *(int *)(_DAT_00748e30 + 0x1ac + old_owner_country_id * 4))))) &&
        (DAT_0074a2cd == '\x01')))))) {
     FUN_004898b0(DAT_007350b4,local_254,1,city->tile_x);

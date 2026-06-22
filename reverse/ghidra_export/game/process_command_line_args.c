@@ -28,11 +28,11 @@ void Process_CommandLine_Args(void)
   }
   pcVar3 = _strstr(pcVar2,s_LOAD_00512350);
   if (pcVar3 != (char *)0x0) {
-    DAT_00755968 = 1;
+    g_commandline_load_exception_flag = 1;
   }
   pcVar3 = _strstr(pcVar2,s_DEMO_00512348);
   if (pcVar3 != (char *)0x0) {
-    DAT_00755940 = 1;
+    g_commandline_demo_mode_enabled = 1;
   }
   pcVar3 = _strstr(pcVar2,s_SIMPLE_00512340);
   if (pcVar3 != (char *)0x0) {

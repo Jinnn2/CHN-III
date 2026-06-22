@@ -274,12 +274,12 @@ LAB_00408b97:
       (&DAT_005e0050)[param_1 * 0x20] = 2;
     }
   }
-  if (((DAT_0074a2d2 == '\0') && (DAT_00755940 == 0)) && (DAT_00755958 == 0)) {
+  if (((DAT_0074a2d2 == '\0') && (g_commandline_demo_mode_enabled == 0)) && (DAT_00755958 == 0)) {
     return;
   }
   if ((iVar7 != g_human_country_index) || (DAT_0074a2cc != '\x01')) {
-    if (((*(int *)(_DAT_00748e30 + 0x1ac + iVar7 * 4) < 2) || (iVar7 == 0)) && (DAT_00755940 == 0))
-    {
+    if (((*(int *)(_DAT_00748e30 + 0x1ac + iVar7 * 4) < 2) || (iVar7 == 0)) &&
+       (g_commandline_demo_mode_enabled == 0)) {
       return;
     }
     if (DAT_0074a2cd != '\x01') {

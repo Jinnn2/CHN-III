@@ -13,20 +13,20 @@ void PlayGame_Init(void)
   undefined *puVar1;
 
   Trace_Function(s_PlayGame_Init_005813d4);
-  if (DAT_00706cc8 == '\x01') {
+  if (g_custom_map_existing_country_setup_flag == 1) {
     FUN_004bdc90();
   }
-  else if (DAT_00707f94 == '\0') {
-    if (DAT_00755968 == 1) {
+  else if (g_custom_map_loaded_country_state_flag == 0) {
+    if (g_commandline_load_exception_flag == 1) {
       Load_Dat(s_EXCEPTION_005756b4,s_EXCEPTION_005756b4,0);
       g_auto_turn_or_ai_control_flag = 0;
       DAT_00755960 = 0;
-      DAT_00755968 = 0;
+      g_commandline_load_exception_flag = 0;
       FUN_004bdc90();
     }
     else {
       if (g_editor_mode_enabled != 1) {
-        if (DAT_00755940 != 0) {
+        if (g_commandline_demo_mode_enabled != 0) {
           Load_Dat(s_WORLD_FLAT_005813c8,s_WORLD_FLAT_005813c8,1);
           g_auto_turn_or_ai_control_flag = 1;
           DAT_00755960 = 2;
@@ -73,7 +73,7 @@ void PlayGame_Init(void)
     if (DAT_0075593e == '\x01') {
       FUN_00472120(&DAT_005c24d8);
     }
-    if (DAT_00755950 == 0) goto LAB_004bc943;
+    if (g_scripted_start_mode_enabled == 0) goto LAB_004bc943;
     puVar1 = &DAT_005c56d8;
   }
   else {

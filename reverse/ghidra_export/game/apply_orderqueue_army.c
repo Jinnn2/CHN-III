@@ -1226,10 +1226,11 @@ LAB_0049a717:
       else {
         Format_Text(local_5c,&DAT_005703d8,&DAT_007350bc + iVar20,&DAT_007350bc + iVar12);
         if ((DAT_0074a2d0 != '\0') &&
-           ((((DAT_00755940 != 0 || (DAT_00755958 != 0)) || (country_id == g_human_country_index))
-            || (((iVar13 == g_human_country_index ||
-                 (1 < *(int *)(_DAT_00748e30 + 0x1ac + country_id * 4))) ||
-                (1 < *(int *)(_DAT_00748e30 + 0x1ac + iVar13 * 4))))))) {
+           ((((g_commandline_demo_mode_enabled != 0 || (DAT_00755958 != 0)) ||
+             (country_id == g_human_country_index)) ||
+            (((iVar13 == g_human_country_index ||
+              (1 < *(int *)(_DAT_00748e30 + 0x1ac + country_id * 4))) ||
+             (1 < *(int *)(_DAT_00748e30 + 0x1ac + iVar13 * 4))))))) {
           FUN_004898b0(_DAT_0074918c,local_5c,0,0xffffffff,0xffffffff);
         }
         FUN_004ba0c0(country_id,iVar13,1,1,*(undefined4 *)(&DAT_00735264 + iVar13 * 4 + iVar20),6,

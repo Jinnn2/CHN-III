@@ -41,8 +41,8 @@ App_WinMain_Entry(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
   FUN_004204b0();
   Init_SetUp();
   FUN_004cf150();
-  if (((g_editor_mode_enabled == 1) || (DAT_00755968 != 0)) ||
-     (g_app_screen_state = 1, DAT_00755940 == 1)) {
+  if (((g_editor_mode_enabled == 1) || (g_commandline_load_exception_flag != 0)) ||
+     (g_app_screen_state = 1, g_commandline_demo_mode_enabled == 1)) {
     g_app_screen_state = 0x24;
   }
   g_menu_action_tick = Get_Game_Tick();

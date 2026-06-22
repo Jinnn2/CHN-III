@@ -119,7 +119,7 @@ LAB_00438f47:
         UI_YesNo_Message(local_c0,0,0,1);
       }
       else {
-        if (DAT_00755940 == 0) {
+        if (g_commandline_demo_mode_enabled == 0) {
           if (_DAT_00748e34 == 0) {
             return 0;
           }
@@ -185,7 +185,7 @@ LAB_004390d5:
         }
         goto LAB_004390d5;
       }
-      if (DAT_00755940 == 0) {
+      if (g_commandline_demo_mode_enabled == 0) {
         if (_DAT_00748e34 == 0) {
           return 1;
         }

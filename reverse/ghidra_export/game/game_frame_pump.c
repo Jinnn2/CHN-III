@@ -74,7 +74,8 @@ void Game_Frame_Pump(void)
     FUN_00502a30();
     cVar2 = FUN_00502b00(&DAT_00748f2e);
     _DAT_0074a4f8 = (int)cVar2;
-    if ((DAT_00755950 == 0) || (*(int *)(&DAT_005c8a40 + DAT_0075873c * 0x1a4) == 1)) {
+    if ((g_scripted_start_mode_enabled == 0) ||
+       (*(int *)(&DAT_005c8a40 + DAT_0075873c * 0x1a4) == 1)) {
       Read_Keyboard();
     }
   }

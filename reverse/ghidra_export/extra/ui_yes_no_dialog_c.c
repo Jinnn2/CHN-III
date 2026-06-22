@@ -63,7 +63,7 @@ void UI_YesNo_Result(char *param_1,int param_2)
     iVar10 = 0x94;
   }
   Draw_Text_Centered(iVar10,iVar8,param_1,0xffffffff,DAT_007350b4,0xffffffff,0x2d0);
-  if ((DAT_00755940 == 0) && (g_auto_turn_or_ai_control_flag == 0)) {
+  if ((g_commandline_demo_mode_enabled == 0) && (g_auto_turn_or_ai_control_flag == 0)) {
     uVar12 = 100;
     uVar11 = 0;
   }

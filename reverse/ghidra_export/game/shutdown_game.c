@@ -13,7 +13,6 @@ void ShutDown_Game(void)
   HANDLE pvVar1;
   void **ppvVar2;
   int iVar3;
-  int *piVar4;
   DWORD local_4;
 
   Trace_Function(s_ShutDown_Game_00588a20);
@@ -108,13 +107,13 @@ void ShutDown_Game(void)
     CloseHandle(pvVar1);
   }
   CloseIndexIMG(DAT_007166d8);
-  piVar4 = &DAT_0074d520;
+  ppvVar2 = &g_country_portrait_image_bank_slots;
   do {
-    if (0 < *piVar4) {
-      CloseIndexIMG(*piVar4);
+    if (0 < (int)*ppvVar2) {
+      CloseIndexIMG(*ppvVar2);
     }
-    piVar4 = piVar4 + 0x50;
-  } while ((int)piVar4 < 0x755220);
+    ppvVar2 = ppvVar2 + 0x50;
+  } while ((int)ppvVar2 < 0x755220);
   Free_EMG_Base();
   Safe_FreeIMG(&DAT_007585fc);
   Free_EMG_Resource(&DAT_0075858c);

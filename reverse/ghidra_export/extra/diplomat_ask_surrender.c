@@ -99,7 +99,7 @@ switchD_00438a04_default:
       UI_YesNo_Message(local_c0,0,0,1);
     }
     else {
-      if (DAT_00755940 == 0) {
+      if (g_commandline_demo_mode_enabled == 0) {
         if (_DAT_00748e34 == 0) {
           return local_c1;
         }
@@ -134,7 +134,7 @@ switchD_00438a04_default:
     UI_YesNo_Message(local_c0,0,0,1);
   }
   else {
-    if (((DAT_00755940 == 0) &&
+    if (((g_commandline_demo_mode_enabled == 0) &&
         ((_DAT_00748e34 == 0 ||
          ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2 &&
           (*(int *)(_DAT_00748e30 + 0x1ac + iVar3 * 4) < 2)))))) || (DAT_0074a2cd != '\x01'))

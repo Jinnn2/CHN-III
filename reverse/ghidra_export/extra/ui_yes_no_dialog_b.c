@@ -33,7 +33,7 @@ void UI_YesNo_Message(undefined4 param_1,int param_2,int param_3,int param_4)
   FUN_004f5f9c(0x138,300,*(undefined4 *)(DAT_00714e00 + 0x14));
   Draw_Text_Centered(0x14c,0x140,param_1,0xffffffff,DAT_007350b4,0xffffffff,0x154);
   if (param_4 != 0) {
-    if ((DAT_00755940 == 0) && (g_auto_turn_or_ai_control_flag == 0)) {
+    if ((g_commandline_demo_mode_enabled == 0) && (g_auto_turn_or_ai_control_flag == 0)) {
       uVar3 = 100;
       uVar2 = 0;
     }

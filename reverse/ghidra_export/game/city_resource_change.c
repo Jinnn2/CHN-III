@@ -372,7 +372,7 @@ LAB_00426559:
          (g_active_country->science_status[iVar12] == 2)) {
         if (g_active_country->science_status[iVar12] < 2) {
           if ((g_active_country_index == g_human_country_index) &&
-             ((g_auto_turn_or_ai_control_flag == 0 || (DAT_00755940 != 0)))) {
+             ((g_auto_turn_or_ai_control_flag == 0 || (g_commandline_demo_mode_enabled != 0)))) {
             _DAT_007166dc = (undefined2)g_current_map_scenario_info.current_year;
             DAT_00716298 = g_active_country->current_research_science_id;
             FUN_00472120();
@@ -497,7 +497,7 @@ LAB_0042711c:
                   FUN_00472120();
                 }
               }
-              else if ((((DAT_00755940 != 0) || (DAT_00755958 != 0)) ||
+              else if ((((g_commandline_demo_mode_enabled != 0) || (DAT_00755958 != 0)) ||
                        ((0 < *(int *)(_DAT_00748e30 + local_1b4) &&
                         ((_DAT_0074a0f8 == g_human_country_index ||
                          (0 < *(int *)(_DAT_00748e30 + 0x1ac + _DAT_0074a0f8 * 4))))))) &&

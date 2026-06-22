@@ -54,7 +54,7 @@ void Init_SetUp(void)
   Sleep(100);
   FUN_0042e840(s___ANIM_FINAL_AVI_0057469c,DAT_005dff8c);
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00574688);
-  if ((g_present_use_blt_mode == 1) && (DAT_00755968 == 0)) {
+  if ((g_present_use_blt_mode == 1) && (g_commandline_load_exception_flag == 0)) {
     FUN_004f0ec0();
   }
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_0057467c);
@@ -222,7 +222,7 @@ void Init_SetUp(void)
   if (iVar3 == 0) {
     iVar3 = UI_YesNo_Dialog(&DAT_0057454c,0,1,0,0,0xffffffff,0,DAT_007350b4);
     if (iVar3 == 1) {
-      DAT_00755968 = 1;
+      g_commandline_load_exception_flag = 1;
     }
     else {
       iVar3 = UI_YesNo_Dialog(&DAT_00574534,0,1,0,0,0xffffffff,0,DAT_007350b4);

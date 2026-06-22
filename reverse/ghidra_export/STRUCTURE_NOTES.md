@@ -97,6 +97,14 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_current_map_scenario_info` | `Load_Dat` reads a `0x16c` header here; the edit-file-detail form binds controls to fields in this record. | Current loaded map/scenario header. |
 | `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes `MapScenarioInfo_0x16c[]`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
 | `g_selected_custom_map_index` | Set from `g_custom_map_hover_index`; drives load, delete, and list compaction in `MLR_Edit_SelCustomMap`. | Selected custom map row. |
+| `g_custom_map_selectable_country_ids` | `MLR_Edit_SelCustomMap` fills it from enabled `EmpireCountryDef` records or from loaded active country state before setting the scenario country count/limit. | Country ids offered by custom-map game setup. |
+| `g_custom_map_country_setup_mode` | Set to `1` for maps whose enabled country origins validate, and to `2` when existing country state or invalid origins require a different setup path. | Custom-map country setup mode. |
+| `g_custom_map_existing_country_setup_flag` | Set when the loaded custom map already contains active country/city/origin state; `PlayGame_Init` then immediately enters the game setup continuation. | Skip normal new-country selection for loaded map state. |
+| `g_custom_map_loaded_country_state_flag` | Set beside the existing-country flag and cleared by `Menu_EditMenu_Quit`; `PlayGame_Init` uses it to bypass the default/demo/load map branch. | Loaded custom-map country state is already in memory. |
+| `g_scripted_start_mode_enabled` | Set for `scripted_start_or_generated_flag` custom maps; `Load_Dat` passes it into setup loading and `PlayGame_Init` opens an extra pre-game UI pane. | Scripted/generated custom-map start flag. |
+| `g_commandline_demo_mode_enabled` | `Process_CommandLine_Args` sets it for `/DEMO`; `PlayGame_Init` then loads `WORLD_FLAT`, enables auto/AI control, and selects country `1`. | Demo startup mode flag. |
+| `g_commandline_load_exception_flag` | `Process_CommandLine_Args` sets it for `/LOAD`; `PlayGame_Init` loads `EXCEPTION`, clears the flag, and continues setup. | Command-line exception-save load flag. |
+| `g_country_portrait_image_bank_slots` / `g_edit_country_portrait_image_bank_slots` | `Edit_Finish` and shutdown close/load `DIP_%02d.IMG/IDI` resources in `0x140`-byte country slots; custom-map setup opens preview handles from these banks. | Runtime and editor country portrait image bank slots. |
 | `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes, `NodeDelete_DataFormat` unlinks them, and `Del_DataFormat` removes all controls for one owner window/context. | Active window/form data-format linked list. |
 
 ## Editor And Startup
@@ -229,6 +237,11 @@ Current examples:
   layer/special flag, and then calls `Decode_NewMap`; that makes the editor a
   practical semantic oracle for the terrain visual fields later consumed by
   bridge checks, battle setup, and tile improvement completion.
+- Custom-map selection bridges editor-visible scenario headers and runtime game
+  startup. After `MLR_Edit_SelCustomMap` loads a `MapScenarioInfo_0x16c`, it
+  validates enabled empire-country origins, scans loaded country state, builds
+  `g_custom_map_selectable_country_ids`, and chooses between existing scenario
+  state, fixed-origin starts, and generated/scripted setup.
 
 ### Editor Map Tool Modes
 

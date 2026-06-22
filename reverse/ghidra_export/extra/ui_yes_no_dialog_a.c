@@ -93,7 +93,8 @@ int UI_YesNo_Dialog(char *param_1,int param_2)
       g_request_redraw = 1;
       param_2 = iVar11;
     }
-    if ((DAT_00755940 != 0) && (iVar9 = Get_Game_Tick(), 2999 < (uint)(iVar9 - iVar8))) {
+    if ((g_commandline_demo_mode_enabled != 0) &&
+       (iVar9 = Get_Game_Tick(), 2999 < (uint)(iVar9 - iVar8))) {
       iVar11 = 1;
       bVar1 = true;
     }

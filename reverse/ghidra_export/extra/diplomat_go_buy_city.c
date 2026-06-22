@@ -88,7 +88,7 @@ LAB_00438674:
         FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x);
       }
     }
-    else if (((DAT_00755940 != 0) ||
+    else if (((g_commandline_demo_mode_enabled != 0) ||
              ((_DAT_00748e34 != 0 &&
               ((1 < *(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) ||
                (1 < *(int *)(_DAT_00748e30 + 0x1ac + (char)city->owner_country_id * 4))))))) &&
@@ -133,7 +133,7 @@ LAB_00438849:
       }
       goto LAB_00438849;
     }
-    if (((DAT_00755940 == 0) &&
+    if (((g_commandline_demo_mode_enabled == 0) &&
         ((_DAT_00748e34 == 0 ||
          ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2 &&
           (*(int *)(_DAT_00748e30 + 0x1ac + (char)city->owner_country_id * 4) < 2)))))) ||

@@ -59,7 +59,7 @@ void Menu_EditMenu_Quit(void)
                         s_Edit_MAP_TYPE_BackUp_00517900,1);
     }
     else {
-      DAT_00707f94 = 0;
+      g_custom_map_loaded_country_state_flag = 0;
       g_editor_mode_enabled = 1;
       DAT_00755958 = 1;
       DAT_0075595c = 1;

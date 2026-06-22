@@ -111,7 +111,7 @@ LAB_00439a48:
             pbVar11 = pbVar9;
           }
           else {
-            if (DAT_00755940 == 0) {
+            if (g_commandline_demo_mode_enabled == 0) {
               if (_DAT_00748e34 == 0) {
                 return '\x01';
               }
@@ -171,7 +171,7 @@ LAB_00439bb7:
     }
   }
   else {
-    if (DAT_00755940 == 0) {
+    if (g_commandline_demo_mode_enabled == 0) {
       if (_DAT_00748e34 == 0) {
         return local_c1;
       }
