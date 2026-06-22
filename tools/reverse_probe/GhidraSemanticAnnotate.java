@@ -45,6 +45,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType scienceDef;
     private StructureDataType countryProfileDef;
     private StructureDataType mapScenarioInfo;
+    private StructureDataType dataFormat;
 
     private static class Rename {
         long va;
@@ -288,6 +289,51 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "scenario_flag_168",
             "last byte copied by Load_Map_GameInfo from legacy scenario-info files");
         resolve(mapScenarioInfo);
+
+        dataFormat = fixedStruct("DataFormat_0xc8", 0xc8);
+        replaceAt(dataFormat, 0x00, IntegerDataType.dataType, 4, "control_type",
+            "Add_New_DataFormat first argument; NodeInsert_DataFormat switches on it");
+        replaceAt(dataFormat, 0x08, IntegerDataType.dataType, 4, "x",
+            "control x coordinate passed by table/detail setup functions");
+        replaceAt(dataFormat, 0x0c, IntegerDataType.dataType, 4, "y",
+            "control y coordinate passed by table/detail setup functions");
+        replaceAt(dataFormat, 0x10, new PointerDataType(CharDataType.dataType, dtm), 4, "label_text",
+            "copied from the show-string argument when non-empty");
+        replaceAt(dataFormat, 0x14, IntegerDataType.dataType, 4, "data_record_stride",
+            "stored from the record stride argument");
+        replaceAt(dataFormat, 0x18, new PointerDataType(VoidDataType.dataType, dtm), 4, "bound_data_base",
+            "base pointer for the edited data field");
+        replaceAt(dataFormat, 0x1c, IntegerDataType.dataType, 4, "data_record_delta",
+            "record end pointer minus start pointer in Add_New_DataFormat");
+        replaceAt(dataFormat, 0x20, new PointerDataType(VoidDataType.dataType, dtm), 4, "bound_data_end",
+            "end/base pointer for the edited data range");
+        replaceAt(dataFormat, 0x24, new PointerDataType(VoidDataType.dataType, dtm), 4, "row_index_source",
+            "table row/index source used by table-edit callers");
+        replaceAt(dataFormat, 0x28, new PointerDataType(VoidDataType.dataType, dtm), 4, "alternate_data_base",
+            "alternate bound data pointer passed by callers");
+        replaceAt(dataFormat, 0x34, IntegerDataType.dataType, 4, "value_width_or_option_count",
+            "numeric width for integer controls or option-count input for list controls");
+        replaceAt(dataFormat, 0x38, new PointerDataType(VoidDataType.dataType, dtm), 4, "option_texts",
+            "NodeInsert_DataFormat walks null-terminated option text lists for list-like controls");
+        replaceAt(dataFormat, 0x40, IntegerDataType.dataType, 4, "derived_option_count",
+            "computed option count for list-like controls");
+        replaceAt(dataFormat, 0x44, IntegerDataType.dataType, 4, "derived_option_label_width",
+            "computed maximum option label width");
+        replaceAt(dataFormat, 0x48, IntegerDataType.dataType, 4, "value_limit_or_rows",
+            "limit/row-count field used by Add_New_DataFormat and NodeInsert_DataFormat");
+        replaceAt(dataFormat, 0x74, IntegerDataType.dataType, 4, "visible_option_rows",
+            "clamped visible row count for scrolling list controls");
+        replaceAt(dataFormat, 0x90, ByteDataType.dataType, 1, "has_scrollbar",
+            "set when the option list is longer than the visible row count");
+        replaceAt(dataFormat, 0xa4, ByteDataType.dataType, 1, "extra_blank_option",
+            "caller flag that adds one extra list row");
+        replaceAt(dataFormat, 0xb8, new PointerDataType(VoidDataType.dataType, dtm), 4, "owner_window",
+            "owner window/context pointer whose control count is incremented");
+        replaceAt(dataFormat, 0xbc, new PointerDataType(dataFormat, dtm), 4, "prev_data_format",
+            "previous node in the global data-format linked list");
+        replaceAt(dataFormat, 0xc0, new PointerDataType(dataFormat, dtm), 4, "next_data_format",
+            "next node in the global data-format linked list");
+        resolve(dataFormat);
 
         replaceAt(city, 0x01, ByteDataType.dataType, 1, "owner_country_id",
             "city ownership; compared with active/human country and rewritten by City_Belong_Change");
@@ -758,6 +804,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x420a30L, "Font_Select"),
             new Rename(0x420ba0L, "Draw_Text_Centered"),
             new Rename(0x420c00L, "Draw_Text"),
+            new Rename(0x42eed0L, "NodeInsert_DataFormat"),
+            new Rename(0x42f290L, "Add_New_DataFormat"),
             new Rename(0x450490L, "Do_City"),
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),
@@ -994,7 +1042,9 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00707f98L, "g_mainmenu_anim_state", IntegerDataType.dataType),
             new GlobalRename(0x00771f34L, "g_draw_sprite_fn", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x0077b1b4L, "g_view_center_x", IntegerDataType.dataType),
-            new GlobalRename(0x0077b1c8L, "g_view_center_y", IntegerDataType.dataType)
+            new GlobalRename(0x0077b1c8L, "g_view_center_y", IntegerDataType.dataType),
+            new GlobalRename(0x00758544L, "g_data_format_list_head", new PointerDataType(dataFormat, dtm)),
+            new GlobalRename(0x00758548L, "g_data_format_list_tail", new PointerDataType(dataFormat, dtm))
         };
         for (GlobalRename g : globals) {
             Address a = addr(g.va);
@@ -1029,6 +1079,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x41f7f0L, "City_Business_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f8c0L, "City_Like_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x4254a0L, "City_Event_Happen", VoidDataType.dataType, "city", city);
+        pointerArg(0x42eed0L, "NodeInsert_DataFormat", VoidDataType.dataType, "data_format", dataFormat);
         pointerArg(0x47c8b0L, "Map_To_Battle_Army", IntegerDataType.dataType, "army", armyUnit);
         pointerArg(0x4f02d0L, "Present_Dirty_Rects", VoidDataType.dataType,
             "dst_x", IntegerDataType.dataType, "dst_y", IntegerDataType.dataType);

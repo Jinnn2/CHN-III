@@ -25,6 +25,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 | `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
 | `MapScenarioInfo_0x16c` | `Load_Map_GameInfo` reads custom-map metadata in `0x16c` records; `Load_Dat` reads the same shape into `g_current_map_scenario_info`; `Before_Window_Edit_File_Detail` builds an editor form over the current record. | Map/scenario header and editor-visible rules. |
+| `DataFormat_0xc8` | `Add_New_DataFormat` allocates 200 bytes tagged `DATA_FORMAT`; `NodeInsert_DataFormat` links nodes through `+0xbc/+0xc0` and computes option/list layout by `control_type`. | Window/form field descriptor for editor/table controls. |
 
 ## Important Globals
 
@@ -74,6 +75,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_current_map_scenario_info` | `Load_Dat` reads a `0x16c` header here; the edit-file-detail form binds controls to fields in this record. | Current loaded map/scenario header. |
 | `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes `MapScenarioInfo_0x16c[]`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
 | `g_selected_custom_map_index` | Set from `g_custom_map_hover_index`; drives load, delete, and list compaction in `MLR_Edit_SelCustomMap`. | Selected custom map row. |
+| `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes and updates previous/next links. | Active window/form data-format linked list. |
 
 ## Editor And Startup
 
@@ -97,6 +99,8 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `MLR_Edit_SelCustomMap` | Trace string `MLR_Edit_SelCustomMap`; selects a custom map, loads it through `Load_Dat`, enables editor state/backup allocation, or deletes the map and associated sidecar files before compacting the list. | Custom-map picker click handler. |
 | `Load_Map_GameInfo` | Trace string `Load_Map_GameInfo`; reads custom-map scenario headers, handles older `0x168` payloads, and stores modern records as `MapScenarioInfo_0x16c`. | Custom-map/scenario header loader. |
 | `Before_Window_Edit_File_Detail` | Trace string `Before_Window_Edit_File_Detail`; initializes defaults and creates form controls bound to `g_current_map_scenario_info`. | Scenario/map-detail editor form setup. |
+| `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
+| `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |

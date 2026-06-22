@@ -152,9 +152,9 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0042eb70` | `FUN_0042eb70` | 569 | 10 |
 | `0x0042edb0` | `FUN_0042edb0` | 206 | 1 |
 | `0x0042ee80` | `FUN_0042ee80` | 75 | 2 |
-| `0x0042eed0` | `FUN_0042eed0` | 774 | 2 |
+| `0x0042eed0` | `NodeInsert_DataFormat` | 774 | 2 |
 | `0x0042f210` | `FUN_0042f210` | 127 | 2 |
-| `0x0042f290` | `FUN_0042f290` | 329 | 3 |
+| `0x0042f290` | `Add_New_DataFormat` | 329 | 3 |
 | `0x0042f3e0` | `FUN_0042f3e0` | 421 | 1 |
 | `0x0042f5c0` | `FUN_0042f5c0` | 62 | 2 |
 | `0x0042f600` | `FUN_0042f600` | 3385 | 11 |

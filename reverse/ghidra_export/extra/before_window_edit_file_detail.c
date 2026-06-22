@@ -58,108 +58,110 @@ void Before_Window_Edit_File_Detail(void)
   }
   iVar2 = DAT_005c5ba4;
   iVar5 = DAT_005c5ba4 + 0x46;
-  FUN_0042f290(6,iVar5,DAT_005c5ba4 + 2,&DAT_00571cf0,0,0,&g_current_map_scenario_info,0,0,0,0,0x11,
-               0,0,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,&g_current_map_scenario_info
-               ,0x11,1,0,0,0,0);
-  FUN_0042f290(2,iVar5,iVar2 + 0x1c,&DAT_00571ce4,0,0,0x74c6a1,0,0,0,0,0x11,0,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c6a1,0x11,1,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x36,&DAT_00571cd8,0,0x74c6b8,0,0,0,&PTR_DAT_0057295c,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6b8,4,0,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x50,&DAT_00571ccc,0,0x74c6bc,0,0,0,&PTR_DAT_005790a0,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6bc,4,0,0,0,0,0);
+  Add_New_DataFormat(6,iVar5,DAT_005c5ba4 + 2,&DAT_00571cf0,0,0,&g_current_map_scenario_info,0,0,0,0
+                     ,0x11,0,0,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,
+                     &g_current_map_scenario_info,0x11,1,0,0,0,0);
+  Add_New_DataFormat(2,iVar5,iVar2 + 0x1c,&DAT_00571ce4,0,0,0x74c6a1,0,0,0,0,0x11,0,0,0,0,
+                     &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6a1,0x11,1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x36,&DAT_00571cd8,0,0x74c6b8,0,0,0,&PTR_DAT_0057295c,0,0,0,0,0
+                     ,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6b8,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x50,&DAT_00571ccc,0,0x74c6bc,0,0,0,&PTR_DAT_005790a0,0,0,0,0,0
+                     ,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6bc,4,0,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0x6a,&DAT_00571cc0,0,0x74c6c0,0,0,0,&PTR_DAT_00578fa8,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6c0,4,uVar1,0,0,0,0);
-  FUN_0042f290(1,iVar5,iVar2 + 0x84,&DAT_00571cb4,0,0x74c6e8,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c6e8,4,0,0,0,0,0);
-  FUN_0042f290(1,iVar5,iVar2 + 0x9e,&DAT_00571ca8,0,0x74c6ec,0,0,5,0,0,0,0,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c6ec,4,DAT_0057e948 == 0,0,0,0,0);
-  FUN_0042f290(1,iVar5,iVar2 + 0xb8,&DAT_00571c9c,0,0x74c6f0,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c6f0,4,0,0,0,0,0);
-  FUN_0042f290(1,iVar5,iVar2 + 0xd2,&DAT_00571c90,0,0x74c6f4,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c6f4,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x6a,&DAT_00571cc0,0,0x74c6c0,0,0,0,&PTR_DAT_00578fa8,0,0,0,0,0
+                     ,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c6c0,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(1,iVar5,iVar2 + 0x84,&DAT_00571cb4,0,0x74c6e8,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88
+                     ,&g_current_map_scenario_info,0x16c,0x74c6e8,4,0,0,0,0,0);
+  Add_New_DataFormat(1,iVar5,iVar2 + 0x9e,&DAT_00571ca8,0,0x74c6ec,0,0,5,0,0,0,0,0,0,0,&DAT_005c5b88
+                     ,&g_current_map_scenario_info,0x16c,0x74c6ec,4,DAT_0057e948 == 0,0,0,0,0);
+  Add_New_DataFormat(1,iVar5,iVar2 + 0xb8,&DAT_00571c9c,0,0x74c6f0,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88
+                     ,&g_current_map_scenario_info,0x16c,0x74c6f0,4,0,0,0,0,0);
+  Add_New_DataFormat(1,iVar5,iVar2 + 0xd2,&DAT_00571c90,0,0x74c6f4,0,0,2,0,0,0,0,0,0,0,&DAT_005c5b88
+                     ,&g_current_map_scenario_info,0x16c,0x74c6f4,4,0,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0xec,&DAT_00571c84,0,0x74c754,0,0,0,&PTR_DAT_005790c0,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c754,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0xec,&DAT_00571c84,0,0x74c754,0,0,0,&PTR_DAT_005790c0,0,0,0,0,0
+                     ,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c754,4,uVar1,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0x106,&DAT_00571c78,0,0x74c774,0,0,0,&PTR_DAT_005790b0,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c774,4,uVar1,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x120,&DAT_00571c6c,0,0x74c758,0,0,0,&PTR_DAT_005790d8,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c758,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x106,&DAT_00571c78,0,0x74c774,0,0,0,&PTR_DAT_005790b0,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c774,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x120,&DAT_00571c6c,0,0x74c758,0,0,0,&PTR_DAT_005790d8,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c758,4,0,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0x13a,&DAT_00571c60,0,0x74c75c,0,0,0,&PTR_DAT_005790e8,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c75c,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x13a,&DAT_00571c60,0,0x74c75c,0,0,0,&PTR_DAT_005790e8,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c75c,4,uVar1,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0x154,&DAT_00571c54,0,0x74c760,0,0,0,&PTR_DAT_005790f8,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c760,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x154,&DAT_00571c54,0,0x74c760,0,0,0,&PTR_DAT_005790f8,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c760,4,uVar1,0,0,0,0);
   if ((DAT_0057e948 == 3) && (g_current_map_scenario_info.country_setup_mode == 2)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar5,iVar2 + 0x16e,&DAT_00571c48,0,0x74c764,0,0,0,&PTR_DAT_00579108,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c764,4,uVar1,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x188,&DAT_00571c3c,0,0x74c768,0,0,0,&PTR_DAT_00579118,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c768,4,0,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x1a2,&DAT_00571c30,0,0x74c76c,0,0,0,&PTR_DAT_00579128,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c76c,4,0,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x1bc,&DAT_00571c24,0,0x74c770,0,0,0,&PTR_DAT_00579140,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c770,4,0,0,0,0,0);
-  FUN_0042f290(3,iVar5,iVar2 + 0x1f0,&DAT_00571c18,0,0x74c794,0,0,0,&PTR_DAT_0057908c,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c794,4,DAT_0057e948 == 0,0,0,0,0
-              );
-  FUN_0042f290(3,iVar5,iVar2 + 0x20a,&DAT_00571c0c,0,0x74c798,0,0,0,&PTR_DAT_00579150,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c798,4,DAT_0057e948 == 0,0,0,0,0
-              );
-  FUN_0042f290(2,iVar5,iVar2 + 0x224,&DAT_00571c00,0,0,0x74c79c,0,0,0,0,0x3d,1,0,0,0,&DAT_005c5b88,
-               &g_current_map_scenario_info,0x16c,0x74c79c,0x3d,1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x16e,&DAT_00571c48,0,0x74c764,0,0,0,&PTR_DAT_00579108,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c764,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x188,&DAT_00571c3c,0,0x74c768,0,0,0,&PTR_DAT_00579118,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c768,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x1a2,&DAT_00571c30,0,0x74c76c,0,0,0,&PTR_DAT_00579128,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c76c,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x1bc,&DAT_00571c24,0,0x74c770,0,0,0,&PTR_DAT_00579140,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c770,4,0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x1f0,&DAT_00571c18,0,0x74c794,0,0,0,&PTR_DAT_0057908c,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c794,4,
+                     DAT_0057e948 == 0,0,0,0,0);
+  Add_New_DataFormat(3,iVar5,iVar2 + 0x20a,&DAT_00571c0c,0,0x74c798,0,0,0,&PTR_DAT_00579150,0,0,0,0,
+                     0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c798,4,
+                     DAT_0057e948 == 0,0,0,0,0);
+  Add_New_DataFormat(2,iVar5,iVar2 + 0x224,&DAT_00571c00,0,0,0x74c79c,0,0,0,0,0x3d,1,0,0,0,
+                     &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c79c,0x3d,1,0,0,0,0);
   if ((DAT_0057e948 == 0) || (g_current_map_scenario_info.country_setup_mode == 0)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar2 + 0x172,iVar2 + 0x84,&DAT_00571bf4,0,0x74c7dc,0,0,0,&PTR_DAT_00571a88,0,0,0,0
-               ,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7dc,4,uVar1,0,0,0,0);
+  Add_New_DataFormat(3,iVar2 + 0x172,iVar2 + 0x84,&DAT_00571bf4,0,0x74c7dc,0,0,0,&PTR_DAT_00571a88,0
+                     ,0,0,0,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7dc,4,uVar1,0,
+                     0,0,0);
   if ((DAT_0057e948 == 0) || (g_current_map_scenario_info.country_setup_mode == 0)) {
     uVar1 = 1;
   }
   else {
     uVar1 = 0;
   }
-  FUN_0042f290(3,iVar2 + 0x172,iVar2 + 0x9e,&DAT_00571be8,0,0x74c7e0,0,0,0,&PTR_DAT_00571a94,0,0,0,0
-               ,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7e0,4,uVar1,0,0,0,0);
-  FUN_0042f290(1,iVar2 + 0x23a,iVar2 + 0xd2,&DAT_00571bdc,0,0x74c7f4,0,0,2,0,0,0,0,0,0,0,
-               &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7f4,4,1,0,0,0,0);
+  Add_New_DataFormat(3,iVar2 + 0x172,iVar2 + 0x9e,&DAT_00571be8,0,0x74c7e0,0,0,0,&PTR_DAT_00571a94,0
+                     ,0,0,0,0,0,&DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7e0,4,uVar1,0,
+                     0,0,0);
+  Add_New_DataFormat(1,iVar2 + 0x23a,iVar2 + 0xd2,&DAT_00571bdc,0,0x74c7f4,0,0,2,0,0,0,0,0,0,0,
+                     &DAT_005c5b88,&g_current_map_scenario_info,0x16c,0x74c7f4,4,1,0,0,0,0);
   if (DAT_0057e948 == 0) {
-    FUN_0042f290(3,iVar5,iVar2 + 0x23e,&DAT_00571bd0,0,&DAT_00706cbc,0,0,0,&PTR_DAT_00579168,0,0,0,0
-                 ,0,0,&DAT_005c5b88,&DAT_00706cbc,4,&DAT_00706cbc,4,1,0,0,0,0);
+    Add_New_DataFormat(3,iVar5,iVar2 + 0x23e,&DAT_00571bd0,0,&DAT_00706cbc,0,0,0,&PTR_DAT_00579168,0
+                       ,0,0,0,0,0,&DAT_005c5b88,&DAT_00706cbc,4,&DAT_00706cbc,4,1,0,0,0,0);
   }
   return;
 }
