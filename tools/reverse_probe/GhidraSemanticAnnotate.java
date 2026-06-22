@@ -1453,13 +1453,13 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x41b0f0L, "Army_Belong_Change", VoidDataType.dataType,
             "army", armyUnit, "new_owner_country_id", IntegerDataType.dataType);
         pointerArg(0x41b4a0L, "Bridge_Able", IntegerDataType.dataType, "tile", landTile);
-        pointerArg(0x41b6c0L, "Irrigate_Able", IntegerDataType.dataType, "tile", landTile,
+        pointerArg(0x41b6c0L, "Irrigate_Able", ByteDataType.dataType, "tile", landTile,
             "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
             "allow_dry_neighbor", IntegerDataType.dataType);
-        pointerArg(0x41b830L, "Pasturage_Able", IntegerDataType.dataType, "tile", landTile);
-        pointerArg(0x41b880L, "Mine_Able", IntegerDataType.dataType, "tile", landTile);
-        pointerArg(0x41b8c0L, "Fish_Able", IntegerDataType.dataType, "tile", landTile);
-        pointerArg(0x41b920L, "LongWall_Able", IntegerDataType.dataType, "tile", landTile);
+        pointerArg(0x41b830L, "Pasturage_Able", ByteDataType.dataType, "tile", landTile);
+        pointerArg(0x41b880L, "Mine_Able", ByteDataType.dataType, "tile", landTile);
+        pointerArg(0x41b8c0L, "Fish_Able", ByteDataType.dataType, "tile", landTile);
+        pointerArg(0x41b920L, "LongWall_Able", ByteDataType.dataType, "tile", landTile);
         pointerArg(0x41b960L, "Resource_Able", ByteDataType.dataType,
             "tile", landTile, "resource_id", IntegerDataType.dataType);
         pointerArg(0x41f700L, "City_Happy_Change", VoidDataType.dataType, "city", city, "delta", IntegerDataType.dataType);

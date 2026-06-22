@@ -8,26 +8,24 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-int Irrigate_Able(LandTile_0x100 *tile,int tile_x,int tile_y,int allow_dry_neighbor)
+byte Irrigate_Able(LandTile_0x100 *tile,int tile_x,int tile_y,int allow_dry_neighbor)
 
 {
   int iVar1;
-  LandTile_0x100 *pLVar2;
+  int iVar2;
   int iVar3;
   int iVar4;
 
   Trace_Function(s_Irrigate_Able_00514eb4);
-  pLVar2 = tile;
   if ((((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\0')) &&
       (tile->linked_record == (void *)0x0)) &&
      (g_ground_defs[*(char *)tile].irrigation_farmland_enabled != 0)) {
     if (((char)tile->region_or_terrain_marker_a < '\0') || (tile->linked_count_or_city_count < 0)) {
-LAB_0041b810:
-      return CONCAT31((int3)((uint)pLVar2 >> 8),1);
+      return 1;
     }
     iVar1 = (tile_y & 1U) << 5;
     tile = (LandTile_0x100 *)0x0;
-    pLVar2 = (LandTile_0x100 *)allow_dry_neighbor;
+    iVar2 = allow_dry_neighbor;
     do {
       iVar4 = *(int *)((int)&DAT_00589374 + iVar1) + tile_x;
       iVar3 = *(int *)((int)&DAT_005893b4 + iVar1) + tile_y;
@@ -56,15 +54,21 @@ LAB_0041b810:
         default:
           goto switchD_0041b79a_default;
         }
-        pLVar2 = (LandTile_0x100 *)(iVar4 * 0x100 + _g_land_tiles);
+        iVar2 = iVar4 * 0x100 + _g_land_tiles;
 switchD_0041b79a_default:
-        if ((((char)pLVar2->region_or_terrain_marker_a < '\0') ||
-            (pLVar2->linked_count_or_city_count < 0)) ||
-           ((pLVar2->field_0x1a == '\0' && ((char)allow_dry_neighbor != '\0')))) goto LAB_0041b810;
+        if (*(char *)(iVar2 + 0x12) < '\0') {
+          return 1;
+        }
+        if (*(short *)(iVar2 + 0x10) < 0) {
+          return 1;
+        }
+        if ((*(char *)(iVar2 + 0x1a) == '\0') && ((char)allow_dry_neighbor != '\0')) {
+          return 1;
+        }
       }
       iVar1 = iVar1 + 4;
       tile = (LandTile_0x100 *)&tile->field_0x1;
     } while ((int)tile < 8);
   }
-  return (uint)pLVar2 & 0xffffff00;
+  return 0;
 }

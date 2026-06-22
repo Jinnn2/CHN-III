@@ -11,12 +11,12 @@ void Order_Check(void)
 
 {
   char cVar1;
-  byte bVar2;
+  ArmyUnit_0x164_plus *pAVar2;
   ArmyUnit_0x164_plus *pAVar3;
-  ArmyUnit_0x164_plus *pAVar4;
+  bool bVar4;
   bool bVar5;
-  bool bVar6;
-  LandTile_0x100 *pLVar7;
+  LandTile_0x100 *pLVar6;
+  byte bVar7;
   int iVar8;
   ArmyUnit_0x164_plus **ppAVar9;
   int iVar10;
@@ -154,19 +154,19 @@ switchD_004941d6_default:
     DAT_0074c848 = 0;
     local_c = *(uint *)(DAT_007584e4 + 0x144);
     if ((0 < (int)local_c) && (DAT_007584dc->transport_parent == (ArmyUnit_0x164_plus *)0x0)) {
-      bVar5 = true;
+      bVar4 = true;
       if (DAT_007584dc->cargo_or_subunit_count != 0) {
         iVar8 = 0;
         iVar11 = (int)(char)DAT_007584ec->army_count_or_occupant_count;
         ppAVar9 = DAT_007584ec->army_or_city_ptrs_a;
         do {
           if (iVar11 < 1) break;
-          pAVar3 = *ppAVar9;
-          if (pAVar3 != (ArmyUnit_0x164_plus *)0x0) {
-            if ((pAVar3 != DAT_007584dc) && (pAVar3->transport_parent == DAT_007584dc)) {
-              uVar12 = g_army_type_table[pAVar3->army_type_id].transportable_mask;
+          pAVar2 = *ppAVar9;
+          if (pAVar2 != (ArmyUnit_0x164_plus *)0x0) {
+            if ((pAVar2 != DAT_007584dc) && (pAVar2->transport_parent == DAT_007584dc)) {
+              uVar12 = g_army_type_table[pAVar2->army_type_id].transportable_mask;
               if (uVar12 == 0) {
-                bVar5 = false;
+                bVar4 = false;
               }
               else if ((int)local_c < (int)uVar12) {
                 local_c = uVar12;
@@ -177,26 +177,26 @@ switchD_004941d6_default:
           iVar8 = iVar8 + 1;
           ppAVar9 = ppAVar9 + 1;
         } while (iVar8 < 10);
-        if (!bVar5) goto LAB_004945b4;
+        if (!bVar4) goto LAB_004945b4;
       }
       iVar11 = 0;
       local_8 = (int)(char)DAT_007584ec->army_count_or_occupant_count;
       ppAVar9 = DAT_007584ec->army_or_city_ptrs_a;
       do {
         if (local_8 < 1) break;
-        pAVar3 = *ppAVar9;
-        if (pAVar3 != (ArmyUnit_0x164_plus *)0x0) {
-          if (pAVar3 != DAT_007584dc) {
-            bVar2 = pAVar3->army_type_id;
-            if (((g_army_type_table[bVar2].air_or_city_capability_mask & local_c) != 0) &&
-               ((int)(pAVar3->cargo_or_subunit_count + 1 +
+        pAVar2 = *ppAVar9;
+        if (pAVar2 != (ArmyUnit_0x164_plus *)0x0) {
+          if (pAVar2 != DAT_007584dc) {
+            bVar7 = pAVar2->army_type_id;
+            if (((g_army_type_table[bVar7].air_or_city_capability_mask & local_c) != 0) &&
+               ((int)(pAVar2->cargo_or_subunit_count + 1 +
                      (uint)DAT_007584dc->cargo_or_subunit_count) <=
-                g_army_type_table[bVar2].transport_capacity)) {
-              if (g_army_type_table[bVar2].unit_class == 1) {
+                g_army_type_table[bVar7].transport_capacity)) {
+              if (g_army_type_table[bVar7].unit_class == 1) {
                 (&DAT_0074c074)[_DAT_0074a5e0] = iVar11;
                 _DAT_0074a5e0 = _DAT_0074a5e0 + 1;
               }
-              else if ((DAT_007584ec->linked_record != (void *)0x0) || (bVar2 == 0x3a)) {
+              else if ((DAT_007584ec->linked_record != (void *)0x0) || (bVar7 == 0x3a)) {
                 *(int *)(&DAT_00748ea4 + DAT_0074c848 * 4) = iVar11;
                 DAT_0074c848 = DAT_0074c848 + 1;
               }
@@ -592,7 +592,7 @@ LAB_00494657:
             pcVar16 = pcVar16 + 1;
           }
         }
-        pLVar7 = DAT_007584ec;
+        pLVar6 = DAT_007584ec;
         if ((*(char *)DAT_007584ec == '\n') || (DAT_007584ec->alternate_battle_terrain_kind == 10))
         {
           uVar12 = 0xffffffff;
@@ -621,13 +621,13 @@ LAB_00494657:
             pcVar16 = pcVar16 + 1;
           }
         }
-        if ((pLVar7->field_0x1a == -1) && (pLVar7->linked_record == (void *)0x0)) {
+        if ((pLVar6->field_0x1a == -1) && (pLVar6->linked_record == (void *)0x0)) {
           if (DAT_007584dc->army_type_id == 1) {
             if ((*(int *)(_DAT_00748e30 + 0x6e0) == 2) &&
-               (iVar14 = Irrigate_Able(pLVar7,DAT_005c0ec8,DAT_005c0ecc,
-                                       CONCAT31((int3)((uint)DAT_00714f94 >> 8),
-                                                *(int *)(_DAT_00748e30 + 0x72c) == 2)),
-               (char)iVar14 != '\0')) {
+               (bVar7 = Irrigate_Able(pLVar6,DAT_005c0ec8,DAT_005c0ecc,
+                                      CONCAT31((int3)((uint)DAT_00714f94 >> 8),
+                                               *(int *)(_DAT_00748e30 + 0x72c) == 2)), bVar7 != 0))
+            {
               uVar12 = 0xffffffff;
               pcVar17 = (char *)&DAT_0057c65c;
               do {
@@ -655,7 +655,7 @@ LAB_00494657:
               }
             }
             if ((*(int *)(_DAT_00748e30 + 0x6dc) == 2) &&
-               (iVar14 = Pasturage_Able(DAT_007584ec), (char)iVar14 != '\0')) {
+               (bVar7 = Pasturage_Able(DAT_007584ec), bVar7 != 0)) {
               uVar12 = 0xffffffff;
               pcVar17 = (char *)&DAT_0057c654;
               do {
@@ -683,7 +683,7 @@ LAB_00494657:
               }
             }
             if ((*(int *)(_DAT_00748e30 + 0x6d8) == 2) &&
-               (iVar14 = Fish_Able(DAT_007584ec), (char)iVar14 != '\0')) {
+               (bVar7 = Fish_Able(DAT_007584ec), bVar7 != 0)) {
               uVar12 = 0xffffffff;
               pcVar17 = (char *)&DAT_0057e250;
               do {
@@ -712,7 +712,7 @@ LAB_00494657:
             }
           }
           if ((*(int *)(_DAT_00748e30 + 0x6cc) == 2) &&
-             (iVar14 = Mine_Able(DAT_007584ec), (char)iVar14 != '\0')) {
+             (bVar7 = Mine_Able(DAT_007584ec), bVar7 != 0)) {
             uVar12 = 0xffffffff;
             pcVar17 = (char *)&DAT_0057e248;
             do {
@@ -741,7 +741,7 @@ LAB_00494657:
           }
         }
         if ((*(int *)(_DAT_00748e30 + 0x718) != 2) ||
-           (iVar14 = LongWall_Able(DAT_007584ec), (char)iVar14 != '\x01')) goto LAB_00494c05;
+           (bVar7 = LongWall_Able(DAT_007584ec), bVar7 != 1)) goto LAB_00494c05;
         uVar12 = 0xffffffff;
         pcVar17 = (char *)&DAT_00572af4;
         do {
@@ -770,7 +770,7 @@ LAB_00494657:
       DAT_00714f94 = DAT_00714f94 + 1;
     }
 LAB_00494c05:
-    pLVar7 = DAT_007584ec;
+    pLVar6 = DAT_007584ec;
     if (-1 < (char)DAT_007584ec->field_0x1a) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e240;
@@ -798,11 +798,11 @@ LAB_00494c05:
         pcVar16 = pcVar16 + 1;
       }
     }
-    pAVar3 = DAT_007584dc;
+    pAVar2 = DAT_007584dc;
     if ((((DAT_007584dc->army_type_id == 0x2a) && (DAT_007584dc->cargo_or_subunit_count == 0)) &&
-        (pLVar7->city_resource_or_feature_id == 0x26)) &&
-       (((pLVar7->linked_record == (void *)0x0 && (pLVar7->field_0x1a == -1)) &&
-        ('\n' < *(char *)pLVar7)))) {
+        (pLVar6->city_resource_or_feature_id == 0x26)) &&
+       (((pLVar6->linked_record == (void *)0x0 && (pLVar6->field_0x1a == -1)) &&
+        ('\n' < *(char *)pLVar6)))) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e238;
       do {
@@ -830,19 +830,19 @@ LAB_00494c05:
       }
     }
     iVar11 = DAT_00714f94;
-    if ((char)pAVar3->map_presence_or_cargo_state < '\x03') {
+    if ((char)pAVar2->map_presence_or_cargo_state < '\x03') {
       if (((DAT_007584dc->transport_parent == (ArmyUnit_0x164_plus *)0x0) &&
           (0 < *(int *)(DAT_007584e4 + 0x13c))) &&
          ('\x01' < (char)DAT_007584ec->army_count_or_occupant_count)) {
         iVar14 = 0;
         ppAVar9 = DAT_007584ec->army_or_city_ptrs_a;
         do {
-          pAVar3 = *ppAVar9;
-          if ((((pAVar3 != (ArmyUnit_0x164_plus *)0x0) && (pAVar3 != DAT_007584dc)) &&
-              (pAVar3->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
+          pAVar2 = *ppAVar9;
+          if ((((pAVar2 != (ArmyUnit_0x164_plus *)0x0) && (pAVar2 != DAT_007584dc)) &&
+              (pAVar2->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
              (*(int *)(DAT_007584e4 + 0x13c) ==
-              g_army_type_table[pAVar3->army_type_id].merge_group_type)) {
-            bVar2 = pAVar3->mission_action_id;
+              g_army_type_table[pAVar2->army_type_id].merge_group_type)) {
+            bVar7 = pAVar2->mission_action_id;
             uVar12 = 0xffffffff;
             pcVar17 = &DAT_0057e230;
             goto code_r0x00494d58;
@@ -958,7 +958,7 @@ code_r0x00494d58:
     pcVar17 = pcVar17 + 1;
     pcVar16 = pcVar16 + 1;
   }
-  if (bVar2 == 0) {
+  if (bVar7 == 0) {
     uVar12 = 0xffffffff;
     pcVar17 = &DAT_0057e228;
     do {
@@ -989,19 +989,19 @@ LAB_00494dc2:
      (DAT_007584dc->cargo_or_subunit_count != 0)) {
     if ((*(int *)(DAT_007584e4 + 0xc) == 1) &&
        ((DAT_007584dc->cargo_or_subunit_count != 0 && (0 < *(int *)(DAT_007584e4 + 300))))) {
+      bVar4 = true;
+    }
+    else {
+      bVar4 = false;
+    }
+    if ((((*(int *)(DAT_007584e4 + 0xc) == 2) && (DAT_007584dc->cargo_or_subunit_count != 0)) &&
+        (0 < *(int *)(DAT_007584e4 + 300))) && (DAT_007584ec->linked_record == (void *)0x0)) {
       bVar5 = true;
     }
     else {
       bVar5 = false;
     }
-    if ((((*(int *)(DAT_007584e4 + 0xc) == 2) && (DAT_007584dc->cargo_or_subunit_count != 0)) &&
-        (0 < *(int *)(DAT_007584e4 + 300))) && (DAT_007584ec->linked_record == (void *)0x0)) {
-      bVar6 = true;
-    }
-    else {
-      bVar6 = false;
-    }
-    if ((!bVar5) && (!bVar6)) {
+    if ((!bVar4) && (!bVar5)) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e220;
       do {
@@ -1053,27 +1053,27 @@ LAB_00494dc2:
     }
   }
 LAB_00494eae:
-  pAVar3 = DAT_007584dc;
+  pAVar2 = DAT_007584dc;
   iVar14 = (int)(char)DAT_007584ec->army_count_or_occupant_count;
   if (((*(int *)(DAT_007584e4 + 500) == 1) &&
       (DAT_007584dc->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
      ((DAT_007584dc->cargo_or_subunit_count == 0 &&
       ((1 < iVar14 && ((char)DAT_007584dc->strength_or_health < 'd')))))) {
-    bVar5 = false;
+    bVar4 = false;
     iVar8 = 0;
     ppAVar9 = DAT_007584ec->army_or_city_ptrs_a;
     local_4 = iVar14;
     do {
-      if ((iVar14 < 1) || (bVar5)) break;
-      pAVar4 = *ppAVar9;
-      if (pAVar4 != (ArmyUnit_0x164_plus *)0x0) {
-        if (((((pAVar4 != DAT_007584dc) && (pAVar4->army_type_id == DAT_007584dc->army_type_id)) &&
-             (pAVar4->mission_state == 0)) &&
-            (pAVar4->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
-           ((((bVar2 = pAVar4->mission_action_id, bVar2 == 0 || (bVar2 == 3)) || (bVar2 == 2)) &&
-            ((int)(char)pAVar4->strength_or_health + (int)(char)DAT_007584dc->strength_or_health <
+      if ((iVar14 < 1) || (bVar4)) break;
+      pAVar3 = *ppAVar9;
+      if (pAVar3 != (ArmyUnit_0x164_plus *)0x0) {
+        if (((((pAVar3 != DAT_007584dc) && (pAVar3->army_type_id == DAT_007584dc->army_type_id)) &&
+             (pAVar3->mission_state == 0)) &&
+            (pAVar3->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
+           ((((bVar7 = pAVar3->mission_action_id, bVar7 == 0 || (bVar7 == 3)) || (bVar7 == 2)) &&
+            ((int)(char)pAVar3->strength_or_health + (int)(char)DAT_007584dc->strength_or_health <
              0x65)))) {
-          bVar5 = true;
+          bVar4 = true;
         }
         iVar14 = local_4 + -1;
         local_4 = iVar14;
@@ -1081,7 +1081,7 @@ LAB_00494eae:
       iVar8 = iVar8 + 1;
       ppAVar9 = ppAVar9 + 1;
     } while (iVar8 < 10);
-    if (bVar5) {
+    if (bVar4) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e210;
       do {
@@ -1109,9 +1109,9 @@ LAB_00494eae:
       }
     }
   }
-  pLVar7 = DAT_007584ec;
+  pLVar6 = DAT_007584ec;
   if ((DAT_007584ec->linked_record != (City_0x1b8_plus *)0x0) &&
-     (DAT_007584ec->linked_record != pAVar3->stationed_city)) {
+     (DAT_007584ec->linked_record != pAVar2->stationed_city)) {
     uVar12 = 0xffffffff;
     pcVar17 = &DAT_0057e208;
     do {
@@ -1163,7 +1163,7 @@ LAB_00494eae:
     pcVar17 = pcVar17 + 1;
     pcVar16 = pcVar16 + 1;
   }
-  if (pLVar7->linked_record == (void *)0x0) goto LAB_004950fa;
+  if (pLVar6->linked_record == (void *)0x0) goto LAB_004950fa;
   uVar12 = 0xffffffff;
   pcVar17 = &DAT_0057e1f8;
   do {

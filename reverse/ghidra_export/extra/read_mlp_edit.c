@@ -574,33 +574,33 @@ switchD_004b377a_default:
       else {
         switch(g_editor_overlay_action) {
         case 0:
-          iVar8 = Irrigate_Able(g_current_land_tile,g_editor_cursor_tile_x,g_editor_cursor_tile_y,1)
+          bVar4 = Irrigate_Able(g_current_land_tile,g_editor_cursor_tile_x,g_editor_cursor_tile_y,1)
           ;
-          if ((char)iVar8 != '\0') {
+          if (bVar4 != 0) {
             Make_New_Work(g_current_land_tile,0);
             g_request_redraw = 1;
             return;
           }
           break;
         case 1:
-          iVar8 = Pasturage_Able(g_current_land_tile);
-          if ((char)iVar8 != '\0') {
+          bVar4 = Pasturage_Able(g_current_land_tile);
+          if (bVar4 != 0) {
             Make_New_Work(g_current_land_tile,1);
             g_request_redraw = 1;
             return;
           }
           break;
         case 2:
-          iVar8 = Mine_Able(g_current_land_tile);
-          if ((char)iVar8 != '\0') {
+          bVar4 = Mine_Able(g_current_land_tile);
+          if (bVar4 != 0) {
             Make_New_Work(g_current_land_tile,2);
             g_request_redraw = 1;
             return;
           }
           break;
         case 3:
-          iVar8 = Fish_Able(g_current_land_tile);
-          if ((char)iVar8 != '\0') {
+          bVar4 = Fish_Able(g_current_land_tile);
+          if (bVar4 != 0) {
             Make_New_Work(g_current_land_tile,3);
             g_request_redraw = 1;
             return;

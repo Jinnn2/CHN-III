@@ -7,28 +7,21 @@
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-int Fish_Able(LandTile_0x100 *tile)
+byte Fish_Able(LandTile_0x100 *tile)
 
 {
   char cVar1;
-  undefined4 uVar2;
-  void *pvVar3;
 
-  uVar2 = Trace_Function(s_Fish_Able_00514ee0);
-  pvVar3 = (void *)CONCAT31((int3)((uint)uVar2 >> 8),tile->battle_stat_terrain_mode);
-  if (((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\x03')) &&
-     (pvVar3 = tile->linked_record, pvVar3 == (void *)0x0)) {
-    cVar1 = *(char *)tile;
-    pvVar3 = (void *)(cVar1 * 9);
-    if (g_ground_defs[cVar1].fishery_enabled != 0) {
-      pvVar3 = (void *)0x0;
-      if (cVar1 == '\f') {
-        return 1;
-      }
-      if (('\n' < cVar1) && (0 < tile->linked_count_or_city_count)) {
-        return 1;
-      }
+  Trace_Function(s_Fish_Able_00514ee0);
+  if ((((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\x03')) &&
+      (tile->linked_record == (void *)0x0)) &&
+     (cVar1 = *(char *)tile, g_ground_defs[cVar1].fishery_enabled != 0)) {
+    if (cVar1 == '\f') {
+      return 1;
+    }
+    if (('\n' < cVar1) && (0 < tile->linked_count_or_city_count)) {
+      return 1;
     }
   }
-  return (uint)pvVar3 & 0xffffff00;
+  return 0;
 }

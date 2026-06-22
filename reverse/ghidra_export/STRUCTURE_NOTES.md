@@ -119,12 +119,12 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Read_MRP_Edit` | Trace string `Read_MRP_Edit`; handles right-button press/drag erasing, removing linked cities, armies, overlays, city resources, and ownership/visibility flags through the same radius-offset buffers. | Map editor right-button erase dispatcher. |
 | `Read_MRR_Edit` | Trace string `Read_MRR_Edit`; handles right-button release by opening linked records, clearing editor named points, or confirming army removal. | Map editor right-button release dispatcher. |
 | `MLR_Edit_GameMap` | Trace string `MLR_Edit_GameMap`; handles single-click placement for cities, armies, long-wall overlays, city resources, editor named points, and template stamps. | Map editor map-click placement dispatcher. |
-| `Irrigate_Able` | Trace string `Irrigate_Able`; checks terrain definition flags, no linked record, and neighboring water/irrigation markers before allowing overlay action `0`. | Tile irrigation placement predicate. |
-| `Pasturage_Able` | Trace string `Pasturage_Able`; checks terrain definition support and no city/link record before overlay action `1`. | Tile pasture placement predicate. |
-| `Mine_Able` | Trace string `Mine_Able`; accepts road/rail-like base states and no linked record before overlay action `2`. | Tile mine placement predicate. |
-| `Fish_Able` | Trace string `Fish_Able`; checks terrain/resource markers for fishable water or coast-like tiles before overlay action `3`. | Tile fishing placement predicate. |
-| `Bridge_Able` | Trace string `Bridge_Able`; requires bridge-capable terrain image range and no linked record. | Tile bridge placement predicate. |
-| `LongWall_Able` | Trace string `LongWall_Able`; requires no long-wall marker, no linked record, positive city/link count, and no region marker. | Tile long-wall placement predicate. |
+| `Irrigate_Able` | Trace string `Irrigate_Able`; checks terrain definition flags, no linked record, and neighboring water/irrigation markers before allowing overlay action `0`; callers consume the low byte as a boolean. | Tile irrigation placement predicate. |
+| `Pasturage_Able` | Trace string `Pasturage_Able`; checks terrain definition support and no city/link record before overlay action `1`; callers consume the low byte as a boolean. | Tile pasture placement predicate. |
+| `Mine_Able` | Trace string `Mine_Able`; accepts road/rail-like base states and no linked record before overlay action `2`; callers consume the low byte as a boolean. | Tile mine placement predicate. |
+| `Fish_Able` | Trace string `Fish_Able`; checks terrain/resource markers for fishable water or coast-like tiles before overlay action `3`; callers consume the low byte as a boolean. | Tile fishing placement predicate. |
+| `Bridge_Able` | Trace string `Bridge_Able`; requires bridge-capable terrain image range and no linked record, then returns a bridge/tile-object value checked as positive by callers. | Tile bridge placement value helper. |
+| `LongWall_Able` | Trace string `LongWall_Able`; requires no long-wall marker, no linked record, positive city/link count, and no region marker; callers consume the low byte as a boolean. | Tile long-wall placement predicate. |
 | `Resource_Able` | Trace string `Resource_Able`; validates selected resource id against terrain/resource tables before accepting city resource tool `6`. | Tile resource placement predicate. |
 | `Clear_Mountain` | Trace string `Clear_Mountain`; clears mountain/height road markers over radius pattern `1` and refreshes affected tiles. | Editor helper for clearing mountain-style tile overlay state. |
 | `Cancel_All_Army_On_Tile` | Trace string misspells `Cancle_All_Army`; removes up to ten army pointers from a tile and clears owner bytes when empty. | Editor helper for deleting all armies on a tile. |
@@ -670,6 +670,13 @@ with stride `0x74`, so the table is 8 records. Active countries index it with
 `Load_Dat` copies a `0x21c` byte static ground table into `0x00589428`.
 `Before_Edit_Ground` backs up the same block and binds controls with stride
 `0x24`, giving 15 records.
+
+The editor-facing ground flags are consumed by the same map-improvement
+predicates used by `Read_MLP_Edit`, `MLR_Edit_GameMap`, `Order_Check`, and
+`AI_Worker`. `Irrigate_Able`, `Pasturage_Able`, `Mine_Able`, `Fish_Able`, and
+`LongWall_Able` are low-byte boolean predicates; `Bridge_Able` is the notable
+exception and returns a positive bridge/tile-object value when placement is
+possible.
 
 | Offset | Evidence | Working field |
 |---:|---|---|

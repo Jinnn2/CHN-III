@@ -7,19 +7,13 @@
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-int Mine_Able(LandTile_0x100 *tile)
+byte Mine_Able(LandTile_0x100 *tile)
 
 {
-  byte bVar1;
-  undefined4 uVar2;
-  void *pvVar3;
-
-  uVar2 = Trace_Function(s_Mine_Able_00514ed4);
-  bVar1 = tile->battle_stat_terrain_mode;
-  pvVar3 = (void *)CONCAT31((int3)((uint)uVar2 >> 8),bVar1);
-  if ((((bVar1 == 1) || (bVar1 == 2)) && (tile->field_0x1a != '\x02')) &&
-     (pvVar3 = tile->linked_record, pvVar3 == (void *)0x0)) {
+  Trace_Function(s_Mine_Able_00514ed4);
+  if ((((tile->battle_stat_terrain_mode == 1) || (tile->battle_stat_terrain_mode == 2)) &&
+      (tile->field_0x1a != '\x02')) && (tile->linked_record == (void *)0x0)) {
     return 1;
   }
-  return (uint)pvVar3 & 0xffffff00;
+  return 0;
 }

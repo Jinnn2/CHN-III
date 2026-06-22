@@ -7,18 +7,15 @@
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-int Pasturage_Able(LandTile_0x100 *tile)
+byte Pasturage_Able(LandTile_0x100 *tile)
 
 {
-  char cVar1;
-
   Trace_Function(s_Pasturage_Able_00514ec4);
   if ((((tile->battle_stat_terrain_mode == 0) || (tile->battle_stat_terrain_mode == 3)) &&
       (tile->field_0x1a != '\x01')) &&
-     ((tile->linked_record == (void *)0x0 &&
-      (cVar1 = *(char *)tile, tile = (LandTile_0x100 *)(cVar1 * 9),
-      g_ground_defs[cVar1].pasture_enabled != 0)))) {
-    return CONCAT31((int3)((uint)tile >> 8),1);
+     ((tile->linked_record == (void *)0x0 && (g_ground_defs[*(char *)tile].pasture_enabled != 0))))
+  {
+    return 1;
   }
-  return (uint)tile & 0xffffff00;
+  return 0;
 }
