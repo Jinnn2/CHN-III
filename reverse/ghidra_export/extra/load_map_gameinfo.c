@@ -249,12 +249,12 @@ void Load_Map_GameInfo(char *param_1,int param_2)
       g_custom_map_table[param_2].resource_setting = local_1b0;
       g_custom_map_table[param_2].special_product_count_setting = local_1ac;
       g_custom_map_table[param_2].origin_range_error_setting = local_1a8;
-      g_custom_map_table[param_2].scenario_rule_e8 = local_1a4;
+      g_custom_map_table[param_2].city_resource_system_enabled = local_1a4;
       g_custom_map_table[param_2].scenario_rule_f0 = local_1a0;
       g_custom_map_table[param_2].scenario_rule_f4 = local_19c;
       g_custom_map_table[param_2].scenario_rule_f8 = local_198;
       g_custom_map_table[param_2].scenario_rule_fc = local_194;
-      g_custom_map_table[param_2].scenario_rule_100 = local_190;
+      g_custom_map_table[param_2].auto_city_processing_countdown = local_190;
       g_custom_map_table[param_2].map_size_mode = local_18c;
       g_custom_map_table[param_2].science_table_choice = local_188;
       uVar4 = 0xffffffff;

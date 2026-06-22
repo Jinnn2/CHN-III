@@ -101,7 +101,8 @@ switchD_00451f3b_default:
             }
           }
 LAB_0045204d:
-          if (((g_current_map_scenario_info.scenario_rule_e8 != 0) && (-1 < pcVar7[0x17])) &&
+          if (((g_current_map_scenario_info.city_resource_system_enabled != 0) &&
+              (-1 < pcVar7[0x17])) &&
              ((0 < *(int *)(&DAT_005a8170 + pcVar7[0x17] * 0xd8) &&
               (*(int *)(pcVar7 + 0xf8) < 10000)))) {
             *(int *)(pcVar7 + 0xf8) =

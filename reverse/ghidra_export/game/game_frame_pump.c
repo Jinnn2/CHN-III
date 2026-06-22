@@ -32,11 +32,11 @@ void Game_Frame_Pump(void)
     DAT_005dffa8 = DAT_005dffa4;
     DAT_00716270 = DAT_00716280;
     DAT_00716284 = DAT_00716280;
-    g_current_map_scenario_info.scenario_rule_100 =
-         g_current_map_scenario_info.scenario_rule_100 + -1;
+    g_current_map_scenario_info.auto_city_processing_countdown =
+         g_current_map_scenario_info.auto_city_processing_countdown + -1;
     DAT_005dffa4 = 0;
     DAT_00716280 = 0;
-    if (((DAT_00755960 == 1) && (g_current_map_scenario_info.scenario_rule_100 < 1)) &&
+    if (((DAT_00755960 == 1) && (g_current_map_scenario_info.auto_city_processing_countdown < 1)) &&
        (DAT_0071628c < 2)) {
       Prepare_City_Doing();
     }

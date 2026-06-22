@@ -114,7 +114,7 @@ LAB_004df808:
                 if (cVar2 != '\0') goto LAB_004df9fa;
               }
               bVar5 = false;
-              if (g_current_map_scenario_info.scenario_rule_e8 == 0) {
+              if (g_current_map_scenario_info.city_resource_system_enabled == 0) {
                 if ((iVar9 != 0xe) || ('\0' < *(char *)(iVar15 + 0x198))) {
                   bVar5 = true;
                 }

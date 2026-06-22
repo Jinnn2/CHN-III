@@ -71,7 +71,7 @@ void City_Business(void)
           if ((((((local_38->trade_resource_state[iVar12] == 2) &&
                  ((char)g_current_city->trade_resource_state[iVar12] < '\x02')) &&
                 (g_current_city->trade_resource_state[iVar12] = 1,
-                g_current_map_scenario_info.scenario_rule_e8 == 1)) &&
+                g_current_map_scenario_info.city_resource_system_enabled == 1)) &&
                ((iVar10 != g_active_country_index &&
                 (g_active_country->trade_agreement_flags[iVar10] == 1)))) &&
               ((sVar1 = *(short *)((int)g_active_country->diplomacy_state_by_country +

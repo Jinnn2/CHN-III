@@ -249,6 +249,11 @@ the tile kind and road/detail mode to write before calling `Decode_NewMap`.
 
 ### `MapScenarioInfo_0x16c`
 
+`Before_Window_Edit_File_Detail` binds the editor-visible parts of this record,
+while `Load_Map_GameInfo` preserves additional rule/state dwords from the map
+file. Some late rule fields are therefore named from runtime use rather than
+from an isolated editor label.
+
 | Offset | Evidence | Working field |
 |---:|---|---|
 | `+0x00` | Editor label is file name; `Load_Map_GameInfo` copies the first short string here and the custom-map list formats it. | file name bytes. |
@@ -272,9 +277,10 @@ the tile kind and road/detail mode to write before calling `Decode_NewMap`.
 | `+0xdc` | Editor label is resource setting; custom-map initialization sets it when country/template validation fails. | resource setting. |
 | `+0xe0` | Editor label is specialty-product count. | special-product count setting. |
 | `+0xe4` | Editor label is origin range error. | origin range error setting. |
-| `+0xe8` | City resource, trade, and resource-feature paths use this as an enable gate. | city resource/trade rule. |
-| `+0xec` | City resource change suppresses an income/tax adjustment when this is nonzero. | city income/tax rule. |
-| `+0xf0..0x100` | Loaded rule/config dwords; editor labels have not been isolated yet. | scenario rule values. |
+| `+0xe8` | `Do_Map`, `Cal_City_Resource`, `City_Business`, `City_Building_AI`, and `Put_City_Make` gate city resource stockpiles, trade resources, and resource-dependent build paths on this value. | city resource system enabled. |
+| `+0xec` | `City_Resource_Change` applies the government corruption deduction only when this value is zero. | corruption deduction mode. |
+| `+0xf0..0xfc` | Loaded rule/config dwords; editor labels and direct runtime consumers have not been isolated yet. | scenario rule values. |
+| `+0x100` | `Game_Frame_Pump` decrements it once per second and calls `Prepare_City_Doing` when automatic processing is enabled and the value reaches zero. | auto city processing countdown. |
 | `+0x104` | `Load_Dat` and `MLR_Edit_SelCustomMap` branch on it before setting map dimensions. | map size mode. |
 | `+0x108` | Editor label is science selection; options select one of five science tables. | science table choice. |
 | `+0x10c` | `Load_Map_GameInfo` copies a 64-byte text field here. | long description bytes. |

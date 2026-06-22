@@ -50,8 +50,8 @@ void Before_Window_Edit_File_Detail(void)
     g_current_map_scenario_info.country_density_setting = 0;
     g_current_map_scenario_info.special_product_count_setting = 1;
     g_current_map_scenario_info.resource_setting = 0;
-    g_current_map_scenario_info.scenario_rule_e8 = 1;
-    g_current_map_scenario_info.scenario_rule_ec = 1;
+    g_current_map_scenario_info.city_resource_system_enabled = 1;
+    g_current_map_scenario_info.corruption_deduction_mode = 1;
     g_current_map_scenario_info.scenario_value_15c = 1;
     g_current_map_scenario_info.scenario_value_160 = 0;
     g_current_map_scenario_info.movement_base = 1;

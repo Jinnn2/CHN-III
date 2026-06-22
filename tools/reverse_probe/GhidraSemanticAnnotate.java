@@ -236,7 +236,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(mapScenarioInfo, 0x68, new ArrayDataType(IntegerDataType.dataType, 22, 4),
             0x58, "country_slot_values", "Load_Map_GameInfo copies 22 dwords; custom-map load uses them to seed selectable countries");
         replaceAt(mapScenarioInfo, 0xc0, IntegerDataType.dataType, 4, "scenario_rule_c0",
-            "rule/config dword exposed in the edit-file-detail form");
+            "scenario-rule dword initialized by new-map/custom-map setup; no direct edit-file-detail binding isolated yet");
         replaceAt(mapScenarioInfo, 0xc4, IntegerDataType.dataType, 4, "country_density_setting",
             "editor label is density; options include near-player and random placement");
         replaceAt(mapScenarioInfo, 0xc8, IntegerDataType.dataType, 4, "country_feature_setting",
@@ -255,20 +255,20 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "editor label is specialty-product count");
         replaceAt(mapScenarioInfo, 0xe4, IntegerDataType.dataType, 4, "origin_range_error_setting",
             "editor label is origin range error");
-        replaceAt(mapScenarioInfo, 0xe8, IntegerDataType.dataType, 4, "scenario_rule_e8",
-            "city resource/trade/resource-feature rule gate");
-        replaceAt(mapScenarioInfo, 0xec, IntegerDataType.dataType, 4, "scenario_rule_ec",
-            "city income/tax rule gate");
+        replaceAt(mapScenarioInfo, 0xe8, IntegerDataType.dataType, 4, "city_resource_system_enabled",
+            "Do_Map, Cal_City_Resource, City_Business, and city build paths gate tile resources and trade resources on this field");
+        replaceAt(mapScenarioInfo, 0xec, IntegerDataType.dataType, 4, "corruption_deduction_mode",
+            "City_Resource_Change applies corruption deduction only when this field is zero");
         replaceAt(mapScenarioInfo, 0xf0, IntegerDataType.dataType, 4, "scenario_rule_f0",
-            "rule/config dword exposed in the edit-file-detail form");
+            "scenario-rule dword loaded from map info; no direct runtime consumer isolated yet");
         replaceAt(mapScenarioInfo, 0xf4, IntegerDataType.dataType, 4, "scenario_rule_f4",
-            "rule/config dword exposed in the edit-file-detail form");
+            "scenario-rule dword loaded from map info; no direct runtime consumer isolated yet");
         replaceAt(mapScenarioInfo, 0xf8, IntegerDataType.dataType, 4, "scenario_rule_f8",
-            "rule/config dword exposed in the edit-file-detail form");
+            "scenario-rule dword loaded from map info; no direct runtime consumer isolated yet");
         replaceAt(mapScenarioInfo, 0xfc, IntegerDataType.dataType, 4, "scenario_rule_fc",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0x100, IntegerDataType.dataType, 4, "scenario_rule_100",
-            "rule/config dword exposed in the edit-file-detail form");
+            "scenario-rule dword loaded from map info; no direct runtime consumer isolated yet");
+        replaceAt(mapScenarioInfo, 0x100, IntegerDataType.dataType, 4, "auto_city_processing_countdown",
+            "Game_Frame_Pump decrements this once per second and calls Prepare_City_Doing when automatic processing is enabled and the value reaches zero");
         replaceAt(mapScenarioInfo, 0x104, IntegerDataType.dataType, 4, "map_size_mode",
             "custom-map loader sets g_map_size_mode from this field before sizing the tile map");
         replaceAt(mapScenarioInfo, 0x108, IntegerDataType.dataType, 4, "science_table_choice",
