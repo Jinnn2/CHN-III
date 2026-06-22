@@ -58,10 +58,10 @@ App_WinMain_Entry(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
         WaitMessage();
       }
       else if (g_app_screen_state == 0x25) {
-        FUN_0041fab0();
+        Game_Frame_Pump();
       }
       else {
-        FUN_0041f9a0();
+        App_Frame_Pump();
       }
     }
     if (DAT_005dfeec == 0x12) {

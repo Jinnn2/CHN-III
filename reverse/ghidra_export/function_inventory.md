@@ -99,8 +99,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0041f8c0` | `City_Like_Change` | 58 | 1 |
 | `0x0041f900` | `Restore_DirectDraw_Surfaces` | 27 | 0 |
 | `0x0041f920` | `FUN_0041f920` | 122 | 2 |
-| `0x0041f9a0` | `FUN_0041f9a0` | 269 | 11 |
-| `0x0041fab0` | `FUN_0041fab0` | 685 | 12 |
+| `0x0041f9a0` | `App_Frame_Pump` | 269 | 11 |
+| `0x0041fab0` | `Game_Frame_Pump` | 685 | 12 |
 | `0x0041fd60` | `FUN_0041fd60` | 1067 | 28 |
 | `0x00420350` | `FUN_00420350` | 343 | 10 |
 | `0x004204b0` | `FUN_004204b0` | 867 | 2 |
@@ -482,7 +482,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0049ca90` | `FUN_0049ca90` | 300 | 3 |
 | `0x0049cbc0` | `FUN_0049cbc0` | 6226 | 9 |
 | `0x0049e580` | `Put_City_View` | 5893 | 13 |
-| `0x0049fd10` | `FUN_0049fd10` | 305 | 6 |
+| `0x0049fd10` | `Edit_Start` | 305 | 6 |
 | `0x0049fe50` | `FUN_0049fe50` | 723 | 15 |
 | `0x004a0130` | `FUN_004a0130` | 80 | 1 |
 | `0x004a0180` | `FUN_004a0180` | 93 | 1 |
@@ -517,7 +517,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004b0130` | `FUN_004b0130` | 127 | 2 |
 | `0x004b01b0` | `FUN_004b01b0` | 1815 | 9 |
 | `0x004b08f0` | `FUN_004b08f0` | 745 | 4 |
-| `0x004b0c00` | `FUN_004b0c00` | 6839 | 26 |
+| `0x004b0c00` | `Read_Keyboard` | 6839 | 26 |
 | `0x004b29c0` | `FUN_004b29c0` | 2290 | 9 |
 | `0x004b3330` | `FUN_004b3330` | 3840 | 15 |
 | `0x004b4300` | `FUN_004b4300` | 6600 | 33 |
@@ -541,7 +541,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004baae0` | `FUN_004baae0` | 132 | 1 |
 | `0x004babf0` | `FUN_004babf0` | 3974 | 10 |
 | `0x004bbdf0` | `FUN_004bbdf0` | 2335 | 4 |
-| `0x004bc720` | `FUN_004bc720` | 655 | 10 |
+| `0x004bc720` | `PlayGame_Init` | 655 | 10 |
 | `0x004bc9b0` | `FUN_004bc9b0` | 4145 | 31 |
 | `0x004bda90` | `FUN_004bda90` | 111 | 6 |
 | `0x004bdb00` | `FUN_004bdb00` | 202 | 3 |

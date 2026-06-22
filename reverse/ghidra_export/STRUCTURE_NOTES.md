@@ -72,6 +72,11 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Process_CommandLine_Args` | Trace string `Argument_Process`; parses options such as `SERVER`, `LOAD`, `DEMO`, `SIMPLE`, `ENGLISH`, `NOTEACH`, and `EDIT`. | Startup command-line option parser. |
 | `Init_SetUp` | Trace string `Init_SetUp`; initializes DirectDraw, loads `EDIT_IMG`, `METAL.EMG`, `NEWUI.EMG`, mouse/UI resources, fonts, and startup data. | Main application setup and resource loading. |
 | `App_WinMain_Entry` | Creates the app mutex, calls command-line/setup routines, chooses initial `g_app_screen_state`, then runs the Windows message loop. | Main WinMain-style entry function. |
+| `App_Frame_Pump` | Default idle-loop frame pump used when `g_app_screen_state != 0x25`; updates frame timing, reads input, dispatches `Read_Keyboard`, draws, and presents. | Non-game/main-menu frame loop. |
+| `Game_Frame_Pump` | Idle-loop frame pump used when `g_app_screen_state == 0x25`; updates game/map timers, dispatches `Read_Keyboard`, redraws active map UI, and can call `Prepare_City_Doing`. | In-game/map/editor frame loop. |
+| `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
+| `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
+| `Read_Keyboard` | Trace string `Read_Keyboard`; game/map input dispatcher. Pressing `E/e` toggles `g_editor_mode_enabled`, calls `Edit_Start` when entering edit mode, and calls the editor-exit path when leaving. | Keyboard dispatcher, including editor toggle. |
 
 ## Useful Offsets
 
@@ -409,6 +414,10 @@ important code-first files are:
 - `game/process_command_line_args.c`, `game/app_winmain_entry.c`, and
   `game/init_setup.c`: startup path, `/EDIT` mode detection, editor resource
   loading, and initial screen-state selection.
+- `game/app_frame_pump.c`, `game/game_frame_pump.c`,
+  `extra/playgame_init.c`, `extra/edit_start.c`, and
+  `extra/read_keyboard.c`: runtime path into map/editor mode, editor toggle,
+  and whole-map backup allocation.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

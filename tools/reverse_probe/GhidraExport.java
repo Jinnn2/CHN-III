@@ -55,6 +55,8 @@ public class GhidraExport extends GhidraScript {
         new Target(0x503730L, "extra/format_text.c"),
 
         new Target(0x40b450L, "game/process_command_line_args.c"),
+        new Target(0x41f9a0L, "game/app_frame_pump.c"),
+        new Target(0x41fab0L, "game/game_frame_pump.c"),
         new Target(0x420820L, "game/app_winmain_entry.c"),
         new Target(0x46e950L, "game/init_setup.c"),
 
@@ -159,7 +161,10 @@ public class GhidraExport extends GhidraScript {
         new Target(0x4959a0L, "extra/order_diplomat_sel_take_city_or_diplomat.c"),
         new Target(0x495a50L, "extra/order_diplomat_sel_take_city.c"),
         new Target(0x496df0L, "extra/start_map_battle_from_tile.c"),
+        new Target(0x49fd10L, "extra/edit_start.c"),
         new Target(0x49e580L, "extra/put_city_view.c"),
+        new Target(0x4b0c00L, "extra/read_keyboard.c"),
+        new Target(0x4bc720L, "extra/playgame_init.c"),
         new Target(0x4d91a0L, "extra/put_city_citizen.c"),
         new Target(0x4df2e0L, "extra/put_city_make.c"),
         new Target(0x4ec1a0L, "extra/load_ui_dip_emg.c")
