@@ -14,11 +14,17 @@ Generated with:
 powershell -ExecutionPolicy Bypass -File tools\reverse_probe\run_ghidra_export.ps1
 ```
 
+Full function pseudocode can be regenerated with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\reverse_probe\run_ghidra_export.ps1 -AllFunctions
+```
+
 The portable toolchain used for this export is kept inside
 `tools\decompiler`:
 
 - `ghidra_12.1.2_PUBLIC`
-- `jdk-21.0.11+10`
+- optional `jdk-*` directory, or any compatible `java.exe` on `PATH`
 
 ## Top-Level Indexes
 
@@ -31,6 +37,9 @@ The portable toolchain used for this export is kept inside
   evidence used to apply them.
 - `UNCERTAINTIES.md`: fields whose behavior is partly understood but whose
   original UI/game label is not proven yet.
+- `all_functions/*.c`: raw all-function decompiler export. This currently
+  contains 1106 files, one per Ghidra-detected function. These are useful for
+  coverage and search, but most are not manually named or cleaned.
 
 ## UI And Render Pseudocode
 
@@ -95,10 +104,10 @@ remaining limits are semantic, not tooling setup:
   are evidence-based reconstructions.
 - Some large functions, especially `load_dat.c` and battle/city AI routines,
   need additional field-by-field propagation before they become clean source.
-- Additional subsystems can still be exported manually by adding target
-  addresses to `tools/reverse_probe/GhidraExport.java`, but the obvious
-  debug-string/xref-driven main-logic and UI-rendering targets have already
-  been swept once.
+- The `all_functions` export covers every Ghidra-detected function, but it is
+  not equivalent to original source. It still lacks original comments, local
+  variable names, file/module boundaries, exact class layouts, and some type
+  signatures.
 
 The most productive next manual step is correlating `UI_String.EMG`,
 `UI_CITY.EMG`, and the city screen with the remaining ambiguous city stat and

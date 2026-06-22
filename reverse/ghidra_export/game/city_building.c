@@ -21,12 +21,12 @@ void City_Building(void)
   int iVar8;
   short *psVar9;
   uint uVar10;
-  void **ppvVar11;
+  ArmyUnit_0x164_plus **ppAVar11;
   byte bVar12;
   int iVar13;
   int iVar14;
   int iVar15;
-  undefined1 *puVar16;
+  SpecialProjectDef_0x200 *pSVar16;
   City_0x1b8_plus *pCVar17;
   City_0x1b8_plus *pCVar18;
   char *pcVar19;
@@ -38,7 +38,7 @@ void City_Building(void)
   
   Trace_Function();
   iVar15 = 0;
-  if ((char)g_active_country->field_0x6c < '\x01') {
+  if ((char)g_active_country->production_freeze_flag < '\x01') {
     uVar5 = 0;
     if (g_current_city->max_worker_slots != 0) {
       uVar5 = ((uint)g_current_city->unassigned_workers * 100) /
@@ -58,9 +58,9 @@ void City_Building(void)
       g_current_city->build_progress = g_current_city->build_progress + iVar15;
     }
   }
-  cVar1 = g_current_city->field_0x5c;
+  bVar12 = g_current_city->production_mode;
   iVar13 = (uint)g_active_country->leader_or_country_id * 0x200;
-  if (cVar1 == '\0') {
+  if (bVar12 == 0) {
     iVar8 = (char)g_current_city->forced_worker_mode * 0x400;
     if ((0 < iVar15) && (8 < *(int *)(&DAT_00589ab4 + iVar13))) {
       g_current_city->build_progress =
@@ -86,15 +86,15 @@ void City_Building(void)
         }
         else {
           iVar15 = 0;
-          ppvVar11 = g_current_city_land_tile->army_or_city_ptrs_b;
+          ppAVar11 = g_current_city_land_tile->army_or_city_ptrs_b;
           do {
-            if ((*ppvVar11 != (byte *)0x0) &&
-               (*(int *)(g_army_type_table + (uint)*(byte *)*ppvVar11 * 0x400 + 0xc) == 1)) {
+            if ((*ppAVar11 != (ArmyUnit_0x164_plus *)0x0) &&
+               (*(int *)(g_army_type_table + (uint)(*ppAVar11)->army_type_id * 0x400 + 0xc) == 1)) {
               g_current_city->stored_population_or_value = 100;
               goto LAB_00422234;
             }
             iVar15 = iVar15 + 1;
-            ppvVar11 = ppvVar11 + 1;
+            ppAVar11 = ppAVar11 + 1;
           } while (iVar15 < 10);
           g_city_removed_this_turn = 1;
           DAT_00706868 = 1;
@@ -132,7 +132,7 @@ LAB_00422234:
                    g_active_country_index,uVar22,iVar15,g_current_city);
       pCVar18 = g_current_city;
       if ((g_active_country_index == g_human_country_index) && (DAT_0074a2cf != '\0')) {
-        Format_Text(local_188,&DAT_00515520,&g_current_city->field_0x3,iVar8 + 0x5aa2dc);
+        Format_Text(local_188,&DAT_00515520,g_current_city->name_bytes,iVar8 + 0x5aa2dc);
         FUN_004898b0(DAT_007350b4,local_188,1,g_current_city_x,g_current_city_y);
         pCVar18 = g_current_city;
       }
@@ -140,16 +140,16 @@ LAB_00422234:
     else {
       pCVar18 = g_current_city;
       if ((g_active_country_index == g_human_country_index) && (DAT_0074a2cf != '\0')) {
-        Format_Text(local_188,&DAT_00515510,&g_current_city->field_0x3);
+        Format_Text(local_188,&DAT_00515510,g_current_city->name_bytes);
         FUN_004898b0(DAT_007350b4,local_188,1,g_current_city_x,g_current_city_y);
         pCVar18 = g_current_city;
       }
     }
   }
   else {
-    if (cVar1 == '\x01') {
+    if (bVar12 == 1) {
       iVar14 = (int)(char)g_current_city->forced_worker_mode;
-      iVar8 = (&DAT_0059980c)[iVar14 * 0x80];
+      iVar8 = g_building_defs[iVar14].build_cost;
       if ((_DAT_00749ca8 == g_active_country_index) && (g_current_city->forced_worker_mode == 0x17))
       {
         iVar8 = iVar8 / 2;
@@ -158,20 +158,23 @@ LAB_00422234:
         iVar8 = (iVar8 * 0x50) / 100;
       }
       if (0 < iVar15) {
-        if ((((&DAT_005998a4)[iVar14 * 0x80] == 6) && (6 < *(int *)(&DAT_00589acc + iVar13))) &&
-           (6 < *(int *)(&DAT_00589ad0 + iVar13))) {
+        if (((g_building_defs[iVar14].building_category == 6) &&
+            (6 < *(int *)(&DAT_00589acc + iVar13))) && (6 < *(int *)(&DAT_00589ad0 + iVar13))) {
           g_current_city->build_progress =
                g_current_city->build_progress + *(int *)(&DAT_00589acc + iVar13) + -6;
         }
-        if (((&DAT_005998a4)[iVar14 * 0x80] == 2) && (6 < *(int *)(&DAT_00589ab4 + iVar13))) {
+        if ((g_building_defs[iVar14].building_category == 2) &&
+           (6 < *(int *)(&DAT_00589ab4 + iVar13))) {
           g_current_city->build_progress =
                g_current_city->build_progress + *(int *)(&DAT_00589ab4 + iVar13) + -6;
         }
-        if (((&DAT_005998a4)[iVar14 * 0x80] == 5) && (6 < *(int *)(&DAT_00589ab0 + iVar13))) {
+        if ((g_building_defs[iVar14].building_category == 5) &&
+           (6 < *(int *)(&DAT_00589ab0 + iVar13))) {
           g_current_city->build_progress =
                g_current_city->build_progress + *(int *)(&DAT_00589ab0 + iVar13) + -6;
         }
-        if (((&DAT_005998a4)[iVar14 * 0x80] == 4) && (6 < *(int *)(&DAT_00589aac + iVar13))) {
+        if ((g_building_defs[iVar14].building_category == 4) &&
+           (6 < *(int *)(&DAT_00589aac + iVar13))) {
           g_current_city->build_progress =
                g_current_city->build_progress + *(int *)(&DAT_00589aac + iVar13) + -6;
         }
@@ -179,12 +182,12 @@ LAB_00422234:
       if (g_current_city->build_progress < iVar8) goto LAB_00421ca4;
       g_current_city->building_status[(char)g_current_city->forced_worker_mode] = 2;
       g_current_city->building_income_yield =
-           g_current_city->building_income_yield + *(short *)(&DAT_00599814 + iVar14 * 0x80);
+           g_current_city->building_income_yield + g_building_defs[iVar14].income_yield_delta;
       City_Loyal_Change(g_current_city);
       City_Happy_Change(g_current_city,
                         (*(int *)(&DAT_00599290 + g_active_country->government_or_ai_mode * 0x74) *
-                         (&DAT_0059981c)[iVar14 * 0x80] * 10) / 100 + (&DAT_0059981c)[iVar14 * 0x80]
-                       );
+                         g_building_defs[iVar14].business_delta * 10) / 100 +
+                        g_building_defs[iVar14].business_delta);
       City_Safe_Change(g_current_city);
       City_Business_Change(g_current_city);
       bVar12 = g_current_city->forced_worker_mode;
@@ -196,7 +199,7 @@ LAB_00422234:
         if (g_current_city != g_active_country->capital_city) {
           g_active_country->capital_city = g_current_city;
           uVar5 = 0xffffffff;
-          pcVar6 = &g_current_city->field_0x3;
+          pcVar6 = g_current_city->name_bytes;
           do {
             pcVar19 = pcVar6;
             if (uVar5 == 0) break;
@@ -207,7 +210,7 @@ LAB_00422234:
           } while (cVar1 != '\0');
           uVar5 = ~uVar5;
           pcVar6 = pcVar19 + -uVar5;
-          pcVar19 = &g_active_country->field_0x3c;
+          pcVar19 = g_active_country->capital_name_bytes;
           for (uVar10 = uVar5 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
             *(undefined4 *)pcVar19 = *(undefined4 *)pcVar6;
             pcVar6 = pcVar6 + 4;
@@ -220,27 +223,27 @@ LAB_00422234:
           }
           if (g_active_country_index == g_human_country_index) {
             Format_Text(local_188,&DAT_0051556c,g_active_country->name_bytes,
-                        &g_current_city->field_0x3);
+                        g_current_city->name_bytes);
             FUN_004898b0(DAT_007350b4,local_188,1,g_current_city_x,g_current_city_y);
-            Format_Text(local_c8,&DAT_00515558,&g_current_city->field_0x3);
+            Format_Text(local_c8,&DAT_00515558,g_current_city->name_bytes);
             FUN_00489e20(g_active_country_index,0xffffffff,0xffffffff,local_c8);
             UI_YesNo_Result(local_c8,0);
           }
           else if (0 < *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4)) {
             Format_Text(local_188,&DAT_00515544,g_active_country->name_bytes,
-                        &g_current_city->field_0x3);
+                        g_current_city->name_bytes);
             FUN_004898b0(DAT_007350b4,local_188,1,g_current_city_x,g_current_city_y);
           }
         }
         if (g_current_city->building_status[1] == 2) {
           g_current_city->building_status[1] = 0;
           g_current_city->building_income_yield =
-               g_current_city->building_income_yield - (short)DAT_00599a14;
+               g_current_city->building_income_yield - g_building_defs[1].income_yield_delta;
         }
         if (g_current_city->building_status[0x19] == 2) {
           g_current_city->building_status[0x19] = 0;
           g_current_city->building_income_yield =
-               g_current_city->building_income_yield - DAT_0059ca14;
+               g_current_city->building_income_yield - g_building_defs[0x19].income_yield_delta;
         }
       }
       else if (bVar12 == g_current_city->event_lock) {
@@ -248,24 +251,23 @@ LAB_00422234:
       }
       pCVar18 = g_current_city;
       if (g_active_country_index == g_human_country_index) {
-        Format_Text(local_188,&DAT_00515530,&g_current_city->field_0x3,
-                    &DAT_005997d4 + iVar14 * 0x200);
+        Format_Text(local_188,&DAT_00515530,g_current_city->name_bytes,iVar14 * 0x200 + 0x5997d4);
         Event_City_View(g_current_city,(int)(char)g_current_city->build_queue_tile_x[0],
                         (int)(char)g_current_city->build_queue_tile_y[0],1,local_188);
         pCVar18 = g_current_city;
       }
       goto LAB_0042236b;
     }
-    if (cVar1 != '\x02') {
+    if (bVar12 != 2) {
 LAB_00421ca4:
       if ((g_active_country_index == g_human_country_index) && (g_auto_turn_or_ai_control_flag == 0)
          ) {
         return;
       }
-      cVar1 = g_current_city->field_0x5c;
-      if (cVar1 == '\0') {
+      bVar12 = g_current_city->production_mode;
+      if (bVar12 == 0) {
         if ((g_current_city_land_tile->army_count_or_occupant_count == 0) &&
-           (3 < *(ushort *)&g_current_city->field_0x17e)) {
+           (3 < g_current_city->neighbor_city_pressure)) {
           bVar20 = true;
         }
         else {
@@ -301,9 +303,9 @@ LAB_00421ca4:
         bVar20 = g_active_country_index == g_human_country_index;
       }
       else {
-        if (cVar1 == '\x01') {
-          iVar13 = (int)(char)g_current_city->forced_worker_mode;
-          iVar15 = (&DAT_0059980c)[iVar13 * 0x80] - g_current_city->build_progress;
+        if (bVar12 == 1) {
+          bVar12 = g_current_city->forced_worker_mode;
+          iVar15 = g_building_defs[(char)bVar12].build_cost - g_current_city->build_progress;
           if (iVar15 < 1) {
             return;
           }
@@ -318,25 +320,26 @@ LAB_00421ca4:
           }
           dVar2 = g_active_country->science_budget_or_treasury / (double)iVar15;
           if ((g_active_country->science_budget_or_treasury /
-               (double)*(ushort *)&g_active_country->field_0x1aa < _DAT_0050f308) ||
+               (double)g_active_country->total_force_or_unit_count < _DAT_0050f308) ||
              (dVar2 <= _DAT_0050f300)) {
-            iVar8 = 0;
-            if ((g_current_city->business_score < 0x3c) && (4 < (int)(&DAT_0059981c)[iVar13 * 0x80])
-               ) {
-              iVar8 = ((&DAT_0059981c)[iVar13 * 0x80] * 4 + 0x3c) - g_current_city->business_score;
+            iVar13 = 0;
+            if ((g_current_city->business_score < 0x3c) &&
+               (4 < g_building_defs[(char)bVar12].business_delta)) {
+              iVar13 = (g_building_defs[(char)bVar12].business_delta * 4 + 0x3c) -
+                       g_current_city->business_score;
             }
-            if ((g_current_city->safety_score < 0x3c) && (4 < (int)(&DAT_00599820)[iVar13 * 0x80]))
-            {
-              iVar8 = iVar8 + (((&DAT_00599820)[iVar13 * 0x80] * 4 + 0x3c) -
-                              g_current_city->safety_score);
+            if ((g_current_city->safety_score < 0x3c) &&
+               (4 < g_building_defs[(char)bVar12].safety_delta)) {
+              iVar13 = iVar13 + ((g_building_defs[(char)bVar12].safety_delta * 4 + 0x3c) -
+                                g_current_city->safety_score);
             }
             if ((g_current_city->growth_or_industry_score < 0x3c) &&
-               (4 < (int)(&DAT_00599818)[iVar13 * 0x80])) {
-              iVar8 = iVar8 + (((&DAT_00599818)[iVar13 * 0x80] * 4 + 0x3c) -
-                              g_current_city->growth_or_industry_score);
+               (4 < g_building_defs[(char)bVar12].growth_delta)) {
+              iVar13 = iVar13 + ((g_building_defs[(char)bVar12].growth_delta * 4 + 0x3c) -
+                                g_current_city->growth_or_industry_score);
             }
-            if ((iVar8 < 0x65) || (dVar2 < _DAT_0050f2f8)) {
-              if (iVar8 < 0x12d) {
+            if ((iVar13 < 0x65) || (dVar2 < _DAT_0050f2f8)) {
+              if (iVar13 < 0x12d) {
                 return;
               }
               if (dVar2 < _DAT_0050f2d0) {
@@ -344,7 +347,7 @@ LAB_00421ca4:
               }
             }
           }
-          g_current_city->build_progress = (&DAT_0059980c)[iVar13 * 0x80];
+          g_current_city->build_progress = g_building_defs[(char)bVar12].build_cost;
           FUN_0041f2b0(g_active_country_index,(double)-iVar15);
           if (g_active_country_index != g_human_country_index) {
             return;
@@ -352,10 +355,10 @@ LAB_00421ca4:
           _DAT_00749188 = _DAT_00749188 + iVar15;
           return;
         }
-        if (cVar1 != '\x02') {
+        if (bVar12 != 2) {
           return;
         }
-        iVar15 = (&DAT_005a1a0c)[(char)g_current_city->forced_worker_mode * 0x80] -
+        iVar15 = g_special_project_defs[(char)g_current_city->forced_worker_mode].build_cost -
                  g_current_city->build_progress;
         if (iVar15 < 1) {
           return;
@@ -370,14 +373,14 @@ LAB_00421ca4:
           return;
         }
         if (g_active_country->science_budget_or_treasury /
-            (double)*(ushort *)&g_active_country->field_0x1aa < _DAT_0050f308) {
+            (double)g_active_country->total_force_or_unit_count < _DAT_0050f308) {
           return;
         }
         if (g_active_country->science_budget_or_treasury / (double)iVar15 <= _DAT_0050f300) {
           return;
         }
         g_current_city->build_progress =
-             (&DAT_005a1a0c)[(char)g_current_city->forced_worker_mode * 0x80];
+             g_special_project_defs[(char)g_current_city->forced_worker_mode].build_cost;
         FUN_0041f2b0(g_active_country_index,(double)-iVar15);
         bVar20 = g_active_country_index == g_human_country_index;
       }
@@ -388,7 +391,7 @@ LAB_00421ca4:
       return;
     }
     iVar13 = (int)(char)g_current_city->forced_worker_mode;
-    iVar15 = (&DAT_005a1a0c)[iVar13 * 0x80];
+    iVar15 = g_special_project_defs[iVar13].build_cost;
     if (g_active_country_index == 0xf) {
       iVar15 = (iVar15 * 0x50) / 100;
     }
@@ -414,7 +417,7 @@ LAB_00421ca4:
       if ((g_active_country_index == g_human_country_index) && (DAT_0074a2cf != '\0')) {
         Format_Text(local_188,&DAT_00515580,
                     &DAT_007350bc + *(int *)(&DAT_00749c80 + iVar13 * 8) * 0xe68,
-                    &DAT_005a19d4 + iVar13 * 0x200);
+                    g_special_project_defs + iVar13);
         FUN_004898b0(_DAT_0074a316,local_188,0,0xffffffff,0xffffffff);
       }
       pCVar18 = g_current_city;
@@ -444,16 +447,16 @@ LAB_00421ca4:
       pcVar6 = pcVar6 + 0xe68;
       iVar15 = iVar15 + 1;
     } while (iVar15 < 0x16);
-    puVar16 = &DAT_005a19d4 + iVar13 * 0x200;
+    pSVar16 = g_special_project_defs + iVar13;
     *(int *)(&DAT_00749c80 + iVar13 * 8) = g_active_country_index;
     *(City_0x1b8_plus **)(&DAT_00749c84 + iVar13 * 8) = pCVar18;
     pCVar18->special_project_status[iVar13] = 2;
     g_current_city->building_income_yield =
-         g_current_city->building_income_yield + *(short *)(&DAT_005a1a14 + iVar13 * 0x80);
+         g_current_city->building_income_yield + g_special_project_defs[iVar13].income_yield_delta;
     g_active_country->special_project_pending_counts[iVar13] = 0;
     g_active_country->pending_special_project_count =
          g_active_country->pending_special_project_count - 1;
-    Format_Text(local_188,&DAT_00515734,g_active_country->name_bytes,puVar16);
+    Format_Text(local_188,&DAT_00515734,g_active_country->name_bytes,pSVar16);
     if (DAT_0074a2cf != '\0') {
       FUN_004898b0(_DAT_0074a316,local_188,1,g_current_city->tile_x,g_current_city->tile_y);
     }
@@ -480,7 +483,7 @@ LAB_00421ca4:
     FUN_00443e00(g_active_country_index,local_188,puVar21,0x500000005);
 switchD_00421821_default:
     if (g_active_country_index == g_human_country_index) {
-      Format_Text(local_c8,&DAT_00515660,&g_current_city->field_0x3,puVar16);
+      Format_Text(local_c8,&DAT_00515660,g_current_city->name_bytes,pSVar16);
       FUN_00489e20(g_active_country_index,0xffffffff,0xffffffff,local_c8);
     }
     bVar20 = false;
@@ -503,7 +506,7 @@ switchD_00421821_default:
               bVar20 = true;
               pCVar17->build_queue_tile_y[iVar15] = 0xff;
               if (iVar15 == 0) {
-                pCVar17->field_0x5c = 0xff;
+                pCVar17->production_mode = 0xff;
                 pCVar17->forced_worker_mode = 0xff;
               }
               if (iVar15 < (int)(pCVar17->has_build_queue - 1)) {
@@ -531,11 +534,11 @@ switchD_00421821_default:
       } while (pCVar17 != (City_0x1b8_plus *)0x0);
       if (bVar20) {
         if (g_active_country_index == g_human_country_index) {
-          Format_Text(local_c8,&DAT_00515630,&pCVar18->field_0x3,puVar16);
+          Format_Text(local_c8,&DAT_00515630,pCVar18->name_bytes,pSVar16);
         }
         else {
           Format_Text(local_c8,&DAT_00515600,
-                      &DAT_007350bc + *(int *)(&DAT_00749c80 + iVar13 * 8) * 0xe68,puVar16);
+                      &DAT_007350bc + *(int *)(&DAT_00749c80 + iVar13 * 8) * 0xe68,pSVar16);
           sVar4 = FUN_004fbf50(3);
           if (sVar4 == 0) {
             puVar21 = &DAT_005155ac;
@@ -563,8 +566,8 @@ LAB_0042236b:
     iVar15 = 0;
     do {
       iVar8 = iVar15 + 1;
-      *(undefined2 *)(pCVar18->building_status + iVar13 + -100) =
-           *(undefined2 *)(pCVar18->building_status + iVar13 + -0x62);
+      *(undefined2 *)(pCVar18->name_bytes + iVar13 + -3) =
+           *(undefined2 *)(pCVar18->name_bytes + iVar13 + -1);
       iVar13 = iVar13 + 2;
       g_current_city->build_queue_tile_x[iVar15] = g_current_city->build_queue_tile_x[iVar15 + 1];
       g_current_city->build_queue_tile_y[iVar15] = g_current_city->build_queue_tile_y[iVar15 + 1];
@@ -577,7 +580,7 @@ LAB_0042236b:
   g_current_city->build_queue_tile_x[g_current_city->has_build_queue] = 0xff;
   g_current_city->build_queue_tile_y[g_current_city->has_build_queue] = 0xff;
   if (g_current_city->has_build_queue == 0) {
-    g_current_city->field_0x5c = 0xff;
+    g_current_city->production_mode = 0xff;
     g_current_city->forced_worker_mode = 0xff;
     goto LAB_004224d1;
   }
@@ -589,21 +592,21 @@ LAB_0042236b:
   }
   else {
     if (sVar4 < 0x4b) {
-      g_current_city->field_0x5c = 0;
+      g_current_city->production_mode = 0;
       g_current_city->forced_worker_mode = bVar12;
       g_current_city->build_progress = 0;
       return;
     }
 LAB_00422461:
     if (sVar4 < 0x8c) {
-      g_current_city->field_0x5c = 1;
+      g_current_city->production_mode = 1;
       g_current_city->forced_worker_mode = bVar12 + 0xb5;
       g_current_city->build_progress = 0;
       return;
     }
   }
   if (sVar4 < 0xa5) {
-    g_current_city->field_0x5c = 2;
+    g_current_city->production_mode = 2;
     g_current_city->forced_worker_mode = bVar12 + 0x74;
     g_current_city->build_progress = 0;
     return;

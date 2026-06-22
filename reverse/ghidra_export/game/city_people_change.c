@@ -13,7 +13,7 @@ void City_People_Change(void)
   byte bVar1;
   City_0x1b8_plus *pCVar2;
   int iVar3;
-  void **ppvVar4;
+  ArmyUnit_0x164_plus **ppAVar4;
   int *piVar5;
   int iVar6;
   float10 fVar7;
@@ -44,7 +44,7 @@ void City_People_Change(void)
     else {
       g_current_city->event_lock = 0xff;
       iVar6 = 1;
-      piVar5 = &DAT_005999cc;
+      piVar5 = (int *)&g_building_defs[1].field_0x14;
       if (g_current_city->development_level == 5) {
         do {
           if (((((iVar6 != 7) && (iVar6 != 0x18)) &&
@@ -108,12 +108,12 @@ LAB_0042610e:
   if (('\0' < (char)g_current_city_land_tile->secondary_occupant_count) &&
      (fVar7 <= (float10)_DAT_0050f358)) {
     iVar6 = 0;
-    ppvVar4 = g_current_city_land_tile->army_or_city_ptrs_b;
+    ppAVar4 = g_current_city_land_tile->army_or_city_ptrs_b;
     do {
-      if ((*ppvVar4 != (byte *)0x0) &&
-         (*(int *)(g_army_type_table + (uint)*(byte *)*ppvVar4 * 0x400 + 0xc) == 1)) break;
+      if ((*ppAVar4 != (ArmyUnit_0x164_plus *)0x0) &&
+         (*(int *)(g_army_type_table + (uint)(*ppAVar4)->army_type_id * 0x400 + 0xc) == 1)) break;
       iVar6 = iVar6 + 1;
-      ppvVar4 = ppvVar4 + 1;
+      ppAVar4 = ppAVar4 + 1;
     } while (iVar6 < 10);
   }
   iVar6 = __ftol();
@@ -127,7 +127,7 @@ LAB_0042610e:
        ((g_active_country_index == g_human_country_index ||
         ((1 < *(int *)(_DAT_00748e30 + 0x1ac + g_active_country_index * 4) &&
          (g_active_country_index != 0)))))) {
-      Format_Text(local_c0,&DAT_00515a48,g_active_country->name_bytes,&g_current_city->field_0x3);
+      Format_Text(local_c0,&DAT_00515a48,g_active_country->name_bytes,g_current_city->name_bytes);
       FUN_004898b0(DAT_00755910,local_c0,1,g_current_city->tile_x,g_current_city->tile_y);
       if (g_active_country_index == g_human_country_index) {
         if (g_auto_turn_or_ai_control_flag == 0) {

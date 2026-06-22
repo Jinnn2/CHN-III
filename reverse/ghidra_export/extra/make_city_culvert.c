@@ -63,7 +63,7 @@ void Make_City_Culvert(int param_1)
           if (((((-1 < iVar7) && (-1 < iVar6)) && (iVar7 < 0x30)) &&
               ((iVar6 < 0x30 &&
                (cVar1 = *(char *)((iVar6 * 0x30 + iVar7) * 0x20 + iVar3 + 7), -1 < cVar1)))) &&
-             (*(int *)(&DAT_005997bc + cVar1 * 0x200) != 0)) {
+             (*(int *)&g_building_defs[cVar1].field_0x4 != 0)) {
             bVar4 = false;
           }
           iVar8 = iVar8 + 1;
@@ -104,7 +104,7 @@ LAB_0047c160:
               *(undefined2 *)(iVar7 + 0xe) = 0;
             }
             else if ((*(char *)(iVar7 + 7) == -1) ||
-                    (*(int *)(&DAT_005997bc + *(char *)(iVar7 + 7) * 0x200) == 0)) {
+                    (*(int *)&g_building_defs[*(char *)(iVar7 + 7)].field_0x4 == 0)) {
               uVar2 = *(undefined2 *)(local_10 + iVar9);
               *(undefined1 *)(iVar7 + 7) = 7;
               *(undefined2 *)(iVar7 + 8) = uVar2;

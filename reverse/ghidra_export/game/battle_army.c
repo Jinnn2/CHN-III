@@ -5,47 +5,49 @@
  */
 
 
-void BattleArmy(uint param_1,byte *param_2,int param_3,uint *param_4,uint *param_5)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *stat_a,uint *stat_b)
 
 {
-  byte *pbVar1;
+  ArmyUnit_0x164_plus *pAVar1;
   int *piVar2;
   uint *puVar3;
   int iVar4;
   uint uVar5;
   
-  pbVar1 = param_2;
+  pAVar1 = army;
   Trace_Function(s_Add_BattleArmy_00514980);
-  uVar5 = (int)(char)param_2[0x12f] << 3;
-  (&DAT_005d9244)[param_1] = (&DAT_005d9244)[param_1] + 1;
-  iVar4 = (uint)*param_2 * 0x400;
+  uVar5 = (int)(char)army->strength_or_health << 3;
+  (&DAT_005d9244)[side] = (&DAT_005d9244)[side] + 1;
+  iVar4 = (uint)army->army_type_id * 0x400;
   if (*(int *)(g_army_type_table + iVar4 + 0xc) == 0) {
-    *(int *)(&DAT_005d9210 + param_1 * 4) = *(int *)(&DAT_005d9210 + param_1 * 4) + 1;
+    *(int *)(&DAT_005d9210 + side * 4) = *(int *)(&DAT_005d9210 + side * 4) + 1;
     if ((*(int *)(&DAT_005aa3e0 + iVar4) < 2) && (1 < *(int *)(g_army_type_table + iVar4 + 0xf8))) {
-      piVar2 = (int *)(&DAT_005d923c + param_1 * 4);
+      piVar2 = (int *)(&DAT_005d923c + side * 4);
     }
     else {
-      piVar2 = (int *)(&DAT_005d9218 + param_1 * 4);
+      piVar2 = (int *)(&DAT_005d9218 + side * 4);
     }
   }
   else if (*(int *)(g_army_type_table + iVar4 + 0xc) == 1) {
-    piVar2 = &DAT_005dfe7c + param_1;
+    piVar2 = &DAT_005dfe7c + side;
   }
   else {
-    piVar2 = (int *)(&DAT_005d9208 + param_1 * 4);
+    piVar2 = (int *)(&DAT_005d9208 + side * 4);
   }
-  param_2 = (byte *)0x0;
+  army = (ArmyUnit_0x164_plus *)0x0;
   *piVar2 = *piVar2 + 1;
-  if (0 < param_3) {
+  if (0 < formation_count) {
     do {
       puVar3 = (uint *)FUN_0047de30(100,s_Battle__BattleArmy_0051496c,5);
       *puVar3 = (uint)(*(int *)(g_army_type_table + iVar4 + 0xc) == 2);
-      puVar3[1] = (uint)*pbVar1;
-      puVar3[2] = (int)(char)pbVar1[1];
-      puVar3[3] = param_1;
+      puVar3[1] = (uint)pAVar1->army_type_id;
+      puVar3[2] = (int)(char)pAVar1->owner_country_id;
+      puVar3[3] = side;
       puVar3[4] = 0xffffffff;
       puVar3[5] = 0xffffffff;
-      puVar3[6] = *(uint *)(&DAT_00514908 + param_1 * 4);
+      puVar3[6] = *(uint *)(&DAT_00514908 + side * 4);
       puVar3[7] = 0;
       puVar3[8] = 0;
       puVar3[9] = 0;
@@ -55,21 +57,21 @@ void BattleArmy(uint param_1,byte *param_2,int param_3,uint *param_4,uint *param
       }
       uVar5 = uVar5 - puVar3[0xc];
       puVar3[0xb] = 0;
-      puVar3[0xd] = *param_4;
-      puVar3[0xe] = param_4[1];
-      puVar3[0xf] = param_4[2];
-      puVar3[0x10] = *param_5;
-      puVar3[0x11] = param_5[1];
-      puVar3[0x12] = param_5[2];
-      puVar3[0x13] = (uint)pbVar1[0x18];
-      puVar3[0x14] = (uint)param_2;
-      puVar3[0x15] = *(uint *)(pbVar1 + 0x13c);
+      puVar3[0xd] = *stat_a;
+      puVar3[0xe] = stat_a[1];
+      puVar3[0xf] = stat_a[2];
+      puVar3[0x10] = *stat_b;
+      puVar3[0x11] = stat_b[1];
+      puVar3[0x12] = stat_b[2];
+      puVar3[0x13] = (uint)pAVar1->battle_slot_or_category;
+      puVar3[0x14] = (uint)army;
+      puVar3[0x15] = *(uint *)&pAVar1->field_0x13c;
       puVar3[0x16] = *(uint *)(g_army_type_table + iVar4 + 0x2c);
       puVar3[0x18] = 0;
       puVar3[0x17] = 0;
       FUN_004729c0(puVar3);
-      param_2 = (byte *)((int)param_2 + 1);
-    } while ((int)param_2 < param_3);
+      army = (ArmyUnit_0x164_plus *)&army->owner_country_id;
+    } while ((int)army < formation_count);
   }
   return;
 }

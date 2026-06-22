@@ -69,14 +69,15 @@ void Prepare_City_Doing(void)
   DAT_0071626c = 0;
   iVar4 = 1;
   puVar5 = (ushort *)&DAT_00735f9c;
-  piVar8 = (int *)&g_active_country->field_0x1b0;
+  piVar8 = g_active_country->diplomacy_state_by_country;
   do {
-    if (((iVar4 != iVar10) && (5 < *piVar8)) && ((&g_active_country->field_0x4c4)[iVar4] != '\0')) {
+    piVar8 = piVar8 + 1;
+    if (((iVar4 != iVar10) && (5 < *piVar8)) &&
+       (g_active_country->city_trade_enabled_by_country[iVar4] != 0)) {
       iVar9 = iVar9 + (uint)*puVar5;
     }
     puVar5 = puVar5 + 0x734;
     iVar4 = iVar4 + 1;
-    piVar8 = piVar8 + 1;
   } while ((int)puVar5 < 0x748e24);
   DAT_00706950 = 0;
   _DAT_0070686c = (float)iVar9 / (float)g_active_country->owned_city_count;

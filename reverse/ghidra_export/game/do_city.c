@@ -306,8 +306,8 @@ LAB_00450bac:
                 }
                 dVar2 = (double)iVar9;
                 iVar9 = 0;
-                piVar12 = &DAT_00599800;
-                piVar10 = &DAT_0059980c;
+                piVar12 = &g_building_defs[0].upgrade_to_building_id;
+                piVar10 = &g_building_defs[0].build_cost;
                 do {
                   iVar11 = *piVar12;
                   if (((-1 < iVar11) && (g_current_city->building_status[iVar9] == 2)) &&
@@ -338,7 +338,7 @@ LAB_00450bac:
                       Format_Text(local_1a0,&DAT_005706f4,
                                   &DAT_005a7bdc +
                                   (uint)g_current_city->city_type_or_terrain_class * 5,
-                                  &g_current_city->field_0x3);
+                                  g_current_city->name_bytes);
                       FUN_004898b0(DAT_0074c850,local_1a0,1,g_current_city->tile_x,
                                    g_current_city->tile_y);
                     }
@@ -347,7 +347,7 @@ LAB_00450bac:
                     __ftol();
                     Format_Text(local_d4,&DAT_005706b8,g_active_country->name_bytes,
                                 &DAT_005a7bdc + (uint)g_current_city->city_type_or_terrain_class * 5
-                                ,&g_current_city->field_0x3);
+                                ,g_current_city->name_bytes);
                     FUN_004898b0(DAT_0074c850,local_d4,1,g_current_city->tile_x,
                                  g_current_city->tile_y);
                   }

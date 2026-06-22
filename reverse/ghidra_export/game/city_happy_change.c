@@ -5,9 +5,7 @@
  */
 
 
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-void City_Happy_Change(City_0x1b8_plus *city,int delta)
+void __cdecl City_Happy_Change(City_0x1b8_plus *city,int delta)
 
 {
   int iVar1;

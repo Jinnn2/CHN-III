@@ -20,33 +20,34 @@ void City_Building_AI(void)
 {
   byte bVar1;
   short sVar2;
-  bool bVar3;
+  ArmyUnit_0x164_plus *pAVar3;
   bool bVar4;
-  int *piVar5;
-  char cVar6;
-  int iVar7;
+  bool bVar5;
+  int *piVar6;
+  char cVar7;
   int iVar8;
   int iVar9;
-  uint uVar10;
-  byte *pbVar11;
-  byte bVar12;
-  undefined1 *puVar13;
-  CountryState_0xe68 *pCVar14;
-  int *piVar15;
-  int iVar16;
-  ushort *puVar17;
-  City_0x1b8_plus *pCVar18;
-  int *piVar19;
-  int iVar20;
-  int *piVar21;
-  bool bVar22;
+  int iVar10;
+  uint uVar11;
+  byte *pbVar12;
+  byte bVar13;
+  undefined1 *puVar14;
+  CountryState_0xe68 *pCVar15;
+  int *piVar16;
+  int *piVar17;
+  int iVar18;
+  ushort *puVar19;
+  City_0x1b8_plus *pCVar20;
+  int iVar21;
+  int *piVar22;
   bool bVar23;
-  undefined4 uVar24;
+  bool bVar24;
+  undefined4 uVar25;
   undefined1 *local_2a0;
   int *local_298;
   char local_293;
   char local_292;
-  char local_291;
+  byte local_291;
   int *local_290;
   int *local_28c;
   char local_287;
@@ -59,7 +60,7 @@ void City_Building_AI(void)
   undefined1 *local_274;
   int local_270;
   int *local_26c;
-  void **local_268;
+  ArmyUnit_0x164_plus **local_268;
   byte local_262;
   char local_261;
   int local_260;
@@ -73,11 +74,11 @@ void City_Building_AI(void)
   undefined4 auStack_134 [76];
   
   Trace_Function(s_City_Building_AI_005157dc);
-  bVar3 = false;
-  bVar23 = false;
+  bVar4 = false;
+  bVar24 = false;
   if ((g_active_country->leader_or_country_id != 6) ||
-     (bVar4 = true, g_active_country->early_science_status[0xe] != 2)) {
-    bVar4 = false;
+     (bVar5 = true, g_active_country->early_science_status[0xe] != 2)) {
+    bVar5 = false;
   }
   local_284 = (int *)0x0;
   bVar1 = g_current_city_land_tile->army_count_or_occupant_count;
@@ -91,22 +92,22 @@ void City_Building_AI(void)
   else if ((float)_DAT_0050f358 < _DAT_0070686c) {
     local_284 = (int *)0x1;
   }
-  bVar12 = 0;
-  bVar22 = g_current_city->has_build_queue == 0;
-  if (!bVar22) {
-    local_291 = g_current_city->field_0x5c;
-    bVar23 = bVar3;
-    if (local_291 == '\0') {
-      iVar7 = (int)(char)g_current_city->forced_worker_mode;
-      if ((g_active_country->available_special_project_flags[iVar7 + 0x1a] == 2) ||
+  bVar13 = 0;
+  bVar23 = g_current_city->has_build_queue == 0;
+  if (!bVar23) {
+    local_291 = g_current_city->production_mode;
+    bVar24 = bVar4;
+    if (local_291 == 0) {
+      iVar8 = (int)(char)g_current_city->forced_worker_mode;
+      if ((g_active_country->available_special_project_flags[iVar8 + 0x1a] == 2) ||
          ((g_current_city->population_or_stockpile == 0 ||
           ((((DAT_007068e4 < 0 && ('\0' < (char)bVar1)) &&
-            ((!bVar4 || (g_current_city->forced_worker_mode != 0xc)))) ||
+            ((!bVar5 || (g_current_city->forced_worker_mode != 0xc)))) ||
            ((DAT_007068e4 < 1 && (0 < g_current_city->round_or_protection_timer))))))))
       goto LAB_00422a64;
-      if ((*(int *)(g_army_type_table + iVar7 * 0x400 + 0xf8) < 10) &&
-         ((*(int *)(g_army_type_table + iVar7 * 0x400 + 0xfc) < 10 &&
-          ((int)(&DAT_005aa3c8)[iVar7 * 0x100] < 10)))) {
+      if ((*(int *)(g_army_type_table + iVar8 * 0x400 + 0xf8) < 10) &&
+         ((*(int *)(g_army_type_table + iVar8 * 0x400 + 0xfc) < 10 &&
+          ((int)(&DAT_005aa3c8)[iVar8 * 0x100] < 10)))) {
         if (((DAT_007068e9 == '\x01') || (local_284 != (int *)0x0)) ||
            (g_current_city->collapse_delay_or_army_count < 0)) goto LAB_00422a64;
       }
@@ -115,35 +116,35 @@ void City_Building_AI(void)
                 (g_current_city->building_status[0x3d] == 0)))) &&
               (((g_active_country->available_building_flags[0] == 1 ||
                 (g_active_country->available_building_flags[0x3d] == 1)) &&
-               (DAT_00599854 <= g_current_city->stored_population_or_value)))) goto LAB_00422a64;
+               (g_building_defs[0].upgrade_or_development_requirement <=
+                g_current_city->stored_population_or_value)))) goto LAB_00422a64;
     }
     else {
-      if ((local_291 == '\x01') &&
-         (bVar12 = 0 < *(int *)(&DAT_00599830 +
-                               g_active_country->government_or_ai_mode * 4 +
-                               (char)g_current_city->forced_worker_mode * 0x200),
-         0 < (int)(&DAT_00599850)[(char)g_current_city->forced_worker_mode * 0x80])) {
-        bVar12 = bVar12 + 1;
+      if ((local_291 == 1) &&
+         (bVar13 = 0 < *(int *)((char)g_current_city->forced_worker_mode * 0x200 + 0x599830 +
+                               g_active_country->government_or_ai_mode * 4),
+         0 < g_building_defs[(char)g_current_city->forced_worker_mode].population_requirement)) {
+        bVar13 = bVar13 + 1;
       }
       if ((local_284 != (int *)0x3) &&
-         (((DAT_007068e9 != '\x01' && ((local_284 == (int *)0x0 || (1 < bVar12)))) ||
+         (((DAT_007068e9 != '\x01' && ((local_284 == (int *)0x0 || (1 < bVar13)))) ||
           ((g_current_city == g_active_country->capital_city &&
-           ((local_291 == '\x01' &&
+           ((local_291 == 1 &&
             ((g_current_city->forced_worker_mode == 0 ||
              (g_current_city->forced_worker_mode == 0x3d)))))))))) goto LAB_00422a81;
 LAB_00422a64:
       FUN_004b01b0(g_current_city,3,0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff);
-      bVar23 = true;
+      bVar24 = true;
     }
 LAB_00422a81:
-    bVar22 = g_current_city->has_build_queue == 0;
+    bVar23 = g_current_city->has_build_queue == 0;
   }
-  if ((!bVar22) && (!bVar23)) {
+  if ((!bVar23) && (!bVar24)) {
     return;
   }
   if ((g_active_country_index != g_human_country_index) ||
-     (bVar23 = false, g_auto_turn_or_ai_control_flag == 1)) {
-    bVar23 = true;
+     (bVar24 = false, g_auto_turn_or_ai_control_flag == 1)) {
+    bVar24 = true;
   }
   local_2a0 = (undefined1 *)0xffffffff;
   if ((g_current_city->has_special_capability == 1) &&
@@ -154,137 +155,137 @@ LAB_00422a81:
   else {
     local_287 = '\0';
   }
-  iVar7 = 0;
+  iVar8 = 0;
   local_260 = 0;
-  piVar19 = &DAT_00599858;
-  pCVar14 = g_active_country;
-  pCVar18 = g_current_city;
+  piVar17 = &g_building_defs[0].prerequisite_building_a;
+  pCVar15 = g_active_country;
+  pCVar20 = g_current_city;
   do {
-    iVar20 = piVar19[-0x28];
-    local_244[iVar7 + 3] = 0;
-    if (((((((((iVar20 != 0) && (pCVar14->available_building_flags[iVar7] == 1)) &&
-             (pCVar18->building_status[iVar7] == 0)) &&
-            ((bVar1 = pCVar18->development_level, bVar1 != 5 || (0 < piVar19[-0x24])))) &&
-           (piVar19[-1] <= pCVar18->stored_population_or_value)) &&
-          (((iVar20 = *piVar19, iVar20 == -1 || (pCVar18->building_status[iVar20] == 2)) ||
-           ((iVar20 == 0x11 && (pCVar18->building_status[5] == 2)))))) &&
-         ((piVar19[-0x23] == -1 ||
-          (*(int *)(&DAT_0051578c + piVar19[-0x23] * 4) == *(int *)(&DAT_0051578c + (uint)bVar1 * 4)
-          )))) && ((pCVar18->has_special_capability != 0 ||
-                   ((((iVar7 != 0x14 && (iVar7 != 0x15)) && (iVar7 != 0x2c)) &&
-                    ((iVar7 != 0x2d && (iVar7 != 0x3c)))))))) &&
-       ((((iVar7 != 0xf && (iVar7 != 0x27)) || (pCVar14->field_0x78 != '\0')) &&
-        (((iVar7 != 0x10 && (iVar7 != 0x28)) || (pCVar14->field_0x79 != '\0')))))) {
-      if (iVar7 == 0) {
+    iVar21 = *(int *)(piVar17 + -0x28);
+    local_244[iVar8 + 3] = 0;
+    if (((((((((iVar21 != 0) && (pCVar15->available_building_flags[iVar8] == 1)) &&
+             (pCVar20->building_status[iVar8] == 0)) &&
+            ((bVar1 = pCVar20->development_level, bVar1 != 5 || (0 < piVar17[-0x24])))) &&
+           (piVar17[-1] <= pCVar20->stored_population_or_value)) &&
+          (((iVar21 = *piVar17, iVar21 == -1 || (pCVar20->building_status[iVar21] == 2)) ||
+           ((iVar21 == 0x11 && (pCVar20->building_status[5] == 2)))))) &&
+         ((piVar17[-0x23] == -1 ||
+          (*(int *)(&DAT_0051578c + piVar17[-0x23] * 4) == *(int *)(&DAT_0051578c + (uint)bVar1 * 4)
+          )))) && ((pCVar20->has_special_capability != 0 ||
+                   ((((iVar8 != 0x14 && (iVar8 != 0x15)) && (iVar8 != 0x2c)) &&
+                    ((iVar8 != 0x2d && (iVar8 != 0x3c)))))))) &&
+       ((((iVar8 != 0xf && (iVar8 != 0x27)) || (pCVar15->coastal_building_unlock_a != 0)) &&
+        (((iVar8 != 0x10 && (iVar8 != 0x28)) || (pCVar15->coastal_building_unlock_b != 0)))))) {
+      if (iVar8 == 0) {
         if (bVar1 != 5) {
 LAB_00422c17:
-          if (((pCVar18 == pCVar14->capital_city) && (pCVar18->building_status[0] == 0)) &&
-             (pCVar18->building_status[0x3d] == 0)) goto LAB_00422c31;
+          if (((pCVar20 == pCVar15->capital_city) && (pCVar20->building_status[0] == 0)) &&
+             (pCVar20->building_status[0x3d] == 0)) goto LAB_00422c31;
         }
       }
       else {
-        if (iVar7 == 0x3d) goto LAB_00422c17;
+        if (iVar8 == 0x3d) goto LAB_00422c17;
 LAB_00422c31:
-        if ((((iVar7 != 1) && (iVar7 != 0x19)) ||
-            (((pCVar18 != pCVar14->capital_city &&
-              ((pCVar18->building_status[0] == 0 && (pCVar18->building_status[0x3d] == 0)))) &&
-             ((pCVar18->building_status[1] == 0 && (pCVar18->building_status[0x19] == 0)))))) &&
+        if ((((iVar8 != 1) && (iVar8 != 0x19)) ||
+            (((pCVar20 != pCVar15->capital_city &&
+              ((pCVar20->building_status[0] == 0 && (pCVar20->building_status[0x3d] == 0)))) &&
+             ((pCVar20->building_status[1] == 0 && (pCVar20->building_status[0x19] == 0)))))) &&
            ((DAT_0074a2b1 == '\0' ||
-            (cVar6 = City_Build_AI_Build_Able(pCVar18,&local_290,&local_298,iVar7),
-            pCVar14 = g_active_country, pCVar18 = g_current_city, cVar6 != '\0')))) {
-          local_244[iVar7 + 3] = 1;
+            (cVar7 = City_Build_AI_Build_Able(pCVar20,&local_290,&local_298,iVar8),
+            pCVar15 = g_active_country, pCVar20 = g_current_city, cVar7 != '\0')))) {
+          local_244[iVar8 + 3] = 1;
           local_260 = local_260 + 1;
         }
       }
     }
-    piVar19 = piVar19 + 0x80;
-    iVar7 = iVar7 + 1;
-  } while (iVar7 < 0x41);
+    piVar17 = piVar17 + 0x80;
+    iVar8 = iVar8 + 1;
+  } while (iVar8 < 0x41);
   local_292 = '\0';
   if ((-1 < DAT_005705b4) && (local_244[DAT_005705b4 + 3] == 1)) {
     local_292 = '\x01';
   }
-  if ((((pCVar18 == pCVar14->capital_city) &&
+  if ((((pCVar20 == pCVar15->capital_city) &&
        ('\0' < (char)g_current_city_land_tile->army_count_or_occupant_count)) &&
-      (pCVar14->government_or_ai_mode == 0)) && (0 < local_260)) {
+      (pCVar15->government_or_ai_mode == 0)) && (0 < local_260)) {
     if (local_244[3] == 1) {
-      FUN_004b01b0(pCVar18,0,1,0,0x16,0x16,0xffffffff);
+      FUN_004b01b0(pCVar20,0,1,0,0x16,0x16,0xffffffff);
       local_2a0 = (undefined1 *)0x4b;
     }
     else if (local_244[0x40] == 1) {
-      FUN_004b01b0(pCVar18,0,1,0x3d,0x16,0x16,0xffffffff);
+      FUN_004b01b0(pCVar20,0,1,0x3d,0x16,0x16,0xffffffff);
       local_2a0 = (undefined1 *)0x88;
     }
   }
-  iVar7 = 0;
+  iVar8 = 0;
   local_285 = '\0';
-  bVar3 = false;
+  bVar4 = false;
   local_254 = (int *)0xffffffff;
-  iVar20 = (int)(char)g_current_city_land_tile->army_count_or_occupant_count;
+  iVar21 = (int)(char)g_current_city_land_tile->army_count_or_occupant_count;
   local_250 = 0;
   local_258 = 0;
-  if (0 < iVar20) {
+  if (0 < iVar21) {
     local_268 = g_current_city_land_tile->army_or_city_ptrs_a;
     local_28c = (int *)0x0;
     do {
-      if (iVar20 < 1) break;
-      pbVar11 = *local_268;
-      if (pbVar11 != (byte *)0x0) {
-        if (pbVar11[0x127] == 0) {
-          piVar19 = (int *)(uint)*pbVar11;
-          iVar8 = (int)piVar19 * 0x400;
-          if (*pbVar11 == 0) {
-            bVar3 = true;
+      if (iVar21 < 1) break;
+      pAVar3 = *local_268;
+      if (pAVar3 != (ArmyUnit_0x164_plus *)0x0) {
+        if (pAVar3->mission_state == 0) {
+          piVar17 = (int *)(uint)pAVar3->army_type_id;
+          iVar9 = (int)piVar17 * 0x400;
+          if (pAVar3->army_type_id == 0) {
+            bVar4 = true;
           }
-          iVar9 = *(int *)(g_army_type_table + iVar8 + 0xc);
-          if ((iVar9 == 1) && (0 < *(int *)(&DAT_005aa3f4 + iVar8))) {
+          iVar10 = *(int *)(g_army_type_table + iVar9 + 0xc);
+          if ((iVar10 == 1) && (0 < *(int *)(&DAT_005aa3f4 + iVar9))) {
             local_285 = '\x01';
           }
-          if ((iVar9 == 2) && (*(int *)(&DAT_005aa40c + iVar8) == 8)) {
+          if ((iVar10 == 2) && (*(int *)(&DAT_005aa40c + iVar9) == 8)) {
             local_250 = local_250 + 1;
           }
-          if ((iVar9 == 0) && (*(int *)(&DAT_005aa40c + iVar8) < 3)) {
+          if ((iVar10 == 0) && (*(int *)(&DAT_005aa40c + iVar9) < 3)) {
             local_258 = local_258 + 1;
           }
-          if (iVar7 < (int)(&DAT_005aa3cc)[(int)piVar19 * 0x100]) {
-            iVar7 = (&DAT_005aa3cc)[(int)piVar19 * 0x100];
-            local_254 = piVar19;
+          if (iVar8 < (int)(&DAT_005aa3cc)[(int)piVar17 * 0x100]) {
+            iVar8 = (&DAT_005aa3cc)[(int)piVar17 * 0x100];
+            local_254 = piVar17;
           }
         }
-        iVar20 = iVar20 + -1;
+        iVar21 = iVar21 + -1;
       }
       local_28c = (int *)((int)local_28c + 1);
       local_268 = local_268 + 1;
     } while ((int)local_28c < 10);
   }
-  if ((((local_2a0 == (undefined1 *)0xffffffff) && (*(short *)&g_current_city->field_0x17e == 0)) &&
+  if ((((local_2a0 == (undefined1 *)0xffffffff) && (g_current_city->neighbor_city_pressure == 0)) &&
       ('\0' < (char)g_current_city_land_tile->army_count_or_occupant_count)) &&
      (((-1 < (int)local_254 && (0 < local_260)) &&
       ((1 < (int)(&DAT_005aa3cc)[(int)local_254 * 0x100] &&
        ((local_292 == '\0' || (g_current_city->event_lock == 0xff)))))))) {
-    piVar19 = &DAT_00515768;
+    piVar17 = &DAT_00515768;
     do {
       if (local_2a0 != (undefined1 *)0xffffffff) break;
-      iVar7 = *piVar19;
-      if ((local_244[iVar7 + 3] == 1) &&
-         (cVar6 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,iVar7),
-         cVar6 != '\0')) {
-        FUN_004b01b0(g_current_city,0,1,iVar7,local_290,local_298,0xffffffff);
-        local_2a0 = (undefined1 *)(iVar7 + 0x4b);
+      iVar8 = *piVar17;
+      if ((local_244[iVar8 + 3] == 1) &&
+         (cVar7 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,iVar8),
+         cVar7 != '\0')) {
+        FUN_004b01b0(g_current_city,0,1,iVar8,local_290,local_298,0xffffffff);
+        local_2a0 = (undefined1 *)(iVar8 + 0x4b);
       }
-      piVar19 = piVar19 + 1;
-    } while ((int)piVar19 < 0x51578c);
+      piVar17 = piVar17 + 1;
+    } while ((int)piVar17 < 0x51578c);
   }
-  iVar7 = *(int *)(DAT_00755918 + g_current_city_land_tile->linked_count_or_city_count * 0x14);
-  bVar22 = (int)(iVar7 + (iVar7 >> 0x1f & 0xfU)) >> 4 <=
+  iVar8 = *(int *)(DAT_00755918 + g_current_city_land_tile->linked_count_or_city_count * 0x14);
+  bVar23 = (int)(iVar8 + (iVar8 >> 0x1f & 0xfU)) >> 4 <=
            (int)(uint)*(ushort *)
                        (*(int *)(&DAT_00748f38 + g_active_country_index * 4) + 2 +
                        g_current_city_land_tile->linked_count_or_city_count * 4);
-  local_268 = (void **)0x0;
-  local_293 = bVar22;
-  if (*(ushort *)&g_active_country->field_0x1aa != 0) {
-    local_298 = (int *)(uint)*(ushort *)&g_active_country->field_0x1aa;
-    local_268 = (void **)__ftol();
+  local_268 = (ArmyUnit_0x164_plus **)0x0;
+  local_293 = bVar23;
+  if (g_active_country->total_force_or_unit_count != 0) {
+    local_298 = (int *)(uint)g_active_country->total_force_or_unit_count;
+    local_268 = (ArmyUnit_0x164_plus **)__ftol();
   }
   local_280 = (int *)g_current_city->stored_population_or_value;
   if ((int)local_280 < 1000) {
@@ -296,7 +297,7 @@ LAB_0042302d:
         (_DAT_0070686c < (float)_DAT_0050f318)))) {
       bVar1 = g_current_city->owner_or_active_flag;
       local_26c = (int *)CONCAT31(local_26c._1_3_,bVar1);
-      if ((((((bVar1 == 7) || (*(short *)&g_current_city->field_0x17e == 0)) ||
+      if ((((((bVar1 == 7) || (g_current_city->neighbor_city_pressure == 0)) ||
             (local_292 == '\x01')) ||
            ((int)(uint)(byte)g_current_city->field_0x2f <=
             (int)(char)g_current_city_land_tile->army_count_or_occupant_count)) &&
@@ -310,75 +311,76 @@ LAB_0042302d:
             ((100 < (int)local_268 || (_DAT_0050f340 < g_active_country->science_budget_or_treasury)
              ))))) ||
           ((g_current_city->safety_score < 0x3c || (g_current_city->business_score < 0x3c)))))) {
-        piVar19 = (int *)0xffffffff;
+        piVar17 = (int *)0xffffffff;
         local_284 = local_244 + 3;
         local_274 = (undefined1 *)0x0;
         local_28c = (int *)0x0;
-        piVar21 = &DAT_00599850;
+        piVar22 = &g_building_defs[0].population_requirement;
         do {
           if (*local_284 == 1) {
-            puVar13 = (undefined1 *)0x0;
-            iVar7 = (int)local_280 - piVar21[g_active_country->government_or_ai_mode + -8];
+            puVar14 = (undefined1 *)0x0;
+            iVar8 = (int)local_280 - piVar22[g_active_country->government_or_ai_mode + -8];
             if (((g_current_city->growth_or_industry_score < 0x32) ||
                 (g_current_city->safety_score < 0x3c)) || (g_current_city->business_score < 0x3c)) {
-              if (piVar21[0x15] == 6) {
-                puVar13 = (undefined1 *)
-                          ((piVar21[-0xc] * 0x28 + (piVar21[-0xd] + 0x3c + piVar21[-0xe] * 2) * 0x32
-                           ) - piVar21[-0x11]);
+              if (piVar22[0x15] == 6) {
+                puVar14 = (undefined1 *)
+                          ((piVar22[-0xc] * 0x28 + (piVar22[-0xd] + 0x3c + piVar22[-0xe] * 2) * 0x32
+                           ) - piVar22[-0x11]);
               }
             }
             else {
-              iVar20 = iVar7;
-              if (0 < piVar21[g_active_country->government_or_ai_mode + -8]) {
-                if (-1 < iVar7) {
-                  puVar13 = (undefined1 *)((iVar7 * 5 + 25000) * 2);
+              iVar21 = iVar8;
+              if (0 < piVar22[g_active_country->government_or_ai_mode + -8]) {
+                if (-1 < iVar8) {
+                  puVar14 = (undefined1 *)((iVar8 * 5 + 25000) * 2);
                   goto LAB_004231e2;
                 }
-                iVar20 = -iVar7;
-                if (iVar20 < 50000) {
-                  puVar13 = (undefined1 *)(iVar7 + 50000);
+                iVar21 = -iVar8;
+                if (iVar21 < 50000) {
+                  puVar14 = (undefined1 *)(iVar8 + 50000);
                 }
               }
-              if ((iVar20 == 0) && (0 < *piVar21)) {
-                puVar13 = (undefined1 *)((int)local_280 + (100000000 - *piVar21));
+              if ((iVar21 == 0) && (0 < *piVar22)) {
+                puVar14 = (undefined1 *)((int)local_280 + (100000000 - *piVar22));
               }
             }
 LAB_004231e2:
-            if ((1 < bVar1) && (piVar21[0x15] == (uint)bVar1)) {
-              puVar13 = puVar13 + 1000;
+            if ((1 < bVar1) && (piVar22[0x15] == (uint)bVar1)) {
+              puVar14 = puVar14 + 1000;
             }
             if ((3 < g_active_country->special_rule_level) || ((float)_DAT_0050f360 < _DAT_0070686c)
                ) {
-              if (piVar21[0x15] == 2) goto LAB_0042324c;
+              if (piVar22[0x15] == 2) goto LAB_0042324c;
             }
             else if ((((0x31 < g_current_city->growth_or_industry_score) &&
                       (0x3b < g_current_city->safety_score)) &&
                      (0x3b < g_current_city->business_score)) &&
-                    ((piVar21[0x15] == 5 || (piVar21[0x15] == 4)))) {
+                    ((piVar22[0x15] == 5 || (piVar22[0x15] == 4)))) {
 LAB_0042324c:
-              puVar13 = puVar13 + 3000;
+              puVar14 = puVar14 + 3000;
             }
-            if (((bVar23) &&
-                (((piVar21 == (int *)&DAT_0059c250 || (piVar21 == (int *)&DAT_0059f250)) ||
-                 (piVar21 == (int *)&DAT_005a0050)))) &&
+            if (((bVar24) &&
+                (((piVar22 == &g_building_defs[0x15].population_requirement ||
+                  (piVar22 == &g_building_defs[0x2d].population_requirement)) ||
+                 (piVar22 == &g_building_defs[0x34].population_requirement)))) &&
                ((((_DAT_00748e30 != (char *)0x0 && ('\0' < *_DAT_00748e30)) &&
                  (_DAT_00748e30[0x77] != '\0')) || (g_active_country->field_0x77 != '\0')))) {
-              puVar13 = puVar13 + 300000;
+              puVar14 = puVar14 + 300000;
             }
-            if ((int)local_274 <= (int)puVar13) {
-              piVar19 = local_28c;
-              local_274 = puVar13;
+            if ((int)local_274 <= (int)puVar14) {
+              piVar17 = local_28c;
+              local_274 = puVar14;
             }
           }
-          piVar21 = piVar21 + 0x80;
+          piVar22 = piVar22 + 0x80;
           local_28c = (int *)((int)local_28c + 1);
           local_284 = local_284 + 1;
-        } while ((int)piVar21 < 0x5a1a50);
-        if ((-1 < (int)piVar19) &&
-           (cVar6 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,piVar19),
-           cVar6 != '\0')) {
-          FUN_004b01b0(g_current_city,0,1,piVar19,local_290,local_298,0xffffffff);
-          local_2a0 = (undefined1 *)((int)piVar19 + 0x4b);
+        } while ((int)piVar22 < 0x5a1a50);
+        if ((-1 < (int)piVar17) &&
+           (cVar7 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,piVar17),
+           cVar7 != '\0')) {
+          FUN_004b01b0(g_current_city,0,1,piVar17,local_290,local_298,0xffffffff);
+          local_2a0 = (undefined1 *)((int)piVar17 + 0x4b);
         }
       }
     }
@@ -386,14 +388,14 @@ LAB_0042324c:
   else {
     bVar1 = g_current_city_land_tile->army_count_or_occupant_count;
     if ((9 < (int)(char)g_current_city_land_tile->secondary_occupant_count + (int)(char)bVar1) ||
-       (((!bVar23 && ((byte)g_current_city->field_0x2f != 0xffffffff)) &&
+       (((!bVar24 && ((byte)g_current_city->field_0x2f != 0xffffffff)) &&
         ((int)(uint)(byte)g_current_city->field_0x2f <= (int)(char)bVar1)))) goto LAB_00423020;
     local_286 = '\x01';
     if (((((local_284 != (int *)0x0) || ((int)local_280 < 20000)) ||
-         ((1 < (byte)g_current_city->field_0x1ab ||
+         ((1 < g_current_city->nearby_city_count_bucket ||
           ((g_active_country->field_0xa7a != '\0' || (g_current_city->field_0x2d == '\x01')))))) ||
-        (bVar22)) ||
-       ((((bVar3 || ((char)bVar1 < '\x01')) || (*(short *)&g_current_city->field_0x17e != 0)) ||
+        (bVar23)) ||
+       ((((bVar4 || ((char)bVar1 < '\x01')) || (g_current_city->neighbor_city_pressure != 0)) ||
         (DAT_007068e4 < 2)))) goto LAB_0042302d;
     local_2a0 = (undefined1 *)0x0;
     FUN_004b01b0(g_current_city,0,0,0,0xffffffff,0xffffffff,0xffffffff);
@@ -407,7 +409,7 @@ LAB_0042324c:
   }
   if ((local_286 != '\x01') ||
      (((local_262 = g_current_city_land_tile->army_count_or_occupant_count, local_262 != 0 &&
-       (DAT_007068e4 < 1)) && (!bVar4)))) goto LAB_004244e4;
+       (DAT_007068e4 < 1)) && (!bVar5)))) goto LAB_004244e4;
   local_28c = (int *)0xffffffff;
   local_26c = (int *)0xffffffff;
   local_280 = (int *)0xffffffff;
@@ -420,105 +422,106 @@ LAB_0042324c:
   local_27c = 0;
   local_24c = 0;
   local_248 = 0;
-  piVar21 = (int *)0x0;
-  piVar19 = &DAT_005aa47c;
+  piVar22 = (int *)0x0;
+  piVar17 = &DAT_005aa47c;
   do {
-    auStack_134[(int)piVar21] = 0;
-    if (((&g_active_country->field_0xa2f)[(int)piVar21] == '\x01') && (1 < piVar19[-0x2c])) {
-      iVar7 = g_current_city->stored_population_or_value;
-      if (iVar7 < piVar19[-0x69]) {
-        if ((piVar21 == (int *)0x0) && (19999 < iVar7)) {
+    auStack_134[(int)piVar22] = 0;
+    if (((&g_active_country->field_0xa2f)[(int)piVar22] == '\x01') && (1 < piVar17[-0x2c])) {
+      iVar8 = g_current_city->stored_population_or_value;
+      if (iVar8 < piVar17[-0x69]) {
+        if ((piVar22 == (int *)0x0) && (19999 < iVar8)) {
 LAB_00423469:
-          iVar7 = *piVar19;
-          if ((((((iVar7 == -1) || (g_current_city->building_status[iVar7] == 2)) ||
-                ((iVar7 == 0x11 &&
+          iVar8 = *piVar17;
+          if ((((((iVar8 == -1) || (g_current_city->building_status[iVar8] == 2)) ||
+                ((iVar8 == 0x11 &&
                  ((g_current_city->building_status[5] == 2 ||
                   (g_current_city->building_status[0x1d] == 2)))))) ||
-               ((iVar7 == 0x13 && (g_current_city->building_status[0x2b] == 2)))) ||
-              ((iVar7 == 0x15 && (g_current_city->building_status[0x2d] == 2)))) &&
-             ((((iVar7 = piVar19[1], iVar7 == -1 || (g_current_city->building_status[iVar7] == 2))
-               || ((iVar7 == 0x11 &&
+               ((iVar8 == 0x13 && (g_current_city->building_status[0x2b] == 2)))) ||
+              ((iVar8 == 0x15 && (g_current_city->building_status[0x2d] == 2)))) &&
+             ((((iVar8 = piVar17[1], iVar8 == -1 || (g_current_city->building_status[iVar8] == 2))
+               || ((iVar8 == 0x11 &&
                    ((g_current_city->building_status[5] == 2 ||
                     (g_current_city->building_status[0x1d] == 2)))))) ||
-              (((iVar7 == 0x13 && (g_current_city->building_status[0x2b] == 2)) ||
-               ((iVar7 == 0x15 && (g_current_city->building_status[0x2d] == 2)))))))) {
-            if (piVar19[-0x24] == 2) {
-              if (piVar21 == (int *)0x3f) {
-                cVar6 = g_active_country->field_0x60e;
+              (((iVar8 == 0x13 && (g_current_city->building_status[0x2b] == 2)) ||
+               ((iVar8 == 0x15 && (g_current_city->building_status[0x2d] == 2)))))))) {
+            if (piVar17[-0x24] == 2) {
+              if (piVar22 == (int *)0x3f) {
+                cVar7 = g_active_country->field_0x60e;
               }
-              else if (piVar21 == (int *)0x41) {
-                cVar6 = g_active_country->field_0x60f;
+              else if (piVar22 == (int *)0x41) {
+                cVar7 = g_active_country->field_0x60f;
               }
               else {
-                if (piVar21 != (int *)0x1e) goto LAB_00423791;
-                cVar6 = g_active_country->field_0x610;
+                if (piVar22 != (int *)0x1e) goto LAB_00423791;
+                cVar7 = g_active_country->field_0x610;
               }
-              if (cVar6 != '\0') goto LAB_00423791;
+              if (cVar7 != '\0') goto LAB_00423791;
             }
-            iVar7 = piVar19[-0x6a];
-            if ((iVar7 != 1) || (g_current_city->has_special_capability == 1)) {
+            iVar8 = piVar17[-0x6a];
+            if ((iVar8 != 1) || (g_current_city->has_special_capability == 1)) {
               if (DAT_0074c778 == 0) {
-                if ((piVar21 != (int *)0xe) || ('\0' < (char)g_current_city->field_0x198)) {
+                if ((piVar22 != (int *)0xe) ||
+                   ('\0' < (char)g_current_city->trade_resource_state[0x15])) {
 LAB_004235b3:
-                  iVar20 = piVar19[-0x14];
-                  auStack_134[(int)piVar21] = 1;
-                  if (((iVar20 == 0) || (0 < DAT_007068e4)) || ((bVar4 && (piVar21 == (int *)0xc))))
+                  iVar21 = piVar17[-0x14];
+                  auStack_134[(int)piVar22] = 1;
+                  if (((iVar21 == 0) || (0 < DAT_007068e4)) || ((bVar5 && (piVar22 == (int *)0xc))))
                   {
-                    auStack_134[(int)piVar21] = 2;
-                    if (iVar7 == 0) {
-                      puVar13 = (undefined1 *)piVar19[-0x2c];
-                      if ((int)local_274 < (int)puVar13) {
-                        local_274 = puVar13;
-                        local_26c = piVar21;
+                    auStack_134[(int)piVar22] = 2;
+                    if (iVar8 == 0) {
+                      puVar14 = (undefined1 *)piVar17[-0x2c];
+                      if ((int)local_274 < (int)puVar14) {
+                        local_274 = puVar14;
+                        local_26c = piVar22;
                       }
-                      piVar15 = (int *)(((int)(puVar13 + piVar19[-0x29] + piVar19[-0x2f]) * 2 -
-                                        (piVar19[-0x31] >> 3)) + piVar19[-0x29] + piVar19[-0x2f]);
-                      if ((int)local_284 < (int)piVar15) {
-                        local_28c = piVar21;
-                        local_284 = piVar15;
+                      piVar16 = (int *)(((int)(puVar14 + piVar17[-0x29] + piVar17[-0x2f]) * 2 -
+                                        (piVar17[-0x31] >> 3)) + piVar17[-0x29] + piVar17[-0x2f]);
+                      if ((int)local_284 < (int)piVar16) {
+                        local_28c = piVar22;
+                        local_284 = piVar16;
                       }
                     }
-                    else if (iVar7 == 1) {
-                      iVar7 = piVar19[-0x22];
-                      if (piVar19[-0x1d] == 8) {
-                        if (local_24c < iVar7) {
-                          local_25c = piVar21;
-                          local_24c = iVar7;
+                    else if (iVar8 == 1) {
+                      iVar8 = piVar17[-0x22];
+                      if (piVar17[-0x1d] == 8) {
+                        if (local_24c < iVar8) {
+                          local_25c = piVar22;
+                          local_24c = iVar8;
                         }
                       }
-                      else if (local_248 < iVar7) {
-                        local_280 = piVar21;
-                        local_248 = iVar7;
+                      else if (local_248 < iVar8) {
+                        local_280 = piVar22;
+                        local_248 = iVar8;
                       }
                     }
-                    if ((piVar19[-0x20] != 0) &&
-                       (iVar7 = ((piVar19[-0x29] + piVar19[-0x2e] * 2) * 2 + piVar19[-0x2b] * 3) -
-                                (piVar19[-0x31] >> 3), local_270 < iVar7)) {
-                      local_290 = piVar21;
-                      local_270 = iVar7;
+                    if ((piVar17[-0x20] != 0) &&
+                       (iVar8 = ((piVar17[-0x29] + piVar17[-0x2e] * 2) * 2 + piVar17[-0x2b] * 3) -
+                                (piVar17[-0x31] >> 3), local_270 < iVar8)) {
+                      local_290 = piVar22;
+                      local_270 = iVar8;
                     }
-                    if ((piVar19[-0x1f] != 0) &&
-                       (uVar10 = ((piVar19[-0x29] + piVar19[-0x2d] * 2) * 2 + piVar19[-0x2a] * 3) -
-                                 (piVar19[-0x31] >> 3), (int)local_27c < (int)uVar10)) {
-                      local_298 = piVar21;
-                      local_27c = uVar10;
+                    if ((piVar17[-0x1f] != 0) &&
+                       (uVar11 = ((piVar17[-0x29] + piVar17[-0x2d] * 2) * 2 + piVar17[-0x2a] * 3) -
+                                 (piVar17[-0x31] >> 3), (int)local_27c < (int)uVar11)) {
+                      local_298 = piVar22;
+                      local_27c = uVar11;
                     }
                   }
                 }
               }
               else {
-                bVar22 = true;
-                iVar20 = 0;
+                bVar23 = true;
+                iVar21 = 0;
                 do {
-                  if (!bVar22) goto LAB_00423791;
-                  if (0 < piVar19[iVar20 + 0x11]) {
+                  if (!bVar23) goto LAB_00423791;
+                  if (0 < piVar17[iVar21 + 0x11]) {
                     if ((int)*(short *)(g_active_country->special_project_pending_counts +
-                                       iVar20 * 2 + 0x43) < piVar19[iVar20 + 0x11]) {
-                      bVar22 = false;
+                                       iVar21 * 2 + 0x43) < piVar17[iVar21 + 0x11]) {
+                      bVar23 = false;
                     }
-                    else if (((((((&DAT_005a8184)[iVar20 * 0x36] == 1) &&
-                                ((int)(&DAT_005a80b0)[iVar20 * 0x36] < 2)) &&
-                               ((&g_current_city->field_0x183)[iVar20] == '\0')) &&
+                    else if (((((((&DAT_005a8184)[iVar21 * 0x36] == 1) &&
+                                ((int)(&DAT_005a80b0)[iVar21 * 0x36] < 2)) &&
+                               (g_current_city->trade_resource_state[iVar21] == 0)) &&
                               ((*(int *)&g_active_country->field_0x7b4 != 2 ||
                                ((g_current_city->building_status[6] != 2 &&
                                 (g_current_city->development_level < 5)))))) &&
@@ -526,76 +529,76 @@ LAB_004235b3:
                               ((g_current_city->building_status[0x15] != 2 &&
                                (g_current_city->building_status[0x2d] != 2)))))) &&
                             ((g_current_city != g_active_country->capital_city &&
-                             ((iVar20 != 10 || (*(int *)&g_active_country->field_0x71c != 2)))))) {
-                      bVar22 = false;
+                             ((iVar21 != 10 || (*(int *)&g_active_country->field_0x71c != 2)))))) {
+                      bVar23 = false;
                     }
                   }
-                  iVar20 = iVar20 + 1;
-                } while (iVar20 < 0x28);
-                if (bVar22) goto LAB_004235b3;
+                  iVar21 = iVar21 + 1;
+                } while (iVar21 < 0x28);
+                if (bVar23) goto LAB_004235b3;
               }
             }
           }
         }
       }
       else {
-        if (piVar21 == (int *)0x1f) {
+        if (piVar22 == (int *)0x1f) {
           sVar2 = *(short *)&g_active_country->field_0xbc;
         }
         else {
-          if (piVar21 != (int *)0x40) goto LAB_00423469;
+          if (piVar22 != (int *)0x40) goto LAB_00423469;
           sVar2 = *(short *)&g_active_country->field_0xfe;
         }
-        if (((sVar2 == 0) && (499999 < iVar7)) &&
+        if (((sVar2 == 0) && (499999 < iVar8)) &&
            ((g_active_country_index != g_human_country_index ||
             (g_auto_turn_or_ai_control_flag != 0)))) goto LAB_00423469;
       }
     }
 LAB_00423791:
-    piVar19 = piVar19 + 0x100;
-    piVar21 = (int *)((int)piVar21 + 1);
-  } while ((int)piVar21 < 0x4b);
+    piVar17 = piVar17 + 0x100;
+    piVar22 = (int *)((int)piVar22 + 1);
+  } while ((int)piVar22 < 0x4b);
   if ((local_262 == 0) && (g_current_city_land_tile->secondary_occupant_count == 0)) {
 LAB_004237d7:
     if (_DAT_007068f8 <= _DAT_0050f2a0) {
       if (_DAT_0050f2a0 < _DAT_00706900) {
-        iVar7 = 7;
+        iVar8 = 7;
         goto LAB_00423ebc;
       }
       if (_DAT_0050f2a0 < _DAT_007068fc) {
-        iVar7 = 6;
+        iVar8 = 6;
         goto LAB_00423ebc;
       }
     }
-    iVar7 = 0;
+    iVar8 = 0;
     goto LAB_00423ebc;
   }
-  if (3 < *(ushort *)&g_current_city->field_0x17e) {
+  if (3 < g_current_city->neighbor_city_pressure) {
     if (g_current_city->population_or_stockpile < 1) goto LAB_004244e4;
     if (-1 < g_current_city->collapse_delay_or_army_count) goto LAB_004237d7;
   }
   if (g_current_city->population_or_stockpile < 1) goto LAB_004244e4;
   local_274 = (undefined1 *)0x0;
-  uVar10 = (uint)g_active_country->special_rule_level;
-  local_27c = uVar10;
-  if (uVar10 == 0) {
+  uVar11 = (uint)g_active_country->special_rule_level;
+  local_27c = uVar11;
+  if (uVar11 == 0) {
 LAB_00423967:
     if (_DAT_0070686c <= (float)_DAT_0050f360) {
-      if (((DAT_005705b4 == -1) || (local_292 == '\0')) && ((0 < DAT_007068e4 || (bVar4)))) {
-        if ((((!bVar3) && (19999 < g_current_city->stored_population_or_value)) &&
+      if (((DAT_005705b4 == -1) || (local_292 == '\0')) && ((0 < DAT_007068e4 || (bVar5)))) {
+        if ((((!bVar4) && (19999 < g_current_city->stored_population_or_value)) &&
             (g_current_city->field_0x2d != '\x01')) &&
            ((local_285 == '\x01' ||
-            (((local_293 == '\0' && ((int)local_274 < 2)) && ((byte)g_current_city->field_0x1ab < 2)
-             ))))) goto LAB_0042443f;
+            (((local_293 == '\0' && ((int)local_274 < 2)) &&
+             (g_current_city->nearby_city_count_bucket < 2)))))) goto LAB_0042443f;
         if ((((int)(local_274 + 3) <=
               (int)((ulonglong)g_active_country->owned_city_count /
-                   (ulonglong)(longlong)(int)(uint)*(ushort *)&g_active_country->field_0x1aa)) &&
-            (0x31 < *(ushort *)&g_active_country->field_0x1aa)) &&
+                   (ulonglong)(longlong)(int)(uint)g_active_country->total_force_or_unit_count)) &&
+            (0x31 < g_active_country->total_force_or_unit_count)) &&
            ((*(short *)&g_active_country->field_0x7e != 0 &&
             (('\x03' < (char)g_current_city_land_tile->army_count_or_occupant_count &&
              (local_293 != '\0')))))) goto LAB_004244e4;
         if (_DAT_007068f0 <= _DAT_0050f2a0) {
-          if ((0 < DAT_007068e4) || (bVar4)) {
+          if ((0 < DAT_007068e4) || (bVar5)) {
             if (g_active_country->special_rule_level < 6) {
               if (g_current_city->stored_population_or_value < 20000) {
                 if ('\x02' < (char)g_current_city_land_tile->army_count_or_occupant_count)
@@ -606,31 +609,32 @@ LAB_00423967:
                    (g_active_country->special_rule_level != g_active_country->field_0x652)) {
                   if (((0 < DAT_007068c4) &&
                       (((g_current_city->field_0x2d != '\0' && (local_293 == '\0')) &&
-                       ((byte)g_current_city->field_0x1ab < 2)))) && (!bVar3)) {
+                       (g_current_city->nearby_city_count_bucket < 2)))) && (!bVar4)) {
                     g_current_city->field_0x2d = 0;
                   }
                   if (((g_active_country->field_0xa7a != '\0') ||
                       (g_current_city->field_0x2d == '\x01')) ||
-                     ((bVar3 || (1 < (byte)g_current_city->field_0x1ab)))) {
+                     ((bVar4 || (1 < g_current_city->nearby_city_count_bucket)))) {
                     if (local_287 == '\x01') {
                       if (local_285 == '\0') {
                         if (0 < DAT_007068c4) {
                           if (((-1 < (int)local_28c) && (-1 < (int)local_280)) &&
                              (0 < (int)(&DAT_005aa46c)[(int)local_280 * 0x100])) {
-                            iVar20 = (uint)*(ushort *)
-                                            (g_active_country->name_bytes +
-                                            (int)local_280 * 2 + 0x7a) *
+                            iVar21 = (uint)*(ushort *)
+                                            (g_active_country->capital_name_bytes +
+                                            (int)local_280 * 2 + 0x42) *
                                      (&DAT_005aa46c)[(int)local_28c * 0x100];
-                            iVar7 = (uint)*(ushort *)
-                                           (g_active_country->name_bytes + (int)local_28c * 2 + 0x7a
-                                           ) * (&DAT_005aa46c)[(int)local_280 * 0x100];
-                            iVar7 = ((iVar7 - iVar20 == 0 || iVar7 < iVar20) - 1 & 2) + 1;
+                            iVar8 = (uint)*(ushort *)
+                                           (g_active_country->capital_name_bytes +
+                                           (int)local_28c * 2 + 0x42) *
+                                    (&DAT_005aa46c)[(int)local_280 * 0x100];
+                            iVar8 = ((iVar8 - iVar21 == 0 || iVar8 < iVar21) - 1 & 2) + 1;
                             goto LAB_00423ebc;
                           }
                           goto LAB_00423eb1;
                         }
                       }
-                      else if ((g_current_city->field_0x2d == '\x01') && (!bVar3)) {
+                      else if ((g_current_city->field_0x2d == '\x01') && (!bVar4)) {
                         g_current_city->field_0x2d = 0;
                         goto LAB_0042443f;
                       }
@@ -651,30 +655,30 @@ LAB_0042443f:
                   }
                   goto LAB_004244e4;
                 }
-                puVar17 = (ushort *)&g_active_country->field_0x7e;
+                puVar19 = (ushort *)&g_active_country->field_0x7e;
                 local_244[0] = 0;
                 local_244[1] = 0;
                 local_244[2] = 0;
-                pbVar11 = g_army_type_table + 0xfc;
+                pbVar12 = g_army_type_table + 0xfc;
                 do {
-                  if (((9 < *(int *)(pbVar11 + -4)) || (9 < *(int *)pbVar11)) ||
-                     (9 < *(int *)(pbVar11 + 4))) {
-                    local_244[*(int *)(pbVar11 + -0xf0)] =
-                         local_244[*(int *)(pbVar11 + -0xf0)] + (uint)*puVar17;
+                  if (((9 < *(int *)(pbVar12 + -4)) || (9 < *(int *)pbVar12)) ||
+                     (9 < *(int *)(pbVar12 + 4))) {
+                    local_244[*(int *)(pbVar12 + -0xf0)] =
+                         local_244[*(int *)(pbVar12 + -0xf0)] + (uint)*puVar19;
                   }
-                  pbVar11 = pbVar11 + 0x400;
-                  puVar17 = puVar17 + 1;
-                } while ((int)pbVar11 < 0x5bcfc4);
+                  pbVar12 = pbVar12 + 0x400;
+                  puVar19 = puVar19 + 1;
+                } while ((int)pbVar12 < 0x5bcfc4);
                 if (local_258 < local_250) {
                   if ((1 < local_250) && ((local_244[2] == 0 || (4 < local_244[0] / local_244[2]))))
                   {
-                    iVar7 = 5;
+                    iVar8 = 5;
                     goto LAB_00423ebc;
                   }
                 }
                 else if ((1 < local_258) &&
                         ((local_244[1] == 0 || (4 < local_244[0] / local_244[1])))) {
-                  iVar7 = 3;
+                  iVar8 = 3;
                   goto LAB_00423ebc;
                 }
               }
@@ -682,12 +686,12 @@ LAB_0042443f:
             else {
               if ((((local_274 == (undefined1 *)0x0) && (local_293 == '\0')) &&
                   (19999 < g_current_city->stored_population_or_value)) &&
-                 ((!bVar3 && ((byte)g_current_city->field_0x1ab < 2)))) {
+                 ((!bVar4 && (g_current_city->nearby_city_count_bucket < 2)))) {
                 if (g_current_city->field_0x2d != '\x01') goto LAB_0042443f;
                 g_current_city->field_0x2d = 0;
                 goto LAB_004244e4;
               }
-              if (((0 < DAT_0070693c) && (local_287 == '\x01')) && (iVar7 = 3, local_285 == '\0'))
+              if (((0 < DAT_0070693c) && (local_287 == '\x01')) && (iVar8 = 3, local_285 == '\0'))
               goto LAB_00423ebc;
             }
           }
@@ -699,7 +703,7 @@ LAB_0042443f:
         if (_DAT_0070690c <= _DAT_0050f2a0) {
           if (_DAT_007068f8 <= _DAT_0050f2a0) {
             if (_DAT_0050f2a0 < _DAT_00706900) {
-              iVar7 = 7;
+              iVar8 = 7;
               goto LAB_00423ebc;
             }
             goto LAB_00423c0d;
@@ -712,11 +716,11 @@ LAB_0042443f:
             if (local_254 == local_26c) {
               if (_DAT_007068f8 <= _DAT_0050f2a0) {
                 if (_DAT_0050f2a0 < _DAT_00706900) {
-                  iVar7 = 7;
+                  iVar8 = 7;
                   goto LAB_00423ebc;
                 }
                 if (_DAT_0050f2a0 < _DAT_007068fc) {
-                  iVar7 = 6;
+                  iVar8 = 6;
                   goto LAB_00423ebc;
                 }
               }
@@ -725,187 +729,187 @@ LAB_0042443f:
             if ((char)g_current_city_land_tile->army_count_or_occupant_count < '\x03') {
               if (_DAT_007068f8 <= _DAT_0050f2a0) {
                 if (_DAT_0050f2a0 < _DAT_00706900) {
-                  iVar7 = 7;
+                  iVar8 = 7;
                   goto LAB_00423ebc;
                 }
                 if (_DAT_0050f2a0 < _DAT_007068fc) {
-                  iVar7 = 6;
+                  iVar8 = 6;
                   goto LAB_00423ebc;
                 }
               }
-              iVar7 = 2;
+              iVar8 = 2;
               goto LAB_00423ebc;
             }
             goto LAB_004244e4;
           }
           if (_DAT_0050f2a0 < _DAT_007068f8) {
-            iVar7 = 0;
+            iVar8 = 0;
             goto LAB_00423ebc;
           }
           if (_DAT_0050f2a0 < _DAT_00706900) {
-            iVar7 = 7;
+            iVar8 = 7;
             goto LAB_00423ebc;
           }
 LAB_00423c0d:
           if (_DAT_0050f2a0 < _DAT_007068fc) {
-            iVar7 = 6;
+            iVar8 = 6;
             goto LAB_00423ebc;
           }
         }
-        iVar7 = 0;
+        iVar8 = 0;
         goto LAB_00423ebc;
       }
 LAB_004244e4:
-      if (((local_261 == '\x01') && ((g_current_city->owner_or_active_flag == 7 || (bVar23)))) &&
+      if (((local_261 == '\x01') && ((g_current_city->owner_or_active_flag == 7 || (bVar24)))) &&
          (((-1 < DAT_007068c4 &&
            ((_DAT_0050f330 < g_active_country->science_budget_or_treasury &&
             (_DAT_0070686c < (float)_DAT_0050f358)))) ||
           ((_DAT_0050f340 < g_active_country->science_budget_or_treasury &&
            (((0x1e < (int)local_268 && (10 < g_current_city->max_worker_slots)) ||
             ((0x32 < (int)local_268 && (6 < g_current_city->max_worker_slots)))))))))) {
-        iVar7 = 0;
-        pCVar14 = g_active_country;
-        pCVar18 = g_current_city;
+        iVar8 = 0;
+        pCVar15 = g_active_country;
+        pCVar20 = g_current_city;
         do {
-          if (((((*(int *)(&DAT_00749c80 + iVar7 * 8) == -1) &&
-                (pCVar14->available_special_project_flags[iVar7] == 1)) &&
-               (pCVar18->special_project_status[iVar7] == 0)) &&
-              ((iVar7 != 9 || (_DAT_0050f328 <= pCVar14->science_budget_or_treasury)))) &&
-             (pCVar14->special_project_pending_counts[iVar7] == 0)) {
+          if (((((*(int *)(&DAT_00749c80 + iVar8 * 8) == -1) &&
+                (pCVar15->available_special_project_flags[iVar8] == 1)) &&
+               (pCVar20->special_project_status[iVar8] == 0)) &&
+              ((iVar8 != 9 || (_DAT_0050f328 <= pCVar15->science_budget_or_treasury)))) &&
+             (pCVar15->special_project_pending_counts[iVar8] == 0)) {
             if (DAT_0074a2b1 == '\0') {
-              piVar19 = (int *)0xffffffff;
-              piVar21 = (int *)0xffffffff;
+              piVar17 = (int *)0xffffffff;
+              piVar22 = (int *)0xffffffff;
             }
             else {
-              cVar6 = City_Build_AI_Build_Able(pCVar18,&local_290,&local_298,iVar7 + 0x41);
-              pCVar14 = g_active_country;
-              pCVar18 = g_current_city;
-              piVar19 = local_290;
-              piVar21 = local_298;
-              if (cVar6 == '\0') goto LAB_004245ea;
+              cVar7 = City_Build_AI_Build_Able(pCVar20,&local_290,&local_298,iVar8 + 0x41);
+              pCVar15 = g_active_country;
+              pCVar20 = g_current_city;
+              piVar17 = local_290;
+              piVar22 = local_298;
+              if (cVar7 == '\0') goto LAB_004245ea;
             }
-            FUN_004b01b0(pCVar18,0,2,iVar7,piVar19,piVar21,0xffffffff);
-            local_2a0 = (undefined1 *)(iVar7 + 0x8c);
+            FUN_004b01b0(pCVar20,0,2,iVar8,piVar17,piVar22,0xffffffff);
+            local_2a0 = (undefined1 *)(iVar8 + 0x8c);
             if (local_2a0 != (undefined1 *)0xffffffff) {
               return;
             }
             break;
           }
 LAB_004245ea:
-          iVar7 = iVar7 + 1;
-        } while (iVar7 < 0x19);
+          iVar8 = iVar8 + 1;
+        } while (iVar8 < 0x19);
       }
-      if (((0 < local_260) && (g_current_city->field_0x1ab != '\0')) &&
+      if (((0 < local_260) && (g_current_city->nearby_city_count_bucket != 0)) &&
          ((((-1 < DAT_007068c4 ||
             (((-1 < (char)g_current_city->event_lock && (9 < (int)local_268)) ||
              (99 < (int)local_268)))) ||
            (_DAT_0050f328 < g_active_country->science_budget_or_treasury)) &&
           (_DAT_0050f350 <= g_active_country->science_budget_or_treasury)))) {
-        piVar19 = (int *)0x0;
+        piVar17 = (int *)0x0;
         local_280 = local_244 + 3;
         local_26c = (int *)0xffffffff;
         local_298 = (int *)0x0;
-        piVar21 = &DAT_00599850;
+        piVar22 = &g_building_defs[0].population_requirement;
         do {
           if (*local_280 == 1) {
-            if ((bVar23) && (g_world_age_or_turn_phase < 2)) {
-              cVar6 = City_Build_AI_Build_Able(g_current_city,&local_25c,&local_290,piVar19);
-              if (cVar6 != '\0') {
-                FUN_004b01b0(g_current_city,0,1,piVar19,local_25c,local_290,0xffffffff);
-                local_2a0 = (undefined1 *)((int)piVar19 + 0x4b);
+            if ((bVar24) && (g_world_age_or_turn_phase < 2)) {
+              cVar7 = City_Build_AI_Build_Able(g_current_city,&local_25c,&local_290,piVar17);
+              if (cVar7 != '\0') {
+                FUN_004b01b0(g_current_city,0,1,piVar17,local_25c,local_290,0xffffffff);
+                local_2a0 = (undefined1 *)((int)piVar17 + 0x4b);
                 break;
               }
             }
             else {
-              piVar15 = (int *)0x0;
-              iVar7 = g_current_city->stored_population_or_value -
-                      piVar21[g_active_country->government_or_ai_mode + -8];
+              piVar16 = (int *)0x0;
+              iVar8 = g_current_city->stored_population_or_value -
+                      piVar22[g_active_country->government_or_ai_mode + -8];
               if ((g_current_city->growth_or_industry_score < 0x32) ||
                  ((g_current_city->safety_score < 0x3c || (g_current_city->business_score < 0x3c))))
               {
-                if (piVar21[0x15] == 6) {
-                  piVar15 = (int *)((piVar21[-0xc] * 0x28 +
-                                    (piVar21[-0xd] + 0x3c + piVar21[-0xe] * 2) * 0x32) -
-                                   piVar21[-0x11]);
+                if (piVar22[0x15] == 6) {
+                  piVar16 = (int *)((piVar22[-0xc] * 0x28 +
+                                    (piVar22[-0xd] + 0x3c + piVar22[-0xe] * 2) * 0x32) -
+                                   piVar22[-0x11]);
                 }
               }
               else {
                 if (g_current_city->owner_or_active_flag != 6) {
-                  if ((((piVar19 == (int *)0x64) || (piVar19 == (int *)0x2e)) ||
-                      (piVar19 == (int *)0x3a)) || (piVar19 == (int *)0x34)) {
-                    piVar15 = (int *)0x989680;
+                  if ((((piVar17 == (int *)0x64) || (piVar17 == (int *)0x2e)) ||
+                      (piVar17 == (int *)0x3a)) || (piVar17 == (int *)0x34)) {
+                    piVar16 = (int *)0x989680;
                   }
                   if ((g_current_city->owner_or_active_flag != 6) &&
-                     (((piVar19 == (int *)0x13 || (piVar19 == (int *)0x5)) ||
-                      (piVar19 == (int *)&DAT_00000011)))) {
-                    piVar15 = piVar15 + 25000;
+                     (((piVar17 == (int *)0x13 || (piVar17 == (int *)0x5)) ||
+                      (piVar17 == (int *)&DAT_00000011)))) {
+                    piVar16 = piVar16 + 25000;
                   }
                 }
-                iVar20 = iVar7;
-                if (0 < piVar21[g_active_country->government_or_ai_mode + -8]) {
-                  if (-1 < iVar7) {
-                    piVar15 = (int *)((int)piVar15 + (iVar7 * 5 + 25000) * 2);
+                iVar21 = iVar8;
+                if (0 < piVar22[g_active_country->government_or_ai_mode + -8]) {
+                  if (-1 < iVar8) {
+                    piVar16 = (int *)((int)piVar16 + (iVar8 * 5 + 25000) * 2);
                     goto LAB_004247dc;
                   }
-                  iVar20 = -iVar7;
-                  if (iVar20 < 50000) {
-                    piVar15 = (int *)(iVar7 + 50000);
+                  iVar21 = -iVar8;
+                  if (iVar21 < 50000) {
+                    piVar16 = (int *)(iVar8 + 50000);
                   }
                 }
-                if ((iVar20 == 0) && (0 < *piVar21)) {
-                  piVar15 = (int *)((g_current_city->stored_population_or_value - *piVar21) +
+                if ((iVar21 == 0) && (0 < *piVar22)) {
+                  piVar16 = (int *)((g_current_city->stored_population_or_value - *piVar22) +
                                    100000000);
                 }
               }
 LAB_004247dc:
               if ((1 < g_current_city->owner_or_active_flag) &&
-                 (piVar21[0x15] == (uint)g_current_city->owner_or_active_flag)) {
-                piVar15 = piVar15 + 0xfa;
+                 (piVar22[0x15] == (uint)g_current_city->owner_or_active_flag)) {
+                piVar16 = piVar16 + 0xfa;
               }
               if ((3 < g_active_country->special_rule_level) ||
                  ((float)_DAT_0050f360 < _DAT_0070686c)) {
-                if ((piVar21[0x15] == 2) || (3 < *(ushort *)&g_current_city->field_0x17e)) {
-                  piVar5 = piVar15 + 0x2ee;
+                if ((piVar22[0x15] == 2) || (3 < g_current_city->neighbor_city_pressure)) {
+                  piVar6 = piVar16 + 0x2ee;
                   if ((local_275 == '\x01') &&
-                     ((piVar19 == (int *)0x15 || (piVar19 == (int *)0x2d)))) {
-                    piVar5 = piVar15 + 0x1eb36;
+                     ((piVar17 == (int *)0x15 || (piVar17 == (int *)0x2d)))) {
+                    piVar6 = piVar16 + 0x1eb36;
                   }
-                  piVar15 = piVar5;
+                  piVar16 = piVar6;
                   if ((local_291 == '\x01') &&
-                     ((piVar19 == (int *)0x2e || (piVar19 == (int *)0x34)))) {
-                    piVar15 = piVar15 + 0x1e848;
+                     ((piVar17 == (int *)0x2e || (piVar17 == (int *)0x34)))) {
+                    piVar16 = piVar16 + 0x1e848;
                   }
                 }
               }
               else if ((((0x31 < g_current_city->growth_or_industry_score) &&
                         (0x3b < g_current_city->safety_score)) &&
                        (0x3b < g_current_city->business_score)) &&
-                      ((piVar21[0x15] == 5 || (piVar21[0x15] == 4)))) {
-                piVar15 = piVar15 + 0x2ee;
+                      ((piVar22[0x15] == 5 || (piVar22[0x15] == 4)))) {
+                piVar16 = piVar16 + 0x2ee;
               }
-              if (((bVar23) &&
-                  (((piVar19 == (int *)0x15 || (piVar19 == (int *)0x2d)) || (piVar19 == (int *)0x34)
+              if (((bVar24) &&
+                  (((piVar17 == (int *)0x15 || (piVar17 == (int *)0x2d)) || (piVar17 == (int *)0x34)
                    ))) && ((((_DAT_00748e30 != (char *)0x0 && ('\0' < *_DAT_00748e30)) &&
                             (_DAT_00748e30[0x77] != '\0')) || (g_active_country->field_0x77 != '\0')
                            ))) {
-                piVar15 = piVar15 + 75000;
+                piVar16 = piVar16 + 75000;
               }
-              if ((int)local_298 <= (int)piVar15) {
-                local_298 = piVar15;
-                local_26c = piVar19;
+              if ((int)local_298 <= (int)piVar16) {
+                local_298 = piVar16;
+                local_26c = piVar17;
               }
             }
           }
-          piVar21 = piVar21 + 0x80;
-          piVar19 = (int *)((int)piVar19 + 1);
+          piVar22 = piVar22 + 0x80;
+          piVar17 = (int *)((int)piVar17 + 1);
           local_280 = local_280 + 1;
-        } while ((int)piVar19 < 0x41);
-        piVar19 = local_26c;
+        } while ((int)piVar17 < 0x41);
+        piVar17 = local_26c;
         if ((-1 < (int)local_26c) &&
-           (cVar6 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,local_26c),
-           cVar6 != '\0')) {
-          FUN_004b01b0(g_current_city,0,1,piVar19,local_290,local_298,0xffffffff);
-          local_2a0 = (undefined1 *)((int)piVar19 + 0x4b);
+           (cVar7 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,local_26c),
+           cVar7 != '\0')) {
+          FUN_004b01b0(g_current_city,0,1,piVar17,local_290,local_298,0xffffffff);
+          local_2a0 = (undefined1 *)((int)piVar17 + 0x4b);
         }
         if (local_2a0 != (undefined1 *)0xffffffff) {
           return;
@@ -913,64 +917,64 @@ LAB_004247dc:
       }
       if (((g_current_city->development_level < 5) && (local_244[0x19] == 1)) &&
          ((g_current_city->population_growth_clamped == 1 &&
-          (cVar6 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,0x16),
-          cVar6 != '\0')))) {
+          (cVar7 = City_Build_AI_Build_Able(g_current_city,&local_290,&local_298,0x16),
+          cVar7 != '\0')))) {
         FUN_004b01b0(g_current_city,0,1,0x16,local_290,local_298,0xffffffff);
         return;
       }
-      pCVar14 = g_active_country;
-      pCVar18 = g_current_city;
-      if ((((g_current_city->owner_or_active_flag == 7) || (bVar23)) &&
-          (g_current_city->field_0x1ab != '\0')) &&
+      pCVar15 = g_active_country;
+      pCVar20 = g_current_city;
+      if ((((g_current_city->owner_or_active_flag == 7) || (bVar24)) &&
+          (g_current_city->nearby_city_count_bucket != 0)) &&
          ((('\0' < (char)g_active_country->available_special_project_count && (-1 < DAT_007068c4))
           && (_DAT_0050f320 < g_active_country->science_budget_or_treasury)))) {
-        iVar7 = 0;
+        iVar8 = 0;
         do {
-          if (((*(int *)(&DAT_00749c80 + iVar7 * 8) == -1) &&
-              (pCVar14->available_special_project_flags[iVar7] == 1)) &&
-             ((pCVar18->special_project_status[iVar7] == 0 &&
-              (((iVar7 != 9 || (_DAT_0050f328 <= pCVar14->science_budget_or_treasury)) &&
-               (pCVar14->special_project_pending_counts[iVar7] == 0)))))) {
+          if (((*(int *)(&DAT_00749c80 + iVar8 * 8) == -1) &&
+              (pCVar15->available_special_project_flags[iVar8] == 1)) &&
+             ((pCVar20->special_project_status[iVar8] == 0 &&
+              (((iVar8 != 9 || (_DAT_0050f328 <= pCVar15->science_budget_or_treasury)) &&
+               (pCVar15->special_project_pending_counts[iVar8] == 0)))))) {
             if (DAT_0074a2b1 == '\0') {
-              piVar19 = (int *)0xffffffff;
-              piVar21 = (int *)0xffffffff;
+              piVar17 = (int *)0xffffffff;
+              piVar22 = (int *)0xffffffff;
             }
             else {
-              cVar6 = City_Build_AI_Build_Able(pCVar18,&local_290,&local_298,iVar7 + 0x41);
-              pCVar14 = g_active_country;
-              pCVar18 = g_current_city;
-              piVar19 = local_290;
-              piVar21 = local_298;
-              if (cVar6 == '\0') goto LAB_00424aa9;
+              cVar7 = City_Build_AI_Build_Able(pCVar20,&local_290,&local_298,iVar8 + 0x41);
+              pCVar15 = g_active_country;
+              pCVar20 = g_current_city;
+              piVar17 = local_290;
+              piVar22 = local_298;
+              if (cVar7 == '\0') goto LAB_00424aa9;
             }
-            FUN_004b01b0(pCVar18,0,2,iVar7,piVar19,piVar21,0xffffffff);
-            pCVar14 = g_active_country;
-            pCVar18 = g_current_city;
-            if (iVar7 != -0x8d) {
+            FUN_004b01b0(pCVar20,0,2,iVar8,piVar17,piVar22,0xffffffff);
+            pCVar15 = g_active_country;
+            pCVar20 = g_current_city;
+            if (iVar8 != -0x8d) {
               return;
             }
             break;
           }
 LAB_00424aa9:
-          iVar7 = iVar7 + 1;
-        } while (iVar7 < 0x19);
+          iVar8 = iVar8 + 1;
+        } while (iVar8 < 0x19);
       }
-      if ((*(ushort *)&pCVar14->field_0x1aa == 1) &&
-         ('\0' < (char)pCVar14->available_building_flags[0x16])) {
-        iVar7 = pCVar18->population_or_stockpile;
-        bVar23 = false;
-        if (iVar7 == 0) {
-          if ((pCVar18->collapse_delay_or_army_count < 0) &&
+      if ((pCVar15->total_force_or_unit_count == 1) &&
+         ('\0' < (char)pCVar15->available_building_flags[0x16])) {
+        iVar8 = pCVar20->population_or_stockpile;
+        bVar24 = false;
+        if (iVar8 == 0) {
+          if ((pCVar20->collapse_delay_or_army_count < 0) &&
              (g_current_city_land_tile->secondary_occupant_count == 0)) {
             g_city_removed_this_turn = 1;
             DAT_00706868 = 4;
-            Format_Text(local_244 + 3,&DAT_005157a4,pCVar14->name_bytes,&pCVar18->field_0x3);
+            Format_Text(local_244 + 3,&DAT_005157a4,pCVar15->name_bytes,pCVar20->name_bytes);
             FUN_004898b0(DAT_0074c850,local_244 + 3,1,g_current_city->tile_x,g_current_city->tile_y)
             ;
             if (g_active_country_index != g_human_country_index) {
               return;
             }
-            if (*(short *)&g_active_country->field_0x1aa != 1) {
+            if (g_active_country->total_force_or_unit_count != 1) {
               return;
             }
             FUN_00489e20(g_active_country_index,0xffffffff,0xffffffff,local_244 + 3);
@@ -981,39 +985,39 @@ LAB_00424aa9:
       }
       else {
 LAB_00424be1:
-        iVar7 = pCVar18->population_or_stockpile;
-        bVar23 = iVar7 == 0;
+        iVar8 = pCVar20->population_or_stockpile;
+        bVar24 = iVar8 == 0;
       }
-      if (bVar23 || iVar7 < 0) {
+      if (bVar24 || iVar8 < 0) {
         return;
       }
-      if (pCVar18->collapse_delay_or_army_count < 2) {
+      if (pCVar20->collapse_delay_or_army_count < 2) {
         return;
       }
       if (local_286 != '\x01') {
         return;
       }
-      if (7 < pCVar18->round_or_protection_timer) {
+      if (7 < pCVar20->round_or_protection_timer) {
         return;
       }
-      if (*(short *)&pCVar18->field_0x17e != 0) {
+      if (pCVar20->neighbor_city_pressure != 0) {
         return;
       }
-      if ((19999 < pCVar18->stored_population_or_value) &&
-         ((int)(uint)*(ushort *)&pCVar14->field_0x1aa <
-          *(int *)(&DAT_005992c0 + pCVar14->government_or_ai_mode * 0x74))) {
-        if (*(ushort *)&pCVar14->field_0x7e == 0) {
-          uVar24 = 0;
+      if ((19999 < pCVar20->stored_population_or_value) &&
+         ((int)(uint)pCVar15->total_force_or_unit_count <
+          *(int *)(&DAT_005992c0 + pCVar15->government_or_ai_mode * 0x74))) {
+        if (*(ushort *)&pCVar15->field_0x7e == 0) {
+          uVar25 = 0;
           goto LAB_00424ce2;
         }
-        if (!bVar3) {
-          if ((byte)pCVar18->field_0x1ab < 2) {
-            uVar24 = 0;
+        if (!bVar4) {
+          if (pCVar20->nearby_city_count_bucket < 2) {
+            uVar25 = 0;
             goto LAB_00424ce2;
           }
-          if (3 < ((uint)*(ushort *)&pCVar14->field_0xfa + (uint)*(ushort *)&pCVar14->field_0x80) /
-                  (uint)*(ushort *)&pCVar14->field_0x7e) {
-            uVar24 = 0;
+          if (3 < ((uint)*(ushort *)&pCVar15->field_0xfa + (uint)*(ushort *)&pCVar15->field_0x80) /
+                  (uint)*(ushort *)&pCVar15->field_0x7e) {
+            uVar25 = 0;
             goto LAB_00424ce2;
           }
         }
@@ -1022,73 +1026,73 @@ LAB_00424be1:
       {
         return;
       }
-      if ((pCVar18->building_status[0x2e] == 2) && (pCVar14->available_building_flags[0x3e] != 0)) {
-        uVar24 = 0x3e;
+      if ((pCVar20->building_status[0x2e] == 2) && (pCVar15->available_building_flags[0x3e] != 0)) {
+        uVar25 = 0x3e;
       }
       else {
-        uVar24 = 1;
+        uVar25 = 1;
       }
 LAB_00424ce2:
-      FUN_004b01b0(pCVar18,0,0,uVar24,0xffffffff,0xffffffff,0xffffffff);
+      FUN_004b01b0(pCVar20,0,0,uVar25,0xffffffff,0xffffffff,0xffffffff);
       return;
     }
   }
   else {
-    iVar20 = 0;
+    iVar21 = 0;
     local_270 = 0x628;
-    piVar19 = local_298;
-    iVar7 = _g_land_tiles;
+    piVar17 = local_298;
+    iVar8 = _g_land_tiles;
     do {
-      if ((int)uVar10 < 1) break;
-      iVar8 = (int)*(short *)(g_active_country->name_bytes + local_270 + -0x18);
-      if (-1 < iVar8) {
-        iVar9 = (int)*(short *)(g_active_country->name_bytes + local_270 + -4);
+      if ((int)uVar11 < 1) break;
+      iVar9 = (int)*(short *)(g_active_country->name_bytes + local_270 + -0x18);
+      if (-1 < iVar9) {
+        iVar10 = (int)*(short *)(g_active_country->name_bytes + local_270 + -4);
         switch(g_map_size_mode) {
         case 0:
-          iVar16 = iVar8 + iVar9 * 0x138;
+          iVar18 = iVar9 + iVar10 * 0x138;
           break;
         case 1:
-          iVar16 = iVar8 + iVar9 * 0x9c;
+          iVar18 = iVar9 + iVar10 * 0x9c;
           break;
         case 2:
-          iVar16 = iVar8 + iVar9 * 0x4e;
+          iVar18 = iVar9 + iVar10 * 0x4e;
           break;
         case 3:
-          iVar16 = iVar9 * 0x27 + iVar8;
+          iVar18 = iVar10 * 0x27 + iVar9;
           break;
         default:
           goto switchD_0042389a_default;
         }
-        piVar19 = (int *)(iVar16 * 0x100 + iVar7);
+        piVar17 = (int *)(iVar18 * 0x100 + iVar8);
 switchD_0042389a_default:
-        if ((short)piVar19[4] == g_current_city_land_tile->linked_count_or_city_count) {
-          cVar6 = *(char *)((int)piVar19 + 0x25);
-          if ((((cVar6 < '\0') && (cVar6 = *(char *)((int)piVar19 + 0x27), cVar6 < '\0')) ||
-              (iVar16 = (int)cVar6, iVar16 < 1)) ||
-             ((iVar16 == g_active_country_index ||
-              ((1 < *(int *)(&g_active_country->field_0x1ac + iVar16 * 4) &&
-               (*(int *)(&g_active_country->field_0x1ac + iVar16 * 4) < 6)))))) {
-            FUN_0046b6c0(g_active_country_index,iVar8,iVar9,iVar20 + 1);
-            iVar7 = _g_land_tiles;
+        if ((short)piVar17[4] == g_current_city_land_tile->linked_count_or_city_count) {
+          cVar7 = *(char *)((int)piVar17 + 0x25);
+          if ((((cVar7 < '\0') && (cVar7 = *(char *)((int)piVar17 + 0x27), cVar7 < '\0')) ||
+              (iVar18 = (int)cVar7, iVar18 < 1)) ||
+             ((iVar18 == g_active_country_index ||
+              ((1 < g_active_country->diplomacy_state_by_country[iVar18] &&
+               (g_active_country->diplomacy_state_by_country[iVar18] < 6)))))) {
+            FUN_0046b6c0(g_active_country_index,iVar9,iVar10,iVar21 + 1);
+            iVar8 = _g_land_tiles;
           }
           else {
             local_274 = local_274 + 1;
           }
         }
-        uVar10 = local_27c - 1;
-        local_27c = uVar10;
+        uVar11 = local_27c - 1;
+        local_27c = uVar11;
       }
       local_270 = local_270 + 2;
-      iVar20 = iVar20 + 1;
+      iVar21 = iVar21 + 1;
     } while (local_270 < 0x63c);
     if ((int)local_274 < 6) goto LAB_00423967;
   }
 LAB_00423eb1:
-  iVar7 = 1;
+  iVar8 = 1;
 LAB_00423ebc:
                     /* WARNING: Could not recover jumptable at 0x00423ebc. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-  (*(code *)(&PTR_LAB_00424d08)[iVar7])();
+  (*(code *)(&PTR_LAB_00424d08)[iVar8])();
   return;
 }
 

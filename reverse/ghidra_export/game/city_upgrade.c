@@ -11,9 +11,9 @@ void City_Upgrade(int param_1)
   char cVar1;
   undefined1 uVar2;
   int iVar3;
-  int iVar4;
+  int *piVar4;
   int iVar5;
-  int *piVar6;
+  int iVar6;
   short *psVar7;
   int *piVar8;
   int local_110;
@@ -23,41 +23,41 @@ void City_Upgrade(int param_1)
   
   Trace_Function(s_City_Upgrade_00515d30);
   if (DAT_0074a2b1 != '\0') {
-    iVar4 = *(int *)(param_1 + 0x1ac);
+    iVar5 = *(int *)(param_1 + 0x1ac);
     iVar3 = 0x30;
     do {
-      iVar5 = 0x30;
+      iVar6 = 0x30;
       do {
-        if (('Y' < *(char *)(iVar4 + 7)) && (*(char *)(iVar4 + 7) < '`')) {
+        if (('Y' < *(char *)(iVar5 + 7)) && (*(char *)(iVar5 + 7) < '`')) {
           cVar1 = FUN_004fbf50(4);
-          *(char *)(iVar4 + 7) = cVar1 + 'Z';
+          *(char *)(iVar5 + 7) = cVar1 + 'Z';
           uVar2 = FUN_004fbf50(4);
-          *(undefined1 *)(iVar4 + 0xb) = uVar2;
-          *(undefined2 *)(iVar4 + 8) = *(undefined2 *)(&DAT_005997fc + *(char *)(iVar4 + 7) * 0x200)
-          ;
+          *(undefined1 *)(iVar5 + 0xb) = uVar2;
+          *(undefined2 *)(iVar5 + 8) =
+               *(undefined2 *)&g_building_defs[*(char *)(iVar5 + 7)].field_0x44;
         }
-        iVar4 = iVar4 + 0x20;
-        iVar5 = iVar5 + -1;
-      } while (iVar5 != 0);
+        iVar5 = iVar5 + 0x20;
+        iVar6 = iVar6 + -1;
+      } while (iVar6 != 0);
       iVar3 = iVar3 + -1;
     } while (iVar3 != 0);
   }
   iVar3 = 0;
-  piVar6 = local_104;
-  for (iVar4 = 0x41; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *piVar6 = 0;
-    piVar6 = piVar6 + 1;
+  piVar4 = local_104;
+  for (iVar5 = 0x41; iVar5 != 0; iVar5 = iVar5 + -1) {
+    *piVar4 = 0;
+    piVar4 = piVar4 + 1;
   }
-  piVar6 = &DAT_00599800;
+  piVar4 = &g_building_defs[0].upgrade_to_building_id;
   do {
     if (*(char *)(iVar3 + 100 + param_1) == '\x02') {
       if (iVar3 == 1) {
         if ((*(char *)(param_1 + 100) != '\0') || (*(char *)(param_1 + 0xa1) != '\0'))
         goto LAB_00429019;
       }
-      if ((-1 < *piVar6) && ((&DAT_00735a8c)[*(char *)(param_1 + 1) * 0xe68 + *piVar6] != '\0')) {
+      if ((-1 < *piVar4) && ((&DAT_00735a8c)[*(char *)(param_1 + 1) * 0xe68 + *piVar4] != '\0')) {
         FUN_004299f0(param_1,iVar3,0);
-        if (*(char *)(*piVar6 + 100 + param_1) == '\0') {
+        if (*(char *)(*piVar4 + 100 + param_1) == '\0') {
           local_104[iVar3] = 1;
         }
       }
@@ -66,41 +66,41 @@ void City_Upgrade(int param_1)
       }
     }
 LAB_00429019:
-    piVar6 = piVar6 + 0x80;
+    piVar4 = piVar4 + 0x80;
     iVar3 = iVar3 + 1;
     if (0x40 < iVar3) {
-      if ((*(byte *)(param_1 + 0x100) != 0) && (iVar4 = *(byte *)(param_1 + 0x100) - 1, -1 < iVar4))
+      if ((*(byte *)(param_1 + 0x100) != 0) && (iVar5 = *(byte *)(param_1 + 0x100) - 1, -1 < iVar5))
       {
-        psVar7 = (short *)(param_1 + 0xd8 + iVar4 * 2);
+        psVar7 = (short *)(param_1 + 0xd8 + iVar5 * 2);
         do {
           if ((0x4a < *psVar7) && (*psVar7 < 0x8c)) {
-            FUN_004b01b0(param_1,2,iVar4,0xffffffff,0xffffffff,0xffffffff,0xffffffff);
+            FUN_004b01b0(param_1,2,iVar5,0xffffffff,0xffffffff,0xffffffff,0xffffffff);
           }
-          iVar4 = iVar4 + -1;
+          iVar5 = iVar5 + -1;
           psVar7 = psVar7 + -1;
-        } while (-1 < iVar4);
+        } while (-1 < iVar5);
       }
-      piVar8 = &DAT_00599800;
-      piVar6 = local_104;
+      piVar8 = &g_building_defs[0].upgrade_to_building_id;
+      piVar4 = local_104;
       local_110 = 0x41;
       do {
-        if (*piVar6 == 1) {
-          iVar4 = *piVar8;
+        if (*piVar4 == 1) {
+          iVar5 = *piVar8;
           if (DAT_0074a2b1 != '\0') {
-            cVar1 = City_Build_AI_Build_Able(param_1,&local_108,&local_10c,iVar4);
+            cVar1 = City_Build_AI_Build_Able(param_1,&local_108,&local_10c,iVar5);
             if (cVar1 != '\0') {
-              cVar1 = FUN_00429c20(param_1,iVar4,local_108,local_10c);
+              cVar1 = FUN_00429c20(param_1,iVar5,local_108,local_10c);
               if (cVar1 == '\0') {
                 FUN_00469f90(&DAT_00515d20,1);
               }
             }
           }
-          *(undefined1 *)(iVar4 + 100 + param_1) = 2;
+          *(undefined1 *)(iVar5 + 100 + param_1) = 2;
           *(short *)(param_1 + 0xd4) =
-               *(short *)(param_1 + 0xd4) + *(short *)(&DAT_00599814 + iVar4 * 0x80);
+               *(short *)(param_1 + 0xd4) + g_building_defs[iVar5].income_yield_delta;
         }
         piVar8 = piVar8 + 0x80;
-        piVar6 = piVar6 + 1;
+        piVar4 = piVar4 + 1;
         local_110 = local_110 + -1;
       } while (local_110 != 0);
       *(undefined1 *)(param_1 + 0x22) = 5;

@@ -92,8 +92,8 @@ switchD_0040565c_default:
                 iVar7 = *piVar8;
                 if (((iVar7 != 0) && (*(char *)(iVar7 + 1) != _DAT_00748e34)) &&
                    (*(char *)(iVar7 + 1) != '\0')) {
-                  if ((*(int *)(&g_active_country->field_0x1ac + *(char *)(iVar7 + 1) * 4) < 2) ||
-                     (5 < *(int *)(&g_active_country->field_0x1ac + *(char *)(iVar7 + 1) * 4))) {
+                  if ((g_active_country->diplomacy_state_by_country[*(char *)(iVar7 + 1)] < 2) ||
+                     (5 < g_active_country->diplomacy_state_by_country[*(char *)(iVar7 + 1)])) {
                     iVar10 = 0x82;
                     iVar7 = *(int *)(psVar2 + 6) << 4;
                   }
@@ -112,8 +112,8 @@ switchD_0040565c_default:
           else {
             cVar3 = *(char *)(*(int *)(iVar11 + 0x88) + 1);
             if ((cVar3 != _DAT_00748e34) && (cVar3 != '\0')) {
-              if ((*(int *)(&g_active_country->field_0x1ac + cVar3 * 4) < 2) ||
-                 (5 < *(int *)(&g_active_country->field_0x1ac + cVar3 * 4))) {
+              if ((g_active_country->diplomacy_state_by_country[cVar3] < 2) ||
+                 (5 < g_active_country->diplomacy_state_by_country[cVar3])) {
                 if ((int)*(char *)(iVar11 + 0x7c) + (int)*(char *)(iVar11 + 0x50) == 0) {
                   iVar10 = *(int *)(psVar2 + 6) * -0x100 + 0x1888;
                 }

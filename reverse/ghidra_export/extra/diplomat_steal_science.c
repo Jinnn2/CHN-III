@@ -18,7 +18,7 @@ undefined1 Diplomat_Steal_Science(void)
   short sVar6;
   int iVar7;
   int *piVar8;
-  int *piVar9;
+  ScienceDef_0x88 *pSVar9;
   int iVar10;
   undefined *puVar11;
   int iVar12;
@@ -55,13 +55,13 @@ switchD_00438e64_default:
   iVar12 = 0;
   *puVar4 = 1;
   local_c2 = 0;
-  piVar9 = &DAT_005817a8;
+  pSVar9 = g_science_defs;
   iVar7 = (char)puVar4[1] * 0xe68;
   piVar8 = g_active_country->early_science_status;
-  while (((*piVar9 == 0 ||
+  while (((pSVar9->is_enabled == 0 ||
           (*(int *)((int)piVar8 + (int)(&g_country_states + (iVar7 - (int)g_active_country))) != 2))
          || (1 < *piVar8))) {
-    piVar9 = piVar9 + 0x22;
+    pSVar9 = pSVar9 + 1;
     iVar12 = iVar12 + 1;
     piVar8 = piVar8 + 1;
     if (199 < iVar12) {
@@ -158,7 +158,7 @@ LAB_00438f47:
           puVar13 = &DAT_00519390;
         }
 LAB_004390c8:
-        Format_Text(local_c0,puVar13,puVar11,puVar14,pbVar15,&DAT_005817ac + iVar12 * 0x88);
+        Format_Text(local_c0,puVar13,puVar11,puVar14,pbVar15,iVar12 * 0x88 + 0x5817ac);
 LAB_004390d0:
         bVar5 = true;
       }
@@ -181,7 +181,7 @@ LAB_004390d5:
           }
           Format_Text(local_c0,&DAT_0051936c,g_active_country->name_bytes,
                       &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
-                      g_active_country->name_bytes,&DAT_005817ac + iVar12 * 0x88);
+                      g_active_country->name_bytes,iVar12 * 0x88 + 0x5817ac);
           goto LAB_004390d0;
         }
         goto LAB_004390d5;
@@ -199,8 +199,7 @@ LAB_004390d5:
         return 1;
       }
       Format_Text(local_c0,&DAT_00519318,g_active_country->name_bytes,&DAT_007350bc + iVar7,
-                  &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,
-                  &DAT_005817ac + iVar12 * 0x88);
+                  &DAT_005a7bdc + (uint)(byte)puVar4[0x21] * 5,puVar4 + 3,iVar12 * 0x88 + 0x5817ac);
     }
     uVar2 = *(undefined2 *)(puVar4 + 0x18);
     uVar3 = *(undefined2 *)(puVar4 + 0x16);

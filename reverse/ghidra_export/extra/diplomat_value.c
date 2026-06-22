@@ -347,7 +347,7 @@ LAB_00440128:
       if (iVar1 < 0xf) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return (&DAT_005817cc)[iVar8 * 0x22] * 3;
+          return g_science_defs[iVar8].research_cost * 3;
         }
         goto LAB_0044029f;
       }
@@ -367,34 +367,34 @@ LAB_00440128:
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
 LAB_00440237:
-          return (&DAT_005817cc)[iVar8 * 0x22] * 10;
+          return g_science_defs[iVar8].research_cost * 10;
         }
 LAB_00440346:
-        return (&DAT_005817cc)[iVar8 * 0x22] * 3;
+        return g_science_defs[iVar8].research_cost * 3;
       }
       if (iVar1 < 0x28) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return (&DAT_005817cc)[iVar8 * 0x22] << 3;
+          return g_science_defs[iVar8].research_cost << 3;
         }
         goto LAB_0044029f;
       }
       if (iVar1 < 0x51) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return (&DAT_005817cc)[iVar8 * 0x22] << 2;
+          return g_science_defs[iVar8].research_cost << 2;
         }
 LAB_004402e2:
-        return (&DAT_005817cc)[iVar8 * 0x22] * 6;
+        return g_science_defs[iVar8].research_cost * 6;
       }
     }
     iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
     if (!bVar12) {
 LAB_0044037d:
-      return (&DAT_005817cc)[iVar8 * 0x22] << 3;
+      return g_science_defs[iVar8].research_cost << 3;
     }
 LAB_0044029f:
-    return (&DAT_005817cc)[iVar8 * 0x22] * 5;
+    return g_science_defs[iVar8].research_cost * 5;
   case 0x11:
     iVar9 = *(int *)(param_1 + 0x2dc + (param_3 + param_2 * 10) * 4);
     iVar5 = *(int *)(iVar9 + 0x24) / 10;

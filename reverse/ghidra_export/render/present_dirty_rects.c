@@ -6,9 +6,8 @@
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-void Present_Dirty_Rects(int dst_x,int dst_y)
+void __cdecl Present_Dirty_Rects(int dst_x,int dst_y)
 
 {
   int iVar1;

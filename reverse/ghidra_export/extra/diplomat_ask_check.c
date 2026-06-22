@@ -205,9 +205,9 @@ LAB_00441980:
         uVar5 = uVar6;
 LAB_00441cc6:
         iVar9 = *(int *)(param_1 + 0x32c + ((uVar4 & 0xffff) + uVar5 * 10) * 4);
-        uVar3 = (&DAT_005817cc)[iVar9 * 0x22];
+        iVar7 = g_science_defs[iVar9].research_cost;
         *param_3 = iVar9;
-        return CONCAT44(uVar3,uVar3);
+        return CONCAT44(iVar7,iVar7);
       }
     }
     else if (((param_5 == 2) && (*(double *)(param_1 + 0x808) < _DAT_0050f2c0)) &&

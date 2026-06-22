@@ -11,8 +11,8 @@ void Load_UI_String_EMG(void)
 
 {
   int *piVar1;
-  int iVar2;
-  int *piVar3;
+  int *piVar2;
+  int iVar3;
   int iVar4;
   int iVar5;
   int iVar6;
@@ -27,9 +27,9 @@ void Load_UI_String_EMG(void)
   
   Trace_Function(s_Game_Scoring_Init_00573ed0);
   iVar6 = 0;
-  for (iVar2 = DAT_00758524; iVar2 != 0; iVar2 = *(int *)(iVar2 + 0xc4)) {
-    if (-1 < *(int *)(iVar2 + 8)) {
-      *(int *)(iVar2 + 8) = *(int *)(iVar2 + 8) + 5;
+  for (iVar3 = DAT_00758524; iVar3 != 0; iVar3 = *(int *)(iVar3 + 0xc4)) {
+    if (-1 < *(int *)(iVar3 + 8)) {
+      *(int *)(iVar3 + 8) = *(int *)(iVar3 + 8) + 5;
     }
   }
   if (g_loaded_tmg_background != (void *)0x0) {
@@ -44,7 +44,7 @@ void Load_UI_String_EMG(void)
   }
   iVar4 = 0;
   puVar9 = &DAT_007072a0;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
@@ -56,37 +56,37 @@ void Load_UI_String_EMG(void)
   _DAT_00707424 = 0;
   local_c = 0;
   puVar9 = &DAT_00707350;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_007073a8;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_00707228;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_007071d0;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_007072f8;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_00707508;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
   puVar9 = &DAT_00707488;
-  for (iVar2 = 0x16; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar3 = 0x16; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
@@ -99,15 +99,15 @@ void Load_UI_String_EMG(void)
         local_8 = local_8 + 1;
       }
       (&DAT_00707414)[iVar4] = 1;
-      piVar1 = &DAT_005817cc;
-      piVar3 = (int *)(local_4 + 0x27d);
-      iVar2 = 200;
+      piVar1 = &g_science_defs[0].research_cost;
+      piVar2 = (int *)(local_4 + 0x27d);
+      iVar3 = 200;
       do {
-        if (piVar1[-9] != 0) {
+        if (((ScienceDef_0x88 *)(piVar1 + -9))->is_enabled != 0) {
           if (iVar4 == g_human_country_index) {
             iVar6 = iVar6 + *piVar1;
           }
-          if (*piVar3 == 2) {
+          if (*piVar2 == 2) {
             (&DAT_007072a0)[iVar4] = (&DAT_007072a0)[iVar4] + *piVar1;
           }
           else {
@@ -115,41 +115,41 @@ void Load_UI_String_EMG(void)
           }
         }
         piVar1 = piVar1 + 0x22;
-        piVar3 = piVar3 + 1;
-        iVar2 = iVar2 + -1;
-      } while (iVar2 != 0);
+        piVar2 = piVar2 + 1;
+        iVar3 = iVar3 + -1;
+      } while (iVar3 != 0);
       if (*local_4 != 0) {
-        for (iVar2 = *(int *)(&DAT_0074a1e4 + iVar4 * 4); iVar2 != 0;
-            iVar2 = *(int *)(iVar2 + 0x1b4)) {
-          (&DAT_00707350)[iVar4] = (&DAT_00707350)[iVar4] + *(int *)(iVar2 + 0x30);
-          (&DAT_007073a8)[iVar4] = (&DAT_007073a8)[iVar4] + *(int *)(iVar2 + 0x4c);
-          (&DAT_00707228)[iVar4] = (&DAT_00707228)[iVar4] + *(int *)(iVar2 + 0x50);
-          piVar3 = &DAT_0059980c;
-          (&DAT_007071d0)[iVar4] = (&DAT_007071d0)[iVar4] + *(int *)(iVar2 + 0x54);
-          pcVar7 = (char *)(iVar2 + 100);
+        for (iVar3 = *(int *)(&DAT_0074a1e4 + iVar4 * 4); iVar3 != 0;
+            iVar3 = *(int *)(iVar3 + 0x1b4)) {
+          (&DAT_00707350)[iVar4] = (&DAT_00707350)[iVar4] + *(int *)(iVar3 + 0x30);
+          (&DAT_007073a8)[iVar4] = (&DAT_007073a8)[iVar4] + *(int *)(iVar3 + 0x4c);
+          (&DAT_00707228)[iVar4] = (&DAT_00707228)[iVar4] + *(int *)(iVar3 + 0x50);
+          piVar2 = &g_building_defs[0].build_cost;
+          (&DAT_007071d0)[iVar4] = (&DAT_007071d0)[iVar4] + *(int *)(iVar3 + 0x54);
+          pcVar7 = (char *)(iVar3 + 100);
           do {
             if (*pcVar7 == '\x02') {
-              (&DAT_007072f8)[iVar4] = (&DAT_007072f8)[iVar4] + *piVar3;
+              (&DAT_007072f8)[iVar4] = (&DAT_007072f8)[iVar4] + *piVar2;
             }
-            piVar3 = piVar3 + 0x80;
+            piVar2 = piVar2 + 0x80;
             pcVar7 = pcVar7 + 1;
-          } while ((int)piVar3 < 0x5a1a0c);
+          } while ((int)piVar2 < 0x5a1a0c);
         }
       }
       if (local_4[-0x97] != 0) {
-        piVar3 = &DAT_005aa3d8;
+        piVar2 = &DAT_005aa3d8;
         puVar8 = (ushort *)(local_4 + -0x96);
-        iVar2 = 0x4b;
+        iVar3 = 0x4b;
         do {
           if (*puVar8 != 0) {
             (&DAT_00707508)[iVar4] =
                  (&DAT_00707508)[iVar4] +
-                 (piVar3[-3] + (*piVar3 + piVar3[-6] * 2) * 2) * (uint)*puVar8;
+                 (piVar2[-3] + (*piVar2 + piVar2[-6] * 2) * 2) * (uint)*puVar8;
           }
-          piVar3 = piVar3 + 0x100;
+          piVar2 = piVar2 + 0x100;
           puVar8 = puVar8 + 1;
-          iVar2 = iVar2 + -1;
-        } while (iVar2 != 0);
+          iVar3 = iVar3 + -1;
+        } while (iVar3 != 0);
       }
       local_c = iVar6;
       if (iVar4 != g_human_country_index) {
@@ -157,7 +157,7 @@ void Load_UI_String_EMG(void)
       }
     }
     iVar5 = g_human_country_index;
-    iVar2 = g_map_height_tiles;
+    iVar3 = g_map_height_tiles;
     local_4 = local_4 + 0x734;
     iVar4 = iVar4 + 1;
     local_10 = local_10 + 1;
@@ -187,8 +187,8 @@ void Load_UI_String_EMG(void)
   DAT_00707410 = 0;
   DAT_00707404 = 0;
   DAT_00707484 = 0;
-  if (0 < iVar2) {
-    local_4 = (short *)iVar2;
+  if (0 < iVar3) {
+    local_4 = (short *)iVar3;
     iVar6 = _g_land_tiles;
     do {
       iVar10 = iVar4;
@@ -214,14 +214,14 @@ void Load_UI_String_EMG(void)
             }
           }
           pcVar7 = (char *)(iVar6 + 0xb5);
-          piVar3 = &DAT_0070742c;
+          piVar2 = &DAT_0070742c;
           do {
             if ('\0' < *pcVar7) {
-              *piVar3 = *piVar3 + 1;
+              *piVar2 = *piVar2 + 1;
             }
-            piVar3 = piVar3 + 1;
+            piVar2 = piVar2 + 1;
             pcVar7 = pcVar7 + 1;
-          } while ((int)piVar3 < 0x707484);
+          } while ((int)piVar2 < 0x707484);
           iVar6 = iVar6 + 0x100;
           iVar10 = iVar10 + -1;
           iVar5 = g_human_country_index;
@@ -230,15 +230,15 @@ void Load_UI_String_EMG(void)
       local_4 = (short *)((int)local_4 + -1);
     } while (local_4 != (short *)0x0);
   }
-  DAT_007074a8._0_1_ = iVar4 * iVar2 - (&DAT_0070742c)[iVar5] == 0;
+  DAT_007074a8._0_1_ = iVar4 * iVar3 - (&DAT_0070742c)[iVar5] == 0;
   DAT_007074ac = 0;
-  piVar3 = (int *)&DAT_00749c80;
+  piVar2 = (int *)&DAT_00749c80;
   do {
-    if (*piVar3 == iVar5) {
+    if (*piVar2 == iVar5) {
       DAT_007074ac = DAT_007074ac + 1;
     }
-    piVar3 = piVar3 + 2;
-  } while ((int)piVar3 < 0x749d48);
+    piVar2 = piVar2 + 2;
+  } while ((int)piVar2 < 0x749d48);
   DAT_00707560 = 0;
   DAT_00707564 = 0;
   DAT_00707290._0_1_ = 0;

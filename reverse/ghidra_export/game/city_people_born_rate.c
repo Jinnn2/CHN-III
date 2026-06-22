@@ -55,7 +55,7 @@ void City_People_Born_Rate(void)
       _DAT_007068c8 = 1.005;
     }
   }
-  switch(g_active_country->field_0x7b) {
+  switch(g_active_country->population_growth_policy) {
   case 0:
     uVar2 = FUN_004fbf50(5);
     local_10 = (double)uVar2 * _DAT_0050f368;

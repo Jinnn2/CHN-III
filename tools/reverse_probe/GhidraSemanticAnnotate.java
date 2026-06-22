@@ -9,6 +9,7 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.data.ArrayDataType;
 import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
+import ghidra.program.model.data.CharDataType;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.DataTypeConflictHandler;
 import ghidra.program.model.data.DataTypeManager;
@@ -34,8 +35,13 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType landTile;
     private StructureDataType city;
     private StructureDataType country;
+    private StructureDataType armyUnit;
     private StructureDataType battleUnit;
     private StructureDataType tmgImage;
+    private StructureDataType buildingDef;
+    private StructureDataType specialProjectDef;
+    private StructureDataType scienceDef;
+    private StructureDataType countryProfileDef;
 
     private static class Rename {
         long va;
@@ -87,24 +93,78 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     }
 
     private void createRecoveredTypes() {
+        city = fixedStruct("City_0x1b8_plus", 0x1b8);
+
+        armyUnit = fixedStruct("ArmyUnit_0x164_plus", 0x164);
+        replaceAt(armyUnit, 0x00, ByteDataType.dataType, 1, "army_type_id",
+            "indexes g_army_type_table in map/battle conversion and city capture logic");
+        replaceAt(armyUnit, 0x01, ByteDataType.dataType, 1, "owner_country_id",
+            "compared and rewritten when city/tile ownership changes");
+        replaceAt(armyUnit, 0x02, ByteDataType.dataType, 1, "target_or_previous_owner_id",
+            "Map_To_Battle_Army compares it with owner and battle-side country ids");
+        replaceAt(armyUnit, 0x18, ByteDataType.dataType, 1, "battle_slot_or_category",
+            "used as an index into battle-side presence arrays");
+        replaceAt(armyUnit, 0x127, ByteDataType.dataType, 1, "mission_state",
+            "zero means active/free in city-nearby scans; diplomat orders set it nonzero");
+        replaceAt(armyUnit, 0x128, ByteDataType.dataType, 1, "mission_action_id",
+            "order routines write action ids such as 0x2e, 0x2f, 0x37, 0x38, and 0x39");
+        replaceAt(armyUnit, 0x12f, ByteDataType.dataType, 1, "strength_or_health",
+            "Map_To_Battle_Army converts it to battle formation count with / 0xe + 1");
+        replaceAt(armyUnit, 0x131, ByteDataType.dataType, 1, "veteran_level_or_power_shift",
+            "battle stat bonus shifts by this value");
+        replaceAt(armyUnit, 0x134, ShortDataType.dataType, 2, "cached_stat_a",
+            "cached short derived from army-type data");
+        replaceAt(armyUnit, 0x136, ShortDataType.dataType, 2, "cached_stat_b",
+            "cached short derived from army-type data");
+        replaceAt(armyUnit, 0x138, ShortDataType.dataType, 2, "cached_stat_c",
+            "cached short derived from army-type data");
+        replaceAt(armyUnit, 0x144, new PointerDataType(armyUnit, dtm), 4, "transport_parent",
+            "checked for direct units and dereferenced as another army unit");
+        replaceAt(armyUnit, 0x148, ByteDataType.dataType, 1, "cargo_or_subunit_count",
+            "near-city scans and Map_To_Battle_Army add one to this value for carried/sub units");
+        replaceAt(armyUnit, 0x14c, new PointerDataType(armyUnit, dtm), 4, "transport_or_carrier_link",
+            "inverse carrier link checked against current unit and carrier mission state");
+        replaceAt(armyUnit, 0x154, new PointerDataType(city, dtm), 4, "stationed_city",
+            "City_Belong_Change assigns the city; Map_To_Battle_Army reads city building statuses through it");
+        replaceAt(armyUnit, 0x160, new PointerDataType(armyUnit, dtm), 4, "next_army",
+            "country army linked-list traversal");
+        resolve(armyUnit);
+
         landTile = fixedStruct("LandTile_0x100", 0x100);
         replaceAt(landTile, 0x10, ShortDataType.dataType, 2, "linked_count_or_city_count",
             "load_dat checks this count before rebuilding map links");
-        replaceAt(landTile, 0x28, new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 10, 4), 0x28,
+        replaceAt(landTile, 0x12, ByteDataType.dataType, 1, "region_or_terrain_marker_a",
+            "signed marker used by city-round and near-city checks beside linked_count_or_city_count");
+        replaceAt(landTile, 0x13, ByteDataType.dataType, 1, "region_or_terrain_marker_b",
+            "second signed marker used by city-round and near-city checks");
+        replaceAt(landTile, 0x25, ByteDataType.dataType, 1, "tile_owner_country_id",
+            "City_Belong_Change writes the new owner; near-city scans require active-country ownership");
+        replaceAt(landTile, 0x27, ByteDataType.dataType, 1, "tile_secondary_owner_id",
+            "City_Belong_Change writes the new owner; diplomacy checks compare source/target ownership pairs");
+        replaceAt(landTile, 0x28, new ArrayDataType(new PointerDataType(armyUnit, dtm), 10, 4), 0x28,
             "army_or_city_ptrs_a", "pointer list rebuilt in load_dat");
         replaceAt(landTile, 0x50, ByteDataType.dataType, 1, "army_count_or_occupant_count",
             "checked before iterating tile occupants");
-        replaceAt(landTile, 0x54, new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 10, 4), 0x28,
+        replaceAt(landTile, 0x54, new ArrayDataType(new PointerDataType(armyUnit, dtm), 10, 4), 0x28,
             "army_or_city_ptrs_b", "secondary occupant pointer list");
         replaceAt(landTile, 0x7c, ByteDataType.dataType, 1, "secondary_occupant_count",
             "count-like field paired with army_count_or_occupant_count in city build/population checks");
         replaceAt(landTile, 0x88, new PointerDataType(VoidDataType.dataType, dtm), 4, "linked_record",
             "dereferenced during load-time repair");
+        replaceAt(landTile, 0xaa, ByteDataType.dataType, 1, "terrain_or_resource_marker",
+            "City_Round_Check compares this marker against '('");
+        replaceAt(landTile, 0xb3, ByteDataType.dataType, 1, "city_round_block_flag",
+            "blocks selected City_Round_Check actions when set");
+        replaceAt(landTile, 0xb5, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
+            "visible_by_country", "per-country map visibility/knowledge flags used by diplomacy, map, and city resource setup");
+        replaceAt(landTile, 0xcb, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
+            "secondary_visible_or_excluded_by_country", "per-country secondary visibility/exclusion flags tested by City_Round_Check");
         resolve(landTile);
 
-        city = fixedStruct("City_0x1b8_plus", 0x1b8);
-        replaceAt(city, 0x03, new ArrayDataType(ByteDataType.dataType, 32, 1), 32, "name_bytes",
-            "name-like string is passed from city + 3");
+        replaceAt(city, 0x01, ByteDataType.dataType, 1, "owner_country_id",
+            "city ownership; compared with active/human country and rewritten by City_Belong_Change");
+        replaceAt(city, 0x03, new ArrayDataType(CharDataType.dataType, 0x13, 1), 0x13, "name_bytes",
+            "city name string is passed from city + 3; ends before tile_x/tile_y fields");
         replaceAt(city, 0x16, UnsignedShortDataType.dataType, 2, "tile_x", "used to index LandTile array");
         replaceAt(city, 0x18, UnsignedShortDataType.dataType, 2, "tile_y", "used to index LandTile array");
         replaceAt(city, 0x20, ByteDataType.dataType, 1, "max_worker_slots", "denominator for worker allocation");
@@ -117,6 +177,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(city, 0x4c, IntegerDataType.dataType, 4, "business_score", "city business/economy threshold");
         replaceAt(city, 0x50, IntegerDataType.dataType, 4, "safety_score", "city safety/happiness threshold");
         replaceAt(city, 0x54, IntegerDataType.dataType, 4, "science_or_resource_score", "worker/resource threshold");
+        replaceAt(city, 0x5c, ByteDataType.dataType, 1, "production_mode",
+            "current build kind: 0=army, 1=building, 2=special project, 0xff=none");
         replaceAt(city, 0x5d, ByteDataType.dataType, 1, "forced_worker_mode", "controls worker reassignment");
         replaceAt(city, 0x60, IntegerDataType.dataType, 4, "build_progress",
             "accumulates until army/building/special-project cost is reached");
@@ -156,21 +218,77 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(city, 0x16d, ByteDataType.dataType, 1, "construction_workers", "job allocation bucket");
         replaceAt(city, 0x16e, ByteDataType.dataType, 1, "base_resource_delta", "copied into turn resource accumulator");
         replaceAt(city, 0x16f, ByteDataType.dataType, 1, "mixed_workers", "reassigned between business/safety buckets");
+        replaceAt(city, 0x176, ByteDataType.dataType, 1, "trade_route_count",
+            "number of city trade/road links iterated by City_Business and adjusted on owner change");
         replaceAt(city, 0x177, ByteDataType.dataType, 1, "forced_event_pending", "one-turn city event flag");
+        replaceAt(city, 0x17e, UnsignedShortDataType.dataType, 2, "neighbor_city_pressure",
+            "recomputed by City_Round_Check from nearby linked cities and used by city build AI");
+        replaceAt(city, 0x180, ByteDataType.dataType, 1, "event_transition_pending",
+            "cleared when City_Event_Happen changes city_policy_mode");
         replaceAt(city, 0x181, ByteDataType.dataType, 1, "uses_manual_resource_setup", "selects resource setup path");
         replaceAt(city, 0x182, ByteDataType.dataType, 1, "processed_this_turn", "prevents duplicate do_city processing");
+        replaceAt(city, 0x183, new ArrayDataType(ByteDataType.dataType, 40, 1), 40,
+            "trade_resource_state", "per-resource trade state shared between connected cities; value 2 means exportable");
+        replaceAt(city, 0x1ab, ByteDataType.dataType, 1, "nearby_city_count_bucket",
+            "density bucket derived by City_Round_Check and consumed by City_Building_AI");
         replaceAt(city, 0x1b4, new PointerDataType(city, dtm), 4, "next_city", "city linked-list pointer");
         resolve(city);
 
         country = fixedStruct("CountryState_0xe68", 0xe68);
         replaceAt(country, 0x00, ByteDataType.dataType, 1, "is_active", "checked before per-country loops");
         replaceAt(country, 0x01, ByteDataType.dataType, 1, "leader_or_country_id", "compared against literal 0x22");
+        replaceAt(country, 0x03, ByteDataType.dataType, 1, "country_profile_id",
+            "indexes the 0x7c-byte country profile/static modifiers table at 0x00596218");
         replaceAt(country, 0x04, new ArrayDataType(ByteDataType.dataType, 32, 1), 32, "name_bytes", "used in diplomacy text");
         replaceAt(country, 0x38, new PointerDataType(city, dtm), 4, "capital_city",
             "city building completion stores the current city here when founding/capital-class buildings finish");
+        replaceAt(country, 0x3c, new ArrayDataType(CharDataType.dataType, 32, 1), 32, "capital_name_bytes",
+            "copied from the capital/primary city name");
+        replaceAt(country, 0x5e, ByteDataType.dataType, 1, "diplomacy_focus_country",
+            "country id or -1 used by Diplomat_Turn as a preferred/locked diplomatic target");
+        replaceAt(country, 0x5f, ByteDataType.dataType, 1, "diplomacy_focus_limit",
+            "count-like limiter paired with diplomacy_focus_country");
         replaceAt(country, 0x60, IntegerDataType.dataType, 4, "government_or_ai_mode", "city event condition");
+        replaceAt(country, 0x6c, ByteDataType.dataType, 1, "production_freeze_flag",
+            "when positive, City_Building skips normal production progress");
+        replaceAt(country, 0x78, ByteDataType.dataType, 1, "coastal_building_unlock_a",
+            "gates building ids 0x0f/0x27 in build AI and resource change");
+        replaceAt(country, 0x79, ByteDataType.dataType, 1, "coastal_building_unlock_b",
+            "gates building ids 0x10/0x28 in build AI and resource change");
+        replaceAt(country, 0x7a, ByteDataType.dataType, 1, "government_bonus_enabled",
+            "extra resource/research branch when government_or_ai_mode is 3");
+        replaceAt(country, 0x7b, ByteDataType.dataType, 1, "population_growth_policy",
+            "switch input for City_People_Born_Rate");
         replaceAt(country, 0x7c, UnsignedShortDataType.dataType, 2, "owned_city_count",
             "used as divisor for per-city country pressure and diplomacy city-count checks");
+        replaceAt(country, 0x1aa, UnsignedShortDataType.dataType, 2, "total_force_or_unit_count",
+            "country-wide count used for treasury/building and diplomacy thresholds");
+        replaceAt(country, 0x1ac, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_state_by_country", "per-country relation state; values 2..5 are treated as normal relations");
+        replaceAt(country, 0x204, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_treaty_flags_a", "one of several per-country pact/permission flags checked by Diplomat_Turn");
+        replaceAt(country, 0x25c, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "trade_agreement_flags", "value 1 allows city/resource trade with the target country");
+        replaceAt(country, 0x2b4, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_treaty_flags_b", "one of several per-country pact/permission flags checked by Diplomat_Turn");
+        replaceAt(country, 0x30c, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_blockade_or_truce_flags", "blocks some actions when set; checked beside diplomacy_state_by_country");
+        replaceAt(country, 0x364, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "tribute_or_payment_by_country", "money transfer amount when diplomacy_state_by_country is 4");
+        replaceAt(country, 0x3bc, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_affinity_by_country", "large positive score used in AI diplomacy decisions");
+        replaceAt(country, 0x414, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_caution_by_country", "threshold score reduced or clamped during Diplomat_Turn");
+        replaceAt(country, 0x46c, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
+            "diplomacy_pressure_by_country", "pressure/hostility score compared against leader personality thresholds");
+        replaceAt(country, 0x4c4, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
+            "city_trade_enabled_by_country", "byte flags used when preparing city trade output");
+        replaceAt(country, 0x4da, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
+            "pending_diplomatic_action_by_country", "Diplomat_Turn writes action ids before starting diplomacy");
+        replaceAt(country, 0x506, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
+            "diplomacy_contact_cooldown_by_country", "small countdown/cooldown adjusted around diplomacy contact attempts");
+        replaceAt(country, 0x51c, new ArrayDataType(UnsignedShortDataType.dataType, 22, 2), 0x2c,
+            "diplomacy_turn_counter_by_country", "per-country counter incremented and thresholded in Diplomat_Turn");
         replaceAt(country, 0x688, DoubleDataType.dataType, 8, "science_budget_or_treasury", "used by city upgrade cost");
         replaceAt(country, 0x698, DoubleDataType.dataType, 8, "population_or_score_total", "increased when city removed");
         replaceAt(country, 0x63c, ByteDataType.dataType, 1, "special_rule_level", "city event condition");
@@ -205,6 +323,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(country, 0xa82, ShortDataType.dataType, 2, "turn_timer", "decremented in do_city");
         replaceAt(country, 0xa86, ByteDataType.dataType, 1, "timer_state", "set when turn_timer expires");
         replaceAt(country, 0xe18, ByteDataType.dataType, 1, "upgrade_permission_level", "city upgrade gate");
+        replaceAt(country, 0xe14, IntegerDataType.dataType, 4, "city_resource_carryover",
+            "temporary city-resource accumulator consumed and cleared by City_Resource_Change");
         resolve(country);
 
         battleUnit = fixedStruct("BattleUnit_approx", 0x40);
@@ -218,9 +338,88 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(tmgImage, 0x02, UnsignedShortDataType.dataType, 2, "height", "draw routine reads second word");
         resolve(tmgImage);
 
+        buildingDef = fixedStruct("BuildingDef_0x200", 0x200);
+        replaceAt(buildingDef, 0x1c, new ArrayDataType(ByteDataType.dataType, 64, 1), 64,
+            "name_bytes", "city/building UI draws building names from this string area");
+        replaceAt(buildingDef, 0x48, IntegerDataType.dataType, 4, "upgrade_to_building_id",
+            "city upgrade follows this id when an older building becomes obsolete/upgraded");
+        replaceAt(buildingDef, 0x4c, IntegerDataType.dataType, 4, "footprint_width_tiles",
+            "placement and build AI multiply this by footprint_height_tiles");
+        replaceAt(buildingDef, 0x50, IntegerDataType.dataType, 4, "footprint_height_tiles",
+            "placement and build AI multiply this by footprint_width_tiles");
+        replaceAt(buildingDef, 0x54, IntegerDataType.dataType, 4, "build_cost",
+            "city production compares build_progress against this value");
+        replaceAt(buildingDef, 0x5c, ShortDataType.dataType, 2, "income_yield_delta",
+            "added to City.building_income_yield when construction completes");
+        replaceAt(buildingDef, 0x60, IntegerDataType.dataType, 4, "growth_delta",
+            "shown in the city/building tooltip and used by city score changes");
+        replaceAt(buildingDef, 0x64, IntegerDataType.dataType, 4, "business_delta",
+            "shown in the city/building tooltip and used by city business changes");
+        replaceAt(buildingDef, 0x68, IntegerDataType.dataType, 4, "safety_delta",
+            "shown in the city/building tooltip and used by city safety changes");
+        replaceAt(buildingDef, 0x6c, IntegerDataType.dataType, 4, "resource_or_science_delta",
+            "shown in the city/building tooltip as the fourth stat delta");
+        replaceAt(buildingDef, 0x78, new ArrayDataType(IntegerDataType.dataType, 8, 4), 0x20,
+            "resource_cost_by_kind", "resource/material cost array indexed by current country/resource state");
+        replaceAt(buildingDef, 0x98, IntegerDataType.dataType, 4, "population_requirement",
+            "AI and UI compare this against city stored_population_or_value");
+        replaceAt(buildingDef, 0x9c, IntegerDataType.dataType, 4, "upgrade_or_development_requirement",
+            "UI displays it beside the city upgrade/development stat");
+        replaceAt(buildingDef, 0xa0, IntegerDataType.dataType, 4, "prerequisite_building_a",
+            "build AI requires this completed unless it is -1");
+        replaceAt(buildingDef, 0xa4, IntegerDataType.dataType, 4, "prerequisite_building_b",
+            "second prerequisite id used by build AI");
+        replaceAt(buildingDef, 0xec, IntegerDataType.dataType, 4, "building_category",
+            "production acceleration branches compare values such as 2, 4, 5, and 6");
+        replaceAt(buildingDef, 0xf0, IntegerDataType.dataType, 4, "unlock_or_display_flag",
+            "edited in build table UI and consulted by availability/display logic");
+        resolve(buildingDef);
+
+        specialProjectDef = fixedStruct("SpecialProjectDef_0x200", 0x200);
+        replaceAt(specialProjectDef, 0x00, new ArrayDataType(ByteDataType.dataType, 56, 1), 56,
+            "name_bytes", "project name is formatted from table base + project_id * 0x200");
+        replaceAt(specialProjectDef, 0x38, IntegerDataType.dataType, 4, "build_cost",
+            "city production compares build_progress against this value");
+        replaceAt(specialProjectDef, 0x40, ShortDataType.dataType, 2, "income_yield_delta",
+            "added to City.building_income_yield when completed");
+        replaceAt(specialProjectDef, 0x48, IntegerDataType.dataType, 4, "global_effect_or_score_delta",
+            "city resource change applies this when the owner matches");
+        replaceAt(specialProjectDef, 0xd4, IntegerDataType.dataType, 4, "availability_or_display_flag",
+            "edited in build table UI and checked by special-project logic");
+        resolve(specialProjectDef);
+
+        scienceDef = fixedStruct("ScienceDef_0x88", 0x88);
+        replaceAt(scienceDef, 0x00, IntegerDataType.dataType, 4, "is_enabled",
+            "research lists skip entries where this is zero");
+        replaceAt(scienceDef, 0x04, new ArrayDataType(ByteDataType.dataType, 32, 1), 32,
+            "name_bytes", "research completion and diplomacy messages format this text");
+        replaceAt(scienceDef, 0x1c, IntegerDataType.dataType, 4, "prerequisite_science_a",
+            "research is available when this science is completed or -1");
+        replaceAt(scienceDef, 0x20, IntegerDataType.dataType, 4, "prerequisite_science_b",
+            "second science prerequisite");
+        replaceAt(scienceDef, 0x24, IntegerDataType.dataType, 4, "research_cost",
+            "compared against current_research_progress");
+        replaceAt(scienceDef, 0x28, IntegerDataType.dataType, 4, "era_or_group_id",
+            "used in research pacing and AI evaluation");
+        resolve(scienceDef);
+
+        countryProfileDef = fixedStruct("CountryProfileDef_0x7c", 0x7c);
+        replaceAt(countryProfileDef, 0x00, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
+            "short_name_bytes", "profile/editor table text column starts at 0x00596218");
+        replaceAt(countryProfileDef, 0x11, new ArrayDataType(CharDataType.dataType, 38, 1), 38,
+            "display_name_bytes", "profile/editor table text column starts at 0x00596229");
+        replaceAt(countryProfileDef, 0x24, IntegerDataType.dataType, 4, "enabled_or_display_flag",
+            "editor and loader test this field for negative/zero/one state");
+        replaceAt(countryProfileDef, 0x28, IntegerDataType.dataType, 4, "profile_base_value",
+            "copied into active leader/country modifier table");
+        replaceAt(countryProfileDef, 0x40, IntegerDataType.dataType, 4, "engineering_discount_percent",
+            "city round/civil works cost subtracts this percent from route/canal costs");
+        resolve(countryProfileDef);
+
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
         resolve(new TypedefDataType(cat, "LandTilePtr", new PointerDataType(landTile, dtm)));
         resolve(new TypedefDataType(cat, "CountryStatePtr", new PointerDataType(country, dtm)));
+        resolve(new TypedefDataType(cat, "ArmyUnitPtr", new PointerDataType(armyUnit, dtm)));
     }
 
     private void renameFunctions() {
@@ -416,6 +615,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0058940cL, "g_resolution_mode_index", IntegerDataType.dataType),
             new GlobalRename(0x00589410L, "g_resolution_width_table", new ArrayDataType(IntegerDataType.dataType, 3, 4)),
             new GlobalRename(0x0058941cL, "g_resolution_height_table", new ArrayDataType(IntegerDataType.dataType, 3, 4)),
+            new GlobalRename(0x005997b8L, "g_building_defs", new ArrayDataType(buildingDef, 0x41, buildingDef.getLength())),
+            new GlobalRename(0x005a19d4L, "g_special_project_defs", new ArrayDataType(specialProjectDef, 0x19, specialProjectDef.getLength())),
+            new GlobalRename(0x005817a8L, "g_science_defs", new ArrayDataType(scienceDef, 200, scienceDef.getLength())),
+            new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
             new GlobalRename(0x0075cf00L, "g_present_use_blt_mode", IntegerDataType.dataType),
             new GlobalRename(0x0075cf18L, "g_present_dst_rect", new ArrayDataType(IntegerDataType.dataType, 4, 4)),
             new GlobalRename(0x0075cf38L, "g_present_src_left", IntegerDataType.dataType),
@@ -467,12 +670,19 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     }
 
     private void applySelectedSignatures() throws Exception {
+        pointerArg(0x418830L, "BattleArmy", VoidDataType.dataType,
+            "side", UnsignedIntegerDataType.dataType, "army", armyUnit, "formation_count", IntegerDataType.dataType,
+            "stat_a", new PointerDataType(UnsignedIntegerDataType.dataType, dtm),
+            "stat_b", new PointerDataType(UnsignedIntegerDataType.dataType, dtm));
+        pointerArg(0x41a9f0L, "City_Belong_Change", VoidDataType.dataType,
+            "city", city, "new_owner_country_id", IntegerDataType.dataType);
         pointerArg(0x41f700L, "City_Happy_Change", VoidDataType.dataType, "city", city, "delta", IntegerDataType.dataType);
         pointerArg(0x41f730L, "City_Safe_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f7c0L, "City_Loyal_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f7f0L, "City_Business_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f8c0L, "City_Like_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x4254a0L, "City_Event_Happen", VoidDataType.dataType, "city", city);
+        pointerArg(0x47c8b0L, "Map_To_Battle_Army", IntegerDataType.dataType, "army", armyUnit);
         pointerArg(0x4f02d0L, "Present_Dirty_Rects", VoidDataType.dataType,
             "dst_x", IntegerDataType.dataType, "dst_y", IntegerDataType.dataType);
     }

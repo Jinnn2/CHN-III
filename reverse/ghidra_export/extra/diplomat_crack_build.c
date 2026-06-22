@@ -72,7 +72,7 @@ switchD_004398c4_default:
         if (local_c1 != '\x01') goto LAB_00439bb7;
         iVar8 = iVar7 * 0x200;
         *(short *)(puVar2 + 0xd4) =
-             *(short *)(puVar2 + 0xd4) - *(short *)(&DAT_00599814 + iVar7 * 0x80);
+             *(short *)(puVar2 + 0xd4) - g_building_defs[iVar7].income_yield_delta;
         if (_DAT_00748e34 == g_human_country_index) {
           if (DAT_0074a2cc != '\x01') {
             return '\x01';
@@ -84,12 +84,11 @@ switchD_004398c4_default:
             puVar6 = &DAT_007350bc + iVar5;
             puVar9 = &DAT_00519718;
 LAB_00439a48:
-            Format_Text(local_c0,puVar9,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
+            Format_Text(local_c0,puVar9,puVar6,puVar11,pbVar12,iVar8 + 0x5997d4);
           }
           else {
             Format_Text(local_c0,&DAT_005196e8,&DAT_007350bc + iVar5,
-                        &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,
-                        &DAT_005997d4 + iVar8);
+                        &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5,puVar2 + 3,iVar8 + 0x5997d4);
           }
         }
         else {
@@ -130,7 +129,7 @@ LAB_00439a48:
             puVar11 = &DAT_005a7bdc + (uint)(byte)puVar2[0x21] * 5;
             puVar9 = &DAT_00519664;
           }
-          Format_Text(local_c0,puVar9,pbVar10,puVar6,puVar11,pbVar12,&DAT_005997d4 + iVar8);
+          Format_Text(local_c0,puVar9,pbVar10,puVar6,puVar11,pbVar12,iVar8 + 0x5997d4);
         }
         FUN_004898b0(DAT_007350b4,local_c0,1,*(undefined2 *)(puVar2 + 0x16),
                      *(undefined2 *)(puVar2 + 0x18));

@@ -5,9 +5,7 @@
  */
 
 
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-void City_Like_Change(City_0x1b8_plus *city)
+void __cdecl City_Like_Change(City_0x1b8_plus *city)
 
 {
   int iVar1;

@@ -11,19 +11,18 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
                   int param_7,int param_8,int param_9,char param_10)
 
 {
-  int iVar1;
-  char cVar2;
-  short sVar3;
-  int iVar4;
-  uint uVar5;
+  char cVar1;
+  short sVar2;
+  int iVar3;
+  uint uVar4;
+  int iVar5;
   int iVar6;
   int iVar7;
   int iVar8;
   int iVar9;
   int iVar10;
   int iVar11;
-  int iVar12;
-  char *pcVar13;
+  char *pcVar12;
   int aiStack_230 [10];
   int aiStack_208 [75];
   undefined4 uStack_dc;
@@ -33,7 +32,7 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
   int iStack_cc;
   uint uStack_c8;
   uint uStack_c4;
-  char *pcStack_c0;
+  undefined1 *puStack_c0;
   undefined *puStack_bc;
   undefined *puStack_b8;
   undefined *puStack_b4;
@@ -81,36 +80,36 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
       DAT_007161a8 = DAT_00716174;
       DAT_007161b4 = DAT_0071617c;
       DAT_007161a4 = 0;
-      iVar9 = DAT_00716158;
+      iVar8 = DAT_00716158;
       if (0 < DAT_00716158 * (int)pcStack_8c) {
         do {
           DAT_007161b8 = DAT_007161a8 + param_8;
           DAT_007161bc = DAT_007161b4 + param_9;
           if ((((-1 < DAT_007161b8) && (-1 < DAT_007161bc)) && (DAT_007161b8 < 0x30)) &&
              ((DAT_007161bc < 0x30 &&
-              (sVar3 = *(short *)((DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044 + 4),
-              -1 < sVar3)))) {
-            iStack_90 = *(undefined4 *)(DAT_00758568 + sVar3 * 4);
+              (sVar2 = *(short *)((DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044 + 4),
+              -1 < sVar2)))) {
+            iStack_90 = *(undefined4 *)(DAT_00758568 + sVar2 * 4);
             uStack_94 = DAT_00716160;
             local_9c = (double)CONCAT44(DAT_0071615c,0x49e711);
             FUN_004af380();
             pcStack_8c = (char *)DAT_0057e848;
-            iVar9 = DAT_00716158;
+            iVar8 = DAT_00716158;
           }
           DAT_007161a8 = DAT_007161a8 + 1;
           DAT_007161b4 = DAT_007161b4 + -1;
           DAT_0071615c = DAT_0071615c + (int)(0x60 / (longlong)(int)pcStack_8c);
           DAT_007161a4 = DAT_007161a4 + 1;
-        } while (DAT_007161a4 < iVar9 * (int)pcStack_8c);
+        } while (DAT_007161a4 < iVar8 * (int)pcStack_8c);
       }
       if (DAT_007161d8 == -1) {
         DAT_00716174 = DAT_00716174 + 1;
-        DAT_00716158 = iVar9 + -1;
+        DAT_00716158 = iVar8 + -1;
         DAT_0071615c = param_2;
       }
       else {
         DAT_0071617c = DAT_0071617c + 1;
-        DAT_00716158 = iVar9 + 1;
+        DAT_00716158 = iVar8 + 1;
         DAT_0071615c = iVar7;
       }
       DAT_00716160 = DAT_00716160 + (int)(0x18 / (longlong)(int)pcStack_8c);
@@ -136,17 +135,17 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
           DAT_007161bc = param_9 + DAT_007161b4;
           if (((-1 < DAT_007161b8) && (-1 < DAT_007161bc)) &&
              ((DAT_007161b8 < 0x30 && (DAT_007161bc < 0x30)))) {
-            iVar9 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
-            sVar3 = *(short *)(iVar9 + 2);
-            if (-1 < sVar3) {
-              iStack_90 = *(undefined4 *)(DAT_00758568 + sVar3 * 4);
+            iVar8 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
+            sVar2 = *(short *)(iVar8 + 2);
+            if (-1 < sVar2) {
+              iStack_90 = *(undefined4 *)(DAT_00758568 + sVar2 * 4);
               uStack_94 = DAT_00716160;
               local_9c = (double)CONCAT44(DAT_0071615c,0x49e8e6);
               FUN_004af380();
-              sVar3 = *(short *)(iVar9 + 0xe);
+              sVar2 = *(short *)(iVar8 + 0xe);
               pcStack_8c = (char *)DAT_0057e848;
-              if (-1 < sVar3) {
-                iStack_90 = *(undefined4 *)(DAT_00758590 + sVar3 * 4);
+              if (-1 < sVar2) {
+                iStack_90 = *(undefined4 *)(DAT_00758590 + sVar2 * 4);
                 uStack_94 = DAT_00716160;
                 local_9c = (double)CONCAT44(DAT_0071615c,0x49e918);
                 FUN_004af380();
@@ -160,10 +159,11 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
               }
             }
             else if ((((-1 < DAT_007161b8 - DAT_005e0038) &&
-                      (DAT_007161b8 - DAT_005e0038 < *(int *)(&DAT_00599804 + DAT_005a80a4 * 0x200))
-                      ) && (-1 < DAT_007161bc - DAT_005e003c)) &&
-                    (DAT_007161bc - DAT_005e003c < *(int *)(&DAT_00599808 + DAT_005a80a4 * 0x200)))
-            {
+                      (DAT_007161b8 - DAT_005e0038 <
+                       g_building_defs[DAT_005a80a4].footprint_width_tiles)) &&
+                     (-1 < DAT_007161bc - DAT_005e003c)) &&
+                    (DAT_007161bc - DAT_005e003c <
+                     g_building_defs[DAT_005a80a4].footprint_height_tiles)) {
               iStack_90 = *(undefined4 *)(DAT_00758568 + (0x1405 - (uint)DAT_00755920) * 4);
 LAB_0049e9b3:
               uStack_94 = DAT_00716160;
@@ -211,30 +211,30 @@ LAB_0049e9b3:
           DAT_007161bc = DAT_007161b4 + param_9;
           if (((-1 < DAT_007161b8) && (-1 < DAT_007161bc)) &&
              ((DAT_007161b8 < 0x30 && (DAT_007161bc < 0x30)))) {
-            iVar9 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
-            if (*(char *)(iVar9 + 7) < '\0') {
-              if (*(short *)(iVar9 + 0xc) < 0) goto switchD_0049ebba_default;
-              iStack_90 = *(undefined4 *)(DAT_00758574 + 0x11c + *(short *)(iVar9 + 0xc) * 4);
+            iVar8 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
+            if (*(char *)(iVar8 + 7) < '\0') {
+              if (*(short *)(iVar8 + 0xc) < 0) goto switchD_0049ebba_default;
+              iStack_90 = *(undefined4 *)(DAT_00758574 + 0x11c + *(short *)(iVar8 + 0xc) * 4);
 LAB_0049f1ab:
-              iVar10 = (int)(0xb0 / (longlong)(int)pcStack_8c);
-              uVar5 = 0x14d;
+              iVar9 = (int)(0xb0 / (longlong)(int)pcStack_8c);
+              uVar4 = 0x14d;
 LAB_0049f1c1:
-              uStack_94 = DAT_00716160 - iVar10;
+              uStack_94 = DAT_00716160 - iVar9;
               local_9c._4_4_ =
-                   DAT_0071615c - (int)((longlong)(ulonglong)uVar5 / (longlong)(int)pcStack_8c);
+                   DAT_0071615c - (int)((longlong)(ulonglong)uVar4 / (longlong)(int)pcStack_8c);
 LAB_0049f1cd:
               local_9c = (double)CONCAT44(local_9c._4_4_,0x49f1d2);
               FUN_004af380();
               pcStack_8c = (char *)DAT_0057e848;
             }
             else {
-              iVar10 = (int)*(short *)(iVar9 + 8);
-              iVar12 = iVar10 * 0x40;
-              if (*(char *)(iVar9 + 7) == '\a') {
+              iVar9 = (int)*(short *)(iVar8 + 8);
+              iVar11 = iVar9 * 0x40;
+              if (*(char *)(iVar8 + 7) == '\a') {
                 if (*(char *)(local_78 + 0x6b) != '\x01') {
-                  switch(*(undefined1 *)(iVar9 + 0xb)) {
+                  switch(*(undefined1 *)(iVar8 + 0xb)) {
                   case 0:
-                    if (*(char *)(iVar9 + 10) == '\x03') {
+                    if (*(char *)(iVar8 + 10) == '\x03') {
                       iStack_90 = *(undefined4 *)(DAT_00758574 + 0x254 + DAT_00715174 * 4);
                       uStack_94 = DAT_00716160 - (int)(0x1fa / (longlong)(int)pcStack_8c);
                       local_9c = (double)CONCAT44(DAT_0071615c -
@@ -249,19 +249,19 @@ LAB_0049f1cd:
                     }
                     break;
                   case 1:
-                    if (*(char *)(iVar9 + 10) == '\0') {
+                    if (*(char *)(iVar8 + 10) == '\0') {
                       iStack_90 = *(undefined4 *)(DAT_00758574 + 0x280);
                       goto LAB_0049f1ab;
                     }
                     break;
                   case 2:
-                    if (*(char *)(iVar9 + 10) == '\x03') {
+                    if (*(char *)(iVar8 + 10) == '\x03') {
                       iStack_90 = *(undefined4 *)(DAT_00758574 + 0x2ac);
                       goto LAB_0049f1ab;
                     }
                     break;
                   case 3:
-                    if (*(char *)(iVar9 + 10) == '\0') {
+                    if (*(char *)(iVar8 + 10) == '\0') {
                       iStack_90 = *(undefined4 *)(DAT_00758574 + 0x2d8);
                       goto LAB_0049f1ab;
                     }
@@ -271,32 +271,32 @@ LAB_0049f1cd:
                 iStack_90 = *(undefined4 *)(DAT_00758574 + 0x108);
                 goto LAB_0049f1ab;
               }
-              iVar8 = *(int *)(&DAT_007559b0 + iVar12);
-              if ((int)*(char *)(iVar9 + 10) != iVar8 + -1) goto switchD_0049ebba_default;
-              cVar2 = *(char *)(iVar9 + 7);
-              if (cVar2 < 'A') {
-                if (*(char *)(cVar2 + 100 + local_78) != '\x01') goto LAB_0049ed11;
+              iVar6 = *(int *)(&DAT_007559b0 + iVar11);
+              if ((int)*(char *)(iVar8 + 10) != iVar6 + -1) goto switchD_0049ebba_default;
+              cVar1 = *(char *)(iVar8 + 7);
+              if (cVar1 < 'A') {
+                if (*(char *)(cVar1 + 100 + local_78) != '\x01') goto LAB_0049ed11;
 LAB_0049eccc:
-                if (iVar8 < 6) {
+                if (iVar6 < 6) {
                   iStack_90 = *(undefined4 *)
-                               (DAT_00758574 + 0x104 + (*(char *)(iVar9 + 0xb) + iVar8) * 4);
+                               (DAT_00758574 + 0x104 + (*(char *)(iVar8 + 0xb) + iVar6) * 4);
                   goto LAB_0049f1ab;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758574 + 0x118 + *(char *)(iVar9 + 0xb) * 4);
-                iVar10 = (int)(0x202 / (longlong)(int)pcStack_8c);
-                uVar5 = 0x1e1;
+                iStack_90 = *(undefined4 *)(DAT_00758574 + 0x118 + *(char *)(iVar8 + 0xb) * 4);
+                iVar9 = (int)(0x202 / (longlong)(int)pcStack_8c);
+                uVar4 = 0x1e1;
                 goto LAB_0049f1c1;
               }
-              if ('Y' < cVar2) {
+              if ('Y' < cVar1) {
 LAB_0049ed11:
-                sVar3 = *(short *)(iVar9 + 8);
-                if ((sVar3 < 0x76) || (0x7f < sVar3)) {
-                  if (sVar3 == 0x6c) {
+                sVar2 = *(short *)(iVar8 + 8);
+                if ((sVar2 < 0x76) || (0x7f < sVar2)) {
+                  if (sVar2 == 0x6c) {
                     iStack_90 = *(undefined4 *)
                                  (DAT_00758574 +
-                                 (*(int *)(&DAT_0075599c + iVar12) + DAT_00715178) * 4);
-                    uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + DAT_00716160;
-                    local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c +
+                                 (*(int *)(&DAT_0075599c + iVar11) + DAT_00715178) * 4);
+                    uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
+                    local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                                 DAT_0071615c,0x49ee39);
                     FUN_004af380();
                     DAT_00715178 = DAT_00715178 + 1;
@@ -308,16 +308,16 @@ LAB_0049ed11:
                   else {
                     iStack_90 = *(undefined4 *)
                                  (DAT_00758574 +
-                                 ((int)*(char *)(iVar9 + 0xb) + *(int *)(&DAT_0075599c + iVar12)) *
+                                 ((int)*(char *)(iVar8 + 0xb) + *(int *)(&DAT_0075599c + iVar11)) *
                                  4);
-                    uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + DAT_00716160;
-                    local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c +
+                    uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
+                    local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                                 DAT_0071615c,0x49ee94);
                     FUN_004af380();
-                    if (*(char *)(iVar9 + 7) == '.') {
+                    if (*(char *)(iVar8 + 7) == '.') {
                       pcStack_8c = *(char **)(DAT_007585d4 + 0x60 + DAT_00715170 * 4);
-                      iStack_90 = DAT_00716160 + -0xfa + *(int *)(&DAT_007559bc + iVar12);
-                      uStack_94 = *(int *)(&DAT_007559b8 + iVar12) + 0x113 + DAT_0071615c;
+                      iStack_90 = DAT_00716160 + -0xfa + *(int *)(&DAT_007559bc + iVar11);
+                      uStack_94 = *(int *)(&DAT_007559b8 + iVar11) + 0x113 + DAT_0071615c;
                       local_9c = (double)CONCAT44(0x49eed6,(undefined4)local_9c);
                       (*g_draw_sprite_fn)();
                       DAT_00715170 = DAT_00715170 + 1;
@@ -326,10 +326,10 @@ LAB_0049ed11:
                       }
                     }
                     pcStack_8c = (char *)DAT_0057e848;
-                    if (*(char *)(iVar9 + 7) == '5') {
+                    if (*(char *)(iVar8 + 7) == '5') {
                       pcStack_8c = *(char **)(DAT_007585d4 + DAT_0071516c * 4);
-                      iStack_90 = DAT_00716160 + -0x13e + *(int *)(&DAT_007559bc + iVar12);
-                      uStack_94 = *(int *)(&DAT_007559b8 + iVar12) + 0x39 + DAT_0071615c;
+                      iStack_90 = DAT_00716160 + -0x13e + *(int *)(&DAT_007559bc + iVar11);
+                      uStack_94 = *(int *)(&DAT_007559b8 + iVar11) + 0x39 + DAT_0071615c;
                       local_9c = (double)CONCAT44(0x49ef31,(undefined4)local_9c);
                       (*g_draw_sprite_fn)();
                       DAT_0071516c = DAT_0071516c + 1;
@@ -341,20 +341,20 @@ LAB_0049ed11:
                   }
                   goto switchD_0049ebba_default;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758574 + *(int *)(&DAT_0075599c + iVar12) * 4);
-                uStack_94 = (aiStack_230[iVar10] + *(int *)(&DAT_007559bc + iVar12)) /
+                iStack_90 = *(undefined4 *)(DAT_00758574 + *(int *)(&DAT_0075599c + iVar11) * 4);
+                uStack_94 = (aiStack_230[iVar9] + *(int *)(&DAT_007559bc + iVar11)) /
                             (int)pcStack_8c + DAT_00716160;
                 local_9c._4_4_ =
-                     (aiStack_208[iVar10] + *(int *)(&DAT_007559b8 + iVar12)) / (int)pcStack_8c +
+                     (aiStack_208[iVar9] + *(int *)(&DAT_007559b8 + iVar11)) / (int)pcStack_8c +
                      DAT_0071615c;
                 goto LAB_0049f1cd;
               }
-              if (*(char *)(cVar2 + 100 + local_78) == '\x01') goto LAB_0049eccc;
-              iVar10 = *(int *)(&DAT_0075599c + iVar12);
-              if (iVar10 == 0x10) {
+              if (*(char *)(cVar1 + 100 + local_78) == '\x01') goto LAB_0049eccc;
+              iVar9 = *(int *)(&DAT_0075599c + iVar11);
+              if (iVar9 == 0x10) {
                 iStack_90 = *(undefined4 *)(DAT_00758578 + 0x40 + DAT_0071517c * 4);
-                uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + DAT_00716160;
-                local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c +
+                uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
+                local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                             DAT_0071615c,0x49ef91);
                 FUN_004af380();
                 DAT_0071517c = DAT_0071517c + 1;
@@ -363,19 +363,19 @@ LAB_0049ed11:
                   DAT_0071517c = 0;
                 }
               }
-              else if (iVar10 == 0x18) {
+              else if (iVar9 == 0x18) {
                 iStack_90 = *(undefined4 *)(DAT_00758578 + 0x60);
-                uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + 0x30 + DAT_00716160
+                uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + 0x30 + DAT_00716160
                 ;
                 local_9c._4_4_ =
-                     *(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c + 0x74 + DAT_0071615c;
+                     *(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c + 0x74 + DAT_0071615c;
                 local_9c._0_4_ = 0x49eff2;
                 FUN_004af380();
                 local_9c = (double)CONCAT44(local_9c._4_4_,DAT_0057e848);
                 uStack_a0 = *(int *)(DAT_00758578 + 4 +
-                                    (*(int *)(&DAT_0075599c + iVar12) + DAT_00715180) * 4);
-                iStack_a4 = *(int *)(&DAT_007559bc + iVar12) / DAT_0057e848 + 0x223 + DAT_00716160;
-                uStack_a8 = *(int *)(&DAT_007559b8 + iVar12) / DAT_0057e848 + 0x10a + DAT_0071615c;
+                                    (*(int *)(&DAT_0075599c + iVar11) + DAT_00715180) * 4);
+                iStack_a4 = *(int *)(&DAT_007559bc + iVar11) / DAT_0057e848 + 0x223 + DAT_00716160;
+                uStack_a8 = *(int *)(&DAT_007559b8 + iVar11) / DAT_0057e848 + 0x10a + DAT_0071615c;
                 uStack_ac = 0x49f03c;
                 FUN_004af380();
                 pcStack_8c = (char *)DAT_0057e848;
@@ -388,16 +388,16 @@ LAB_0049ed11:
                 }
               }
               else {
-                if (iVar10 != 9) {
-                  iStack_90 = *(undefined4 *)(DAT_00758578 + iVar10 * 4);
-                  uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + DAT_00716160;
-                  local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c + DAT_0071615c
+                if (iVar9 != 9) {
+                  iStack_90 = *(undefined4 *)(DAT_00758578 + iVar9 * 4);
+                  uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
+                  local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c + DAT_0071615c
                   ;
                   goto LAB_0049f1cd;
                 }
                 iStack_90 = *(undefined4 *)(DAT_00758578 + 0x24);
-                uStack_94 = *(int *)(&DAT_007559bc + iVar12) / (int)pcStack_8c + DAT_00716160;
-                local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar12) / (int)pcStack_8c + DAT_0071615c;
+                uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
+                local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c + DAT_0071615c;
                 local_9c._0_4_ = 0x49f0b7;
                 FUN_004af380();
                 local_9c = (double)CONCAT44(local_9c._4_4_,0x12);
@@ -410,7 +410,7 @@ LAB_0049ed11:
                 puStack_b4 = (undefined *)(uint)DAT_007350b4;
                 uStack_ac = -1;
                 puStack_b8 = (undefined *)0xffffffff;
-                pcStack_c0 = (char *)(DAT_00716160 + -0x16);
+                puStack_c0 = (undefined1 *)(DAT_00716160 + -0x16);
                 puStack_bc = &DAT_0057e900;
                 uStack_c4 = DAT_0071615c + -0xf4;
                 uStack_c8 = 0x49f105;
@@ -434,48 +434,48 @@ LAB_0049ed11:
             }
 switchD_0049ebba_default:
             if ((param_10 != '\0') &&
-               (-1 < *(int *)(&DAT_005997e8 +
-                             ((uint)*(byte *)(local_78 + 0x22) + DAT_005a80a4 * 0x80) * 4))) {
-              iVar10 = *(int *)(&DAT_005997e8 +
-                               ((uint)*(byte *)(local_78 + 0x22) + DAT_005a80a4 * 0x80) * 4) * 0x40;
+               (-1 < g_building_defs[DAT_005a80a4].resource_cost_by_kind
+                     [*(byte *)(local_78 + 0x22) - 0x12])) {
+              iVar9 = g_building_defs[DAT_005a80a4].resource_cost_by_kind
+                      [*(byte *)(local_78 + 0x22) - 0x12] * 0x40;
               if (DAT_005a809c == 2) {
-                if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar10) + -1) &&
+                if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar9) + -1) &&
                    (DAT_007161bc == DAT_005e003c)) {
                   iStack_90 = *(int *)(&DAT_007079c0 + (uint)DAT_00755920 * -4);
-                  iVar12 = *(int *)(&DAT_0075599c + iVar10);
-                  iVar8 = DAT_00758574;
+                  iVar11 = *(int *)(&DAT_0075599c + iVar9);
+                  iVar6 = DAT_00758574;
 LAB_0049f288:
-                  uStack_94 = *(undefined4 *)(iVar8 + iVar12 * 4);
-                  local_9c = (double)CONCAT44(*(int *)(&DAT_007559bc + iVar10) / (int)pcStack_8c +
+                  uStack_94 = *(undefined4 *)(iVar6 + iVar11 * 4);
+                  local_9c = (double)CONCAT44(*(int *)(&DAT_007559bc + iVar9) / (int)pcStack_8c +
                                               DAT_00716160,
-                                              *(int *)(&DAT_007559b8 + iVar10) / (int)pcStack_8c +
+                                              *(int *)(&DAT_007559b8 + iVar9) / (int)pcStack_8c +
                                               DAT_0071615c);
                   uStack_a0 = 0x49f2ab;
                   FUN_004afae0();
                   pcStack_8c = (char *)DAT_0057e848;
                 }
               }
-              else if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar10) + -1) &&
+              else if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar9) + -1) &&
                       (DAT_007161bc == DAT_005e003c)) {
                 iStack_90 = *(int *)(&DAT_007079c0 + (uint)DAT_00755920 * -4);
-                iVar12 = *(int *)(&DAT_0075599c + iVar10);
-                iVar8 = DAT_00758578;
+                iVar11 = *(int *)(&DAT_0075599c + iVar9);
+                iVar6 = DAT_00758578;
                 goto LAB_0049f288;
               }
             }
-            iVar9 = *(int *)(iVar9 + 0x14);
-            if (iVar9 != 0) {
-              if (*(char *)(iVar9 + 0xb) == '\0') {
-                iStack_90 = **(undefined4 **)(iVar9 + 0x10);
+            iVar8 = *(int *)(iVar8 + 0x14);
+            if (iVar8 != 0) {
+              if (*(char *)(iVar8 + 0xb) == '\0') {
+                iStack_90 = **(undefined4 **)(iVar8 + 0x10);
                 uStack_94 = DAT_00716160;
                 local_9c._4_4_ = DAT_0071615c;
               }
               else {
-                if (*(char *)(iVar9 + 0xb) != '\x01') goto LAB_0049f322;
-                iVar10 = ((uint)*(byte *)(iVar9 + 0xd) + (uint)*(byte *)(iVar9 + 0xc) * 8) * 4;
-                iStack_90 = *(undefined4 *)(*(int *)(iVar9 + 0x10) + iVar10);
-                uStack_94 = *(int *)(&DAT_00589044 + iVar10) + DAT_00716160;
-                local_9c._4_4_ = *(int *)(&DAT_00588f44 + iVar10) + DAT_0071615c;
+                if (*(char *)(iVar8 + 0xb) != '\x01') goto LAB_0049f322;
+                iVar9 = ((uint)*(byte *)(iVar8 + 0xd) + (uint)*(byte *)(iVar8 + 0xc) * 8) * 4;
+                iStack_90 = *(undefined4 *)(*(int *)(iVar8 + 0x10) + iVar9);
+                uStack_94 = *(int *)(&DAT_00589044 + iVar9) + DAT_00716160;
+                local_9c._4_4_ = *(int *)(&DAT_00588f44 + iVar9) + DAT_0071615c;
               }
               local_9c = (double)CONCAT44(local_9c._4_4_,0x49f319);
               FUN_004af380();
@@ -524,59 +524,58 @@ LAB_0049f322:
             DAT_007161bc = DAT_007161b4 + param_9;
             if ((((-1 < DAT_007161b8) && (-1 < DAT_007161bc)) && (DAT_007161b8 < 0x30)) &&
                (((DAT_007161bc < 0x30 &&
-                 (iVar9 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044,
+                 (iVar8 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044,
                  DAT_007161b8 == DAT_005e0038)) &&
-                ((DAT_007161bc == DAT_005e003c && (cVar2 = *(char *)(iVar9 + 7), -1 < cVar2)))))) {
-              iVar12 = (int)cVar2;
-              iVar8 = iVar12 * 0x200;
-              iVar10 = -1;
-              pcVar13 = &DAT_005997d4 + iVar8;
+                ((DAT_007161bc == DAT_005e003c && (cVar1 = *(char *)(iVar8 + 7), -1 < cVar1)))))) {
+              iVar11 = (int)cVar1;
+              iVar9 = -1;
+              pcVar12 = &g_building_defs[iVar11].field_0x1c;
               do {
-                if (iVar10 == 0) break;
-                iVar10 = iVar10 + -1;
-                cVar2 = *pcVar13;
-                pcVar13 = pcVar13 + 1;
-              } while (cVar2 != '\0');
-              iVar6 = (int)(char)(~(byte)iVar10 - 1);
+                if (iVar9 == 0) break;
+                iVar9 = iVar9 + -1;
+                cVar1 = *pcVar12;
+                pcVar12 = pcVar12 + 1;
+              } while (cVar1 != '\0');
+              iVar5 = (int)(char)(~(byte)iVar9 - 1);
               pcStack_8c = (char *)(uint)DAT_0074c800;
               iStack_90 = DAT_00716160 + 0x14;
-              uStack_94 = DAT_0071615c + 8 + iVar6 * 8;
+              uStack_94 = DAT_0071615c + 8 + iVar5 * 8;
               local_9c = (double)CONCAT44(DAT_00716160,DAT_0071615c);
               uStack_a0 = 0x49f557;
               FUN_004f5ae3();
-              iVar11 = DAT_00716160;
-              iVar4 = DAT_0071615c;
-              uVar5 = (uint)DAT_007350b4;
-              iVar1 = DAT_0071615c + 7 + iVar6 * 8;
+              iVar10 = DAT_00716160;
+              iVar3 = DAT_0071615c;
+              uVar4 = (uint)DAT_007350b4;
+              iVar6 = DAT_0071615c + 7 + iVar5 * 8;
               iStack_a4 = DAT_00716160;
-              iVar10 = DAT_00716160 + 0x13;
+              iVar9 = DAT_00716160 + 0x13;
               uStack_ac = DAT_00716160;
               puStack_b0 = (undefined *)DAT_0071615c;
               puStack_b4 = (undefined *)0x49f58c;
-              uStack_a8 = iVar1;
-              uStack_a0 = uVar5;
+              uStack_a8 = iVar6;
+              uStack_a0 = uVar4;
               FUN_004f5ae3();
-              uStack_c4 = iVar4;
+              uStack_c4 = iVar3;
               uStack_c8 = 0x49f5a2;
-              pcStack_c0 = (char *)iVar10;
-              puStack_bc = (undefined *)iVar1;
-              puStack_b8 = (undefined *)iVar10;
-              puStack_b4 = (undefined *)uVar5;
+              puStack_c0 = (undefined1 *)iVar9;
+              puStack_bc = (undefined *)iVar6;
+              puStack_b8 = (undefined *)iVar9;
+              puStack_b4 = (undefined *)uVar4;
               FUN_004f5ae3();
-              iVar10 = iVar11 + 0x12;
-              iVar11 = iVar11 + 1;
-              puStack_d0 = (undefined *)iVar4;
-              iStack_d8 = iVar4;
+              iVar9 = iVar10 + 0x12;
+              iVar10 = iVar10 + 1;
+              puStack_d0 = (undefined *)iVar3;
+              iStack_d8 = iVar3;
               uStack_dc = 0x49f5ba;
-              iStack_d4 = iVar11;
-              iStack_cc = iVar10;
-              uStack_c8 = uVar5;
+              iStack_d4 = iVar10;
+              iStack_cc = iVar9;
+              uStack_c8 = uVar4;
               FUN_004f5ae3();
-              local_9c = (double)CONCAT44(iVar11,iVar1);
+              local_9c = (double)CONCAT44(iVar10,iVar6);
               uStack_a0 = 0x49f5cf;
-              uStack_94 = iVar1;
-              iStack_90 = iVar10;
-              pcStack_8c = (char *)uVar5;
+              uStack_94 = iVar6;
+              iStack_90 = iVar9;
+              pcStack_8c = (char *)uVar4;
               FUN_004f5ae3();
               uStack_a0 = 0x10;
               iStack_a4 = DAT_005dffb8;
@@ -591,258 +590,260 @@ LAB_0049f322:
               uStack_c4 = DAT_00716160 + 2;
               uStack_c8 = DAT_0071615c + 4;
               iStack_cc = 0x49f612;
-              pcStack_c0 = &DAT_005997d4 + iVar8;
+              puStack_c0 = &g_building_defs[iVar11].field_0x1c;
               Draw_Text_Centered();
-              iVar10 = *(int *)(&DAT_005997bc + iVar8);
+              iVar9 = *(int *)&g_building_defs[iVar11].field_0x4;
               pcStack_8c = (char *)DAT_0057e848;
-              if (0 < iVar10) {
-                if ((0 < iVar10) && (iVar10 < 4)) {
-                  DAT_0057e844 = (int)*(char *)(iVar9 + 7);
+              if (0 < iVar9) {
+                if ((0 < iVar9) && (iVar9 < 4)) {
+                  DAT_0057e844 = (int)*(char *)(iVar8 + 7);
                 }
                 pcStack_8c = (char *)0xe;
                 iStack_90 = DAT_005dffb8;
                 uStack_94 = 0xe;
                 local_9c = (double)CONCAT44(DAT_005dffbc,0x49f64e);
                 Font_Select();
-                local_7c = DAT_0071615c + 0x10 + iVar6 * 8;
+                local_7c = DAT_0071615c + 0x10 + iVar5 * 8;
                 if (DAT_00755810 < local_7c + 0xa8) {
                   local_7c = DAT_00755810 + -0xb0;
                 }
-                iVar9 = DAT_00716160;
+                iVar8 = DAT_00716160;
                 if (DAT_00755814 < DAT_00716160 + 0x104) {
-                  iVar9 = DAT_00755814 + -0x10c;
+                  iVar8 = DAT_00755814 + -0x10c;
                 }
                 pcStack_8c = (char *)0x104;
                 iStack_90 = 0xa8;
                 local_9c._4_4_ = local_7c;
                 local_9c._0_4_ = 0x49f6ab;
-                uStack_94 = iVar9;
+                uStack_94 = iVar8;
                 FUN_004f0830();
                 iStack_a4 = local_7c + 0xa7;
-                uVar5 = (uint)DAT_007350b4;
-                local_9c = (double)CONCAT44(local_9c._4_4_,uVar5);
+                uVar4 = (uint)DAT_007350b4;
+                local_9c = (double)CONCAT44(local_9c._4_4_,uVar4);
                 uStack_ac = local_7c;
                 puStack_b0 = (undefined *)0x49f6d1;
-                uStack_a8 = iVar9;
-                uStack_a0 = iVar9;
+                uStack_a8 = iVar8;
+                uStack_a0 = iVar8;
                 FUN_004f5ae3();
                 puStack_b8 = (undefined *)(local_7c + 0xa7);
-                pcStack_c0 = (char *)local_7c;
+                puStack_c0 = (undefined1 *)local_7c;
                 uStack_c4 = 0x49f6e9;
-                puStack_bc = (undefined *)(iVar9 + 0x103);
-                puStack_b4 = (undefined *)(iVar9 + 0x103);
-                puStack_b0 = (undefined *)uVar5;
+                puStack_bc = (undefined *)(iVar8 + 0x103);
+                puStack_b4 = (undefined *)(iVar8 + 0x103);
+                puStack_b0 = (undefined *)uVar4;
                 FUN_004f5ae3();
-                puStack_d0 = (undefined *)(iVar9 + 1);
+                puStack_d0 = (undefined *)(iVar8 + 1);
                 iStack_cc = local_7c;
                 iStack_d4 = local_7c;
                 iStack_d8 = 0x49f703;
-                uStack_c8 = iVar9 + 0x102;
-                uStack_c4 = uVar5;
+                uStack_c8 = iVar8 + 0x102;
+                uStack_c4 = uVar4;
                 FUN_004f5ae3();
                 uStack_94 = local_7c + 0xa7;
-                local_9c = (double)CONCAT44(iVar9 + 1,uStack_94);
+                local_9c = (double)CONCAT44(iVar8 + 1,uStack_94);
                 uStack_a0 = 0x49f721;
-                iStack_90 = iVar9 + 0x102;
-                pcStack_8c = (char *)uVar5;
+                iStack_90 = iVar8 + 0x102;
+                pcStack_8c = (char *)uVar4;
                 FUN_004f5ae3();
                 uStack_a0 = 0xffffffff;
                 uStack_a8 = (uint)DAT_007350b4;
                 iStack_a4 = 0xffffffff;
-                puStack_b4 = (undefined *)(iVar9 + 4);
+                puStack_b4 = (undefined *)(iVar8 + 4);
                 uStack_ac = 0xffffffff;
-                iVar10 = local_7c + 4;
+                iVar9 = local_7c + 4;
                 puStack_b0 = &DAT_0057e8f4;
                 puStack_bc = (undefined *)0x49f743;
-                puStack_b8 = (undefined *)iVar10;
+                puStack_b8 = (undefined *)iVar9;
                 Draw_Text_Centered();
-                uStack_c8 = (&DAT_0059980c)[iVar12 * 0x80];
+                uStack_c8 = g_building_defs[iVar11].build_cost;
                 puStack_bc = (undefined *)0x0;
-                pcStack_c0 = (char *)0x5;
+                puStack_c0 = (undefined1 *)0x5;
                 puStack_d0 = (undefined *)(local_7c + 0x43);
                 uStack_c4 = 0;
-                iStack_cc = iVar9 + 4;
+                iStack_cc = iVar8 + 4;
                 iStack_d4 = 0x49f75e;
                 FUN_004c51f0();
                 uStack_94 = (uint)DAT_007350b4;
-                uStack_a0 = iVar9 + 0x14;
+                uStack_a0 = iVar8 + 0x14;
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f780;
-                iStack_a4 = iVar10;
+                iStack_a4 = iVar9;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)(&DAT_00599814)[iVar12 * 0x80];
+                puStack_b4 = *(undefined **)&g_building_defs[iVar11].income_yield_delta;
                 uStack_a8 = 0;
                 uStack_ac = 5;
                 puStack_b0 = (undefined *)0x0;
-                puStack_b8 = (undefined *)(iVar9 + 0x14);
+                puStack_b8 = (undefined *)(iVar8 + 0x14);
                 puStack_bc = (undefined *)(local_7c + 0x43);
-                pcStack_c0 = (char *)0x49f79b;
+                puStack_c0 = (undefined1 *)0x49f79b;
                 FUN_004c51f0();
-                pcStack_c0 = (char *)0x98;
+                puStack_c0 = (undefined1 *)0x98;
                 uStack_c8 = (uint)DAT_007350b4;
                 uStack_c4 = 0xffffffff;
-                iStack_d4 = iVar9 + 0x24;
+                iStack_d4 = iVar8 + 0x24;
                 iStack_cc = 0xffffffff;
                 puStack_d0 = &DAT_0057e8dc;
                 uStack_dc = 0x49f7bd;
-                iStack_d8 = iVar10;
+                iStack_d8 = iVar9;
                 Draw_Text_Centered();
                 uStack_94 = (uint)DAT_0074c850;
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
                 local_9c = (double)CONCAT44(0xffffffff,
-                                            &DAT_005a7bdc + *(int *)(&DAT_005997c4 + iVar8) * 5);
-                uStack_a0 = iVar9 + 0x24;
+                                            &DAT_005a7bdc +
+                                            *(int *)&g_building_defs[iVar11].field_0xc * 5);
+                uStack_a0 = iVar8 + 0x24;
                 iStack_a4 = local_7c + 0x43;
                 uStack_a8 = 0x49f7ec;
                 Draw_Text_Centered();
                 uStack_a8 = 0xffffffff;
                 puStack_b0 = (undefined *)(uint)DAT_007350b4;
                 uStack_ac = 0xffffffff;
-                puStack_bc = (undefined *)(iVar9 + 0x34);
+                puStack_bc = (undefined *)(iVar8 + 0x34);
                 puStack_b4 = (undefined *)0xffffffff;
                 puStack_b8 = &DAT_0057e8c8;
                 uStack_c4 = 0x49f80b;
-                pcStack_c0 = (char *)iVar10;
+                puStack_c0 = (undefined1 *)iVar9;
                 Draw_Text_Centered();
                 uStack_c4 = 0;
                 uStack_c8 = 6;
                 iStack_d8 = local_7c + 0x7b;
                 iStack_cc = 0;
                 puStack_d0 = *(undefined **)
-                              (&DAT_00599830 + *(int *)(_DAT_00748e30 + 0x60) * 4 + iVar8);
-                iStack_d4 = iVar9 + 0x34;
+                              (iVar11 * 0x200 + 0x599830 + *(int *)(_DAT_00748e30 + 0x60) * 4);
+                iStack_d4 = iVar8 + 0x34;
                 uStack_dc = 0x49f830;
                 FUN_004c51f0();
                 uStack_94 = (uint)DAT_007350b4;
-                uStack_a0 = iVar9 + 0x44;
+                uStack_a0 = iVar8 + 0x44;
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f852;
-                iStack_a4 = iVar10;
+                iStack_a4 = iVar9;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)(&DAT_00599850)[iVar12 * 0x80];
+                puStack_b4 = (undefined *)g_building_defs[iVar11].population_requirement;
                 uStack_a8 = 0;
                 uStack_ac = 6;
                 puStack_b0 = (undefined *)0x0;
-                puStack_b8 = (undefined *)(iVar9 + 0x44);
+                puStack_b8 = (undefined *)(iVar8 + 0x44);
                 puStack_bc = (undefined *)(local_7c + 0x7b);
-                pcStack_c0 = (char *)0x49f870;
+                puStack_c0 = (undefined1 *)0x49f870;
                 FUN_004c51f0();
-                pcStack_c0 = (char *)0xffffffff;
+                puStack_c0 = (undefined1 *)0xffffffff;
                 uStack_c8 = (uint)DAT_007350b4;
                 uStack_c4 = 0xffffffff;
-                iStack_d4 = iVar9 + 0x54;
+                iStack_d4 = iVar8 + 0x54;
                 iStack_cc = 0xffffffff;
                 puStack_d0 = &DAT_0057e8a0;
                 uStack_dc = 0x49f88f;
-                iStack_d8 = iVar10;
+                iStack_d8 = iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0x0;
                 iStack_90 = 6;
                 uStack_94 = 0;
-                local_9c = (double)CONCAT44((&DAT_00599854)[iVar12 * 0x80],iVar9 + 0x54);
+                local_9c = (double)CONCAT44(g_building_defs[iVar11].
+                                            upgrade_or_development_requirement,iVar8 + 0x54);
                 uStack_a0 = local_7c + 0x7b;
                 iStack_a4 = 0x49f8b0;
                 FUN_004c51f0();
                 iStack_a4 = 0xffffffff;
                 uStack_ac = (uint)DAT_007350b4;
                 uStack_a8 = 0xffffffff;
-                puStack_b8 = (undefined *)(iVar9 + 100);
+                puStack_b8 = (undefined *)(iVar8 + 100);
                 puStack_b0 = (undefined *)0xffffffff;
                 puStack_b4 = &DAT_0057e890;
-                pcStack_c0 = (char *)0x49f8cf;
-                puStack_bc = (undefined *)iVar10;
+                puStack_c0 = (undefined1 *)0x49f8cf;
+                puStack_bc = (undefined *)iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
-                if ((int)(&DAT_00599858)[iVar12 * 0x80] < 0) {
+                if (g_building_defs[iVar11].prerequisite_building_a < 0) {
                   local_9c = -NAN;
                 }
                 else {
                   local_9c = (double)CONCAT44(0xffffffff,
-                                              &DAT_005997d4 + (&DAT_00599858)[iVar12 * 0x80] * 0x200
-                                             );
+                                              g_building_defs[iVar11].prerequisite_building_a *
+                                              0x200 + 0x5997d4);
                 }
                 uStack_94 = (uint)DAT_0074c850;
-                uStack_a0 = iVar9 + 100;
+                uStack_a0 = iVar8 + 100;
                 iStack_a4 = local_7c + 0x5f;
                 uStack_a8 = 0x49f925;
                 Draw_Text_Centered();
                 uStack_94 = (uint)DAT_007350b4;
-                uStack_a0 = iVar9 + 0x74;
+                uStack_a0 = iVar8 + 0x74;
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f947;
-                iStack_a4 = iVar10;
+                iStack_a4 = iVar9;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)(&DAT_00599818)[iVar12 * 0x80];
+                puStack_b4 = (undefined *)g_building_defs[iVar11].growth_delta;
                 uStack_a8 = 0;
                 uStack_ac = 3;
                 puStack_b0 = (undefined *)0x0;
-                puStack_b8 = (undefined *)(iVar9 + 0x74);
+                puStack_b8 = (undefined *)(iVar8 + 0x74);
                 puStack_bc = (undefined *)(local_7c + 0x43);
-                pcStack_c0 = (char *)0x49f962;
+                puStack_c0 = (undefined1 *)0x49f962;
                 FUN_004c52d0();
-                pcStack_c0 = (char *)0xffffffff;
+                puStack_c0 = (undefined1 *)0xffffffff;
                 uStack_c8 = (uint)DAT_007350b4;
                 uStack_c4 = 0xffffffff;
-                iStack_d4 = iVar9 + 0x84;
+                iStack_d4 = iVar8 + 0x84;
                 iStack_cc = 0xffffffff;
                 puStack_d0 = &DAT_0057e878;
                 uStack_dc = 0x49f984;
-                iStack_d8 = iVar10;
+                iStack_d8 = iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0x0;
                 iStack_90 = 3;
                 uStack_94 = 0;
-                local_9c = (double)CONCAT44((&DAT_0059981c)[iVar12 * 0x80],iVar9 + 0x84);
+                local_9c = (double)CONCAT44(g_building_defs[iVar11].business_delta,iVar8 + 0x84);
                 uStack_a0 = local_7c + 0x43;
                 iStack_a4 = 0x49f9a5;
                 FUN_004c52d0();
                 iStack_a4 = 0xffffffff;
                 uStack_ac = (uint)DAT_007350b4;
                 uStack_a8 = 0xffffffff;
-                puStack_b8 = (undefined *)(iVar9 + 0x94);
+                puStack_b8 = (undefined *)(iVar8 + 0x94);
                 puStack_b0 = (undefined *)0xffffffff;
                 puStack_b4 = &DAT_0057e86c;
-                pcStack_c0 = (char *)0x49f9c7;
-                puStack_bc = (undefined *)iVar10;
+                puStack_c0 = (undefined1 *)0x49f9c7;
+                puStack_bc = (undefined *)iVar9;
                 Draw_Text_Centered();
-                iStack_cc = (&DAT_00599820)[iVar12 * 0x80];
-                pcStack_c0 = (char *)0x0;
+                iStack_cc = g_building_defs[iVar11].safety_delta;
+                puStack_c0 = (undefined1 *)0x0;
                 uStack_c4 = 3;
                 uStack_c8 = 0;
-                puStack_d0 = (undefined *)(iVar9 + 0x94);
+                puStack_d0 = (undefined *)(iVar8 + 0x94);
                 iStack_d4 = local_7c + 0x43;
                 iStack_d8 = 0x49f9e5;
                 FUN_004c52d0();
                 uStack_94 = (uint)DAT_007350b4;
-                uStack_a0 = iVar9 + 0xa4;
+                uStack_a0 = iVar8 + 0xa4;
                 pcStack_8c = (char *)0xffffffff;
                 iStack_90 = 0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49fa0a;
-                iStack_a4 = iVar10;
+                iStack_a4 = iVar9;
                 Draw_Text_Centered();
-                puStack_b4 = (undefined *)(&DAT_00599824)[iVar12 * 0x80];
+                puStack_b4 = (undefined *)g_building_defs[iVar11].resource_or_science_delta;
                 uStack_a8 = 0;
                 uStack_ac = 3;
                 puStack_b0 = (undefined *)0x0;
-                puStack_b8 = (undefined *)(iVar9 + 0xa4);
+                puStack_b8 = (undefined *)(iVar8 + 0xa4);
                 puStack_bc = (undefined *)(local_7c + 0x43);
-                pcStack_c0 = (char *)0x49fa28;
+                puStack_c0 = (undefined1 *)0x49fa28;
                 FUN_004c52d0();
                 uStack_c8 = (uint)DAT_0074c850;
-                pcStack_c0 = (char *)0x96;
+                puStack_c0 = (undefined1 *)0x96;
                 uStack_c4 = -1;
-                puStack_d0 = (undefined *)(iVar8 + 0x5998ac);
+                puStack_d0 = (undefined *)(iVar11 * 0x200 + 0x5998ac);
                 iStack_cc = -1;
-                iStack_d4 = iVar9 + 0xb4;
+                iStack_d4 = iVar8 + 0xb4;
                 iStack_d8 = local_7c + 2;
                 uStack_dc = 0x49fa56;
                 Draw_Text_Centered();
@@ -917,7 +918,7 @@ LAB_0049f322:
     uStack_a8 = 0xffffffff;
     puStack_b0 = (undefined *)0xffffffff;
     puStack_b4 = &DAT_0057e858;
-    pcStack_c0 = (char *)0x49fbfe;
+    puStack_c0 = (undefined1 *)0x49fbfe;
     Draw_Text_Centered();
     pcStack_8c = (char *)0x0;
     iStack_90 = 0x18;
@@ -934,7 +935,7 @@ LAB_0049f322:
       puStack_b4 = &DAT_0057c634;
       puStack_b8 = (undefined *)0x2b;
       puStack_bc = (undefined *)0x2d2;
-      pcStack_c0 = (char *)0x49fc3f;
+      puStack_c0 = (undefined1 *)0x49fc3f;
       Draw_Text_Centered();
       return;
     }
@@ -949,7 +950,7 @@ LAB_0049f322:
     puStack_b4 = &DAT_0057c634;
     puStack_b8 = (undefined *)0x2a;
     puStack_bc = (undefined *)0x2d0;
-    pcStack_c0 = (char *)0x49fc7b;
+    puStack_c0 = (undefined1 *)0x49fc7b;
     Draw_Text_Centered();
   }
   return;

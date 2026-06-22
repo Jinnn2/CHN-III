@@ -17,8 +17,8 @@ bool Diplomat_Commotion(void)
   int iVar4;
   undefined *puVar5;
   undefined *puVar6;
-  undefined *puVar7;
-  byte *pbVar8;
+  byte *pbVar7;
+  char *pcVar8;
   byte *pbVar9;
   bool local_c1;
   undefined1 local_c0 [192];
@@ -48,7 +48,7 @@ bool Diplomat_Commotion(void)
 switchD_00439db4_default:
   city = *(City_0x1b8_plus **)(iVar4 + 0x88);
   *(undefined1 *)city = 1;
-  iVar4 = (char)city->field_0x1 * 0xe68;
+  iVar4 = (char)city->owner_country_id * 0xe68;
   if (city->safety_score < 1) {
     local_c1 = true;
   }
@@ -60,7 +60,7 @@ switchD_00439db4_default:
     else {
       sVar3 = 0;
     }
-    uVar2 = FUN_004fbf50(CONCAT22((short)((uint)((char)city->field_0x1 * 0x73) >> 0x10),
+    uVar2 = FUN_004fbf50(CONCAT22((short)((uint)((char)city->owner_country_id * 0x73) >> 0x10),
                                   (short)city->safety_score));
     local_c1 = uVar2 < (ushort)(sVar3 * 0x1e + 10U);
     if (!local_c1) {
@@ -71,28 +71,28 @@ switchD_00439db4_default:
         sVar3 = FUN_004fbf50(2);
         if (sVar3 == 0) {
           bVar1 = city->city_type_or_terrain_class;
-          puVar7 = &DAT_005197cc;
+          puVar6 = &DAT_005197cc;
         }
         else {
           bVar1 = city->city_type_or_terrain_class;
-          puVar7 = &DAT_005192c8;
+          puVar6 = &DAT_005192c8;
         }
-        Format_Text(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
-                    &city->field_0x3);
+        Format_Text(local_c0,puVar6,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+                    city->name_bytes);
       }
-      else if ((char)city->field_0x1 == g_human_country_index) {
+      else if ((char)city->owner_country_id == g_human_country_index) {
         if (DAT_0074a2cc != '\x01') {
           return false;
         }
         sVar3 = FUN_004fbf50(2);
         if (sVar3 == 0) {
           Format_Text(local_c0,&DAT_005197a8,
-                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes,
                       g_active_country->name_bytes);
         }
         else {
           Format_Text(local_c0,&DAT_0051977c,
-                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes,
                       g_active_country->name_bytes);
         }
       }
@@ -102,7 +102,7 @@ switchD_00439db4_default:
             return false;
           }
           if ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2) &&
-             (*(int *)(_DAT_00748e30 + 0x1ac + (char)city->field_0x1 * 4) < 2)) {
+             (*(int *)(_DAT_00748e30 + 0x1ac + (char)city->owner_country_id * 4) < 2)) {
             return false;
           }
         }
@@ -110,7 +110,7 @@ switchD_00439db4_default:
           return false;
         }
         Format_Text(local_c0,&DAT_00519758,g_active_country->name_bytes,&DAT_007350bc + iVar4,
-                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
       }
       FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);
       goto LAB_0043a1cd;
@@ -125,32 +125,32 @@ switchD_00439db4_default:
     sVar3 = FUN_004fbf50(2);
     if (sVar3 == 0) {
       bVar1 = city->city_type_or_terrain_class;
-      puVar7 = &DAT_005198b8;
+      puVar6 = &DAT_005198b8;
     }
     else {
       bVar1 = city->city_type_or_terrain_class;
-      puVar7 = &DAT_00519888;
+      puVar6 = &DAT_00519888;
     }
-    Format_Text(local_c0,puVar7,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
-                &city->field_0x3);
+    Format_Text(local_c0,puVar6,&DAT_007350bc + iVar4,&DAT_005a7bdc + (uint)bVar1 * 5,
+                city->name_bytes);
   }
   else {
-    if ((char)city->field_0x1 == g_human_country_index) {
+    if ((char)city->owner_country_id == g_human_country_index) {
       if (DAT_0074a2cc != '\x01') {
         return local_c1;
       }
       sVar3 = FUN_004fbf50(2);
       if (sVar3 != 0) {
         Format_Text(local_c0,&DAT_00519824,
-                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3,
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes,
                     g_active_country->name_bytes);
         goto LAB_0043a01e;
       }
-      puVar7 = &city->field_0x3;
-      pbVar8 = g_active_country->name_bytes;
-      puVar5 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
-      puVar6 = &DAT_00519854;
-      pbVar9 = pbVar8;
+      pcVar8 = city->name_bytes;
+      pbVar7 = g_active_country->name_bytes;
+      puVar6 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
+      puVar5 = &DAT_00519854;
+      pbVar9 = pbVar7;
     }
     else {
       if (DAT_00755940 == 0) {
@@ -158,20 +158,20 @@ switchD_00439db4_default:
           return local_c1;
         }
         if ((*(int *)(_DAT_00748e30 + 0x1ac + _DAT_00748e34 * 4) < 2) &&
-           (*(int *)(_DAT_00748e30 + 0x1ac + (char)city->field_0x1 * 4) < 2)) {
+           (*(int *)(_DAT_00748e30 + 0x1ac + (char)city->owner_country_id * 4) < 2)) {
           return local_c1;
         }
       }
       if (DAT_0074a2cd != '\x01') {
         return local_c1;
       }
-      pbVar9 = &city->field_0x3;
-      puVar5 = &DAT_007350bc + iVar4;
-      puVar7 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
-      pbVar8 = g_active_country->name_bytes;
-      puVar6 = &DAT_005197fc;
+      pbVar9 = (byte *)city->name_bytes;
+      puVar6 = &DAT_007350bc + iVar4;
+      pcVar8 = &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5;
+      pbVar7 = g_active_country->name_bytes;
+      puVar5 = &DAT_005197fc;
     }
-    Format_Text(local_c0,puVar6,pbVar8,puVar5,puVar7,pbVar9);
+    Format_Text(local_c0,puVar5,pbVar7,puVar6,pcVar8,pbVar9);
   }
 LAB_0043a01e:
   FUN_004898b0(DAT_007350b4,local_c0,1,city->tile_x,city->tile_y);

@@ -31,7 +31,7 @@ void City_Business(void)
   uint local_18;
   
   Trace_Function();
-  uVar7 = (uint)(byte)g_current_city->field_0x176;
+  uVar7 = (uint)g_current_city->trade_route_count;
   if (uVar7 != 0) {
     pcVar4 = *(char **)(&DAT_0074a168 + g_active_country_index * 4);
     local_18 = uVar7;
@@ -44,10 +44,10 @@ void City_Business(void)
         local_38 = *(City_0x1b8_plus **)(pcVar4 + 4);
       }
       if (local_38 != (City_0x1b8_plus *)0x0) {
-        iVar10 = (int)(char)local_38->field_0x1;
+        iVar10 = (int)(char)local_38->owner_country_id;
         cVar8 = '\x01';
         if (iVar10 != g_active_country_index) {
-          cVar8 = (5 < *(int *)(&g_active_country->field_0x1ac + iVar10 * 4)) + '\x02';
+          cVar8 = (5 < g_active_country->diplomacy_state_by_country[iVar10]) + '\x02';
         }
         if (*pcVar4 == '\0') {
           local_1c = (int)*(short *)(pcVar4 + 0xc);
@@ -68,16 +68,19 @@ void City_Business(void)
         local_30 = 0xbe4;
         local_24 = 0xb42;
         do {
-          if (((((((&local_38->field_0x183)[iVar12] == '\x02') &&
-                 ((char)(&g_current_city->field_0x183)[iVar12] < '\x02')) &&
-                ((&g_current_city->field_0x183)[iVar12] = 1, DAT_0074c778 == 1)) &&
+          if ((((((local_38->trade_resource_state[iVar12] == 2) &&
+                 ((char)g_current_city->trade_resource_state[iVar12] < '\x02')) &&
+                (g_current_city->trade_resource_state[iVar12] = 1, DAT_0074c778 == 1)) &&
                ((iVar10 != g_active_country_index &&
-                (*(int *)(&g_active_country->field_0x25c + iVar10 * 4) == 1)))) &&
-              ((sVar1 = *(short *)(&g_active_country->field_0x142 + local_24), 0 < sVar1 &&
+                (g_active_country->trade_agreement_flags[iVar10] == 1)))) &&
+              ((sVar1 = *(short *)((int)g_active_country->diplomacy_state_by_country +
+                                  local_24 + -0x6a), 0 < sVar1 &&
                ((sVar2 = *(short *)(&g_country_states + local_24 + iVar10 * 0xe68), 0 < sVar2 &&
                 (iVar11 = *(int *)(&g_country_states + local_30 + iVar10 * 0xe68),
-                iVar11 <= *(int *)(&g_active_country->field_0x140 + local_30))))))) &&
-             ((sVar3 = *(short *)(&g_active_country->field_0x192 + local_24), sVar3 < sVar1 &&
+                iVar11 <= *(int *)((int)g_active_country->diplomacy_state_by_country +
+                                  local_30 + -0x6c))))))) &&
+             ((sVar3 = *(short *)((int)g_active_country->diplomacy_state_by_country +
+                                 local_24 + -0x1a), sVar3 < sVar1 &&
               (*(short *)(&g_country_states + local_24 + 0x50 + iVar10 * 0xe68) < sVar2)))) {
             iVar5 = (int)sVar1;
             iVar6 = iVar5;
@@ -105,9 +108,9 @@ void City_Business(void)
               FUN_0041f600(iVar10,iVar12,-iVar6,2);
             }
           }
-          if (((&g_current_city->field_0x183)[iVar12] == '\x02') &&
-             ((char)(&local_38->field_0x183)[iVar12] < '\x02')) {
-            (&local_38->field_0x183)[iVar12] = 1;
+          if ((g_current_city->trade_resource_state[iVar12] == 2) &&
+             ((char)local_38->trade_resource_state[iVar12] < '\x02')) {
+            local_38->trade_resource_state[iVar12] = 1;
             iVar11 = local_28[g_active_country->government_or_ai_mode + 0xb] *
                      ((int)*(short *)(pcVar4 + 0xc) >> 1);
             if (cVar8 == '\x02') {

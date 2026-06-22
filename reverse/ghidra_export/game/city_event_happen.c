@@ -6,9 +6,8 @@
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-void City_Event_Happen(City_0x1b8_plus *city)
+void __cdecl City_Event_Happen(City_0x1b8_plus *city)
 
 {
   int iVar1;
@@ -20,16 +19,16 @@ void City_Event_Happen(City_0x1b8_plus *city)
   if (iVar1 == in_stack_00000008) {
     return;
   }
-  if ((char)city->field_0x1 == g_human_country_index) {
+  if ((char)city->owner_country_id == g_human_country_index) {
     switch(in_stack_00000008) {
     case 0:
       if (iVar1 == 3) {
         if (DAT_0074a2ce == '\x01') {
-          Format_Text(local_c0,&DAT_005158e0,&city->field_0x3);
+          Format_Text(local_c0,&DAT_005158e0,city->name_bytes);
           FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
           Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
           city->city_policy_mode = in_stack_00000008;
-          city->field_0x180 = 0;
+          city->event_transition_pending = 0;
           return;
         }
       }
@@ -37,19 +36,19 @@ void City_Event_Happen(City_0x1b8_plus *city)
         if (iVar1 == 2) {
           if (DAT_0074a2ce == '\0') break;
           Format_Text(local_c0,&DAT_005158bc,
-                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
           FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
         }
         else if (iVar1 == 4) {
           if (DAT_0074a2ce == '\0') break;
           Format_Text(local_c0,&DAT_00515898,
-                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
           FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
         }
         else {
           if ((iVar1 != 5) || (DAT_0074a2ce == '\0')) break;
           Format_Text(local_c0,&DAT_00515874,
-                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                      &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
           FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
         }
         Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
@@ -57,64 +56,64 @@ void City_Event_Happen(City_0x1b8_plus *city)
       break;
     case 1:
       Format_Text(local_c0,&DAT_00515960,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,
-                  &city->field_0x3);
+                  city->name_bytes);
       if (DAT_0074a2ce == '\x01') {
         FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
       }
       Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
       city->city_policy_mode = in_stack_00000008;
-      city->field_0x180 = 0;
+      city->event_transition_pending = 0;
       return;
     case 2:
       Format_Text(local_c0,&DAT_005158fc,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,
-                  &city->field_0x3);
+                  city->name_bytes);
       if (DAT_0074a2ce == '\x01') {
         FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
       }
       Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
       city->city_policy_mode = in_stack_00000008;
-      city->field_0x180 = 0;
+      city->event_transition_pending = 0;
       return;
     case 3:
       Format_Text(local_c0,&DAT_00515938,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,
-                  &city->field_0x3);
+                  city->name_bytes);
 joined_r0x00425584:
       if (DAT_0074a2ce == '\x01') {
         FUN_004898b0(_DAT_0074a316,local_c0,1,city->tile_x,city->tile_y);
       }
       Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
       city->city_policy_mode = in_stack_00000008;
-      city->field_0x180 = 0;
+      city->event_transition_pending = 0;
       return;
     case 4:
       if (iVar1 != 5) {
         Format_Text(local_c0,&DAT_005159b0,
-                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
         goto joined_r0x00425584;
       }
       if (DAT_0074a2ce != '\0') {
         Format_Text(local_c0,&DAT_005159dc,
-                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,&city->field_0x3);
+                    &DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,city->name_bytes);
         FUN_004898b0(DAT_0074c850,local_c0,1,city->tile_x,city->tile_y);
         city->city_policy_mode = in_stack_00000008;
-        city->field_0x180 = 0;
+        city->event_transition_pending = 0;
         return;
       }
       break;
     case 5:
       Format_Text(local_c0,&DAT_00515984,&DAT_005a7bdc + (uint)city->city_type_or_terrain_class * 5,
-                  &city->field_0x3);
+                  city->name_bytes);
       if (DAT_0074a2ce == '\x01') {
         FUN_004898b0(_DAT_0074a316,local_c0,1,city->tile_x,city->tile_y);
       }
       Event_City_View(city,0xffffffff,0xffffffff,3,local_c0);
       city->city_policy_mode = in_stack_00000008;
-      city->field_0x180 = 0;
+      city->event_transition_pending = 0;
       return;
     }
   }
   city->city_policy_mode = in_stack_00000008;
-  city->field_0x180 = 0;
+  city->event_transition_pending = 0;
   return;
 }
 
