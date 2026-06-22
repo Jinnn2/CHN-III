@@ -24,7 +24,7 @@ int Diplomat_Value(int param_1,uint param_2,int param_3)
   bool bVar12;
   bool bVar13;
   bool bVar14;
-  
+
   Trace_Function(s_Diplomat_Value_0051a9b8);
   uVar3 = *(uint *)(param_1 + 4);
   if (uVar3 == 0xffffffff) {
@@ -347,7 +347,7 @@ LAB_00440128:
       if (iVar1 < 0xf) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return g_science_defs[iVar8].research_cost * 3;
+          return g_science_defs[iVar8].research_cost_or_score * 3;
         }
         goto LAB_0044029f;
       }
@@ -367,34 +367,34 @@ LAB_00440128:
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
 LAB_00440237:
-          return g_science_defs[iVar8].research_cost * 10;
+          return g_science_defs[iVar8].research_cost_or_score * 10;
         }
 LAB_00440346:
-        return g_science_defs[iVar8].research_cost * 3;
+        return g_science_defs[iVar8].research_cost_or_score * 3;
       }
       if (iVar1 < 0x28) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return g_science_defs[iVar8].research_cost << 3;
+          return g_science_defs[iVar8].research_cost_or_score << 3;
         }
         goto LAB_0044029f;
       }
       if (iVar1 < 0x51) {
         iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
         if (bVar12) {
-          return g_science_defs[iVar8].research_cost << 2;
+          return g_science_defs[iVar8].research_cost_or_score << 2;
         }
 LAB_004402e2:
-        return g_science_defs[iVar8].research_cost * 6;
+        return g_science_defs[iVar8].research_cost_or_score * 6;
       }
     }
     iVar8 = *(int *)(param_1 + (param_3 + (param_2 * 5 + 0x50) * 2) * 4);
     if (!bVar12) {
 LAB_0044037d:
-      return g_science_defs[iVar8].research_cost << 3;
+      return g_science_defs[iVar8].research_cost_or_score << 3;
     }
 LAB_0044029f:
-    return g_science_defs[iVar8].research_cost * 5;
+    return g_science_defs[iVar8].research_cost_or_score * 5;
   case 0x11:
     iVar9 = *(int *)(param_1 + 0x2dc + (param_3 + param_2 * 10) * 4);
     iVar5 = *(int *)(iVar9 + 0x24) / 10;
@@ -646,4 +646,3 @@ LAB_004407b3:
 switchD_0043f809_caseD_18:
   return iVar7;
 }
-

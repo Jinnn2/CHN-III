@@ -340,7 +340,7 @@ LAB_00426559:
       g_active_country->lifetime_research_progress =
            g_active_country->lifetime_research_progress + iVar4;
       iVar12 = (int)g_active_country->build_or_draft_capacity;
-      iVar4 = g_science_defs[iVar12].research_cost;
+      iVar4 = g_science_defs[iVar12].research_cost_or_score;
       local_1a8 = (double)CONCAT44(local_1a8._4_4_,
                                    (uint)g_active_country->leader_or_country_id * 0x200 + 0x589a7c);
       do {

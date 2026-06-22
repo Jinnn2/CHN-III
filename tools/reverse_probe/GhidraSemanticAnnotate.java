@@ -743,8 +743,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "research is available when this science is completed or -1");
         replaceAt(scienceDef, 0x20, IntegerDataType.dataType, 4, "prerequisite_science_b",
             "second science prerequisite");
-        replaceAt(scienceDef, 0x24, IntegerDataType.dataType, 4, "research_cost",
-            "compared against current_research_progress");
+        replaceAt(scienceDef, 0x24, IntegerDataType.dataType, 4, "research_cost_or_score",
+            "compared against current_research_progress and displayed by Put_Edit_Science_Exp");
         replaceAt(scienceDef, 0x28, IntegerDataType.dataType, 4, "era_or_group_id",
             "used in research pacing and AI evaluation");
         replaceAt(scienceDef, 0x2c, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
@@ -753,6 +753,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(scienceDef, 0x44, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
             "ai_priority_weights_b",
             "Science_Next multiplies this six-dword block by 5000 using the second science priority target table");
+        replaceAt(scienceDef, 0x60, IntegerDataType.dataType, 4, "unlock_building_id",
+            "Put_Edit_Science_Exp displays the building name when this id is nonnegative");
+        replaceAt(scienceDef, 0x64, IntegerDataType.dataType, 4, "unlock_army_type_id_a",
+            "Put_Edit_Science_Exp displays the army icon/name when this id is nonnegative");
+        replaceAt(scienceDef, 0x68, IntegerDataType.dataType, 4, "unlock_army_type_id_b",
+            "Put_Edit_Science_Exp displays a second army icon/name when this id is nonnegative");
+        replaceAt(scienceDef, 0x6c, IntegerDataType.dataType, 4, "unlock_special_project_id_a",
+            "Put_Edit_Science_Exp displays a special-project name when this id is nonnegative");
+        replaceAt(scienceDef, 0x70, IntegerDataType.dataType, 4, "unlock_special_project_id_b",
+            "Put_Edit_Science_Exp displays a second special-project name when this id is nonnegative");
         resolve(scienceDef);
 
         countryProfileDef = fixedStruct("CountryProfileDef_0x7c", 0x7c);
@@ -996,6 +1006,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x464a20L, "Clear_UnUsed_Science"),
             new Rename(0x467010L, "Before_Edit_Science_Power"),
             new Rename(0x467250L, "Before_Edit_Science_Set"),
+            new Rename(0x467dc0L, "Put_Edit_Science_Exp"),
             new Rename(0x4596a0L, "Before_Window_Edit_File_Detail"),
             new Rename(0x459f90L, "Put_Edit_File_Detail"),
             new Rename(0x458d80L, "MLP_Edit_Empire_Country"),

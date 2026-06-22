@@ -24,7 +24,7 @@ void Load_UI_String_EMG(void)
   int local_c;
   int local_8;
   short *local_4;
-  
+
   Trace_Function(s_Game_Scoring_Init_00573ed0);
   iVar6 = 0;
   for (iVar3 = DAT_00758524; iVar3 != 0; iVar3 = *(int *)(iVar3 + 0xc4)) {
@@ -99,7 +99,7 @@ void Load_UI_String_EMG(void)
         local_8 = local_8 + 1;
       }
       (&DAT_00707414)[iVar4] = 1;
-      piVar1 = &g_science_defs[0].research_cost;
+      piVar1 = &g_science_defs[0].research_cost_or_score;
       piVar2 = (int *)(local_4 + 0x27d);
       iVar3 = 200;
       do {
@@ -254,4 +254,3 @@ void Load_UI_String_EMG(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

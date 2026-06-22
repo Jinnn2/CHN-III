@@ -22,7 +22,7 @@ undefined8 Diplomat_Ask_Check(int param_1,int param_2,int *param_3,int param_4,i
   short *psVar10;
   ushort uVar11;
   int *local_c;
-  
+
   Trace_Function(s_Diplomat_Ask_Check_0051a9dc);
   if (*(int *)(param_1 + 4) == -1) {
     uVar6 = *(uint *)(param_1 + 0x28);
@@ -205,7 +205,7 @@ LAB_00441980:
         uVar5 = uVar6;
 LAB_00441cc6:
         iVar9 = *(int *)(param_1 + 0x32c + ((uVar4 & 0xffff) + uVar5 * 10) * 4);
-        iVar7 = g_science_defs[iVar9].research_cost;
+        iVar7 = g_science_defs[iVar9].research_cost_or_score;
         *param_3 = iVar9;
         return CONCAT44(iVar7,iVar7);
       }
@@ -449,4 +449,3 @@ LAB_00442282:
 switchD_0044168e_default:
   return 0;
 }
-

@@ -143,6 +143,7 @@ public class GhidraExport extends GhidraScript {
         new Target(0x45ee10L, "editor/before_edit_empire_hero.c"),
         new Target(0x467010L, "editor/before_edit_science_power.c"),
         new Target(0x467250L, "editor/before_edit_science_set.c"),
+        new Target(0x467dc0L, "editor/put_edit_science_exp.c"),
         new Target(0x45c5d0L, "editor/before_edit_empire_flag.c"),
         new Target(0x45c640L, "editor/after_edit_empire_flag.c"),
         new Target(0x45d0d0L, "editor/save_img_flag.c"),

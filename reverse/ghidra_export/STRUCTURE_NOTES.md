@@ -125,6 +125,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
 | `Before_Edit_Science_Power` | Trace string `Before_Edit_Science_Power`; backs up `g_science_priority_target_ids` and binds 12 editable dword controls. | Science priority/power target editor setup. |
 | `Before_Edit_Science_Set` | Trace string `Before_Edit_Science_Set`; inspects the selected country's 200-entry science status array and the selected `ScienceDef_0x88` prerequisites to set editor toggles. | Per-country science availability/status editor setup. |
+| `Put_Edit_Science_Exp` | Trace string `Put_Edit_Science_Exp`; draws the selected science's displayed value plus any unlocked army, building, or special-project names from `ScienceDef_0x88`. | Science editor explanation/preview renderer. |
 | `Before_Edit_Empire_Flag` | Trace string `Before_Edit_Empire_Flag`; allocates 100 temporary `0x100`-byte image backups and copies each current flag image block from `g_flag_img_bank`. | Empire/country flag editor setup. |
 | `After_Edit_Empire_Flag` | Trace string `After_Edit_Empire_Flag`; compares each backup with the live flag block, prompts to save changed pixels, restores on cancel, and frees the temporary backups. | Empire/country flag editor teardown. |
 | `Save_IMG_Flag` | Trace string `Save_IMG_Flag`; writes a two-byte count (`100`) plus 100 live `0x100`-byte flag blocks to `FLAG.IMG`, then reloads the IMG resource bank. | Empire flag IMG persistence. |
@@ -448,10 +449,13 @@ the city/building tooltip in `Put_City_View`.
 | `+0x00` | Research lists skip entries where this is zero. | `is_enabled`. |
 | `+0x04` | Research/diplomacy messages format this text. | `name_bytes`. |
 | `+0x1c/+0x20` | Research availability checks these prerequisite science ids for completion or `-1`. | prerequisite science ids. |
-| `+0x24` | Compared against `current_research_progress`. | `research_cost`. |
+| `+0x24` | Compared against `current_research_progress`, added to a country accumulator when learned, and displayed by `Put_Edit_Science_Exp`. | `research_cost_or_score`. |
 | `+0x28` | Used in research pacing and AI evaluation. | `era_or_group_id`. |
 | `+0x2c..0x43` | `Science_Next` scans the first six `g_science_priority_target_ids` and adds these weights multiplied by 5000 when an unmet target science is found. | AI priority weight block A. |
 | `+0x44..0x5b` | `Science_Next` scans the second six `g_science_priority_target_ids` and adds these weights multiplied by 5000 when an unmet target science is found. | AI priority weight block B. |
+| `+0x60` | `Put_Edit_Science_Exp` displays a building name from `g_building_defs` when this id is nonnegative; `Science_Next` gives a small AI score bonus for nonnegative ids. | unlocked building id. |
+| `+0x64/+0x68` | `Put_Edit_Science_Exp` displays army icons/names from `g_army_type_table` when these ids are nonnegative; `Science_Next` scores them from army stats. | unlocked army type ids. |
+| `+0x6c/+0x70` | `Put_Edit_Science_Exp` displays special-project names from `g_special_project_defs` when these ids are nonnegative; `Science_Next` gives a small AI score bonus for nonnegative ids. | unlocked special-project ids. |
 
 `Before_Edit_Science_Set` indexes the selected country's science status array at
 `0x0073575c + country_id * 0xe68`. In the recovered paths seen so far, state
@@ -627,7 +631,8 @@ important code-first files are:
   `ui/reflash_data_format.c`, `ui/check_press_data_format.c`,
   `editor/before_edit_army.c`, `editor/before_edit_build.c`,
   `editor/before_edit_empire_country.c`, `editor/before_edit_government.c`,
-  `editor/before_edit_ground.c`, and `editor/before_edit_empire_hero.c`:
+  `editor/before_edit_ground.c`, `editor/before_edit_empire_hero.c`, and
+  `editor/put_edit_science_exp.c`:
   generic editor form binding plus unit/building/empire-country/government/
   ground/country-profile table setup, useful for recovering static data-table
   semantics from editor controls.

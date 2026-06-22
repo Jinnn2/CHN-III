@@ -246,7 +246,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00467010` | `Before_Edit_Science_Power` | 149 | 3 |
 | `0x00467250` | `Before_Edit_Science_Set` | 340 | 1 |
 | `0x00467740` | `FUN_00467740` | 170 | 1 |
-| `0x00467dc0` | `FUN_00467dc0` | 522 | 6 |
+| `0x00467dc0` | `Put_Edit_Science_Exp` | 522 | 6 |
 | `0x004681d0` | `FUN_004681d0` | 208 | 0 |
 | `0x004682a0` | `FUN_004682a0` | 125 | 0 |
 | `0x00468320` | `FUN_00468320` | 5491 | 3 |
