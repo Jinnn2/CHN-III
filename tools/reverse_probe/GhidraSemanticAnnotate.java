@@ -120,6 +120,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "cached short derived from army-type data");
         replaceAt(armyUnit, 0x138, ShortDataType.dataType, 2, "cached_stat_c",
             "cached short derived from army-type data");
+        replaceAt(armyUnit, 0x13c, IntegerDataType.dataType, 4, "map_unit_extra_id",
+            "BattleArmy copies this into BattleUnit.map_unit_extra_id for death/effect records");
         replaceAt(armyUnit, 0x144, new PointerDataType(armyUnit, dtm), 4, "transport_parent",
             "checked for direct units and dereferenced as another army unit");
         replaceAt(armyUnit, 0x148, ByteDataType.dataType, 1, "cargo_or_subunit_count",
@@ -135,10 +137,18 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         landTile = fixedStruct("LandTile_0x100", 0x100);
         replaceAt(landTile, 0x10, ShortDataType.dataType, 2, "linked_count_or_city_count",
             "load_dat checks this count before rebuilding map links");
+        replaceAt(landTile, 0x02, ByteDataType.dataType, 1, "alternate_battle_terrain_kind",
+            "Make_Battle_Map uses this as a fallback terrain kind when primary kind is outside 0..10");
+        replaceAt(landTile, 0x08, ByteDataType.dataType, 1, "battle_stat_terrain_mode",
+            "Map_To_Battle_Army changes stat modifiers when this signed terrain mode is positive or equals 4");
         replaceAt(landTile, 0x12, ByteDataType.dataType, 1, "region_or_terrain_marker_a",
             "signed marker used by city-round and near-city checks beside linked_count_or_city_count");
         replaceAt(landTile, 0x13, ByteDataType.dataType, 1, "region_or_terrain_marker_b",
             "second signed marker used by city-round and near-city checks");
+        replaceAt(landTile, 0x16, ByteDataType.dataType, 1, "battle_resource_or_feature_id",
+            "Map_To_Battle_Army indexes a feature table at 0x00589644 and adds stat bonuses when the value is valid");
+        replaceAt(landTile, 0x24, ByteDataType.dataType, 1, "battle_stat_bonus_mode",
+            "Map_To_Battle_Army treats negative values as terrain-dependent modifiers and nonnegative values as doubled defense/support bonuses");
         replaceAt(landTile, 0x25, ByteDataType.dataType, 1, "tile_owner_country_id",
             "City_Belong_Change writes the new owner; near-city scans require active-country ownership");
         replaceAt(landTile, 0x27, ByteDataType.dataType, 1, "tile_secondary_owner_id",

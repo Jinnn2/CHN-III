@@ -9,134 +9,135 @@ void Make_Battle_Map(void)
 
 {
   int iVar1;
-  LandTile_0x100 *pLVar2;
-  short sVar3;
-  int *piVar4;
-  char cVar5;
-  int iVar6;
+  char cVar2;
+  LandTile_0x100 *pLVar3;
+  short sVar4;
+  int *piVar5;
+  byte bVar6;
   int iVar7;
   int iVar8;
   int iVar9;
   int iVar10;
-  undefined4 *puVar11;
+  int iVar11;
+  undefined4 *puVar12;
   int local_114 [2];
   int local_10c;
   LandTile_0x100 *local_108 [2];
   int local_100 [64];
   
   Trace_Function(s_Make_Battle_Map_005149a0);
-  puVar11 = (undefined4 *)&g_battle_grid_cells;
-  for (iVar6 = 0x1b00; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar11 = 0;
-    puVar11 = puVar11 + 1;
+  puVar12 = (undefined4 *)&g_battle_grid_cells;
+  for (iVar7 = 0x1b00; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *puVar12 = 0;
+    puVar12 = puVar12 + 1;
   }
   local_108[0] = g_battle_attacker_land_tile;
   local_108[1] = g_battle_defender_land_tile;
-  piVar4 = (int *)&g_battle_grid_cells;
-  iVar6 = 0x18;
+  piVar5 = (int *)&g_battle_grid_cells;
+  iVar7 = 0x18;
   do {
-    iVar7 = 0x18;
+    iVar8 = 0x18;
     do {
-      if (*piVar4 << 6 != -0x513b48) {
-        piVar4[3] = -1;
+      if (*piVar5 << 6 != -0x513b48) {
+        piVar5[3] = -1;
       }
-      piVar4[0xb] = -1;
-      piVar4[4] = -1;
-      piVar4 = piVar4 + 0xc;
-      iVar7 = iVar7 + -1;
-    } while (iVar7 != 0);
-    iVar6 = iVar6 + -1;
-  } while (iVar6 != 0);
-  iVar6 = 0;
+      piVar5[0xb] = -1;
+      piVar5[4] = -1;
+      piVar5 = piVar5 + 0xc;
+      iVar8 = iVar8 + -1;
+    } while (iVar8 != 0);
+    iVar7 = iVar7 + -1;
+  } while (iVar7 != 0);
+  iVar7 = 0;
   local_114[0] = 0;
   local_114[1] = 0;
   do {
-    pLVar2 = local_108[iVar6];
-    cVar5 = *(char *)pLVar2;
-    if (cVar5 < '\v') {
+    pLVar3 = local_108[iVar7];
+    bVar6 = *(byte *)pLVar3;
+    if ((char)bVar6 < '\v') {
 LAB_00419306:
-      (&DAT_005dfeb8)[iVar6] = (int)cVar5;
+      (&DAT_005dfeb8)[iVar7] = (int)(char)bVar6;
     }
     else {
-      cVar5 = pLVar2->field_0x2;
-      if ((cVar5 < '\0') || ('\n' < cVar5)) {
-        cVar5 = *(char *)local_108[iVar6 == 0];
-        if (cVar5 < '\v') {
-          (&DAT_005dfeb8)[iVar6] = (int)cVar5;
+      bVar6 = pLVar3->alternate_battle_terrain_kind;
+      if (((char)bVar6 < '\0') || ('\n' < (char)bVar6)) {
+        cVar2 = *(char *)local_108[iVar7 == 0];
+        if (cVar2 < '\v') {
+          (&DAT_005dfeb8)[iVar7] = (int)cVar2;
         }
         else {
-          cVar5 = local_108[iVar6 == 0]->field_0x2;
-          if ((-1 < cVar5) && (cVar5 < '\v')) goto LAB_00419306;
+          bVar6 = local_108[iVar7 == 0]->alternate_battle_terrain_kind;
+          if ((-1 < (char)bVar6) && ((char)bVar6 < '\v')) goto LAB_00419306;
         }
       }
       else {
-        (&DAT_005dfeb8)[iVar6] = (int)cVar5;
+        (&DAT_005dfeb8)[iVar7] = (int)(char)bVar6;
       }
     }
-    if (*(char *)pLVar2 < '\v') {
-      if (*(char *)local_108[iVar6 == 0] < '\v') {
-        (&DAT_005dfeb0)[iVar6] = 0xb;
+    if (*(char *)pLVar3 < '\v') {
+      if (*(char *)local_108[iVar7 == 0] < '\v') {
+        (&DAT_005dfeb0)[iVar7] = 0xb;
       }
       else {
-        (&DAT_005dfeb0)[iVar6] = (int)*(char *)local_108[iVar6 == 0];
+        (&DAT_005dfeb0)[iVar7] = (int)*(char *)local_108[iVar7 == 0];
       }
     }
     else {
-      (&DAT_005dfeb0)[iVar6] = (int)*(char *)pLVar2;
+      (&DAT_005dfeb0)[iVar7] = (int)*(char *)pLVar3;
     }
-    iVar7 = g_battle_air_or_class1_units_by_side[iVar6];
-    if (iVar7 < 1) {
-      if (*(char *)pLVar2 < '\v') {
+    iVar8 = g_battle_air_or_class1_units_by_side[iVar7];
+    if (iVar8 < 1) {
+      if (*(char *)pLVar3 < '\v') {
 LAB_00419430:
-        local_114[iVar6] = 0;
+        local_114[iVar7] = 0;
       }
-      else if (g_battle_air_or_class1_units_by_side[iVar6 == 0] < 1) {
-        if (*(char *)local_108[iVar6 == 0] < '\v') {
-          if (g_battle_land_units_by_side[iVar6] == 0) goto LAB_00419408;
-          local_114[iVar6] = 1;
+      else if (g_battle_air_or_class1_units_by_side[iVar7 == 0] < 1) {
+        if (*(char *)local_108[iVar7 == 0] < '\v') {
+          if (g_battle_land_units_by_side[iVar7] == 0) goto LAB_00419408;
+          local_114[iVar7] = 1;
         }
         else {
-          if (g_battle_air_or_class1_units_by_side[iVar6 == 0] != 0) goto LAB_004193c9;
-          if (pLVar2->linked_record == (void *)0x0) goto LAB_00419382;
-          local_114[iVar6] = 0;
+          if (g_battle_air_or_class1_units_by_side[iVar7 == 0] != 0) goto LAB_004193c9;
+          if (pLVar3->linked_record == (void *)0x0) goto LAB_00419382;
+          local_114[iVar7] = 0;
         }
       }
       else {
 LAB_004193c9:
-        local_114[iVar6] = 6;
+        local_114[iVar7] = 6;
       }
     }
-    else if (iVar7 == g_battle_total_units_by_side[iVar6]) {
-      if (*(char *)pLVar2 < '\v') {
-        if ((g_battle_air_or_class1_units_by_side[iVar6 == 0] < 1) &&
-           (*(char *)local_108[iVar6 == 0] < '\v')) {
+    else if (iVar8 == g_battle_total_units_by_side[iVar7]) {
+      if (*(char *)pLVar3 < '\v') {
+        if ((g_battle_air_or_class1_units_by_side[iVar7 == 0] < 1) &&
+           (*(char *)local_108[iVar7 == 0] < '\v')) {
 LAB_00419382:
-          local_114[iVar6] = 2;
+          local_114[iVar7] = 2;
         }
         else {
-          local_114[iVar6] = 5;
+          local_114[iVar7] = 5;
         }
       }
       else {
 LAB_00419408:
-        local_114[iVar6] = 4;
+        local_114[iVar7] = 4;
       }
     }
-    else if (g_battle_land_units_by_side[iVar6] < 1) {
-      if (*(char *)pLVar2 < '\v') goto LAB_00419430;
-      local_114[iVar6] = 4;
+    else if (g_battle_land_units_by_side[iVar7] < 1) {
+      if (*(char *)pLVar3 < '\v') goto LAB_00419430;
+      local_114[iVar7] = 4;
     }
     else {
-      if ((0 < g_battle_air_or_class1_units_by_side[iVar6 == 0]) ||
-         ('\n' < *(char *)local_108[iVar6 == 0])) goto LAB_004193c9;
-      local_114[iVar6] = 2;
+      if ((0 < g_battle_air_or_class1_units_by_side[iVar7 == 0]) ||
+         ('\n' < *(char *)local_108[iVar7 == 0])) goto LAB_004193c9;
+      local_114[iVar7] = 2;
     }
-    if ((pLVar2->linked_record != (void *)0x0) &&
-       ((('\n' < *(char *)pLVar2 || (0 < iVar7)) || ('\n' < *(char *)pLVar2)))) {
-      *(undefined1 *)((int)&local_10c + iVar6) = 1;
+    if ((pLVar3->linked_record != (void *)0x0) &&
+       ((('\n' < *(char *)pLVar3 || (0 < iVar8)) || ('\n' < *(char *)pLVar3)))) {
+      *(undefined1 *)((int)&local_10c + iVar7) = 1;
     }
-    iVar6 = iVar6 + 1;
-    if (1 < iVar6) {
+    iVar7 = iVar7 + 1;
+    if (1 < iVar7) {
       local_100[0x2d] = 2;
       local_100[5] = 0xffffffff;
       local_100[6] = 0xffffffff;
@@ -185,7 +186,7 @@ LAB_00419408:
       local_100[0x3d] = 2;
       local_100[0x3e] = 2;
       local_100[0x3f] = 2;
-      iVar7 = 0;
+      iVar8 = 0;
       local_100[0] = 1;
       local_100[1] = 1;
       local_100[2] = 1;
@@ -202,348 +203,348 @@ LAB_00419408:
       local_100[0x2c] = 1;
       local_100[0x34] = 1;
       local_100[0x3c] = 1;
-      iVar6 = local_100[local_114[1] + local_114[0] * 8];
+      iVar7 = local_100[local_114[1] + local_114[0] * 8];
       do {
-        iVar9 = DAT_005dfeb8;
-        iVar8 = DAT_005dfeb0;
-        iVar10 = -1;
-        if (iVar6 == 0) {
-          iVar10 = -1;
+        iVar10 = DAT_005dfeb8;
+        iVar9 = DAT_005dfeb0;
+        iVar11 = -1;
+        if (iVar7 == 0) {
+          iVar11 = -1;
         }
-        else if (iVar6 == 1) {
-          iVar10 = 1;
+        else if (iVar7 == 1) {
+          iVar11 = 1;
         }
-        else if (iVar6 == 2) {
-          iVar10 = iVar7 + 1;
+        else if (iVar7 == 2) {
+          iVar11 = iVar8 + 1;
         }
-        switch(local_114[iVar7]) {
+        switch(local_114[iVar8]) {
         case 0:
-          if (iVar7 == 0) {
-            piVar4 = (int *)&DAT_005dc868;
-            do {
-              iVar8 = 0x18;
-              do {
-                piVar4[-4] = iVar9;
-                *piVar4 = iVar10;
-                piVar4 = piVar4 + 0xc;
-                iVar8 = iVar8 + -1;
-              } while (iVar8 != 0);
-            } while ((int)piVar4 < 0x5dfe68);
-          }
-          else {
-            iVar8 = (&DAT_005dfeb8)[iVar7];
-            piVar4 = &g_battle_grid_region_markers;
+          if (iVar8 == 0) {
+            piVar5 = (int *)&DAT_005dc868;
             do {
               iVar9 = 0x18;
               do {
-                piVar4[-4] = iVar8;
-                *piVar4 = iVar10;
-                piVar4 = piVar4 + 0xc;
+                piVar5[-4] = iVar10;
+                *piVar5 = iVar11;
+                piVar5 = piVar5 + 0xc;
                 iVar9 = iVar9 + -1;
               } while (iVar9 != 0);
-            } while ((int)piVar4 < 0x5dc868);
+            } while ((int)piVar5 < 0x5dfe68);
+          }
+          else {
+            iVar9 = (&DAT_005dfeb8)[iVar8];
+            piVar5 = &g_battle_grid_region_markers;
+            do {
+              iVar10 = 0x18;
+              do {
+                piVar5[-4] = iVar9;
+                *piVar5 = iVar11;
+                piVar5 = piVar5 + 0xc;
+                iVar10 = iVar10 + -1;
+              } while (iVar10 != 0);
+            } while ((int)piVar5 < 0x5dc868);
           }
           break;
         case 1:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x1f8) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x1f8) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x48) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x48) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
           break;
         case 2:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x1b0) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x1b0) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x90) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x90) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
           break;
         case 3:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x168) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x168) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0xd8) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0xd8) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
           break;
         case 4:
-          if (iVar7 == 0) {
-            piVar4 = (int *)&DAT_005dc868;
+          if (iVar8 == 0) {
+            piVar5 = (int *)&DAT_005dc868;
             do {
-              iVar9 = 0x18;
+              iVar10 = 0x18;
               do {
-                piVar4[-4] = iVar8;
-                *piVar4 = iVar10;
-                piVar4 = piVar4 + 0xc;
-                iVar9 = iVar9 + -1;
-              } while (iVar9 != 0);
-            } while ((int)piVar4 < 0x5dfe68);
+                piVar5[-4] = iVar9;
+                *piVar5 = iVar11;
+                piVar5 = piVar5 + 0xc;
+                iVar10 = iVar10 + -1;
+              } while (iVar10 != 0);
+            } while ((int)piVar5 < 0x5dfe68);
           }
           else {
-            iVar8 = (&DAT_005dfeb0)[iVar7];
-            piVar4 = &g_battle_grid_region_markers;
+            iVar9 = (&DAT_005dfeb0)[iVar8];
+            piVar5 = &g_battle_grid_region_markers;
             do {
-              iVar9 = 0x18;
+              iVar10 = 0x18;
               do {
-                piVar4[-4] = iVar8;
-                *piVar4 = iVar10;
-                piVar4 = piVar4 + 0xc;
-                iVar9 = iVar9 + -1;
-              } while (iVar9 != 0);
-            } while ((int)piVar4 < 0x5dc868);
+                piVar5[-4] = iVar9;
+                *piVar5 = iVar11;
+                piVar5 = piVar5 + 0xc;
+                iVar10 = iVar10 + -1;
+              } while (iVar10 != 0);
+            } while ((int)piVar5 < 0x5dc868);
           }
           break;
         case 5:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x1f8) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x1f8) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x48) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x48) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
           break;
         case 6:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x1b0) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x1b0) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x90) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x90) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
           break;
         case 7:
-          if (iVar7 == 0) {
-            iVar8 = 0x120;
+          if (iVar8 == 0) {
+            iVar9 = 0x120;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0x168) {
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0x168) {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb0;
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
                 else {
                   *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = DAT_005dfeb8;
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x240);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x240);
           }
           else {
-            iVar8 = 0;
+            iVar9 = 0;
             do {
-              iVar9 = 0;
+              iVar10 = 0;
               do {
-                iVar1 = iVar8 + iVar9;
-                if (iVar8 < 0xd8) {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar7];
-                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar10;
+                iVar1 = iVar9 + iVar10;
+                if (iVar9 < 0xd8) {
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb8)[iVar8];
+                  (&g_battle_grid_region_markers)[iVar1 * 0xc] = iVar11;
                 }
                 else {
-                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar7];
+                  *(int *)(&g_battle_grid_cells + iVar1 * 0x30) = (&DAT_005dfeb0)[iVar8];
                   (&g_battle_grid_region_markers)[iVar1 * 0xc] = -1;
                 }
-                iVar9 = iVar9 + 1;
-              } while (iVar9 < 0x18);
-              iVar8 = iVar8 + 0x18;
-            } while (iVar8 < 0x120);
+                iVar10 = iVar10 + 1;
+              } while (iVar10 < 0x18);
+              iVar9 = iVar9 + 0x18;
+            } while (iVar9 < 0x120);
           }
         }
-        iVar7 = iVar7 + 1;
-      } while (iVar7 < 2);
-      piVar4 = (int *)&g_battle_grid_cells;
+        iVar8 = iVar8 + 1;
+      } while (iVar8 < 2);
+      piVar5 = (int *)&g_battle_grid_cells;
       local_10c = 0x18;
       do {
-        iVar6 = 0x18;
+        iVar7 = 0x18;
         do {
-          iVar10 = 0;
-          iVar7 = 0;
+          iVar11 = 0;
+          iVar8 = 0;
           do {
-            if ((0 < (int)(&DAT_00513b48)[*piVar4 + iVar7]) &&
-               (sVar3 = FUN_004fbf50((short)(&DAT_00513b48)[*piVar4 + iVar7] + 0x28), sVar3 == 0)) {
-              piVar4[3] = iVar10;
+            if ((0 < (int)(&DAT_00513b48)[*piVar5 + iVar8]) &&
+               (sVar4 = FUN_004fbf50((short)(&DAT_00513b48)[*piVar5 + iVar8] + 0x28), sVar4 == 0)) {
+              piVar5[3] = iVar11;
               break;
             }
-            iVar7 = iVar7 + 0x10;
-            iVar10 = iVar10 + 1;
-          } while (iVar7 < 0x370);
-          piVar4 = piVar4 + 0xc;
-          iVar6 = iVar6 + -1;
-        } while (iVar6 != 0);
+            iVar8 = iVar8 + 0x10;
+            iVar11 = iVar11 + 1;
+          } while (iVar8 < 0x370);
+          piVar5 = piVar5 + 0xc;
+          iVar7 = iVar7 + -1;
+        } while (iVar7 != 0);
         local_10c = local_10c + -1;
         if (local_10c == 0) {
-          iVar6 = 0;
+          iVar7 = 0;
           local_10c = 0;
           do {
-            iVar7 = 0;
+            iVar8 = 0;
             do {
-              Decode_Battle(iVar7,iVar6);
-              iVar7 = iVar7 + 1;
-            } while (iVar7 < 0x18);
-            iVar6 = iVar6 + 1;
-          } while (iVar6 < 0x18);
+              Decode_Battle(iVar8,iVar7);
+              iVar8 = iVar8 + 1;
+            } while (iVar8 < 0x18);
+            iVar7 = iVar7 + 1;
+          } while (iVar7 < 0x18);
           return;
         }
       } while( true );

@@ -66,7 +66,7 @@ void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *st
       puVar4[0x12] = stat_b[2];
       puVar4[0x13] = (uint)pAVar2->battle_slot_or_category;
       puVar4[0x14] = (uint)army;
-      puVar4[0x15] = *(uint *)&pAVar2->field_0x13c;
+      puVar4[0x15] = pAVar2->map_unit_extra_id;
       puVar4[0x16] = g_army_type_table[bVar1].battle_sprite_or_effect_id;
       puVar4[0x18] = 0;
       puVar4[0x17] = 0;

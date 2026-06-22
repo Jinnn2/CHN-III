@@ -66,8 +66,12 @@ why regenerated pseudocode now contains names such as `Do_City`,
 
 | Offset | Evidence | Working field |
 |---:|---|---|
+| `+0x02` | `Make_Battle_Map` uses this as a fallback when the primary tile kind is outside `0..10`. | alternate battle terrain kind. |
+| `+0x08` | `Map_To_Battle_Army` changes battle stat modifiers when this signed value is positive, especially value `4`. | battle stat terrain mode. |
 | `+0x10` | `load_dat.c` checks and counts. | city/land occupancy count or resource count. |
 | `+0x12/+0x13` | `city_round_check.c`, `near_beach_city_found.c`, and `no_dpa_near_city_near_sea.c` treat these as signed markers beside `+0x10`. | region / terrain / link markers. |
+| `+0x16` | `Map_To_Battle_Army` indexes table `0x00589644` and adds battle stat bonuses when valid. | battle resource or feature id. |
+| `+0x24` | `Map_To_Battle_Army` switches between terrain-dependent modifiers and doubled defense/support bonuses based on the sign of this byte. | battle stat bonus mode. |
 | `+0x25` | `City_Belong_Change` writes the new city owner here; near-city scans require it to match the active country. | tile owner/controller country id. |
 | `+0x27` | `City_Belong_Change` writes the same new owner; `Diplomat_Allow` compares it with source/target ownership pairs. | secondary or previous owner country id. |
 | `+0x28` | `load_dat.c` stores pointers indexed by `army_slot * 4`; city/battle scans now type these as `ArmyUnit_0x164_plus *`. | primary army pointer list. |
@@ -97,6 +101,7 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x12f` | `BattleArmy(..., unit->strength_or_health / 0xe + 1, ...)` derives formation count from it. | strength/health byte. |
 | `+0x131` | Battle stat adjustment shifts by this value in `Map_To_Battle_Army`. | veteran level / power shift. |
 | `+0x134/+0x136/+0x138` | Loaded from army type tables and cached as short stats. | cached stat shorts. |
+| `+0x13c` | `BattleArmy` copies this value into `BattleUnit_0x64.map_unit_extra_id`; death/effect records later reuse it. | map unit extra id. |
 | `+0x144` | Direct-unit checks require null; other paths dereference it as another army. | transport parent pointer. |
 | `+0x148` | Near-city capacity and battle conversion add one to this value for carried/sub units. | cargo/subunit count. |
 | `+0x14c` | Cargo/subunit scans compare this pointer against the current unit. | transport or carrier link. |
@@ -379,5 +384,8 @@ important code-first files are:
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.
+- `game/start_map_battle_from_army.c` and
+  `extra/start_map_battle_from_tile.c`: map-to-battle entry points that seed
+  battle tiles, collect participating armies, and call battle setup.
 - `ui/main_menu_putscreen.c`: main menu visual composition and animation.
 - `render/present_dirty_rects.c`: final dirty-rect surface present.
