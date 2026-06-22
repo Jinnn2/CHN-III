@@ -304,9 +304,9 @@ LAB_00499f02:
     case 0x24:
     case 0x26:
     case 0x40:
-      army->field_0x121 = 0;
-      army->render_or_anim_x = *(short *)&army->field_0x26;
-      army->render_or_anim_y = *(short *)&army->field_0x8a;
+      army->path_replan_stall_counter = 0;
+      army->render_or_anim_x = army->next_path_step_x;
+      army->render_or_anim_y = army->next_path_step_y;
     case 0x17:
     case 0x18:
     case 0x19:
@@ -332,8 +332,8 @@ LAB_00499f02:
       return;
     case 0x25:
     case 0x27:
-      army->render_or_anim_x = *(short *)&army->field_0x26;
-      army->render_or_anim_y = *(short *)&army->field_0x8a;
+      army->render_or_anim_x = army->next_path_step_x;
+      army->render_or_anim_y = army->next_path_step_y;
       if (DAT_00755904 != 0) {
         return;
       }
@@ -584,9 +584,9 @@ LAB_004999c5:
         army->map_presence_or_cargo_state = 3;
         CountryPoint_Minus(pcVar23);
       }
-      army->render_or_anim_y = *(short *)&army->field_0x8a;
+      army->render_or_anim_y = army->next_path_step_y;
       army->mission_progress_counter = 0;
-      army->render_or_anim_x = *(short *)&army->field_0x26;
+      army->render_or_anim_x = army->next_path_step_x;
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
                    g_army_type_table[bVar2].border_influence_or_visibility_mask,
                    g_army_type_table[bVar2].unit_class,

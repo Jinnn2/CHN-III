@@ -10,10 +10,10 @@
 void Order_Go_Act(void)
 
 {
-  char cVar1;
+  byte bVar1;
   int iVar2;
   int iVar3;
-  char cVar4;
+  byte bVar4;
 
   Trace_Function(s_Order_Go_Act_0057e3b8);
   if ((_DAT_00748ff0->tile_x == _DAT_00748ff0->target_tile_x_or_anim_x) &&
@@ -30,9 +30,9 @@ void Order_Go_Act(void)
     Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4a,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   else {
-    cVar1 = _DAT_00748ff0->field_0xee;
-    _DAT_00748ff0->render_or_anim_x = *(short *)&_DAT_00748ff0->field_0x26;
-    _DAT_00748ff0->render_or_anim_y = *(short *)&_DAT_00748ff0->field_0x8a;
+    bVar1 = _DAT_00748ff0->path_step_turn_cost[0];
+    _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->next_path_step_x;
+    _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->next_path_step_y;
     iVar2 = FUN_0040f440();
     if (0 < iVar2) {
       if (iVar2 == 2) {
@@ -56,17 +56,17 @@ void Order_Go_Act(void)
                  *(undefined2 *)(&_DAT_00748ff0->target_or_previous_owner_id + iVar3);
             *(undefined2 *)(&_DAT_00748ff0->field_0x64 + iVar3) =
                  *(undefined2 *)(&_DAT_00748ff0->field_0x66 + iVar3);
-            if (cVar1 < '\x01') {
-              cVar4 = (&_DAT_00748ff0->field_0xef)[iVar2];
+            if ((char)bVar1 < '\x01') {
+              bVar4 = _DAT_00748ff0->path_step_turn_cost[iVar2 + 1];
 LAB_00496653:
-              (&_DAT_00748ff0->field_0xee)[iVar2] = cVar4;
+              _DAT_00748ff0->path_step_turn_cost[iVar2] = bVar4;
             }
             else {
-              if ('\0' < (char)(&_DAT_00748ff0->field_0xef)[iVar2]) {
-                cVar4 = (&_DAT_00748ff0->field_0xef)[iVar2] + -1;
+              if ('\0' < (char)_DAT_00748ff0->path_step_turn_cost[iVar2 + 1]) {
+                bVar4 = _DAT_00748ff0->path_step_turn_cost[iVar2 + 1] - 1;
                 goto LAB_00496653;
               }
-              (&_DAT_00748ff0->field_0xee)[iVar2] = 0;
+              _DAT_00748ff0->path_step_turn_cost[iVar2] = 0;
             }
             iVar2 = iVar2 + 1;
             iVar3 = iVar3 + 2;

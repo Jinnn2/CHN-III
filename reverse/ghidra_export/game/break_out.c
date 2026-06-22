@@ -19,11 +19,12 @@ void BreakOut(ArmyUnit_0x164_plus *army)
   uint uVar6;
   ArmyUnit_0x164_plus *pAVar7;
   ArmyUnit_0x164_plus *pAVar8;
-  int iVar9;
-  undefined4 *puVar10;
-  int iVar11;
-  int *piVar12;
-  undefined4 *puVar13;
+  undefined4 *puVar9;
+  int iVar10;
+  short *psVar11;
+  int iVar12;
+  int *piVar13;
+  short *psVar14;
   int local_8;
 
   pAVar4 = army;
@@ -53,9 +54,9 @@ void BreakOut(ArmyUnit_0x164_plus *army)
       pAVar8 = (ArmyUnit_0x164_plus *)
                ((pAVar4->tile_y * 0x27 + (int)pAVar4->tile_x) * 0x100 + _g_land_tiles);
     }
-    iVar11 = g_army_type_table[bVar1].unit_class;
-    if (iVar11 < 1) {
-      army = (ArmyUnit_0x164_plus *)CONCAT31((int3)uVar6,iVar11 == 0);
+    iVar12 = g_army_type_table[bVar1].unit_class;
+    if (iVar12 < 1) {
+      army = (ArmyUnit_0x164_plus *)CONCAT31((int3)uVar6,iVar12 == 0);
       pAVar8 = army;
       switch(g_map_size_mode) {
       case 0:
@@ -75,18 +76,18 @@ void BreakOut(ArmyUnit_0x164_plus *army)
                  ((pAVar4->tile_y * 0x27 + (int)pAVar4->tile_x) * 0x100 + _g_land_tiles);
       }
       piVar5 = (int *)&pAVar8->field_0x28;
-      iVar9 = 0;
-      piVar12 = piVar5;
+      iVar10 = 0;
+      piVar13 = piVar5;
 LAB_0047152a:
-      pAVar3 = (ArmyUnit_0x164_plus *)*piVar12;
+      pAVar3 = (ArmyUnit_0x164_plus *)*piVar13;
       if (((pAVar3 == (ArmyUnit_0x164_plus *)0x0) || (pAVar3 == pAVar4)) ||
          (pAVar3->transport_parent != pAVar4)) goto LAB_0047153c;
-      pAVar7 = *(ArmyUnit_0x164_plus **)(&pAVar8->field_0x28 + iVar9 * 4);
+      pAVar7 = *(ArmyUnit_0x164_plus **)(&pAVar8->field_0x28 + iVar10 * 4);
       bVar2 = pAVar7->army_type_id;
       pAVar7->transport_parent = (ArmyUnit_0x164_plus *)0x0;
       pAVar7->transport_or_carrier_link = (ArmyUnit_0x164_plus *)0x0;
       pAVar7->cargo_or_subunit_count = pAVar4->cargo_or_subunit_count - 1;
-      if (iVar11 == 0) {
+      if (iVar12 == 0) {
         pAVar7->cached_stat_a = pAVar4->cached_stat_a;
         pAVar7->cached_stat_b = pAVar4->cached_stat_b;
         pAVar7->cached_stat_c = pAVar4->cached_stat_c;
@@ -105,24 +106,24 @@ LAB_0047152a:
         pAVar7->target_tile_y_or_anim_y = pAVar4->target_tile_y_or_anim_y;
         pAVar7->render_or_anim_x = pAVar4->render_or_anim_x;
         pAVar7->render_or_anim_y = pAVar4->render_or_anim_y;
-        puVar10 = (undefined4 *)&pAVar4->field_0x26;
-        puVar13 = (undefined4 *)&pAVar7->field_0x26;
-        for (iVar11 = 0x19; iVar11 != 0; iVar11 = iVar11 + -1) {
-          *puVar13 = *puVar10;
-          puVar10 = puVar10 + 1;
-          puVar13 = puVar13 + 1;
+        psVar11 = &pAVar4->next_path_step_x;
+        psVar14 = &pAVar7->next_path_step_x;
+        for (iVar12 = 0x19; iVar12 != 0; iVar12 = iVar12 + -1) {
+          *(undefined4 *)psVar14 = *(undefined4 *)psVar11;
+          psVar11 = psVar11 + 2;
+          psVar14 = psVar14 + 2;
         }
-        puVar10 = (undefined4 *)&pAVar4->field_0x8a;
-        puVar13 = (undefined4 *)&pAVar7->field_0x8a;
-        for (iVar11 = 0x19; iVar11 != 0; iVar11 = iVar11 + -1) {
-          *puVar13 = *puVar10;
-          puVar10 = puVar10 + 1;
-          puVar13 = puVar13 + 1;
+        psVar11 = &pAVar4->next_path_step_y;
+        psVar14 = &pAVar7->next_path_step_y;
+        for (iVar12 = 0x19; iVar12 != 0; iVar12 = iVar12 + -1) {
+          *(undefined4 *)psVar14 = *(undefined4 *)psVar11;
+          psVar11 = psVar11 + 2;
+          psVar14 = psVar14 + 2;
         }
         pAVar7->active_anim_step_count = pAVar4->active_anim_step_count;
-        pAVar7->field_0x121 = pAVar4->field_0x121;
-        *(undefined2 *)&pAVar7->field_0x122 = *(undefined2 *)&pAVar4->field_0x122;
-        *(undefined2 *)&pAVar7->field_0x124 = *(undefined2 *)&pAVar4->field_0x124;
+        pAVar7->path_replan_stall_counter = pAVar4->path_replan_stall_counter;
+        pAVar7->path_replan_origin_x = pAVar4->path_replan_origin_x;
+        pAVar7->path_replan_origin_y = pAVar4->path_replan_origin_y;
         Add_New_View((int)pAVar7->render_or_anim_x,(int)pAVar7->render_or_anim_y,1,
                      (int)(char)pAVar7->owner_country_id,0,
                      g_army_type_table[bVar2].border_influence_or_visibility_mask,
@@ -130,12 +131,12 @@ LAB_0047152a:
                      g_army_type_table[bVar2].submarine_recon_setting);
       }
       if (pAVar7->mission_action_id == 3) {
-        iVar11 = 2;
+        iVar12 = 2;
       }
       else {
-        iVar11 = 1;
+        iVar12 = 1;
       }
-      Add_New_View((int)pAVar7->tile_x,(int)pAVar7->tile_y,iVar11,
+      Add_New_View((int)pAVar7->tile_x,(int)pAVar7->tile_y,iVar12,
                    (int)(char)pAVar7->owner_country_id,0,
                    g_army_type_table[bVar2].border_influence_or_visibility_mask,
                    g_army_type_table[bVar2].unit_class,
@@ -143,7 +144,7 @@ LAB_0047152a:
 LAB_004716de:
       uVar6 = (uint)pAVar4->cargo_or_subunit_count;
       if (pAVar4->cargo_or_subunit_count < 2) goto LAB_0047173e;
-      iVar11 = 0;
+      iVar12 = 0;
       do {
         if ((int)uVar6 < 2) break;
         pAVar8 = (ArmyUnit_0x164_plus *)*piVar5;
@@ -158,26 +159,26 @@ LAB_004716de:
           }
           uVar6 = uVar6 - 1;
         }
-        iVar11 = iVar11 + 1;
+        iVar12 = iVar12 + 1;
         piVar5 = piVar5 + 1;
-      } while (iVar11 < 10);
+      } while (iVar12 < 10);
     }
     else {
       local_8 = (int)(char)pAVar8->field_0x50;
-      iVar11 = 0;
-      puVar10 = (undefined4 *)&pAVar8->field_0x28;
+      iVar12 = 0;
+      puVar9 = (undefined4 *)&pAVar8->field_0x28;
       do {
         if (local_8 < 1) break;
-        pAVar8 = (ArmyUnit_0x164_plus *)*puVar10;
+        pAVar8 = (ArmyUnit_0x164_plus *)*puVar9;
         if (pAVar8 != (ArmyUnit_0x164_plus *)0x0) {
           if ((pAVar8 != pAVar4) && (pAVar8->transport_parent == pAVar4)) {
             Add_OrderQueue_Army(pAVar8,0x53,0x7a,0x35,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
           }
           local_8 = local_8 + -1;
         }
-        iVar11 = iVar11 + 1;
-        puVar10 = puVar10 + 1;
-      } while (iVar11 < 10);
+        iVar12 = iVar12 + 1;
+        puVar9 = puVar9 + 1;
+      } while (iVar12 < 10);
     }
 LAB_0047173e:
     pAVar4->cached_stat_a = (short)g_army_type_table[bVar1].attack_stat_a;
@@ -216,7 +217,7 @@ LAB_0047173e:
       }
       uVar6 = (uint)pAVar4->cargo_or_subunit_count;
       piVar5 = (int *)&army->field_0x28;
-      iVar11 = 0;
+      iVar12 = 0;
       do {
         if ((int)uVar6 < 1) break;
         pAVar3 = (ArmyUnit_0x164_plus *)*piVar5;
@@ -236,9 +237,9 @@ LAB_0047173e:
           }
           uVar6 = uVar6 - 1;
         }
-        iVar11 = iVar11 + 1;
+        iVar12 = iVar12 + 1;
         piVar5 = piVar5 + 1;
-      } while (iVar11 < 10);
+      } while (iVar12 < 10);
       pAVar4->transport_parent = (ArmyUnit_0x164_plus *)0x0;
       pAVar4->transport_or_carrier_link = (ArmyUnit_0x164_plus *)0x0;
       pAVar7->cargo_or_subunit_count = pAVar7->cargo_or_subunit_count - 1;
@@ -263,8 +264,8 @@ LAB_0047173e:
                    g_army_type_table[bVar1].submarine_recon_setting);
       return;
     }
-    iVar11 = g_army_type_table[bVar1].unit_class;
-    iVar9 = g_army_type_table[pAVar7->army_type_id].unit_class;
+    iVar12 = g_army_type_table[bVar1].unit_class;
+    iVar10 = g_army_type_table[pAVar7->army_type_id].unit_class;
     pAVar4->transport_parent = (ArmyUnit_0x164_plus *)0x0;
     pAVar4->transport_or_carrier_link = (ArmyUnit_0x164_plus *)0x0;
     pAVar7->cargo_or_subunit_count = pAVar7->cargo_or_subunit_count - 1;
@@ -277,7 +278,7 @@ LAB_0047173e:
     pAVar4->cached_stat_c =
          (short)g_army_type_table[bVar1].movement_or_speed *
          (short)g_current_map_scenario_info.movement_base;
-    if (iVar11 == iVar9) {
+    if (iVar12 == iVar10) {
       pAVar7->cached_stat_a = pAVar7->cached_stat_a - pAVar4->cached_stat_a;
       pAVar7->cached_stat_b = pAVar7->cached_stat_b - pAVar4->cached_stat_b;
       pAVar7->cached_stat_c = pAVar7->cached_stat_c - pAVar4->cached_stat_c;
@@ -295,24 +296,24 @@ LAB_0047173e:
       pAVar4->target_tile_y_or_anim_y = pAVar7->target_tile_y_or_anim_y;
       pAVar4->render_or_anim_x = pAVar7->render_or_anim_x;
       pAVar4->render_or_anim_y = pAVar7->render_or_anim_y;
-      puVar10 = (undefined4 *)&pAVar7->field_0x26;
-      puVar13 = (undefined4 *)&pAVar4->field_0x26;
-      for (iVar11 = 0x19; iVar11 != 0; iVar11 = iVar11 + -1) {
-        *puVar13 = *puVar10;
-        puVar10 = puVar10 + 1;
-        puVar13 = puVar13 + 1;
+      psVar11 = &pAVar7->next_path_step_x;
+      psVar14 = &pAVar4->next_path_step_x;
+      for (iVar12 = 0x19; iVar12 != 0; iVar12 = iVar12 + -1) {
+        *(undefined4 *)psVar14 = *(undefined4 *)psVar11;
+        psVar11 = psVar11 + 2;
+        psVar14 = psVar14 + 2;
       }
-      puVar10 = (undefined4 *)&pAVar7->field_0x8a;
-      puVar13 = (undefined4 *)&pAVar4->field_0x8a;
-      for (iVar11 = 0x19; iVar11 != 0; iVar11 = iVar11 + -1) {
-        *puVar13 = *puVar10;
-        puVar10 = puVar10 + 1;
-        puVar13 = puVar13 + 1;
+      psVar11 = &pAVar7->next_path_step_y;
+      psVar14 = &pAVar4->next_path_step_y;
+      for (iVar12 = 0x19; iVar12 != 0; iVar12 = iVar12 + -1) {
+        *(undefined4 *)psVar14 = *(undefined4 *)psVar11;
+        psVar11 = psVar11 + 2;
+        psVar14 = psVar14 + 2;
       }
       pAVar4->active_anim_step_count = pAVar7->active_anim_step_count;
-      pAVar4->field_0x121 = pAVar7->field_0x121;
-      *(undefined2 *)&pAVar4->field_0x122 = *(undefined2 *)&pAVar7->field_0x122;
-      *(undefined2 *)&pAVar4->field_0x124 = *(undefined2 *)&pAVar7->field_0x124;
+      pAVar4->path_replan_stall_counter = pAVar7->path_replan_stall_counter;
+      pAVar4->path_replan_origin_x = pAVar7->path_replan_origin_x;
+      pAVar4->path_replan_origin_y = pAVar7->path_replan_origin_y;
     }
     Add_New_View((int)pAVar4->tile_x,(int)pAVar4->tile_y,1,(int)(char)pAVar4->owner_country_id,0,
                  g_army_type_table[bVar1].border_influence_or_visibility_mask,
@@ -328,8 +329,8 @@ LAB_0047173e:
   }
   return;
 LAB_0047153c:
-  iVar9 = iVar9 + 1;
-  piVar12 = piVar12 + 1;
-  if (9 < iVar9) goto LAB_004716de;
+  iVar10 = iVar10 + 1;
+  piVar13 = piVar13 + 1;
+  if (9 < iVar10) goto LAB_004716de;
   goto LAB_0047152a;
 }

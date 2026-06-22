@@ -354,7 +354,7 @@ LAB_00494657:
     iVar8 = iVar11;
     if ((((1 < *(int *)(iVar11 + 0xf8)) || (1 < *(int *)(iVar11 + 0xfc))) ||
         (iVar8 = DAT_007584e4, 1 < *(int *)(iVar11 + 0x100))) &&
-       ((iVar11 = iVar8, 0 < *(short *)&DAT_007584dc->field_0x12c ||
+       ((iVar11 = iVar8, 0 < DAT_007584dc->movement_points_remaining ||
         (iVar11 = DAT_007584e4, *(int *)(iVar8 + 0x110) == 0)))) {
       pcVar17 = (char *)((int)&DAT_00714f98 + iVar14 * 5);
       if (*(int *)(iVar11 + 0x124) < 2) {

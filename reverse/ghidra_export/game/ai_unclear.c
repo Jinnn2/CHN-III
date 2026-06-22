@@ -187,8 +187,8 @@ LAB_00409828:
   DAT_007584e0->mission_progress_counter = 0;
   DAT_007584e0->target_tile_x_or_anim_x = *(short *)(local_144 + 0x16);
   DAT_007584e0->target_tile_y_or_anim_y = *(short *)(local_144 + 0x18);
-  *(short *)&DAT_007584e0->field_0x122 = DAT_007584e0->tile_x;
-  *(short *)&DAT_007584e0->field_0x124 = DAT_007584e0->tile_y;
+  DAT_007584e0->path_replan_origin_x = DAT_007584e0->tile_x;
+  DAT_007584e0->path_replan_origin_y = DAT_007584e0->tile_y;
   iVar4 = Tile_Direction_DeltaX
                     ((int)DAT_007584e0->target_tile_x_or_anim_x,
                      (int)DAT_007584e0->target_tile_y_or_anim_y,(int)DAT_007584e0->tile_x,

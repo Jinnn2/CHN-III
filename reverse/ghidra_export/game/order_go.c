@@ -13,14 +13,14 @@ void __fastcall Order_Go(int param_1)
   byte bVar1;
   char cVar2;
   int iVar3;
-  char cVar4;
+  byte bVar4;
   int iVar5;
 
   Trace_Function(s_Order_Go_0057e3ac);
   if ((_DAT_00748ff0->tile_x == _DAT_00748ff0->target_tile_x_or_anim_x) &&
      (_DAT_00748ff0->tile_y == _DAT_00748ff0->target_tile_y_or_anim_y)) {
     if ((((_DAT_00748ff0 != DAT_007584dc) || (DAT_0074a2aa == '\0')) ||
-        (*(short *)&DAT_007584dc->field_0x12c < 1)) || (_DAT_00748ff0->field_0x126 != '\0')) {
+        (DAT_007584dc->movement_points_remaining < 1)) || (_DAT_00748ff0->field_0x126 != '\0')) {
       bVar1 = _DAT_00748ff0->mission_action_id;
       if (bVar1 == 0x17) {
         cVar2 = FUN_0041b4f0(DAT_0075597c);
@@ -89,9 +89,9 @@ void __fastcall Order_Go(int param_1)
         return;
       }
     }
-    cVar2 = _DAT_00748ff0->field_0xee;
-    _DAT_00748ff0->render_or_anim_x = *(short *)&_DAT_00748ff0->field_0x26;
-    _DAT_00748ff0->render_or_anim_y = *(short *)&_DAT_00748ff0->field_0x8a;
+    bVar1 = _DAT_00748ff0->path_step_turn_cost[0];
+    _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->next_path_step_x;
+    _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->next_path_step_y;
     iVar3 = FUN_0040da80(_DAT_00748ff0->mission_action_id == 0x40);
     if (iVar3 < 1) {
       DAT_0070684c = 1;
@@ -111,17 +111,17 @@ void __fastcall Order_Go(int param_1)
                *(undefined2 *)(&_DAT_00748ff0->target_or_previous_owner_id + iVar5);
           *(undefined2 *)(&_DAT_00748ff0->field_0x64 + iVar5) =
                *(undefined2 *)(&_DAT_00748ff0->field_0x66 + iVar5);
-          if (cVar2 < '\x01') {
-            cVar4 = (&_DAT_00748ff0->field_0xef)[iVar3];
+          if ((char)bVar1 < '\x01') {
+            bVar4 = _DAT_00748ff0->path_step_turn_cost[iVar3 + 1];
 LAB_004964d5:
-            (&_DAT_00748ff0->field_0xee)[iVar3] = cVar4;
+            _DAT_00748ff0->path_step_turn_cost[iVar3] = bVar4;
           }
           else {
-            if ('\0' < (char)(&_DAT_00748ff0->field_0xef)[iVar3]) {
-              cVar4 = (&_DAT_00748ff0->field_0xef)[iVar3] + -1;
+            if ('\0' < (char)_DAT_00748ff0->path_step_turn_cost[iVar3 + 1]) {
+              bVar4 = _DAT_00748ff0->path_step_turn_cost[iVar3 + 1] - 1;
               goto LAB_004964d5;
             }
-            (&_DAT_00748ff0->field_0xee)[iVar3] = 0;
+            _DAT_00748ff0->path_step_turn_cost[iVar3] = 0;
           }
           iVar3 = iVar3 + 1;
           iVar5 = iVar5 + 2;

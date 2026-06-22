@@ -57,8 +57,8 @@ void AI_Army(void)
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x3b,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
       }
@@ -278,8 +278,8 @@ void AI_Army(void)
                            (int)_DAT_00748ff0->target_tile_y_or_anim_y,(byte *)0x0);
         if ((iVar8 != 1) || (local_8 != 4)) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x39,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
         uVar9 = local_4;
@@ -329,8 +329,8 @@ void AI_Army(void)
       TestRoad(_DAT_00748ff0);
       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x34,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                            (int)*(short *)&_DAT_00748ff0->field_0x26,
-                            (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                            (int)_DAT_00748ff0->next_path_step_x,
+                            (int)_DAT_00748ff0->next_path_step_y);
         return;
       }
     }
@@ -396,8 +396,8 @@ switchD_00404026_default:
           pAVar12 = _DAT_00748ff0;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x38,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                (int)*(short *)&_DAT_00748ff0->field_0x26,
-                                (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                                (int)_DAT_00748ff0->next_path_step_x,
+                                (int)_DAT_00748ff0->next_path_step_y);
             return;
           }
         }
@@ -416,8 +416,8 @@ switchD_00404026_default:
       pAVar12 = _DAT_00748ff0;
       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2d,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                            (int)*(short *)&_DAT_00748ff0->field_0x26,
-                            (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                            (int)_DAT_00748ff0->next_path_step_x,
+                            (int)_DAT_00748ff0->next_path_step_y);
         return;
       }
     }
@@ -469,8 +469,8 @@ switchD_00404026_default:
           pAVar12 = _DAT_00748ff0;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2b,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                (int)*(short *)&_DAT_00748ff0->field_0x26,
-                                (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                                (int)_DAT_00748ff0->next_path_step_x,
+                                (int)_DAT_00748ff0->next_path_step_y);
             return;
           }
         }
@@ -502,8 +502,8 @@ switchD_00404026_default:
         ;
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x35,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
       }
@@ -547,8 +547,8 @@ switchD_00404026_default:
           TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x35,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                (int)*(short *)&_DAT_00748ff0->field_0x26,
-                                (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                                (int)_DAT_00748ff0->next_path_step_x,
+                                (int)_DAT_00748ff0->next_path_step_y);
             return;
           }
         }

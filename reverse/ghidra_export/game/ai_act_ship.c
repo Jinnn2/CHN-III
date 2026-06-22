@@ -54,8 +54,8 @@ void AI_ActShip(void)
       TestRoad(_DAT_00748ff0);
       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xc,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                            (int)*(short *)&_DAT_00748ff0->field_0x26,
-                            (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                            (int)_DAT_00748ff0->next_path_step_x,
+                            (int)_DAT_00748ff0->next_path_step_y);
         return;
       }
     }
@@ -251,8 +251,8 @@ joined_r0x0040145f:
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
 LAB_00401537:
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,9,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
       }
@@ -425,8 +425,8 @@ switchD_0040171f_default:
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,10,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
       }
@@ -470,8 +470,8 @@ switchD_0040171f_default:
         TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                              (int)*(short *)&_DAT_00748ff0->field_0x26,
-                              (int)*(short *)&_DAT_00748ff0->field_0x8a);
+                              (int)_DAT_00748ff0->next_path_step_x,
+                              (int)_DAT_00748ff0->next_path_step_y);
           return;
         }
       }

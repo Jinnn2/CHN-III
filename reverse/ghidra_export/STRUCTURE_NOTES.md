@@ -352,11 +352,17 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x1a/+0x1c` | `Start_Map_Battle_From_Army` and `Start_Map_Battle_From_Tile` combine these with map-width strides to find the source `LandTile`. | map tile x/y. |
 | `+0x1e/+0x20` | Battle entry movement paths pass these to animation helpers after `FUN_004d2cc0` schedules movement. | render or animation x/y. |
 | `+0x22/+0x24` | Battle entry and near-city pathing code stores computed destination coordinates before calling `FUN_004d2cc0`. | target tile or animation x/y. |
+| `+0x26..+0x89` | `TestRoad` clears and fills 50 signed x coordinates. AI callers and `City_Round_Check` pass element 0 to `Add_OrderQueue_Army`; `Order_Go` shifts this array after each successful step. | queued path step x coordinates. |
+| `+0x8a..+0xed` | Parallel 50-entry signed y coordinate array. `Apply_OrderQueue_Army` copies element 0 into render/animation coordinates for movement actions `0x24..0x27` and `0x40`. | queued path step y coordinates. |
+| `+0xee..+0x11f` | `TestRoad` fills per-step bytes after spending `movement_points_remaining`; `Order_Go` decrements and shifts them while advancing through the route. | queued path step turn/cost bytes. |
 | `+0x120` | Battle entry code tests this after movement/path scheduling before emitting animation records. | active animation step count. |
+| `+0x121` | `TestRoad` increments it when a computed route does not end at the requested target; after repeated misses it compares the route endpoint with `+0x122/+0x124` and clears the route on regressions. | path replan/stall counter. |
+| `+0x122/+0x124` | `TestRoad` records the current tile when starting a replan-stall sequence; `AI_UnClear` also seeds them before forcing a target direction. | path replan origin x/y. |
 | `+0x127` | Near-city scans require zero for active/free units; diplomat order code sets it to nonzero. | mission state. |
 | `+0x128` | Load/order paths test or write action ids such as `0x35`, `0x36`, `0x37`, and `0x39`. | mission/action id. |
 | `+0x129` | Battle entry paths index direction tables `DAT_00589344`, `DAT_00589374`, and `DAT_005893b4` with this value to find the tile ahead. | facing or move direction. |
 | `+0x12a` | Battle entry paths accumulate it by the turn/order delta and compare it with `ArmyTypeDef.mission_range_limit`, then reset it on action. | mission progress counter. |
+| `+0x12c` | `Do_Army_TurnJob` refills it to `ArmyTypeDef.movement_or_speed * MapScenarioInfo.movement_base`; `TestRoad` spends it against terrain/road/overlay costs while building queued path steps. | movement points remaining. |
 | `+0x12f` | `BattleArmy(..., unit->strength_or_health / 0xe + 1, ...)` derives formation count from it. | strength/health byte. |
 | `+0x130` | Battle entry paths increment and reset it around repeated battle-entry/stat checks before raising veteran/power state. | battle entry retry counter. |
 | `+0x131` | Battle stat adjustment shifts by this value in `Map_To_Battle_Army`. | veteran level / power shift. |

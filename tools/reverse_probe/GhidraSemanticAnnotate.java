@@ -123,8 +123,21 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle entry code stores computed target/path coordinates here");
         replaceAt(armyUnit, 0x24, ShortDataType.dataType, 2, "target_tile_y_or_anim_y",
             "battle entry code stores computed target/path coordinates here");
+        replaceAt(armyUnit, 0x26, ShortDataType.dataType, 2, "next_path_step_x",
+            "first queued path x coordinate from TestRoad; the full path x array extends through +0x89");
+        replaceAt(armyUnit, 0x8a, ShortDataType.dataType, 2, "next_path_step_y",
+            "first queued path y coordinate from TestRoad; the full path y array extends through +0xed");
+        replaceAt(armyUnit, 0xee, new ArrayDataType(ByteDataType.dataType, 50, 1), 0x32,
+            "path_step_turn_cost",
+            "TestRoad stores per-step movement turn/cost bytes and Order_Go decrements/shifts them with the path");
         replaceAt(armyUnit, 0x120, ByteDataType.dataType, 1, "active_anim_step_count",
             "battle entry code tests it before scheduling movement/animation records");
+        replaceAt(armyUnit, 0x121, ByteDataType.dataType, 1, "path_replan_stall_counter",
+            "TestRoad increments this when the computed path misses the requested target and resets after replan failure");
+        replaceAt(armyUnit, 0x122, ShortDataType.dataType, 2, "path_replan_origin_x",
+            "TestRoad and unclear AI store the starting x used to judge whether a replanned path moved closer");
+        replaceAt(armyUnit, 0x124, ShortDataType.dataType, 2, "path_replan_origin_y",
+            "TestRoad and unclear AI store the starting y used to judge whether a replanned path moved closer");
         replaceAt(armyUnit, 0x127, ByteDataType.dataType, 1, "mission_state",
             "zero means active/free in city-nearby scans; diplomat orders set it nonzero");
         replaceAt(armyUnit, 0x128, ByteDataType.dataType, 1, "mission_action_id",
@@ -133,6 +146,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle entry paths index direction tables to find the tile ahead");
         replaceAt(armyUnit, 0x12a, ByteDataType.dataType, 1, "mission_progress_counter",
             "battle entry paths accumulate this against ArmyType.mission_range_limit and then reset it");
+        replaceAt(armyUnit, 0x12c, ShortDataType.dataType, 2, "movement_points_remaining",
+            "Do_Army_TurnJob refills it from ArmyType.movement_or_speed * scenario movement_base; TestRoad spends it across path steps");
         replaceAt(armyUnit, 0x12f, ByteDataType.dataType, 1, "strength_or_health",
             "Map_To_Battle_Army converts it to battle formation count with / 0xe + 1");
         replaceAt(armyUnit, 0x130, ByteDataType.dataType, 1, "battle_entry_retry_counter",
@@ -1330,6 +1345,20 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x00707930L, "g_fade_color_tables", new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 10, 4)),
             new GlobalRename(0x007161f0L, "g_dark_table_buffer", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x0074d4dcL, "g_bestpath_temp_buffer", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x005cba3cL, "g_testroad_target_reached_or_blocked", IntegerDataType.dataType),
+            new GlobalRename(0x00758834L, "g_testroad_start_land_index", IntegerDataType.dataType),
+            new GlobalRename(0x00758838L, "g_testroad_army_type", new PointerDataType(armyTypeDef, dtm)),
+            new GlobalRename(0x0075883cL, "g_testroad_start_x", IntegerDataType.dataType),
+            new GlobalRename(0x00758840L, "g_testroad_start_y", IntegerDataType.dataType),
+            new GlobalRename(0x00758844L, "g_testroad_start_route_marker", IntegerDataType.dataType),
+            new GlobalRename(0x00758848L, "g_testroad_target_route_marker", IntegerDataType.dataType),
+            new GlobalRename(0x0075884cL, "g_testroad_tick_after_rules", IntegerDataType.dataType),
+            new GlobalRename(0x00758850L, "g_testroad_target_land_index", IntegerDataType.dataType),
+            new GlobalRename(0x00758854L, "g_testroad_target_y", IntegerDataType.dataType),
+            new GlobalRename(0x00758858L, "g_testroad_target_x", IntegerDataType.dataType),
+            new GlobalRename(0x0075885cL, "g_testroad_army", new PointerDataType(armyUnit, dtm)),
+            new GlobalRename(0x00758860L, "g_testroad_long_sea_route_flag", ByteDataType.dataType),
+            new GlobalRename(0x00758861L, "g_testroad_adjacent_attack_possible", ByteDataType.dataType),
             new GlobalRename(0x0074c84cL, "g_resource_score_buffer", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x00748f38L, "g_land_record_buffers", new ArrayDataType(new PointerDataType(VoidDataType.dataType, dtm), 22, 4)),
             new GlobalRename(0x007584c0L, "g_minimap_buffer", new PointerDataType(VoidDataType.dataType, dtm)),

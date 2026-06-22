@@ -425,8 +425,8 @@ LAB_00428580:
                   TestRoad(pAVar14);
                   if ('\0' < (char)pAVar14->active_anim_step_count) {
                     Add_OrderQueue_Army(pAVar14,0x24,0x38,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                        (int)*(short *)&pAVar14->field_0x26,
-                                        (int)*(short *)&pAVar14->field_0x8a);
+                                        (int)pAVar14->next_path_step_x,
+                                        (int)pAVar14->next_path_step_y);
                   }
                   _DAT_0074a348 = ((byte)g_current_city->tile_y & 1) + (uint)g_current_city->tile_x;
                   _DAT_0074a350 = (uint)g_current_city->tile_y;
@@ -449,8 +449,8 @@ LAB_00428580:
                 TestRoad(pAVar14);
                 if ('\0' < (char)pAVar14->active_anim_step_count) {
                   Add_OrderQueue_Army(pAVar14,0x24,0x38,-1,-1,(ArmyUnit_0x164_plus *)0x0,
-                                      (int)*(short *)&pAVar14->field_0x26,
-                                      (int)*(short *)&pAVar14->field_0x8a);
+                                      (int)pAVar14->next_path_step_x,(int)pAVar14->next_path_step_y)
+                  ;
                 }
                 _DAT_0074a348 = ((byte)g_current_city->tile_y & 1) + (uint)g_current_city->tile_x;
                 _DAT_0074a350 = (uint)g_current_city->tile_y;
