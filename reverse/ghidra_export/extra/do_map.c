@@ -30,7 +30,7 @@ void Do_Map(void)
       local_8 = 0;
       if (0 < g_map_width_tiles) {
         do {
-          if ((((0 < (int)g_current_map_scenario_info._212_4_) && ('\0' < pcVar7[0xb3])) &&
+          if ((((0 < g_current_map_scenario_info.scenario_rule_d4) && ('\0' < pcVar7[0xb3])) &&
               ((int)pcVar7[0xb3] < g_current_map_scenario_info.scenario_value_30 + 1)) &&
              ((int)pcVar7[0x7c] + (int)pcVar7[0x50] == 0)) {
             if (g_current_map_scenario_info.scenario_value_30 < 3) {
@@ -101,7 +101,7 @@ switchD_00451f3b_default:
             }
           }
 LAB_0045204d:
-          if (((g_current_map_scenario_info._232_4_ != 0) && (-1 < pcVar7[0x17])) &&
+          if (((g_current_map_scenario_info.scenario_rule_e8 != 0) && (-1 < pcVar7[0x17])) &&
              ((0 < *(int *)(&DAT_005a8170 + pcVar7[0x17] * 0xd8) &&
               (*(int *)(pcVar7 + 0xf8) < 10000)))) {
             *(int *)(pcVar7 + 0xf8) =

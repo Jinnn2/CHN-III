@@ -254,7 +254,7 @@ LAB_00450b25:
         goto LAB_00450b25;
       }
       if (g_active_country_index == 0) {
-        if (((g_current_map_scenario_info._212_4_ == 2) &&
+        if (((g_current_map_scenario_info.scenario_rule_d4 == 2) &&
             ((int)(char)g_current_city_land_tile->secondary_occupant_count +
              (int)(char)g_current_city_land_tile->army_count_or_occupant_count == 0)) &&
            ((g_current_city->round_or_protection_timer <

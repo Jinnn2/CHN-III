@@ -118,7 +118,7 @@ LAB_0041e2d1:
          (*(char *)(*(int *)(&DAT_005a8124 + iVar13) + 100 + param_1) == '\x02')) &&
         ((((*(int *)(&DAT_005a811c + iVar13) == 0 || (puVar14[0x1a] == '\x02')) ||
           (puVar14[8] == '\0')) || (puVar14[8] == '\x03')))) &&
-       (g_current_map_scenario_info._232_4_ != 0)) {
+       (g_current_map_scenario_info.scenario_rule_e8 != 0)) {
       bVar2 = puVar1[iVar9 + 0xb1a];
       if ((bVar2 < 2) || (4 < bVar2)) {
         if ((bVar2 == 1) &&
@@ -213,7 +213,7 @@ LAB_0041e2d1:
                 (*(char *)(*(int *)(&DAT_005a8124 + iVar13) + 100 + param_1) == '\x02')) &&
                (((((*(int *)(&DAT_005a811c + iVar13) == 0 || (*(char *)(local_1c + 0x1a) == '\x02'))
                   || (*(char *)(local_1c + 8) == '\0')) || (*(char *)(local_1c + 8) == '\x03')) &&
-                (g_current_map_scenario_info._232_4_ != 0)))) {
+                (g_current_map_scenario_info.scenario_rule_e8 != 0)))) {
               bVar2 = puVar1[iVar9 + 0xb1a];
               if ((bVar2 < 2) || (4 < bVar2)) {
                 if ((bVar2 == 1) &&

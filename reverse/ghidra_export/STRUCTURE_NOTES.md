@@ -140,7 +140,11 @@ original enum names.
 | `+0x45` | Fourth copied string in `Load_Map_GameInfo`. | short description bytes. |
 | `+0x58..0x64` | Numeric values read before the country-slot block and exposed by the detail form. | scenario values. |
 | `+0x68` | Loader copies 22 dwords; custom-map selection uses this area while choosing active country setup. | country slot values. |
-| `+0xc0` | Detail form exposes this 18-dword region as selectable/editable rule values. | scenario rule values. |
+| `+0xc0..0x100` | Detail form exposes these dwords as selectable/editable rules; the annotation keeps them as `scenario_rule_c0` through `scenario_rule_100` so individual uses remain traceable. | scenario rule values. |
+| `+0xd4` | Battle setup halves attack or defense stat groups depending on values `0` or `1`; city-round logic has a special value `2` path. | battle/city event rule. |
+| `+0xdc` | Custom-map initialization sets it when country/template validation fails. | scenario setup fallback rule. |
+| `+0xe8` | City resource, trade, and resource-feature paths use this as an enable gate. | city resource/trade rule. |
+| `+0xec` | City resource change suppresses an income/tax adjustment when this is nonzero. | city income/tax rule. |
 | `+0x104` | `Load_Dat` and `MLR_Edit_SelCustomMap` branch on it before setting map dimensions. | map size mode. |
 | `+0x108` | Loaded beside map size in both legacy-expanded and modern records. | scenario value. |
 | `+0x10c` | `Load_Map_GameInfo` copies a 64-byte text field here. | long description bytes. |

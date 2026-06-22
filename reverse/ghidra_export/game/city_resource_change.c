@@ -67,7 +67,7 @@ void City_Resource_Change(void)
     iVar4 = -DAT_007068e4;
     pCVar14 = g_current_city;
     if (DAT_007068e4 != 0 && -1 < iVar4) {
-      if ((g_current_map_scenario_info._232_4_ != 0) &&
+      if ((g_current_map_scenario_info.scenario_rule_e8 != 0) &&
          (iVar12 = g_active_country->city_resource_carryover, 0 < iVar12)) {
         if (iVar4 <= iVar12) {
           iVar4 = 0;
@@ -298,7 +298,7 @@ LAB_00426559:
     iVar4 = iVar4 + -2;
   }
   iVar12 = 0;
-  if ((0 < iVar4) && (g_current_map_scenario_info._236_4_ == 0)) {
+  if ((0 < iVar4) && (g_current_map_scenario_info.scenario_rule_ec == 0)) {
     iVar12 = (int)((local_1b4 - uVar9) * iVar4 * 5) / 100;
   }
   DAT_007068c4 = (local_1b4 - uVar9) - iVar12;

@@ -456,7 +456,7 @@ LAB_00423469:
             }
             iVar19 = piVar15[-0x6a];
             if ((iVar19 != 1) || (g_current_city->has_special_capability == 1)) {
-              if (g_current_map_scenario_info._232_4_ == 0) {
+              if (g_current_map_scenario_info.scenario_rule_e8 == 0) {
                 if ((piVar21 != (int *)0xe) ||
                    ('\0' < (char)g_current_city->trade_resource_state[0x15])) {
 LAB_004235b3:

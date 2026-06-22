@@ -114,16 +114,16 @@ LAB_0045b379:
           DAT_0075594c = 0;
           g_current_map_scenario_info.scenario_value_58 = 0;
           g_current_map_scenario_info.scenario_value_30 = 2;
-          g_current_map_scenario_info._216_4_ = 1;
-          g_current_map_scenario_info._212_4_ = 1;
-          g_current_map_scenario_info._200_4_ = 0;
-          g_current_map_scenario_info._208_4_ = 1;
-          g_current_map_scenario_info._204_4_ = 1;
-          g_current_map_scenario_info._192_4_ = 0;
-          g_current_map_scenario_info._196_4_ = 0;
-          g_current_map_scenario_info._224_4_ = 1;
-          g_current_map_scenario_info._232_4_ = 1;
-          g_current_map_scenario_info._220_4_ = 0;
+          g_current_map_scenario_info.scenario_rule_d8 = 1;
+          g_current_map_scenario_info.scenario_rule_d4 = 1;
+          g_current_map_scenario_info.scenario_rule_c8 = 0;
+          g_current_map_scenario_info.scenario_rule_d0 = 1;
+          g_current_map_scenario_info.scenario_rule_cc = 1;
+          g_current_map_scenario_info.scenario_rule_c0 = 0;
+          g_current_map_scenario_info.scenario_rule_c4 = 0;
+          g_current_map_scenario_info.scenario_rule_e0 = 1;
+          g_current_map_scenario_info.scenario_rule_e8 = 1;
+          g_current_map_scenario_info.scenario_rule_dc = 0;
           g_current_map_scenario_info.scenario_value_15c = 1;
           g_current_map_scenario_info.scenario_value_160 = 0;
           bVar3 = true;
@@ -212,7 +212,7 @@ LAB_0045b379:
             g_current_map_scenario_info.scenario_value_2c = 0;
           }
           else {
-            g_current_map_scenario_info._220_4_ = 1;
+            g_current_map_scenario_info.scenario_rule_dc = 1;
             DAT_00714bb0 = 2;
             g_current_map_scenario_info.scenario_value_2c = 2;
           }

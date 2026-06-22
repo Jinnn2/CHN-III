@@ -396,7 +396,7 @@ LAB_00428580:
               _DAT_00706918 = _DAT_00706918 + 1;
             }
           }
-          if ((((((g_current_map_scenario_info._212_4_ == 2) &&
+          if ((((((g_current_map_scenario_info.scenario_rule_d4 == 2) &&
                  (g_active_country_index == g_human_country_index)) &&
                 (g_auto_turn_or_ai_control_flag == 0)) &&
                ((2 < g_current_map_scenario_info.scenario_value_30 && (pcVar10[0x50] == '\0')))) &&
