@@ -685,12 +685,18 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "building placement and city-view paths test this early dword before allowing/displaying some map structures");
         replaceAt(buildingDef, 0x08, IntegerDataType.dataType, 4, "editor_building_group",
             "Before_Edit_Build binds this dword to an option-list editor control");
+        replaceAt(buildingDef, 0x0c, IntegerDataType.dataType, 4, "display_category_id",
+            "Put_City_View indexes a short category label table from this value");
         replaceAt(buildingDef, 0x10, IntegerDataType.dataType, 4, "editor_display_group_a",
             "Before_Edit_Build binds this dword to an option-list editor control");
         replaceAt(buildingDef, 0x14, IntegerDataType.dataType, 4, "per_resource_effect_base",
             "city people/resource change paths iterate a per-building value block from this offset");
-        replaceAt(buildingDef, 0x1c, new ArrayDataType(ByteDataType.dataType, 64, 1), 64,
-            "name_bytes", "city/building UI draws building names from this string area");
+        replaceAt(buildingDef, 0x1c, new ArrayDataType(ByteDataType.dataType, 0x11, 1), 0x11,
+            "name_bytes", "Before_Edit_Build binds this as a 17-byte text field; city/building UI draws names from it");
+        replaceAt(buildingDef, 0x30, new ArrayDataType(IntegerDataType.dataType, 6, 4), 0x18,
+            "per_government_population_requirement", "build UI/editor expose six early numeric requirements indexed by government/profile mode");
+        replaceAt(buildingDef, 0x44, ShortDataType.dataType, 2, "tile_object_variant_id",
+            "City_Upgrade copies this into city map object/tile records for upgraded structures");
         replaceAt(buildingDef, 0x48, IntegerDataType.dataType, 4, "upgrade_to_building_id",
             "city upgrade follows this id when an older building becomes obsolete/upgraded");
         replaceAt(buildingDef, 0x4c, IntegerDataType.dataType, 4, "footprint_width_tiles",
@@ -719,16 +725,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "build AI requires this completed unless it is -1");
         replaceAt(buildingDef, 0xa4, IntegerDataType.dataType, 4, "prerequisite_building_b",
             "second prerequisite id used by build AI");
-        replaceAt(buildingDef, 0xa8, IntegerDataType.dataType, 4, "editor_value_a8",
-            "Before_Edit_Build exposes this dword as an editable numeric field");
-        replaceAt(buildingDef, 0xdc, IntegerDataType.dataType, 4, "editor_value_dc",
-            "Before_Edit_Build exposes this late dword as an editable numeric field");
-        replaceAt(buildingDef, 0xe0, IntegerDataType.dataType, 4, "editor_value_e0",
-            "Before_Edit_Build exposes this late dword as an editable numeric field");
-        replaceAt(buildingDef, 0xe4, IntegerDataType.dataType, 4, "editor_value_e4",
-            "Before_Edit_Build exposes this late dword as an editable numeric field");
-        replaceAt(buildingDef, 0xe8, IntegerDataType.dataType, 4, "editor_value_e8",
-            "Before_Edit_Build exposes this late dword as an editable numeric field");
+        replaceAt(buildingDef, 0xa8, new ArrayDataType(IntegerDataType.dataType, 13, 4), 0x34,
+            "city_resource_effects_a", "City_Resource_Change accumulates this 13-dword block into per-turn city resource deltas");
+        replaceAt(buildingDef, 0xdc, new ArrayDataType(IntegerDataType.dataType, 4, 4), 0x10,
+            "city_resource_effects_b", "City_Resource_Change accumulates this follow-up effect block into late per-turn city resource totals");
         replaceAt(buildingDef, 0xec, IntegerDataType.dataType, 4, "building_category",
             "production acceleration branches compare values such as 2, 4, 5, and 6");
         replaceAt(buildingDef, 0xf0, IntegerDataType.dataType, 4, "unlock_or_display_flag",

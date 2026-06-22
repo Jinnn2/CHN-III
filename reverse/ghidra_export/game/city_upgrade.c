@@ -33,8 +33,7 @@ void City_Upgrade(int param_1)
           *(char *)(iVar5 + 7) = cVar1 + 'Z';
           uVar2 = FUN_004fbf50(4);
           *(undefined1 *)(iVar5 + 0xb) = uVar2;
-          *(undefined2 *)(iVar5 + 8) =
-               *(undefined2 *)&g_building_defs[*(char *)(iVar5 + 7)].field_0x44;
+          *(short *)(iVar5 + 8) = g_building_defs[*(char *)(iVar5 + 7)].tile_object_variant_id;
         }
         iVar5 = iVar5 + 0x20;
         iVar6 = iVar6 + -1;

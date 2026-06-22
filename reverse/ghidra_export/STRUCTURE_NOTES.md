@@ -509,8 +509,11 @@ the city/building tooltip in `Put_City_View`.
 |---:|---|---|
 | `+0x00/+0x08/+0x10` | `Before_Edit_Build` binds these dwords to option-list controls. | editor-visible building kind/group values. |
 | `+0x04` | Placement and city-view paths test this before allowing/displaying some map structures. | map object / terrain gate. |
+| `+0x0c` | `Put_City_View` indexes a short building-category label table with this value. | display category id. |
 | `+0x14` | City people/resource change paths iterate a per-building value block from this offset. | per-resource effect base. |
-| `+0x1c..0x5b` | City/building UI draws names from this string area. | `name_bytes`. |
+| `+0x1c..0x2c` | `Before_Edit_Build` binds this as a 17-byte text field; city/building UI draws building names from it. | `name_bytes`. |
+| `+0x30..0x47` | Editor exposes six early numeric requirements; build/resource logic indexes this block by government/profile mode. | per-government population requirement block. |
+| `+0x44` | `City_Upgrade` copies this short into city map-object tile records for upgraded structures. | tile object variant id. |
 | `+0x48` | `City_Upgrade` follows this id when an old building unlocks/replaces another. | `upgrade_to_building_id`. |
 | `+0x4c/+0x50` | Placement and build AI multiply these values and compare map footprint. | `footprint_width_tiles`, `footprint_height_tiles`. |
 | `+0x54` | Production compares city `build_progress` against this. | `build_cost`. |
@@ -519,7 +522,7 @@ the city/building tooltip in `Put_City_View`.
 | `+0x78..0x97` | Indexed by current country/resource state when showing build cost/resource requirements. | `resource_cost_by_kind`. |
 | `+0x98/+0x9c` | Displayed in the city/building tooltip and compared by AI/city checks. | population and upgrade/development requirements. |
 | `+0xa0/+0xa4` | Build AI requires these prerequisite building ids unless `-1`. | prerequisite buildings. |
-| `+0xa8/+0xdc/+0xe0/+0xe4/+0xe8` | `Before_Edit_Build` exposes these late dwords as editable numeric fields; gameplay use is still under investigation. | editor-visible values. |
+| `+0xa8..0xdb` / `+0xdc..0xeb` | `City_Resource_Change` accumulates these effect blocks into per-turn city resource and late city-resource totals; the editor exposes the same dwords. | city resource effect blocks. |
 | `+0xec` | Production acceleration branches compare category ids `2`, `4`, `5`, `6`. | `building_category`. |
 | `+0xf0` | Build-table editor and availability/display logic touch this slot. | `unlock_or_display_flag`. |
 
