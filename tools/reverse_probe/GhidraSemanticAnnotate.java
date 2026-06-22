@@ -894,11 +894,11 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(empireCountryDef, 0xf8, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
             "country_editor_block_f8", "Before_Edit_Empire_Country exposes ten paired editor values from this block");
         replaceAt(empireCountryDef, 0x120, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_a",
-            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+            "MLP_Edit_Empire_Country writes a palette row here; Edit_Finish and Load_Dat combine it with diplomacy UI color/image tables");
         replaceAt(empireCountryDef, 0x124, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_b",
-            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+            "MLP_Edit_Empire_Country writes a palette row here; Edit_Finish and Load_Dat combine it with diplomacy UI color/image tables");
         replaceAt(empireCountryDef, 0x128, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_c",
-            "Edit_Finish and Load_Dat combine this id with diplomacy UI color/image tables");
+            "MLP_Edit_Empire_Country writes a palette row here; Edit_Finish and Load_Dat combine it with diplomacy UI color/image tables");
         resolve(empireCountryDef);
 
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
@@ -993,6 +993,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x467250L, "Before_Edit_Science_Set"),
             new Rename(0x4596a0L, "Before_Window_Edit_File_Detail"),
             new Rename(0x459f90L, "Put_Edit_File_Detail"),
+            new Rename(0x458d80L, "MLP_Edit_Empire_Country"),
             new Rename(0x45b1d0L, "MouseOn_Edit_Sel_Custom_Map"),
             new Rename(0x45b2f0L, "MLR_Edit_SelCustomMap"),
             new Rename(0x45c330L, "MouseOn_Edit_Sel_Pcx_File"),

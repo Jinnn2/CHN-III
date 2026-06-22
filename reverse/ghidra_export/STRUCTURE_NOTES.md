@@ -114,6 +114,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
 | `Before_Edit_Empire_Country` | Trace string `Before_Edit_Empire_Country`; reads/writes `EMPIRE.DAT`, backs up `g_empire_country_defs`, and binds controls to `EmpireCountryDef_0x200`. | Empire/country/leader definition table editor setup. |
+| `MLP_Edit_Empire_Country` | Trace string `MLP_Edit_Empire_Country`; maps mouse hits on three vertical palette strips to `EmpireCountryDef_0x200 +0x120/+0x124/+0x128`. | Empire/country color-layer mouse editor. |
 | `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
 | `Before_Edit_Ground` | Trace string `Before_Edit_Ground`; backs up `g_ground_defs`, checks `GROUND.DAT`, and binds controls to the `GroundDef_0x24` table. | Ground/terrain definition table editor setup. |
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
@@ -499,7 +500,7 @@ the first dword as an enabled gate, then use `+0x38` to reach
 | `+0xb4/+0xb8` | `City_Building` applies the category-6 build bonus only when both fields are above the gate. | category-6 build bonus and gate. |
 | `+0xd0..0xf7` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
 | `+0xf8..0x11f` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
-| `+0x120/+0x124/+0x128` | `Edit_Finish` and `Load_Dat` combine these ids with diplomacy UI color/image tables. | diplomacy UI color layers. |
+| `+0x120/+0x124/+0x128` | `MLP_Edit_Empire_Country` writes palette row ids from three vertical strips; `Edit_Finish` and `Load_Dat` combine these ids with diplomacy UI color/image tables. | diplomacy UI color layers. |
 
 ### `GovernmentDef_0x74`
 

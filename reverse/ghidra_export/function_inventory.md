@@ -229,7 +229,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00454570` | `Before_Edit_Build` | 2646 | 7 |
 | `0x00456c50` | `FUN_00456c50` | 527 | 3 |
 | `0x004578a0` | `Before_Edit_Empire_Country` | 2182 | 16 |
-| `0x00458d80` | `FUN_00458d80` | 254 | 1 |
+| `0x00458d80` | `MLP_Edit_Empire_Country` | 254 | 1 |
 | `0x004596a0` | `Before_Window_Edit_File_Detail` | 2242 | 2 |
 | `0x00459f90` | `Put_Edit_File_Detail` | 385 | 5 |
 | `0x0045b1d0` | `MouseOn_Edit_Sel_Custom_Map` | 275 | 1 |

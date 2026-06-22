@@ -130,6 +130,7 @@ public class GhidraExport extends GhidraScript {
         new Target(0x42eed0L, "ui/node_insert_data_format.c"),
         new Target(0x42f290L, "ui/add_new_data_format.c"),
         new Target(0x4578a0L, "editor/before_edit_empire_country.c"),
+        new Target(0x458d80L, "editor/mlp_edit_empire_country.c"),
         new Target(0x452110L, "editor/before_edit_army.c"),
         new Target(0x454570L, "editor/before_edit_build.c"),
         new Target(0x45d6f0L, "editor/before_edit_government.c"),
