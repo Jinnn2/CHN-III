@@ -14,7 +14,7 @@ void After_Edit_Country(void)
   int iVar4;
 
   Trace_Function(s_After_Edit_Country_00571560);
-  FUN_0042f5c0(&DAT_005c6f10);
+  Del_DataFormat(&DAT_005c6f10);
   iVar2 = (int)*(char *)(DAT_00706b04 + 0x6a3) + (int)*(char *)(DAT_00706b04 + 0x6a2) +
           (int)*(char *)(DAT_00706b04 + 0x6a1);
   if (iVar2 != 10) {

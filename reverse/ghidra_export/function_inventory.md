@@ -153,11 +153,11 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0042edb0` | `FUN_0042edb0` | 206 | 1 |
 | `0x0042ee80` | `FUN_0042ee80` | 75 | 2 |
 | `0x0042eed0` | `NodeInsert_DataFormat` | 774 | 2 |
-| `0x0042f210` | `FUN_0042f210` | 127 | 2 |
+| `0x0042f210` | `NodeDelete_DataFormat` | 127 | 2 |
 | `0x0042f290` | `Add_New_DataFormat` | 329 | 3 |
-| `0x0042f3e0` | `FUN_0042f3e0` | 421 | 1 |
-| `0x0042f5c0` | `FUN_0042f5c0` | 62 | 2 |
-| `0x0042f600` | `FUN_0042f600` | 3385 | 11 |
+| `0x0042f3e0` | `Reflash_DataFormat` | 421 | 1 |
+| `0x0042f5c0` | `Del_DataFormat` | 62 | 2 |
+| `0x0042f600` | `CheckPress_DataFormat` | 3385 | 11 |
 | `0x00430370` | `Decode_City` | 5227 | 2 |
 | `0x00431800` | `Decode_NewMap` | 6040 | 4 |
 | `0x00433020` | `Decode_LongWall` | 1929 | 1 |

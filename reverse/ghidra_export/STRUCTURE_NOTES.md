@@ -83,7 +83,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_current_map_scenario_info` | `Load_Dat` reads a `0x16c` header here; the edit-file-detail form binds controls to fields in this record. | Current loaded map/scenario header. |
 | `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes `MapScenarioInfo_0x16c[]`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
 | `g_selected_custom_map_index` | Set from `g_custom_map_hover_index`; drives load, delete, and list compaction in `MLR_Edit_SelCustomMap`. | Selected custom map row. |
-| `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes and updates previous/next links. | Active window/form data-format linked list. |
+| `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes, `NodeDelete_DataFormat` unlinks them, and `Del_DataFormat` removes all controls for one owner window/context. | Active window/form data-format linked list. |
 
 ## Editor And Startup
 
@@ -111,6 +111,10 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `MouseOn_Edit_Sel_Pcx_File` | Trace string `MouseOn_Edit_Sel_Pcx_File`; maps mouse position to a 10-row PCX/file list hover index and three action-button states. | PCX/file selection hover handler. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
+| `NodeDelete_DataFormat` | Trace string `NodeDelete_DataFormat`; unlinks one `DataFormat_0xc8` node from the global list, frees copied label text, and frees the descriptor. | Generic form/table descriptor deletion helper. |
+| `Del_DataFormat` | Trace string `Del_DataFormat`; walks the global descriptor list and deletes every `DataFormat_0xc8` node whose owner/context pointer matches the argument. | Generic form/table teardown by owner. |
+| `Reflash_DataFormat` | Trace string `Reflash_DataFormat`; refreshes descriptors whose row-index source matches the argument, recomputing bound data pointers from stride/base/row fields. | Generic form/table binding refresh. |
+| `CheckPress_DataFormat` | Trace string `CheckPress_DataFormat`; scans active descriptors, hit-tests mouse coordinates by control type, and writes the selected/toggled/edited value back through the descriptor's bound pointer. | Generic form/table mouse-press dispatcher. |
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
 | `Before_Edit_Empire_Country` | Trace string `Before_Edit_Empire_Country`; reads/writes `EMPIRE.DAT`, backs up `g_empire_country_defs`, and binds controls to `EmpireCountryDef_0x200`. | Empire/country/leader definition table editor setup. |
@@ -619,6 +623,8 @@ important code-first files are:
   toggle, whole-map backup allocation, and the left/right-click editor map
   mutation paths.
 - `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
+  `ui/node_delete_data_format.c`, `ui/del_data_format.c`,
+  `ui/reflash_data_format.c`, `ui/check_press_data_format.c`,
   `editor/before_edit_army.c`, `editor/before_edit_build.c`,
   `editor/before_edit_empire_country.c`, `editor/before_edit_government.c`,
   `editor/before_edit_ground.c`, and `editor/before_edit_empire_hero.c`:
