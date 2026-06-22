@@ -16,7 +16,7 @@ void Before_Edit_Science_Power(void)
   Trace_Function(s_Before_Edit_Science_Power_00573690);
   FUN_004a0130();
   piVar2 = g_science_priority_target_ids;
-  piVar3 = &DAT_00706ecc;
+  piVar3 = g_science_priority_target_backup;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *piVar3 = *piVar2;
     piVar2 = piVar2 + 1;

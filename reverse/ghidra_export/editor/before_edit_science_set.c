@@ -5,8 +5,6 @@
  */
 
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void Before_Edit_Science_Set(void)
 
 {
@@ -19,39 +17,47 @@ void Before_Edit_Science_Set(void)
   piVar3 = &g_science_defs[0].prerequisite_science_b;
   iVar4 = 0;
   iVar1 = g_editor_selected_country_id * 0xe68;
-  _DAT_00706eb8 = &g_country_states + iVar1;
+  g_science_editor_selected_country = (CountryState_0xe68 *)(&g_country_states + iVar1);
   piVar2 = (int *)(&DAT_0073575c + iVar1);
   do {
-    if (((piVar3[-1] == DAT_00716758) && ((*piVar2 == 1 || (*piVar2 == 2)))) ||
-       ((*piVar3 == DAT_00716758 && ((*piVar2 == 1 || (*piVar2 == 2)))))) break;
+    if (((piVar3[-1] == g_science_editor_selected_science_id) && ((*piVar2 == 1 || (*piVar2 == 2))))
+       || ((*piVar3 == g_science_editor_selected_science_id && ((*piVar2 == 1 || (*piVar2 == 2))))))
+    break;
     piVar3 = piVar3 + 0x22;
     iVar4 = iVar4 + 1;
     piVar2 = piVar2 + 1;
   } while (iVar4 < 200);
-  _DAT_00706efc = 1;
-  _DAT_00706f00 = 0;
-  _DAT_00706f10 = 0;
-  if ((*(int *)(&DAT_0073575c + DAT_00716758 * 4 + iVar1) == 0) ||
-     (*(int *)(&DAT_0073575c + DAT_00716758 * 4 + iVar1) == 4)) {
-    _DAT_00706f00 = 1;
-    _DAT_00706f10 = 1;
+  g_science_editor_status_panel_enabled = 1;
+  g_science_editor_selected_status_editable = 0;
+  g_science_editor_apply_status_change_enabled = 0;
+  if ((*(int *)(&DAT_0073575c + g_science_editor_selected_science_id * 4 + iVar1) == 0) ||
+     (*(int *)(&DAT_0073575c + g_science_editor_selected_science_id * 4 + iVar1) == 4)) {
+    g_science_editor_selected_status_editable = 1;
+    g_science_editor_apply_status_change_enabled = 1;
   }
-  _DAT_00706f04 = 0;
-  if (((g_science_defs[DAT_00716758].prerequisite_science_a == -1) ||
-      (*(int *)(&DAT_0073575c + g_science_defs[DAT_00716758].prerequisite_science_a * 4 + iVar1) ==
-       2)) && ((g_science_defs[DAT_00716758].prerequisite_science_b == -1 ||
-               (*(int *)(&DAT_0073575c +
-                        g_science_defs[DAT_00716758].prerequisite_science_b * 4 + iVar1) == 2)))) {
-    _DAT_00706f04 = 1;
+  g_science_editor_prerequisites_met = 0;
+  if (((g_science_defs[g_science_editor_selected_science_id].prerequisite_science_a == -1) ||
+      (*(int *)(&DAT_0073575c +
+               g_science_defs[g_science_editor_selected_science_id].prerequisite_science_a * 4 +
+               iVar1) == 2)) &&
+     ((g_science_defs[g_science_editor_selected_science_id].prerequisite_science_b == -1 ||
+      (*(int *)(&DAT_0073575c +
+               g_science_defs[g_science_editor_selected_science_id].prerequisite_science_b * 4 +
+               iVar1) == 2)))) {
+    g_science_editor_prerequisites_met = 1;
   }
-  _DAT_00706f08 = 0;
-  if (((g_science_defs[DAT_00716758].prerequisite_science_a != -1) &&
-      (*(int *)(&DAT_0073575c + g_science_defs[DAT_00716758].prerequisite_science_a * 4 + iVar1) !=
-       2)) || ((g_science_defs[DAT_00716758].prerequisite_science_b != -1 &&
-               (*(int *)(&DAT_0073575c +
-                        g_science_defs[DAT_00716758].prerequisite_science_b * 4 + iVar1) != 2)))) {
-    _DAT_00706f08 = 1;
+  g_science_editor_prerequisites_missing = 0;
+  if (((g_science_defs[g_science_editor_selected_science_id].prerequisite_science_a != -1) &&
+      (*(int *)(&DAT_0073575c +
+               g_science_defs[g_science_editor_selected_science_id].prerequisite_science_a * 4 +
+               iVar1) != 2)) ||
+     ((g_science_defs[g_science_editor_selected_science_id].prerequisite_science_b != -1 &&
+      (*(int *)(&DAT_0073575c +
+               g_science_defs[g_science_editor_selected_science_id].prerequisite_science_b * 4 +
+               iVar1) != 2)))) {
+    g_science_editor_prerequisites_missing = 1;
   }
-  _DAT_00706f0c = (uint)(*(int *)(&DAT_0073575c + DAT_00716758 * 4 + iVar1) == 0);
+  g_science_editor_selected_status_unstarted =
+       (int)(*(int *)(&DAT_0073575c + g_science_editor_selected_science_id * 4 + iVar1) == 0);
   return;
 }

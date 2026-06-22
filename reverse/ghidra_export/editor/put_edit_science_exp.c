@@ -20,8 +20,8 @@ void Put_Edit_Science_Exp(void)
   iVar2 = DAT_005c611c;
   Font_Select(DAT_005dffbc,0x10,DAT_005dffb8,0x10);
   FUN_004f3e20(iVar2,iVar3,DAT_005c6124,DAT_005c6128,0,0xffffffff,0,0);
-  iVar4 = DAT_00716758;
-  if (DAT_00716758 < 0) {
+  iVar4 = g_science_editor_selected_science_id;
+  if (g_science_editor_selected_science_id < 0) {
     return;
   }
   Draw_Text_Centered(iVar2 + 0xc,iVar3 + 0xe,&DAT_0057386c,0xffffffff,DAT_0074c044 & 0xffff,

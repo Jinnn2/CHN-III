@@ -110,6 +110,9 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_country_profile_defs_edit_backup` | `Before_Edit_Empire_Hero` allocates `0x3070` bytes and copies all 100 `CountryProfileDef_0x7c` records before binding the editor controls. | Country profile editor undo/cancel backup. |
 | `g_flag_img_edit_backups` | `Before_Edit_Empire_Flag` allocates 100 temporary `0x100`-byte image blocks and copies each current flag image block; `After_Edit_Empire_Flag` compares them against live pixels and restores them on cancel. | Flag editor per-flag undo/cancel backups. |
 | `g_flag_editor_red_level` / `g_flag_editor_green_level` / `g_flag_editor_blue_level` | `MLP_Edit_Empire_Flag` maps mouse hits on three vertical palette strips to 8-pixel row ids and combines them through RGB-to-pixel tables. | Flag editor RGB level selectors. |
+| `g_science_editor_selected_science_id` | `Put_Edit_Science_Exp` displays the selected science's cost and unlocks; `Before_Edit_Science_Set` checks its status and prerequisites for the selected country. | Current science row selected in the editor. |
+| `g_science_priority_target_backup` | `Before_Edit_Science_Power` copies the 12 `g_science_priority_target_ids` before binding editable priority controls. | Science priority editor backup. |
+| `g_science_editor_prerequisites_met` / `g_science_editor_prerequisites_missing` | `Before_Edit_Science_Set` derives these from the selected science's two prerequisite ids and the selected country's science status array. | Science editor prerequisite-state flags. |
 | `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes, `NodeDelete_DataFormat` unlinks them, and `Del_DataFormat` removes all controls for one owner window/context. | Active window/form data-format linked list. |
 
 ## Editor And Startup
@@ -701,6 +704,12 @@ bindings, then cross-checked against `City_Building`, `City_Build_AI_Build_Able`
 `2` means known/completed, state `3` means blocked by prerequisites, and states
 `0`/`4` are treated by the editor as editable/unstarted-like states. State `1`
 is collected by `Science_Next` as available/current research.
+
+The science-status block begins at `CountryState +0x6a4` and is indexed as
+4-byte status words in editor and runtime science paths. Some later fields in
+`CountryState_0xe68` still overlap the broad 200-science access pattern in raw
+decompiler output, so the structure keeps only the strongly proven prefix typed
+until those mode fields are separated from save-format or union-like use.
 
 ### `CityResourceDef_0xd8`
 
