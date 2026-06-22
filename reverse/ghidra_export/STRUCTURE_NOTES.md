@@ -362,7 +362,7 @@ linked lists and grid pointers.
 | `+0x1c` | Incremented/reset during action animation in `Do_Battle_Army_And_Battle_Die`. | action frame. |
 | `+0x20` | Nonzero branches into movement/animation update paths. | moving or animating flag. |
 | `+0x24/+0x28` | Battle AI writes action ids/substates such as attack and movement choices. | action state and substate. |
-| `+0x2c` | Compared with `ArmyTypeDef.battle_step_frame_count`. | step frame. |
+| `+0x2c` | Compared with `ArmyTypeDef.battlefield_movement_frames`. | step frame. |
 | `+0x30` | Filled from map-unit strength chunks and capped at 100; UI and damage code read it as remaining strength. | strength chunk. |
 | `+0x34..0x3f` | Copied from `Map_To_Battle_Army` attack stat vector and read by battle resolution. | attack stats. |
 | `+0x40..0x4b` | Copied from `Map_To_Battle_Army` defense/support stat vector and read by battle resolution. | defense stats. |
@@ -402,42 +402,52 @@ higher ids.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x00` | `Put_City_Make` and table/UI paths skip zero entries. | enabled/display flag. |
-| `+0x04/+0x08/+0x14` | `Before_Edit_Army` binds these early dwords to editable list-style controls; gameplay uses are not yet isolated. | editor-visible classification/image values. |
-| `+0x0c` | `BattleArmy`, `Map_To_Battle_Army`, near-city scans, and battle resolution compare values `0`, `1`, and `2`. | unit class/domain. |
-| `+0x10` | `City_Building` reads this when completing unit production. | land/domain flag. |
+| `+0x00` | Editor label is image-file number; `Put_City_Make` and table/UI paths skip zero entries. | image resource id / enabled flag. |
+| `+0x04` | Editor label is usage permission. | usage permission. |
+| `+0x08` | `Before_Edit_Army` binds this early dword to an editable list-style control; gameplay use is not yet isolated. | editor-visible rank/group value. |
+| `+0x0c` | Editor label is army type class; `BattleArmy`, `Map_To_Battle_Army`, near-city scans, and battle resolution compare values `0`, `1`, and `2`. | unit class/domain. |
+| `+0x10` | Editor label is requisitioned population; `City_Building` subtracts this from city population when completing unit production, while some order paths reuse it as a land/name index. | conscripted population cost / related index. |
+| `+0x14..0x1e` | Editor label is army type name; UI and messages format this text from `g_army_type_table + id * 0x400 + 0x14`. | name bytes. |
 | `+0x2c` | `BattleArmy` copies it into battle record slot `0x16`. | battle sprite/effect id. |
 | `+0x38` | `City_View` uses it to select the unit image. | city-view image id. |
 | `+0x3c` | Battle action loops compare animation/action counters against it. | battle action frame count. |
+| `+0x4c/+0x70` | Editor labels are walk flag two and attack flag two. | secondary walk/attack flags. |
 | `+0x60` | `Load_Dat` validates mission `0x29` counter `ArmyUnit +0x12a` against it. | mission range limit. |
 | `+0x90` | `Load_Dat` validates idle class-2 mission counter against it. | special mission range limit. |
-| `+0xe8` | `Apply_OrderQueue_Army` plays this id through the sound helper for visible unit action transitions when the byte is nonnegative. | order/action sound id. |
-| `+0xec` | Unit production UI and AI classify/order unit choices with this late table field. | build priority / AI rank. |
-| `+0xf0` | `City_Building` and `Put_City_Make` compare city build progress against it. | build cost. |
+| `+0xe8/+0xe9/+0xec` | Editor labels are walking sound, attack sound, and death sound; `Apply_OrderQueue_Army` plays the walking sound id for visible movement transitions when nonnegative. | sound ids. |
+| `+0xf0` | Editor label is production cost; `City_Building` and `Put_City_Make` compare city build progress against it. | build cost. |
 | `+0xf4` | Derived by `Load_Dat` from the magnitude of `build_cost`. | build cost digit count/display width. |
-| `+0xf8/+0xfc/+0x100` | `Map_To_Battle_Army`, `BattleArmy`, production UI, and city threat logic use these as primary combat numbers. | attack/combat stats A/B/C. |
-| `+0x104/+0x108/+0x10c` | `Map_To_Battle_Army` mirrors these into defensive/support stat arrays. | defense/support stats A/B/C. |
-| `+0x110` | `Load_Dat` caches it into `ArmyUnit +0x138` after scaling; UI displays it divided by 9. | movement/speed. |
-| `+0x114` | Battle AI compares range/rank counters with this value. | battle minimum range / rank. |
-| `+0x118..` | Early indexes are used by battle class interactions; city support code can render later offsets from this base in Ghidra output. | combat/support value block. |
-| `+0x124` | Battle entry and unclear/offensive AI give special handling to values `1` and `2` when selecting or allowing defenders. | battle entry target class. |
-| `+0x128` | Battle entry paths compute rank-up retry thresholds as `3 << value`; value `1` also enables an alternate defender-scan path. | battle entry rank threshold shift. |
-| `+0x12c` | Transport validation in `Load_Dat`, `AI_Diplomat`, and `Map_To_Battle_Army` requires this to be nonzero for carriers. | transport capacity. |
-| `+0x130/+0x134` | Battle entry paths combine these flags with carried/subunit types and `transport_mask` when deciding defender interaction coverage. | battle entry capability flags. |
+| `+0xf8/+0xfc/+0x100` | Editor label for the block is attack ability; `Map_To_Battle_Army`, `BattleArmy`, production UI, and city threat logic use these as primary combat numbers. | attack/combat stats A/B/C. |
+| `+0x104/+0x108/+0x10c` | Editor label for the block is defense ability; `Map_To_Battle_Army` mirrors these into defensive/support stat arrays. | defense/support stats A/B/C. |
+| `+0x110` | Editor label is movement ability; `Load_Dat` caches it into `ArmyUnit +0x138` after scaling, and UI displays it divided by 9. | movement/speed. |
+| `+0x114/+0x118` | Editor labels are attack-nearest and attack-farthest preferences. | attack targeting preferences. |
+| `+0x120` | Editor label is search range; battle AI compares range/rank counters with this value. | search range. |
+| `+0x124` | Editor label is attack category; battle entry and unclear/offensive AI give special handling to values `1` and `2` when selecting or allowing defenders. | attack category. |
+| `+0x128` | Editor label is bombard attack. | bombard attack setting. |
+| `+0x12c` | Editor label is carrying quantity; transport validation in `Load_Dat`, `AI_Diplomat`, and `Map_To_Battle_Army` requires this to be nonzero for carriers. | transport capacity. |
+| `+0x130/+0x134` | Editor label for `+0x130` is attack target; battle entry paths combine these flags with carried/subunit types and `transport_mask` when deciding defender interaction coverage. | attack target / battle entry capability flags. |
 | `+0x138` | Load repair intersects this with carried-unit capability masks. | transport mask. |
-| `+0x13c` | `Order_Check`, `Order_Join_Sel`, `Order_Join_All`, and `AI_Army` require matching positive values before same-tile units can merge. | join group id. |
+| `+0x13c` | Editor label is merge type; `Order_Check`, `Order_Join_Sel`, `Order_Join_All`, and `AI_Army` require matching positive values before same-tile units can merge. | merge group type. |
 | `+0x140/+0x144` | Near-city/air and transport checks compare capability bitmasks through these fields. | capability / transportable masks. |
-| `+0x148` | `Add_New_View`, `BreakOut`, `Army_Belong_Change`, and the order applier pass this as the visibility/zone mask when adding or removing unit vision. | visibility zone mask. |
-| `+0x160` | `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battle step frame count. |
+| `+0x148` | Editor label is border influence; `Add_New_View`, `BreakOut`, `Army_Belong_Change`, and the order applier pass this as the visibility/zone mask when adding or removing unit vision. | border influence / visibility zone mask. |
+| `+0x14c` | Editor label is mountain movement. | mountain movement mode. |
+| `+0x160` | Editor label is battlefield movement; `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battlefield movement frame count. |
 | `+0x164/+0x184` | `City_Belong_Change` adds/removes shorts from city protection/resource counters while units are stationed. | city support deltas. |
-| `+0x1a4` | `City_Building_AI` compares this value between candidate unit types to bias production choice. | city AI unit weight. |
-| `+0x1b4/+0x1b8` | `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |
-| `+0x1c8` | `Do_Battle_Army_And_Battle_Die` changes attack action selection when this byte is greater than `1`. | battle attack mode. |
-| `+0x1cc` | `Do_Army_TurnJob`, `City_Resource_Change`, and keyboard/UI display paths recharge or show `ArmyUnit +0x132` against this limit. | supply/charge limit. |
-| `+0x1d4` | Battle entry paths pass it to the rank-up handler when a unit reaches veteran/power level `4`; negative values gate rank growth past level `3`. | elite rank reward or unlock. |
-| `+0x1d8` | Special battle entry path for army type `0x29` tests this with defender tile visibility before allowing interaction. | special visibility attack gate. |
+| `+0x1a4` | Editor label is production weight; `City_Building_AI` compares this value between candidate unit types to bias production choice. | production weight. |
+| `+0x1a8/+0x1ac/+0x1b0` | Editor labels are retired soldier types 1..3. | retired army type ids. |
+| `+0x1b4/+0x1b8` | Editor label is required building; `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |
+| `+0x1bc` | Editor label is fuel storage. | fuel capacity. |
+| `+0x1c0` | Editor label is long-wall movement. | long-wall movement mode. |
+| `+0x1c8` | Editor label is capturable; option list distinguishes cannot be captured, capturable, and capture-only. | capture mode. |
+| `+0x1cc` | Editor label is hunger/endurance turns; `Do_Army_TurnJob`, `City_Resource_Change`, and keyboard/UI display paths recharge or show `ArmyUnit +0x132` against this limit. | supply or hunger turn limit. |
+| `+0x1d4` | Editor label is upgraded army type; battle entry paths pass it to the rank-up handler when a unit reaches veteran/power level `4`. | upgrade army type id. |
+| `+0x1d8` | Editor label is submarine reconnaissance; special battle entry path for army type `0x29` tests this with defender tile visibility before allowing interaction. | submarine reconnaissance setting. |
+| `+0x1dc` | Editor label is custom naming. | custom name mode. |
+| `+0x1e0..0x1e6` | Editor label is default name. | default name bytes. |
+| `+0x1e8/+0x1ec/+0x1f0` | Editor labels are repair ability, maximum repair, and repair speed. | repair settings. |
+| `+0x1f4` | Editor label is merge/reorganize. | merge/reorganize mode. |
 | `+0x1f8..` | `Put_City_Make` compares 40 resource slots against city/country resource availability. | resource cost by kind. |
-| `+0x298/+0x29c` | `Before_Edit_Army` exposes these fields; `Do_Battle_Army_And_Battle_Die` compares battle counters against them. | battle counter limits. |
+| `+0x298/+0x29c` | Editor labels are attack speed and post-attack delay; `Do_Battle_Army_And_Battle_Die` compares battle counters against them. | attack speed / post-attack delay. |
 
 ### `City_0x1b8_plus`
 

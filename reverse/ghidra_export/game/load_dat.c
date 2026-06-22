@@ -335,9 +335,9 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       piVar9 = DAT_00707920;
       pAVar30 = g_army_type_table;
       for (iVar6 = 0x5b00; iVar6 != 0; iVar6 = iVar6 + -1) {
-        pAVar30->is_enabled_or_displayed = *piVar9;
+        pAVar30->image_resource_id_or_enabled = *piVar9;
         piVar9 = piVar9 + 1;
-        pAVar30 = (ArmyTypeDef_0x400 *)&pAVar30->editor_icon_or_class_value;
+        pAVar30 = (ArmyTypeDef_0x400 *)&pAVar30->usage_permission;
       }
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x16c00);
       iVar6 = 0x5b;
@@ -998,7 +998,7 @@ LAB_004744e0:
       pbVar26 = (byte *)&DAT_00572c8c;
       uStack_560 = *DAT_00707920;
       uStack_55c = CONCAT31(uStack_55c._1_3_,*(char *)((int)DAT_00707920 + 4));
-      DAT_0070792c = (ArmyTypeDef_0x400 *)((int)&DAT_0070792c->editor_icon_or_class_value + 1);
+      DAT_0070792c = (ArmyTypeDef_0x400 *)((int)&DAT_0070792c->usage_permission + 1);
       pbVar10 = (byte *)&uStack_560;
       do {
         bVar1 = *pbVar10;
@@ -2036,8 +2036,8 @@ LAB_00476278:
               for (pbVar10 = *(byte **)(&DAT_0074a05c + iVar6); pbVar10 != (byte *)0x0;
                   pbVar10 = *(byte **)(pbVar10 + 0x160)) {
                 if (*(int *)(pbVar10 + 0x154) == iVar17) {
-                  uVar15 = uVar15 + g_army_type_table[*pbVar10].combat_or_support_values
-                                    [piVar9[10] + 0x13];
+                  uVar15 = uVar15 + *(int *)(g_army_type_table[*pbVar10].default_name_bytes +
+                                            piVar9[10] * 4 + -0x7c);
                 }
               }
             }

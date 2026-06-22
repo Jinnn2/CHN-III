@@ -65,13 +65,13 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
   }
   if (army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
     if (army->mission_action_id == 3) {
-      iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
+      iVar8 = g_army_type_table[uVar7].submarine_recon_setting;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode_00 = 2;
     }
     else {
-      iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
+      iVar8 = g_army_type_table[uVar7].submarine_recon_setting;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode_00 = 1;
@@ -118,17 +118,17 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
   FUN_00471bf0(army);
   if (army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
     if (army->mission_action_id == 3) {
-      iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
+      iVar8 = g_army_type_table[uVar7].submarine_recon_setting;
       unit_class = g_army_type_table[uVar7].unit_class;
-      zone_mask = g_army_type_table[uVar7].visibility_zone_mask;
+      zone_mask = g_army_type_table[uVar7].border_influence_or_visibility_mask;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode = 2;
     }
     else {
-      iVar8 = g_army_type_table[uVar7].special_visibility_attack_gate;
+      iVar8 = g_army_type_table[uVar7].submarine_recon_setting;
       unit_class = g_army_type_table[uVar7].unit_class;
-      zone_mask = g_army_type_table[uVar7].visibility_zone_mask;
+      zone_mask = g_army_type_table[uVar7].border_influence_or_visibility_mask;
       sVar5 = army->tile_y;
       sVar6 = army->tile_x;
       view_radius_mode = 1;
@@ -137,8 +137,9 @@ void Army_Belong_Change(ArmyUnit_0x164_plus *army,int new_owner_country_id)
                  iVar8);
     if (army->mission_state != 0) {
       Add_New_View((int)army->render_or_anim_x,(int)army->render_or_anim_y,1,new_owner_country_id,0,
-                   g_army_type_table[uVar7].visibility_zone_mask,g_army_type_table[uVar7].unit_class
-                   ,g_army_type_table[uVar7].special_visibility_attack_gate);
+                   g_army_type_table[uVar7].border_influence_or_visibility_mask,
+                   g_army_type_table[uVar7].unit_class,
+                   g_army_type_table[uVar7].submarine_recon_setting);
     }
   }
   if ((uint)*(ushort *)(&DAT_00735262 + iVar3) + (uint)*(ushort *)(&DAT_00735134 + iVar3) == 0) {

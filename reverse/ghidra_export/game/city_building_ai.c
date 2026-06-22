@@ -616,15 +616,15 @@ LAB_00423967:
                       if (local_285 == '\0') {
                         if (0 < DAT_007068c4) {
                           if (((-1 < (int)local_28c) && (-1 < (int)local_280)) &&
-                             (0 < g_army_type_table[(int)local_280].city_ai_unit_weight)) {
+                             (0 < g_army_type_table[(int)local_280].production_weight)) {
                             iVar20 = (uint)*(ushort *)
                                             (g_active_country->capital_name_bytes +
                                             (int)local_280 * 2 + 0x42) *
-                                     g_army_type_table[(int)local_28c].city_ai_unit_weight;
+                                     g_army_type_table[(int)local_28c].production_weight;
                             iVar19 = (uint)*(ushort *)
                                             (g_active_country->capital_name_bytes +
                                             (int)local_28c * 2 + 0x42) *
-                                     g_army_type_table[(int)local_280].city_ai_unit_weight;
+                                     g_army_type_table[(int)local_280].production_weight;
                             iVar19 = ((iVar19 - iVar20 == 0 || iVar19 < iVar20) - 1 & 2) + 1;
                             goto LAB_00423ebc;
                           }

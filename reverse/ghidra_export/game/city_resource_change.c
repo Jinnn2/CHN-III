@@ -219,7 +219,8 @@ LAB_004265e9:
           pbVar2 = *(byte **)(&DAT_0074a05c + g_active_country_index * 4);
           while ((pbVar2 != (byte *)0x0 && (0 < iVar4))) {
             if (*(City_0x1b8_plus **)(pbVar2 + 0x154) == pCVar14) {
-              if ((int)(char)pbVar2[0x132] < g_army_type_table[*pbVar2].supply_charge_limit) {
+              if ((int)(char)pbVar2[0x132] < g_army_type_table[*pbVar2].supply_or_hunger_turn_limit)
+              {
                 pbVar2[0x132] = pbVar2[0x132] + 1;
                 pCVar14 = g_current_city;
               }

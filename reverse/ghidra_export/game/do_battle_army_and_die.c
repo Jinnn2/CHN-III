@@ -45,7 +45,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
   if (battle_unit->moving_or_animating != 0) {
     iVar19 = battle_unit->step_frame + 1;
     battle_unit->step_frame = iVar19;
-    if (iVar19 < g_army_type_table[iVar18].battle_step_frame_count) {
+    if (iVar19 < g_army_type_table[iVar18].battlefield_movement_frames) {
       return;
     }
     battle_unit->step_frame = 0;
@@ -84,8 +84,8 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
     if ((((g_army_type_table[iVar18].attack_stat_a < 2) &&
          (g_army_type_table[iVar18].attack_stat_b < 2)) &&
         (g_army_type_table[iVar18].attack_stat_c < 2)) ||
-       ('\x01' < (char)g_army_type_table[iVar18].battle_attack_mode)) goto LAB_00417738;
-    if (g_army_type_table[iVar18].combat_or_support_values[0] < 2) {
+       ('\x01' < (char)g_army_type_table[iVar18].capture_mode)) goto LAB_00417738;
+    if (g_army_type_table[iVar18].attack_farthest_preference < 2) {
       iVar18 = (&DAT_00513b08)[battle_unit->facing_or_direction] + battle_unit->battle_x;
       iVar19 = (&DAT_00513b28)[battle_unit->facing_or_direction] + battle_unit->battle_y;
       cVar6 = FUN_00415c90(iVar18,iVar19);
@@ -202,8 +202,8 @@ LAB_00417020:
     else {
       if ((battle_unit->battle_layer_or_unit_class_flag != 0) ||
          (g_army_type_table[iVar18].transport_mask != 0)) {
-        iVar20 = g_army_type_table[iVar18].battle_min_range_or_rank;
-        if (iVar20 <= g_army_type_table[iVar18].combat_or_support_values[0]) {
+        iVar20 = g_army_type_table[iVar18].attack_nearest_preference;
+        if (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference) {
           do {
             if (battle_unit->action_state != 0) goto LAB_0041630f;
             iVar12 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar20 +
@@ -242,7 +242,7 @@ LAB_00417020:
               }
             }
             iVar20 = iVar20 + 1;
-          } while (iVar20 <= g_army_type_table[iVar18].combat_or_support_values[0]);
+          } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference);
         }
         if (battle_unit->action_state == 0) {
           local_4c = -1;
@@ -250,7 +250,7 @@ LAB_00417020:
           do {
             if (battle_unit->action_state != 0) break;
             iVar20 = 1;
-            if (0 < g_army_type_table[iVar18].combat_or_support_values[0]) {
+            if (0 < g_army_type_table[iVar18].attack_farthest_preference) {
               do {
                 if (battle_unit->action_state != 0) break;
                 iVar12 = (&DAT_00513b08)[local_50] * iVar20 + battle_unit->battle_x;
@@ -266,7 +266,7 @@ LAB_00417020:
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
-                    if (iVar20 < g_army_type_table[iVar18].battle_min_range_or_rank) {
+                    if (iVar20 < g_army_type_table[iVar18].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else if (pBVar1->moving_or_animating == 0) {
@@ -284,7 +284,7 @@ LAB_00417020:
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
-                    if (iVar20 < g_army_type_table[iVar18].battle_min_range_or_rank) {
+                    if (iVar20 < g_army_type_table[iVar18].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else {
@@ -296,7 +296,7 @@ LAB_00417020:
                   }
                 }
                 iVar20 = iVar20 + 1;
-              } while (iVar20 <= g_army_type_table[iVar18].combat_or_support_values[0]);
+              } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference);
             }
             local_50 = local_50 + 1;
           } while (local_50 < 8);
@@ -454,8 +454,8 @@ LAB_0041630f:
         }
       }
       if (battle_unit->action_state == 0) {
-        iVar20 = g_army_type_table[iVar18].battle_min_range_or_rank;
-        if (iVar20 <= g_army_type_table[iVar18].combat_or_support_values[0] + 1) {
+        iVar20 = g_army_type_table[iVar18].attack_nearest_preference;
+        if (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference + 1) {
           do {
             if (battle_unit->action_state != 0) goto LAB_00416c73;
             iVar12 = (&DAT_00513b08)[battle_unit->facing_or_direction] * iVar20 +
@@ -479,9 +479,8 @@ LAB_0041630f:
                      ((battle_unit->army_type_id != 0x1b && (battle_unit->army_type_id != 0x1d)))) {
                     if ((((*(int *)(iVar12 * 0x400 + 0x5aa3f8 + iVar19 * 4) == 0) ||
                          ((*(int *)(iVar12 * 0x400 + 0x5aa3c0 + iVar19 * 4) < 4 ||
-                          (iVar20 <= g_army_type_table[iVar12].combat_or_support_values[0])))) ||
-                        (iVar20 < 3)) ||
-                       ('\x01' < (char)g_army_type_table[iVar12].battle_attack_mode)) {
+                          (iVar20 <= g_army_type_table[iVar12].attack_farthest_preference)))) ||
+                        (iVar20 < 3)) || ('\x01' < (char)g_army_type_table[iVar12].capture_mode)) {
                       battle_unit->action_state = 0x29;
                       battle_unit->action_substate = iVar20;
                     }
@@ -543,7 +542,7 @@ LAB_0041630f:
               }
             }
             iVar20 = iVar20 + 1;
-          } while (iVar20 <= g_army_type_table[iVar18].combat_or_support_values[0] + 1);
+          } while (iVar20 <= g_army_type_table[iVar18].attack_farthest_preference + 1);
         }
         if (battle_unit->action_state == 0) {
           local_4c = -1;
@@ -551,7 +550,7 @@ LAB_0041630f:
           do {
             if (battle_unit->action_state != 0) break;
             iVar19 = 1;
-            if (0 < g_army_type_table[iVar18].combat_or_support_values[0]) {
+            if (0 < g_army_type_table[iVar18].attack_farthest_preference) {
               do {
                 if (battle_unit->action_state != 0) break;
                 iVar20 = (&DAT_00513b08)[local_50] * iVar19 + battle_unit->battle_x;
@@ -567,7 +566,7 @@ LAB_0041630f:
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)))) &&
                      ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))) {
                     bVar21 = true;
-                    if (iVar19 < g_army_type_table[iVar18].battle_min_range_or_rank) {
+                    if (iVar19 < g_army_type_table[iVar18].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else if (pBVar1->moving_or_animating == 0) {
@@ -594,7 +593,7 @@ LAB_0041630f:
                        (g_battle_tile_has_object_by_side[pBVar1->battle_side] != 0)) &&
                       ((pBVar1->army_type_id != 0x29 || ((&DAT_005d91a4)[iVar17] == '\x01')))))) {
                     bVar21 = true;
-                    if (iVar19 < g_army_type_table[iVar18].battle_min_range_or_rank) {
+                    if (iVar19 < g_army_type_table[iVar18].attack_nearest_preference) {
                       local_4c = local_50;
                     }
                     else if ((iVar19 == 1) ||
@@ -613,7 +612,7 @@ LAB_0041630f:
                   }
                 }
                 iVar19 = iVar19 + 1;
-              } while (iVar19 <= g_army_type_table[iVar18].combat_or_support_values[0]);
+              } while (iVar19 <= g_army_type_table[iVar18].attack_farthest_preference);
             }
             local_50 = local_50 + 1;
           } while (local_50 < 8);
@@ -784,7 +783,7 @@ LAB_004170fb:
   case 6:
     iVar19 = battle_unit->step_frame + 1;
     battle_unit->step_frame = iVar19;
-    if (g_army_type_table[iVar18].battle_counter_limit_b <= iVar19) {
+    if (g_army_type_table[iVar18].post_attack_delay <= iVar19) {
       battle_unit->step_frame = 0;
       battle_unit->action_state = 0;
     }
@@ -818,7 +817,7 @@ LAB_0041740e:
           goto LAB_00417409;
           if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
-             (g_army_type_table[iVar18].battle_min_range_or_rank == 1)) {
+             (g_army_type_table[iVar18].attack_nearest_preference == 1)) {
             battle_unit->action_state = 0x29;
             battle_unit->action_substate = 1;
             battle_unit->step_frame = 0;
@@ -901,7 +900,7 @@ LAB_00417337:
           }
         }
         else if ((*(int *)(iVar8 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4
-                          ) < 2) || (g_army_type_table[iVar18].battle_min_range_or_rank != 1)) {
+                          ) < 2) || (g_army_type_table[iVar18].attack_nearest_preference != 1)) {
 LAB_00417409:
           battle_unit->action_state = 0;
         }
@@ -925,7 +924,7 @@ LAB_00417413:
           goto LAB_00417481;
           if ((1 < *(int *)(iVar8 + 0x5aa3c0 +
                            g_army_type_table[pBVar2->army_type_id].unit_class * 4)) &&
-             (g_army_type_table[iVar18].battle_min_range_or_rank == 1)) {
+             (g_army_type_table[iVar18].attack_nearest_preference == 1)) {
             battle_unit->action_state = 0x29;
             battle_unit->action_substate = 1;
             battle_unit->step_frame = 0;
@@ -1010,7 +1009,7 @@ LAB_00417602:
         }
       }
       else if ((*(int *)(iVar8 + 0x5aa3c0 + g_army_type_table[pBVar1->army_type_id].unit_class * 4)
-                < 2) || (g_army_type_table[iVar18].battle_min_range_or_rank != 1)) {
+                < 2) || (g_army_type_table[iVar18].attack_nearest_preference != 1)) {
 LAB_00417481:
         battle_unit->action_state = 0;
       }
@@ -1043,7 +1042,7 @@ LAB_00417738:
   case 0x29:
     iVar17 = battle_unit->step_frame + 1;
     battle_unit->step_frame = iVar17;
-    if (iVar17 < g_army_type_table[iVar18].battle_counter_limit_a) {
+    if (iVar17 < g_army_type_table[iVar18].attack_speed) {
       return;
     }
     battle_unit->step_frame = 0;
@@ -1070,17 +1069,17 @@ LAB_00417738:
         if ((&g_battle_grid_front_units)[iVar8 * 0xc] == (BattleUnit_0x64 *)0x0) {
           if ((&g_battle_grid_front_aux_units)[iVar8 * 0xc] != (BattleUnit_0x64 *)0x0) {
             battle_unit = (BattleUnit_0x64 *)
-                          g_army_type_table[6].combat_or_support_values
+                          (&g_army_type_table[6].attack_stat_a)
                           [g_army_type_table
-                           [(&g_battle_grid_front_aux_units)[iVar8 * 0xc]->army_type_id].unit_class
-                           + -8];
+                           [(&g_battle_grid_front_aux_units)[iVar8 * 0xc]->army_type_id].unit_class]
+            ;
           }
         }
         else {
           battle_unit = (BattleUnit_0x64 *)
-                        g_army_type_table[6].combat_or_support_values
+                        (&g_army_type_table[6].attack_stat_a)
                         [g_army_type_table[(&g_battle_grid_front_units)[iVar8 * 0xc]->army_type_id].
-                         unit_class + -8];
+                         unit_class];
         }
       }
       puVar13 = (undefined2 *)FUN_0047de30(0x3fc,s_Stone_00514910,0x11);
@@ -1111,7 +1110,7 @@ LAB_00417738:
       return;
     }
     iVar17 = iVar17 + iVar20 * 0x18;
-    if (g_army_type_table[iVar18].combat_or_support_values[1] != 0) {
+    if (*(int *)&g_army_type_table[iVar18].field_0x11c != 0) {
       (&g_battle_grid_update_markers)[iVar17 * 0xc] = 0;
     }
     uVar16 = (undefined2)((uint)(g_army_type_table + iVar18) >> 0x10);
@@ -1137,7 +1136,7 @@ LAB_00417738:
           if (pBVar2->defense_stats[2] < 1) {
             iVar14 = 1;
           }
-          else if (g_army_type_table[iVar18].combat_or_support_values[0] == 1) {
+          else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
             iVar14 = pBVar2->facing_or_direction;
             if (iVar14 == battle_unit->facing_or_direction) {
               uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar14 >> 0x10),
@@ -1247,7 +1246,7 @@ LAB_00417c71:
       if (pBVar1->defense_stats[2] < 1) {
         iVar14 = 1;
       }
-      else if (g_army_type_table[iVar18].combat_or_support_values[0] == 1) {
+      else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
         iVar14 = pBVar1->facing_or_direction;
         if (iVar14 == battle_unit->facing_or_direction) {
           uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar14 >> 0x10),
@@ -1380,7 +1379,7 @@ LAB_00417c7f:
         if (pBVar2->defense_stats[iVar19] < 1) {
           iVar12 = 1;
         }
-        else if (g_army_type_table[iVar18].combat_or_support_values[0] == 1) {
+        else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
           iVar12 = pBVar2->facing_or_direction;
           if (iVar12 == battle_unit->facing_or_direction) {
             uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),
@@ -1526,7 +1525,7 @@ LAB_00417e6d:
       if (pBVar1->defense_stats[iVar19] < 1) {
         iVar12 = 1;
       }
-      else if (g_army_type_table[iVar18].combat_or_support_values[0] == 1) {
+      else if (g_army_type_table[iVar18].attack_farthest_preference == 1) {
         iVar12 = pBVar1->facing_or_direction;
         if (iVar12 == battle_unit->facing_or_direction) {
           uVar9 = FUN_004fbf50(CONCAT22((short)((uint)iVar12 >> 0x10),

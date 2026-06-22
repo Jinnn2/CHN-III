@@ -155,7 +155,7 @@ switchD_004d3107_default:
             puVar12 = puVar12 + 1;
           } while (iVar13 < 10);
         }
-        if (((DAT_00758850 < 0) && (1 < DAT_00758838->combat_or_support_values[0])) &&
+        if (((DAT_00758850 < 0) && (1 < DAT_00758838->attack_farthest_preference)) &&
            (('\0' < (char)pAVar18->field_0x50 &&
             (*(byte *)((int)&pAVar18->target_tile_y_or_anim_y + 1) != DAT_0075885c->owner_country_id
             )))) {
@@ -168,8 +168,8 @@ switchD_004d3107_default:
               if (iVar5 < 1) goto LAB_004d30ac;
               if (DAT_00758861 != '\0') goto switchD_004d3107_default;
               if ((byte *)*puVar12 != (byte *)0x0) {
-                if (DAT_00758838->combat_or_support_values
-                    [g_army_type_table[*(byte *)*puVar12].unit_class + 6] != 0) {
+                if ((&DAT_00758838->attack_target_mask)
+                    [g_army_type_table[*(byte *)*puVar12].unit_class] != 0) {
                   DAT_00758861 = '\x01';
                   goto switchD_004d3107_default;
                 }
@@ -216,7 +216,7 @@ LAB_004d30d6:
       }
 switchD_004d31ee_default:
       if (('\0' < (char)pAVar18->field_0x8) &&
-         (DAT_00758838->combat_or_support_values[(char)pAVar18->field_0x8 + 0xc] == 0)) {
+         ((&DAT_00758838->border_influence_or_visibility_mask)[(char)pAVar18->field_0x8] == 0)) {
         DAT_005cba3c = 1;
         cVar3 = FUN_0048d5d0(99);
         if (cVar3 == '\0') {
@@ -442,7 +442,7 @@ switchD_004d37a2_default:
     }
 switchD_004d38dc_default:
     if (('\0' < (char)pAVar18->field_0x8) &&
-       (DAT_00758838->combat_or_support_values[(char)pAVar18->field_0x8 + 0xc] == 0)) {
+       ((&DAT_00758838->border_influence_or_visibility_mask)[(char)pAVar18->field_0x8] == 0)) {
       DAT_005cba3c = 1;
       cVar3 = FUN_0048d5d0(100);
       if (cVar3 == '\0') {

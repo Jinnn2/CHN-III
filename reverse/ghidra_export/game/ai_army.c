@@ -249,7 +249,7 @@ void AI_Army(void)
         pAVar13 = (ArmyUnit_0x164_plus *)*puVar15;
         if ((pAVar13 != (ArmyUnit_0x164_plus *)0x0) && (pAVar13 != _DAT_00748ff0)) {
           if ((((pAVar13->mission_state == 0) &&
-               ((g_army_type_table[pAVar13->army_type_id].join_group_id == local_4 &&
+               ((g_army_type_table[pAVar13->army_type_id].merge_group_type == local_4 &&
                 (g_army_type_table[pAVar13->army_type_id].unit_class ==
                  *(int *)(_DAT_0074a0b8 + 0xc))))) && (pAVar13->mission_action_id == 0)) &&
              (pAVar13->transport_parent == (ArmyUnit_0x164_plus *)0x0)) {

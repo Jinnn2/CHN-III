@@ -45,7 +45,7 @@ byte JoinTo(ArmyUnit_0x164_plus *army,ArmyUnit_0x164_plus *target_army)
     army->cargo_or_subunit_count = 0;
   }
   Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                g_army_type_table[bVar2].special_visibility_attack_gate);
+                g_army_type_table[bVar2].submarine_recon_setting);
   army->transport_parent = target_army;
   if (target_army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
     army->transport_or_carrier_link = target_army;

@@ -505,100 +505,132 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(country);
 
         armyTypeDef = fixedStruct("ArmyTypeDef_0x400", 0x400);
-        replaceAt(armyTypeDef, 0x00, IntegerDataType.dataType, 4, "is_enabled_or_displayed",
-            "unit production UI skips rows where the first word is zero");
-        replaceAt(armyTypeDef, 0x04, IntegerDataType.dataType, 4, "editor_icon_or_class_value",
-            "Before_Edit_Army binds this early dword to a list-style editor control");
+        replaceAt(armyTypeDef, 0x00, IntegerDataType.dataType, 4, "image_resource_id_or_enabled",
+            "editor label is image-file number; unit production UI skips rows where the first word is zero");
+        replaceAt(armyTypeDef, 0x04, IntegerDataType.dataType, 4, "usage_permission",
+            "editor label is usage permission");
         replaceAt(armyTypeDef, 0x08, IntegerDataType.dataType, 4, "editor_rank_or_group_value",
             "Before_Edit_Army binds this early dword to a list-style editor control");
         replaceAt(armyTypeDef, 0x0c, IntegerDataType.dataType, 4, "unit_class",
-            "0=land, 1=air/naval-like, 2=special/transport-like in battle and near-city logic");
-        replaceAt(armyTypeDef, 0x10, IntegerDataType.dataType, 4, "land_or_domain_flag",
-            "city placement/building logic reads this early domain flag");
-        replaceAt(armyTypeDef, 0x14, IntegerDataType.dataType, 4, "editor_image_or_model_value",
-            "Before_Edit_Army binds this early dword to a list-style editor control");
+            "editor label is army type class; 0=land, 1=air/naval-like, 2=special/transport-like in battle and near-city logic");
+        replaceAt(armyTypeDef, 0x10, IntegerDataType.dataType, 4, "conscripted_population_cost",
+            "editor label is requisitioned population; City_Building subtracts this from city population when the unit is produced; some order paths reuse it as a land/name index");
+        replaceAt(armyTypeDef, 0x14, new ArrayDataType(CharDataType.dataType, 0x0b, 1), 0x0b,
+            "name_bytes", "editor label is army type name; UI and messages format this 11-byte text field");
         replaceAt(armyTypeDef, 0x2c, IntegerDataType.dataType, 4, "battle_sprite_or_effect_id",
             "BattleArmy copies this into battle unit slot 0x16");
         replaceAt(armyTypeDef, 0x38, IntegerDataType.dataType, 4, "city_view_image_id",
             "City_View scales this value to select the unit image");
         replaceAt(armyTypeDef, 0x3c, IntegerDataType.dataType, 4, "battle_action_frame_count",
             "battle movement/action loops compare their animation frame counter against it");
+        replaceAt(armyTypeDef, 0x4c, ByteDataType.dataType, 1, "walk_flag_b",
+            "editor label is walk flag two");
         replaceAt(armyTypeDef, 0x60, IntegerDataType.dataType, 4, "mission_range_limit",
             "Load_Dat validates mission counter 0x12a against it for mission 0x29");
+        replaceAt(armyTypeDef, 0x70, ByteDataType.dataType, 1, "attack_flag_b",
+            "editor label is attack flag two");
         replaceAt(armyTypeDef, 0x90, IntegerDataType.dataType, 4, "special_mission_range_limit",
             "Load_Dat validates type class 2 idle mission counter against it");
-        replaceAt(armyTypeDef, 0xe8, ByteDataType.dataType, 1, "order_action_sound_id",
-            "Apply_OrderQueue_Army plays this sound id for visible unit action transitions when nonnegative");
-        replaceAt(armyTypeDef, 0xec, IntegerDataType.dataType, 4, "build_priority_or_ai_rank",
-            "city build AI and production UI classify units through this late table field");
+        replaceAt(armyTypeDef, 0xe8, ByteDataType.dataType, 1, "walk_sound_id",
+            "editor label is walking sound; Apply_OrderQueue_Army plays this sound id for visible movement transitions when nonnegative");
+        replaceAt(armyTypeDef, 0xe9, ByteDataType.dataType, 1, "attack_sound_id",
+            "editor label is attack sound");
+        replaceAt(armyTypeDef, 0xec, ByteDataType.dataType, 1, "death_sound_id",
+            "editor label is death sound");
         replaceAt(armyTypeDef, 0xf0, IntegerDataType.dataType, 4, "build_cost",
-            "city production and Put_City_Make compare build_progress against this cost");
+            "editor label is production cost; city production and Put_City_Make compare build_progress against this cost");
         replaceAt(armyTypeDef, 0xf4, IntegerDataType.dataType, 4, "build_cost_digit_count",
             "Load_Dat derives this display helper from build_cost magnitude");
         replaceAt(armyTypeDef, 0xf8, IntegerDataType.dataType, 4, "attack_stat_a",
-            "Map_To_Battle_Army and BattleArmy use it as a primary combat stat");
+            "editor label is attack ability; Map_To_Battle_Army and BattleArmy use it as a primary combat stat");
         replaceAt(armyTypeDef, 0xfc, IntegerDataType.dataType, 4, "attack_stat_b",
             "Map_To_Battle_Army and BattleArmy use it as a second combat stat");
         replaceAt(armyTypeDef, 0x100, IntegerDataType.dataType, 4, "attack_stat_c",
             "Map_To_Battle_Army reads it through DAT_005aa3c8 offset");
         replaceAt(armyTypeDef, 0x104, IntegerDataType.dataType, 4, "defense_or_support_stat_a",
-            "Map_To_Battle_Army and production UI read it through DAT_005aa3cc offset");
+            "editor label is defense ability; Map_To_Battle_Army and production UI read it through DAT_005aa3cc offset");
         replaceAt(armyTypeDef, 0x108, IntegerDataType.dataType, 4, "defense_or_support_stat_b",
             "Map_To_Battle_Army reads it through DAT_005aa3d0 offset");
         replaceAt(armyTypeDef, 0x10c, IntegerDataType.dataType, 4, "defense_or_support_stat_c",
             "Map_To_Battle_Army reads it through DAT_005aa3d4 offset");
         replaceAt(armyTypeDef, 0x110, IntegerDataType.dataType, 4, "movement_or_speed",
-            "Load_Dat caches this divided/scaled value and battle arrangement compares it");
-        replaceAt(armyTypeDef, 0x114, IntegerDataType.dataType, 4, "battle_min_range_or_rank",
-            "battle AI compares this field against action counters");
-        replaceAt(armyTypeDef, 0x118, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
-            "combat_or_support_values", "battle resolution indexes early entries by defender unit class; city support code can render later offsets as distant indexes from this base");
-        replaceAt(armyTypeDef, 0x124, IntegerDataType.dataType, 4, "battle_entry_target_class",
-            "battle entry and AI target selection treat values 1 and 2 as special defender/priority classes");
-        replaceAt(armyTypeDef, 0x128, IntegerDataType.dataType, 4, "battle_entry_rank_threshold_shift",
-            "battle entry paths compute veteran/rank retry threshold as 3 shifted by this value");
+            "editor label is movement ability; Load_Dat caches this divided/scaled value and battle arrangement compares it");
+        replaceAt(armyTypeDef, 0x114, IntegerDataType.dataType, 4, "attack_nearest_preference",
+            "editor label is attack nearest");
+        replaceAt(armyTypeDef, 0x118, IntegerDataType.dataType, 4, "attack_farthest_preference",
+            "editor label is attack farthest");
+        replaceAt(armyTypeDef, 0x120, IntegerDataType.dataType, 4, "search_range",
+            "editor label is search range; battle AI compares this field against action counters");
+        replaceAt(armyTypeDef, 0x124, IntegerDataType.dataType, 4, "attack_category",
+            "editor label is attack category; battle entry and AI target selection treat values 1 and 2 as special defender/priority classes");
+        replaceAt(armyTypeDef, 0x128, IntegerDataType.dataType, 4, "bombard_attack_setting",
+            "editor label is bombard attack");
         replaceAt(armyTypeDef, 0x12c, IntegerDataType.dataType, 4, "transport_capacity",
-            "AI diplomat and load repair check this when validating carried units");
-        replaceAt(armyTypeDef, 0x130, IntegerDataType.dataType, 4, "battle_entry_capability_a",
-            "battle entry paths combine this with carried/subunit types when deciding defender interaction coverage");
+            "editor label is carrying quantity; AI diplomat and load repair check this when validating carried units");
+        replaceAt(armyTypeDef, 0x130, IntegerDataType.dataType, 4, "attack_target_mask",
+            "editor label is attack target; battle entry paths combine this with carried/subunit types when deciding defender interaction coverage");
         replaceAt(armyTypeDef, 0x134, IntegerDataType.dataType, 4, "battle_entry_capability_b",
             "battle entry paths combine this with carried/subunit types beside capability_a and transport_mask");
         replaceAt(armyTypeDef, 0x138, IntegerDataType.dataType, 4, "transport_mask",
             "load repair intersects this bitmask with carried unit capability masks");
-        replaceAt(armyTypeDef, 0x13c, IntegerDataType.dataType, 4, "join_group_id",
-            "join/order handlers require matching positive values before merging same-tile units");
+        replaceAt(armyTypeDef, 0x13c, IntegerDataType.dataType, 4, "merge_group_type",
+            "editor label is merge type; join/order handlers require matching positive values before merging same-tile units");
         replaceAt(armyTypeDef, 0x140, IntegerDataType.dataType, 4, "air_or_city_capability_mask",
             "near-city-with-air logic compares this with active unit capability masks");
         replaceAt(armyTypeDef, 0x144, IntegerDataType.dataType, 4, "transportable_mask",
             "AI diplomat checks parent transport capacity against this mask");
-        replaceAt(armyTypeDef, 0x148, IntegerDataType.dataType, 4, "visibility_zone_mask",
-            "Add_New_View and army ownership/visibility transitions use this as the zone mask argument");
-        replaceAt(armyTypeDef, 0x160, IntegerDataType.dataType, 4, "battle_step_frame_count",
-            "battle animation and auto-arrange compare step/action counters against this field");
+        replaceAt(armyTypeDef, 0x148, IntegerDataType.dataType, 4, "border_influence_or_visibility_mask",
+            "editor label is border influence; Add_New_View and army ownership/visibility transitions use this as the zone mask argument");
+        replaceAt(armyTypeDef, 0x14c, IntegerDataType.dataType, 4, "mountain_movement_mode",
+            "editor label is mountain movement");
+        replaceAt(armyTypeDef, 0x160, IntegerDataType.dataType, 4, "battlefield_movement_frames",
+            "editor label is battlefield movement; battle animation and auto-arrange compare step/action counters against this field");
         replaceAt(armyTypeDef, 0x164, ShortDataType.dataType, 2, "city_support_delta_a",
             "City_Belong_Change adds/removes this short while units are stationed in a city");
         replaceAt(armyTypeDef, 0x184, ShortDataType.dataType, 2, "city_support_delta_b",
             "City_Belong_Change adds/removes this short while units are stationed in a city");
-        replaceAt(armyTypeDef, 0x1a4, IntegerDataType.dataType, 4, "city_ai_unit_weight",
-            "City_Building_AI compares this weight between candidate unit types when selecting production");
+        replaceAt(armyTypeDef, 0x1a4, IntegerDataType.dataType, 4, "production_weight",
+            "editor label is production weight; City_Building_AI compares this weight between candidate unit types when selecting production");
+        replaceAt(armyTypeDef, 0x1a8, IntegerDataType.dataType, 4, "retired_army_type_id_a",
+            "editor label is retired soldier type 1");
+        replaceAt(armyTypeDef, 0x1ac, IntegerDataType.dataType, 4, "retired_army_type_id_b",
+            "editor label is retired soldier type 2");
+        replaceAt(armyTypeDef, 0x1b0, IntegerDataType.dataType, 4, "retired_army_type_id_c",
+            "editor label is retired soldier type 3");
         replaceAt(armyTypeDef, 0x1b4, IntegerDataType.dataType, 4, "prerequisite_building_a",
-            "Put_City_Make requires this completed unless -1, with several special cases");
+            "editor label is required building; Put_City_Make requires this completed unless -1, with several special cases");
         replaceAt(armyTypeDef, 0x1b8, IntegerDataType.dataType, 4, "prerequisite_building_b",
             "second building prerequisite for unit production");
-        replaceAt(armyTypeDef, 0x1c8, ByteDataType.dataType, 1, "battle_attack_mode",
-            "battle action selection treats values above 1 as a restricted/special attack mode");
-        replaceAt(armyTypeDef, 0x1cc, IntegerDataType.dataType, 4, "supply_charge_limit",
-            "Do_Army_TurnJob and city resource change recharge ArmyUnit +0x132 up to this limit");
-        replaceAt(armyTypeDef, 0x1d4, IntegerDataType.dataType, 4, "elite_rank_reward_or_unlock",
-            "battle entry paths pass this to the rank-up handler when a unit reaches veteran/power level 4; negative values gate rank growth past level 3");
-        replaceAt(armyTypeDef, 0x1d8, IntegerDataType.dataType, 4, "special_visibility_attack_gate",
-            "battle entry path for army type 0x29 tests this with defender tile visibility before allowing interaction");
+        replaceAt(armyTypeDef, 0x1bc, IntegerDataType.dataType, 4, "fuel_capacity",
+            "editor label is fuel storage");
+        replaceAt(armyTypeDef, 0x1c0, IntegerDataType.dataType, 4, "long_wall_movement_mode",
+            "editor label is long-wall movement");
+        replaceAt(armyTypeDef, 0x1c8, ByteDataType.dataType, 1, "capture_mode",
+            "editor label is capturable; option list distinguishes cannot be captured, capturable, and capture-only");
+        replaceAt(armyTypeDef, 0x1cc, IntegerDataType.dataType, 4, "supply_or_hunger_turn_limit",
+            "editor label is hunger/endurance turns; Do_Army_TurnJob and city resource change recharge ArmyUnit +0x132 up to this limit");
+        replaceAt(armyTypeDef, 0x1d4, IntegerDataType.dataType, 4, "upgrade_army_type_id",
+            "editor label is upgraded army type; battle entry paths pass this to the rank-up handler when a unit reaches veteran/power level 4");
+        replaceAt(armyTypeDef, 0x1d8, IntegerDataType.dataType, 4, "submarine_recon_setting",
+            "editor label is submarine reconnaissance; special battle entry path for army type 0x29 tests this with defender tile visibility");
+        replaceAt(armyTypeDef, 0x1dc, IntegerDataType.dataType, 4, "custom_name_mode",
+            "editor label is custom naming");
+        replaceAt(armyTypeDef, 0x1e0, new ArrayDataType(CharDataType.dataType, 7, 1), 7,
+            "default_name_bytes", "editor label is default name");
+        replaceAt(armyTypeDef, 0x1e8, IntegerDataType.dataType, 4, "repair_mode",
+            "editor label is repair ability");
+        replaceAt(armyTypeDef, 0x1ec, IntegerDataType.dataType, 4, "repair_maximum",
+            "editor label is maximum repair");
+        replaceAt(armyTypeDef, 0x1f0, IntegerDataType.dataType, 4, "repair_rate",
+            "editor label is repair speed");
+        replaceAt(armyTypeDef, 0x1f4, IntegerDataType.dataType, 4, "merge_reorganize_mode",
+            "editor label is merge/reorganize");
         replaceAt(armyTypeDef, 0x1f8, new ArrayDataType(IntegerDataType.dataType, 40, 4), 0xa0,
             "resource_cost_by_kind", "Put_City_Make compares these against country/city resource availability");
-        replaceAt(armyTypeDef, 0x298, IntegerDataType.dataType, 4, "battle_counter_limit_a",
-            "Do_Battle_Army_And_Battle_Die compares a battle counter against this late editor-exposed field");
-        replaceAt(armyTypeDef, 0x29c, IntegerDataType.dataType, 4, "battle_counter_limit_b",
-            "Do_Battle_Army_And_Battle_Die compares a battle counter against this late editor-exposed field");
+        replaceAt(armyTypeDef, 0x298, IntegerDataType.dataType, 4, "attack_speed",
+            "editor label is attack speed; Do_Battle_Army_And_Battle_Die compares a battle counter against this field");
+        replaceAt(armyTypeDef, 0x29c, IntegerDataType.dataType, 4, "post_attack_delay",
+            "editor label is post-attack delay; Do_Battle_Army_And_Battle_Die compares a battle counter against this field");
         replaceAt(armyTypeDef, 0x2c0, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,
             "country_or_profile_build_modifiers", "production UI reads this late per-country/profile block");
         resolve(armyTypeDef);
@@ -627,7 +659,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(battleUnit, 0x28, IntegerDataType.dataType, 4, "action_substate",
             "paired with action_state during attack/move decisions");
         replaceAt(battleUnit, 0x2c, IntegerDataType.dataType, 4, "step_frame",
-            "incremented against ArmyType.battle_step_frame_count");
+            "incremented against ArmyType.battlefield_movement_frames");
         replaceAt(battleUnit, 0x30, IntegerDataType.dataType, 4, "strength_chunk",
             "BattleArmy fills it from map unit strength and caps each chunk at 100");
         replaceAt(battleUnit, 0x34, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,

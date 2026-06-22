@@ -23,7 +23,7 @@ void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *st
   bVar1 = army->army_type_id;
   if (g_army_type_table[bVar1].unit_class == 0) {
     g_battle_land_units_by_side[side] = g_battle_land_units_by_side[side] + 1;
-    if ((g_army_type_table[bVar1].combat_or_support_values[0] < 2) &&
+    if ((g_army_type_table[bVar1].attack_farthest_preference < 2) &&
        (1 < g_army_type_table[bVar1].attack_stat_a)) {
       piVar3 = g_battle_ranged_land_units_by_side + side;
     }

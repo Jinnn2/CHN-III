@@ -71,8 +71,8 @@ void Battle_AutoArrange(int param_1,uint param_2)
         *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 0;
         DAT_005d91e8 = DAT_005d91e8 + 1;
       }
-      else if (g_army_type_table[iVar7].combat_or_support_values[0] < 2) {
-        if (g_army_type_table[iVar7].battle_step_frame_count < 2) {
+      else if (g_army_type_table[iVar7].attack_farthest_preference < 2) {
+        if (g_army_type_table[iVar7].battlefield_movement_frames < 2) {
           *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 6;
           DAT_005d9200 = DAT_005d9200 + 1;
@@ -88,7 +88,7 @@ void Battle_AutoArrange(int param_1,uint param_2)
           DAT_005d91f8 = DAT_005d91f8 + 1;
         }
       }
-      else if (g_army_type_table[iVar7].battle_step_frame_count < 5) {
+      else if (g_army_type_table[iVar7].battlefield_movement_frames < 5) {
         if (iVar8 < pBVar10->defense_stats[0]) {
           *(BattleUnit_0x64 **)(iVar6 + 4 + (int)DAT_005d9204) = pBVar10;
           *(undefined4 *)(iVar6 + (int)DAT_005d9204) = 3;
@@ -121,8 +121,8 @@ void Battle_AutoArrange(int param_1,uint param_2)
       iVar7 = pBVar1->attack_stats[0];
       pBVar10 = pBVar1->next_battle_unit;
       if ((4 < iVar7) || (4 < pBVar1->defense_stats[0])) {
-        if (g_army_type_table[iVar6].combat_or_support_values[0] < 2) {
-          if (g_army_type_table[iVar6].battle_step_frame_count < 4) {
+        if (g_army_type_table[iVar6].attack_farthest_preference < 2) {
+          if (g_army_type_table[iVar6].battlefield_movement_frames < 4) {
             local_4 = local_4 + 1;
           }
           else if (iVar7 < pBVar1->defense_stats[0]) {
@@ -132,7 +132,7 @@ void Battle_AutoArrange(int param_1,uint param_2)
             local_c = local_c + 1;
           }
         }
-        else if (g_army_type_table[iVar6].battle_step_frame_count < 5) {
+        else if (g_army_type_table[iVar6].battlefield_movement_frames < 5) {
           if (iVar7 < pBVar1->defense_stats[0]) {
             local_1c[3] = local_1c[3] + 1;
           }

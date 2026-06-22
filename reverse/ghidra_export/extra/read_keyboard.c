@@ -354,7 +354,7 @@ LAB_004b11d8:
                              ((g_army_type_table[bVar1].air_or_city_capability_mask &
                               *(uint *)(DAT_007584e4 + 0x144)) == 0)) {
                             if (((bVar1 != 0x3b) ||
-                                (g_army_type_table[0x3b].supply_charge_limit + -5 <=
+                                (g_army_type_table[0x3b].supply_or_hunger_turn_limit + -5 <=
                                  (int)(char)pbVar11[0x132])) ||
                                (((bVar1 = pbVar11[0x128], bVar1 != 3 &&
                                  ((bVar1 != 2 && (bVar1 != 0)))) && (bVar1 != 7))))

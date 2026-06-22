@@ -114,7 +114,7 @@ switchD_004095e1_default:
               do {
                 if (iVar6 < 1) break;
                 if ((byte *)*puVar7 != (byte *)0x0) {
-                  if (g_army_type_table[*(byte *)*puVar7].battle_entry_target_class == 2) {
+                  if (g_army_type_table[*(byte *)*puVar7].attack_category == 2) {
                     iVar8 = iVar8 + 100;
                   }
                   iVar6 = iVar6 + -1;

@@ -34,8 +34,8 @@ void Order_Join_Sel(void)
       pAVar2 = (ArmyUnit_0x164_plus *)*local_8;
       if (((pAVar2 != (ArmyUnit_0x164_plus *)0x0) && (pAVar2 != pAVar5)) &&
          ((pAVar2->transport_parent == (ArmyUnit_0x164_plus *)0x0 &&
-          (g_army_type_table[pAVar2->army_type_id].join_group_id == *(int *)(_DAT_0074a0b8 + 0x13c))
-          ))) {
+          (g_army_type_table[pAVar2->army_type_id].merge_group_type ==
+           *(int *)(_DAT_0074a0b8 + 0x13c))))) {
         *(ArmyUnit_0x164_plus **)(&DAT_00748ff4 + iVar7 * 0x28) = pAVar2;
         if (pAVar2->cargo_or_subunit_count != 0) {
           piVar6 = (int *)(&DAT_00748ff8 + iVar7 * 0x28);

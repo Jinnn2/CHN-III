@@ -75,10 +75,11 @@ LAB_004990bc:
     }
     if ((army->mission_action_id == 3) && (army->transport_parent == (ArmyUnit_0x164_plus *)0x0)) {
       Del_Army_View((int)army->tile_x,(int)army->tile_y,2,country_id,
-                    g_army_type_table[bVar2].special_visibility_attack_gate);
+                    g_army_type_table[bVar2].submarine_recon_setting);
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
-                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
-                   ,g_army_type_table[bVar2].special_visibility_attack_gate);
+                   g_army_type_table[bVar2].border_influence_or_visibility_mask,
+                   g_army_type_table[bVar2].unit_class,
+                   g_army_type_table[bVar2].submarine_recon_setting);
     }
     if (army->mission_action_id == 100) {
       *(undefined1 *)(local_14c + 0x1a) = 0xff;
@@ -152,7 +153,7 @@ LAB_004992cf:
           *pcVar25 = '\x01';
         }
         Del_Army_View((int)army->render_or_anim_x,(int)army->render_or_anim_y,1,country_id,
-                      g_army_type_table[bVar2].special_visibility_attack_gate);
+                      g_army_type_table[bVar2].submarine_recon_setting);
         army->mission_state = 0;
         if ((((army->mission_action_id != 0x36) && (army->mission_action_id != 0x35)) &&
             (cVar3 = army->field_0x19, -1 < cVar3)) &&
@@ -201,7 +202,7 @@ LAB_004992cf:
               army->field_0x12b = 0xff;
               pAVar24->cargo_or_subunit_count = pAVar24->cargo_or_subunit_count + 1;
               Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                            g_army_type_table[bVar2].special_visibility_attack_gate);
+                            g_army_type_table[bVar2].submarine_recon_setting);
               return;
             }
           }
@@ -234,10 +235,11 @@ LAB_004994cc:
         return;
       }
       Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                    g_army_type_table[bVar2].special_visibility_attack_gate);
+                    g_army_type_table[bVar2].submarine_recon_setting);
       Add_New_View((int)army->tile_x,(int)army->tile_y,2,country_id,0,
-                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
-                   ,g_army_type_table[bVar2].special_visibility_attack_gate);
+                   g_army_type_table[bVar2].border_influence_or_visibility_mask,
+                   g_army_type_table[bVar2].unit_class,
+                   g_army_type_table[bVar2].submarine_recon_setting);
       return;
     default:
       goto switchD_00499541_caseD_4;
@@ -311,7 +313,7 @@ LAB_00499f02:
       if (DAT_00755904 != 0) {
         return;
       }
-      if ((char)g_army_type_table[bVar2].order_action_sound_id < '\0') {
+      if ((char)g_army_type_table[bVar2].walk_sound_id < '\0') {
         return;
       }
       if ((int)army->tile_x < _DAT_0074a348 + -4) {
@@ -326,7 +328,7 @@ LAB_00499f02:
       if (_DAT_0074a350 + 0x12 < (int)army->tile_y) {
         return;
       }
-      FUN_0044d030((int)(char)g_army_type_table[bVar2].order_action_sound_id,100,0);
+      FUN_0044d030((int)(char)g_army_type_table[bVar2].walk_sound_id,100,0);
       return;
     case 0x25:
     case 0x27:
@@ -335,7 +337,7 @@ LAB_00499f02:
       if (DAT_00755904 != 0) {
         return;
       }
-      if ((char)g_army_type_table[bVar2].order_action_sound_id < '\0') {
+      if ((char)g_army_type_table[bVar2].walk_sound_id < '\0') {
         return;
       }
       if ((int)army->tile_x < _DAT_0074a348 + -4) {
@@ -350,7 +352,7 @@ LAB_00499f02:
       if (_DAT_0074a350 + 0x12 < (int)army->tile_y) {
         return;
       }
-      FUN_0044d030((int)(char)g_army_type_table[bVar2].order_action_sound_id,100,0);
+      FUN_0044d030((int)(char)g_army_type_table[bVar2].walk_sound_id,100,0);
       return;
     case 0x2c:
       army->mission_action_id = 0;
@@ -403,9 +405,9 @@ LAB_00499f02:
         army->render_or_anim_x = sVar19;
         army->render_or_anim_y = sVar21;
         Add_New_View((int)sVar19,(int)sVar21,1,country_id,0,
-                     g_army_type_table[bVar2].visibility_zone_mask,
+                     g_army_type_table[bVar2].border_influence_or_visibility_mask,
                      g_army_type_table[bVar2].unit_class,
-                     g_army_type_table[bVar2].special_visibility_attack_gate);
+                     g_army_type_table[bVar2].submarine_recon_setting);
         return;
       }
       Add_OrderQueue_Army(army,0,0x73,0x5f,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -518,7 +520,7 @@ LAB_004999c5:
       }
       if (army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
         Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                      g_army_type_table[bVar2].special_visibility_attack_gate);
+                      g_army_type_table[bVar2].submarine_recon_setting);
       }
       army->transport_parent = pAVar24;
       if (pAVar24->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
@@ -586,8 +588,9 @@ LAB_004999c5:
       army->mission_progress_counter = 0;
       army->render_or_anim_x = *(short *)&army->field_0x26;
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
-                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
-                   ,g_army_type_table[bVar2].special_visibility_attack_gate);
+                   g_army_type_table[bVar2].border_influence_or_visibility_mask,
+                   g_army_type_table[bVar2].unit_class,
+                   g_army_type_table[bVar2].submarine_recon_setting);
       if (army->cargo_or_subunit_count == 0) goto LAB_0049a14d;
       uVar11 = 0;
       local_144 = (int *)(local_14c + 0x28);
@@ -698,7 +701,7 @@ LAB_004999c5:
         pAVar24->cargo_or_subunit_count = pAVar24->cargo_or_subunit_count + 1;
       }
       Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                    g_army_type_table[bVar2].special_visibility_attack_gate);
+                    g_army_type_table[bVar2].submarine_recon_setting);
       return;
     case 0x50:
       JoinTo(army,pAVar24);
@@ -718,8 +721,9 @@ LAB_004999c5:
            (short)g_army_type_table[bVar2].movement_or_speed *
            (short)g_current_map_scenario_info.movement_base;
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
-                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
-                   ,g_army_type_table[bVar2].special_visibility_attack_gate);
+                   g_army_type_table[bVar2].border_influence_or_visibility_mask,
+                   g_army_type_table[bVar2].unit_class,
+                   g_army_type_table[bVar2].submarine_recon_setting);
       return;
     case 0x53:
       army->transport_parent = (ArmyUnit_0x164_plus *)0x0;
@@ -731,8 +735,9 @@ LAB_004999c5:
            (short)g_current_map_scenario_info.movement_base;
       Apply_OrderQueue_Army(army,0,-1,0x5e,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
-                   g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
-                   ,g_army_type_table[bVar2].special_visibility_attack_gate);
+                   g_army_type_table[bVar2].border_influence_or_visibility_mask,
+                   g_army_type_table[bVar2].unit_class,
+                   g_army_type_table[bVar2].submarine_recon_setting);
       return;
     case 0x5f:
       g_map_interaction_mode = 0x11;
@@ -794,7 +799,7 @@ switchD_00499541_caseD_47:
   }
   if (army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
     Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                  g_army_type_table[bVar2].special_visibility_attack_gate);
+                  g_army_type_table[bVar2].submarine_recon_setting);
   }
   army->transport_parent = pAVar24;
   if (pAVar24->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
@@ -833,7 +838,7 @@ LAB_004999e7:
   if (pAVar4 != (ArmyUnit_0x164_plus *)0x0) {
     if (pAVar4 == army) {
       Del_Army_View((int)pAVar4->tile_x,(int)pAVar4->tile_y,1,(int)(char)pAVar4->owner_country_id,
-                    g_army_type_table[pAVar4->army_type_id].special_visibility_attack_gate);
+                    g_army_type_table[pAVar4->army_type_id].submarine_recon_setting);
       pAVar4->transport_parent = pAVar24;
     }
     else if (pAVar4->transport_or_carrier_link != army) goto LAB_00499ac4;
@@ -934,9 +939,9 @@ LAB_0049af08:
       pbVar6[0x21] = 0xff;
       if (*(int *)(pbVar6 + 0x144) == 0) {
         Add_New_View((int)*(short *)(pbVar6 + 0x1a),(int)*(short *)(pbVar6 + 0x1c),1,country_id,0,
-                     g_army_type_table[bVar2].visibility_zone_mask,
+                     g_army_type_table[bVar2].border_influence_or_visibility_mask,
                      g_army_type_table[bVar2].unit_class,
-                     g_army_type_table[bVar2].special_visibility_attack_gate);
+                     g_army_type_table[bVar2].submarine_recon_setting);
       }
       local_144 = (int *)((int)local_144 + 1);
       if (local_144 == (int *)(uint)army->cargo_or_subunit_count) break;
@@ -984,13 +989,13 @@ LAB_0049a0db:
     local_144 = local_144 + 1;
   } while ((int)local_148 < 10);
 LAB_0049a14d:
-  iVar20 = (int)(short)pAVar22->land_or_domain_flag;
+  iVar20 = (int)(short)pAVar22->conscripted_population_cost;
   if (*(char *)((int)g_land_record_buffers[country_id] + iVar20 * 4) != '\0') {
     return;
   }
   NewLand_Name(iVar20,target_x,target_y);
-  *(undefined1 *)((int)g_land_record_buffers[country_id] + (short)pAVar22->land_or_domain_flag * 4)
-       = 1;
+  *(undefined1 *)
+   ((int)g_land_record_buffers[country_id] + (short)pAVar22->conscripted_population_cost * 4) = 1;
   Add_New_Explode(country_id,sVar19,sVar21);
   return;
   while( true ) {
@@ -1000,7 +1005,7 @@ LAB_0049a14d:
 LAB_0049ac90:
     if (*piVar15 == 0) {
       army->field_0x19 = (char)iVar20;
-      *(ArmyUnit_0x164_plus **)(&pAVar22->field_0x54 + iVar20 * 4) = army;
+      *(ArmyUnit_0x164_plus **)(pAVar22->name_bytes + iVar20 * 4 + 0x40) = army;
       break;
     }
   }
@@ -1015,7 +1020,7 @@ LAB_0049ac90:
         do {
           if (*piVar15 == 0) {
             *(char *)(iVar20 + 0x19) = (char)iVar12;
-            *(int *)(&pAVar22->field_0x54 + iVar12 * 4) = iVar20;
+            *(int *)(pAVar22->name_bytes + iVar12 * 4 + 0x40) = iVar20;
             break;
           }
           iVar12 = iVar12 + 1;
@@ -1033,7 +1038,7 @@ LAB_0049ac90:
               do {
                 if (*piVar10 == 0) {
                   *(char *)(iVar13 + 0x19) = (char)iVar14;
-                  *(int *)(&pAVar22->field_0x54 + iVar14 * 4) = iVar13;
+                  *(int *)(pAVar22->name_bytes + iVar14 * 4 + 0x40) = iVar13;
                   pAVar22->field_0x7c = pAVar22->field_0x7c + '\x01';
                   break;
                 }
@@ -1053,8 +1058,9 @@ LAB_0049ac90:
     } while (local_134 != 0);
   }
   Add_New_View((int)army->render_or_anim_x,(int)army->render_or_anim_y,1,country_id,0,
-               g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class,
-               g_army_type_table[bVar2].special_visibility_attack_gate);
+               g_army_type_table[bVar2].border_influence_or_visibility_mask,
+               g_army_type_table[bVar2].unit_class,g_army_type_table[bVar2].submarine_recon_setting)
+  ;
   return;
   while( true ) {
     uVar11 = uVar11 - 1;
@@ -1163,7 +1169,7 @@ LAB_00499bf4:
   pAVar24->cargo_or_subunit_count =
        pAVar24->cargo_or_subunit_count + army->cargo_or_subunit_count + 1;
   Del_Army_View((int)army->tile_x,(int)army->tile_y,1,country_id,
-                g_army_type_table[bVar2].special_visibility_attack_gate);
+                g_army_type_table[bVar2].submarine_recon_setting);
   if (army == _DAT_00748ff0) {
     army->map_presence_or_cargo_state = 3;
     return;
@@ -1188,7 +1194,8 @@ LAB_0049a53d:
   }
   uVar8 = DAT_00748e34;
   local_14c = iVar12;
-  if ((g_army_type_table[bVar2].visibility_zone_mask == 0) || (country_id == 0)) goto LAB_0049a71a;
+  if ((g_army_type_table[bVar2].border_influence_or_visibility_mask == 0) || (country_id == 0))
+  goto LAB_0049a71a;
   iVar13 = (int)*(char *)(iVar12 + 0x25);
   if (iVar13 < 0) {
     *(byte *)(iVar12 + 0x25) = bVar1;
@@ -1231,9 +1238,10 @@ LAB_0049a717:
     }
   }
 LAB_0049a71a:
-  Add_New_View(target_x,target_y,1,country_id,0,g_army_type_table[bVar2].visibility_zone_mask,
-               g_army_type_table[bVar2].unit_class,
-               g_army_type_table[bVar2].special_visibility_attack_gate);
+  Add_New_View(target_x,target_y,1,country_id,0,
+               g_army_type_table[bVar2].border_influence_or_visibility_mask,
+               g_army_type_table[bVar2].unit_class,g_army_type_table[bVar2].submarine_recon_setting)
+  ;
   if (*(char *)((int)g_land_record_buffers[country_id] + *(short *)(local_14c + 0x10) * 4) != '\0')
   {
     return;

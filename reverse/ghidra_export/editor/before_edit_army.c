@@ -27,11 +27,11 @@ void Before_Edit_Army(void)
   pAVar7 = g_army_type_table;
   piVar10 = _DAT_00706ae0;
   for (iVar4 = 0x5b00; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *piVar10 = pAVar7->is_enabled_or_displayed;
-    pAVar7 = (ArmyTypeDef_0x400 *)&pAVar7->editor_icon_or_class_value;
+    *piVar10 = pAVar7->image_resource_id_or_enabled;
+    pAVar7 = (ArmyTypeDef_0x400 *)&pAVar7->usage_permission;
     piVar10 = piVar10 + 1;
   }
-  pcVar3 = (char *)((int)&g_army_type_table[0].build_priority_or_ai_rank + 1);
+  pcVar3 = &g_army_type_table[0].field_0xed;
   iVar4 = 0x5b;
   do {
     if (pcVar3[-3] < '\x01') {

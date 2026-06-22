@@ -72,7 +72,7 @@ void City_Building(void)
         (int)(char)g_current_city_land_tile->army_count_or_occupant_count < 10) {
       iVar15 = 10000;
       if (g_current_city->forced_worker_mode != 0) {
-        iVar15 = g_army_type_table[iVar14].land_or_domain_flag;
+        iVar15 = g_army_type_table[iVar14].conscripted_population_cost;
       }
       iVar9 = g_current_city->stored_population_or_value;
       if (iVar9 < iVar15) {

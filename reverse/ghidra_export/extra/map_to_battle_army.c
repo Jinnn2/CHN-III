@@ -186,7 +186,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
     local_70 = 0;
     if ((local_28 != 2) && (g_battle_attacker_land_tile->linked_record != (void *)0x0)) {
       if (((uVar10 == 9) || ((uVar10 == 6 || (uVar10 == 0x30)))) &&
-         (1 < g_army_type_table[uVar10].combat_or_support_values[0])) {
+         (1 < g_army_type_table[uVar10].attack_farthest_preference)) {
         local_5c = iVar13;
         local_58 = iVar21;
         local_54 = iVar16;
@@ -395,7 +395,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
              (g_battle_attacker_land_tile->linked_record != (void *)0x0)) {
             if (((local_30 == (void *)0x9) ||
                 ((local_30 == (void *)0x6 || (local_30 == (void *)0x30)))) &&
-               (1 < g_army_type_table[(int)local_30].combat_or_support_values[0])) {
+               (1 < g_army_type_table[(int)local_30].attack_farthest_preference)) {
               local_5c = iVar13;
               local_58 = iVar14;
               local_54 = iVar5;
@@ -625,7 +625,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
             if ((local_4 != 2) && (local_30 != (void *)0x0)) {
               if (((local_34 == (ArmyTypeDef_0x400 *)0x9) ||
                   ((local_34 == (ArmyTypeDef_0x400 *)0x6 || (local_34 == (ArmyTypeDef_0x400 *)0x30))
-                  )) && (1 < local_2c->combat_or_support_values[0])) {
+                  )) && (1 < local_2c->attack_farthest_preference)) {
                 local_5c = iVar5;
                 local_58 = iVar6;
                 local_54 = iVar18;

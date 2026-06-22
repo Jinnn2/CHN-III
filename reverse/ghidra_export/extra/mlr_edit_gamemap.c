@@ -156,7 +156,7 @@ joined_r0x004b723a:
           FUN_00469f90(&DAT_0057f688,1);
           return;
         }
-        if (g_army_type_table[0x44].editor_icon_or_class_value == 0) {
+        if (g_army_type_table[0x44].usage_permission == 0) {
           *(undefined1 *)(iVar11 + 0x735b2b) = 1;
         }
         FUN_00479620(g_editor_selected_country_id,0x44,g_editor_cursor_tile_x,g_editor_cursor_tile_y
@@ -215,7 +215,7 @@ LAB_004b71a9:
       if (*local_18 == 0) {
         FUN_004b7b60(g_editor_selected_country_id,local_18[1],1);
       }
-      if (g_army_type_table[iVar10].editor_icon_or_class_value == 0) {
+      if (g_army_type_table[iVar10].usage_permission == 0) {
         pbVar16[iVar10 + 0xa2f] = 1;
         FUN_004785c0();
       }

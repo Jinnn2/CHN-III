@@ -137,7 +137,7 @@ void Start_Map_Battle_From_Army(ArmyUnit_0x164_plus *param_1)
   }
   param_1->mission_progress_counter = 0;
   uVar16 = (uint)param_1->cargo_or_subunit_count;
-  aiStack_34[0] = g_army_type_table[uVar15].battle_entry_capability_a;
+  aiStack_34[0] = g_army_type_table[uVar15].attack_target_mask;
   aiStack_34[2] = g_army_type_table[uVar15].transport_mask;
   aiStack_34[1] = g_army_type_table[uVar15].battle_entry_capability_b;
   if (((uVar16 != 0) && (g_army_type_table[uVar15].transport_capacity == 0)) &&
@@ -150,7 +150,7 @@ void Start_Map_Battle_From_Army(ArmyUnit_0x164_plus *param_1)
       if (((pAVar3 != (ArmyUnit_0x164_plus *)0x0) && (pAVar3 != param_1)) &&
          (pAVar3->transport_parent == param_1)) {
         bVar13 = pAVar3->army_type_id;
-        if ((aiStack_34[0] == 0) && (g_army_type_table[bVar13].battle_entry_capability_a != 0)) {
+        if ((aiStack_34[0] == 0) && (g_army_type_table[bVar13].attack_target_mask != 0)) {
           aiStack_34[0] = 1;
         }
         if ((aiStack_34[1] == 0) && (g_army_type_table[bVar13].battle_entry_capability_b != 0)) {
@@ -184,11 +184,11 @@ void Start_Map_Battle_From_Army(ArmyUnit_0x164_plus *param_1)
              == 0)))) {
           bVar13 = pAVar3->army_type_id;
           if (((bVar13 == 0x29) &&
-              ((g_army_type_table[uVar15].special_visibility_attack_gate == 0 &&
+              ((g_army_type_table[uVar15].submarine_recon_setting == 0 &&
                (g_battle_defender_land_tile->secondary_visible_or_excluded_by_country[iVar21 + 0x16]
                 == 0)))) || (aiStack_34[g_army_type_table[bVar13].unit_class] == 0)) {
-            if (g_army_type_table[bVar13].combat_or_support_values
-                [g_army_type_table[uVar15].unit_class + 6] == 0) goto LAB_0040b985;
+            if ((&g_army_type_table[bVar13].attack_target_mask)
+                [g_army_type_table[uVar15].unit_class] == 0) goto LAB_0040b985;
             if ((pAVar3->mission_action_id == 0x24) || (pAVar3->mission_action_id == 0x26)) {
               Add_OrderQueue_Army(pAVar3,0,-1,3,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
             }
@@ -236,7 +236,7 @@ LAB_0040b985:
         iVar19 = iVar19 + 4;
       } while (iVar19 < 0x50);
     }
-    if (g_army_type_table[uVar15].battle_entry_rank_threshold_shift == 1) {
+    if (g_army_type_table[uVar15].bombard_attack_setting == 1) {
       iStack_6c = 0;
       iStack_4c = (int)(char)g_battle_defender_land_tile->army_count_or_occupant_count;
       do {
@@ -369,12 +369,11 @@ LAB_0040b985:
               }
               if ((char)pAVar3->strength_or_health < '\x01') {
                 FUN_0040d230(pAVar3,2);
-                iVar30 = g_army_type_table[uVar15].elite_rank_reward_or_unlock;
+                iVar30 = g_army_type_table[uVar15].upgrade_army_type_id;
                 if ((param_1->veteran_level_or_power_shift < 3) || (-1 < iVar30)) {
                   bVar13 = param_1->battle_entry_retry_counter + 1;
                   param_1->battle_entry_retry_counter = bVar13;
-                  iVar26 = 3 << ((byte)g_army_type_table[uVar15].battle_entry_rank_threshold_shift &
-                                0x1f);
+                  iVar26 = 3 << ((byte)g_army_type_table[uVar15].bombard_attack_setting & 0x1f);
                   if (_DAT_00749d00 == iVar21) {
                     iVar26 = iVar26 + -1;
                   }
@@ -602,7 +601,7 @@ LAB_0040cb46:
             bVar11 = true;
           }
           iVar26 = g_army_type_table[uVar27].unit_class;
-          if (((((iVar26 != 0) || (g_army_type_table[uVar15].battle_entry_capability_a == 0)) &&
+          if (((((iVar26 != 0) || (g_army_type_table[uVar15].attack_target_mask == 0)) &&
                ((iVar26 != 1 ||
                 ((g_army_type_table[uVar15].battle_entry_capability_b == 0 &&
                  (g_battle_defender_land_tile->linked_record == (void *)0x0)))))) &&
@@ -611,7 +610,7 @@ LAB_0040cb46:
                 (g_battle_defender_land_tile->linked_record == (void *)0x0)))))) ||
              ((bVar11 ||
               ((pAVar8 != (ArmyUnit_0x164_plus *)0x0 &&
-               (g_army_type_table[uVar27].battle_entry_target_class != 1)))))) goto LAB_0040cf2e;
+               (g_army_type_table[uVar27].attack_category != 1)))))) goto LAB_0040cf2e;
           iVar26 = 0;
           if (g_army_type_table[uVar15].unit_class == 0) {
             if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {
@@ -645,12 +644,11 @@ LAB_0040cb46:
           }
           if ((char)pAVar3->strength_or_health < '\x01') {
             FUN_0040d230(pAVar3,2);
-            iVar30 = g_army_type_table[uVar15].elite_rank_reward_or_unlock;
+            iVar30 = g_army_type_table[uVar15].upgrade_army_type_id;
             if ((param_1->veteran_level_or_power_shift < 3) || (-1 < iVar30)) {
               bVar13 = param_1->battle_entry_retry_counter + 1;
               param_1->battle_entry_retry_counter = bVar13;
-              iVar26 = 3 << ((byte)g_army_type_table[uVar15].battle_entry_rank_threshold_shift &
-                            0x1f);
+              iVar26 = 3 << ((byte)g_army_type_table[uVar15].bombard_attack_setting & 0x1f);
               if (_DAT_00749d00 == iVar21) {
                 iVar26 = iVar26 + -1;
               }
@@ -865,13 +863,12 @@ LAB_0040cf2e:
               else {
                 bVar13 = (byte)((*piStack_58 * 100) / 800);
                 pbVar6[0x12f] = bVar13;
-                iVar29 = g_army_type_table[*pbVar6].elite_rank_reward_or_unlock;
+                iVar29 = g_army_type_table[*pbVar6].upgrade_army_type_id;
                 if ((pbVar6[0x131] < 3) || (-1 < iVar29)) {
                   bVar18 = pbVar6[0x130] + 1;
                   pbVar6[0x130] = bVar18;
                   iStack_48 = CONCAT31(iStack_48._1_3_,bVar18);
-                  iVar30 = 3 << ((byte)g_army_type_table[*pbVar6].battle_entry_rank_threshold_shift
-                                & 0x1f);
+                  iVar30 = 3 << ((byte)g_army_type_table[*pbVar6].bombard_attack_setting & 0x1f);
                   if (_DAT_00749d00 == iVar21) {
                     iVar30 = iVar30 + -1;
                   }
@@ -958,13 +955,12 @@ LAB_0040cf2e:
               else {
                 bVar13 = (byte)((*piStack_58 * 100) / 800);
                 pbVar6[0x12f] = bVar13;
-                iVar29 = g_army_type_table[*pbVar6].elite_rank_reward_or_unlock;
+                iVar29 = g_army_type_table[*pbVar6].upgrade_army_type_id;
                 if ((pbVar6[0x131] < 3) || (-1 < iVar29)) {
                   bVar18 = pbVar6[0x130] + 1;
                   pbVar6[0x130] = bVar18;
                   iStack_48 = CONCAT31(iStack_48._1_3_,bVar18);
-                  iVar30 = 3 << ((byte)g_army_type_table[*pbVar6].battle_entry_rank_threshold_shift
-                                & 0x1f);
+                  iVar30 = 3 << ((byte)g_army_type_table[*pbVar6].bombard_attack_setting & 0x1f);
                   if (_DAT_00749d00 == DAT_005d919c) {
                     iVar30 = iVar30 + -1;
                   }
