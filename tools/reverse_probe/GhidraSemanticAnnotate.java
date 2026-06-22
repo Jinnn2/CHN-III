@@ -583,8 +583,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "editor label is walking sound; Apply_OrderQueue_Army plays this sound id for visible movement transitions when nonnegative");
         replaceAt(armyTypeDef, 0xe9, ByteDataType.dataType, 1, "attack_sound_id",
             "editor label is attack sound");
+        replaceAt(armyTypeDef, 0xea, ByteDataType.dataType, 1, "attack_anim_min_frames",
+            "Before_Edit_Army clamps this byte to at least 1 beside the attack sound field");
         replaceAt(armyTypeDef, 0xec, ByteDataType.dataType, 1, "death_sound_id",
             "editor label is death sound");
+        replaceAt(armyTypeDef, 0xed, ByteDataType.dataType, 1, "death_anim_min_frames",
+            "Before_Edit_Army clamps this byte to at least 1 beside the death sound field");
         replaceAt(armyTypeDef, 0xf0, IntegerDataType.dataType, 4, "build_cost",
             "editor label is production cost; city production and Put_City_Make compare build_progress against this cost");
         replaceAt(armyTypeDef, 0xf4, IntegerDataType.dataType, 4, "build_cost_digit_count",
@@ -633,10 +637,38 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "editor label is mountain movement");
         replaceAt(armyTypeDef, 0x160, IntegerDataType.dataType, 4, "battlefield_movement_frames",
             "editor label is battlefield movement; battle animation and auto-arrange compare step/action counters against this field");
-        replaceAt(armyTypeDef, 0x164, ShortDataType.dataType, 2, "city_support_delta_a",
-            "City_Belong_Change adds/removes this short while units are stationed in a city");
-        replaceAt(armyTypeDef, 0x184, ShortDataType.dataType, 2, "city_support_delta_b",
-            "City_Belong_Change adds/removes this short while units are stationed in a city");
+        replaceAt(armyTypeDef, 0x164, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile0",
+            "first of 8 editor/UI profile slots; city ownership/AI reassignment add/remove the low short from City.policy_target_or_required_progress while stationed");
+        replaceAt(armyTypeDef, 0x168, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile1",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x16c, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile2",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x170, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile3",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x174, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile4",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x178, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile5",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x17c, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile6",
+            "profile-indexed stationed-city policy delta slot");
+        replaceAt(armyTypeDef, 0x180, IntegerDataType.dataType, 4, "stationed_city_policy_delta_profile7",
+            "last of 8 editor/UI profile slots for stationed-city policy delta");
+        replaceAt(armyTypeDef, 0x184, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile0",
+            "first of 8 editor/UI profile slots; city ownership/AI reassignment add/remove the low short from City.building_income_yield while stationed");
+        replaceAt(armyTypeDef, 0x188, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile1",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x18c, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile2",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x190, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile3",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x194, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile4",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x198, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile5",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x19c, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile6",
+            "profile-indexed stationed-city income/yield delta slot");
+        replaceAt(armyTypeDef, 0x1a0, IntegerDataType.dataType, 4, "stationed_city_income_delta_profile7",
+            "last of 8 editor/UI profile slots for stationed-city income/yield delta");
         replaceAt(armyTypeDef, 0x1a4, IntegerDataType.dataType, 4, "production_weight",
             "editor label is production weight; City_Building_AI compares this weight between candidate unit types when selecting production");
         replaceAt(armyTypeDef, 0x1a8, IntegerDataType.dataType, 4, "retired_army_type_id_a",
@@ -1353,6 +1385,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005d9218L, "g_battle_frontline_land_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
             new GlobalRename(0x005d923cL, "g_battle_ranged_land_units_by_side", new ArrayDataType(IntegerDataType.dataType, 2, 4)),
             new GlobalRename(0x005aa2c8L, "g_army_type_table", new ArrayDataType(armyTypeDef, 0x5b, armyTypeDef.getLength())),
+            new GlobalRename(0x0074a0b8L, "g_active_army_type_def", new PointerDataType(armyTypeDef, dtm)),
             new GlobalRename(0x005dfedcL, "g_directdraw_ready", IntegerDataType.dataType),
             new GlobalRename(0x005dfee0L, "g_main_window", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dfed8L, "g_app_screen_state", IntegerDataType.dataType),

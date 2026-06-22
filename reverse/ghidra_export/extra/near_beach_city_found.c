@@ -64,7 +64,8 @@ switchD_0048dcd1_default:
              (*(char *)(*(int *)(iVar8 + 0x88) + 0xbe) == '\x01')) &&
             ((int)*(char *)(iVar8 + 0x7c) + (int)*(char *)(iVar8 + 0x50) < 10)) &&
            ((*(char *)(iVar8 + 8) == '\0' ||
-            (*(int *)(_DAT_0074a0b8 + 0x148 + *(char *)(iVar8 + 8) * 4) == 1)))) {
+            ((&g_active_army_type_def->border_influence_or_visibility_mask)[*(char *)(iVar8 + 8)] ==
+             1)))) {
           param_1 = 0;
           iVar5 = (uVar11 & 1) << 5;
           do {

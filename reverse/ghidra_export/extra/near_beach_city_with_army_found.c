@@ -66,8 +66,8 @@ switchD_0048df96_default:
              (*(char *)(*(int *)(iVar10 + 0x88) + 0xbe) == '\x01')) &&
             ((int)*(char *)(iVar10 + 0x7c) + (int)*(char *)(iVar10 + 0x50) < 10)) &&
            (((*(char *)(iVar10 + 8) == '\0' ||
-             (*(int *)(_DAT_0074a0b8 + 0x148 + *(char *)(iVar10 + 8) * 4) == 1)) &&
-            ('\x01' < *(char *)(iVar10 + 0x50))))) {
+             ((&g_active_army_type_def->border_influence_or_visibility_mask)[*(char *)(iVar10 + 8)]
+              == 1)) && ('\x01' < *(char *)(iVar10 + 0x50))))) {
           iVar9 = 0;
           puVar12 = (undefined4 *)(iVar10 + 0x28);
           local_1c = 0;

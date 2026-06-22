@@ -12,92 +12,93 @@ void Before_Edit_Army(void)
 {
   char cVar1;
   int iVar2;
-  char *pcVar3;
+  byte *pbVar3;
   int iVar4;
   uint uVar5;
   uint uVar6;
   ArmyTypeDef_0x400 *pAVar7;
   char *pcVar8;
   char *pcVar9;
-  int *piVar10;
+  char *pcVar10;
+  int *piVar11;
   char local_12c [296];
 
   Trace_Function(s_Before_Edit_Army_00570b80);
   _DAT_00706ae0 = (int *)FUN_0047de30(0x16c00,s_Army_Base_00570b74,1);
   pAVar7 = g_army_type_table;
-  piVar10 = _DAT_00706ae0;
+  piVar11 = _DAT_00706ae0;
   for (iVar4 = 0x5b00; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *piVar10 = pAVar7->image_resource_id_or_enabled;
+    *piVar11 = pAVar7->image_resource_id_or_enabled;
     pAVar7 = (ArmyTypeDef_0x400 *)&pAVar7->usage_permission;
-    piVar10 = piVar10 + 1;
+    piVar11 = piVar11 + 1;
   }
-  pcVar3 = &g_army_type_table[0].field_0xed;
+  pbVar3 = &g_army_type_table[0].death_anim_min_frames;
   iVar4 = 0x5b;
   do {
-    if (pcVar3[-3] < '\x01') {
-      pcVar3[-3] = '\x01';
+    if ((char)pbVar3[-3] < '\x01') {
+      pbVar3[-3] = 1;
     }
-    if (*pcVar3 < '\x01') {
-      *pcVar3 = '\x01';
+    if ((char)*pbVar3 < '\x01') {
+      *pbVar3 = 1;
     }
-    pcVar3 = pcVar3 + 0x400;
+    pbVar3 = pbVar3 + 0x400;
     iVar4 = iVar4 + -1;
   } while (iVar4 != 0);
   uVar5 = 0xffffffff;
-  pcVar3 = &DAT_0075525c;
+  pcVar8 = &DAT_0075525c;
   do {
-    pcVar9 = pcVar3;
+    pcVar10 = pcVar8;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar9 = pcVar3 + 1;
-    cVar1 = *pcVar3;
-    pcVar3 = pcVar9;
+    pcVar10 = pcVar8 + 1;
+    cVar1 = *pcVar8;
+    pcVar8 = pcVar10;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
-  pcVar3 = pcVar9 + -uVar5;
-  pcVar9 = local_12c;
+  pcVar8 = pcVar10 + -uVar5;
+  pcVar10 = local_12c;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar3;
-    pcVar3 = pcVar3 + 4;
-    pcVar9 = pcVar9 + 4;
+    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar10 = pcVar10 + 4;
   }
   for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *pcVar9 = *pcVar3;
-    pcVar3 = pcVar3 + 1;
-    pcVar9 = pcVar9 + 1;
+    *pcVar10 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar10 = pcVar10 + 1;
   }
   uVar5 = 0xffffffff;
-  pcVar3 = s_ARMYBASE_DAT_00570b64;
+  pcVar8 = s_ARMYBASE_DAT_00570b64;
   do {
-    pcVar9 = pcVar3;
+    pcVar10 = pcVar8;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar9 = pcVar3 + 1;
-    cVar1 = *pcVar3;
-    pcVar3 = pcVar9;
+    pcVar10 = pcVar8 + 1;
+    cVar1 = *pcVar8;
+    pcVar8 = pcVar10;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
   iVar4 = -1;
-  pcVar3 = local_12c;
+  pcVar8 = local_12c;
   do {
-    pcVar8 = pcVar3;
+    pcVar9 = pcVar8;
     if (iVar4 == 0) break;
     iVar4 = iVar4 + -1;
-    pcVar8 = pcVar3 + 1;
-    cVar1 = *pcVar3;
-    pcVar3 = pcVar8;
+    pcVar9 = pcVar8 + 1;
+    cVar1 = *pcVar8;
+    pcVar8 = pcVar9;
   } while (cVar1 != '\0');
-  pcVar3 = pcVar9 + -uVar5;
-  pcVar9 = pcVar8 + -1;
+  pcVar8 = pcVar10 + -uVar5;
+  pcVar10 = pcVar9 + -1;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar3;
-    pcVar3 = pcVar3 + 4;
-    pcVar9 = pcVar9 + 4;
+    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar10 = pcVar10 + 4;
   }
   for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *pcVar9 = *pcVar3;
-    pcVar3 = pcVar3 + 1;
-    pcVar9 = pcVar9 + 1;
+    *pcVar10 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar10 = pcVar10 + 1;
   }
   iVar4 = FUN_005082df(local_12c,0);
   DAT_00706ae8 = iVar4 == 0;
@@ -230,16 +231,16 @@ void Before_Edit_Army(void)
   Add_New_DataFormat(5,0x115,0x2a2,&DAT_0060b004,&DAT_00570784,DAT_00570784 * 0x400 + 0x5aa44c,0,0,3
                      ,0,0,8,0x32,0,0,0,&DAT_005c68d0,g_army_type_table,0x400,0x5aa44c,4,1,0,0,0,0);
   iVar4 = 0;
-  piVar10 = &DAT_00570838;
+  piVar11 = &DAT_00570838;
   do {
-    iVar2 = *piVar10;
+    iVar2 = *piVar11;
     Add_New_DataFormat(1,(iVar4 / 6) * 100 + 0x348,(iVar4 % 6) * 0x1a + 0x18,
                        &DAT_005a80b4 + iVar2 * 0x36,&DAT_00570784,
                        (DAT_00570784 * 0x100 + iVar2) * 4 + 0x5aa4c0,0,0,3,0,0,0,0,0,0,0,
                        &DAT_005c68d0,g_army_type_table,0x400,iVar2 * 4 + 0x5aa4c0,4,1,0,0,0,0);
-    piVar10 = piVar10 + 1;
+    piVar11 = piVar11 + 1;
     iVar4 = iVar4 + 1;
-  } while ((int)piVar10 < 0x570868);
+  } while ((int)piVar11 < 0x570868);
   Add_New_DataFormat(8,0x348,0xc4,&DAT_00570990,&DAT_00570784,DAT_00570784 * 0x400 + 0x5aa3b0,0,0,3,
                      0,0,0,0,0,0,0,&DAT_005c68d0,g_army_type_table,0x400,0x5aa3b0,1,1,0,0xbff00000,0
                      ,0x40470000);

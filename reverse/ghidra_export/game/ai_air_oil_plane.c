@@ -299,9 +299,10 @@ switchD_00402330_default:
           if (-1 < (int)piVar13) {
             if (((int *)(int)_DAT_00748ff0->tile_x == piVar13) &&
                (_DAT_00748ff0->tile_y == local_2c)) {
-              if ((*(int *)(_DAT_0074a0b8 + 0x1cc) + -5 <= (int)(char)_DAT_00748ff0->field_0x132) &&
+              if ((g_active_army_type_def->supply_or_hunger_turn_limit + -5 <=
+                   (int)(char)_DAT_00748ff0->field_0x132) &&
                  (cVar5 = Near_City_Found_CapAble
-                                    ((*(int *)(_DAT_0074a0b8 + 0x1cc) -
+                                    ((g_active_army_type_def->supply_or_hunger_turn_limit -
                                      (int)(char)_DAT_00748ff0->field_0x132) *
                                      (uint)(ushort)_DAT_00748ff0->cached_stat_c *
                                      g_current_map_scenario_info.movement_base,&local_2c,&local_30),
@@ -356,7 +357,8 @@ LAB_0040251a:
       }
     }
   }
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (_DAT_00748ff0 != DAT_007584dc))
+  {
     Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

@@ -56,7 +56,7 @@ void Order_Nothing(void)
     Add_OrderQueue_Army(_DAT_00748ff0,9,0x46,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
     return;
   }
-  if (((*(int *)(_DAT_0074a0b8 + 0xc) == 0) && (*(short *)(DAT_0075597c + 0x10) < 0)) &&
+  if (((g_active_army_type_def->unit_class == 0) && (*(short *)(DAT_0075597c + 0x10) < 0)) &&
      (_DAT_00748ff0->cargo_or_subunit_count == 0)) {
     iVar8 = 0;
     puVar6 = (undefined4 *)(DAT_0075597c + 0x28);
@@ -67,7 +67,7 @@ void Order_Nothing(void)
         if (((0 < g_army_type_table[bVar2].transport_capacity) &&
             ((g_army_type_table[bVar2].unit_class == 1 &&
              ((g_army_type_table[bVar2].air_or_city_capability_mask &
-              *(uint *)(_DAT_0074a0b8 + 0x144)) != 0)))) &&
+              g_active_army_type_def->transportable_mask) != 0)))) &&
            ((int)(uint)related_army->cargo_or_subunit_count <
             g_army_type_table[bVar2].transport_capacity)) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x41,0x7d,-1,-1,related_army,-1,-1);
@@ -80,7 +80,8 @@ void Order_Nothing(void)
   }
   if ((((DAT_00706838 == '\x01') && (1 < g_active_country->upgrade_permission_level)) &&
       (_DAT_00748ff0->field_0x16 == '\0')) &&
-     ((0 < *(int *)(_DAT_0074a0b8 + 0x1dc) && (2 < _DAT_00748ff0->cargo_or_subunit_count)))) {
+     ((0 < g_active_army_type_def->custom_name_mode && (2 < _DAT_00748ff0->cargo_or_subunit_count)))
+     ) {
     bVar2 = g_active_country->leader_or_country_id;
     uVar3 = *(ushort *)(&g_active_country->field_0x114 + DAT_0074c034 * 2);
     uVar4 = (uint)uVar3;
@@ -109,7 +110,7 @@ void Order_Nothing(void)
                   (int)g_empire_country_defs[bVar2].country_name_bytes[1],
                   (int)g_empire_country_defs[bVar2].country_name_bytes[2],
                   (int)g_empire_country_defs[bVar2].country_name_bytes[3],(int)&local_20 + uVar4 * 3
-                  ,_DAT_0074a0b8 + 0x1e0);
+                  ,g_active_army_type_def->default_name_bytes);
     }
     else if (uVar3 < 100) {
       Format_Text(local_34,&DAT_0057e418,(int)g_empire_country_defs[bVar2].country_name_bytes[0],
@@ -117,7 +118,7 @@ void Order_Nothing(void)
                   (int)g_empire_country_defs[bVar2].country_name_bytes[2],
                   (int)g_empire_country_defs[bVar2].country_name_bytes[3],
                   (int)&local_20 + (uVar4 / 10) * 3,(int)&local_20 + (uVar4 % 10) * 3,
-                  _DAT_0074a0b8 + 0x1e0);
+                  g_active_army_type_def->default_name_bytes);
     }
     else if (uVar3 < 1000) {
       Format_Text(local_34,&DAT_0057e404,(int)g_empire_country_defs[bVar2].country_name_bytes[0],
@@ -125,7 +126,8 @@ void Order_Nothing(void)
                   (int)g_empire_country_defs[bVar2].country_name_bytes[2],
                   (int)g_empire_country_defs[bVar2].country_name_bytes[3],
                   (int)&local_20 + (uVar4 / 100) * 3,(int)&local_20 + ((uVar4 % 100) / 10) * 3,
-                  (int)&local_20 + ((uVar4 % 100) % 10) * 3,_DAT_0074a0b8 + 0x1e0);
+                  (int)&local_20 + ((uVar4 % 100) % 10) * 3,
+                  g_active_army_type_def->default_name_bytes);
     }
     uVar4 = 0xffffffff;
     pcVar7 = local_34;

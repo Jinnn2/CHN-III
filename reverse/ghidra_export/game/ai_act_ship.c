@@ -110,7 +110,7 @@ switchD_004011db_default:
       local_c = local_c + -1;
     } while (local_c != 0);
   }
-  iVar9 = Search_Round(*(int *)(_DAT_0074a0b8 + 0x120));
+  iVar9 = Search_Round(g_active_army_type_def->search_range);
   if ((0 < g_search_round_best_score) && (iVar9 < 5)) {
     uVar5 = local_4;
     switch(g_map_size_mode) {
@@ -478,7 +478,8 @@ switchD_0040171f_default:
     }
   }
 LAB_00401c7e:
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (_DAT_00748ff0 != DAT_007584dc))
+  {
     Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

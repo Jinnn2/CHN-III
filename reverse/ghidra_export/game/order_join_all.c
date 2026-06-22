@@ -23,8 +23,8 @@ void Order_Join_All(void)
       if ((((army != (ArmyUnit_0x164_plus *)0x0) && (army != target_army)) &&
           (army->mission_action_id == 0)) &&
          ((army->transport_parent == (ArmyUnit_0x164_plus *)0x0 &&
-          (*(int *)(_DAT_0074a0b8 + 0x13c) == g_army_type_table[army->army_type_id].merge_group_type
-          )))) {
+          (g_active_army_type_def->merge_group_type ==
+           g_army_type_table[army->army_type_id].merge_group_type)))) {
         JoinTo(army,target_army);
         target_army = _DAT_00748ff0;
       }

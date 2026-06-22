@@ -61,7 +61,7 @@ void AI_AirPlane(void)
   bVar4 = false;
   cVar5 = '\0';
   local_18 = -1;
-  uVar10 = *(uint *)(_DAT_0074a0b8 + 300);
+  uVar10 = g_active_army_type_def->transport_capacity;
   local_c = (byte)_DAT_00748ff0->tile_y & 1;
   if (DAT_0074c858 == (City_0x1b8_plus *)0x0) {
     if (_DAT_00748ff0->cached_stat_c != 0) {
@@ -119,7 +119,7 @@ void AI_AirPlane(void)
             if ((((*pcVar2 == '(') && (pcVar2[0x127] == '\0')) &&
                 ((int)(uint)(byte)pcVar2[0x148] < g_army_type_table[0x28].transport_capacity)) &&
                (iVar14 = iVar13,
-               (*(uint *)(_DAT_0074a0b8 + 0x144) &
+               (g_active_army_type_def->transportable_mask &
                g_army_type_table[0x28].air_or_city_capability_mask) != 0)) break;
             iVar7 = iVar7 + -1;
           }
@@ -130,11 +130,12 @@ void AI_AirPlane(void)
       }
 LAB_00402a40:
       local_18 = iVar14;
-      iVar14 = Search_Round((*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
+      iVar14 = Search_Round((g_active_army_type_def->movement_or_speed + -1) *
                             g_current_map_scenario_info.movement_base);
       if (((0 < g_search_round_best_score) && (iVar14 < 5)) &&
          (cVar6 = Near_City_Found_CapAble
-                            ((*(int *)(_DAT_0074a0b8 + 0x110) - g_search_round_best_radius_left) *
+                            ((g_active_army_type_def->movement_or_speed -
+                             g_search_round_best_radius_left) *
                              g_current_map_scenario_info.movement_base,&local_14,&local_10),
          cVar6 != '\0')) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)g_search_round_best_tile_x;
@@ -230,8 +231,8 @@ switchD_00402dc0_default:
             iVar7 = Tile_Distance_With_Wrap
                               ((int)pAVar8->tile_x,(int)pAVar8->tile_y,iVar12,iVar7,(byte *)0x0);
             if ((*(short *)(uVar10 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
-               (iVar7 <= *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base
-               )) {
+               (iVar7 <= g_active_army_type_def->movement_or_speed *
+                         g_current_map_scenario_info.movement_base)) {
               iVar14 = 0x28;
               pAVar8 = _DAT_00748ff0;
               do {
@@ -302,8 +303,8 @@ switchD_00402dc0_default:
     }
     else if ((((int)uVar10 < 1) || (DAT_0074c034 == 0x1b)) || (DAT_0074c034 == 0x1d)) {
       cVar5 = Near_City_Found_CapAble
-                        (*(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base
-                         ,&local_4,local_8);
+                        (g_active_army_type_def->movement_or_speed *
+                         g_current_map_scenario_info.movement_base,&local_4,local_8);
       pAVar8 = _DAT_00748ff0;
       if (cVar5 != '\0') {
         iVar14 = 0;
@@ -315,9 +316,10 @@ switchD_00402dc0_default:
              ((iVar9 = Tile_Distance_With_Wrap
                                  ((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,iVar12
                                   ,(byte *)0x0),
-              *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base < iVar9 &&
+              g_active_army_type_def->movement_or_speed * g_current_map_scenario_info.movement_base
+              < iVar9 &&
               ((cVar5 = Near_City_Found_XY(iVar7,iVar12,
-                                           (*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
+                                           (g_active_army_type_def->movement_or_speed + -1) *
                                            g_current_map_scenario_info.movement_base,&local_14,
                                            &local_10), cVar5 != '\0' &&
                (iVar7 = Tile_Distance_With_Wrap
@@ -426,7 +428,7 @@ LAB_004032f1:
     }
   }
 LAB_004034b0:
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (pAVar8 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (pAVar8 != DAT_007584dc)) {
     Add_OrderQueue_Army(pAVar8,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

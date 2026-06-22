@@ -138,7 +138,7 @@ switchD_00409033_default:
                                 ((int)pAVar9->tile_x,(int)pAVar9->tile_y,(int)sVar1,(int)sVar2,
                                  (byte *)0x0);
               if ((*(short *)(iVar11 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
-                 (iVar8 <= *(int *)(_DAT_0074a0b8 + 0x110) *
+                 (iVar8 <= g_active_army_type_def->movement_or_speed *
                            g_current_map_scenario_info.movement_base)) {
                 iVar11 = 0x28;
                 pAVar9 = _DAT_00748ff0;
@@ -209,7 +209,7 @@ switchD_00409033_default:
       }
     }
   }
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (pAVar9 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (pAVar9 != DAT_007584dc)) {
     Add_OrderQueue_Army(pAVar9,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

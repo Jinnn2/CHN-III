@@ -47,13 +47,14 @@ LAB_00496b8b:
         Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4c,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
-      if ((*(int *)(_DAT_0074a0b8 + 0xc) == 1) && (_DAT_00748ff0->cargo_or_subunit_count != 0)) {
+      if ((g_active_army_type_def->unit_class == 1) && (_DAT_00748ff0->cargo_or_subunit_count != 0))
+      {
         Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4d,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
     }
   }
-  else if (*(int *)(_DAT_0074a0b8 + 0xc) == 0) {
+  else if (g_active_army_type_def->unit_class == 0) {
     if (0 < *(short *)(DAT_0075597c + 0x10)) {
       local_4 = 1;
       if (0 < g_tile_radius_offset_counts[2]) {
@@ -173,7 +174,8 @@ LAB_00496b8b:
       } while (local_4 <= g_tile_radius_offset_counts[2]);
     }
     if (((_DAT_00748ff0->army_type_id == 0x3b) && (*(int *)(DAT_0075597c + 0x88) != 0)) &&
-       ((int)(char)_DAT_00748ff0->field_0x132 == *(int *)(_DAT_0074a0b8 + 0x1cc) + -1)) {
+       ((int)(char)_DAT_00748ff0->field_0x132 ==
+        g_active_army_type_def->supply_or_hunger_turn_limit + -1)) {
       Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x52,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }

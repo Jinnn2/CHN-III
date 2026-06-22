@@ -64,8 +64,8 @@ void AI_Army(void)
       }
     }
     else if (((pCVar3->collapse_delay_or_army_count < 0) && (1 < pCVar3->round_or_protection_timer))
-            && (0 < *(int *)(_DAT_0074a0b8 + 0x164 + g_active_country->government_or_ai_mode * 4)))
-    {
+            && (0 < *(int *)(g_active_army_type_def->default_name_bytes +
+                            g_active_country->government_or_ai_mode * 4 + -0x7c))) {
       if (((DAT_0074c858 != (City_0x1b8_plus *)0x0) && (DAT_0074c858 != pCVar3)) &&
          ((DAT_0074c858->city_policy_mode < 3 &&
           ((DAT_0074c858->max_worker_slots != 0 && (0 < DAT_0074c858->collapse_delay_or_army_count))
@@ -121,7 +121,7 @@ void AI_Army(void)
                 (0 < g_army_type_table[bVar1].transport_capacity)) &&
                ((g_army_type_table[bVar1].air_or_city_capability_mask != 0 &&
                 ((int)(uint)pbVar4[0x148] < g_army_type_table[bVar1].transport_capacity)))) {
-              if ((*(uint *)(_DAT_0074a0b8 + 0x144) &
+              if ((g_active_army_type_def->transportable_mask &
                   g_army_type_table[bVar1].air_or_city_capability_mask) == 0) {
                 if ((local_4 == 0xffffffff) && (_DAT_00748ff0->cargo_or_subunit_count != 0)) {
                   uVar9 = (uint)_DAT_00748ff0->cargo_or_subunit_count;
@@ -226,7 +226,7 @@ void AI_Army(void)
           }
         }
       }
-      else if ((0 < *(int *)(_DAT_0074a0b8 + 0xf8)) &&
+      else if ((0 < g_active_army_type_def->attack_stat_a) &&
               ((DAT_0074c858 == _DAT_00748ff0->stationed_city ||
                (2 < DAT_0074c858->city_policy_mode)))) {
         uVar9 = DAT_0074c858->max_worker_slots + 1;
@@ -241,7 +241,8 @@ void AI_Army(void)
         return;
       }
     }
-    if (((_DAT_00748e34 != 0) && (local_4 = *(uint *)(_DAT_0074a0b8 + 0x13c), 0 < (int)local_4)) &&
+    if (((_DAT_00748e34 != 0) &&
+        (local_4 = g_active_army_type_def->merge_group_type, 0 < (int)local_4)) &&
        ((cVar7 = DAT_0075597c->capital_name_bytes[0x14], cVar7 < '\n' &&
         ((('\x02' < cVar7 && (_DAT_00748ff0->transport_parent == (ArmyUnit_0x164_plus *)0x0)) &&
          (_DAT_00748ff0->cargo_or_subunit_count == 0)))))) {
@@ -255,7 +256,7 @@ void AI_Army(void)
           if ((((pAVar12->mission_state == 0) &&
                ((g_army_type_table[pAVar12->army_type_id].merge_group_type == local_4 &&
                 (g_army_type_table[pAVar12->army_type_id].unit_class ==
-                 *(int *)(_DAT_0074a0b8 + 0xc))))) && (pAVar12->mission_action_id == 0)) &&
+                 g_active_army_type_def->unit_class)))) && (pAVar12->mission_action_id == 0)) &&
              (pAVar12->transport_parent == (ArmyUnit_0x164_plus *)0x0)) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x50,0x55,-1,-1,pAVar12,-1,-1);
             return;
@@ -266,7 +267,7 @@ void AI_Army(void)
         puVar14 = puVar14 + 1;
       } while (iVar15 < 10);
     }
-    local_8 = Search_Round(*(int *)(_DAT_0074a0b8 + 0x120));
+    local_8 = Search_Round(g_active_army_type_def->search_range);
     if ((0 < g_search_round_best_score) && ((int)local_8 < 7)) {
       _DAT_00748ff0->target_tile_x_or_anim_x = (short)g_search_round_best_tile_x;
       _DAT_00748ff0->target_tile_y_or_anim_y = (short)g_search_round_best_tile_y;
@@ -581,7 +582,7 @@ switchD_00404026_default:
       }
     }
   }
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (pAVar12 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (pAVar12 != DAT_007584dc)) {
     Add_OrderQueue_Army(pAVar12,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

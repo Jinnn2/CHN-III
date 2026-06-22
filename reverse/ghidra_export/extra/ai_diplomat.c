@@ -161,7 +161,7 @@ LAB_004057da:
            ((((g_army_type_table[bVar1].unit_class == 1 && (*(char *)(DAT_0074c858 + 0xbe) != '\0'))
              || (g_army_type_table[bVar1].unit_class == 2)) &&
             (((g_army_type_table[bVar1].air_or_city_capability_mask &
-              *(uint *)(_DAT_0074a0b8 + 0x144)) != 0 &&
+              g_active_army_type_def->transportable_mask) != 0 &&
              ((int)(_DAT_00748ff0->cargo_or_subunit_count + 1 + (uint)pbVar2[0x148]) <=
               g_army_type_table[bVar1].transport_capacity)))))) {
           if (-1 < iVar10) {
@@ -231,7 +231,8 @@ switchD_00405998_default:
     }
   }
 LAB_00405b00:
-  if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
+  if ((0 < g_active_army_type_def->special_mission_range_limit) && (_DAT_00748ff0 != DAT_007584dc))
+  {
     Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {

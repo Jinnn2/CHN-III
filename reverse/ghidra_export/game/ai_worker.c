@@ -503,7 +503,7 @@ switchD_0040a5e9_switchD:
                 local_94 = (City_0x1b8_plus *)&local_94->owner_country_id;
                 DAT_005d8f99 = (undefined1)_DAT_00748e34;
                 _DAT_005d90c4 =
-                     *(short *)(_DAT_0074a0b8 + 0x110) *
+                     (short)g_active_army_type_def->movement_or_speed *
                      (short)g_current_map_scenario_info.movement_base;
                 DAT_005d8f98 = (undefined1)DAT_0074c034;
                 DAT_005d90c0 = 0x1c;
@@ -757,23 +757,23 @@ switchD_0040ae05_default:
                     }
                     pCVar11->policy_target_or_required_progress =
                          pCVar11->policy_target_or_required_progress -
-                         *(short *)(_DAT_0074a0b8 + 0x164 +
-                                   g_active_country->government_or_ai_mode * 4);
+                         *(short *)(g_active_army_type_def->default_name_bytes +
+                                   g_active_country->government_or_ai_mode * 4 + -0x7c);
                     pCVar11->building_income_yield =
                          pCVar11->building_income_yield -
-                         *(short *)(_DAT_0074a0b8 + 0x184 +
-                                   g_active_country->government_or_ai_mode * 4);
+                         *(short *)(g_active_army_type_def->default_name_bytes +
+                                   g_active_country->government_or_ai_mode * 4 + -0x5c);
                     pCVar11->round_or_protection_timer = pCVar11->round_or_protection_timer + -1;
                   }
                   _DAT_00748ff0->stationed_city = local_94;
                   local_94->policy_target_or_required_progress =
                        local_94->policy_target_or_required_progress +
-                       *(short *)(_DAT_0074a0b8 + 0x164 +
-                                 g_active_country->government_or_ai_mode * 4);
+                       *(short *)(g_active_army_type_def->default_name_bytes +
+                                 g_active_country->government_or_ai_mode * 4 + -0x7c);
                   local_94->building_income_yield =
                        local_94->building_income_yield +
-                       *(short *)(_DAT_0074a0b8 + 0x184 +
-                                 g_active_country->government_or_ai_mode * 4);
+                       *(short *)(g_active_army_type_def->default_name_bytes +
+                                 g_active_country->government_or_ai_mode * 4 + -0x5c);
                   local_94->round_or_protection_timer = local_94->round_or_protection_timer + 1;
                   if (local_94 != DAT_007584a8) {
                     DAT_0070684c = 1;

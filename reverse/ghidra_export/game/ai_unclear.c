@@ -39,7 +39,8 @@ void AI_UnClear(void)
   Trace_Function(s_AI_UnClear_005122f0);
   if (DAT_00706838 != '\x01') {
 LAB_004098fa:
-    if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
+    if ((0 < g_active_army_type_def->special_mission_range_limit) && (_DAT_00748ff0 != DAT_007584dc)
+       ) {
       Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
     }
     if (DAT_00706838 == '\x01') {
@@ -159,8 +160,8 @@ LAB_004096a0:
   if (DAT_0074c034 == 0x1e) {
     puVar6 = &local_132;
 LAB_004097ce:
-    Format_Text(local_124,&DAT_005122b0,pCVar3->name_bytes,puVar6,_DAT_0074a0b8 + 0x14,local_144 + 3
-               );
+    Format_Text(local_124,&DAT_005122b0,pCVar3->name_bytes,puVar6,g_active_army_type_def->name_bytes
+                ,local_144 + 3);
   }
   else {
     if (DAT_0074c034 == 0x3f) {

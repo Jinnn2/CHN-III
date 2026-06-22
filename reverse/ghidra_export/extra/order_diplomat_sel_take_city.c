@@ -63,8 +63,9 @@ void __fastcall Order_Diplomat_Sel_Take_City(int param_1)
         piVar2 = piVar2 + 1;
       } while (iVar1 < 10);
       Add_New_View((int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y,1,
-                   _DAT_00748e34,0,*(int *)(_DAT_0074a0b8 + 0x148),*(int *)(_DAT_0074a0b8 + 0xc),
-                   *(int *)(_DAT_0074a0b8 + 0x1d8));
+                   _DAT_00748e34,0,g_active_army_type_def->border_influence_or_visibility_mask,
+                   g_active_army_type_def->unit_class,
+                   g_active_army_type_def->submarine_recon_setting);
       return;
     }
     Add_OrderQueue_Army(_DAT_00748ff0,0,0x73,0x3f,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);

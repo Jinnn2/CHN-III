@@ -35,7 +35,7 @@ void Order_Forset(void)
     Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x40,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
     return;
   }
-  if (0 < *(int *)(_DAT_0074a0b8 + 0xf8)) {
+  if (0 < g_active_army_type_def->attack_stat_a) {
     local_58 = 0;
     iVar4 = (DAT_00706840 & 1) << 5;
     iVar6 = iVar4;
@@ -70,7 +70,7 @@ void Order_Forset(void)
         iVar4 = iVar4 * 0x100 + _g_land_tiles;
 switchD_00495d9d_default:
         if (('\0' < *(char *)(iVar4 + 0x50)) &&
-           ((*(int *)(_DAT_0074a0b8 + 0xc) != 0 ||
+           ((g_active_army_type_def->unit_class != 0 ||
             ((*(short *)(iVar4 + 0x10) == *(short *)(DAT_0075597c + 0x10) &&
              (0 < *(short *)(DAT_0075597c + 0x10))))))) {
           if ((*(char *)(iVar4 + 0x27) < '\0') ||
@@ -85,8 +85,8 @@ switchD_00495d9d_default:
               if (pbVar1 != (byte *)0x0) {
                 if ((((char)pbVar1[1] != _DAT_00748e34) &&
                     (5 < g_active_country->diplomacy_state_by_country[(char)pbVar1[1]])) &&
-                   (*(int *)(_DAT_0074a0b8 + 0x130 + g_army_type_table[*pbVar1].unit_class * 4) == 1
-                   )) {
+                   ((&g_active_army_type_def->attack_target_mask)
+                    [g_army_type_table[*pbVar1].unit_class] == 1)) {
                   iVar5 = (int)(char)pbVar1[1];
                   goto LAB_00495e9d;
                 }

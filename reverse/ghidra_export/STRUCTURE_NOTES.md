@@ -58,6 +58,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_government_defs` | `0x00599288`, 8 records, `0x74` byte stride. | Static government/civic modifier definitions. |
 | `g_ground_defs` | `0x00589428`, 15 records, `0x24` byte stride. | Static ground/terrain definitions. |
 | `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
+| `g_active_army_type_def` | AI, command, and order handlers read `ArmyTypeDef_0x400` offsets from `0x0074a0b8` while processing the active unit. | Active/current army type definition pointer. |
 | `g_battle_unit_count_by_side` | `Battle_AutoArrange` sizes an 8-byte work array from it; `Map_To_Battle_Army` clears both entries before battle setup. | Battle unit/formation count for side 0/1. |
 | `g_battle_unit_list_head_by_side` | `Battle_AutoArrange` and arrange/UI code traverse `BattleUnit_0x64.next_battle_unit` from these heads. | Per-side linked-list heads for battle records. |
 | `g_battle_total_units_by_side` | `BattleArmy` increments once per source map army; `Make_Battle_Map` compares class counts against this total. | Source army count by battle side. |
@@ -497,6 +498,7 @@ higher ids.
 | `+0x60` | `Load_Dat` validates mission `0x29` counter `ArmyUnit +0x12a` against it. | mission range limit. |
 | `+0x90` | `Load_Dat` validates idle class-2 mission counter against it. | special mission range limit. |
 | `+0xe8/+0xe9/+0xec` | Editor labels are walking sound, attack sound, and death sound; `Apply_OrderQueue_Army` plays the walking sound id for visible movement transitions when nonnegative. | sound ids. |
+| `+0xea/+0xed` | `Before_Edit_Army` clamps these bytes to at least `1` beside the attack/death sound fields. | attack/death animation minimum frames. |
 | `+0xf0` | Editor label is production cost; `City_Building` and `Put_City_Make` compare city build progress against it. | build cost. |
 | `+0xf4` | Derived by `Load_Dat` from the magnitude of `build_cost`. | build cost digit count/display width. |
 | `+0xf8/+0xfc/+0x100` | Editor label for the block is attack ability; `Map_To_Battle_Army`, `BattleArmy`, production UI, and city threat logic use these as primary combat numbers. | attack/combat stats A/B/C. |
@@ -514,7 +516,8 @@ higher ids.
 | `+0x148` | Editor label is border influence; `Add_New_View`, `BreakOut`, `Army_Belong_Change`, and the order applier pass this as the visibility/zone mask when adding or removing unit vision. | border influence / visibility zone mask. |
 | `+0x14c` | Editor label is mountain movement. | mountain movement mode. |
 | `+0x160` | Editor label is battlefield movement; `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battlefield movement frame count. |
-| `+0x164/+0x184` | `City_Belong_Change` adds/removes shorts from city protection/resource counters while units are stationed. | city support deltas. |
+| `+0x164..0x180` | `Before_Edit_Army` exposes eight 4-byte profile slots; `City_Belong_Change`, `Army_Belong_Change`, and AI worker reassignment add/remove the low short selected by country profile/government from `City.policy_target_or_required_progress` while units are stationed. Dynamic callers still decompile as base-plus-index to avoid misleading array propagation into nearby battle/road matrices. | stationed-city policy deltas by profile. |
+| `+0x184..0x1a0` | Same shape as `+0x164..0x180`; city ownership, stationed-unit removal, and worker reassignment add/remove the selected low short from `City.building_income_yield`. | stationed-city income/yield deltas by profile. |
 | `+0x1a4` | Editor label is production weight; `City_Building_AI` compares this value between candidate unit types to bias production choice. | production weight. |
 | `+0x1a8/+0x1ac/+0x1b0` | Editor labels are retired soldier types 1..3. | retired army type ids. |
 | `+0x1b4/+0x1b8` | Editor label is required building; `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |

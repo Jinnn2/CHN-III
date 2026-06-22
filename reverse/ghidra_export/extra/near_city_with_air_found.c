@@ -75,7 +75,7 @@ switchD_0048f05c_default:
               }
               else if ((g_army_type_table[bVar2].unit_class == 2) &&
                       ((g_army_type_table[bVar2].transportable_mask &
-                       *(uint *)(_DAT_0074a0b8 + 0x140)) != 0)) {
+                       g_active_army_type_def->air_or_city_capability_mask) != 0)) {
                 local_20 = local_20 + 1;
               }
             }
