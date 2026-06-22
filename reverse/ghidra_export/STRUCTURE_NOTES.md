@@ -566,6 +566,35 @@ with stride `0x74`, so the table is 8 records. Active countries index it with
 `tools/reverse_probe/emg_probe.py` parses this container and verifies that
 `UI_String.EMG`, `UI_CITY.EMG`, and `MENU_ITEM.EMG` consume exactly to EOF.
 
+## Pixel And Color Tables
+
+`Init_Surface_Pixel_State` asks DirectDraw for the active 16-bit pixel format
+and `Init_Pixel_Format_Tables` derives channel masks, shifts, bit counts, and
+RGB-to-pixel lookup tables from it. The renderer supports both 5-6-5 and 5-5-5
+layouts, selected by `g_pixel_red_bits/g_pixel_green_bits/g_pixel_blue_bits`.
+
+| Working name | Evidence | Meaning |
+|---|---|---|
+| `g_pixel_red_mask` / `g_pixel_green_mask` / `g_pixel_blue_mask` | Copied from the DirectDraw pixel-format fields at `+0x10/+0x14/+0x18` and used by pixel decode/blend helpers. | Active 16-bit RGB channel masks. |
+| `g_pixel_red_shift` / `g_pixel_green_shift` / `g_pixel_blue_shift` | Counted from the low zero bits of each mask in `Init_Pixel_Format_Tables`. | Shift count for extracting/packing each channel. |
+| `g_pixel_red_bits` / `g_pixel_green_bits` / `g_pixel_blue_bits` | Counted contiguous one bits in each mask; `Init_Surface_Pixel_State` branches on 5-6-5 vs 5-5-5. | Bit width for each RGB channel. |
+| `g_rgb_to_pixel_tables` / `g_green_to_pixel_table` / `g_blue_to_pixel_table` | `Init_Pixel_Format_Tables` fills three 256-entry tables plus shifted variants, and UI color constants OR entries from these tables. | 8-bit RGB component to active 16-bit pixel lookup tables. |
+| `g_alpha_blend_component_tables` | `Init_Surface_Pixel_State` allocates `0x30300` bytes and fills red/green/blue blend component tables for 257 alpha steps. | Component lookup tables for alpha/blend rendering. |
+| `g_luminance_plus_table` / `g_luminance_minus_table` | `Init_Surface_Pixel_State` fills 65536-entry brighten/darken tables from active RGB masks. | One-step luminance adjustment tables. |
+| `g_color_transform_tables` | `Load_EMG_Base` allocates 27 `0x20000` tables, loads/saves `C_TABLE.DAT`, and rebuilds each with `MakeColorTable`. | Cached per-pixel color transform tables. |
+| `g_fade_color_tables` | `Load_EMG_Base` allocates 10 `0x20000` tables, loads/saves `F_TABLE.DAT`, and rebuilds them with `MakeFadeColorTable`. | Cached fade/dimming color tables. |
+| `g_dark_table_buffer` | `Load_EMG_Base` allocates `0x1e0000`, loads/saves `D_TABLE.DAT`, and rebuilds it with `Build_Dark_Table`. | Fade-resource-derived dark/luminance lookup buffer. |
+
+The color-table lifecycle is now recovered as a group:
+
+- `Decode_Pixel16_RGB` extracts channel values from an active-format 16-bit pixel.
+- `Pixel16_To_Luminance_Level` converts a 16-bit pixel to a small brightness bucket used by the dark table.
+- `MakeColorTable` builds one of the 27 cached transform tables from hue/saturation/value-style adjustments.
+- `MakeFadeColorTable` builds one of the 10 fade tables.
+- `Build_Dark_Table_From_Fade_Frame` consumes decoded fade-frame pixel data and writes luminance levels into `g_dark_table_buffer`.
+- `Build_Dark_Table` clears `g_dark_table_buffer` and processes 80 fade frames from the loaded `FADE.EMG` resource.
+- `Load_EMG_Base` owns the cache-file path: `C_TABLE.DAT`, `F_TABLE.DAT`, and `D_TABLE.DAT` are read when valid and regenerated/written otherwise.
+
 ## Applied Function Names
 
 The Ghidra project now names the high-value functions using embedded debug
@@ -582,7 +611,9 @@ strings and surrounding behavior. Examples include:
 - Utility/render helpers such as `Trace_Function`, `Font_Select`, `Draw_Text`,
   `Draw_Text_Centered`, `Draw_Image_To_Backbuffer`,
   `Restore_DirectDraw_Surfaces`, `Report_DirectDraw_Error`, `Get_Game_Tick`,
-  `Clear_Surface`, `Set_Draw_Clip_Rect`, and `Format_Text`.
+  `Clear_Surface`, `Set_Draw_Clip_Rect`, `Format_Text`,
+  `Init_Pixel_Format_Tables`, `MakeColorTable`, and
+  `MakeFadeColorTable`.
 
 ## Render And Menu Globals
 
@@ -645,3 +676,8 @@ important code-first files are:
   battle tiles, collect participating armies, and call battle setup.
 - `ui/main_menu_putscreen.c`: main menu visual composition and animation.
 - `render/present_dirty_rects.c`: final dirty-rect surface present.
+- `render/init_surface_pixel_state.c`, `render/init_pixel_format_tables.c`,
+  `render/load_emg_base.c`, `render/make_color_table.c`,
+  `render/make_fade_color_table.c`, `render/build_dark_table.c`, and
+  `render/build_dark_table_from_fade_frame.c`: active 16-bit pixel format
+  setup plus cached color/fade/dark lookup-table generation.

@@ -43,13 +43,13 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
   uint uStack_a0;
   undefined8 local_9c;
   uint uStack_94;
-  int iStack_90;
+  void *pvStack_90;
   char *pcStack_8c;
   int local_7c;
   int local_78;
-  
+
   pcStack_8c = s_Put_City_View_0057e914;
-  iStack_90 = 0x49e596;
+  pvStack_90 = (void *)0x49e596;
   Trace_Function();
   local_78 = DAT_007584ac;
   if (param_1 == '\x01') {
@@ -62,7 +62,7 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
   param_8 = DAT_005e0048 - param_8;
   _DAT_005e0028 = DAT_005e004c;
   param_9 = DAT_005e004c - param_9;
-  iStack_90 = DAT_005cff46;
+  pvStack_90 = (void *)DAT_005cff46;
   uStack_94 = DAT_005cff3e;
   local_9c = (double)CONCAT44(DAT_005cff42,DAT_005cff3a);
   uStack_a0 = 0x49e61f;
@@ -89,7 +89,7 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
              ((DAT_007161bc < 0x30 &&
               (sVar2 = *(short *)((DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044 + 4),
               -1 < sVar2)))) {
-            iStack_90 = *(undefined4 *)(DAT_00758568 + sVar2 * 4);
+            pvStack_90 = *(void **)(DAT_00758568 + sVar2 * 4);
             uStack_94 = DAT_00716160;
             local_9c = (double)CONCAT44(DAT_0071615c,0x49e711);
             FUN_004af380();
@@ -138,14 +138,14 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
             iVar8 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
             sVar2 = *(short *)(iVar8 + 2);
             if (-1 < sVar2) {
-              iStack_90 = *(undefined4 *)(DAT_00758568 + sVar2 * 4);
+              pvStack_90 = *(void **)(DAT_00758568 + sVar2 * 4);
               uStack_94 = DAT_00716160;
               local_9c = (double)CONCAT44(DAT_0071615c,0x49e8e6);
               FUN_004af380();
               sVar2 = *(short *)(iVar8 + 0xe);
               pcStack_8c = (char *)DAT_0057e848;
               if (-1 < sVar2) {
-                iStack_90 = *(undefined4 *)(DAT_00758590 + sVar2 * 4);
+                pvStack_90 = *(void **)(DAT_00758590 + sVar2 * 4);
                 uStack_94 = DAT_00716160;
                 local_9c = (double)CONCAT44(DAT_0071615c,0x49e918);
                 FUN_004af380();
@@ -154,7 +154,7 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
             }
             if (param_10 == '\0') {
               if ((DAT_007161b8 == DAT_005e0038) && (DAT_007161bc == DAT_005e003c)) {
-                iStack_90 = *(undefined4 *)(DAT_00758568 + 0x500c);
+                pvStack_90 = *(void **)(DAT_00758568 + 0x500c);
                 goto LAB_0049e9b3;
               }
             }
@@ -164,7 +164,7 @@ void Put_City_View(char param_1,int param_2,int param_3,int param_4,int param_5,
                      (-1 < DAT_007161bc - DAT_005e003c)) &&
                     (DAT_007161bc - DAT_005e003c <
                      g_building_defs[DAT_005a80a4].footprint_height_tiles)) {
-              iStack_90 = *(undefined4 *)(DAT_00758568 + (0x1405 - (uint)DAT_00755920) * 4);
+              pvStack_90 = *(void **)(DAT_00758568 + (0x1405 - (uint)DAT_00755920) * 4);
 LAB_0049e9b3:
               uStack_94 = DAT_00716160;
               local_9c = (double)CONCAT44(DAT_0071615c,0x49e9b8);
@@ -214,7 +214,7 @@ LAB_0049e9b3:
             iVar8 = (DAT_007161bc * 0x30 + DAT_007161b8) * 0x20 + DAT_005e0044;
             if (*(char *)(iVar8 + 7) < '\0') {
               if (*(short *)(iVar8 + 0xc) < 0) goto switchD_0049ebba_default;
-              iStack_90 = *(undefined4 *)(DAT_00758574 + 0x11c + *(short *)(iVar8 + 0xc) * 4);
+              pvStack_90 = *(void **)(DAT_00758574 + 0x11c + *(short *)(iVar8 + 0xc) * 4);
 LAB_0049f1ab:
               iVar9 = (int)(0xb0 / (longlong)(int)pcStack_8c);
               uVar4 = 0x14d;
@@ -235,7 +235,7 @@ LAB_0049f1cd:
                   switch(*(undefined1 *)(iVar8 + 0xb)) {
                   case 0:
                     if (*(char *)(iVar8 + 10) == '\x03') {
-                      iStack_90 = *(undefined4 *)(DAT_00758574 + 0x254 + DAT_00715174 * 4);
+                      pvStack_90 = *(void **)(DAT_00758574 + 0x254 + DAT_00715174 * 4);
                       uStack_94 = DAT_00716160 - (int)(0x1fa / (longlong)(int)pcStack_8c);
                       local_9c = (double)CONCAT44(DAT_0071615c -
                                                   (int)(0x279 / (longlong)(int)pcStack_8c),0x49ec06)
@@ -250,25 +250,25 @@ LAB_0049f1cd:
                     break;
                   case 1:
                     if (*(char *)(iVar8 + 10) == '\0') {
-                      iStack_90 = *(undefined4 *)(DAT_00758574 + 0x280);
+                      pvStack_90 = *(void **)(DAT_00758574 + 0x280);
                       goto LAB_0049f1ab;
                     }
                     break;
                   case 2:
                     if (*(char *)(iVar8 + 10) == '\x03') {
-                      iStack_90 = *(undefined4 *)(DAT_00758574 + 0x2ac);
+                      pvStack_90 = *(void **)(DAT_00758574 + 0x2ac);
                       goto LAB_0049f1ab;
                     }
                     break;
                   case 3:
                     if (*(char *)(iVar8 + 10) == '\0') {
-                      iStack_90 = *(undefined4 *)(DAT_00758574 + 0x2d8);
+                      pvStack_90 = *(void **)(DAT_00758574 + 0x2d8);
                       goto LAB_0049f1ab;
                     }
                   }
                   goto switchD_0049ebba_default;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758574 + 0x108);
+                pvStack_90 = *(void **)(DAT_00758574 + 0x108);
                 goto LAB_0049f1ab;
               }
               iVar6 = *(int *)(&DAT_007559b0 + iVar11);
@@ -278,11 +278,11 @@ LAB_0049f1cd:
                 if (*(char *)(cVar1 + 100 + local_78) != '\x01') goto LAB_0049ed11;
 LAB_0049eccc:
                 if (iVar6 < 6) {
-                  iStack_90 = *(undefined4 *)
-                               (DAT_00758574 + 0x104 + (*(char *)(iVar8 + 0xb) + iVar6) * 4);
+                  pvStack_90 = *(void **)(DAT_00758574 + 0x104 +
+                                         (*(char *)(iVar8 + 0xb) + iVar6) * 4);
                   goto LAB_0049f1ab;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758574 + 0x118 + *(char *)(iVar8 + 0xb) * 4);
+                pvStack_90 = *(void **)(DAT_00758574 + 0x118 + *(char *)(iVar8 + 0xb) * 4);
                 iVar9 = (int)(0x202 / (longlong)(int)pcStack_8c);
                 uVar4 = 0x1e1;
                 goto LAB_0049f1c1;
@@ -292,9 +292,8 @@ LAB_0049ed11:
                 sVar2 = *(short *)(iVar8 + 8);
                 if ((sVar2 < 0x76) || (0x7f < sVar2)) {
                   if (sVar2 == 0x6c) {
-                    iStack_90 = *(undefined4 *)
-                                 (DAT_00758574 +
-                                 (*(int *)(&DAT_0075599c + iVar11) + DAT_00715178) * 4);
+                    pvStack_90 = *(void **)(DAT_00758574 +
+                                           (*(int *)(&DAT_0075599c + iVar11) + DAT_00715178) * 4);
                     uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
                     local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                                 DAT_0071615c,0x49ee39);
@@ -306,17 +305,17 @@ LAB_0049ed11:
                     }
                   }
                   else {
-                    iStack_90 = *(undefined4 *)
-                                 (DAT_00758574 +
-                                 ((int)*(char *)(iVar8 + 0xb) + *(int *)(&DAT_0075599c + iVar11)) *
-                                 4);
+                    pvStack_90 = *(void **)(DAT_00758574 +
+                                           ((int)*(char *)(iVar8 + 0xb) +
+                                           *(int *)(&DAT_0075599c + iVar11)) * 4);
                     uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
                     local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                                 DAT_0071615c,0x49ee94);
                     FUN_004af380();
                     if (*(char *)(iVar8 + 7) == '.') {
                       pcStack_8c = *(char **)(DAT_007585d4 + 0x60 + DAT_00715170 * 4);
-                      iStack_90 = DAT_00716160 + -0xfa + *(int *)(&DAT_007559bc + iVar11);
+                      pvStack_90 = (void *)(DAT_00716160 + -0xfa + *(int *)(&DAT_007559bc + iVar11))
+                      ;
                       uStack_94 = *(int *)(&DAT_007559b8 + iVar11) + 0x113 + DAT_0071615c;
                       local_9c = (double)CONCAT44(0x49eed6,(undefined4)local_9c);
                       (*g_draw_sprite_fn)();
@@ -328,7 +327,8 @@ LAB_0049ed11:
                     pcStack_8c = (char *)DAT_0057e848;
                     if (*(char *)(iVar8 + 7) == '5') {
                       pcStack_8c = *(char **)(DAT_007585d4 + DAT_0071516c * 4);
-                      iStack_90 = DAT_00716160 + -0x13e + *(int *)(&DAT_007559bc + iVar11);
+                      pvStack_90 = (void *)(DAT_00716160 + -0x13e + *(int *)(&DAT_007559bc + iVar11)
+                                           );
                       uStack_94 = *(int *)(&DAT_007559b8 + iVar11) + 0x39 + DAT_0071615c;
                       local_9c = (double)CONCAT44(0x49ef31,(undefined4)local_9c);
                       (*g_draw_sprite_fn)();
@@ -341,7 +341,8 @@ LAB_0049ed11:
                   }
                   goto switchD_0049ebba_default;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758574 + *(int *)(&DAT_0075599c + iVar11) * 4);
+                pvStack_90 = (void *)*(undefined4 *)
+                                      (DAT_00758574 + *(int *)(&DAT_0075599c + iVar11) * 4);
                 uStack_94 = (aiStack_230[iVar9] + *(int *)(&DAT_007559bc + iVar11)) /
                             (int)pcStack_8c + DAT_00716160;
                 local_9c._4_4_ =
@@ -352,7 +353,7 @@ LAB_0049ed11:
               if (*(char *)(cVar1 + 100 + local_78) == '\x01') goto LAB_0049eccc;
               iVar9 = *(int *)(&DAT_0075599c + iVar11);
               if (iVar9 == 0x10) {
-                iStack_90 = *(undefined4 *)(DAT_00758578 + 0x40 + DAT_0071517c * 4);
+                pvStack_90 = *(void **)(DAT_00758578 + 0x40 + DAT_0071517c * 4);
                 uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
                 local_9c = (double)CONCAT44(*(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c +
                                             DAT_0071615c,0x49ef91);
@@ -364,7 +365,7 @@ LAB_0049ed11:
                 }
               }
               else if (iVar9 == 0x18) {
-                iStack_90 = *(undefined4 *)(DAT_00758578 + 0x60);
+                pvStack_90 = *(void **)(DAT_00758578 + 0x60);
                 uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + 0x30 + DAT_00716160
                 ;
                 local_9c._4_4_ =
@@ -389,13 +390,13 @@ LAB_0049ed11:
               }
               else {
                 if (iVar9 != 9) {
-                  iStack_90 = *(undefined4 *)(DAT_00758578 + iVar9 * 4);
+                  pvStack_90 = *(void **)(DAT_00758578 + iVar9 * 4);
                   uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
                   local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c + DAT_0071615c
                   ;
                   goto LAB_0049f1cd;
                 }
-                iStack_90 = *(undefined4 *)(DAT_00758578 + 0x24);
+                pvStack_90 = *(void **)(DAT_00758578 + 0x24);
                 uStack_94 = *(int *)(&DAT_007559bc + iVar11) / (int)pcStack_8c + DAT_00716160;
                 local_9c._4_4_ = *(int *)(&DAT_007559b8 + iVar11) / (int)pcStack_8c + DAT_0071615c;
                 local_9c._0_4_ = 0x49f0b7;
@@ -422,7 +423,7 @@ LAB_0049ed11:
                 iStack_d8 = 0x49f11b;
                 Font_Select();
                 pcStack_8c = (char *)0x1;
-                iStack_90 = 5;
+                pvStack_90 = (void *)0x5;
                 uStack_94 = 0;
                 uStack_a0 = DAT_00716160 + -0x15;
                 iStack_a4 = DAT_0071615c + -0x6a;
@@ -441,7 +442,7 @@ switchD_0049ebba_default:
               if (DAT_005a809c == 2) {
                 if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar9) + -1) &&
                    (DAT_007161bc == DAT_005e003c)) {
-                  iStack_90 = *(int *)(&DAT_007079c0 + (uint)DAT_00755920 * -4);
+                  pvStack_90 = g_color_transform_tables[0x1a - (uint)DAT_00755920];
                   iVar11 = *(int *)(&DAT_0075599c + iVar9);
                   iVar6 = DAT_00758574;
 LAB_0049f288:
@@ -457,7 +458,7 @@ LAB_0049f288:
               }
               else if ((DAT_007161b8 - DAT_005e0038 == *(int *)(&DAT_007559b0 + iVar9) + -1) &&
                       (DAT_007161bc == DAT_005e003c)) {
-                iStack_90 = *(int *)(&DAT_007079c0 + (uint)DAT_00755920 * -4);
+                pvStack_90 = g_color_transform_tables[0x1a - (uint)DAT_00755920];
                 iVar11 = *(int *)(&DAT_0075599c + iVar9);
                 iVar6 = DAT_00758578;
                 goto LAB_0049f288;
@@ -466,14 +467,14 @@ LAB_0049f288:
             iVar8 = *(int *)(iVar8 + 0x14);
             if (iVar8 != 0) {
               if (*(char *)(iVar8 + 0xb) == '\0') {
-                iStack_90 = **(undefined4 **)(iVar8 + 0x10);
+                pvStack_90 = (void *)**(undefined4 **)(iVar8 + 0x10);
                 uStack_94 = DAT_00716160;
                 local_9c._4_4_ = DAT_0071615c;
               }
               else {
                 if (*(char *)(iVar8 + 0xb) != '\x01') goto LAB_0049f322;
                 iVar9 = ((uint)*(byte *)(iVar8 + 0xd) + (uint)*(byte *)(iVar8 + 0xc) * 8) * 4;
-                iStack_90 = *(undefined4 *)(*(int *)(iVar8 + 0x10) + iVar9);
+                pvStack_90 = *(void **)(*(int *)(iVar8 + 0x10) + iVar9);
                 uStack_94 = *(int *)(&DAT_00589044 + iVar9) + DAT_00716160;
                 local_9c._4_4_ = *(int *)(&DAT_00588f44 + iVar9) + DAT_0071615c;
               }
@@ -538,7 +539,7 @@ LAB_0049f322:
               } while (cVar1 != '\0');
               iVar5 = (int)(char)(~(byte)iVar9 - 1);
               pcStack_8c = (char *)(uint)DAT_0074c800;
-              iStack_90 = DAT_00716160 + 0x14;
+              pvStack_90 = (void *)(DAT_00716160 + 0x14);
               uStack_94 = DAT_0071615c + 8 + iVar5 * 8;
               local_9c = (double)CONCAT44(DAT_00716160,DAT_0071615c);
               uStack_a0 = 0x49f557;
@@ -574,7 +575,7 @@ LAB_0049f322:
               local_9c = (double)CONCAT44(iVar10,iVar6);
               uStack_a0 = 0x49f5cf;
               uStack_94 = iVar6;
-              iStack_90 = iVar9;
+              pvStack_90 = (void *)iVar9;
               pcStack_8c = (char *)uVar4;
               FUN_004f5ae3();
               uStack_a0 = 0x10;
@@ -599,7 +600,7 @@ LAB_0049f322:
                   DAT_0057e844 = (int)*(char *)(iVar8 + 7);
                 }
                 pcStack_8c = (char *)0xe;
-                iStack_90 = DAT_005dffb8;
+                pvStack_90 = (void *)DAT_005dffb8;
                 uStack_94 = 0xe;
                 local_9c = (double)CONCAT44(DAT_005dffbc,0x49f64e);
                 Font_Select();
@@ -612,7 +613,7 @@ LAB_0049f322:
                   iVar8 = DAT_00755814 + -0x10c;
                 }
                 pcStack_8c = (char *)0x104;
-                iStack_90 = 0xa8;
+                pvStack_90 = (void *)0xa8;
                 local_9c._4_4_ = local_7c;
                 local_9c._0_4_ = 0x49f6ab;
                 uStack_94 = iVar8;
@@ -642,7 +643,7 @@ LAB_0049f322:
                 uStack_94 = local_7c + 0xa7;
                 local_9c = (double)CONCAT44(iVar8 + 1,uStack_94);
                 uStack_a0 = 0x49f721;
-                iStack_90 = iVar8 + 0x102;
+                pvStack_90 = (void *)(iVar8 + 0x102);
                 pcStack_8c = (char *)uVar4;
                 FUN_004f5ae3();
                 uStack_a0 = 0xffffffff;
@@ -666,7 +667,7 @@ LAB_0049f322:
                 uStack_94 = (uint)DAT_007350b4;
                 uStack_a0 = iVar8 + 0x14;
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f780;
                 iStack_a4 = iVar9;
@@ -690,7 +691,7 @@ LAB_0049f322:
                 Draw_Text_Centered();
                 uStack_94 = (uint)DAT_0074c850;
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 local_9c = (double)CONCAT44(0xffffffff,
                                             &DAT_005a7bdc +
                                             *(int *)&g_building_defs[iVar11].field_0xc * 5);
@@ -719,7 +720,7 @@ LAB_0049f322:
                 uStack_94 = (uint)DAT_007350b4;
                 uStack_a0 = iVar8 + 0x44;
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f852;
                 iStack_a4 = iVar9;
@@ -742,7 +743,7 @@ LAB_0049f322:
                 iStack_d8 = iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0x0;
-                iStack_90 = 6;
+                pvStack_90 = (void *)0x6;
                 uStack_94 = 0;
                 local_9c = (double)CONCAT44(g_building_defs[iVar11].
                                             upgrade_or_development_requirement,iVar8 + 0x54);
@@ -759,7 +760,7 @@ LAB_0049f322:
                 puStack_bc = (undefined *)iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 if (g_building_defs[iVar11].prerequisite_building_a < 0) {
                   local_9c = -NAN;
                 }
@@ -776,7 +777,7 @@ LAB_0049f322:
                 uStack_94 = (uint)DAT_007350b4;
                 uStack_a0 = iVar8 + 0x74;
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49f947;
                 iStack_a4 = iVar9;
@@ -799,7 +800,7 @@ LAB_0049f322:
                 iStack_d8 = iVar9;
                 Draw_Text_Centered();
                 pcStack_8c = (char *)0x0;
-                iStack_90 = 3;
+                pvStack_90 = (void *)0x3;
                 uStack_94 = 0;
                 local_9c = (double)CONCAT44(g_building_defs[iVar11].business_delta,iVar8 + 0x84);
                 uStack_a0 = local_7c + 0x43;
@@ -825,7 +826,7 @@ LAB_0049f322:
                 uStack_94 = (uint)DAT_007350b4;
                 uStack_a0 = iVar8 + 0xa4;
                 pcStack_8c = (char *)0xffffffff;
-                iStack_90 = 0xffffffff;
+                pvStack_90 = (void *)0xffffffff;
                 local_9c = -NAN;
                 uStack_a8 = 0x49fa0a;
                 iStack_a4 = iVar9;
@@ -878,7 +879,7 @@ LAB_0049f322:
   DAT_005cff42 = 0;
   if (DAT_005c2cb0 < 1) {
     pcStack_8c = (char *)0x0;
-    iStack_90 = 0;
+    pvStack_90 = (void *)0x0;
     uStack_94 = 0;
     local_9c = 3.55727265005698e-322;
     uStack_a0 = 0x48;
@@ -893,7 +894,7 @@ LAB_0049f322:
     puStack_bc = (undefined *)0x49fb8d;
     Font_Select();
     pcStack_8c = (char *)0x0;
-    iStack_90 = 0x18;
+    pvStack_90 = (void *)0x18;
     uStack_94 = 0x30;
     if (DAT_00715184 == 0) {
       local_9c = 5.92878775009496e-323;
@@ -921,7 +922,7 @@ LAB_0049f322:
     puStack_c0 = (undefined1 *)0x49fbfe;
     Draw_Text_Centered();
     pcStack_8c = (char *)0x0;
-    iStack_90 = 0x18;
+    pvStack_90 = (void *)0x18;
     uStack_94 = 0x30;
     if (DAT_0057e848 == 1) {
       local_9c = 1.87744945419674e-322;
@@ -955,4 +956,3 @@ LAB_0049f322:
   }
   return;
 }
-

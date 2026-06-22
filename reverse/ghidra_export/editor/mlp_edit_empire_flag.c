@@ -34,9 +34,9 @@ void MLP_Edit_Empire_Flag(void)
     DAT_00706cd8 = (int)(iVar4 + (iVar4 >> 0x1f & 7U)) >> 3;
   }
   if (((DAT_00572094 == 0) && (-1 < DAT_00572098)) && (-1 < DAT_0057209c)) {
-    uVar2 = *(ushort *)(DAT_00706cd8 * 0x20 + DAT_005cfea0) |
-            *(ushort *)(DAT_00706cdc * 0x20 + DAT_005cfe9c) |
-            *(ushort *)(DAT_00706cd4 * 0x20 + DAT_005cfe98);
+    uVar2 = *(ushort *)(g_blue_to_pixel_table + DAT_00706cd8 * 8) |
+            *(ushort *)(g_green_to_pixel_table + DAT_00706cdc * 8) |
+            *(ushort *)(g_rgb_to_pixel_tables + DAT_00706cd4 * 8);
     *(char *)(*(int *)((int)g_flag_img_bank + g_edit_flag_index * 4) + 4 +
              (DAT_00572098 + DAT_0057209c * 0xe) * 2) = (char)uVar2;
     *(char *)(*(int *)((int)g_flag_img_bank + g_edit_flag_index * 4) + 5 +

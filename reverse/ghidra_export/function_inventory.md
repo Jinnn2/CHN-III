@@ -247,11 +247,11 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00467250` | `Before_Edit_Science_Set` | 340 | 1 |
 | `0x00467740` | `Science_Know_With_Prerequisites` | 170 | 1 |
 | `0x00467dc0` | `Put_Edit_Science_Exp` | 522 | 6 |
-| `0x004681d0` | `FUN_004681d0` | 208 | 0 |
-| `0x004682a0` | `FUN_004682a0` | 125 | 0 |
-| `0x00468320` | `FUN_00468320` | 5491 | 3 |
+| `0x004681d0` | `Pixel16_To_Luminance_Level` | 208 | 0 |
+| `0x004682a0` | `Decode_Pixel16_RGB` | 125 | 0 |
+| `0x00468320` | `MakeColorTable` | 5491 | 3 |
 | `0x00469a60` | `FUN_00469a60` | 384 | 0 |
-| `0x00469c00` | `FUN_00469c00` | 883 | 2 |
+| `0x00469c00` | `MakeFadeColorTable` | 883 | 2 |
 | `0x00469f90` | `FUN_00469f90` | 594 | 10 |
 | `0x0046a1f0` | `Report_DirectDraw_Error` | 62 | 2 |
 | `0x0046a230` | `FUN_0046a230` | 185 | 6 |
@@ -322,7 +322,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00473270` | `Load_Dat` | 17465 | 48 |
 | `0x00477800` | `Load_Map_GameInfo` | 1274 | 7 |
 | `0x00477d00` | `FUN_00477d00` | 732 | 0 |
-| `0x00477ff0` | `FUN_00477ff0` | 1484 | 15 |
+| `0x00477ff0` | `Load_EMG_Base` | 1484 | 15 |
 | `0x004785c0` | `FUN_004785c0` | 672 | 5 |
 | `0x00478860` | `FUN_00478860` | 86 | 2 |
 | `0x004788c0` | `FUN_004788c0` | 277 | 4 |
@@ -507,8 +507,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004af380` | `FUN_004af380` | 343 | 0 |
 | `0x004af4e0` | `FUN_004af4e0` | 371 | 0 |
 | `0x004af660` | `FUN_004af660` | 457 | 0 |
-| `0x004af830` | `FUN_004af830` | 179 | 1 |
-| `0x004af8f0` | `FUN_004af8f0` | 46 | 1 |
+| `0x004af830` | `Build_Dark_Table_From_Fade_Frame` | 179 | 1 |
+| `0x004af8f0` | `Build_Dark_Table` | 46 | 1 |
 | `0x004af920` | `FUN_004af920` | 446 | 0 |
 | `0x004afae0` | `FUN_004afae0` | 320 | 0 |
 | `0x004afc20` | `FUN_004afc20` | 391 | 0 |
@@ -656,7 +656,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004f4f42` | `DirectSoundCreate` | 6 | 0 |
 | `0x004f4f48` | `ImmSetConversionStatus` | 6 | 0 |
 | `0x004f4f4e` | `ImmGetConversionStatus` | 6 | 0 |
-| `0x004f4f60` | `FUN_004f4f60` | 741 | 0 |
+| `0x004f4f60` | `Init_Pixel_Format_Tables` | 741 | 0 |
 | `0x004f5286` | `FUN_004f5286` | 38 | 0 |
 | `0x004f52ac` | `FUN_004f52ac` | 214 | 3 |
 | `0x004f5382` | `FUN_004f5382` | 206 | 4 |

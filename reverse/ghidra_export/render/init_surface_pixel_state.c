@@ -25,7 +25,7 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
   int iVar13;
   undefined1 auStack_30 [8];
   undefined4 auStack_28 [10];
-  
+
   FUN_004f8140();
   puVar11 = &DAT_00771b90;
   for (iVar4 = 0x1f; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -60,30 +60,36 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
   auStack_28[1] = 0x40;
   iVar4 = (**(code **)(iVar4 + 0x54))(param_1,auStack_28);
   if (iVar4 == 0) {
-    if (DAT_005cfe98 == 0) {
-      DAT_005cfe98 = FUN_004fbed0(0x1800,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9d,
-                                  s_24_>16_005d6e50);
+    if (g_rgb_to_pixel_tables == (int *)0x0) {
+      g_rgb_to_pixel_tables =
+           (int *)FUN_004fbed0(0x1800,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9d,
+                               s_24_>16_005d6e50);
     }
-    if (DAT_005cfea4 == 0) {
-      DAT_005cfea4 = FUN_004fbed0(0x30300,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9e,
-                                  s_Alpha_Table_005d6e14);
+    if (g_alpha_blend_component_tables == (int *)0x0) {
+      g_alpha_blend_component_tables =
+           (int *)FUN_004fbed0(0x30300,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9e,
+                               s_Alpha_Table_005d6e14);
     }
-    if (DAT_005cff66 == 0) {
-      DAT_005cff66 = FUN_004fbed0(0x20000,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9f,
-                                  s_Luminance_Table_005d6e04);
+    if (g_luminance_plus_table == (ushort *)0x0) {
+      g_luminance_plus_table =
+           (ushort *)
+           FUN_004fbed0(0x20000,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0x9f,
+                        s_Luminance_Table_005d6e04);
     }
-    if (DAT_005cff6a == 0) {
-      DAT_005cff6a = FUN_004fbed0(0x20000,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0xa0,
-                                  s_Obscurant_Table_005d6df4);
+    if (g_luminance_minus_table == (ushort *)0x0) {
+      g_luminance_minus_table =
+           (ushort *)
+           FUN_004fbed0(0x20000,s_C__SOURCE_BASEDEMO_MyDDraw_Sourc_005d6e20,0xa0,
+                        s_Obscurant_Table_005d6df4);
     }
-    DAT_005cfe9c = DAT_005cfe98 + 0x400;
-    DAT_005cfea0 = DAT_005cfe98 + 0x800;
-    DAT_005cfea8 = DAT_005cfea4 + 0x10100;
-    DAT_005cfeac = DAT_005cfea4 + 0x20200;
-    FUN_004f4f60(auStack_30);
-    if (DAT_005cfe64 == 5) {
-      if (DAT_005cfe65 == 6) {
-        if (DAT_005cfe66 == 5) {
+    g_green_to_pixel_table = g_rgb_to_pixel_tables + 0x100;
+    g_blue_to_pixel_table = g_rgb_to_pixel_tables + 0x200;
+    g_alpha_blend_green_table = g_alpha_blend_component_tables + 0x4040;
+    g_alpha_blend_blue_table = g_alpha_blend_component_tables + 0x8080;
+    Init_Pixel_Format_Tables(auStack_30);
+    if (g_pixel_red_bits == 5) {
+      if (g_pixel_green_bits == 6) {
+        if (g_pixel_blue_bits == 5) {
           g_draw_sprite_fn = FUN_004f66de;
           if (DAT_00771f2c != 0) {
             g_draw_sprite_fn = &DAT_004f6c33;
@@ -97,7 +103,7 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
           _DAT_00771f50 = &LAB_004fa4d0;
         }
       }
-      else if ((DAT_005cfe65 == 5) && (DAT_005cfe66 == 5)) {
+      else if ((g_pixel_green_bits == 5) && (g_pixel_blue_bits == 5)) {
         g_draw_sprite_fn = FUN_004f64d6;
         if (DAT_00771f2c != 0) {
           g_draw_sprite_fn = FUN_004f690e;
@@ -118,25 +124,27 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
       do {
         uVar6 = uVar12 / 0xff;
         uVar12 = uVar12 + uVar8;
-        *(uint *)(iVar4 + DAT_005cfea4) = uVar6 << (DAT_005cfe6c & 0x1f) & DAT_005cfe78;
-        *(uint *)(iVar4 + DAT_005cfea8) = uVar6 << (DAT_005cfe6d & 0x1f) & DAT_005cfe7c;
+        *(uint *)(iVar4 + (int)g_alpha_blend_component_tables) =
+             uVar6 << (g_pixel_red_shift & 0x1f) & g_pixel_red_mask;
+        *(uint *)(iVar4 + (int)g_alpha_blend_green_table) =
+             uVar6 << (g_pixel_green_shift & 0x1f) & g_pixel_green_mask;
         iVar5 = iVar5 + -1;
-        *(uint *)(iVar4 + DAT_005cfeac) = uVar6 & DAT_005cfe80;
+        *(uint *)(iVar4 + (int)g_alpha_blend_blue_table) = uVar6 & g_pixel_blue_mask;
         iVar4 = iVar4 + 4;
       } while (iVar5 != 0);
       uVar8 = uVar8 + 1;
     } while (uVar8 < 0x101);
-    iVar3 = 1 << (DAT_005cfe65 & 0x1f);
-    iVar9 = (1 << (DAT_005cfe64 & 0x1f)) + -1;
+    iVar3 = 1 << (g_pixel_green_bits & 0x1f);
+    iVar9 = (1 << (g_pixel_red_bits & 0x1f)) + -1;
     iVar4 = iVar3 + -1;
-    iVar10 = 1 << (DAT_005cfe66 & 0x1f);
+    iVar10 = 1 << (g_pixel_blue_bits & 0x1f);
     iVar5 = iVar10 + -1;
     iVar3 = iVar3 / iVar10;
     uVar8 = 0;
     do {
-      iVar13 = ((DAT_005cfe78 & uVar8) >> (DAT_005cfe6c & 0x1f)) + 1;
-      iVar7 = ((DAT_005cfe7c & uVar8) >> (DAT_005cfe6d & 0x1f)) + iVar3;
-      iVar10 = (DAT_005cfe80 & uVar8) + 1;
+      iVar13 = ((g_pixel_red_mask & uVar8) >> (g_pixel_red_shift & 0x1f)) + 1;
+      iVar7 = ((g_pixel_green_mask & uVar8) >> (g_pixel_green_shift & 0x1f)) + iVar3;
+      iVar10 = (g_pixel_blue_mask & uVar8) + 1;
       if (iVar9 <= iVar13) {
         iVar13 = iVar9;
       }
@@ -146,15 +154,15 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
       if (iVar5 <= iVar10) {
         iVar10 = iVar5;
       }
-      *(ushort *)(DAT_005cff66 + uVar8 * 2) =
-           (ushort)(iVar7 << (DAT_005cfe6d & 0x1f)) | (ushort)(iVar13 << (DAT_005cfe6c & 0x1f)) |
-           (ushort)iVar10;
-      uVar12 = ((DAT_005cfe78 & uVar8) >> (DAT_005cfe6c & 0x1f)) - 1;
-      uVar6 = ((DAT_005cfe7c & uVar8) >> (DAT_005cfe6d & 0x1f)) - iVar3;
-      iVar10 = (DAT_005cfe80 & uVar8) - 1;
-      *(ushort *)(DAT_005cff6a + uVar8 * 2) =
-           (ushort)((((int)uVar6 < 1) - 1 & uVar6) << (DAT_005cfe6d & 0x1f)) |
-           (ushort)((((int)uVar12 < 1) - 1 & uVar12) << (DAT_005cfe6c & 0x1f)) |
+      g_luminance_plus_table[uVar8] =
+           (ushort)(iVar7 << (g_pixel_green_shift & 0x1f)) |
+           (ushort)(iVar13 << (g_pixel_red_shift & 0x1f)) | (ushort)iVar10;
+      uVar12 = ((g_pixel_red_mask & uVar8) >> (g_pixel_red_shift & 0x1f)) - 1;
+      uVar6 = ((g_pixel_green_mask & uVar8) >> (g_pixel_green_shift & 0x1f)) - iVar3;
+      iVar10 = (g_pixel_blue_mask & uVar8) - 1;
+      g_luminance_minus_table[uVar8] =
+           (ushort)((((int)uVar6 < 1) - 1 & uVar6) << (g_pixel_green_shift & 0x1f)) |
+           (ushort)((((int)uVar12 < 1) - 1 & uVar12) << (g_pixel_red_shift & 0x1f)) |
            (iVar10 < 1) - 1 & (ushort)iVar10;
       uVar8 = uVar8 + 1;
     } while (uVar8 < 0x10000);
@@ -164,4 +172,3 @@ undefined4 Init_Surface_Pixel_State(int *param_1)
   }
   return 0;
 }
-

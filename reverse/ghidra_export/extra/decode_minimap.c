@@ -15,7 +15,7 @@ void Decode_MiniMap(int param_1,int param_2)
   int iVar3;
   int iVar4;
   char *pcVar5;
-  
+
   Trace_Function(s_Decode_MiniMap_005188dc);
   if ((((-1 < param_1) && (-1 < param_2)) && (param_1 < g_map_width_tiles)) &&
      (param_2 < g_map_height_tiles)) {
@@ -40,28 +40,34 @@ void Decode_MiniMap(int param_1,int param_2)
     if (('\0' < cVar2) && (DAT_005aa280 == 1)) {
       if (cVar2 < '\x04') {
         *(uint *)(DAT_007584c4 + iVar3 * 4) =
-             (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128) |
-                           *(ushort *)(DAT_005cfe98 + 0x128));
+             (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                            *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                           *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
         *(uint *)(DAT_007584c8 + iVar4 * 4) =
-             (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128) |
-                           *(ushort *)(DAT_005cfe98 + 0x128));
+             (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                            *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                           *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
         return;
       }
       if (cVar2 != '\x04') {
         *(uint *)(DAT_007584c4 + iVar3 * 4) =
-             (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x3fc) | *(ushort *)(DAT_005cfe9c + 0x3fc) |
-                           *(ushort *)(DAT_005cfe98 + 0x3fc));
+             (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xff) |
+                            *(ushort *)(g_green_to_pixel_table + 0xff) |
+                           *(ushort *)(g_rgb_to_pixel_tables + 0xff));
         *(uint *)(DAT_007584c8 + iVar4 * 4) =
-             (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x3fc) | *(ushort *)(DAT_005cfe9c + 0x3fc) |
-                           *(ushort *)(DAT_005cfe98 + 0x3fc));
+             (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xff) |
+                            *(ushort *)(g_green_to_pixel_table + 0xff) |
+                           *(ushort *)(g_rgb_to_pixel_tables + 0xff));
         return;
       }
       *(uint *)(DAT_007584c4 + iVar3 * 4) =
-           (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x330) | *(ushort *)(DAT_005cfe9c + 0x330) |
-                         *(ushort *)(DAT_005cfe98 + 0x330));
+           (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xcc) |
+                          *(ushort *)(g_green_to_pixel_table + 0xcc) |
+                         *(ushort *)(g_rgb_to_pixel_tables + 0xcc));
       *(uint *)(DAT_007584c8 + iVar4 * 4) =
-           (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x330) | *(ushort *)(DAT_005cfe9c + 0x330) |
-                         *(ushort *)(DAT_005cfe98 + 0x330));
+           (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xcc) |
+                          *(ushort *)(g_green_to_pixel_table + 0xcc) |
+                         *(ushort *)(g_rgb_to_pixel_tables + 0xcc));
       return;
     }
     *(undefined4 *)(DAT_007584c4 + iVar3 * 4) = (&DAT_00734c84)[cVar1];
@@ -69,4 +75,3 @@ void Decode_MiniMap(int param_1,int param_2)
   }
   return;
 }
-

@@ -600,14 +600,14 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
           iVar16 = 0;
           *(uint *)((int)&DAT_0074c0ac + iVar6) =
                (uint)(ushort)(*(ushort *)
-                               (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_c * 0x20 +
-                               DAT_005cfea0) |
+                               (g_blue_to_pixel_table +
+                               g_empire_country_defs[bVar1].diplomacy_ui_color_layer_c * 8) |
                               *(ushort *)
-                               (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_b * 0x20 +
-                               DAT_005cfe9c) |
+                               (g_green_to_pixel_table +
+                               g_empire_country_defs[bVar1].diplomacy_ui_color_layer_b * 8) |
                              *(ushort *)
-                              (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_a * 0x20 +
-                              DAT_005cfe98));
+                              (g_rgb_to_pixel_tables +
+                              g_empire_country_defs[bVar1].diplomacy_ui_color_layer_a * 8));
           do {
             iVar23 = *piVar9;
             if ((iVar23 == -1) || ((-1 < iVar23 && (*(int *)(pcVar24 + iVar23 * 4 + 1) == 2)))) {

@@ -75,7 +75,7 @@ void Decode_NewMap(int param_1,uint param_2)
   int local_48;
   int local_44;
   int local_40 [16];
-  
+
   Trace_Function(s_Decode_NewMap_005188b0);
   if ((int)param_2 < 0) {
     return;
@@ -667,11 +667,13 @@ switchD_00431b84_default:
         pcVar12[9] = cVar6 + cVar5 * '\x02';
         if (DAT_005aa280 == 1) {
           *(uint *)(DAT_007584c4 + local_e0 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128)
-                             | *(ushort *)(DAT_005cfe98 + 0x128));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                              *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
           *(uint *)(DAT_007584c8 + local_e4 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128)
-                             | *(ushort *)(DAT_005cfe98 + 0x128));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                              *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
         }
       }
       else {
@@ -801,11 +803,13 @@ switchD_00431b84_default:
         }
         else if (DAT_005aa280 == 1) {
           *(uint *)(DAT_007584c4 + local_e0 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128)
-                             | *(ushort *)(DAT_005cfe98 + 0x128));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                              *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
           *(uint *)(DAT_007584c8 + local_e4 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x128) | *(ushort *)(DAT_005cfe9c + 0x128)
-                             | *(ushort *)(DAT_005cfe98 + 0x128));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0x4a) |
+                              *(ushort *)(g_green_to_pixel_table + 0x4a) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0x4a));
         }
       }
     }
@@ -841,19 +845,23 @@ switchD_00431b84_default:
       if (DAT_005aa280 == 1) {
         if (pcVar12[8] == '\x04') {
           *(uint *)(DAT_007584c4 + local_e0 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x330) | *(ushort *)(DAT_005cfe9c + 0x330)
-                             | *(ushort *)(DAT_005cfe98 + 0x330));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xcc) |
+                              *(ushort *)(g_green_to_pixel_table + 0xcc) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0xcc));
           *(uint *)(DAT_007584c8 + local_e4 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x330) | *(ushort *)(DAT_005cfe9c + 0x330)
-                             | *(ushort *)(DAT_005cfe98 + 0x330));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xcc) |
+                              *(ushort *)(g_green_to_pixel_table + 0xcc) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0xcc));
         }
         else {
           *(uint *)(DAT_007584c4 + local_e0 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x3fc) | *(ushort *)(DAT_005cfe9c + 0x3fc)
-                             | *(ushort *)(DAT_005cfe98 + 0x3fc));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xff) |
+                              *(ushort *)(g_green_to_pixel_table + 0xff) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0xff));
           *(uint *)(DAT_007584c8 + local_e4 * 4) =
-               (uint)(ushort)(*(ushort *)(DAT_005cfea0 + 0x3fc) | *(ushort *)(DAT_005cfe9c + 0x3fc)
-                             | *(ushort *)(DAT_005cfe98 + 0x3fc));
+               (uint)(ushort)(*(ushort *)(g_blue_to_pixel_table + 0xff) |
+                              *(ushort *)(g_green_to_pixel_table + 0xff) |
+                             *(ushort *)(g_rgb_to_pixel_tables + 0xff));
         }
       }
     }
@@ -935,4 +943,3 @@ switchD_00431b84_default:
   }
   return;
 }
-

@@ -13,14 +13,15 @@ undefined4 Edit_Finish(void)
   byte bVar1;
   bool bVar2;
   undefined4 uVar3;
-  undefined4 uVar4;
-  int iVar5;
-  uint *puVar6;
-  char *pcVar7;
-  int iVar8;
-  int *piVar9;
-  int iVar10;
-  undefined4 *puVar11;
+  int *piVar4;
+  undefined4 uVar5;
+  int iVar6;
+  uint *puVar7;
+  char *pcVar8;
+  int iVar9;
+  int *piVar10;
+  int iVar11;
+  undefined4 *puVar12;
   undefined1 local_180 [192];
   undefined1 local_c0 [192];
 
@@ -40,50 +41,50 @@ undefined4 Edit_Finish(void)
   _DAT_0075c964 = 0;
   g_map_interaction_mode = 1;
   g_editor_mode_enabled = 0;
-  iVar5 = g_map_width_tiles;
-  iVar10 = DAT_00758524;
+  iVar6 = g_map_width_tiles;
+  iVar11 = DAT_00758524;
   uVar3 = DAT_0075c96c;
   if (g_editor_land_tile_backup != (LandTile_0x100 *)0x0) {
     FUN_0047de70(g_editor_land_tile_backup,s_Edit_MAP_TYPE_BackUp_00517900,1);
     g_editor_land_tile_backup = (LandTile_0x100 *)0x0;
-    iVar5 = g_map_width_tiles;
-    iVar10 = DAT_00758524;
+    iVar6 = g_map_width_tiles;
+    iVar11 = DAT_00758524;
     uVar3 = DAT_0075c96c;
   }
-  for (; uVar4 = DAT_0075c96c, g_map_width_tiles = iVar5, iVar10 != 0;
-      iVar10 = *(int *)(iVar10 + 0xc4)) {
+  for (; uVar5 = DAT_0075c96c, g_map_width_tiles = iVar6, iVar11 != 0;
+      iVar11 = *(int *)(iVar11 + 0xc4)) {
     DAT_0075c96c = uVar3;
-    if (*(int *)(iVar10 + 4) != 0) {
-      if (*(int *)(iVar10 + 8) < 1) {
-        if (*(int *)(iVar10 + 8) < 0) {
-          if (*(int *)(iVar10 + 0x10) != 0) {
+    if (*(int *)(iVar11 + 4) != 0) {
+      if (*(int *)(iVar11 + 8) < 1) {
+        if (*(int *)(iVar11 + 8) < 0) {
+          if (*(int *)(iVar11 + 0x10) != 0) {
             DAT_0070791c = DAT_0070791c + 1;
           }
-          *(int *)(iVar10 + 8) = -*(int *)(iVar10 + 8);
+          *(int *)(iVar11 + 8) = -*(int *)(iVar11 + 8);
         }
       }
       else {
-        FUN_00472320(iVar10);
+        FUN_00472320(iVar11);
       }
     }
-    iVar5 = g_map_width_tiles;
+    iVar6 = g_map_width_tiles;
     uVar3 = DAT_0075c96c;
-    DAT_0075c96c = uVar4;
+    DAT_0075c96c = uVar5;
   }
   DAT_00755958 = 0;
   DAT_0075595c = 0;
-  if ((DAT_0057ecdc != g_human_country_index) && (iVar10 = 0, 0 < g_map_height_tiles)) {
+  if ((DAT_0057ecdc != g_human_country_index) && (iVar11 = 0, 0 < g_map_height_tiles)) {
     do {
-      iVar8 = 0;
-      if (0 < iVar5) {
+      iVar9 = 0;
+      if (0 < iVar6) {
         do {
-          FUN_00413d80(iVar8,iVar10,1);
-          iVar8 = iVar8 + 1;
-          iVar5 = g_map_width_tiles;
-        } while (iVar8 < g_map_width_tiles);
+          FUN_00413d80(iVar9,iVar11,1);
+          iVar9 = iVar9 + 1;
+          iVar6 = g_map_width_tiles;
+        } while (iVar9 < g_map_width_tiles);
       }
-      iVar10 = iVar10 + 1;
-    } while (iVar10 < g_map_height_tiles);
+      iVar11 = iVar11 + 1;
+    } while (iVar11 < g_map_height_tiles);
   }
   FUN_004a16b0();
   if (bVar2) {
@@ -94,53 +95,53 @@ undefined4 Edit_Finish(void)
   }
   else {
     FUN_0049ca90();
-    piVar9 = &DAT_0074d660;
+    piVar10 = &DAT_0074d660;
     do {
-      if (0 < *piVar9) {
-        FUN_00478dc0(*piVar9);
+      if (0 < *piVar10) {
+        FUN_00478dc0(*piVar10);
       }
-      piVar9 = piVar9 + 0x50;
-    } while ((int)piVar9 < 0x755220);
-    puVar11 = &DAT_0074d524;
-    piVar9 = &g_empire_country_defs[0].country_profile_id;
+      piVar10 = piVar10 + 0x50;
+    } while ((int)piVar10 < 0x755220);
+    puVar12 = &DAT_0074d524;
+    piVar10 = &g_empire_country_defs[0].country_profile_id;
     do {
-      if ((0 < ((EmpireCountryDef_0x200 *)(piVar9 + -0xe))->is_enabled_or_selectable) &&
-         (-1 < g_country_profile_defs[*piVar9].portrait_enabled_or_display_flag)) {
-        iVar5 = g_country_profile_defs[*piVar9].profile_portrait_resource_id;
-        Format_Text(local_c0,s_DIP__02d_IMG_005178b8,iVar5);
-        Format_Text(local_180,s_DIP__02d_IDI_005178a8,iVar5);
-        iVar5 = FUN_00478bc0(local_c0,local_180);
-        puVar11[-1] = iVar5;
-        if (iVar5 < 0) {
+      if ((0 < ((EmpireCountryDef_0x200 *)(piVar10 + -0xe))->is_enabled_or_selectable) &&
+         (-1 < g_country_profile_defs[*piVar10].portrait_enabled_or_display_flag)) {
+        iVar6 = g_country_profile_defs[*piVar10].profile_portrait_resource_id;
+        Format_Text(local_c0,s_DIP__02d_IMG_005178b8,iVar6);
+        Format_Text(local_180,s_DIP__02d_IDI_005178a8,iVar6);
+        iVar6 = FUN_00478bc0(local_c0,local_180);
+        puVar12[-1] = iVar6;
+        if (iVar6 < 0) {
           FUN_0046a230(local_c0,local_180);
         }
-        *puVar11 = 0;
-        puVar11[1] = 0;
-        puVar11[2] = 0;
-        puVar11[3] = 0;
+        *puVar12 = 0;
+        puVar12[1] = 0;
+        puVar12[2] = 0;
+        puVar12[3] = 0;
       }
-      iVar5 = DAT_005cfe9c;
-      piVar9 = piVar9 + 0x80;
-      puVar11 = puVar11 + 0x50;
-    } while ((int)piVar9 < 0x596250);
-    pcVar7 = &g_country_states;
-    puVar6 = &DAT_0074c0ac;
+      piVar4 = g_green_to_pixel_table;
+      piVar10 = piVar10 + 0x80;
+      puVar12 = puVar12 + 0x50;
+    } while ((int)piVar10 < 0x596250);
+    pcVar8 = &g_country_states;
+    puVar7 = &DAT_0074c0ac;
     do {
-      if ('\0' < *pcVar7) {
-        bVar1 = pcVar7[1];
-        *puVar6 = (uint)(ushort)(*(ushort *)
-                                  (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_c * 0x20 +
-                                  DAT_005cfea0) |
+      if ('\0' < *pcVar8) {
+        bVar1 = pcVar8[1];
+        *puVar7 = (uint)(ushort)(*(ushort *)
+                                  (g_blue_to_pixel_table +
+                                  g_empire_country_defs[bVar1].diplomacy_ui_color_layer_c * 8) |
                                  *(ushort *)
-                                  (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_b * 0x20 +
-                                  iVar5) |
+                                  (piVar4 + g_empire_country_defs[bVar1].diplomacy_ui_color_layer_b
+                                            * 8) |
                                 *(ushort *)
-                                 (g_empire_country_defs[bVar1].diplomacy_ui_color_layer_a * 0x20 +
-                                 DAT_005cfe98));
+                                 (g_rgb_to_pixel_tables +
+                                 g_empire_country_defs[bVar1].diplomacy_ui_color_layer_a * 8));
       }
-      puVar6 = puVar6 + 1;
-      pcVar7 = pcVar7 + 0xe68;
-    } while ((int)puVar6 < 0x74c104);
+      puVar7 = puVar7 + 1;
+      pcVar8 = pcVar8 + 0xe68;
+    } while ((int)puVar7 < 0x74c104);
     FUN_00477d00();
     FUN_004a16b0();
   }
