@@ -402,8 +402,14 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "battle AI compares this field against action counters");
         replaceAt(armyTypeDef, 0x118, new ArrayDataType(IntegerDataType.dataType, 3, 4), 0x0c,
             "combat_or_support_values", "battle resolution indexes early entries by defender unit class; city support code can render later offsets as distant indexes from this base");
+        replaceAt(armyTypeDef, 0x128, IntegerDataType.dataType, 4, "battle_entry_rank_threshold_shift",
+            "battle entry paths compute veteran/rank retry threshold as 3 shifted by this value");
         replaceAt(armyTypeDef, 0x12c, IntegerDataType.dataType, 4, "transport_capacity",
             "AI diplomat and load repair check this when validating carried units");
+        replaceAt(armyTypeDef, 0x130, IntegerDataType.dataType, 4, "battle_entry_capability_a",
+            "battle entry paths combine this with carried/subunit types when deciding defender interaction coverage");
+        replaceAt(armyTypeDef, 0x134, IntegerDataType.dataType, 4, "battle_entry_capability_b",
+            "battle entry paths combine this with carried/subunit types beside capability_a and transport_mask");
         replaceAt(armyTypeDef, 0x138, IntegerDataType.dataType, 4, "transport_mask",
             "load repair intersects this bitmask with carried unit capability masks");
         replaceAt(armyTypeDef, 0x140, IntegerDataType.dataType, 4, "air_or_city_capability_mask",
@@ -420,6 +426,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Put_City_Make requires this completed unless -1, with several special cases");
         replaceAt(armyTypeDef, 0x1b8, IntegerDataType.dataType, 4, "prerequisite_building_b",
             "second building prerequisite for unit production");
+        replaceAt(armyTypeDef, 0x1d4, IntegerDataType.dataType, 4, "elite_rank_reward_or_unlock",
+            "battle entry paths pass this to the rank-up handler when a unit reaches veteran/power level 4; negative values gate rank growth past level 3");
+        replaceAt(armyTypeDef, 0x1d8, IntegerDataType.dataType, 4, "special_visibility_attack_gate",
+            "battle entry path for army type 0x29 tests this with defender tile visibility before allowing interaction");
         replaceAt(armyTypeDef, 0x1f8, new ArrayDataType(IntegerDataType.dataType, 40, 4), 0xa0,
             "resource_cost_by_kind", "Put_City_Make compares these against country/city resource availability");
         replaceAt(armyTypeDef, 0x2c0, new ArrayDataType(IntegerDataType.dataType, 22, 4), 0x58,

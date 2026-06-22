@@ -190,12 +190,16 @@ higher ids.
 | `+0x110` | `Load_Dat` caches it into `ArmyUnit +0x138` after scaling; UI displays it divided by 9. | movement/speed. |
 | `+0x114` | Battle AI compares range/rank counters with this value. | battle minimum range / rank. |
 | `+0x118..` | Early indexes are used by battle class interactions; city support code can render later offsets from this base in Ghidra output. | combat/support value block. |
+| `+0x128` | Battle entry paths compute rank-up retry thresholds as `3 << value`; value `1` also enables an alternate defender-scan path. | battle entry rank threshold shift. |
 | `+0x12c` | Transport validation in `Load_Dat`, `AI_Diplomat`, and `Map_To_Battle_Army` requires this to be nonzero for carriers. | transport capacity. |
+| `+0x130/+0x134` | Battle entry paths combine these flags with carried/subunit types and `transport_mask` when deciding defender interaction coverage. | battle entry capability flags. |
 | `+0x138` | Load repair intersects this with carried-unit capability masks. | transport mask. |
 | `+0x140/+0x144` | Near-city/air and transport checks compare capability bitmasks through these fields. | capability / transportable masks. |
 | `+0x160` | `Battle_AutoArrange` and `Do_Battle_Army_And_Battle_Die` compare step/action counters against it. | battle step frame count. |
 | `+0x164/+0x184` | `City_Belong_Change` adds/removes shorts from city protection/resource counters while units are stationed. | city support deltas. |
 | `+0x1b4/+0x1b8` | `Put_City_Make` requires these buildings completed unless they are `-1`, with several special cases. | unit prerequisite buildings. |
+| `+0x1d4` | Battle entry paths pass it to the rank-up handler when a unit reaches veteran/power level `4`; negative values gate rank growth past level `3`. | elite rank reward or unlock. |
+| `+0x1d8` | Special battle entry path for army type `0x29` tests this with defender tile visibility before allowing interaction. | special visibility attack gate. |
 | `+0x1f8..` | `Put_City_Make` compares 40 resource slots against city/country resource availability. | resource cost by kind. |
 
 ### `City_0x1b8_plus`
