@@ -383,9 +383,9 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       piVar9 = DAT_00707920;
       pCVar32 = g_country_profile_defs;
       for (iVar6 = 0xc1c; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *(int *)pCVar32->short_name_bytes = *piVar9;
+        *(int *)pCVar32->person_name_bytes = *piVar9;
         piVar9 = piVar9 + 1;
-        pCVar32 = (CountryProfileDef_0x7c *)(pCVar32->short_name_bytes + 4);
+        pCVar32 = (CountryProfileDef_0x7c *)(pCVar32->person_name_bytes + 4);
       }
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x3070);
       DAT_00707920 = DAT_00707920 + 0xc1c;
@@ -3170,8 +3170,8 @@ LAB_0047702c:
       piVar9 = &g_empire_country_defs[0].country_profile_id;
       do {
         if ((0 < ((EmpireCountryDef_0x200 *)(piVar9 + -0xe))->is_enabled_or_selectable) &&
-           (-1 < g_country_profile_defs[*piVar9].portrait_enabled_or_display_flag)) {
-          iVar6 = g_country_profile_defs[*piVar9].profile_portrait_resource_id;
+           (-1 < g_country_profile_defs[*piVar9].portrait_image_mode)) {
+          iVar6 = g_country_profile_defs[*piVar9].portrait_resource_id;
           Format_Text(acStack_36c,s_DIP__02d_IMG_005178b8,iVar6);
           Format_Text(acStack_248,s_DIP__02d_IDI_005178a8,iVar6);
           iVar6 = FUN_00478bc0(acStack_36c,acStack_248);

@@ -164,8 +164,7 @@ LAB_0045b379:
             do {
               pEVar14 = pEVar14 + 1;
               if ((0 < pEVar14->is_enabled_or_selectable) &&
-                 (-1 < g_country_profile_defs[pEVar14->country_profile_id].
-                       portrait_enabled_or_display_flag)) {
+                 (-1 < g_country_profile_defs[pEVar14->country_profile_id].portrait_image_mode)) {
                 *piVar6 = iVar7;
                 piVar6 = piVar6 + 1;
                 local_2b4 = local_2b4 + 1;
@@ -187,7 +186,7 @@ LAB_0045b379:
               uVar9 = (uint)(byte)pcVar12[1];
               if ((('\0' < *pcVar12) && (0 < g_empire_country_defs[uVar9].is_enabled_or_selectable))
                  && (-1 < g_country_profile_defs[g_empire_country_defs[uVar9].country_profile_id].
-                          portrait_enabled_or_display_flag)) {
+                          portrait_image_mode)) {
                 *puVar18 = uVar9;
                 iVar8 = iVar8 + 1;
                 puVar18 = puVar18 + 1;

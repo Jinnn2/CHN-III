@@ -578,18 +578,21 @@ table editor calls around `0x0045ee10` expose many columns with base
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x00..0x10` | Profile editor text column at `0x00596218 + row * 0x7c`. | short name bytes. |
-| `+0x11..0x21` | `Before_Edit_Empire_Hero` binds this as a second 17-byte text column at `0x00596229 + row * 0x7c`. | display name bytes. |
-| `+0x24` | `Before_Edit_Empire_Hero`, `Load_Dat`, `Edit_Finish`, and custom-map selection require this to be nonnegative before loading/showing `DIP_%02d` resources. | portrait enabled / display flag. |
-| `+0x28` | `Before_Edit_Empire_Hero`, `Load_Dat`, and `Edit_Finish` format `DIP_%02d.IMG`/`.IDI` resource names from this value. | profile portrait resource id. |
-| `+0x2c/+0x30` | `Before_Edit_Empire_Hero` exposes these dwords as editable numeric fields. | editor-visible profile values. |
-| `+0x34/+0x38` | `Before_Edit_Empire_Hero` binds these dwords to option-list controls. | editor-visible profile selectors. |
-| `+0x3c` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
-| `+0x40` | `City_Round_Check` subtracts this percent from city route/canal work costs. | engineering discount percent. |
-| `+0x44..0x58` | `Before_Edit_Empire_Hero` exposes this run of dwords as editable numeric fields. | editor-visible profile values. |
-| `+0x5c..0x73` | `Before_Edit_Empire_Hero` binds this as a six-dword control block. | profile value block. |
-| `+0x74` | `Before_Edit_Empire_Hero` exposes this dword as an editable numeric field. | editor-visible profile value. |
-| `+0x78` | `Before_Edit_Empire_Hero` binds this dword to an option-list control. | editor-visible profile selector. |
+| `+0x00..0x10` | Editor label is person name; profile editor text column starts at `0x00596218 + row * 0x7c`. | person name bytes. |
+| `+0x11..0x21` | Editor label is honorific/title name; `Before_Edit_Empire_Hero` binds this as a second 17-byte text column at `0x00596229 + row * 0x7c`. | honorific title bytes. |
+| `+0x24` | Editor label is image-file type; options are no image, static image, and animation. `Load_Dat`, `Edit_Finish`, and custom-map selection require this to be nonnegative before loading/showing `DIP_%02d` resources. | portrait image mode. |
+| `+0x28` | Editor label is image-file number; `Before_Edit_Empire_Hero`, `Load_Dat`, and `Edit_Finish` format `DIP_%02d.IMG`/`.IDI` resource names from this value. | portrait resource id. |
+| `+0x2c` | Editor label is ambition to dominate. | domination ambition. |
+| `+0x30` | Editor label is endurance under burden. | burden resilience. |
+| `+0x34` | Editor label is honesty and trustworthiness. | honesty trustworthiness. |
+| `+0x38` | Editor label is exploration spirit. | exploration spirit. |
+| `+0x3c` | Editor label is science emphasis. | science priority. |
+| `+0x40` | Editor label is economic talent; `City_Round_Check` subtracts this percent from city route/canal work costs. | engineering discount percent. |
+| `+0x44..0x58` | `Before_Edit_Empire_Hero` binds this as a six-dword editor block at `0x0059625c + row * 0x7c`; no per-element labels have been isolated yet. | profile editor value block. |
+| `+0x5c` | Editor label is culture emphasis. | culture priority. |
+| `+0x60` | Editor label is popular-support emphasis. | popular-support priority. |
+| `+0x74` | Editor label is diplomacy music. | diplomacy music id. |
+| `+0x78` | Editor label is government preference; option list is built from government definitions. | preferred government id. |
 
 ### `EmpireCountryDef_0x200`
 

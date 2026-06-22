@@ -187,8 +187,8 @@ LAB_0045f0cd:
   pCVar6 = g_country_profile_defs;
   puVar8 = _DAT_00706e90;
   for (iVar5 = 0xc1c; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar8 = *(undefined4 *)pCVar6->short_name_bytes;
-    pCVar6 = (CountryProfileDef_0x7c *)(pCVar6->short_name_bytes + 4);
+    *puVar8 = *(undefined4 *)pCVar6->person_name_bytes;
+    pCVar6 = (CountryProfileDef_0x7c *)(pCVar6->person_name_bytes + 4);
     puVar8 = puVar8 + 1;
   }
   uVar3 = 0xffffffff;
@@ -310,22 +310,22 @@ LAB_0045f0cd:
       Safe_FreeIMG(&DAT_00706e9c);
       DAT_00706e9c = 0;
     }
-    if (-1 < g_country_profile_defs[DAT_00706e88].portrait_enabled_or_display_flag) {
+    if (-1 < g_country_profile_defs[DAT_00706e88].portrait_image_mode) {
       Format_Text(local_1ec,s_DIP__02d_IMG_005178b8,
-                  g_country_profile_defs[DAT_00706e88].profile_portrait_resource_id);
+                  g_country_profile_defs[DAT_00706e88].portrait_resource_id);
       Format_Text(local_c8,s_DIP__02d_IDI_005178a8,
-                  g_country_profile_defs[DAT_00706e88].profile_portrait_resource_id);
+                  g_country_profile_defs[DAT_00706e88].portrait_resource_id);
       _DAT_00572588 = FUN_00478bc0(local_1ec,local_c8);
       iVar5 = DAT_00706e88;
       if (_DAT_00572588 != -1) {
         DAT_00706e9c = FUN_00478e50(_DAT_00572588,0);
-        _DAT_00572580 = g_country_profile_defs[DAT_00706e88].portrait_enabled_or_display_flag;
-        _DAT_00572584 = g_country_profile_defs[DAT_00706e88].profile_portrait_resource_id;
+        _DAT_00572580 = g_country_profile_defs[DAT_00706e88].portrait_image_mode;
+        _DAT_00572584 = g_country_profile_defs[DAT_00706e88].portrait_resource_id;
         return;
       }
       DAT_00706e9c = 0;
-      g_country_profile_defs[DAT_00706e88].portrait_enabled_or_display_flag = -1;
-      g_country_profile_defs[iVar5].profile_portrait_resource_id = -1;
+      g_country_profile_defs[DAT_00706e88].portrait_image_mode = -1;
+      g_country_profile_defs[iVar5].portrait_resource_id = -1;
     }
   }
   return;

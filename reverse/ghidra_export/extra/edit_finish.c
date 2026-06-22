@@ -106,8 +106,8 @@ undefined4 Edit_Finish(void)
     piVar10 = &g_empire_country_defs[0].country_profile_id;
     do {
       if ((0 < ((EmpireCountryDef_0x200 *)(piVar10 + -0xe))->is_enabled_or_selectable) &&
-         (-1 < g_country_profile_defs[*piVar10].portrait_enabled_or_display_flag)) {
-        iVar6 = g_country_profile_defs[*piVar10].profile_portrait_resource_id;
+         (-1 < g_country_profile_defs[*piVar10].portrait_image_mode)) {
+        iVar6 = g_country_profile_defs[*piVar10].portrait_resource_id;
         Format_Text(local_c0,s_DIP__02d_IMG_005178b8,iVar6);
         Format_Text(local_180,s_DIP__02d_IDI_005178a8,iVar6);
         iVar6 = FUN_00478bc0(local_c0,local_180);
