@@ -105,6 +105,9 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_commandline_demo_mode_enabled` | `Process_CommandLine_Args` sets it for `/DEMO`; `PlayGame_Init` then loads `WORLD_FLAT`, enables auto/AI control, and selects country `1`. | Demo startup mode flag. |
 | `g_commandline_load_exception_flag` | `Process_CommandLine_Args` sets it for `/LOAD`; `PlayGame_Init` loads `EXCEPTION`, clears the flag, and continues setup. | Command-line exception-save load flag. |
 | `g_country_portrait_image_bank_slots` / `g_edit_country_portrait_image_bank_slots` | `Edit_Finish` and shutdown close/load `DIP_%02d.IMG/IDI` resources in `0x140`-byte country slots; custom-map setup opens preview handles from these banks. | Runtime and editor country portrait image bank slots. |
+| `g_empire_country_edit_file_slot` / `g_country_profile_edit_file_slot` | `Before_Edit_Empire_Country` and `Before_Edit_Empire_Hero` map slot values `0..4` to `EMPIRE_%d.USR` / `HERO_%d.USR`, value `5` to the default `.DAT`, and restore the backup slot when the user cancels. | Country/profile editor file-source choices. |
+| `g_empire_country_defs_edit_backup` | `Before_Edit_Empire_Country` allocates `0xc800` bytes and copies all 100 `EmpireCountryDef_0x200` records before binding the editor controls. | Country definition editor undo/cancel backup. |
+| `g_country_profile_defs_edit_backup` | `Before_Edit_Empire_Hero` allocates `0x3070` bytes and copies all 100 `CountryProfileDef_0x7c` records before binding the editor controls. | Country profile editor undo/cancel backup. |
 | `g_data_format_list_head` / `g_data_format_list_tail` | `NodeInsert_DataFormat` appends `DataFormat_0xc8` nodes, `NodeDelete_DataFormat` unlinks them, and `Del_DataFormat` removes all controls for one owner window/context. | Active window/form data-format linked list. |
 
 ## Editor And Startup

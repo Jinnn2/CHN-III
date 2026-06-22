@@ -15,15 +15,15 @@ void MLP_Edit_Empire_Country(void)
   int iVar5;
 
   Trace_Function(s_MLP_Edit_Empire_Country_00571a0c);
-  iVar3 = DAT_00706b0c;
+  iVar3 = g_empire_country_editor_selected_index;
   iVar5 = *(int *)(DAT_0075852c + 0x1c);
   iVar2 = *(int *)(DAT_0075852c + 0x20);
-  if (-1 < DAT_00706b0c) {
+  if (-1 < g_empire_country_editor_selected_index) {
     iVar1 = iVar2 + 0x32;
     if ((((iVar1 <= g_view_center_y) && (g_view_center_y <= iVar2 + 0x131)) &&
         (iVar5 + 0x22c <= g_view_center_x)) && (g_view_center_x <= iVar5 + 0x240)) {
       iVar4 = (g_view_center_y - iVar2) + -0x32;
-      g_empire_country_defs[DAT_00706b0c].diplomacy_ui_color_layer_a =
+      g_empire_country_defs[g_empire_country_editor_selected_index].diplomacy_ui_color_layer_a =
            (int)(iVar4 + (iVar4 >> 0x1f & 7U)) >> 3;
     }
     if (((iVar1 <= g_view_center_y) && (g_view_center_y <= iVar2 + 0x131)) &&

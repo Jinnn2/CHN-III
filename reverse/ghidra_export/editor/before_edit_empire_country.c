@@ -5,8 +5,6 @@
  */
 
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void Before_Edit_Empire_Country(void)
 
 {
@@ -29,8 +27,8 @@ void Before_Edit_Empire_Country(void)
   undefined1 local_12c [296];
 
   Trace_Function(s_Before_Edit_Empire_Country_005718e0);
-  if ((DAT_005715b0 < 0) || (4 < DAT_005715b0)) {
-    if (DAT_005715b0 != 5) goto LAB_00457b62;
+  if ((g_empire_country_edit_file_slot < 0) || (4 < g_empire_country_edit_file_slot)) {
+    if (g_empire_country_edit_file_slot != 5) goto LAB_00457b62;
     uVar3 = 0xffffffff;
     pcVar8 = &DAT_0075525c;
     do {
@@ -122,7 +120,7 @@ void Before_Edit_Empire_Country(void)
       pcVar8 = pcVar8 + 1;
       pcVar12 = pcVar12 + 1;
     }
-    Format_Text(local_2ac,s_EMPIRE__d_USR_005718d0,DAT_005715b0);
+    Format_Text(local_2ac,s_EMPIRE__d_USR_005718d0,g_empire_country_edit_file_slot);
     uVar3 = 0xffffffff;
     pcVar8 = local_2ac;
     do {
@@ -181,11 +179,11 @@ LAB_004579d0:
       goto LAB_00457b62;
     }
   }
-  DAT_005715b0 = DAT_005715b4;
+  g_empire_country_edit_file_slot = g_empire_country_edit_file_slot_backup;
 LAB_00457b62:
-  DAT_00706b20 = (int *)FUN_0047de30(0xc800,s_Edit_Empire_005717c4,1);
+  g_empire_country_defs_edit_backup = (int *)FUN_0047de30(0xc800,s_Edit_Empire_005717c4,1);
   pEVar7 = g_empire_country_defs;
-  piVar10 = DAT_00706b20;
+  piVar10 = g_empire_country_defs_edit_backup;
   for (iVar5 = 0x3200; iVar5 != 0; iVar5 = iVar5 + -1) {
     *piVar10 = pEVar7->is_enabled_or_selectable;
     pEVar7 = (EmpireCountryDef_0x200 *)pEVar7->country_name_bytes;
@@ -248,53 +246,59 @@ LAB_00457b62:
     pcVar12 = pcVar12 + 1;
   }
   iVar5 = FUN_005082df(local_250,0);
-  DAT_00706b28 = iVar5 == 0;
-  DAT_00706b14 = FUN_004a03b0();
-  _DAT_00706b10 = FUN_004a0410();
+  g_empire_country_default_file_exists = iVar5 == 0;
+  g_empire_country_editor_visible_count = FUN_004a03b0();
+  g_empire_country_editor_list_limit = FUN_004a0410();
   FUN_004a01e0();
   FUN_004a0130();
-  DAT_00706b24 = 0;
-  DAT_00706b18 = (undefined4 *)FUN_0047de30(0x68,s_ScrollBar_005124a0,0x14);
-  *DAT_00706b18 = 1;
-  DAT_00706b18[1] = DAT_005c6b44 + 0x84;
-  DAT_00706b18[2] = DAT_005c6b48 + 0x1a;
-  DAT_00706b18[0xe] = 1;
-  DAT_00706b18[9] = 0xffffffff;
-  DAT_00706b18[3] = 0x210;
-  DAT_00706b18[4] = 0x20;
-  DAT_00706b18[0xf] = 0x41c80000;
-  DAT_00706b18[0x10] = 0;
-  DAT_00706b18[0x11] = (float)DAT_00706b14;
-  DAT_00706b18[0x16] = &DAT_00706b24;
-  DAT_00706b18[0x17] = &DAT_005c6b28;
-  DAT_00706b18[0x18] = 0;
-  DAT_00706b18[0x19] = 0;
-  FUN_00472e90(DAT_00706b18);
-  Add_New_DataFormat(2,0xfc,8,&DAT_00519eac,&DAT_00706b0c,0,DAT_00706b0c * 0x200 + 0x589a1c,0,0,0,0,
-                     0x11,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a1c,0x11,1,0,0,0,0)
-  ;
-  Add_New_DataFormat(3,0x1a4,8,&DAT_0060b004,&DAT_00706b0c,g_empire_country_defs + DAT_00706b0c,0,0,
-                     0,&PTR_DAT_00571600,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,
+  g_empire_country_editor_scroll_offset = 0;
+  g_empire_country_editor_scrollbar = (int *)FUN_0047de30(0x68,s_ScrollBar_005124a0,0x14);
+  *g_empire_country_editor_scrollbar = 1;
+  g_empire_country_editor_scrollbar[1] = DAT_005c6b44 + 0x84;
+  g_empire_country_editor_scrollbar[2] = DAT_005c6b48 + 0x1a;
+  g_empire_country_editor_scrollbar[0xe] = 1;
+  g_empire_country_editor_scrollbar[9] = -1;
+  g_empire_country_editor_scrollbar[3] = 0x210;
+  g_empire_country_editor_scrollbar[4] = 0x20;
+  g_empire_country_editor_scrollbar[0xf] = 0x41c80000;
+  g_empire_country_editor_scrollbar[0x10] = 0;
+  g_empire_country_editor_scrollbar[0x11] = (int)(float)g_empire_country_editor_visible_count;
+  g_empire_country_editor_scrollbar[0x16] = (int)&g_empire_country_editor_scroll_offset;
+  g_empire_country_editor_scrollbar[0x17] = (int)&DAT_005c6b28;
+  g_empire_country_editor_scrollbar[0x18] = 0;
+  g_empire_country_editor_scrollbar[0x19] = 0;
+  FUN_00472e90(g_empire_country_editor_scrollbar);
+  Add_New_DataFormat(2,0xfc,8,&DAT_00519eac,&g_empire_country_editor_selected_index,0,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a1c,0,0,0,0,0x11,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a1c,0x11,1,0,0,0,0);
+  Add_New_DataFormat(3,0x1a4,8,&DAT_0060b004,&g_empire_country_editor_selected_index,
+                     g_empire_country_defs + g_empire_country_editor_selected_index,0,0,0,
+                     &PTR_DAT_00571600,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,
                      g_empire_country_defs,4,1,0,0,0,0);
-  Add_New_DataFormat(0,0xfc,0x22,&DAT_005717b8,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a50,0,0,0,
-                     &DAT_00715c0c,0,0,0,1,0x14,1,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a50
-                     ,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xfc,0x3c,&DAT_005717ac,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a54,0,0,2,0
-                     ,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a54,4,1,0,0,0,0);
-  Add_New_DataFormat(2,0xfc,0x126,&DAT_005717a0,&DAT_00706b0c,0,DAT_00706b0c * 0x200 + 0x589a2d,0,0,
-                     0,0,0x11,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a2d,0x11,1,0,0,
-                     0,0);
-  Add_New_DataFormat(2,0xfc,0x140,&DAT_00571794,&DAT_00706b0c,0,DAT_00706b0c * 0x200 + 0x589a3e,0,0,
-                     0,0,0x11,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a3e,0x11,1,0,0,
-                     0,0);
-  Add_New_DataFormat(1,0xfc,0xbe,&DAT_00571788,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a58,0,0,4,0
-                     ,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a58,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xfc,0xd8,&DAT_0057177c,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a5c,0,0,4,0
-                     ,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a5c,4,1,0,0,0,0);
-  Add_New_DataFormat(3,0xfc,0xf2,&DAT_00571770,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a70,0,0,0,
+  Add_New_DataFormat(0,0xfc,0x22,&DAT_005717b8,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a50,0,0,0,&DAT_00715c0c,0
+                     ,0,0,1,0x14,1,&DAT_005c6b28,g_empire_country_defs,0x200,0x589a50,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xfc,0x3c,&DAT_005717ac,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a54,0,0,2,0,0,0,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a54,4,1,0,0,0,0);
+  Add_New_DataFormat(2,0xfc,0x126,&DAT_005717a0,&g_empire_country_editor_selected_index,0,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a2d,0,0,0,0,0x11,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a2d,0x11,1,0,0,0,0);
+  Add_New_DataFormat(2,0xfc,0x140,&DAT_00571794,&g_empire_country_editor_selected_index,0,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a3e,0,0,0,0,0x11,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a3e,0x11,1,0,0,0,0);
+  Add_New_DataFormat(1,0xfc,0xbe,&DAT_00571788,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a58,0,0,4,0,0,0,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a58,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xfc,0xd8,&DAT_0057177c,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a5c,0,0,4,0,0,0,0,0,0,0,
+                     &DAT_005c6b28,g_empire_country_defs,0x200,0x589a5c,4,1,0,0,0,0);
+  Add_New_DataFormat(3,0xfc,0xf2,&DAT_00571770,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a70,0,0,0,
                      &PTR_DAT_005715c8,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,
                      0x589a70,4,1,0,0,0,0);
-  Add_New_DataFormat(3,0xfc,0x10c,&DAT_00571764,&DAT_00706b0c,DAT_00706b0c * 0x200 + 0x589a74,0,0,0,
+  Add_New_DataFormat(3,0xfc,0x10c,&DAT_00571764,&g_empire_country_editor_selected_index,
+                     g_empire_country_editor_selected_index * 0x200 + 0x589a74,0,0,0,
                      &PTR_DAT_005715e4,0,0,0,0,0,0,&DAT_005c6b28,g_empire_country_defs,0x200,
                      0x589a74,4,1,0,0,0,0);
   iVar13 = 0;
@@ -302,13 +306,14 @@ LAB_00457b62:
   iVar5 = 0x10;
   iVar9 = 0x589b10;
   do {
-    Add_New_DataFormat(0xc,0xfc,iVar6,&DAT_00571758,&DAT_00706b0c,
-                       (DAT_00706b0c * 0x80 + iVar13) * 4 + 0x589ae8,0,0,0,&DAT_00715dac,
-                       &DAT_007155a0,0,0,1,iVar5,1,&DAT_005c6b28,g_empire_country_defs,0x200,
-                       iVar9 + -0x28,4,1,0,0,0,0);
-    Add_New_DataFormat(0,0x1d8,iVar6,&DAT_0057174c,&DAT_00706b0c,
-                       (DAT_00706b0c * 0x80 + iVar13) * 4 + 0x589b10,0,0,0,&DAT_007157e0,0,0,0,1,
-                       iVar5,1,&DAT_005c6b28,g_empire_country_defs,0x200,iVar9,4,1,0,0,0,0);
+    Add_New_DataFormat(0xc,0xfc,iVar6,&DAT_00571758,&g_empire_country_editor_selected_index,
+                       (g_empire_country_editor_selected_index * 0x80 + iVar13) * 4 + 0x589ae8,0,0,0
+                       ,&DAT_00715dac,&DAT_007155a0,0,0,1,iVar5,1,&DAT_005c6b28,
+                       g_empire_country_defs,0x200,iVar9 + -0x28,4,1,0,0,0,0);
+    Add_New_DataFormat(0,0x1d8,iVar6,&DAT_0057174c,&g_empire_country_editor_selected_index,
+                       (g_empire_country_editor_selected_index * 0x80 + iVar13) * 4 + 0x589b10,0,0,0
+                       ,&DAT_007157e0,0,0,0,1,iVar5,1,&DAT_005c6b28,g_empire_country_defs,0x200,
+                       iVar9,4,1,0,0,0,0);
     iVar13 = iVar13 + 1;
     iVar9 = iVar9 + 4;
     iVar5 = iVar5 + -1;

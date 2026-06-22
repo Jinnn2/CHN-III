@@ -5,8 +5,6 @@
  */
 
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void Before_Edit_Empire_Hero(void)
 
 {
@@ -17,7 +15,7 @@ void Before_Edit_Empire_Hero(void)
   int iVar5;
   CountryProfileDef_0x7c *pCVar6;
   char *pcVar7;
-  undefined4 *puVar8;
+  int *piVar8;
   char *pcVar9;
   char *pcVar10;
   char *local_370;
@@ -27,9 +25,9 @@ void Before_Edit_Empire_Hero(void)
   undefined1 local_c8 [196];
 
   Trace_Function(s_Before_Edit_Empire_Hero_00572780);
-  iVar5 = DAT_005715b8;
-  if ((DAT_005715b8 < 0) || (4 < DAT_005715b8)) {
-    if (DAT_005715b0 != 5) goto LAB_0045f0cd;
+  iVar5 = g_country_profile_edit_file_slot;
+  if ((g_country_profile_edit_file_slot < 0) || (4 < g_country_profile_edit_file_slot)) {
+    if (g_empire_country_edit_file_slot != 5) goto LAB_0045f0cd;
     uVar3 = 0xffffffff;
     pcVar7 = &DAT_0075525c;
     do {
@@ -181,15 +179,15 @@ LAB_0045ef42:
       goto LAB_0045f0cd;
     }
   }
-  DAT_005715b8 = DAT_005715bc;
+  g_country_profile_edit_file_slot = g_country_profile_edit_file_slot_backup;
 LAB_0045f0cd:
-  _DAT_00706e90 = (undefined4 *)FUN_0047de30(0x3070,s_Edit_Hero_00572670,1);
+  g_country_profile_defs_edit_backup = (int *)FUN_0047de30(0x3070,s_Edit_Hero_00572670,1);
   pCVar6 = g_country_profile_defs;
-  puVar8 = _DAT_00706e90;
+  piVar8 = g_country_profile_defs_edit_backup;
   for (iVar5 = 0xc1c; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar8 = *(undefined4 *)pCVar6->person_name_bytes;
+    *piVar8 = *(int *)pCVar6->person_name_bytes;
     pCVar6 = (CountryProfileDef_0x7c *)(pCVar6->person_name_bytes + 4);
-    puVar8 = puVar8 + 1;
+    piVar8 = piVar8 + 1;
   }
   uVar3 = 0xffffffff;
   pcVar7 = &DAT_0075525c;
@@ -248,83 +246,100 @@ LAB_0045f0cd:
     pcVar10 = pcVar10 + 1;
   }
   iVar5 = FUN_005082df(local_310,0);
-  DAT_00706ea0 = iVar5 == 0;
-  _DAT_00706e84 = FUN_004a0410();
-  _DAT_00706e94 = FUN_004a0470();
-  _DAT_00706e98 = 0;
-  DAT_00706e8c = (undefined4 *)FUN_0047de30(0x68,s_ScrollBar_005124a0,0x14);
-  *DAT_00706e8c = 1;
-  DAT_00706e8c[1] = DAT_005c6cd4 + 0x80;
-  DAT_00706e8c[2] = DAT_005c6cd8 + 0x1a;
-  DAT_00706e8c[0xe] = 1;
-  DAT_00706e8c[9] = 0xffffffff;
-  DAT_00706e8c[3] = 0x210;
-  DAT_00706e8c[4] = 0x20;
-  DAT_00706e8c[0xf] = 0x41c80000;
-  DAT_00706e8c[0x10] = 0;
-  DAT_00706e8c[0x11] = (float)_DAT_00706e84;
-  DAT_00706e8c[0x16] = &DAT_00706e98;
-  DAT_00706e8c[0x17] = &DAT_005c6cb8;
-  DAT_00706e8c[0x18] = 0;
-  DAT_00706e8c[0x19] = 0;
-  FUN_00472e90(DAT_00706e8c);
-  Add_New_DataFormat(2,600,0xc,&DAT_00572664,&DAT_00706e88,0,g_country_profile_defs + DAT_00706e88,0
-                     ,0,0,0,0x11,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,
-                     g_country_profile_defs,0x11,1,0,0,0,0);
-  Add_New_DataFormat(2,600,0x26,&DAT_00572658,&DAT_00706e88,0,DAT_00706e88 * 0x7c + 0x596229,0,0,0,0
-                     ,0x11,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596229,0x11,1,0,0,0,0
-                    );
-  Add_New_DataFormat(3,0xfe,0xe4,&DAT_0057264c,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x59623c,0,0,
-                     0xffffffff,&PTR_DAT_0057258c,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,
-                     0x7c,0x59623c,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0xfe,0xfe,&DAT_00570af8,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596240,0,0,4,0,
-                     0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596240,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0x5a,&DAT_00572640,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596244,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596244,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0x74,&DAT_00572634,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596248,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596248,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0x8e,&DAT_00572628,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x59624c,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x59624c,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0xa8,&DAT_0057261c,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596250,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596250,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0xc2,&DAT_00572610,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596254,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596254,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0xdc,&DAT_00572604,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596258,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596258,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0xf6,&DAT_005725f8,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596274,0,0,3,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596274,4,1,0,0,0,0);
-  Add_New_DataFormat(1,0x26c,0x110,&DAT_005725ec,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596278,0,0,3,
-                     0,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596278,4,1,0,0,0,0);
-  Add_New_DataFormat(5,0xfe,0x13a,&DAT_0060b004,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x59625c,0,0,3,0
-                     ,0,6,0x30,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x59625c,4,1,0,0,0,0)
-  ;
-  Add_New_DataFormat(1,0xfe,0x188,&DAT_005725e0,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x59628c,0,0,2,0
-                     ,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x59628c,4,1,0,0,0,0);
-  Add_New_DataFormat(3,0xfe,0x1a2,&DAT_005725d4,&DAT_00706e88,DAT_00706e88 * 0x7c + 0x596290,0,0,0,
-                     &DAT_00715f4c,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596290,4,
-                     1,0,0,0,0);
-  _DAT_00572580 = 0xffffffff;
-  _DAT_00572584 = 0xffffffff;
-  if (-1 < DAT_00706e88) {
-    if (DAT_00706e9c != 0) {
-      Safe_FreeIMG(&DAT_00706e9c);
-      DAT_00706e9c = 0;
+  g_country_profile_default_file_exists = iVar5 == 0;
+  g_country_profile_editor_visible_count = FUN_004a0410();
+  g_country_profile_editor_list_limit = FUN_004a0470();
+  g_country_profile_editor_scroll_offset = 0;
+  g_country_profile_editor_scrollbar = (int *)FUN_0047de30(0x68,s_ScrollBar_005124a0,0x14);
+  *g_country_profile_editor_scrollbar = 1;
+  g_country_profile_editor_scrollbar[1] = DAT_005c6cd4 + 0x80;
+  g_country_profile_editor_scrollbar[2] = DAT_005c6cd8 + 0x1a;
+  g_country_profile_editor_scrollbar[0xe] = 1;
+  g_country_profile_editor_scrollbar[9] = -1;
+  g_country_profile_editor_scrollbar[3] = 0x210;
+  g_country_profile_editor_scrollbar[4] = 0x20;
+  g_country_profile_editor_scrollbar[0xf] = 0x41c80000;
+  g_country_profile_editor_scrollbar[0x10] = 0;
+  g_country_profile_editor_scrollbar[0x11] = (int)(float)g_country_profile_editor_visible_count;
+  g_country_profile_editor_scrollbar[0x16] = (int)&g_country_profile_editor_scroll_offset;
+  g_country_profile_editor_scrollbar[0x17] = (int)&DAT_005c6cb8;
+  g_country_profile_editor_scrollbar[0x18] = 0;
+  g_country_profile_editor_scrollbar[0x19] = 0;
+  FUN_00472e90(g_country_profile_editor_scrollbar);
+  Add_New_DataFormat(2,600,0xc,&DAT_00572664,&g_country_profile_editor_selected_index,0,
+                     g_country_profile_defs + g_country_profile_editor_selected_index,0,0,0,0,0x11,0
+                     ,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,g_country_profile_defs,0x11,1,
+                     0,0,0,0);
+  Add_New_DataFormat(2,600,0x26,&DAT_00572658,&g_country_profile_editor_selected_index,0,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596229,0,0,0,0,0x11,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596229,0x11,1,0,0,0,0);
+  Add_New_DataFormat(3,0xfe,0xe4,&DAT_0057264c,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x59623c,0,0,0xffffffff,
+                     &PTR_DAT_0057258c,0,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,
+                     0x59623c,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xfe,0xfe,&DAT_00570af8,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596240,0,0,4,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596240,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0x5a,&DAT_00572640,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596244,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596244,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0x74,&DAT_00572634,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596248,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596248,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0x8e,&DAT_00572628,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x59624c,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x59624c,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0xa8,&DAT_0057261c,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596250,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596250,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0xc2,&DAT_00572610,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596254,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596254,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0xdc,&DAT_00572604,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596258,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596258,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0xf6,&DAT_005725f8,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596274,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596274,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0x26c,0x110,&DAT_005725ec,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596278,0,0,3,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x596278,4,1,0,0,0,0);
+  Add_New_DataFormat(5,0xfe,0x13a,&DAT_0060b004,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x59625c,0,0,3,0,0,6,0x30,0,0,
+                     0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x59625c,4,1,0,0,0,0);
+  Add_New_DataFormat(1,0xfe,0x188,&DAT_005725e0,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x59628c,0,0,2,0,0,0,0,0,0,0,
+                     &DAT_005c6cb8,g_country_profile_defs,0x7c,0x59628c,4,1,0,0,0,0);
+  Add_New_DataFormat(3,0xfe,0x1a2,&DAT_005725d4,&g_country_profile_editor_selected_index,
+                     g_country_profile_editor_selected_index * 0x7c + 0x596290,0,0,0,&DAT_00715f4c,0
+                     ,0,0,0,0,0,&DAT_005c6cb8,g_country_profile_defs,0x7c,0x596290,4,1,0,0,0,0);
+  g_country_profile_preview_image_mode = -1;
+  g_country_profile_preview_resource_id = -1;
+  if (-1 < g_country_profile_editor_selected_index) {
+    if (g_country_profile_editor_portrait_preview != (void *)0x0) {
+      Safe_FreeIMG(&g_country_profile_editor_portrait_preview);
+      g_country_profile_editor_portrait_preview = (void *)0x0;
     }
-    if (-1 < g_country_profile_defs[DAT_00706e88].portrait_image_mode) {
+    if (-1 < g_country_profile_defs[g_country_profile_editor_selected_index].portrait_image_mode) {
       Format_Text(local_1ec,s_DIP__02d_IMG_005178b8,
-                  g_country_profile_defs[DAT_00706e88].portrait_resource_id);
+                  g_country_profile_defs[g_country_profile_editor_selected_index].
+                  portrait_resource_id);
       Format_Text(local_c8,s_DIP__02d_IDI_005178a8,
-                  g_country_profile_defs[DAT_00706e88].portrait_resource_id);
-      _DAT_00572588 = FUN_00478bc0(local_1ec,local_c8);
-      iVar5 = DAT_00706e88;
-      if (_DAT_00572588 != -1) {
-        DAT_00706e9c = FUN_00478e50(_DAT_00572588,0);
-        _DAT_00572580 = g_country_profile_defs[DAT_00706e88].portrait_image_mode;
-        _DAT_00572584 = g_country_profile_defs[DAT_00706e88].portrait_resource_id;
+                  g_country_profile_defs[g_country_profile_editor_selected_index].
+                  portrait_resource_id);
+      g_country_profile_preview_image_bank = FUN_00478bc0(local_1ec,local_c8);
+      iVar5 = g_country_profile_editor_selected_index;
+      if (g_country_profile_preview_image_bank != -1) {
+        g_country_profile_editor_portrait_preview =
+             (void *)FUN_00478e50(g_country_profile_preview_image_bank,0);
+        g_country_profile_preview_image_mode =
+             g_country_profile_defs[g_country_profile_editor_selected_index].portrait_image_mode;
+        g_country_profile_preview_resource_id =
+             g_country_profile_defs[g_country_profile_editor_selected_index].portrait_resource_id;
         return;
       }
-      DAT_00706e9c = 0;
-      g_country_profile_defs[DAT_00706e88].portrait_image_mode = -1;
+      g_country_profile_editor_portrait_preview = (void *)0x0;
+      g_country_profile_defs[g_country_profile_editor_selected_index].portrait_image_mode = -1;
       g_country_profile_defs[iVar5].portrait_resource_id = -1;
     }
   }

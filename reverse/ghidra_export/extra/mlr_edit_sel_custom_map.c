@@ -265,10 +265,10 @@ LAB_0045b379:
       }
       FUN_00472320(&DAT_005c5d18);
       g_edit_file_detail_context_mode = -1;
-      DAT_005715b4 = 6;
-      DAT_005715b0 = 6;
-      DAT_005715bc = 6;
-      DAT_005715b8 = 6;
+      g_empire_country_edit_file_slot_backup = 6;
+      g_empire_country_edit_file_slot = 6;
+      g_country_profile_edit_file_slot_backup = 6;
+      g_country_profile_edit_file_slot = 6;
     }
     else if (g_custom_map_action == 1) {
       if (DAT_00755904 == 0) {
