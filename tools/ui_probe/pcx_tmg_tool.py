@@ -129,13 +129,20 @@ def _rle_encode(data):
     return out
 
 
-def write_pcx24(path, template_path, bmp_path):
+def write_pcx24(path, template_path, bmp_path, allow_resize=False):
     header, old_width, old_height, old_bpl, _ = read_pcx24(template_path)
     width, height, rgb = read_bmp24(bmp_path)
-    if width != old_width or height != old_height:
+    if not allow_resize and (width != old_width or height != old_height):
         raise ValueError(f"BMP is {width}x{height}; template is {old_width}x{old_height}")
 
     bytes_per_line = width if width % 2 == 0 else width + 1
+    if allow_resize:
+        _put_le16(header, 4, 0)
+        _put_le16(header, 6, 0)
+        _put_le16(header, 8, width - 1)
+        _put_le16(header, 10, height - 1)
+        _put_le16(header, 12, width)
+        _put_le16(header, 14, height)
     _put_le16(header, 66, bytes_per_line)
     planes = header[65]
     encoded = bytearray(header)
@@ -184,6 +191,11 @@ def cmd_import(args):
     print(f"imported {args.input} -> {args.output} using {args.template}")
 
 
+def cmd_import_any(args):
+    write_pcx24(args.output, args.template, args.input, allow_resize=True)
+    print(f"imported {args.input} -> {args.output} using {args.template} with resized header")
+
+
 def cmd_info(args):
     for input_path in args.input:
         info = read_pcx24_info(input_path)
@@ -209,6 +221,11 @@ def main():
     imp.add_argument("input")
     imp.add_argument("output")
     imp.set_defaults(func=cmd_import)
+    imp_any = sub.add_parser("import-any")
+    imp_any.add_argument("template")
+    imp_any.add_argument("input")
+    imp_any.add_argument("output")
+    imp_any.set_defaults(func=cmd_import_any)
     args = parser.parse_args()
     args.func(args)
 
