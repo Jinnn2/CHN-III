@@ -270,7 +270,7 @@ joined_r0x004918b4:
                   '\x01';
           param_1->tile_work_progress = bVar6;
           if ((('\x1d' < (char)bVar6) ||
-              ((*(char *)param_1 != '\n' && (param_1->alternate_battle_terrain_kind != 10)))) ||
+              ((param_1->terrain_kind != 10 && (param_1->alternate_battle_terrain_kind != 10)))) ||
              ((_DAT_0074a0f8 == g_human_country_index && (DAT_0075596e == '\x01')))) {
             pAVar3->mission_action_id = 0;
             pAVar3[1].army_type_id = 0x33;

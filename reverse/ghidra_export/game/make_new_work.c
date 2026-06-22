@@ -17,7 +17,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
   uint uVar3;
   int *piVar5;
   int iVar6;
-  char *pcVar7;
+  byte *pbVar7;
   int local_34 [13];
 
   pLVar2 = tile;
@@ -57,9 +57,9 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
     }
     bVar1 = false;
     tile = (LandTile_0x100 *)0x0;
-    pcVar7 = &pLVar2->field_0x9;
+    pbVar7 = &pLVar2->terrain_detail_sprite_id_0;
     while (!bVar1) {
-      if (-1 < (char)(&pLVar2->field_0x9)[(int)tile]) {
+      if (-1 < (char)(&pLVar2->terrain_detail_sprite_id_0)[(int)tile]) {
         local_34[1] = 0x34;
         local_34[2] = 0x3a;
         local_34[3] = 0x3e;
@@ -76,7 +76,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
         piVar5 = local_34;
         do {
           piVar5 = piVar5 + 1;
-          if ((piVar5[-1] <= (int)*pcVar7) && ((int)*pcVar7 < *piVar5)) {
+          if ((piVar5[-1] <= (int)(char)*pbVar7) && ((int)(char)*pbVar7 < *piVar5)) {
             uVar3 = Game_Random_Mod(2);
             bVar1 = true;
             pLVar2->field_0x1d = (char)uVar3 + (char)iVar6 * '\x02';
@@ -86,7 +86,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
         } while (iVar6 < 0xc);
       }
       tile = (LandTile_0x100 *)&tile->field_0x1;
-      pcVar7 = pcVar7 + 1;
+      pbVar7 = pbVar7 + 1;
       if (5 < (int)tile) {
         return;
       }

@@ -593,8 +593,8 @@ LAB_00494657:
           }
         }
         pLVar6 = DAT_007584ec;
-        if ((*(char *)DAT_007584ec == '\n') || (DAT_007584ec->alternate_battle_terrain_kind == 10))
-        {
+        if ((DAT_007584ec->terrain_kind == 10) ||
+           (DAT_007584ec->alternate_battle_terrain_kind == 10)) {
           uVar12 = 0xffffffff;
           pcVar17 = (char *)&DAT_0057e258;
           do {
@@ -802,7 +802,7 @@ LAB_00494c05:
     if ((((DAT_007584dc->army_type_id == 0x2a) && (DAT_007584dc->cargo_or_subunit_count == 0)) &&
         (pLVar6->city_resource_or_feature_id == 0x26)) &&
        (((pLVar6->linked_record == (void *)0x0 && (pLVar6->tile_work_kind == 0xff)) &&
-        ('\n' < *(char *)pLVar6)))) {
+        ('\n' < (char)pLVar6->terrain_kind)))) {
       uVar12 = 0xffffffff;
       pcVar17 = &DAT_0057e238;
       do {

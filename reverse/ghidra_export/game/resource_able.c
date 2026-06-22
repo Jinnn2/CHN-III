@@ -14,8 +14,8 @@ byte Resource_Able(LandTile_0x100 *tile,int resource_id)
 
   Trace_Function(s_Resource_Able_00514efc);
   bVar1 = 0;
-  if (((0 < *(int *)(&DAT_005a812c + ((int)*(char *)tile + resource_id * 0x36) * 4)) ||
-      ((((&DAT_005a80b0)[resource_id * 0x36] == 2 && (*(char *)tile < '\v')) ||
+  if (((0 < *(int *)(&DAT_005a812c + ((int)(char)tile->terrain_kind + resource_id * 0x36) * 4)) ||
+      ((((&DAT_005a80b0)[resource_id * 0x36] == 2 && ((char)tile->terrain_kind < '\v')) ||
        (resource_id == 0x26)))) &&
      ((bVar1 = 0, (&DAT_005a816c)[resource_id * 0x36] == 0 ||
       (0 < *(int *)(&DAT_00589644 + (char)tile->battle_resource_or_feature_id * 4))))) {

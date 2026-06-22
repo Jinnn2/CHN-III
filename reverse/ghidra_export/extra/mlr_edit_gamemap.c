@@ -166,7 +166,7 @@ joined_r0x004b723a:
       }
     }
     bVar2 = true;
-    if (*(char *)g_current_land_tile < '\v') {
+    if ((char)g_current_land_tile->terrain_kind < '\v') {
 LAB_004b71a9:
       if ((g_army_type_table[iVar11].unit_class == 1) &&
          (g_current_land_tile->linked_record == (void *)0x0)) {
@@ -180,7 +180,7 @@ LAB_004b71a9:
         bVar2 = false;
         FUN_00469f90(&DAT_0057f71c,1);
       }
-      if (*(char *)g_current_land_tile < '\v') goto LAB_004b71a9;
+      if ((char)g_current_land_tile->terrain_kind < '\v') goto LAB_004b71a9;
     }
     if ((g_current_land_tile->linked_record != (void *)0x0) &&
        (*(char *)((int)g_current_land_tile->linked_record + 1) != g_editor_selected_country_id)) {
@@ -245,11 +245,11 @@ LAB_004b71a9:
   case 6:
     if (-1 < g_editor_selected_city_resource_id) {
       if (((*(int *)(&DAT_005a812c +
-                    ((int)*(char *)g_current_land_tile + g_editor_selected_city_resource_id * 0x36)
-                    * 4) < 1) &&
+                    ((int)(char)g_current_land_tile->terrain_kind +
+                    g_editor_selected_city_resource_id * 0x36) * 4) < 1) &&
           (((&DAT_005a80b0)[g_editor_selected_city_resource_id * 0x36] != 2 ||
-           ('\n' < *(char *)g_current_land_tile)))) && (g_editor_selected_city_resource_id != 0x26))
-      {
+           ('\n' < (char)g_current_land_tile->terrain_kind)))) &&
+         (g_editor_selected_city_resource_id != 0x26)) {
         FUN_00469f90(&DAT_0057f5bc,1);
         return;
       }

@@ -218,9 +218,15 @@ helpers used by normal gameplay. A productive recovery loop is therefore:
 3. Name command/menu ids only when both the editor-facing data meaning and the
    runtime order behavior agree.
 
-Current example: editor unit and terrain fields explain why `Order_Check` offers
-tile-improvement commands only for units whose type and current tile satisfy the
-same predicates used by the editor brush and turn-job completion chain.
+Current examples:
+
+- Editor unit and terrain fields explain why `Order_Check` offers
+  tile-improvement commands only for units whose type and current tile satisfy
+  the same predicates used by the editor brush and turn-job completion chain.
+- The ground brush writes `LandTile_0x100.terrain_kind`, resets the terrain
+  layer/special flag, and then calls `Decode_NewMap`; that makes the editor a
+  practical semantic oracle for the terrain visual fields later consumed by
+  bridge checks, battle setup, and tile improvement completion.
 
 ### Editor Map Tool Modes
 
@@ -352,8 +358,13 @@ from an isolated editor label.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
+| `+0x00` | `Read_MLP_Edit` writes `g_editor_selected_terrain_kind`; `Decode_NewMap` branches on normal terrain `0..10` and special terrain `0xb..0xe`; `Make_Battle_Map` uses it as the primary battle terrain source. | terrain kind. |
 | `+0x02` | `Make_Battle_Map` uses this as a fallback when the primary tile kind is outside `0..10`. | alternate battle terrain kind. |
-| `+0x08` | `Map_To_Battle_Army` changes battle stat modifiers when this signed value is positive, especially value `4`. | battle stat terrain mode. |
+| `+0x04` | `Decode_NewMap` stores the resolved base terrain map-tile image id; `Bridge_Able` checks this sprite id against the bridge-capable range `0x1115..0x12c0`. | terrain sprite id. |
+| `+0x06` | `Decode_NewMap` writes a sprite id for special terrain kinds `0xb..0xe`, based on the tile variant byte at `+0x03` and terrain class. | special terrain sprite id. |
+| `+0x08` | The editor road/detail brush writes modes `3..5`, `Decode_NewMap` uses it to build hill/mountain/detail edge sprites, and battle setup changes stat modifiers when this signed value is positive, especially value `4`. | terrain detail or battle mode. |
+| `+0x09..0x0e` | `Decode_NewMap` fills up to six terrain detail/edge sprite ids; `Clear_Mountain` resets the group to `-1`; mine completion scans the same bytes to choose a mine variant. | terrain detail sprite ids 0..5. |
+| `+0x0f` | The editor writes `0` for normal terrain and `-1` for special terrain; long-wall decoding compares this byte as a layer/order value. | terrain layer or special flag. |
 | `+0x10` | `load_dat.c` checks and counts. | city/land occupancy count or resource count. |
 | `+0x12` | `city_round_check.c`, `near_beach_city_found.c`, `Bridge_Able`, `LongWall_Able`, and irrigation/worker paths treat this as a signed marker beside `+0x10`. | region / terrain / link marker. |
 | `+0x13` | `Decode_Road` recomputes it from neighboring road and bridge markers; editor/right-click erase clears it to `-1`; road/rail placement seeds it at `0` before refresh. | road connection tile id. |

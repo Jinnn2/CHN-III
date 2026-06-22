@@ -11,7 +11,7 @@ byte Mine_Able(LandTile_0x100 *tile)
 
 {
   Trace_Function(s_Mine_Able_00514ed4);
-  if ((((tile->battle_stat_terrain_mode == 1) || (tile->battle_stat_terrain_mode == 2)) &&
+  if ((((tile->terrain_detail_or_battle_mode == 1) || (tile->terrain_detail_or_battle_mode == 2)) &&
       (tile->tile_work_kind != 2)) && (tile->linked_record == (void *)0x0)) {
     return 1;
   }

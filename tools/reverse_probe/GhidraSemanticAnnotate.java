@@ -177,12 +177,32 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(armyUnit);
 
         landTile = fixedStruct("LandTile_0x100", 0x100);
-        replaceAt(landTile, 0x10, ShortDataType.dataType, 2, "linked_count_or_city_count",
-            "load_dat checks this count before rebuilding map links");
+        replaceAt(landTile, 0x00, ByteDataType.dataType, 1, "terrain_kind",
+            "map editor writes the selected terrain kind here; Decode_NewMap and Make_Battle_Map branch on normal values 0..10 and special values 0xb..0xe");
         replaceAt(landTile, 0x02, ByteDataType.dataType, 1, "alternate_battle_terrain_kind",
             "Make_Battle_Map uses this as a fallback terrain kind when primary kind is outside 0..10");
-        replaceAt(landTile, 0x08, ByteDataType.dataType, 1, "battle_stat_terrain_mode",
-            "Map_To_Battle_Army changes stat modifiers when this signed terrain mode is positive or equals 4");
+        replaceAt(landTile, 0x04, ShortDataType.dataType, 2, "terrain_sprite_id",
+            "Decode_NewMap stores the resolved base terrain map-tile image id here; bridge placement checks bridge-capable sprite ranges");
+        replaceAt(landTile, 0x06, ShortDataType.dataType, 2, "special_terrain_sprite_id",
+            "Decode_NewMap stores the resolved sprite id for special terrain kinds 0xb..0xe");
+        replaceAt(landTile, 0x08, ByteDataType.dataType, 1, "terrain_detail_or_battle_mode",
+            "editor/Decode_NewMap use this as hill/mountain/detail mode; battle setup also changes stat modifiers when it is positive or equals 4");
+        replaceAt(landTile, 0x09, ByteDataType.dataType, 1, "terrain_detail_sprite_id_0",
+            "first of six terrain detail/edge sprite ids filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0a, ByteDataType.dataType, 1, "terrain_detail_sprite_id_1",
+            "terrain detail/edge sprite id filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0b, ByteDataType.dataType, 1, "terrain_detail_sprite_id_2",
+            "terrain detail/edge sprite id filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0c, ByteDataType.dataType, 1, "terrain_detail_sprite_id_3",
+            "terrain detail/edge sprite id filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0d, ByteDataType.dataType, 1, "terrain_detail_sprite_id_4",
+            "terrain detail/edge sprite id filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0e, ByteDataType.dataType, 1, "terrain_detail_sprite_id_5",
+            "last of six terrain detail/edge sprite ids filled by Decode_NewMap and reset by Clear_Mountain");
+        replaceAt(landTile, 0x0f, ByteDataType.dataType, 1, "terrain_layer_or_special_flag",
+            "editor writes 0 for normal terrain and -1 for special terrain; Decode_LongWall compares this as a layer/order byte");
+        replaceAt(landTile, 0x10, ShortDataType.dataType, 2, "linked_count_or_city_count",
+            "load_dat checks this count before rebuilding map links");
         replaceAt(landTile, 0x12, ByteDataType.dataType, 1, "region_or_terrain_marker_a",
             "signed marker used by city-round and near-city checks beside linked_count_or_city_count");
         replaceAt(landTile, 0x13, ByteDataType.dataType, 1, "road_connection_tile_id",

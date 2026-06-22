@@ -10,16 +10,16 @@
 byte Fish_Able(LandTile_0x100 *tile)
 
 {
-  char cVar1;
+  byte bVar1;
 
   Trace_Function(s_Fish_Able_00514ee0);
-  if ((((tile->battle_stat_terrain_mode == 0) && (tile->tile_work_kind != 3)) &&
+  if ((((tile->terrain_detail_or_battle_mode == 0) && (tile->tile_work_kind != 3)) &&
       (tile->linked_record == (void *)0x0)) &&
-     (cVar1 = *(char *)tile, g_ground_defs[cVar1].fishery_enabled != 0)) {
-    if (cVar1 == '\f') {
+     (bVar1 = tile->terrain_kind, g_ground_defs[(char)bVar1].fishery_enabled != 0)) {
+    if (bVar1 == 0xc) {
       return 1;
     }
-    if (('\n' < cVar1) && (0 < tile->linked_count_or_city_count)) {
+    if (('\n' < (char)bVar1) && (0 < tile->linked_count_or_city_count)) {
       return 1;
     }
   }

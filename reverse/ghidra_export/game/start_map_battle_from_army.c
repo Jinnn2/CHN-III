@@ -288,15 +288,15 @@ LAB_0040b985:
                 piStack_58 = (int *)iVar30;
               }
               if (g_army_type_table[uVar16].unit_class == 0) {
-                if ((char)g_battle_defender_land_tile->battle_stat_terrain_mode < '\x01') {
-                  if (('\x06' < *(char *)g_battle_defender_land_tile) &&
-                     (*(char *)g_battle_defender_land_tile < '\r')) {
+                if ((char)g_battle_defender_land_tile->terrain_detail_or_battle_mode < '\x01') {
+                  if (('\x06' < (char)g_battle_defender_land_tile->terrain_kind) &&
+                     ((char)g_battle_defender_land_tile->terrain_kind < '\r')) {
                     iVar26 = -iVar23;
                   }
                 }
                 else {
                   iVar26 = iVar30;
-                  if (g_battle_defender_land_tile->battle_stat_terrain_mode != 4) {
+                  if (g_battle_defender_land_tile->terrain_detail_or_battle_mode != 4) {
                     iVar26 = iVar23;
                   }
                 }
@@ -338,15 +338,15 @@ LAB_0040b985:
               }
               iVar17 = 0;
               if (g_army_type_table[uVar15].unit_class == 0) {
-                if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {
-                  if (('\x06' < *(char *)g_battle_attacker_land_tile) &&
-                     (*(char *)g_battle_attacker_land_tile < '\r')) {
+                if ((char)g_battle_attacker_land_tile->terrain_detail_or_battle_mode < '\x01') {
+                  if (('\x06' < (char)g_battle_attacker_land_tile->terrain_kind) &&
+                     ((char)g_battle_attacker_land_tile->terrain_kind < '\r')) {
                     iVar17 = -iVar30;
                   }
                 }
                 else if ((g_army_type_table[uVar16].unit_class != 2) &&
                         (iVar17 = (int)uVar27 >> 3,
-                        g_battle_attacker_land_tile->battle_stat_terrain_mode == 4)) {
+                        g_battle_attacker_land_tile->terrain_detail_or_battle_mode == 4)) {
                   iVar17 = iVar30;
                 }
               }
@@ -516,15 +516,15 @@ LAB_0040c81d:
             }
             uVar27 = 0;
             if (g_army_type_table[bVar13].unit_class == 0) {
-              if ((char)g_battle_defender_land_tile->battle_stat_terrain_mode < '\x01') {
-                if (('\x06' < *(char *)g_battle_defender_land_tile) &&
-                   (*(char *)g_battle_defender_land_tile < '\r')) {
+              if ((char)g_battle_defender_land_tile->terrain_detail_or_battle_mode < '\x01') {
+                if (('\x06' < (char)g_battle_defender_land_tile->terrain_kind) &&
+                   ((char)g_battle_defender_land_tile->terrain_kind < '\r')) {
                   uVar27 = -uVar32;
                 }
               }
               else {
                 uVar27 = uVar16;
-                if (g_battle_defender_land_tile->battle_stat_terrain_mode != 4) {
+                if (g_battle_defender_land_tile->terrain_detail_or_battle_mode != 4) {
                   uVar27 = uVar32;
                 }
               }
@@ -613,15 +613,15 @@ LAB_0040cb46:
                (g_army_type_table[uVar27].attack_category != 1)))))) goto LAB_0040cf2e;
           iVar26 = 0;
           if (g_army_type_table[uVar15].unit_class == 0) {
-            if ((char)g_battle_attacker_land_tile->battle_stat_terrain_mode < '\x01') {
-              if (('\x06' < *(char *)g_battle_attacker_land_tile) &&
-                 (*(char *)g_battle_attacker_land_tile < '\r')) {
+            if ((char)g_battle_attacker_land_tile->terrain_detail_or_battle_mode < '\x01') {
+              if (('\x06' < (char)g_battle_attacker_land_tile->terrain_kind) &&
+                 ((char)g_battle_attacker_land_tile->terrain_kind < '\r')) {
                 iVar26 = -iVar19;
               }
             }
             else if ((g_army_type_table[uVar27].unit_class != 2) &&
                     (iVar26 = (int)uVar16 >> 3,
-                    g_battle_attacker_land_tile->battle_stat_terrain_mode == 4)) {
+                    g_battle_attacker_land_tile->terrain_detail_or_battle_mode == 4)) {
               iVar26 = iVar19;
             }
             if (g_army_type_table[uVar27].unit_class == 2) {

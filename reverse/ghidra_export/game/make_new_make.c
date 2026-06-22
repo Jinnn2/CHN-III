@@ -114,8 +114,8 @@ switchD_00493c9b_default:
     break;
   case 5:
     tile->alternate_battle_terrain_kind = tile->field_0x1;
-    if (*(char *)tile < '\v') {
-      *(undefined1 *)tile = tile->field_0x1;
+    if ((char)tile->terrain_kind < '\v') {
+      tile->terrain_kind = tile->field_0x1;
     }
     iVar10 = 0;
     if (-1 < g_tile_radius_offset_counts[1]) {
@@ -129,7 +129,7 @@ switchD_00493c9b_default:
     break;
   case 6:
     bVar1 = false;
-    *(undefined1 *)tile = 0xc;
+    tile->terrain_kind = 0xc;
     bVar2 = false;
     _variant = 0;
     iVar10 = _g_land_tiles;
