@@ -274,7 +274,7 @@ LAB_0044bb23:
                       if (g_active_country->diplomacy_affinity_by_country[local_1a8] < 0x60) {
                         if ((dVar2 <= _DAT_0050f338) || (local_1b4 == 1)) {
                           if ((local_1a8 == g_human_country_index) ||
-                             (g_world_age_or_turn_phase < 3)) {
+                             (g_current_map_scenario_info.scenario_value_30 < 3)) {
                             if ((0x27 < g_active_country->diplomacy_caution_by_country[local_1a8])
                                || (0x23 - *(int *)(&DAT_00589aa4 + iVar13) <=
                                    g_active_country->diplomacy_pressure_by_country[local_1a8]))
@@ -313,7 +313,7 @@ LAB_0044c065:
                           0x37 - *(int *)(&DAT_00589aa4 + iVar13)) {
                         if ((dVar2 <= _DAT_0050f360) || (local_1b4 == 1)) {
                           if ((local_1a8 == g_human_country_index) ||
-                             (g_world_age_or_turn_phase < 3)) goto LAB_0044c065;
+                             (g_current_map_scenario_info.scenario_value_30 < 3)) goto LAB_0044c065;
                           if (((iVar14 <= iVar20 + 0x59) ||
                               (0x27 < g_active_country->diplomacy_caution_by_country[local_1a8])) ||
                              (0x23 - *(int *)(&DAT_00589aa4 + iVar13) <=
@@ -324,7 +324,7 @@ LAB_0044c065:
                           if (((iVar14 <= iVar20 + 0x59) || (dVar2 < _DAT_0050f478)) ||
                              ((uVar12 = FUN_004fbf50(), pCVar21 = g_active_country, 9 < uVar12 ||
                               ((local_1a8 != g_human_country_index &&
-                               (2 < g_world_age_or_turn_phase)))))) break;
+                               (2 < g_current_map_scenario_info.scenario_value_30)))))) break;
                           iVar20 = 0x19;
                         }
                         goto LAB_0044c620;
@@ -368,7 +368,7 @@ LAB_0044c0fa:
                         if ((g_active_country->diplomacy_pressure_by_country[local_1a8] <
                              0x4b - iVar16) && (_DAT_0050f430 <= local_1b0)) {
                           if (local_1a8 == g_human_country_index) goto LAB_0044c065;
-                          if (g_world_age_or_turn_phase < 2) {
+                          if (g_current_map_scenario_info.scenario_value_30 < 2) {
                             if (DAT_00714f90 != '\x01') {
                               iVar20 = 0x19;
                               pCVar21 = g_active_country;

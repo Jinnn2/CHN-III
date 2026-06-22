@@ -44,7 +44,7 @@ void UserSet_City_Resource(uint param_1)
       iVar4 = (uint)*(ushort *)(iVar2 + 0x18) + (int)*pcVar7;
       if ((-1 < iVar4) && (iVar4 < g_map_height_tiles)) {
         if ((iVar6 < 0) || (g_map_width_tiles <= iVar6)) {
-          if (DAT_0074c7dc != 1) goto LAB_0041dc22;
+          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041dc22;
           if (g_map_width_tiles <= iVar6) {
             iVar6 = iVar6 - g_map_width_tiles;
           }
@@ -90,7 +90,7 @@ LAB_0041dc22:
       iVar4 = (int)*(char *)(local_18 + 0x131 + iVar2) + (uint)*(ushort *)(iVar2 + 0x18);
       if ((-1 < iVar4) && (iVar4 < g_map_height_tiles)) {
         if ((iVar5 < 0) || (g_map_width_tiles <= iVar5)) {
-          if (DAT_0074c7dc != 1) goto LAB_0041de3a;
+          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041de3a;
           if (g_map_width_tiles <= iVar5) {
             iVar5 = iVar5 - g_map_width_tiles;
           }

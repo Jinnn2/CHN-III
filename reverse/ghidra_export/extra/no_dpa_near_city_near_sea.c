@@ -51,7 +51,8 @@ undefined4 NoDpa_Near_City_Near_Sea(int param_1,int param_2,int *param_3,uint *p
       iVar8 = (int)psVar3[4] + (int)*(short *)(param_1 + 0x1a);
       uVar9 = (int)psVar3[5] + (int)*(short *)(param_1 + 0x1c);
       if (((-1 < (int)uVar9) && ((int)uVar9 < g_map_height_tiles)) &&
-         (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+         (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
+          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
         if (iVar8 < 0) {
           iVar8 = iVar8 + g_map_width_tiles;
         }
@@ -86,7 +87,8 @@ switchD_0048f776_default:
             iVar7 = *(int *)((int)&DAT_00589374 + iVar4) + iVar8;
             iVar5 = *(int *)((int)&DAT_005893b4 + iVar4) + uVar9;
             if (((-1 < iVar5) && (iVar5 < g_map_height_tiles)) &&
-               (((-1 < iVar7 && (iVar7 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+               (((-1 < iVar7 && (iVar7 < g_map_width_tiles)) ||
+                (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
               if (iVar7 < 0) {
                 iVar7 = iVar7 + g_map_width_tiles;
               }

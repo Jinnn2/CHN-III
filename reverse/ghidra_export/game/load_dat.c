@@ -192,7 +192,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
     ReadFile(pvVar7,&DAT_00707924,4,(LPDWORD)&pbStack_578,(LPOVERLAPPED)0x0);
     ReadFile(pvVar7,&DAT_00707928,4,(LPDWORD)&pbStack_578,(LPOVERLAPPED)0x0);
     if (param_3 == 0) {
-      ReadFile(pvVar7,&DAT_0074c690,0x16c,(LPDWORD)&pbStack_578,(LPOVERLAPPED)0x0);
+      ReadFile(pvVar7,&g_current_map_scenario_info,0x16c,(LPDWORD)&pbStack_578,(LPOVERLAPPED)0x0);
     }
     CloseHandle(pvVar7);
     if (DAT_00707928 + DAT_00707924 * 100 < 0x13e) {
@@ -428,8 +428,8 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
         DAT_00707920 = DAT_00707920 + 0x40;
         DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x100);
       } while (iVar6 < 400);
-      g_map_size_mode = DAT_0074c794;
-      switch(DAT_0074c794) {
+      g_map_size_mode = g_current_map_scenario_info.map_size_mode;
+      switch(g_current_map_scenario_info.map_size_mode) {
       case 0:
         g_map_height_tiles = 0x192;
         g_map_width_tiles = 0x138;
@@ -842,7 +842,8 @@ LAB_0047406f:
                     iVar23 = (int)*pcStack_538 + (uint)*(ushort *)(pcVar24 + 0x18);
                     if ((-1 < iVar23) && (iVar23 < g_map_height_tiles)) {
                       if ((iVar16 < 0) || (iVar6 <= iVar16)) {
-                        if (DAT_0074c7dc != 1) goto LAB_004744e0;
+                        if (g_current_map_scenario_info.horizontal_wrap_enabled != 1)
+                        goto LAB_004744e0;
                         if (iVar6 <= iVar16) {
                           iVar16 = iVar16 - iVar6;
                         }
@@ -1177,7 +1178,8 @@ switchD_00474a60_default:
               *(short *)(pbVar25 + 0x136) =
                    (short)g_army_type_table[bVar1].defense_or_support_stat_a;
               *(short *)(pbVar25 + 0x138) =
-                   (short)g_army_type_table[bVar1].movement_or_speed * DAT_0074c7f4;
+                   (short)g_army_type_table[bVar1].movement_or_speed *
+                   (short)g_current_map_scenario_info.scenario_value_164;
               if (((g_army_type_table[bVar1].unit_class == 0) && (*(int *)(pbVar25 + 0x144) == 0))
                  && ((((short)piVar9[iStack_51c * 0x40 + 4] < 0 &&
                       (((bVar2 = pbVar25[0x128], bVar2 != 0x40 && (bVar2 != 0x24)) &&
@@ -1407,7 +1409,8 @@ switchD_0047517e_default:
                     *(short *)(pbVar10 + 0x136) =
                          (short)g_army_type_table[bVar1].defense_or_support_stat_a;
                     *(short *)(pbVar10 + 0x138) =
-                         (short)g_army_type_table[bVar1].movement_or_speed * DAT_0074c7f4;
+                         (short)g_army_type_table[bVar1].movement_or_speed *
+                         (short)g_current_map_scenario_info.scenario_value_164;
                     if ((pAStack_4f4->unit_class == g_army_type_table[bVar1].unit_class) &&
                        (pAStack_4f4->transport_capacity == 0)) {
                       *(short *)(pbVar25 + 0x134) =
@@ -1636,7 +1639,8 @@ switchD_0047574b_default:
                           *(short *)(pbVar10 + 0x136) =
                                (short)g_army_type_table[bVar1].defense_or_support_stat_a;
                           *(short *)(pbVar10 + 0x138) =
-                               (short)g_army_type_table[bVar1].movement_or_speed * DAT_0074c7f4;
+                               (short)g_army_type_table[bVar1].movement_or_speed *
+                               (short)g_current_map_scenario_info.scenario_value_164;
                           if ((pAStack_4f0->unit_class == g_army_type_table[bVar1].unit_class) &&
                              (pAStack_4f0->transport_capacity == 0)) {
                             *(short *)(pbVar25 + 0x134) =
@@ -1865,7 +1869,8 @@ switchD_00475cf8_default:
                               *(short *)(pbVar25 + 0x136) =
                                    (short)g_army_type_table[bVar1].defense_or_support_stat_a;
                               *(short *)(pbVar25 + 0x138) =
-                                   (short)g_army_type_table[bVar1].movement_or_speed * DAT_0074c7f4;
+                                   (short)g_army_type_table[bVar1].movement_or_speed *
+                                   (short)g_current_map_scenario_info.scenario_value_164;
                               if ((pAStack_4fc->unit_class == g_army_type_table[bVar1].unit_class)
                                  && (pAStack_4fc->transport_capacity == 0)) {
                                 *(short *)(pbVar10 + 0x134) =
@@ -2002,10 +2007,10 @@ LAB_00476278:
             bVar1 = *(byte *)(iVar16 + 0x20);
             uVar14 = (uint)bVar1;
             if (10 < bVar1) {
-              if (2 < g_world_age_or_turn_phase) {
+              if (2 < g_current_map_scenario_info.scenario_value_30) {
                 uVar14 = uVar14 * 2;
               }
-              if (4 < g_world_age_or_turn_phase) {
+              if (4 < g_current_map_scenario_info.scenario_value_30) {
                 uVar14 = uVar14 + (bVar1 >> 1);
               }
               if (0x1e < bVar1) {
@@ -2332,7 +2337,7 @@ switchD_004767df_default:
         pbStack_578 = pbStack_578 + 0xe68;
       } while ((int)piVar9 < 0x74a23c);
       FUN_004730d0(0x3f,0x2c1,0x3c3,0x2d5,0x5e,DAT_0074c850,&DAT_00574e74);
-      if (DAT_0074c7e0 == 1) {
+      if (g_current_map_scenario_info.scenario_value_150 == 1) {
         uVar14 = 0xffffffff;
         pcVar24 = &DAT_0074c62c;
         do {
@@ -2646,12 +2651,12 @@ LAB_00476f81:
             piStack_528 = piStack_528 + 1;
             pcStack_574 = pcStack_574 + 0xe68;
           } while ((int)piStack_528 < 0x74a23c);
-          if (DAT_0074c7e0 != 0) goto LAB_0047702c;
+          if (g_current_map_scenario_info.scenario_value_150 != 0) goto LAB_0047702c;
         }
         else {
           Format_Text(auStack_124,&DAT_00574d70,acStack_36c,acStack_248);
           FUN_00469f90(auStack_124,1);
-          DAT_0074c7e0 = 0;
+          g_current_map_scenario_info.scenario_value_150 = 0;
         }
         iVar6 = 1000;
         puVar12 = &DAT_005e0058;

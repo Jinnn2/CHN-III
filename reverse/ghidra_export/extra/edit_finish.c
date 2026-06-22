@@ -31,7 +31,7 @@ undefined4 Edit_Finish(void)
   }
   else {
     bVar1 = false;
-    if (DAT_0074c6b8 < 1) {
+    if (g_current_map_scenario_info.country_setup_mode < 1) {
       UI_YesNo_Result(&DAT_0057ed04,0);
       return 0;
     }

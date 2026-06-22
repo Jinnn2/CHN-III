@@ -80,7 +80,7 @@ void City_Round_Check(void)
   local_270 = 0;
   if (((g_city_should_auto_manage != 0) &&
       (_DAT_0050f320 < g_active_country->science_budget_or_treasury)) && (DAT_00706940 == '\x01')) {
-    if (g_world_age_or_turn_phase < 4) {
+    if (g_current_map_scenario_info.scenario_value_30 < 4) {
       if (g_current_city->trade_route_count < 10) {
         iVar19 = 1;
         DAT_00706944 = 0;
@@ -108,7 +108,8 @@ void City_Round_Check(void)
       local_294 = (int)*psVar1 + g_current_city_x;
       iVar19 = (int)psVar1[1] + g_current_city_y;
       if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
-         (((-1 < local_294 && (local_294 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+         (((-1 < local_294 && (local_294 < g_map_width_tiles)) ||
+          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
         if (local_294 < 0) {
           local_294 = local_294 + g_map_width_tiles;
         }
@@ -166,8 +167,9 @@ LAB_0042858c:
               local_298 = (undefined2)iVar19;
               if (*(short *)(pcVar10 + 0x10) == g_current_city_land_tile->linked_count_or_city_count
                  ) {
-                _DAT_0075c60c = (short)_DAT_0074c7f4 * (short)g_army_type_table[1].movement_or_speed
-                ;
+                _DAT_0075c60c =
+                     (short)g_current_map_scenario_info.scenario_value_164 *
+                     (short)g_army_type_table[1].movement_or_speed;
                 DAT_007068ec = 1;
                 DAT_0075c4e1 = (undefined1)g_active_country_index;
                 DAT_0075c608 = 0x1f;
@@ -214,7 +216,8 @@ LAB_00428580:
                   iVar15 = *(int *)((int)&DAT_00589374 + iVar11) + g_current_city_x;
                   iVar12 = *(int *)((int)&DAT_005893b4 + iVar11) + g_current_city_y;
                   if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
-                     (((-1 < iVar15 && (iVar15 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+                     (((-1 < iVar15 && (iVar15 < g_map_width_tiles)) ||
+                      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
                     if (iVar15 < 0) {
                       iVar15 = iVar15 + g_map_width_tiles;
                     }
@@ -252,7 +255,8 @@ LAB_00428580:
                   iVar12 = *(int *)((int)&DAT_00589374 + iVar11) + (uint)*(ushort *)(iVar20 + 0x16);
                   iVar14 = *(int *)((int)&DAT_005893b4 + iVar11) + (uint)*(ushort *)(iVar20 + 0x18);
                   if (((-1 < iVar14) && (iVar14 < g_map_height_tiles)) &&
-                     (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+                     (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
+                      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
                     if (iVar12 < 0) {
                       iVar12 = iVar12 + g_map_width_tiles;
                     }
@@ -287,7 +291,8 @@ LAB_00428580:
                        ((local_268 < 0 && ((local_268 == local_2a0 || (local_268 == local_290)))))))
                    ) {
                   _DAT_0075c60c =
-                       (short)g_army_type_table[0x22].movement_or_speed * (short)_DAT_0074c7f4;
+                       (short)g_army_type_table[0x22].movement_or_speed *
+                       (short)g_current_map_scenario_info.scenario_value_164;
                   DAT_0075c4e1 = (undefined1)g_active_country_index;
                   DAT_0075c4fa = (ushort)g_current_city_x;
                   DAT_007068ed = 1;
@@ -391,9 +396,10 @@ LAB_00428580:
               _DAT_00706918 = _DAT_00706918 + 1;
             }
           }
-          if ((((((DAT_0074c764 == 2) && (g_active_country_index == g_human_country_index)) &&
+          if ((((((g_current_map_scenario_info._212_4_ == 2) &&
+                 (g_active_country_index == g_human_country_index)) &&
                 (g_auto_turn_or_ai_control_flag == 0)) &&
-               ((2 < g_world_age_or_turn_phase && (pcVar10[0x50] == '\0')))) &&
+               ((2 < g_current_map_scenario_info.scenario_value_30 && (pcVar10[0x50] == '\0')))) &&
               (((pcVar10[0xb3] == '\0' && ((!bVar4 && (_DAT_007068f0 == _DAT_0050f2a0)))) &&
                ((DAT_0070693c == 0 &&
                 ((((char)g_current_city_land_tile->army_count_or_occupant_count < '\x02' &&

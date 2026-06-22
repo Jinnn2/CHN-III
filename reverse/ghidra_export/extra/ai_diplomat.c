@@ -50,15 +50,15 @@ LAB_00405863:
       local_24 = (int)psVar3[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
       iVar6 = (int)psVar3[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((iVar6 < 0) || (g_map_height_tiles <= iVar6)) ||
-         (((local_24 < 0 || (g_map_width_tiles <= local_24)) && (DAT_0074c7dc != 1))))
-      goto LAB_004057da;
+         (((local_24 < 0 || (g_map_width_tiles <= local_24)) &&
+          (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_004057da;
       if (local_24 < 0) {
         local_24 = local_24 + g_map_width_tiles;
       }
       if (g_map_width_tiles <= local_24) {
         local_24 = local_24 - g_map_width_tiles;
       }
-      if ((DAT_0074c6bc == 1) && (_DAT_00749a50 != 1)) {
+      if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
         if ((local_24 < 0x4b) || (((iVar6 < 0x43 || (0x9e < local_24)) || (0xa4 < iVar6)))) {
           if (_DAT_00749a50 == 0) goto switchD_0040565c_switchD;
         }

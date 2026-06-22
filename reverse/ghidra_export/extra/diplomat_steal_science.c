@@ -78,10 +78,10 @@ LAB_00438f47:
   }
   if (-1 < iVar12) {
     if (_DAT_00748e34 == g_human_country_index) {
-      iVar10 = *(int *)(puVar4 + 0x50) / 0x14 + 3 + g_world_age_or_turn_phase;
+      iVar10 = *(int *)(puVar4 + 0x50) / 0x14 + 3 + g_current_map_scenario_info.scenario_value_30;
     }
     else {
-      iVar10 = *(int *)(puVar4 + 0x50) / 0x14 + (8 - g_world_age_or_turn_phase);
+      iVar10 = *(int *)(puVar4 + 0x50) / 0x14 + (8 - g_current_map_scenario_info.scenario_value_30);
     }
     sVar6 = FUN_004fbf50(iVar10);
     if (sVar6 != 0) {

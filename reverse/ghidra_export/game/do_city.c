@@ -54,7 +54,7 @@ void Do_City(void)
         g_current_city->owner_or_active_flag = 1;
       }
       iVar11 = g_human_country_index;
-      iVar9 = g_world_age_or_turn_phase;
+      iVar9 = g_current_map_scenario_info.scenario_value_30;
       g_current_city_x = (uint)g_current_city->tile_x;
       g_current_city_y = (uint)g_current_city->tile_y;
       switch(g_map_size_mode) {
@@ -79,7 +79,7 @@ LAB_004505cb:
       }
       if (((g_active_country->country_state_mode == 2) ||
           (g_active_country->leader_or_country_id == 0x22)) &&
-         ((g_world_age_or_turn_phase < 4 ||
+         ((g_current_map_scenario_info.scenario_value_30 < 4 ||
           ((g_current_city->building_status[6] == 2 || (g_current_city->development_level == 5))))))
       {
         DAT_00706940 = 1;
@@ -254,10 +254,11 @@ LAB_00450b25:
         goto LAB_00450b25;
       }
       if (g_active_country_index == 0) {
-        if (((DAT_0074c764 == 2) &&
+        if (((g_current_map_scenario_info._212_4_ == 2) &&
             ((int)(char)g_current_city_land_tile->secondary_occupant_count +
              (int)(char)g_current_city_land_tile->army_count_or_occupant_count == 0)) &&
-           ((g_current_city->round_or_protection_timer < g_world_age_or_turn_phase &&
+           ((g_current_city->round_or_protection_timer <
+             g_current_map_scenario_info.scenario_value_30 &&
             (0x1193 < g_current_city->stored_population_or_value)))) {
           if (g_current_city->has_special_capability == 0) {
             uVar6 = FUN_00414ab0();
@@ -298,7 +299,7 @@ LAB_00450bac:
               }
               if ((g_current_city->development_level < 5) &&
                  (1 < g_active_country->upgrade_permission_level)) {
-                if (g_world_age_or_turn_phase < 2) {
+                if (g_current_map_scenario_info.scenario_value_30 < 2) {
                   iVar9 = (int)g_current_city->upgrade_cost_base;
                 }
                 else {
@@ -313,10 +314,10 @@ LAB_00450bac:
                   if (((-1 < iVar11) && (g_current_city->building_status[iVar9] == 2)) &&
                      ((g_current_city->building_status[iVar11] == 0 &&
                       (g_active_country->available_building_flags[iVar11] != 0)))) {
-                    if (3 < g_world_age_or_turn_phase) {
+                    if (3 < g_current_map_scenario_info.scenario_value_30) {
                       dVar2 = (double)(*piVar10 << 1) + dVar2;
                     }
-                    if (g_world_age_or_turn_phase < 2) {
+                    if (g_current_map_scenario_info.scenario_value_30 < 2) {
                       dVar2 = (double)(*piVar10 >> 1) + dVar2;
                     }
                     else {

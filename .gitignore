@@ -7,5 +7,5 @@ DEBUG.TXT
 TRACE.TXT
 Error.txt
 ModernBackups/
-
+reverse/ghidra_export/all_functions/
 tools/decompiler/

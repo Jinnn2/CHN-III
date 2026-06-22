@@ -83,7 +83,8 @@ void Decode_NewMap(int param_1,uint param_2)
   if (g_map_height_tiles <= (int)param_2) {
     return;
   }
-  if (((param_1 < 0) || (g_map_width_tiles <= param_1)) && (DAT_0074c7dc != 1)) {
+  if (((param_1 < 0) || (g_map_width_tiles <= param_1)) &&
+     (g_current_map_scenario_info.horizontal_wrap_enabled != 1)) {
     return;
   }
   if (param_1 < 0) {
@@ -136,7 +137,8 @@ void Decode_NewMap(int param_1,uint param_2)
     iVar1 = iVar1 + param_2;
     *(int *)((int)local_40 + iVar10) = iVar1;
     if (((iVar1 < 0) || (g_map_height_tiles <= iVar1)) ||
-       (((iVar8 < 0 || (g_map_width_tiles <= iVar8)) && (DAT_0074c7dc != 1)))) {
+       (((iVar8 < 0 || (g_map_width_tiles <= iVar8)) &&
+        (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) {
       *(undefined4 *)((int)&local_a0 + iVar10) = 0;
     }
     else {
@@ -496,7 +498,8 @@ switchD_00431b84_default:
     local_b0 = -1;
     local_104 = 0;
     if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
-       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
+        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
       if (iVar13 < 0) {
         iVar13 = iVar13 + g_map_width_tiles;
       }
@@ -525,7 +528,8 @@ switchD_00431b84_default:
     iVar13 = (&DAT_00589374)[(int)local_c4 * 8] + param_1;
     iVar10 = (&DAT_005893b4)[(int)local_c4 * 8] + param_2;
     if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
-       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
+        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
       if (iVar13 < 0) {
         iVar13 = iVar13 + g_map_width_tiles;
       }
@@ -554,7 +558,8 @@ switchD_00431b84_default:
     iVar13 = (&DAT_00589384)[(int)local_c4 * 8] + param_1;
     iVar10 = (&DAT_005893c4)[(int)local_c4 * 8] + param_2;
     if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
-       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
+        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
       if (iVar13 < 0) {
         iVar13 = iVar13 + g_map_width_tiles;
       }
@@ -583,7 +588,8 @@ switchD_00431b84_default:
     iVar13 = (&DAT_0058938c)[(int)local_c4 * 8] + param_1;
     iVar10 = (&DAT_005893cc)[(int)local_c4 * 8] + param_2;
     if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
-       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+       (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
+        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
       if (iVar13 < 0) {
         iVar13 = iVar13 + g_map_width_tiles;
       }

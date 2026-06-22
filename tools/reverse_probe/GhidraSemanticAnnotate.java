@@ -44,6 +44,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType specialProjectDef;
     private StructureDataType scienceDef;
     private StructureDataType countryProfileDef;
+    private StructureDataType mapScenarioInfo;
 
     private static class Rename {
         long va;
@@ -202,6 +203,59 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(landTile, 0xf8, IntegerDataType.dataType, 4, "city_resource_or_feature_stockpile",
             "paired with city_resource_or_feature_id; Do_Map/Calc_City_Resource increase it and city turns consume it");
         resolve(landTile);
+
+        mapScenarioInfo = fixedStruct("MapScenarioInfo_0x16c", 0x16c);
+        replaceAt(mapScenarioInfo, 0x00, new ArrayDataType(CharDataType.dataType, 0x11, 1),
+            0x11, "short_name_bytes", "Load_Map_GameInfo copies the first string from the scenario-info file");
+        replaceAt(mapScenarioInfo, 0x11, new ArrayDataType(CharDataType.dataType, 0x17, 1),
+            0x17, "display_name_bytes", "Load_Map_GameInfo copies the second string from the scenario-info file");
+        replaceAt(mapScenarioInfo, 0x24, IntegerDataType.dataType, 4, "editor_scratch_or_unused",
+            "Load_Map_GameInfo clears this field before storing numeric scenario metadata");
+        replaceAt(mapScenarioInfo, 0x28, IntegerDataType.dataType, 4, "country_setup_mode",
+            "custom-map loader branches on this with active-country count before choosing country slots");
+        replaceAt(mapScenarioInfo, 0x2c, IntegerDataType.dataType, 4, "scenario_value_2c",
+            "loaded from the scenario-info file and exposed in the edit-file-detail form");
+        replaceAt(mapScenarioInfo, 0x30, IntegerDataType.dataType, 4, "scenario_value_30",
+            "loaded from the scenario-info file and exposed in the edit-file-detail form");
+        replaceAt(mapScenarioInfo, 0x34, new ArrayDataType(CharDataType.dataType, 0x11, 1),
+            0x11, "subtitle_or_author_bytes", "Load_Map_GameInfo copies the third string here");
+        replaceAt(mapScenarioInfo, 0x45, new ArrayDataType(CharDataType.dataType, 0x13, 1),
+            0x13, "description_short_bytes", "Load_Map_GameInfo copies the fourth string here");
+        replaceAt(mapScenarioInfo, 0x58, IntegerDataType.dataType, 4, "scenario_value_58",
+            "numeric scenario metadata read before the country slot block");
+        replaceAt(mapScenarioInfo, 0x5c, IntegerDataType.dataType, 4, "scenario_value_5c",
+            "numeric scenario metadata read before the country slot block");
+        replaceAt(mapScenarioInfo, 0x60, IntegerDataType.dataType, 4, "scenario_value_60",
+            "numeric scenario metadata read before the country slot block");
+        replaceAt(mapScenarioInfo, 0x64, IntegerDataType.dataType, 4, "scenario_value_64",
+            "numeric scenario metadata read before the country slot block");
+        replaceAt(mapScenarioInfo, 0x68, new ArrayDataType(IntegerDataType.dataType, 22, 4),
+            0x58, "country_slot_values", "Load_Map_GameInfo copies 22 dwords; custom-map load uses them to seed selectable countries");
+        replaceAt(mapScenarioInfo, 0xc0, new ArrayDataType(IntegerDataType.dataType, 18, 4),
+            0x48, "scenario_rule_values", "rule/config dwords exposed in the edit-file-detail form");
+        replaceAt(mapScenarioInfo, 0x104, IntegerDataType.dataType, 4, "map_size_mode",
+            "custom-map loader sets g_map_size_mode from this field before sizing the tile map");
+        replaceAt(mapScenarioInfo, 0x108, IntegerDataType.dataType, 4, "scenario_value_108",
+            "loaded from the scenario-info file beside map_size_mode");
+        replaceAt(mapScenarioInfo, 0x10c, new ArrayDataType(CharDataType.dataType, 0x40, 1),
+            0x40, "description_long_bytes", "Load_Map_GameInfo copies a 64-byte text field here");
+        replaceAt(mapScenarioInfo, 0x14c, IntegerDataType.dataType, 4, "horizontal_wrap_enabled",
+            "map tile neighborhood and decode paths allow x wrapping when this field is 1");
+        replaceAt(mapScenarioInfo, 0x150, IntegerDataType.dataType, 4, "scenario_value_150",
+            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x154, IntegerDataType.dataType, 4, "scenario_value_154",
+            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x158, IntegerDataType.dataType, 4, "scripted_start_or_generated_flag",
+            "custom-map loader takes a distinct initialization path when this field is nonzero");
+        replaceAt(mapScenarioInfo, 0x15c, IntegerDataType.dataType, 4, "scenario_value_15c",
+            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x160, IntegerDataType.dataType, 4, "scenario_value_160",
+            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x164, IntegerDataType.dataType, 4, "scenario_value_164",
+            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "scenario_flag_168",
+            "last byte copied by Load_Map_GameInfo from legacy scenario-info files");
+        resolve(mapScenarioInfo);
 
         replaceAt(city, 0x01, ByteDataType.dataType, 1, "owner_country_id",
             "city ownership; compared with active/human country and rewritten by City_Belong_Change");
@@ -676,6 +730,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),
             new Rename(0x451de0L, "Do_Map"),
+            new Rename(0x4596a0L, "Before_Window_Edit_File_Detail"),
             new Rename(0x45b1d0L, "MouseOn_Edit_Sel_Custom_Map"),
             new Rename(0x45b2f0L, "MLR_Edit_SelCustomMap"),
             new Rename(0x46a1f0L, "Report_DirectDraw_Error"),
@@ -700,6 +755,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x47c2a0L, "Del_City_Wall_Or_Culvert"),
             new Rename(0x47c330L, "Make_City_Train"),
             new Rename(0x47c8b0L, "Map_To_Battle_Army"),
+            new Rename(0x477800L, "Load_Map_GameInfo"),
             new Rename(0x47e230L, "Load_MAINMENU_EMG"),
             new Rename(0x47ee50L, "Menu_EditMenu_Init"),
             new Rename(0x47eef0L, "Menu_EditMenu_Quit"),
@@ -878,7 +934,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x007156d0L, "g_custom_map_hover_index", IntegerDataType.dataType),
             new GlobalRename(0x00571aacL, "g_selected_custom_map_index", IntegerDataType.dataType),
             new GlobalRename(0x0057ea5cL, "g_custom_map_action", IntegerDataType.dataType),
-            new GlobalRename(0x00706b30L, "g_custom_map_table", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x0074c690L, "g_current_map_scenario_info", mapScenarioInfo),
+            new GlobalRename(0x00706b30L, "g_custom_map_table", new PointerDataType(mapScenarioInfo, dtm)),
             new GlobalRename(0x00706cc4L, "g_custom_map_count", IntegerDataType.dataType),
             new GlobalRename(0x0057e94cL, "g_editor_tool_mode", IntegerDataType.dataType),
             new GlobalRename(0x00715da8L, "g_editor_brush_size_index", IntegerDataType.dataType),

@@ -92,7 +92,8 @@ void Read_MRP_Edit(void)
           uVar11 = (int)*(short *)((&DAT_0074c830)[(int)puVar6] + 2 + local_148 * 8) + _DAT_0075590c
           ;
           if (((-1 < (int)uVar11) && ((int)uVar11 < g_map_height_tiles)) &&
-             (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+             (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
+              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
             if (iVar13 < 0) {
               iVar13 = iVar13 + g_map_width_tiles;
             }
@@ -154,7 +155,8 @@ switchD_004b86b7_default:
           local_13c = *psVar1 + _DAT_00755908;
           uVar11 = (int)psVar1[1] + _DAT_0075590c;
           if (((-1 < (int)uVar11) && ((int)uVar11 < g_map_height_tiles)) &&
-             (((-1 < local_13c && (local_13c < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+             (((-1 < local_13c && (local_13c < g_map_width_tiles)) ||
+              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
             if (local_13c < 0) {
               local_13c = local_13c + g_map_width_tiles;
             }
@@ -267,7 +269,8 @@ switchD_004b8314_default:
           iVar9 = *psVar1 + _DAT_00755908;
           iVar8 = (int)psVar1[1] + uVar11;
           if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
-             (((-1 < iVar9 && (iVar9 < iVar7)) || (DAT_0074c7dc == 1)))) {
+             (((-1 < iVar9 && (iVar9 < iVar7)) ||
+              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
             if (iVar9 < 0) {
               iVar9 = iVar9 + iVar7;
             }

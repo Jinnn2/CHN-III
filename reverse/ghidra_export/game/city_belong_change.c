@@ -295,7 +295,7 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
       iVar12 = (int)*pcVar19 + (uint)pCVar4->tile_y;
       if ((-1 < iVar12) && (iVar12 < g_map_height_tiles)) {
         if ((iVar15 < 0) || (iVar5 <= iVar15)) {
-          if (DAT_0074c7dc != 1) goto LAB_0041b084;
+          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041b084;
           if (iVar5 <= iVar15) {
             iVar15 = iVar15 - iVar5;
           }

@@ -30,10 +30,10 @@ void Do_Map(void)
       local_8 = 0;
       if (0 < g_map_width_tiles) {
         do {
-          if ((((0 < DAT_0074c764) && ('\0' < pcVar7[0xb3])) &&
-              ((int)pcVar7[0xb3] < g_world_age_or_turn_phase + 1)) &&
+          if ((((0 < (int)g_current_map_scenario_info._212_4_) && ('\0' < pcVar7[0xb3])) &&
+              ((int)pcVar7[0xb3] < g_current_map_scenario_info.scenario_value_30 + 1)) &&
              ((int)pcVar7[0x7c] + (int)pcVar7[0x50] == 0)) {
-            if (g_world_age_or_turn_phase < 3) {
+            if (g_current_map_scenario_info.scenario_value_30 < 3) {
               pcVar5 = &DAT_00735f20;
               iVar3 = 1;
               do {
@@ -56,7 +56,8 @@ void Do_Map(void)
                     iVar3 = *psVar4 + local_8;
                     iVar1 = (int)psVar4[1] + local_c;
                     if (((-1 < iVar1) && (iVar1 < g_map_height_tiles)) &&
-                       (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+                       (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
+                        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
                       if (iVar3 < 0) {
                         iVar3 = iVar3 + g_map_width_tiles;
                       }
@@ -100,7 +101,7 @@ switchD_00451f3b_default:
             }
           }
 LAB_0045204d:
-          if (((DAT_0074c778 != 0) && (-1 < pcVar7[0x17])) &&
+          if (((g_current_map_scenario_info._232_4_ != 0) && (-1 < pcVar7[0x17])) &&
              ((0 < *(int *)(&DAT_005a8170 + pcVar7[0x17] * 0xd8) &&
               (*(int *)(pcVar7 + 0xf8) < 10000)))) {
             *(int *)(pcVar7 + 0xf8) =

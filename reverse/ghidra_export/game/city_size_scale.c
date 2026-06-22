@@ -83,10 +83,10 @@ void City_Size_Scale(int param_1)
     bVar2 = *(byte *)(param_1 + 0x20);
     uVar7 = (ushort)bVar2;
     if (10 < bVar2) {
-      if (2 < g_world_age_or_turn_phase) {
+      if (2 < g_current_map_scenario_info.scenario_value_30) {
         uVar7 = uVar7 * 2;
       }
-      if (4 < g_world_age_or_turn_phase) {
+      if (4 < g_current_map_scenario_info.scenario_value_30) {
         uVar7 = uVar7 + (bVar2 >> 1);
       }
       if (0x1e < bVar2) {
@@ -102,10 +102,10 @@ void City_Size_Scale(int param_1)
     uVar4 = uVar4 & 0xff;
     if (10 < bVar2) {
       uVar3 = uVar4;
-      if (2 < g_world_age_or_turn_phase) {
+      if (2 < g_current_map_scenario_info.scenario_value_30) {
         uVar3 = uVar4 * 2;
       }
-      if (4 < g_world_age_or_turn_phase) {
+      if (4 < g_current_map_scenario_info.scenario_value_30) {
         uVar3 = uVar3 + (uVar4 >> 1);
       }
       uVar4 = uVar3;

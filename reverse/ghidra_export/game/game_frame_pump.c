@@ -32,10 +32,11 @@ void Game_Frame_Pump(void)
     DAT_005dffa8 = DAT_005dffa4;
     DAT_00716270 = DAT_00716280;
     DAT_00716284 = DAT_00716280;
-    DAT_0074c790 = DAT_0074c790 + -1;
+    g_current_map_scenario_info._256_4_ = g_current_map_scenario_info._256_4_ + -1;
     DAT_005dffa4 = 0;
     DAT_00716280 = 0;
-    if (((DAT_00755960 == 1) && (DAT_0074c790 < 1)) && (DAT_0071628c < 2)) {
+    if (((DAT_00755960 == 1) && ((int)g_current_map_scenario_info._256_4_ < 1)) &&
+       (DAT_0071628c < 2)) {
       Prepare_City_Doing();
     }
   }

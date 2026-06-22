@@ -117,7 +117,8 @@ LAB_0041e2d1:
     if ((((*(int *)(&DAT_005a8124 + iVar13) == -1) ||
          (*(char *)(*(int *)(&DAT_005a8124 + iVar13) + 100 + param_1) == '\x02')) &&
         ((((*(int *)(&DAT_005a811c + iVar13) == 0 || (puVar14[0x1a] == '\x02')) ||
-          (puVar14[8] == '\0')) || (puVar14[8] == '\x03')))) && (DAT_0074c778 != 0)) {
+          (puVar14[8] == '\0')) || (puVar14[8] == '\x03')))) &&
+       (g_current_map_scenario_info._232_4_ != 0)) {
       bVar2 = puVar1[iVar9 + 0xb1a];
       if ((bVar2 < 2) || (4 < bVar2)) {
         if ((bVar2 == 1) &&
@@ -184,7 +185,7 @@ LAB_0041e2d1:
         iVar9 = local_8[1] + (uint)*(ushort *)(param_1 + 0x18);
         if ((-1 < iVar9) && (iVar9 < g_map_height_tiles)) {
           if ((iVar13 < 0) || (g_map_width_tiles <= iVar13)) {
-            if (DAT_0074c7dc != 1) goto LAB_0041e9e5;
+            if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041e9e5;
             if (g_map_width_tiles <= iVar13) {
               iVar13 = iVar13 - g_map_width_tiles;
             }
@@ -212,7 +213,7 @@ LAB_0041e2d1:
                 (*(char *)(*(int *)(&DAT_005a8124 + iVar13) + 100 + param_1) == '\x02')) &&
                (((((*(int *)(&DAT_005a811c + iVar13) == 0 || (*(char *)(local_1c + 0x1a) == '\x02'))
                   || (*(char *)(local_1c + 8) == '\0')) || (*(char *)(local_1c + 8) == '\x03')) &&
-                (DAT_0074c778 != 0)))) {
+                (g_current_map_scenario_info._232_4_ != 0)))) {
               bVar2 = puVar1[iVar9 + 0xb1a];
               if ((bVar2 < 2) || (4 < bVar2)) {
                 if ((bVar2 == 1) &&

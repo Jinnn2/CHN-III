@@ -95,7 +95,8 @@ void Make_City_Map(int param_1)
     *(int *)((int)aiStack_40 + iVar17) = iVar23;
     *(int *)((int)aiStack_20 + iVar17) = iVar15;
     if (((-1 < iVar15) && (iVar15 < g_map_height_tiles)) &&
-       (((-1 < iVar23 && (iVar23 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+       (((-1 < iVar23 && (iVar23 < g_map_width_tiles)) ||
+        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
       if (iVar23 < 0) {
         *(int *)((int)aiStack_40 + iVar17) = iVar23 + g_map_width_tiles;
       }

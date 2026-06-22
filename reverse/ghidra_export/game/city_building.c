@@ -101,9 +101,10 @@ void City_Building(void)
       }
       else {
         City_Size_Scale();
-        if (((2 < g_world_age_or_turn_phase) && (g_active_country_index == g_human_country_index))
-           && (g_current_city->forced_worker_mode == 0)) {
-          City_Happy_Change(g_current_city,g_world_age_or_turn_phase + -2);
+        if (((2 < g_current_map_scenario_info.scenario_value_30) &&
+            (g_active_country_index == g_human_country_index)) &&
+           (g_current_city->forced_worker_mode == 0)) {
+          City_Happy_Change(g_current_city,g_current_map_scenario_info.scenario_value_30 + -2);
         }
       }
 LAB_00422234:
@@ -114,10 +115,10 @@ LAB_00422234:
         DAT_007584e8 = 0;
       }
       if (g_active_country_index == g_human_country_index) {
-        iVar15 = *(int *)(&DAT_00576200 + g_world_age_or_turn_phase * 4);
+        iVar15 = *(int *)(&DAT_00576200 + g_current_map_scenario_info.scenario_value_30 * 4);
       }
       else {
-        iVar15 = g_world_age_or_turn_phase * 5 + 0x3c;
+        iVar15 = g_current_map_scenario_info.scenario_value_30 * 5 + 0x3c;
       }
       if (g_current_city->forced_worker_mode == 0) {
         uVar22 = 0x14;

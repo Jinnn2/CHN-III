@@ -24,6 +24,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 | `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
+| `MapScenarioInfo_0x16c` | `Load_Map_GameInfo` reads custom-map metadata in `0x16c` records; `Load_Dat` reads the same shape into `g_current_map_scenario_info`; `Before_Window_Edit_File_Detail` builds an editor form over the current record. | Map/scenario header and editor-visible rules. |
 
 ## Important Globals
 
@@ -70,7 +71,8 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_edit_menu_selected_mode` | `MLR_NewEdit` sets it from the hovered item on page `0`; `Menu_EditMenu_Quit` treats value `0` as the new-map generation path. | New editor menu mode choice. |
 | `g_edit_menu_selected_map_size` | Selected on page `1` and passed with the template choice to the map-generation helper. | New map size choice. |
 | `g_edit_menu_selected_template` | Selected on page `2` and passed with the map-size choice to the map-generation helper. | New map template/seed choice. |
-| `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes records with stride `0x16c`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
+| `g_current_map_scenario_info` | `Load_Dat` reads a `0x16c` header here; the edit-file-detail form binds controls to fields in this record. | Current loaded map/scenario header. |
+| `g_custom_map_table` / `g_custom_map_count` | `MLR_Edit_SelCustomMap` indexes `MapScenarioInfo_0x16c[]`, loads a selected map, and compacts the table after deletion. | Custom/editable map list. |
 | `g_selected_custom_map_index` | Set from `g_custom_map_hover_index`; drives load, delete, and list compaction in `MLR_Edit_SelCustomMap`. | Selected custom map row. |
 
 ## Editor And Startup
@@ -93,6 +95,8 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Menu_EditMenu_Quit` | Trace string `Menu_EditMenu_Quit`; when the new-map path is confirmed, enables editor mode, calls the map-generation helper with size/template selections, allocates the editor tile backup, and enters screen state `3`. | Transition from editor menu into map editing. |
 | `MouseOn_Edit_Sel_Custom_Map` | Trace string `MouseOn_Edit_Sel_Custom_Map`; tracks hover over up to 20 custom-map list rows and sets action ids `0`, `1`, or `2` for load/delete/close buttons. | Custom-map picker hover handler. |
 | `MLR_Edit_SelCustomMap` | Trace string `MLR_Edit_SelCustomMap`; selects a custom map, loads it through `Load_Dat`, enables editor state/backup allocation, or deletes the map and associated sidecar files before compacting the list. | Custom-map picker click handler. |
+| `Load_Map_GameInfo` | Trace string `Load_Map_GameInfo`; reads custom-map scenario headers, handles older `0x168` payloads, and stores modern records as `MapScenarioInfo_0x16c`. | Custom-map/scenario header loader. |
+| `Before_Window_Edit_File_Detail` | Trace string `Before_Window_Edit_File_Detail`; initializes defaults and creates form controls bound to `g_current_map_scenario_info`. | Scenario/map-detail editor form setup. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
 | `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
@@ -122,6 +126,29 @@ original enum names.
 | `0xb` | `MLR_Edit_GameMap` writes a fixed 27-tile terrain pattern using tables around `0x0057eac0`. | Batch terrain-template brush. |
 
 ## Useful Offsets
+
+### `MapScenarioInfo_0x16c`
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00` | `Load_Map_GameInfo` copies the first short string here and the custom-map list formats it. | short name bytes. |
+| `+0x11` | `Load_Map_GameInfo` copies the second string here; the editor detail form exposes it as text. | display name bytes. |
+| `+0x24` | Loader clears it when expanding older `0x168` records; edit detail startup also clears it. | editor scratch or unused field. |
+| `+0x28` | Custom-map load and detail form gate country-slot controls on values such as `0` and `2`. | country setup mode. |
+| `+0x2c/+0x30` | Loaded from the scenario-info file and surfaced in the map detail form. | scenario values. |
+| `+0x34` | Third copied string in `Load_Map_GameInfo`. | subtitle or author bytes. |
+| `+0x45` | Fourth copied string in `Load_Map_GameInfo`. | short description bytes. |
+| `+0x58..0x64` | Numeric values read before the country-slot block and exposed by the detail form. | scenario values. |
+| `+0x68` | Loader copies 22 dwords; custom-map selection uses this area while choosing active country setup. | country slot values. |
+| `+0xc0` | Detail form exposes this 18-dword region as selectable/editable rule values. | scenario rule values. |
+| `+0x104` | `Load_Dat` and `MLR_Edit_SelCustomMap` branch on it before setting map dimensions. | map size mode. |
+| `+0x108` | Loaded beside map size in both legacy-expanded and modern records. | scenario value. |
+| `+0x10c` | `Load_Map_GameInfo` copies a 64-byte text field here. | long description bytes. |
+| `+0x14c` | Map decode, road/long-wall decode, near-city scans, battle entry, and keyboard movement allow x wrapping when this is `1`. | horizontal wrap enabled. |
+| `+0x150/+0x154` | Late numeric values loaded from the scenario-info file and exposed in the detail form. | scenario values. |
+| `+0x158` | `MLR_Edit_SelCustomMap` takes a different initialization path when nonzero. | scripted start or generated flag. |
+| `+0x15c..0x164` | Late numeric values initialized by the detail form and read from the scenario-info file. | scenario values. |
+| `+0x168` | Final byte copied from legacy scenario-info payloads. | scenario flag. |
 
 ### `LandTile_0x100`
 

@@ -140,7 +140,7 @@ switchD_004516e9_default:
               iVar3 = (uint)*(ushort *)(iVar4 + 0x18) + (int)*pcVar7;
               if ((-1 < iVar3) && (iVar3 < g_map_height_tiles)) {
                 if ((iVar6 < 0) || (g_map_width_tiles <= iVar6)) {
-                  if (DAT_0074c7dc != 1) goto LAB_004518d6;
+                  if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_004518d6;
                   if (g_map_width_tiles <= iVar6) {
                     iVar6 = iVar6 - g_map_width_tiles;
                   }

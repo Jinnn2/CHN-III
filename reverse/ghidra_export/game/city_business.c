@@ -70,7 +70,8 @@ void City_Business(void)
         do {
           if ((((((local_38->trade_resource_state[iVar12] == 2) &&
                  ((char)g_current_city->trade_resource_state[iVar12] < '\x02')) &&
-                (g_current_city->trade_resource_state[iVar12] = 1, DAT_0074c778 == 1)) &&
+                (g_current_city->trade_resource_state[iVar12] = 1,
+                g_current_map_scenario_info._232_4_ == 1)) &&
                ((iVar10 != g_active_country_index &&
                 (g_active_country->trade_agreement_flags[iVar10] == 1)))) &&
               ((sVar1 = *(short *)((int)g_active_country->diplomacy_state_by_country +
@@ -130,7 +131,8 @@ void City_Business(void)
           local_30 = local_30 + 4;
         } while (local_24 < 0xb92);
         iVar10 = ((((g_current_city->science_or_resource_score + local_38->science_or_resource_score
-                    ) * (local_20 + local_1c)) / ((g_world_age_or_turn_phase * 5 + 0x19) * 4)) *
+                    ) * (local_20 + local_1c)) /
+                  ((g_current_map_scenario_info.scenario_value_30 * 5 + 0x19) * 4)) *
                  *(int *)(&DAT_00599298 + g_active_country->government_or_ai_mode * 0x74)) / 10;
         iVar12 = iVar10 >> 1;
         if (g_current_city->development_level == 5) {

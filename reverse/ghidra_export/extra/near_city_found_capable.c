@@ -25,7 +25,8 @@ undefined4 Near_City_Found_CapAble(int param_1,int *param_2,int *param_3)
       iVar4 = (int)psVar1[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
       iVar3 = (int)psVar1[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
-         (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+         (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
+          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
         if (iVar4 < 0) {
           iVar4 = iVar4 + g_map_width_tiles;
         }

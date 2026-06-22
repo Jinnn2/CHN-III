@@ -52,7 +52,8 @@ NoDpa_Near_City_Away_Enemy
       iVar6 = *(short *)((&DAT_0074c830)[param_3 & 1] + local_c * 8) + param_2;
       iVar8 = (int)*(short *)((&DAT_0074c830)[param_3 & 1] + local_c * 8 + 2) + param_3;
       if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
-         (((-1 < iVar6 && (iVar6 < iVar4)) || (DAT_0074c7dc == 1)))) {
+         (((-1 < iVar6 && (iVar6 < iVar4)) ||
+          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
         if (iVar6 < 0) {
           iVar6 = iVar6 + iVar4;
         }

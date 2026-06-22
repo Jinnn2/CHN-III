@@ -20,25 +20,25 @@ void Menu_EditMenu_Quit(void)
   }
   if (DAT_00714e74 == '\x01') {
     if (g_edit_menu_selected_mode == 0) {
-      DAT_0074c6b8 = 0;
-      DAT_0074c6e8 = 0;
-      g_world_age_or_turn_phase = 2;
-      DAT_0074c6f0 = 0;
-      DAT_0074c6f4 = 0;
-      DAT_0074c6bc = 0;
-      DAT_0074c768 = 1;
-      DAT_0074c764 = 1;
-      DAT_0074c758 = 0;
-      DAT_0074c760 = 1;
-      DAT_0074c75c = 1;
-      DAT_0074c750 = 0;
-      DAT_0074c754 = 0;
-      DAT_0074c778 = 1;
-      DAT_0074c770 = 1;
-      DAT_0074c76c = 0;
-      DAT_0074c7ec = 1;
-      DAT_0074c7f0 = 0;
-      _DAT_0074c7f4 = 1;
+      g_current_map_scenario_info.country_setup_mode = 0;
+      g_current_map_scenario_info.scenario_value_58 = 0;
+      g_current_map_scenario_info.scenario_value_30 = 2;
+      g_current_map_scenario_info.scenario_value_60 = 0;
+      g_current_map_scenario_info.scenario_value_64 = 0;
+      g_current_map_scenario_info.scenario_value_2c = 0;
+      g_current_map_scenario_info._216_4_ = 1;
+      g_current_map_scenario_info._212_4_ = 1;
+      g_current_map_scenario_info._200_4_ = 0;
+      g_current_map_scenario_info._208_4_ = 1;
+      g_current_map_scenario_info._204_4_ = 1;
+      g_current_map_scenario_info._192_4_ = 0;
+      g_current_map_scenario_info._196_4_ = 0;
+      g_current_map_scenario_info._232_4_ = 1;
+      g_current_map_scenario_info._224_4_ = 1;
+      g_current_map_scenario_info._220_4_ = 0;
+      g_current_map_scenario_info.scenario_value_15c = 1;
+      g_current_map_scenario_info.scenario_value_160 = 0;
+      g_current_map_scenario_info.scenario_value_164 = 1;
       g_editor_mode_enabled = 1;
       DAT_00755958 = 1;
       DAT_0075595c = 1;

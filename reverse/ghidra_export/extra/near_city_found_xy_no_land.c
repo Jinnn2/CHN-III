@@ -26,7 +26,8 @@ undefined4 Near_City_Found_XY_NoLand(int param_1,uint param_2,int param_3,int *p
       iVar5 = psVar1[4] + param_1;
       iVar4 = (int)psVar1[5] + param_2;
       if (((-1 < iVar4) && (iVar4 < g_map_height_tiles)) &&
-         (((-1 < iVar5 && (iVar5 < g_map_width_tiles)) || (DAT_0074c7dc == 1)))) {
+         (((-1 < iVar5 && (iVar5 < g_map_width_tiles)) ||
+          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
         if (iVar5 < 0) {
           iVar5 = iVar5 + g_map_width_tiles;
         }

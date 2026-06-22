@@ -230,7 +230,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00456c50` | `FUN_00456c50` | 527 | 3 |
 | `0x004578a0` | `FUN_004578a0` | 2182 | 16 |
 | `0x00458d80` | `FUN_00458d80` | 254 | 1 |
-| `0x004596a0` | `FUN_004596a0` | 2242 | 2 |
+| `0x004596a0` | `Before_Window_Edit_File_Detail` | 2242 | 2 |
 | `0x00459f90` | `FUN_00459f90` | 385 | 5 |
 | `0x0045b1d0` | `MouseOn_Edit_Sel_Custom_Map` | 275 | 1 |
 | `0x0045b2f0` | `MLR_Edit_SelCustomMap` | 2658 | 15 |
@@ -320,7 +320,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00473080` | `FUN_00473080` | 72 | 1 |
 | `0x004730d0` | `FUN_004730d0` | 407 | 9 |
 | `0x00473270` | `Load_Dat` | 17465 | 48 |
-| `0x00477800` | `FUN_00477800` | 1274 | 7 |
+| `0x00477800` | `Load_Map_GameInfo` | 1274 | 7 |
 | `0x00477d00` | `FUN_00477d00` | 732 | 0 |
 | `0x00477ff0` | `FUN_00477ff0` | 1484 | 15 |
 | `0x004785c0` | `FUN_004785c0` | 672 | 5 |

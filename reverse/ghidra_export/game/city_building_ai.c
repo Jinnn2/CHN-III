@@ -456,7 +456,7 @@ LAB_00423469:
             }
             iVar19 = piVar15[-0x6a];
             if ((iVar19 != 1) || (g_current_city->has_special_capability == 1)) {
-              if (DAT_0074c778 == 0) {
+              if (g_current_map_scenario_info._232_4_ == 0) {
                 if ((piVar21 != (int *)0xe) ||
                    ('\0' < (char)g_current_city->trade_resource_state[0x15])) {
 LAB_004235b3:
@@ -807,7 +807,7 @@ LAB_004245ea:
         piVar21 = &g_building_defs[0].population_requirement;
         do {
           if (*local_280 == 1) {
-            if ((bVar23) && (g_world_age_or_turn_phase < 2)) {
+            if ((bVar23) && (g_current_map_scenario_info.scenario_value_30 < 2)) {
               cVar7 = City_Build_AI_Build_Able(g_current_city,&local_25c,&local_290,piVar15);
               if (cVar7 != '\0') {
                 FUN_004b01b0(g_current_city,0,1,piVar15,local_25c,local_290,0xffffffff);
