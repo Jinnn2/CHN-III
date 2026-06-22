@@ -20,7 +20,7 @@ int Fish_Able(LandTile_0x100 *tile)
      (pvVar3 = tile->linked_record, pvVar3 == (void *)0x0)) {
     cVar1 = *(char *)tile;
     pvVar3 = (void *)(cVar1 * 9);
-    if (g_ground_defs[cVar1].terrain_select_10 != 0) {
+    if (g_ground_defs[cVar1].fishery_enabled != 0) {
       pvVar3 = (void *)0x0;
       if (cVar1 == '\f') {
         return 1;

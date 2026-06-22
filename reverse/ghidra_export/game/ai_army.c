@@ -339,7 +339,7 @@ void AI_Army(void)
       return;
     }
     pAVar13 = _DAT_00748ff0;
-    if ((0 < g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count) &&
+    if ((0 < g_government_defs[g_active_country->government_or_ai_mode].suppression_army_count) &&
        (*(short *)((int)g_land_record_buffers[_DAT_00748e34] +
                   *(short *)(DAT_0075597c + 0x10) * 4 + 2) != 0)) {
       uVar10 = *(uint *)(&DAT_0074a1e4 + _DAT_00748e34 * 4);
@@ -369,7 +369,7 @@ switchD_00404026_default:
           if (((*(short *)(iVar16 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
               (3 < *(int *)(uVar10 + 0x28))) &&
              (((int)*(char *)(iVar16 + 0x7c) + (int)*(char *)(iVar16 + 0x50) <
-               g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count &&
+               g_government_defs[g_active_country->government_or_ai_mode].suppression_army_count &&
               (iVar11 = FUN_004c6ed0((int)pAVar13->tile_x,(int)pAVar13->tile_y,
                                      *(undefined2 *)(uVar10 + 0x16),*(undefined2 *)(uVar10 + 0x18),0
                                     ), pAVar13 = _DAT_00748ff0, iVar11 < iVar9)))) {

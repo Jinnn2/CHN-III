@@ -191,9 +191,9 @@ LAB_00422234:
            g_current_city->building_income_yield + g_building_defs[iVar9].income_yield_delta;
       City_Loyal_Change(g_current_city);
       City_Happy_Change(g_current_city,
-                        (g_government_defs[g_active_country->government_or_ai_mode].
-                         morale_or_happiness_modifier * g_building_defs[iVar9].business_delta * 10)
-                        / 100 + g_building_defs[iVar9].business_delta);
+                        (g_government_defs[g_active_country->government_or_ai_mode].happiness_effect
+                         * g_building_defs[iVar9].business_delta * 10) / 100 +
+                        g_building_defs[iVar9].business_delta);
       City_Safe_Change(g_current_city);
       City_Business_Change(g_current_city);
       bVar13 = g_current_city->forced_worker_mode;

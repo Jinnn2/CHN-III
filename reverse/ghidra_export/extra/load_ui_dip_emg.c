@@ -39,8 +39,8 @@ void Load_UI_DIP_EMG(void)
     break;
   case 1:
   case 2:
-    if ((g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].country_select_58 == 1)
-       || (g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].country_select_58 == 3
+    if ((g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].building_style_id == 1)
+       || (g_empire_country_defs[(byte)(&DAT_007350b9)[DAT_005ceb3c * 0xe68]].building_style_id == 3
           )) {
       pcVar9 = s_MEET_WEST_005cec04;
     }

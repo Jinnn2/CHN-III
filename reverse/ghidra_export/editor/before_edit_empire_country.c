@@ -188,7 +188,7 @@ LAB_00457b62:
   piVar10 = DAT_00706b20;
   for (iVar5 = 0x3200; iVar5 != 0; iVar5 = iVar5 + -1) {
     *piVar10 = pEVar7->is_enabled_or_selectable;
-    pEVar7 = (EmpireCountryDef_0x200 *)pEVar7->short_name_bytes;
+    pEVar7 = (EmpireCountryDef_0x200 *)pEVar7->country_name_bytes;
     piVar10 = piVar10 + 1;
   }
   uVar3 = 0xffffffff;

@@ -26,8 +26,8 @@ void Before_Edit_Ground(void)
   pGVar5 = g_ground_defs;
   puVar7 = _DAT_00706e7c;
   for (iVar2 = 0x87; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = *(undefined4 *)pGVar5->short_name_bytes;
-    pGVar5 = (GroundDef_0x24 *)(pGVar5->short_name_bytes + 4);
+    *puVar7 = *(undefined4 *)pGVar5->surface_name_bytes;
+    pGVar5 = (GroundDef_0x24 *)(pGVar5->surface_name_bytes + 4);
     puVar7 = puVar7 + 1;
   }
   uVar3 = 0xffffffff;

@@ -107,7 +107,7 @@ LAB_0045b379:
           piVar6 = &DAT_00708218;
           for (iVar8 = 0x3200; iVar8 != 0; iVar8 = iVar8 + -1) {
             *piVar6 = pEVar14->is_enabled_or_selectable;
-            pEVar14 = (EmpireCountryDef_0x200 *)pEVar14->short_name_bytes;
+            pEVar14 = (EmpireCountryDef_0x200 *)pEVar14->country_name_bytes;
             piVar6 = piVar6 + 1;
           }
           iVar8 = 1;
@@ -127,7 +127,7 @@ LAB_0045b379:
           g_current_map_scenario_info.scenario_value_15c = 1;
           g_current_map_scenario_info.scenario_value_160 = 0;
           bVar3 = true;
-          piVar6 = &g_empire_country_defs[1].country_value_44;
+          piVar6 = &g_empire_country_defs[1].origin_tile_y;
           do {
             if (!bVar3) break;
             if (((((EmpireCountryDef_0x200 *)(piVar6 + -0x11))->is_enabled_or_selectable != 0) &&

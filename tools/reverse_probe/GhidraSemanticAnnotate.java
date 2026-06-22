@@ -821,82 +821,82 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         resolve(countryProfileDef);
 
         governmentDef = fixedStruct("GovernmentDef_0x74", 0x74);
-        replaceAt(governmentDef, 0x08, IntegerDataType.dataType, 4, "morale_or_happiness_modifier",
-            "city building completion and resource-change stability paths use this as a government happiness/stability modifier");
-        replaceAt(governmentDef, 0x0c, IntegerDataType.dataType, 4, "government_value_0c",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
-        replaceAt(governmentDef, 0x10, IntegerDataType.dataType, 4, "trade_or_city_business_multiplier",
-            "City_Business multiplies inter-city yield by this government factor");
-        replaceAt(governmentDef, 0x14, IntegerDataType.dataType, 4, "income_loss_or_tax_rate",
-            "City_Resource_Change uses this as a percent-like income loss/tax factor adjusted by safety/buildings");
-        replaceAt(governmentDef, 0x18, IntegerDataType.dataType, 4, "government_value_18",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
-        replaceAt(governmentDef, 0x1c, IntegerDataType.dataType, 4, "government_value_1c",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
-        replaceAt(governmentDef, 0x20, IntegerDataType.dataType, 4, "resource_pressure_tolerance",
-            "City_Resource_Change subtracts this from country resource_pressure_level before applying stability effects");
-        replaceAt(governmentDef, 0x24, IntegerDataType.dataType, 4, "minimum_garrison_count",
-            "City_Resource_Change penalizes cities with fewer tile occupants than this threshold");
-        replaceAt(governmentDef, 0x28, IntegerDataType.dataType, 4, "maximum_garrison_count_or_bonus_mode",
-            "City_Resource_Change applies bonuses for -1 and penalties when tile occupants exceed this positive threshold");
-        replaceAt(governmentDef, 0x2c, IntegerDataType.dataType, 4, "stationed_unit_away_limit",
-            "City_Resource_Change counts stationed units away from the city tile and penalizes excess");
-        replaceAt(governmentDef, 0x30, IntegerDataType.dataType, 4, "city_round_timer_limit",
-            "City_Resource_Change penalizes cities whose round/protection timer exceeds this threshold");
-        replaceAt(governmentDef, 0x34, IntegerDataType.dataType, 4, "government_value_34",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
-        replaceAt(governmentDef, 0x38, IntegerDataType.dataType, 4, "ai_force_threshold",
-            "City_Building_AI compares total force/unit count against this government threshold");
-        replaceAt(governmentDef, 0x3c, IntegerDataType.dataType, 4, "government_value_3c",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x08, IntegerDataType.dataType, 4, "happiness_effect",
+            "editor label is happiness effect; city building/resource paths add it to happiness/stability");
+        replaceAt(governmentDef, 0x0c, IntegerDataType.dataType, 4, "security_effect",
+            "editor label is public-security effect");
+        replaceAt(governmentDef, 0x10, IntegerDataType.dataType, 4, "commerce_effect",
+            "editor label is commerce effect; City_Business multiplies inter-city yield by this factor");
+        replaceAt(governmentDef, 0x14, IntegerDataType.dataType, 4, "corruption_level",
+            "editor label is corruption degree; City_Resource_Change uses it as a percent-like loss factor adjusted by safety/buildings");
+        replaceAt(governmentDef, 0x18, IntegerDataType.dataType, 4, "construction_effect",
+            "editor label is construction effect");
+        replaceAt(governmentDef, 0x1c, IntegerDataType.dataType, 4, "production_effect",
+            "editor label is production effect");
+        replaceAt(governmentDef, 0x20, IntegerDataType.dataType, 4, "tax_capacity",
+            "editor label is tax capacity; City_Resource_Change subtracts it from country resource_pressure_level before applying stability effects");
+        replaceAt(governmentDef, 0x24, IntegerDataType.dataType, 4, "suppression_army_count",
+            "editor label is suppression-army count; AI and city stability use it as the desired minimum local garrison");
+        replaceAt(governmentDef, 0x28, IntegerDataType.dataType, 4, "antiwar_army_count",
+            "editor label is anti-war army count; -1 enables a garrison happiness bonus and positive values cap local occupants");
+        replaceAt(governmentDef, 0x2c, IntegerDataType.dataType, 4, "homesick_army_count",
+            "editor label is homesick-army count; stationed units away from the city are penalized beyond this limit");
+        replaceAt(governmentDef, 0x30, IntegerDataType.dataType, 4, "army_burden_count",
+            "editor label is army burden count; city stability penalizes cities above this round/protection unit threshold");
+        replaceAt(governmentDef, 0x34, IntegerDataType.dataType, 4, "loyalty_effect",
+            "editor label is loyalty effect; army-turn ownership drift uses it as the per-turn loyalty gain");
+        replaceAt(governmentDef, 0x38, IntegerDataType.dataType, 4, "city_limit",
+            "editor label is city limit; City_Building_AI compares total force/unit count against this government threshold");
+        replaceAt(governmentDef, 0x3c, IntegerDataType.dataType, 4, "recruitment_unrest",
+            "editor label is unrest from recruiting soldiers");
         replaceAt(governmentDef, 0x40, new ArrayDataType(IntegerDataType.dataType, 11, 4), 0x2c,
             "research_efficiency_modifiers", "City_Resource_Change indexes this eleven-dword block by country research_efficiency_level");
-        replaceAt(governmentDef, 0x6c, IntegerDataType.dataType, 4, "government_value_6c",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
-        replaceAt(governmentDef, 0x70, IntegerDataType.dataType, 4, "government_value_70",
-            "Before_Edit_Goverment exposes this dword as an editable numeric field");
+        replaceAt(governmentDef, 0x6c, IntegerDataType.dataType, 4, "revolution_turns",
+            "editor label is revolution turns");
+        replaceAt(governmentDef, 0x70, IntegerDataType.dataType, 4, "allowed_unrest",
+            "editor label is allowed unrest");
         resolve(governmentDef);
 
         groundDef = fixedStruct("GroundDef_0x24", 0x24);
         replaceAt(groundDef, 0x00, new ArrayDataType(CharDataType.dataType, 5, 1), 5,
-            "short_name_bytes", "Before_Edit_Ground exposes this as a five-byte text field");
-        replaceAt(groundDef, 0x08, IntegerDataType.dataType, 4, "terrain_select_08",
-            "Before_Edit_Ground binds this dword to an option-list editor control");
-        replaceAt(groundDef, 0x0c, IntegerDataType.dataType, 4, "terrain_select_0c",
-            "Before_Edit_Ground binds this dword to an option-list editor control");
-        replaceAt(groundDef, 0x10, IntegerDataType.dataType, 4, "terrain_select_10",
-            "Before_Edit_Ground binds this dword to an option-list editor control");
-        replaceAt(groundDef, 0x14, IntegerDataType.dataType, 4, "terrain_value_14",
-            "Before_Edit_Ground exposes this dword as an editable numeric field");
-        replaceAt(groundDef, 0x18, IntegerDataType.dataType, 4, "terrain_value_18",
-            "Before_Edit_Ground exposes this dword as an editable numeric field");
-        replaceAt(groundDef, 0x1c, IntegerDataType.dataType, 4, "terrain_value_1c",
-            "Before_Edit_Ground exposes this dword as an editable numeric field");
-        replaceAt(groundDef, 0x20, IntegerDataType.dataType, 4, "terrain_value_20",
-            "Before_Edit_Ground exposes this dword as an editable numeric field");
+            "surface_name_bytes", "editor label is terrain-surface name");
+        replaceAt(groundDef, 0x08, IntegerDataType.dataType, 4, "irrigation_farmland_enabled",
+            "editor label is irrigation farmland; Irrigate_Able requires this to be nonzero");
+        replaceAt(groundDef, 0x0c, IntegerDataType.dataType, 4, "pasture_enabled",
+            "editor label is pasture/ranch; Pasturage_Able requires this to be nonzero");
+        replaceAt(groundDef, 0x10, IntegerDataType.dataType, 4, "fishery_enabled",
+            "editor label is maritime fishery; Fish_Able requires this to be nonzero");
+        replaceAt(groundDef, 0x14, IntegerDataType.dataType, 4, "food_output",
+            "editor label is food output");
+        replaceAt(groundDef, 0x18, IntegerDataType.dataType, 4, "gold_output",
+            "editor label is gold output");
+        replaceAt(groundDef, 0x1c, IntegerDataType.dataType, 4, "energy_output",
+            "editor label is energy output");
+        replaceAt(groundDef, 0x20, IntegerDataType.dataType, 4, "hillside_food_output",
+            "editor label is hillside food");
         resolve(groundDef);
 
         empireCountryDef = fixedStruct("EmpireCountryDef_0x200", 0x200);
         replaceAt(empireCountryDef, 0x00, IntegerDataType.dataType, 4, "is_enabled_or_selectable",
             "custom-map selection and editor paths require this first dword to be positive");
         replaceAt(empireCountryDef, 0x04, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
-            "short_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+            "country_name_bytes", "editor label is country name");
         replaceAt(empireCountryDef, 0x15, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
-            "display_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+            "capital_name_bytes", "editor label is capital name");
         replaceAt(empireCountryDef, 0x26, new ArrayDataType(CharDataType.dataType, 17, 1), 17,
-            "alternate_name_bytes", "Before_Edit_Empire_Country binds this as a 17-byte text field");
+            "alliance_name_bytes", "editor label is alliance name");
         replaceAt(empireCountryDef, 0x38, IntegerDataType.dataType, 4, "country_profile_id",
-            "indexes g_country_profile_defs in custom-map selection, diplomacy, and editor-finish resource setup");
-        replaceAt(empireCountryDef, 0x3c, IntegerDataType.dataType, 4, "country_value_3c",
-            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
-        replaceAt(empireCountryDef, 0x40, IntegerDataType.dataType, 4, "country_value_40",
-            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
-        replaceAt(empireCountryDef, 0x44, IntegerDataType.dataType, 4, "country_value_44",
-            "Before_Edit_Empire_Country exposes this dword as an editable numeric field");
-        replaceAt(empireCountryDef, 0x58, IntegerDataType.dataType, 4, "country_select_58",
-            "Before_Edit_Empire_Country binds this dword to an option-list editor control");
-        replaceAt(empireCountryDef, 0x5c, IntegerDataType.dataType, 4, "country_select_5c",
-            "Before_Edit_Empire_Country binds this dword to an option-list editor control");
+            "editor label is leader/person; indexes g_country_profile_defs in custom-map selection, diplomacy, and editor-finish resource setup");
+        replaceAt(empireCountryDef, 0x3c, IntegerDataType.dataType, 4, "flag_resource_id",
+            "editor label is flag number");
+        replaceAt(empireCountryDef, 0x40, IntegerDataType.dataType, 4, "origin_tile_x",
+            "editor label is origin X; custom-map selection validates it against map width and passability");
+        replaceAt(empireCountryDef, 0x44, IntegerDataType.dataType, 4, "origin_tile_y",
+            "editor label is origin Y; custom-map selection validates it against map height and passability");
+        replaceAt(empireCountryDef, 0x58, IntegerDataType.dataType, 4, "building_style_id",
+            "editor label is building style; diplomacy UI loading branches on values 1 and 3");
+        replaceAt(empireCountryDef, 0x5c, IntegerDataType.dataType, 4, "settlement_marker_id",
+            "editor label is settlement marker");
         replaceAt(empireCountryDef, 0x60, IntegerDataType.dataType, 4, "favored_science_era_or_group",
             "City_Resource_Change compares this against ScienceDef.era_or_group_id for research pacing");
         replaceAt(empireCountryDef, 0x88, IntegerDataType.dataType, 4, "diplomacy_affinity_threshold",
@@ -914,9 +914,9 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(empireCountryDef, 0xb8, IntegerDataType.dataType, 4, "category6_build_bonus_gate",
             "City_Building requires this value positive before applying the category 6 build bonus");
         replaceAt(empireCountryDef, 0xd0, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
-            "country_editor_block_d0", "Before_Edit_Empire_Country exposes ten paired editor values from this block");
+            "special_army_type_ids", "editor label is special army type; paired with required science ids");
         replaceAt(empireCountryDef, 0xf8, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
-            "country_editor_block_f8", "Before_Edit_Empire_Country exposes ten paired editor values from this block");
+            "special_army_required_science_ids", "editor label is required science for each special army type");
         replaceAt(empireCountryDef, 0x120, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_a",
             "MLP_Edit_Empire_Country writes a palette row here; Edit_Finish and Load_Dat combine it with diplomacy UI color/image tables");
         replaceAt(empireCountryDef, 0x124, IntegerDataType.dataType, 4, "diplomacy_ui_color_layer_b",

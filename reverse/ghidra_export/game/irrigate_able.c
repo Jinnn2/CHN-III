@@ -19,8 +19,8 @@ int Irrigate_Able(LandTile_0x100 *tile,int tile_x,int tile_y,int allow_dry_neigh
   Trace_Function(s_Irrigate_Able_00514eb4);
   pLVar2 = tile;
   if ((((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\0')) &&
-      (tile->linked_record == (void *)0x0)) && (g_ground_defs[*(char *)tile].terrain_select_08 != 0)
-     ) {
+      (tile->linked_record == (void *)0x0)) &&
+     (g_ground_defs[*(char *)tile].irrigation_farmland_enabled != 0)) {
     if (((char)tile->region_or_terrain_marker_a < '\0') || (tile->linked_count_or_city_count < 0)) {
 LAB_0041b810:
       return CONCAT31((int3)((uint)pLVar2 >> 8),1);

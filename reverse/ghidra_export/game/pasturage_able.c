@@ -17,7 +17,7 @@ int Pasturage_Able(LandTile_0x100 *tile)
       (tile->field_0x1a != '\x01')) &&
      ((tile->linked_record == (void *)0x0 &&
       (cVar1 = *(char *)tile, tile = (LandTile_0x100 *)(cVar1 * 9),
-      g_ground_defs[cVar1].terrain_select_0c != 0)))) {
+      g_ground_defs[cVar1].pasture_enabled != 0)))) {
     return CONCAT31((int3)((uint)tile >> 8),1);
   }
   return (uint)tile & 0xffffff00;

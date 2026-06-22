@@ -133,8 +133,7 @@ void City_Business(void)
         iVar10 = ((((g_current_city->science_or_resource_score + local_38->science_or_resource_score
                     ) * (local_20 + local_1c)) /
                   ((g_current_map_scenario_info.scenario_value_30 * 5 + 0x19) * 4)) *
-                 g_government_defs[g_active_country->government_or_ai_mode].
-                 trade_or_city_business_multiplier) / 10;
+                 g_government_defs[g_active_country->government_or_ai_mode].commerce_effect) / 10;
         iVar12 = iVar10 >> 1;
         if (g_current_city->development_level == 5) {
           iVar10 = iVar12 + iVar10;

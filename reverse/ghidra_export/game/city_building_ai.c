@@ -1000,7 +1000,7 @@ LAB_00424be1:
       }
       if ((19999 < pCVar18->stored_population_or_value) &&
          ((int)(uint)pCVar13->total_force_or_unit_count <
-          g_government_defs[pCVar13->government_or_ai_mode].ai_force_threshold)) {
+          g_government_defs[pCVar13->government_or_ai_mode].city_limit)) {
         if (*(ushort *)&pCVar13->field_0x7e == 0) {
           uVar24 = 0;
           goto LAB_00424ce2;

@@ -135,7 +135,7 @@ LAB_00491555:
           if (cVar8 < 'd') {
             cVar9 = (char)g_government_defs
                           [*(int *)(&DAT_00735118 + (char)pAVar3->owner_country_id * 0xe68)].
-                          government_value_34;
+                          loyalty_effect;
             if ((char)(&g_country_states)[(char)pAVar3->target_or_previous_owner_id * 0xe68] <
                 '\x01') {
               cVar8 = cVar8 + cVar9 + '\n';

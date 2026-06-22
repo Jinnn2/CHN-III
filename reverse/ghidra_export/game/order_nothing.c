@@ -105,25 +105,25 @@ void Order_Nothing(void)
     local_5 = DAT_005763e8;
     local_3 = DAT_005763ea;
     if (uVar3 < 10) {
-      Format_Text(local_34,&DAT_0057e42c,(int)g_empire_country_defs[bVar2].short_name_bytes[0],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[1],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[2],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[3],(int)&local_20 + uVar4 * 3,
-                  _DAT_0074a0b8 + 0x1e0);
+      Format_Text(local_34,&DAT_0057e42c,(int)g_empire_country_defs[bVar2].country_name_bytes[0],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[1],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[2],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[3],(int)&local_20 + uVar4 * 3
+                  ,_DAT_0074a0b8 + 0x1e0);
     }
     else if (uVar3 < 100) {
-      Format_Text(local_34,&DAT_0057e418,(int)g_empire_country_defs[bVar2].short_name_bytes[0],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[1],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[2],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[3],
+      Format_Text(local_34,&DAT_0057e418,(int)g_empire_country_defs[bVar2].country_name_bytes[0],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[1],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[2],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[3],
                   (int)&local_20 + (uVar4 / 10) * 3,(int)&local_20 + (uVar4 % 10) * 3,
                   _DAT_0074a0b8 + 0x1e0);
     }
     else if (uVar3 < 1000) {
-      Format_Text(local_34,&DAT_0057e404,(int)g_empire_country_defs[bVar2].short_name_bytes[0],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[1],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[2],
-                  (int)g_empire_country_defs[bVar2].short_name_bytes[3],
+      Format_Text(local_34,&DAT_0057e404,(int)g_empire_country_defs[bVar2].country_name_bytes[0],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[1],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[2],
+                  (int)g_empire_country_defs[bVar2].country_name_bytes[3],
                   (int)&local_20 + (uVar4 / 100) * 3,(int)&local_20 + ((uVar4 % 100) / 10) * 3,
                   (int)&local_20 + ((uVar4 % 100) % 10) * 3,_DAT_0074a0b8 + 0x1e0);
     }

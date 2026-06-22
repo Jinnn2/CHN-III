@@ -403,9 +403,9 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       piVar9 = DAT_00707920;
       pGVar34 = g_ground_defs;
       for (iVar6 = 0x87; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *(int *)pGVar34->short_name_bytes = *piVar9;
+        *(int *)pGVar34->surface_name_bytes = *piVar9;
         piVar9 = piVar9 + 1;
-        pGVar34 = (GroundDef_0x24 *)(pGVar34->short_name_bytes + 4);
+        pGVar34 = (GroundDef_0x24 *)(pGVar34->surface_name_bytes + 4);
       }
       DAT_00707920 = DAT_00707920 + 0x87;
       DAT_0070792c = (ArmyTypeDef_0x400 *)((int)DAT_0070792c + 0x21c);
@@ -545,7 +545,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
         for (iVar6 = 0x3200; iVar6 != 0; iVar6 = iVar6 + -1) {
           pEVar35->is_enabled_or_selectable = *piVar9;
           piVar9 = piVar9 + 1;
-          pEVar35 = (EmpireCountryDef_0x200 *)pEVar35->short_name_bytes;
+          pEVar35 = (EmpireCountryDef_0x200 *)pEVar35->country_name_bytes;
         }
       }
       else {

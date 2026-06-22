@@ -590,19 +590,20 @@ the first dword as an enabled gate, then use `+0x38` to reach
 | Offset | Evidence | Working field |
 |---:|---|---|
 | `+0x00` | Custom-map selection and editor finish require this value to be positive/nonzero. | enabled / selectable flag. |
-| `+0x04..0x14` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | short name bytes. |
-| `+0x15..0x25` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | display name bytes. |
-| `+0x26..0x36` | `Before_Edit_Empire_Country` binds this as a 17-byte text field. | alternate name bytes. |
-| `+0x38` | Custom-map selection, diplomacy, and editor finish use this as an index into `g_country_profile_defs`. | country profile id. |
-| `+0x3c/+0x40/+0x44` | `Before_Edit_Empire_Country` exposes these dwords as editable numeric fields. | editor-visible country values. |
-| `+0x58/+0x5c` | `Before_Edit_Empire_Country` binds these dwords to option-list controls; `Load_UI_Dip_EMG` tests `+0x58` values `1` and `3`. | editor-visible country selectors. |
+| `+0x04..0x14` | Editor label is country name; order UI formats bytes from this column. | country name bytes. |
+| `+0x15..0x25` | Editor label is capital name. | capital name bytes. |
+| `+0x26..0x36` | Editor label is alliance name. | alliance name bytes. |
+| `+0x38` | Editor label is leader/person; custom-map selection, diplomacy, and editor finish use this as an index into `g_country_profile_defs`. | country profile id. |
+| `+0x3c` | Editor label is flag number. | flag resource id. |
+| `+0x40/+0x44` | Editor labels are origin X/Y; custom-map selection validates them against map bounds and passability. | origin tile x/y. |
+| `+0x58/+0x5c` | Editor labels are building style and settlement marker; `Load_UI_Dip_EMG` tests building-style values `1` and `3`. | building style / settlement marker ids. |
 | `+0x60` | `City_Resource_Change` compares this against `ScienceDef_0x88.era_or_group_id` for research pacing. | favored science era/group. |
 | `+0x88` | `Diplomat_Turn` compares diplomacy affinity and turn counters against this leader/country parameter. | diplomacy affinity threshold. |
 | `+0x8c` | `Diplomat_Turn` subtracts this value from pressure/caution thresholds. | diplomacy pressure threshold. |
 | `+0x94/+0x98/+0x9c` | `City_Building` adds `value - 6` build progress for matching building categories or unit production when positive. | production/build bonuses. |
 | `+0xb4/+0xb8` | `City_Building` applies the category-6 build bonus only when both fields are above the gate. | category-6 build bonus and gate. |
-| `+0xd0..0xf7` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
-| `+0xf8..0x11f` | `Before_Edit_Empire_Country` exposes ten paired editor values from this block. | editor-visible country block. |
+| `+0xd0..0xf7` | Editor label is special army type; the editor exposes ten paired entries with `+0xf8..0x11f`. | special army type ids. |
+| `+0xf8..0x11f` | Editor label is required science; paired with each special army type id. | special-army required science ids. |
 | `+0x120/+0x124/+0x128` | `MLP_Edit_Empire_Country` writes palette row ids from three vertical strips; `Edit_Finish` and `Load_Dat` combine these ids with diplomacy UI color/image tables. | diplomacy UI color layers. |
 
 ### `GovernmentDef_0x74`
@@ -614,21 +615,21 @@ with stride `0x74`, so the table is 8 records. Active countries index it with
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x08` | `City_Building` applies it to building `business_delta`; `City_Resource_Change` adds `value * 10` to city stability/happiness. | morale or happiness modifier. |
-| `+0x0c` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
-| `+0x10` | `City_Business` multiplies inter-city yield by this value. | trade / city business multiplier. |
-| `+0x14` | `City_Resource_Change` uses it as a percent-like income loss/tax factor, adjusted by safety and buildings. | income loss or tax rate. |
-| `+0x18/+0x1c` | `Before_Edit_Goverment` exposes these dwords as editable numeric fields. | editor-visible government values. |
-| `+0x20` | `City_Resource_Change` subtracts it from country resource-pressure level before applying stability effects. | resource pressure tolerance. |
-| `+0x24` | `City_Resource_Change` penalizes cities with fewer tile occupants than this threshold. | minimum garrison count. |
-| `+0x28` | `City_Resource_Change` treats `-1` as a garrison bonus mode and positive values as an over-garrison penalty threshold. | maximum garrison count or bonus mode. |
-| `+0x2c` | `City_Resource_Change` counts stationed units away from the city tile and penalizes excess. | stationed unit away limit. |
-| `+0x30` | `City_Resource_Change` penalizes cities whose round/protection timer exceeds this threshold. | city round timer limit. |
-| `+0x34` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
-| `+0x38` | `City_Building_AI` compares total force/unit count against this value before choosing a build branch. | AI force threshold. |
-| `+0x3c` | `Before_Edit_Goverment` exposes this dword as an editable numeric field. | editor-visible government value. |
+| `+0x08` | Editor label is happiness effect; `City_Building` and `City_Resource_Change` add it to city happiness/stability. | happiness effect. |
+| `+0x0c` | Editor label is public-security effect. | security effect. |
+| `+0x10` | Editor label is commerce effect; `City_Business` multiplies inter-city yield by this value. | commerce effect. |
+| `+0x14` | Editor label is corruption degree; `City_Resource_Change` uses it as a percent-like loss factor adjusted by safety and buildings. | corruption level. |
+| `+0x18/+0x1c` | Editor labels are construction effect and production effect. | construction / production effects. |
+| `+0x20` | Editor label is tax capacity; `City_Resource_Change` subtracts it from country resource-pressure level before applying stability effects. | tax capacity. |
+| `+0x24` | Editor label is suppression-army count; AI and city stability use it as the desired minimum local garrison. | suppression army count. |
+| `+0x28` | Editor label is anti-war army count; `City_Resource_Change` treats `-1` as a garrison bonus mode and positive values as an over-garrison threshold. | antiwar army count. |
+| `+0x2c` | Editor label is homesick-army count; `City_Resource_Change` counts stationed units away from the city tile and penalizes excess. | homesick army count. |
+| `+0x30` | Editor label is army burden count; city stability penalizes cities whose round/protection timer exceeds this threshold. | army burden count. |
+| `+0x34` | Editor label is loyalty effect; army-turn ownership drift uses it as a per-turn loyalty gain. | loyalty effect. |
+| `+0x38` | Editor label is city limit; `City_Building_AI` compares total force/unit count against this value before choosing a build branch. | city limit. |
+| `+0x3c` | Editor label is unrest from recruiting soldiers. | recruitment unrest. |
 | `+0x40..0x6b` | `City_Resource_Change` indexes this 11-dword block by country `research_efficiency_level`. | research efficiency modifiers. |
-| `+0x6c/+0x70` | `Before_Edit_Goverment` exposes these dwords as editable numeric fields. | editor-visible government values. |
+| `+0x6c/+0x70` | Editor labels are revolution turns and allowed unrest. | revolution turns / allowed unrest. |
 
 ### `GroundDef_0x24`
 
@@ -638,9 +639,11 @@ with stride `0x74`, so the table is 8 records. Active countries index it with
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x00..0x04` | `Before_Edit_Ground` binds this as a five-byte text field. | short name bytes. |
-| `+0x08/+0x0c/+0x10` | `Before_Edit_Ground` binds these dwords to option-list controls. | editor-visible terrain selectors. |
-| `+0x14/+0x18/+0x1c/+0x20` | `Before_Edit_Ground` exposes these dwords as editable numeric fields. | editor-visible terrain values. |
+| `+0x00..0x04` | Editor label is terrain-surface name. | surface name bytes. |
+| `+0x08` | Editor label is irrigation farmland; `Irrigate_Able` requires this to be nonzero. | irrigation farmland enabled. |
+| `+0x0c` | Editor label is pasture/ranch; `Pasturage_Able` requires this to be nonzero. | pasture enabled. |
+| `+0x10` | Editor label is maritime fishery; `Fish_Able` requires this to be nonzero. | fishery enabled. |
+| `+0x14/+0x18/+0x1c/+0x20` | Editor labels are food, gold, energy, and hillside-food output. | terrain resource outputs. |
 
 ## Resource Containers
 

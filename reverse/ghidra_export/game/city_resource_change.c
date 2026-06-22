@@ -49,7 +49,7 @@ void City_Resource_Change(void)
     DAT_00755914 = DAT_00755914 + local_1b4;
   }
   iVar4 = (int)(char)pCVar15->resource_pressure_level -
-          g_government_defs[pCVar15->government_or_ai_mode].resource_pressure_tolerance;
+          g_government_defs[pCVar15->government_or_ai_mode].tax_capacity;
   if (iVar4 < 1) {
     if (iVar4 < 0) {
       DAT_007068e0 = DAT_007068e0 + iVar4 * -5;
@@ -284,7 +284,7 @@ LAB_00426559:
   if (g_active_country_index == g_human_country_index) {
     DAT_0074d4e8 = DAT_0074d4e8 + uVar9;
   }
-  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].income_loss_or_tax_rate;
+  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].corruption_level;
   if (pCVar14->safety_score < 0x1e) {
     iVar4 = iVar4 + 2;
   }
@@ -749,19 +749,17 @@ LAB_004277b9:
     DAT_007068d8 = DAT_007068d8 + 0x1e;
   }
   DAT_007068e0 = DAT_007068e0 +
-                 g_government_defs[g_active_country->government_or_ai_mode].
-                 morale_or_happiness_modifier * 10;
-  if (0 < g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count) {
+                 g_government_defs[g_active_country->government_or_ai_mode].happiness_effect * 10;
+  if (0 < g_government_defs[g_active_country->government_or_ai_mode].suppression_army_count) {
     if ((int)(char)g_current_city_land_tile->army_count_or_occupant_count <
-        g_government_defs[g_active_country->government_or_ai_mode].minimum_garrison_count) {
+        g_government_defs[g_active_country->government_or_ai_mode].suppression_army_count) {
       DAT_007068e0 = DAT_007068e0 + -10;
       DAT_007068d8 = DAT_007068d8 + 10;
     }
     else {
       DAT_007068d8 = DAT_007068d8 + -0x1e;
       if (DAT_007068e0 < 0x32) {
-        if (g_government_defs[g_active_country->government_or_ai_mode].
-            maximum_garrison_count_or_bonus_mode == -1) {
+        if (g_government_defs[g_active_country->government_or_ai_mode].antiwar_army_count == -1) {
           iVar4 = (char)g_current_city_land_tile->army_count_or_occupant_count * 0x14;
           if (0x32 < iVar4) {
             iVar4 = 0x32;
@@ -774,15 +772,13 @@ LAB_004277b9:
       }
     }
   }
-  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].
-           maximum_garrison_count_or_bonus_mode) &&
-     (g_government_defs[g_active_country->government_or_ai_mode].
-      maximum_garrison_count_or_bonus_mode <
+  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].antiwar_army_count) &&
+     (g_government_defs[g_active_country->government_or_ai_mode].antiwar_army_count <
       (int)(char)g_current_city_land_tile->army_count_or_occupant_count)) {
     DAT_007068e0 = DAT_007068e0 + -10;
     DAT_007068d8 = DAT_007068d8 + 0x14;
   }
-  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].stationed_unit_away_limit;
+  iVar4 = g_government_defs[g_active_country->government_or_ai_mode].homesick_army_count;
   local_1b0 = (double)CONCAT44(local_1b0._4_4_,iVar4);
   if (0 < iVar4) {
     iVar17 = 0;
@@ -803,8 +799,8 @@ LAB_004277b9:
       DAT_007068d8 = DAT_007068d8 + 0x14;
     }
   }
-  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].city_round_timer_limit) &&
-     (g_government_defs[g_active_country->government_or_ai_mode].city_round_timer_limit <
+  if ((0 < g_government_defs[g_active_country->government_or_ai_mode].army_burden_count) &&
+     (g_government_defs[g_active_country->government_or_ai_mode].army_burden_count <
       (int)g_current_city->round_or_protection_timer)) {
     DAT_007068e0 = DAT_007068e0 + -10;
     DAT_007068d8 = DAT_007068d8 + 0x14;
