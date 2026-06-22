@@ -227,7 +227,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004520f0` | `FUN_004520f0` | 25 | 1 |
 | `0x00452110` | `Before_Edit_Army` | 4870 | 7 |
 | `0x00454570` | `Before_Edit_Build` | 2646 | 7 |
-| `0x00456c50` | `FUN_00456c50` | 527 | 3 |
+| `0x00456c50` | `After_Edit_Country` | 527 | 3 |
 | `0x004578a0` | `Before_Edit_Empire_Country` | 2182 | 16 |
 | `0x00458d80` | `MLP_Edit_Empire_Country` | 254 | 1 |
 | `0x004596a0` | `Before_Window_Edit_File_Detail` | 2242 | 2 |

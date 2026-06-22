@@ -472,11 +472,11 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         replaceAt(country, 0x6a0, ByteDataType.dataType, 1, "resource_pressure_level",
             "compared against government tables before city resource scoring");
         replaceAt(country, 0x6a1, ByteDataType.dataType, 1, "construction_efficiency_level",
-            "scales construction/research production in City_Resource_Change");
+            "scales construction/research production in City_Resource_Change; After_Edit_Country keeps 0x6a1..0x6a3 sum at 10");
         replaceAt(country, 0x6a2, ByteDataType.dataType, 1, "research_efficiency_level",
-            "indexes government tables and scales research production");
+            "indexes government tables and scales research production; After_Edit_Country keeps 0x6a1..0x6a3 sum at 10");
         replaceAt(country, 0x6a3, ByteDataType.dataType, 1, "tax_efficiency_level",
-            "combined with resource pressure for positive treasury delta display");
+            "combined with resource pressure for positive treasury delta display; After_Edit_Country keeps 0x6a1..0x6a3 sum at 10");
         replaceAt(country, 0x6a4, new ArrayDataType(IntegerDataType.dataType, 0x1c, 4), 0x70,
             "early_science_status", "early per-science status words; value 2 means completed/unlocked");
         replaceAt(country, 0x714, IntegerDataType.dataType, 4, "country_state_mode", "city event condition");
@@ -988,6 +988,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4514f0L, "Prepare_City_Doing"),
             new Rename(0x451bb0L, "Do_CityArmy"),
             new Rename(0x451de0L, "Do_Map"),
+            new Rename(0x456c50L, "After_Edit_Country"),
             new Rename(0x464a20L, "Clear_UnUsed_Science"),
             new Rename(0x467010L, "Before_Edit_Science_Power"),
             new Rename(0x467250L, "Before_Edit_Science_Set"),

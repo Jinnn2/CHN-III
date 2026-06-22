@@ -114,6 +114,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
 | `Before_Edit_Empire_Country` | Trace string `Before_Edit_Empire_Country`; reads/writes `EMPIRE.DAT`, backs up `g_empire_country_defs`, and binds controls to `EmpireCountryDef_0x200`. | Empire/country/leader definition table editor setup. |
+| `After_Edit_Country` | Trace string `After_Edit_Country`; tears down the country edit form and adjusts `CountryState_0xe68 +0x6a1/+0x6a2/+0x6a3` until the three efficiency byte levels sum to `10`. | Country efficiency editor finalizer. |
 | `MLP_Edit_Empire_Country` | Trace string `MLP_Edit_Empire_Country`; maps mouse hits on three vertical palette strips to `EmpireCountryDef_0x200 +0x120/+0x124/+0x128`. | Empire/country color-layer mouse editor. |
 | `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
 | `Before_Edit_Ground` | Trace string `Before_Edit_Ground`; backs up `g_ground_defs`, checks `GROUND.DAT`, and binds controls to the `GroundDef_0x24` table. | Ground/terrain definition table editor setup. |
@@ -388,7 +389,7 @@ higher ids.
 | `+0x51c` | `Diplomat_Turn` increments and thresholds this ushort counter by country. | diplomacy turn counter by country. |
 | `+0x688` | Compared against upgrade cost in `Do_City`. | `science_budget_or_treasury`. |
 | `+0x698` | Increased by city stored value when a city is removed. | `population_or_score_total`. |
-| `+0x6a0..0x6a3` | `city_resource_change.c` compares/scales city economic and research deltas with these byte levels. | resource/construction/research/tax efficiency levels. |
+| `+0x6a0..0x6a3` | `city_resource_change.c` compares/scales city economic and research deltas with these byte levels; `After_Edit_Country` normalizes `+0x6a1..0x6a3` until their sum is `10`. | resource/construction/research/tax efficiency levels. |
 | `+0x6a4..0x713` | `city_resource_change.c` and `diplomat_steal_science.c` index words by science id; value `2` means completed. | early per-country science status array. |
 | `+0x714` | Compared with `2` in city-event condition. | `country_state_mode`. |
 | `+0x9c4` | Negative value blocks construction worker allocation. | `build_or_draft_capacity`. |
