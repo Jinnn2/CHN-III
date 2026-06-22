@@ -599,6 +599,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private void renameFunctions() {
         Rename[] renames = new Rename[] {
             new Rename(0x405540L, "AI_Diplomat"),
+            new Rename(0x40b450L, "Process_CommandLine_Args"),
             new Rename(0x40b580L, "Start_Map_Battle_From_Army"),
             new Rename(0x414b70L, "Battle_Peace_Place"),
             new Rename(0x414c50L, "Battle_First_Line"),
@@ -621,6 +622,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x41f880L, "City_People_Change_Percent"),
             new Rename(0x41f8c0L, "City_Like_Change"),
             new Rename(0x4215f0L, "City_Building"),
+            new Rename(0x420820L, "App_WinMain_Entry"),
             new Rename(0x422840L, "City_Building_AI"),
             new Rename(0x424d30L, "City_Build_AI_Build_Able"),
             new Rename(0x425070L, "City_Business"),
@@ -669,6 +671,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x46b850L, "Load_UI_String_EMG"),
             new Rename(0x46cc70L, "Load_UI_String_EMG_XMG"),
             new Rename(0x46d310L, "Init_DirectDraw_Runtime"),
+            new Rename(0x46e950L, "Init_SetUp"),
             new Rename(0x473270L, "Load_Dat"),
             new Rename(0x478eb0L, "MainMenu_Init"),
             new Rename(0x4789e0L, "Load_EMG_Resource"),
@@ -838,6 +841,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0057d080L, "g_dirty_rect_x", IntegerDataType.dataType),
             new GlobalRename(0x0057d084L, "g_dirty_rect_y", IntegerDataType.dataType),
             new GlobalRename(0x00755984L, "g_loaded_tmg_background", new PointerDataType(VoidDataType.dataType, dtm)),
+            new GlobalRename(0x00755954L, "g_editor_mode_enabled", IntegerDataType.dataType),
             new GlobalRename(0x007558fcL, "g_frame_tick", IntegerDataType.dataType),
             new GlobalRename(0x0074c0a0L, "g_menu_action_tick", IntegerDataType.dataType),
             new GlobalRename(0x00707f8cL, "g_menu_item_emg_resource", new PointerDataType(VoidDataType.dataType, dtm)),

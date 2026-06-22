@@ -82,7 +82,7 @@ LAB_00425a6a:
   if (DAT_0074a2b1 != '\0') {
     City_View(DAT_007584a8);
   }
-  if (DAT_00755954 == 0) {
+  if (g_editor_mode_enabled == 0) {
     _DAT_0074a348 = (uVar6 & 1) + uVar5;
     _DAT_0074a350 = uVar6;
     FUN_00472120(&DAT_005c28c0);

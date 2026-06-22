@@ -192,7 +192,7 @@ LAB_004df9fa:
     }
     _DAT_0074a04c = 0;
     piVar11 = &g_building_defs[0].prerequisite_building_a;
-    iVar9 = DAT_00755954;
+    iVar9 = g_editor_mode_enabled;
     do {
       if (((((*(int *)(piVar11 + -0x28) != 0) &&
             ((((*(char *)(iVar10 + 0x9d4 + iVar13) != '\0' || (iVar9 != 0)) &&
@@ -201,7 +201,7 @@ LAB_004df9fa:
            ((piVar11[-1] <= *(int *)(iVar15 + 0x24) || (iVar9 != 0)))) &&
           ((((*piVar11 == -1 || (*(char *)(*piVar11 + 100 + iVar15) == '\x02')) || (iVar9 != 0)) &&
            (((piVar11[-0x23] == -1 ||
-             (iVar9 = DAT_00755954,
+             (iVar9 = g_editor_mode_enabled,
              *(int *)(&DAT_0051578c + piVar11[-0x23] * 4) ==
              *(int *)(&DAT_0051578c + (uint)bVar1 * 4))) &&
             ((((iVar13 != 0x14 && (((iVar13 != 0x15 && (iVar13 != 0x2c)) && (iVar13 != 0x2d)))) &&
@@ -254,11 +254,11 @@ LAB_004df633:
     DAT_00734f78 = 0;
     DAT_0074c840 = 0;
     puVar14 = (undefined4 *)&DAT_0074a4fc;
-    for (iVar9 = 0x19; iVar16 = DAT_00755954, iVar9 != 0; iVar9 = iVar9 + -1) {
+    for (iVar9 = 0x19; iVar16 = g_editor_mode_enabled, iVar9 != 0; iVar9 = iVar9 + -1) {
       *puVar14 = 0;
       puVar14 = puVar14 + 1;
     }
-    if ((*(char *)(iVar13 + 0xa2e) < '\x01') && (DAT_00755954 == 0)) goto LAB_004dfaeb;
+    if ((*(char *)(iVar13 + 0xa2e) < '\x01') && (g_editor_mode_enabled == 0)) goto LAB_004dfaeb;
     iVar9 = 0;
     do {
       if ((((((&DAT_005a19b8)[iVar9 * 0x80] != 0) && (*(int *)(&DAT_00749c80 + iVar9 * 8) == -1)) &&

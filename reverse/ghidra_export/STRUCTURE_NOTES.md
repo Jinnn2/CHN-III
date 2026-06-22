@@ -60,6 +60,19 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_battle_grid_front_aux_units` / `g_battle_grid_back_aux_units` | Battle update stores moving/target unit pointers at cell offsets `+0x18/+0x20`. | Auxiliary front/back battle-unit slots. |
 | `g_battle_grid_effect_or_projectile` | `Do_Battle_Stone` and death/update paths store transient effect records at cell offset `+0x24`. | Per-cell effect/projectile pointer slot. |
 
+## Editor And Startup
+
+The map/editor route is now a useful recovery entry point. `App_WinMain_Entry`
+calls `Process_CommandLine_Args`, then `Init_SetUp`, and then sends the app
+directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
+
+| Working name | Evidence | Meaning |
+|---|---|---|
+| `g_editor_mode_enabled` | `Process_CommandLine_Args` sets it when the command line contains `EDIT`; `Decode_NewMap`, `City_Manager`, and `Put_City_Make` branch on it; the main entry switches to state `0x24` when it is set. | Editor/map-edit mode flag. |
+| `Process_CommandLine_Args` | Trace string `Argument_Process`; parses options such as `SERVER`, `LOAD`, `DEMO`, `SIMPLE`, `ENGLISH`, `NOTEACH`, and `EDIT`. | Startup command-line option parser. |
+| `Init_SetUp` | Trace string `Init_SetUp`; initializes DirectDraw, loads `EDIT_IMG`, `METAL.EMG`, `NEWUI.EMG`, mouse/UI resources, fonts, and startup data. | Main application setup and resource loading. |
+| `App_WinMain_Entry` | Creates the app mutex, calls command-line/setup routines, chooses initial `g_app_screen_state`, then runs the Windows message loop. | Main WinMain-style entry function. |
+
 ## Useful Offsets
 
 ### `LandTile_0x100`
@@ -393,6 +406,9 @@ important code-first files are:
 
 - `game/load_dat.c`: save/map loading, decompression handoff, table copy, map
   dimension setup, city/army link repair.
+- `game/process_command_line_args.c`, `game/app_winmain_entry.c`, and
+  `game/init_setup.c`: startup path, `/EDIT` mode detection, editor resource
+  loading, and initial screen-state selection.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

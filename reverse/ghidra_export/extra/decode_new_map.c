@@ -852,7 +852,7 @@ switchD_00431b84_default:
       }
     }
   }
-  if (DAT_00755954 != 0) {
+  if (g_editor_mode_enabled != 0) {
     iVar10 = *(int *)((&DAT_007584d0)[DAT_007584d8] + local_bc * 4);
     if (DAT_005aa27c != 0) {
       if ('\n' < *pcVar12) {

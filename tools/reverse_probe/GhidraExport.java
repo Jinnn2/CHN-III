@@ -54,6 +54,10 @@ public class GhidraExport extends GhidraScript {
         new Target(0x5035c0L, "render/set_draw_clip_rect.c"),
         new Target(0x503730L, "extra/format_text.c"),
 
+        new Target(0x40b450L, "game/process_command_line_args.c"),
+        new Target(0x420820L, "game/app_winmain_entry.c"),
+        new Target(0x46e950L, "game/init_setup.c"),
+
         new Target(0x40b580L, "game/start_map_battle_from_army.c"),
         new Target(0x414b70L, "game/battle_peace_place.c"),
         new Target(0x414c50L, "game/battle_first_line.c"),
