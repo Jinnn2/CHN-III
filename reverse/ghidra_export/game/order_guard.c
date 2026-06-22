@@ -10,44 +10,45 @@
 void Order_Guard(void)
 
 {
-  short *psVar1;
-  int iVar2;
+  City_0x1b8_plus *pCVar1;
+  short *psVar2;
   int iVar3;
-  int *piVar4;
-  int iVar5;
+  int iVar4;
+  int *piVar5;
   int iVar6;
-  undefined4 uVar7;
+  int iVar7;
   int local_4;
-  
+
   Trace_Function(s_Order_Guard_0057e3c8);
   if (DAT_00706838 == '\x01') {
     if (g_active_country->available_special_project_flags[DAT_0074c034 + 0x1a] == 2) {
-      FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x4b,0xffffffff,0,0xffffffff,0xffffffff);
+      Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4b,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
-    if (DAT_0074c858 == 0) {
+    if (DAT_0074c858 == (City_0x1b8_plus *)0x0) {
       if ('\x01' < *(char *)(DAT_0075597c + 0x50)) {
-        uVar7 = 0x4e;
+        iVar7 = 0x4e;
 LAB_00496b8b:
-        FUN_004b0130(_DAT_00748ff0,0,0xffffffff,uVar7,0xffffffff,0,0xffffffff,0xffffffff);
+        Add_OrderQueue_Army(_DAT_00748ff0,0,-1,iVar7,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
     }
     else {
-      iVar6 = *(int *)(_DAT_00748ff0 + 0x154);
-      if ((((DAT_0074c858 != iVar6) && (iVar6 != 0)) &&
-          ((*(int *)(iVar6 + 0xcc) == 0 || (2 < *(int *)(iVar6 + 0x28))))) &&
-         ((((0 < *(int *)(DAT_0074c858 + 0xcc) && (0 < *(short *)(DAT_0074c858 + 0xd6))) &&
-           (*(int *)(DAT_0074c858 + 0x28) < 3)) && (*(char *)(DAT_0074c858 + 0x20) != '\0')))) {
-        FUN_004b0130(_DAT_00748ff0,5,100,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+      pCVar1 = _DAT_00748ff0->stationed_city;
+      if ((((DAT_0074c858 != pCVar1) && (pCVar1 != (City_0x1b8_plus *)0x0)) &&
+          ((pCVar1->population_or_stockpile == 0 || (2 < pCVar1->city_policy_mode)))) &&
+         ((((0 < DAT_0074c858->population_or_stockpile &&
+            (0 < DAT_0074c858->collapse_delay_or_army_count)) &&
+           (DAT_0074c858->city_policy_mode < 3)) && (DAT_0074c858->max_worker_slots != 0)))) {
+        Add_OrderQueue_Army(_DAT_00748ff0,5,100,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
       if (g_active_country->special_rule_level != 0) {
-        FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x4c,0xffffffff,0,0xffffffff,0xffffffff);
+        Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4c,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
-      if ((*(int *)(_DAT_0074a0b8 + 0xc) == 1) && (_DAT_00748ff0[0x148] != '\0')) {
-        FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x4d,0xffffffff,0,0xffffffff,0xffffffff);
+      if ((*(int *)(_DAT_0074a0b8 + 0xc) == 1) && (_DAT_00748ff0->cargo_or_subunit_count != 0)) {
+        Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4d,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
         return;
       }
     }
@@ -56,59 +57,59 @@ LAB_00496b8b:
     if (0 < *(short *)(DAT_0075597c + 0x10)) {
       local_4 = 1;
       if (0 < g_tile_radius_offset_counts[2]) {
-        iVar6 = 1;
-        psVar1 = g_edit_dest_round_buffers[DAT_00706840 & 1];
+        iVar7 = 1;
+        psVar2 = g_edit_dest_round_buffers[DAT_00706840 & 1];
         do {
-          iVar3 = psVar1[4] + DAT_0070683c;
-          iVar2 = (int)psVar1[5] + DAT_00706840;
-          if (((-1 < iVar2) && (iVar2 < g_map_height_tiles)) &&
-             (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
+          iVar4 = psVar2[4] + DAT_0070683c;
+          iVar3 = (int)psVar2[5] + DAT_00706840;
+          if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
+             (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
               (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
-            if (iVar3 < 0) {
-              iVar3 = iVar3 + g_map_width_tiles;
+            if (iVar4 < 0) {
+              iVar4 = iVar4 + g_map_width_tiles;
             }
-            if (g_map_width_tiles <= iVar3) {
-              iVar3 = iVar3 - g_map_width_tiles;
+            if (g_map_width_tiles <= iVar4) {
+              iVar4 = iVar4 - g_map_width_tiles;
             }
             switch(g_map_size_mode) {
             case 0:
-              iVar6 = iVar3 + iVar2 * 0x138;
+              iVar7 = iVar4 + iVar3 * 0x138;
               break;
             case 1:
-              iVar6 = iVar3 + iVar2 * 0x9c;
+              iVar7 = iVar4 + iVar3 * 0x9c;
               break;
             case 2:
-              iVar6 = iVar3 + iVar2 * 0x4e;
+              iVar7 = iVar4 + iVar3 * 0x4e;
               break;
             case 3:
-              iVar6 = iVar2 * 0x27 + iVar3;
+              iVar7 = iVar3 * 0x27 + iVar4;
             }
-            iVar2 = iVar6 * 0x100 + _g_land_tiles;
-            if ((*(char *)(iVar2 + 0xb5 + _DAT_00748e34) != '\0') &&
-               ('\0' < *(char *)(iVar2 + 0x50))) {
-              if ((*(char *)(iVar2 + 0x27) != _DAT_00748e34) && (-1 < *(char *)(iVar2 + 0x27))) {
-                FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x4f,0xffffffff,0,0xffffffff,0xffffffff);
+            iVar3 = iVar7 * 0x100 + _g_land_tiles;
+            if ((*(char *)(iVar3 + 0xb5 + _DAT_00748e34) != '\0') &&
+               ('\0' < *(char *)(iVar3 + 0x50))) {
+              if ((*(char *)(iVar3 + 0x27) != _DAT_00748e34) && (-1 < *(char *)(iVar3 + 0x27))) {
+                Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4f,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
                 return;
               }
-              iVar5 = (int)*(char *)(iVar2 + 0x50);
-              iVar3 = 0;
-              piVar4 = (int *)(iVar2 + 0x28);
+              iVar6 = (int)*(char *)(iVar3 + 0x50);
+              iVar4 = 0;
+              piVar5 = (int *)(iVar3 + 0x28);
               do {
-                if (iVar5 < 1) break;
-                if (*piVar4 != 0) {
-                  if (*(char *)(*piVar4 + 1) != _DAT_00748e34) {
-                    uVar7 = 0x50;
+                if (iVar6 < 1) break;
+                if (*piVar5 != 0) {
+                  if (*(char *)(*piVar5 + 1) != _DAT_00748e34) {
+                    iVar7 = 0x50;
                     goto LAB_00496b8b;
                   }
-                  iVar5 = iVar5 + -1;
+                  iVar6 = iVar6 + -1;
                 }
-                iVar3 = iVar3 + 1;
-                piVar4 = piVar4 + 1;
-              } while (iVar3 < 10);
+                iVar4 = iVar4 + 1;
+                piVar5 = piVar5 + 1;
+              } while (iVar4 < 10);
             }
           }
           local_4 = local_4 + 1;
-          psVar1 = psVar1 + 4;
+          psVar2 = psVar2 + 4;
         } while (local_4 <= g_tile_radius_offset_counts[2]);
       }
     }
@@ -116,68 +117,67 @@ LAB_00496b8b:
   else {
     local_4 = 1;
     if (0 < g_tile_radius_offset_counts[2]) {
-      iVar6 = 1;
-      psVar1 = g_edit_dest_round_buffers[DAT_00706840 & 1];
+      iVar7 = 1;
+      psVar2 = g_edit_dest_round_buffers[DAT_00706840 & 1];
       do {
-        iVar3 = psVar1[4] + DAT_0070683c;
-        iVar2 = (int)psVar1[5] + DAT_00706840;
-        if (((-1 < iVar2) && (iVar2 < g_map_height_tiles)) &&
-           (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
+        iVar4 = psVar2[4] + DAT_0070683c;
+        iVar3 = (int)psVar2[5] + DAT_00706840;
+        if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
+           (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
             (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
-          if (iVar3 < 0) {
-            iVar3 = iVar3 + g_map_width_tiles;
+          if (iVar4 < 0) {
+            iVar4 = iVar4 + g_map_width_tiles;
           }
-          if (g_map_width_tiles <= iVar3) {
-            iVar3 = iVar3 - g_map_width_tiles;
+          if (g_map_width_tiles <= iVar4) {
+            iVar4 = iVar4 - g_map_width_tiles;
           }
           switch(g_map_size_mode) {
           case 0:
-            iVar6 = iVar3 + iVar2 * 0x138;
+            iVar7 = iVar4 + iVar3 * 0x138;
             break;
           case 1:
-            iVar6 = iVar3 + iVar2 * 0x9c;
+            iVar7 = iVar4 + iVar3 * 0x9c;
             break;
           case 2:
-            iVar6 = iVar3 + iVar2 * 0x4e;
+            iVar7 = iVar4 + iVar3 * 0x4e;
             break;
           case 3:
-            iVar6 = iVar2 * 0x27 + iVar3;
+            iVar7 = iVar3 * 0x27 + iVar4;
           }
-          iVar2 = iVar6 * 0x100 + _g_land_tiles;
-          if ((*(char *)(_DAT_00748e34 + 0xb5 + iVar2) != '\0') && ('\0' < *(char *)(iVar2 + 0x50)))
+          iVar3 = iVar7 * 0x100 + _g_land_tiles;
+          if ((*(char *)(_DAT_00748e34 + 0xb5 + iVar3) != '\0') && ('\0' < *(char *)(iVar3 + 0x50)))
           {
-            if ((*(char *)(iVar2 + 0x27) != _DAT_00748e34) && (-1 < *(char *)(iVar2 + 0x27))) {
-              FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x51,0xffffffff,0,0xffffffff,0xffffffff);
+            if ((*(char *)(iVar3 + 0x27) != _DAT_00748e34) && (-1 < *(char *)(iVar3 + 0x27))) {
+              Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x51,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
               return;
             }
-            iVar5 = (int)*(char *)(iVar2 + 0x50);
-            iVar3 = 0;
-            piVar4 = (int *)(iVar2 + 0x28);
+            iVar6 = (int)*(char *)(iVar3 + 0x50);
+            iVar4 = 0;
+            piVar5 = (int *)(iVar3 + 0x28);
             do {
-              if (iVar5 < 1) break;
-              if (*piVar4 != 0) {
-                if (*(char *)(*piVar4 + 1) != _DAT_00748e34) {
-                  uVar7 = 0x52;
+              if (iVar6 < 1) break;
+              if (*piVar5 != 0) {
+                if (*(char *)(*piVar5 + 1) != _DAT_00748e34) {
+                  iVar7 = 0x52;
                   goto LAB_00496b8b;
                 }
-                iVar5 = iVar5 + -1;
+                iVar6 = iVar6 + -1;
               }
-              iVar3 = iVar3 + 1;
-              piVar4 = piVar4 + 1;
-            } while (iVar3 < 10);
+              iVar4 = iVar4 + 1;
+              piVar5 = piVar5 + 1;
+            } while (iVar4 < 10);
           }
         }
         local_4 = local_4 + 1;
-        psVar1 = psVar1 + 4;
+        psVar2 = psVar2 + 4;
       } while (local_4 <= g_tile_radius_offset_counts[2]);
     }
-    if (((*_DAT_00748ff0 == ';') && (*(int *)(DAT_0075597c + 0x88) != 0)) &&
-       ((int)_DAT_00748ff0[0x132] == *(int *)(_DAT_0074a0b8 + 0x1cc) + -1)) {
-      FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x52,0xffffffff,0,0xffffffff,0xffffffff);
+    if (((_DAT_00748ff0->army_type_id == 0x3b) && (*(int *)(DAT_0075597c + 0x88) != 0)) &&
+       ((int)(char)_DAT_00748ff0->field_0x132 == *(int *)(_DAT_0074a0b8 + 0x1cc) + -1)) {
+      Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x52,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
   }
   DAT_0070684c = 1;
   return;
 }
-

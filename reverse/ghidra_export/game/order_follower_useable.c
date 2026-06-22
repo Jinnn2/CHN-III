@@ -5,16 +5,16 @@
  */
 
 
-void Order_Follower_UseAble(byte *param_1,undefined4 param_2)
+void Order_Follower_UseAble(ArmyUnit_0x164_plus *param_1,int param_2)
 
 {
   byte bVar1;
   byte bVar2;
-  byte *pbVar3;
-  
+  ArmyUnit_0x164_plus *related_army;
+
   Trace_Function(s_Order_Follower_UseAble_0057e2e4);
-  if (param_1 != (byte *)0x0) {
-    bVar1 = *param_1;
+  if (param_1 != (ArmyUnit_0x164_plus *)0x0) {
+    bVar1 = param_1->army_type_id;
     switch(param_2) {
     case 2:
     case 3:
@@ -24,7 +24,7 @@ void Order_Follower_UseAble(byte *param_1,undefined4 param_2)
     case 8:
     case 9:
 switchD_00495225_caseD_2:
-      param_1[0x128] = (byte)param_2;
+      param_1->mission_action_id = (byte)param_2;
       return;
     case 0xe:
     case 0xf:
@@ -39,20 +39,20 @@ switchD_00495225_caseD_2:
       break;
     case 0x41:
     case 0x47:
-      if (((((*(int *)(param_1 + 0x144) != 0) &&
-            (pbVar3 = *(byte **)(*(int *)(param_1 + 0x144) + 0x144), pbVar3 != (byte *)0x0)) &&
+      if (((((param_1->transport_parent != (ArmyUnit_0x164_plus *)0x0) &&
+            (related_army = param_1->transport_parent->transport_parent,
+            related_army != (ArmyUnit_0x164_plus *)0x0)) &&
            (0 < g_army_type_table[bVar1].transportable_mask)) &&
-          ((bVar2 = *pbVar3,
+          ((bVar2 = related_army->army_type_id,
            (g_army_type_table[bVar2].air_or_city_capability_mask &
            g_army_type_table[bVar1].transportable_mask) != 0 &&
-           ((int)(pbVar3[0x148] + 1 + (uint)param_1[0x148]) <=
-            g_army_type_table[bVar2].transport_capacity)))) &&
+           ((int)(related_army->cargo_or_subunit_count + 1 + (uint)param_1->cargo_or_subunit_count)
+            <= g_army_type_table[bVar2].transport_capacity)))) &&
          (0 < g_army_type_table[bVar2].unit_class)) {
         FUN_00471380(param_1);
-        FUN_004b0130(param_1,param_2,0x7b,0xffffffff,0xffffffff,pbVar3,0xffffffff,0xffffffff);
+        Add_OrderQueue_Army(param_1,param_2,0x7b,-1,-1,related_army,-1,-1);
       }
     }
   }
   return;
 }
-

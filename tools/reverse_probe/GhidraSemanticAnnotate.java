@@ -920,7 +920,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
 
     private void renameFunctions() {
         Rename[] renames = new Rename[] {
+            new Rename(0x401000L, "AI_ActShip"),
+            new Rename(0x401d40L, "AI_AirOilPlane"),
+            new Rename(0x4027f0L, "AI_AirPlane"),
+            new Rename(0x403520L, "AI_Army"),
+            new Rename(0x404780L, "AI_Carrier"),
             new Rename(0x405540L, "AI_Diplomat"),
+            new Rename(0x406ff0L, "AI_Ship"),
+            new Rename(0x408ec0L, "AI_Transport"),
+            new Rename(0x4094b0L, "AI_UnClear"),
+            new Rename(0x409960L, "AI_Worker"),
             new Rename(0x40b450L, "Process_CommandLine_Args"),
             new Rename(0x40b580L, "Start_Map_Battle_From_Army"),
             new Rename(0x414b70L, "Battle_Peace_Place"),
@@ -1096,11 +1105,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4966e0L, "Order_Guard"),
             new Rename(0x496bd0L, "Order_Join_Sel"),
             new Rename(0x496d40L, "Order_Join_All"),
+            new Rename(0x498950L, "Order_Nothing"),
+            new Rename(0x498f00L, "Order_Out"),
+            new Rename(0x499010L, "Order_Out_All"),
+            new Rename(0x499090L, "Apply_OrderQueue_Army"),
             new Rename(0x49bec0L, "Load_TMG_Background"),
             new Rename(0x49e580L, "Put_City_View"),
             new Rename(0x49fd10L, "Edit_Start"),
             new Rename(0x49fe50L, "Edit_Finish"),
             new Rename(0x4b0c00L, "Read_Keyboard"),
+            new Rename(0x4b0130L, "Add_OrderQueue_Army"),
             new Rename(0x4b3330L, "Read_MLP_Edit"),
             new Rename(0x4b6d70L, "MLR_Edit_GameMap"),
             new Rename(0x4b80c0L, "Read_MRP_Edit"),
@@ -1390,6 +1404,16 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x493be0L, "Make_New_Make", VoidDataType.dataType,
             "tile", landTile, "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
             "make_kind", IntegerDataType.dataType, "variant", ByteDataType.dataType);
+        pointerArg(0x499090L, "Apply_OrderQueue_Army", VoidDataType.dataType,
+            "army", armyUnit, "action_id", UnsignedIntegerDataType.dataType,
+            "event_id", IntegerDataType.dataType, "result_action_id", IntegerDataType.dataType,
+            "direction_or_mode", IntegerDataType.dataType, "related_army", armyUnit,
+            "target_x", IntegerDataType.dataType, "target_y", IntegerDataType.dataType);
+        pointerArg(0x4b0130L, "Add_OrderQueue_Army", VoidDataType.dataType,
+            "army", armyUnit, "action_id", IntegerDataType.dataType,
+            "event_id", IntegerDataType.dataType, "result_action_id", IntegerDataType.dataType,
+            "direction_or_mode", IntegerDataType.dataType, "related_army", armyUnit,
+            "target_x", IntegerDataType.dataType, "target_y", IntegerDataType.dataType);
         pointerArg(0x4c6e60L, "DiagCoords_To_TileX", IntegerDataType.dataType,
             "diag_a", IntegerDataType.dataType, "diag_b", IntegerDataType.dataType);
         pointerArg(0x4c6e80L, "DiagCoords_To_TileY", IntegerDataType.dataType,

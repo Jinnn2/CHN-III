@@ -24,9 +24,9 @@ void Diplomat_End(void)
     FUN_00472d30(iVar1,1);
     iVar1 = iVar2;
   }
-  if (*(int *)(DAT_00705eb8 + 0x20) != 0) {
-    FUN_004b0130(*(int *)(DAT_00705eb8 + 0x20),0,0x1c,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff)
-    ;
+  if (*(ArmyUnit_0x164_plus **)(DAT_00705eb8 + 0x20) != (ArmyUnit_0x164_plus *)0x0) {
+    Add_OrderQueue_Army(*(ArmyUnit_0x164_plus **)(DAT_00705eb8 + 0x20),0,0x1c,-1,-1,
+                        (ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   iVar2 = DAT_00705eb8;
   *(undefined4 *)

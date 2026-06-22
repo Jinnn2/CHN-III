@@ -14,6 +14,7 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
   int iVar1;
   short *psVar2;
   char cVar3;
+  ArmyUnit_0x164_plus *army;
   City_0x1b8_plus *pCVar4;
   int iVar5;
   int *piVar6;
@@ -163,24 +164,24 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
     city = pCVar10;
     do {
       if ((int)pCVar10 < 1) break;
-      pbVar11 = (byte *)*puVar17;
-      if (pbVar11 != (byte *)0x0) {
-        if (((char)pbVar11[1] != new_owner_country_id) &&
-           (((*(int *)(pbVar11 + 0x144) == 0 && (pbVar11[0x127] == 0)) ||
-            ((*(int *)(pbVar11 + 0x14c) != 0 &&
-             (*(char *)(*(int *)(pbVar11 + 0x14c) + 0x127) == '\0')))))) {
-          FUN_0041b0f0(pbVar11,new_owner_country_id);
-          if (*(int *)(pbVar11 + 0x144) == 0) {
-            FUN_004b0130(pbVar11,0,0xffffffff,0x17,0xffffffff,0,0xffffffff,0xffffffff);
+      army = (ArmyUnit_0x164_plus *)*puVar17;
+      if (army != (ArmyUnit_0x164_plus *)0x0) {
+        if (((char)army->owner_country_id != new_owner_country_id) &&
+           (((army->transport_parent == (ArmyUnit_0x164_plus *)0x0 && (army->mission_state == 0)) ||
+            ((army->transport_or_carrier_link != (ArmyUnit_0x164_plus *)0x0 &&
+             (army->transport_or_carrier_link->mission_state == 0)))))) {
+          FUN_0041b0f0(army,new_owner_country_id);
+          if (army->transport_parent == (ArmyUnit_0x164_plus *)0x0) {
+            Add_OrderQueue_Army(army,0,-1,0x17,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
           }
-          *(City_0x1b8_plus **)(pbVar11 + 0x154) = pCVar4;
+          army->stationed_city = pCVar4;
           pCVar4->policy_target_or_required_progress =
                pCVar4->policy_target_or_required_progress +
-               (short)g_army_type_table[*pbVar11].combat_or_support_values
+               (short)g_army_type_table[army->army_type_id].combat_or_support_values
                       [*(int *)(&DAT_00735118 + iVar7) + 0x13];
           pCVar4->building_income_yield =
                pCVar4->building_income_yield +
-               (short)g_army_type_table[*pbVar11].combat_or_support_values
+               (short)g_army_type_table[army->army_type_id].combat_or_support_values
                       [*(int *)(&DAT_00735118 + iVar7) + 0x1b];
           pCVar4->round_or_protection_timer = pCVar4->round_or_protection_timer + 1;
           pCVar10 = city;

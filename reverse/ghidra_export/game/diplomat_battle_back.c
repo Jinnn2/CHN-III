@@ -7,7 +7,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void Diplomat_Start(int param_1,int param_2,int param_3)
+void Diplomat_Start(int param_1,int param_2,ArmyUnit_0x164_plus *param_3)
 
 {
   int iVar1;
@@ -97,9 +97,9 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   (&DAT_007356c9)[iVar10] = (&DAT_007356c9)[iVar10] + '\x01';
   *puVar2 = 1;
   *(undefined4 *)(&DAT_0060b670 + iVar14 * 0x848) = 1;
-  *(int *)(&DAT_0060b690 + iVar1) = param_3;
-  if (param_3 != 0) {
-    FUN_004b0130(param_3,0x31,0x78,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+  *(ArmyUnit_0x164_plus **)(&DAT_0060b690 + iVar1) = param_3;
+  if (param_3 != (ArmyUnit_0x164_plus *)0x0) {
+    Add_OrderQueue_Army(param_3,0x31,0x78,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   *(undefined **)(&DAT_0060b684 + iVar1) = &g_country_states + iVar10;
   *(undefined4 *)(&DAT_0060b674 + iVar1) = 0xffffffff;
@@ -186,17 +186,17 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
         } while (iVar7 < *(int *)(&DAT_0060b940 + uVar9 * 4 + iVar1));
       }
       FUN_00444410(puVar2,iVar10 < iVar11);
-      if (*(int *)(&DAT_0060b690 + iVar1) != 0) {
-        FUN_004b0130(*(int *)(&DAT_0060b690 + iVar1),0,0xffffffff,0x1a,0xffffffff,0,0xffffffff,
-                     0xffffffff);
+      if (*(ArmyUnit_0x164_plus **)(&DAT_0060b690 + iVar1) != (ArmyUnit_0x164_plus *)0x0) {
+        Add_OrderQueue_Army(*(ArmyUnit_0x164_plus **)(&DAT_0060b690 + iVar1),0,-1,0x1a,-1,
+                            (ArmyUnit_0x164_plus *)0x0,-1,-1);
       }
       *puVar2 = 0;
       *(undefined4 *)(&DAT_0060b670 + iVar14 * 0x848) = 0;
     }
     else {
-      if (*(int *)(&DAT_0060b690 + iVar1) != 0) {
-        FUN_004b0130(*(int *)(&DAT_0060b690 + iVar1),0,0xffffffff,0x1b,0xffffffff,0,0xffffffff,
-                     0xffffffff);
+      if (*(ArmyUnit_0x164_plus **)(&DAT_0060b690 + iVar1) != (ArmyUnit_0x164_plus *)0x0) {
+        Add_OrderQueue_Army(*(ArmyUnit_0x164_plus **)(&DAT_0060b690 + iVar1),0,-1,0x1b,-1,
+                            (ArmyUnit_0x164_plus *)0x0,-1,-1);
       }
       *puVar2 = 0;
       *(undefined4 *)(&DAT_0060b670 + iVar14 * 0x848) = 0;

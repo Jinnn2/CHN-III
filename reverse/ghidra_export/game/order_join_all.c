@@ -10,26 +10,27 @@
 void Order_Join_All(void)
 
 {
-  byte *pbVar1;
-  byte *pbVar2;
-  int iVar3;
-  
+  ArmyUnit_0x164_plus *pAVar1;
+  ArmyUnit_0x164_plus *army;
+  int iVar2;
+
   Trace_Function(s_Order_Join_All_0057e3e4);
-  pbVar2 = _DAT_00748ff0;
-  if ((_DAT_00748ff0[0x127] == 0) && ('\x01' < *(char *)(DAT_0075597c + 0x50))) {
-    iVar3 = 0x28;
+  army = _DAT_00748ff0;
+  if ((_DAT_00748ff0->mission_state == 0) && ('\x01' < *(char *)(DAT_0075597c + 0x50))) {
+    iVar2 = 0x28;
     do {
-      pbVar1 = *(byte **)(iVar3 + DAT_0075597c);
-      if ((((pbVar1 != (byte *)0x0) && (pbVar1 != pbVar2)) && (pbVar1[0x128] == 0)) &&
-         ((*(int *)(pbVar1 + 0x144) == 0 &&
-          (*(int *)(_DAT_0074a0b8 + 0x13c) == *(int *)&g_army_type_table[*pbVar1].field_0x13c)))) {
-        FUN_004711f0(pbVar1,pbVar2);
-        pbVar2 = _DAT_00748ff0;
+      pAVar1 = *(ArmyUnit_0x164_plus **)(iVar2 + DAT_0075597c);
+      if ((((pAVar1 != (ArmyUnit_0x164_plus *)0x0) && (pAVar1 != army)) &&
+          (pAVar1->mission_action_id == 0)) &&
+         ((pAVar1->transport_parent == (ArmyUnit_0x164_plus *)0x0 &&
+          (*(int *)(_DAT_0074a0b8 + 0x13c) ==
+           *(int *)&g_army_type_table[pAVar1->army_type_id].field_0x13c)))) {
+        FUN_004711f0(pAVar1,army);
+        army = _DAT_00748ff0;
       }
-      iVar3 = iVar3 + 4;
-    } while (iVar3 < 0x50);
+      iVar2 = iVar2 + 4;
+    } while (iVar2 < 0x50);
   }
-  FUN_004b0130(pbVar2,0,0xffffffff,0x53,0xffffffff,0,0xffffffff,0xffffffff);
+  Add_OrderQueue_Army(army,0,-1,0x53,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   return;
 }
-

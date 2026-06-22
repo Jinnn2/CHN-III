@@ -14,63 +14,63 @@ void Order_Go_Act(void)
   int iVar2;
   int iVar3;
   char cVar4;
-  
+
   Trace_Function(s_Order_Go_Act_0057e3b8);
-  if ((*(short *)(_DAT_00748ff0 + 0x1a) == *(short *)(_DAT_00748ff0 + 0x22)) &&
-     (*(short *)(_DAT_00748ff0 + 0x1c) == *(short *)(_DAT_00748ff0 + 0x24))) {
-    FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x49,0xffffffff,0,0xffffffff,0xffffffff);
+  if ((_DAT_00748ff0->tile_x == _DAT_00748ff0->target_tile_x_or_anim_x) &&
+     (_DAT_00748ff0->tile_y == _DAT_00748ff0->target_tile_y_or_anim_y)) {
+    Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x49,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
     return;
   }
-  if (*(char *)(_DAT_00748ff0 + 0x120) < '\x01') {
+  if ((char)_DAT_00748ff0->active_anim_step_count < '\x01') {
     FUN_004d2cc0(_DAT_00748ff0);
-    if ('\0' < *(char *)(_DAT_00748ff0 + 0x120)) {
-      FUN_004b0130(_DAT_00748ff0,0x27,0xffffffff,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+    if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
+      Add_OrderQueue_Army(_DAT_00748ff0,0x27,-1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
-    FUN_004b0130(_DAT_00748ff0,0,0xffffffff,0x4a,0xffffffff,0,0xffffffff,0xffffffff);
+    Add_OrderQueue_Army(_DAT_00748ff0,0,-1,0x4a,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   else {
-    cVar1 = *(char *)(_DAT_00748ff0 + 0xee);
-    *(undefined2 *)(_DAT_00748ff0 + 0x1e) = *(undefined2 *)(_DAT_00748ff0 + 0x26);
-    *(undefined2 *)(_DAT_00748ff0 + 0x20) = *(undefined2 *)(_DAT_00748ff0 + 0x8a);
+    cVar1 = _DAT_00748ff0->field_0xee;
+    _DAT_00748ff0->render_or_anim_x = *(short *)&_DAT_00748ff0->field_0x26;
+    _DAT_00748ff0->render_or_anim_y = *(short *)&_DAT_00748ff0->field_0x8a;
     iVar2 = FUN_0040f440();
     if (0 < iVar2) {
       if (iVar2 == 2) {
         DAT_0070684c = 1;
         return;
       }
-      *(char *)(_DAT_00748ff0 + 0x120) = *(char *)(_DAT_00748ff0 + 0x120) + -1;
-      if (*(char *)(_DAT_00748ff0 + 0x120) < '\x01') {
-        if ((*(short *)(_DAT_00748ff0 + 0x1e) == *(short *)(_DAT_00748ff0 + 0x22)) &&
-           (*(short *)(_DAT_00748ff0 + 0x20) == *(short *)(_DAT_00748ff0 + 0x24))) {
+      _DAT_00748ff0->active_anim_step_count = _DAT_00748ff0->active_anim_step_count - 1;
+      if ((char)_DAT_00748ff0->active_anim_step_count < '\x01') {
+        if ((_DAT_00748ff0->render_or_anim_x == _DAT_00748ff0->target_tile_x_or_anim_x) &&
+           (_DAT_00748ff0->render_or_anim_y == _DAT_00748ff0->target_tile_y_or_anim_y)) {
           DAT_0070684c = 1;
           return;
         }
       }
       else {
         iVar2 = 0;
-        if ('\0' < *(char *)(_DAT_00748ff0 + 0x120)) {
+        if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           iVar3 = 0x26;
           do {
-            *(undefined2 *)(iVar3 + _DAT_00748ff0) = *(undefined2 *)(iVar3 + 2 + _DAT_00748ff0);
-            *(undefined2 *)(iVar3 + 100 + _DAT_00748ff0) =
-                 *(undefined2 *)(iVar3 + 0x66 + _DAT_00748ff0);
+            *(undefined2 *)(&_DAT_00748ff0->army_type_id + iVar3) =
+                 *(undefined2 *)(&_DAT_00748ff0->target_or_previous_owner_id + iVar3);
+            *(undefined2 *)(&_DAT_00748ff0->field_0x64 + iVar3) =
+                 *(undefined2 *)(&_DAT_00748ff0->field_0x66 + iVar3);
             if (cVar1 < '\x01') {
-              cVar4 = *(char *)(_DAT_00748ff0 + 0xef + iVar2);
+              cVar4 = (&_DAT_00748ff0->field_0xef)[iVar2];
 LAB_00496653:
-              *(char *)(_DAT_00748ff0 + 0xee + iVar2) = cVar4;
+              (&_DAT_00748ff0->field_0xee)[iVar2] = cVar4;
             }
             else {
-              cVar4 = *(char *)(_DAT_00748ff0 + 0xef + iVar2);
-              if ('\0' < cVar4) {
-                cVar4 = cVar4 + -1;
+              if ('\0' < (char)(&_DAT_00748ff0->field_0xef)[iVar2]) {
+                cVar4 = (&_DAT_00748ff0->field_0xef)[iVar2] + -1;
                 goto LAB_00496653;
               }
-              *(undefined1 *)(_DAT_00748ff0 + 0xee + iVar2) = 0;
+              (&_DAT_00748ff0->field_0xee)[iVar2] = 0;
             }
             iVar2 = iVar2 + 1;
             iVar3 = iVar3 + 2;
-            if (*(char *)(_DAT_00748ff0 + 0x120) <= iVar2) {
+            if ((char)_DAT_00748ff0->active_anim_step_count <= iVar2) {
               return;
             }
           } while( true );
@@ -80,4 +80,3 @@ LAB_00496653:
   }
   return;
 }
-

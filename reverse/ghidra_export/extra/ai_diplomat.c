@@ -44,11 +44,11 @@ LAB_00405863:
   else {
     local_14 = _DAT_0074a374;
     iVar12 = local_4;
-    psVar3 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar3 = g_edit_dest_round_buffers[(int)_DAT_00748ff0->tile_y & 1];
     do {
       iVar11 = 0;
-      local_24 = (int)psVar3[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
-      iVar6 = (int)psVar3[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
+      local_24 = (int)psVar3[4] + (int)_DAT_00748ff0->tile_x;
+      iVar6 = (int)psVar3[5] + (int)_DAT_00748ff0->tile_y;
       if (((iVar6 < 0) || (g_map_height_tiles <= iVar6)) ||
          (((local_24 < 0 || (g_map_width_tiles <= local_24)) &&
           (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_004057da;
@@ -142,11 +142,11 @@ LAB_004057da:
       psVar3 = psVar3 + 4;
     } while (local_14 != 0);
     if (local_10 < 0) goto LAB_00405863;
-    *(short *)(_DAT_00748ff0 + 0x22) = (short)local_10;
-    *(undefined2 *)(_DAT_00748ff0 + 0x24) = (undefined2)local_4;
+    _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_10;
+    _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_4;
     FUN_004d2cc0(_DAT_00748ff0);
-    if ('\0' < *(char *)(_DAT_00748ff0 + 0x120)) {
-      FUN_004b0130(_DAT_00748ff0,0x24,1,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+    if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
+      Add_OrderQueue_Army(_DAT_00748ff0,0x24,1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
   }
@@ -162,13 +162,13 @@ LAB_004057da:
              || (g_army_type_table[bVar1].unit_class == 2)) &&
             (((g_army_type_table[bVar1].air_or_city_capability_mask &
               *(uint *)(_DAT_0074a0b8 + 0x144)) != 0 &&
-             ((int)(*(byte *)(_DAT_00748ff0 + 0x148) + 1 + (uint)pbVar2[0x148]) <=
+             ((int)(_DAT_00748ff0->cargo_or_subunit_count + 1 + (uint)pbVar2[0x148]) <=
               g_army_type_table[bVar1].transport_capacity)))))) {
           if (-1 < iVar12) {
-            FUN_004b0130(_DAT_00748ff0,0x4e,0x51,0xffffffff,0xffffffff,
-                         *(undefined4 *)(DAT_0075597c + 0x28 + iVar12 * 4),0xffffffff,0xffffffff);
-            FUN_004b0130(*(undefined4 *)(DAT_0075597c + 0x28 + iVar12 * 4),0x43,0x52,0xffffffff,
-                         0xffffffff,0,0xffffffff,0xffffffff);
+            Add_OrderQueue_Army(_DAT_00748ff0,0x4e,0x51,-1,-1,
+                                *(ArmyUnit_0x164_plus **)(DAT_0075597c + 0x28 + iVar12 * 4),-1,-1);
+            Add_OrderQueue_Army(*(ArmyUnit_0x164_plus **)(DAT_0075597c + 0x28 + iVar12 * 4),0x43,
+                                0x52,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
           }
           break;
@@ -209,9 +209,8 @@ LAB_004057da:
         iVar12 = iVar12 * 0x100 + iVar6;
 switchD_00405998_default:
         if ((*(short *)(iVar12 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
-           (iVar11 = FUN_004c6ed0((int)*(short *)(_DAT_00748ff0 + 0x1a),
-                                  (int)*(short *)(_DAT_00748ff0 + 0x1c),uVar7,uVar5,0),
-           iVar6 = _g_land_tiles, iVar11 < local_10)) {
+           (iVar11 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,uVar7,uVar5,
+                                  0), iVar6 = _g_land_tiles, iVar11 < local_10)) {
           local_14 = iVar8;
           local_10 = iVar11;
         }
@@ -222,17 +221,17 @@ switchD_00405998_default:
     local_20 = local_20 + 0x734;
   } while ((int)local_18 < 0x74a23c);
   if (iVar11 != 0) {
-    *(undefined2 *)(_DAT_00748ff0 + 0x22) = *(undefined2 *)(iVar11 + 0x16);
-    *(undefined2 *)(_DAT_00748ff0 + 0x24) = *(undefined2 *)(iVar11 + 0x18);
+    _DAT_00748ff0->target_tile_x_or_anim_x = *(short *)(iVar11 + 0x16);
+    _DAT_00748ff0->target_tile_y_or_anim_y = *(short *)(iVar11 + 0x18);
     FUN_004d2cc0(_DAT_00748ff0);
-    if ('\0' < *(char *)(_DAT_00748ff0 + 0x120)) {
-      FUN_004b0130(_DAT_00748ff0,0x24,1,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+    if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
+      Add_OrderQueue_Army(_DAT_00748ff0,0x24,1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
     }
   }
 LAB_00405b00:
   if ((0 < *(int *)(_DAT_0074a0b8 + 0x90)) && (_DAT_00748ff0 != DAT_007584dc)) {
-    FUN_004b0130(_DAT_00748ff0,6,0x3f,0xffffffff,0xffffffff,0,0xffffffff,0xffffffff);
+    Add_OrderQueue_Army(_DAT_00748ff0,6,0x3f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   }
   if (DAT_00706838 == '\x01') {
     DAT_0070684c = 1;
