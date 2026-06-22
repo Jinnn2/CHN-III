@@ -35,7 +35,7 @@ void Diplomat_End(void)
   *(char *)(*(int *)(iVar2 + 0x10) + 0x611) = *(char *)(*(int *)(iVar2 + 0x10) + 0x611) + -1;
   *(char *)(*(int *)(DAT_00705eb8 + 0x14) + 0x611) =
        *(char *)(*(int *)(DAT_00705eb8 + 0x14) + 0x611) + -1;
-  DAT_0074c838 = 1;
+  g_map_interaction_mode = 1;
   DAT_00705eb8 = 0;
   DAT_00705f14 = 1;
   FUN_00478b60(&DAT_00705edc);

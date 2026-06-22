@@ -22,9 +22,10 @@ void Read_Keyboard(void)
   int iVar9;
   char *pcVar10;
   byte *pbVar11;
-  undefined4 *puVar12;
-  int iVar13;
-  undefined *puVar14;
+  LandTile_0x100 *pLVar12;
+  undefined4 *puVar13;
+  int iVar14;
+  undefined *puVar15;
   int local_20;
   undefined4 local_1c;
   undefined4 local_18;
@@ -56,7 +57,7 @@ LAB_004b11cc:
   if (DAT_0074a2aa != '\0') {
     if ((DAT_0074a2aa == '\x01') && (DAT_00716208 == '\x01')) goto LAB_004b0cc1;
 LAB_004b0cb6:
-    if (DAT_0074c838 != 99) goto switchD_004b0dd8_caseD_49;
+    if (g_map_interaction_mode != 99) goto switchD_004b0dd8_caseD_49;
 LAB_004b0cce:
     if (DAT_005c2738 < 1) {
       if ((0 < DAT_005c1d10) && (DAT_0070791c == 0)) {
@@ -95,7 +96,7 @@ LAB_004b0cce:
   }
   if (DAT_00716208 != '\0') goto LAB_004b0cb6;
 LAB_004b0cc1:
-  if (DAT_0074c838 == 99) goto LAB_004b0cce;
+  if (g_map_interaction_mode == 99) goto LAB_004b0cce;
   switch(DAT_00748f2f) {
   case 'H':
 switchD_004b0dd8_caseD_48:
@@ -127,7 +128,7 @@ LAB_004b0d47:
     DAT_00589408 = -1;
     goto switchD_004b0e65_caseD_4;
   }
-  switch(DAT_0074c838) {
+  switch(g_map_interaction_mode) {
   case 1:
   case 0xb:
   case 0xd:
@@ -252,7 +253,7 @@ LAB_004b11d8:
   if (g_app_screen_state != 0x25) {
     return;
   }
-  switch(DAT_0074c838) {
+  switch(g_map_interaction_mode) {
   case 1:
   case 0x10:
     if (DAT_00748f2e != 0) {
@@ -285,13 +286,13 @@ LAB_004b11d8:
                 (local_20 < g_map_width_tiles)) &&
                ((iVar9 < g_map_height_tiles && (DAT_0071628c == 0)))) &&
               ((DAT_007584dc != 0 && (*(char *)(DAT_007584dc + 1) == g_human_country_index)))) &&
-             ((DAT_0074c838 == 0x10 ||
+             ((g_map_interaction_mode == 0x10 ||
               (((DAT_0074a2d5 == '\0' && (*(char *)(DAT_007584dc + 0x127) == '\0')) &&
                ((*(char *)(DAT_007584dc + 0x128) == '\0' ||
                 (*(char *)(DAT_007584dc + 0x128) == '\a')))))))) {
             if (((_DAT_00748f30 < 1) || (3 < _DAT_00748f30)) &&
                ((DAT_0074a2d5 != '\0' || (*(char *)(DAT_007584dc + 0x128) != '\0')))) {
-              DAT_0074c838 = 1;
+              g_map_interaction_mode = 1;
               _DAT_00748f30 = 0;
             }
             else if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
@@ -333,7 +334,7 @@ LAB_004b11d8:
                                   (int)*(char *)(DAT_007584dc + 0x132)) + -2) *
                                  *(int *)(DAT_007584e4 + 0x110) * _DAT_0074c7f4;
                       pbVar11 = *(byte **)(&DAT_0074a05c + *(char *)(DAT_007584dc + 1) * 4);
-                      puVar12 = _g_land_tiles;
+                      puVar13 = _g_land_tiles;
                       iVar6 = DAT_007584dc;
                       if (pbVar11 != (byte *)0x0) {
                         do {
@@ -369,7 +370,7 @@ LAB_004b11d8:
                             default:
                               goto switchD_004b1746_default;
                             }
-                            puVar7 = puVar12 + iVar4 * 0x40;
+                            puVar7 = puVar13 + iVar4 * 0x40;
 switchD_004b1746_default:
                             if ((((10 < (int)(*(byte *)(iVar6 + 0x148) + 1 +
                                              (int)*(char *)(puVar7 + 0x14))) ||
@@ -377,10 +378,10 @@ switchD_004b1746_default:
                                                        (int)*(short *)(pbVar11 + 0x1c),
                                                        (int)*(short *)(iVar6 + 0x1a),
                                                        (int)*(short *)(iVar6 + 0x1c),0),
-                                 puVar12 = _g_land_tiles, iVar6 = DAT_007584dc, local_14 < iVar4))
+                                 puVar13 = _g_land_tiles, iVar6 = DAT_007584dc, local_14 < iVar4))
                                 || (iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
                                                          (int)*(short *)(pbVar11 + 0x1c),local_20,
-                                                         iVar9,0), puVar12 = _g_land_tiles,
+                                                         iVar9,0), puVar13 = _g_land_tiles,
                                    iVar6 = DAT_007584dc, iVar5 <= iVar4)) ||
                                (iVar5 - iVar4 < *(int *)(DAT_007584e4 + 0x110) * _DAT_0074c7f4 >> 1)
                                ) goto LAB_004b184d;
@@ -388,7 +389,7 @@ LAB_004b1821:
                             bVar2 = true;
                             *(undefined2 *)(DAT_007584dc + 0x22) = *(undefined2 *)(pbVar11 + 0x1c);
                             *(undefined2 *)(DAT_007584dc + 0x24) = *(undefined2 *)(pbVar11 + 0x1a);
-                            puVar12 = _g_land_tiles;
+                            puVar13 = _g_land_tiles;
                             iVar6 = DAT_007584dc;
                           }
                           else if (((int)(pbVar11[0x148] + 1 + (uint)*(byte *)(iVar6 + 0x148)) <=
@@ -416,7 +417,7 @@ LAB_004b1821:
                             default:
                               goto switchD_004b161a_default;
                             }
-                            puVar7 = puVar12 + iVar4 * 0x40;
+                            puVar7 = puVar13 + iVar4 * 0x40;
 switchD_004b161a_default:
                             if ((((int)(*(char *)(puVar7 + 0x14) + 1 +
                                        (uint)*(byte *)(iVar6 + 0x148)) < 0xb) &&
@@ -424,10 +425,10 @@ switchD_004b161a_default:
                                                       (int)*(short *)(pbVar11 + 0x1c),
                                                       (int)*(short *)(iVar6 + 0x1a),
                                                       (int)*(short *)(iVar6 + 0x1c),0),
-                                puVar12 = _g_land_tiles, iVar6 = DAT_007584dc, iVar4 <= local_10))
+                                puVar13 = _g_land_tiles, iVar6 = DAT_007584dc, iVar4 <= local_10))
                                && ((iVar4 = FUN_004c6ed0((int)*(short *)(pbVar11 + 0x1a),
                                                          (int)*(short *)(pbVar11 + 0x1c),local_20,
-                                                         iVar9,0), puVar12 = _g_land_tiles,
+                                                         iVar9,0), puVar13 = _g_land_tiles,
                                    iVar6 = DAT_007584dc, iVar4 < iVar5 &&
                                    (*(int *)(DAT_007584e4 + 0x110) * _DAT_0074c7f4 >> 1 <=
                                     iVar5 - iVar4)))) goto LAB_004b1821;
@@ -587,7 +588,7 @@ LAB_004b1e06:
             }
           }
 LAB_004b1e34:
-          DAT_0074c838 = 2;
+          g_map_interaction_mode = 2;
           DAT_005a8098 = (int)*(char *)(iVar6 + 1);
           DAT_007584b0 = &g_country_states + DAT_005a8098 * 0xe68;
           _DAT_00748f28 =
@@ -603,11 +604,11 @@ LAB_004b1e34:
       case 0x7e:
         if (((DAT_0071628c == 0) && (iVar6 != 0)) && (*(char *)(iVar6 + 1) == g_human_country_index)
            ) {
-          if ((((DAT_0074c838 != 0x10) || (_DAT_00748f30 < 1)) || (3 < _DAT_00748f30)) &&
+          if ((((g_map_interaction_mode != 0x10) || (_DAT_00748f30 < 1)) || (3 < _DAT_00748f30)) &&
              (((DAT_0074a2d5 != '\0' || (*(char *)(iVar6 + 0x127) != '\0')) ||
               ((*(char *)(iVar6 + 0x128) != '\0' && (*(char *)(iVar6 + 0x128) != '\a')))))) {
-            if (DAT_0074c838 == 0x10) {
-              DAT_0074c838 = 1;
+            if (g_map_interaction_mode == 0x10) {
+              g_map_interaction_mode = 1;
               _DAT_00748f30 = 0;
             }
             goto LAB_004b1f1a;
@@ -670,8 +671,8 @@ LAB_004b1e34:
           }
         }
       }
-      if ((((DAT_0074c838 != 0x10) && (-1 < iVar9)) && (-1 < (int)(&DAT_005c7810)[iVar9 * 4])) &&
-         (-1 < (int)(&DAT_005c7814)[iVar9 * 4])) {
+      if ((((g_map_interaction_mode != 0x10) && (-1 < iVar9)) &&
+          (-1 < (int)(&DAT_005c7810)[iVar9 * 4])) && (-1 < (int)(&DAT_005c7814)[iVar9 * 4])) {
         _DAT_0074a348 = (&DAT_005c7810)[iVar9 * 4];
         _DAT_0074a350 = (&DAT_005c7814)[iVar9 * 4];
       }
@@ -748,7 +749,7 @@ LAB_004b1f53:
       }
       if ((int)(uint)*(byte *)(DAT_007584a8 + 0x100) <= DAT_005e000c) goto switchD_004b120b_caseD_3;
       iVar6 = (int)*(short *)(DAT_007584a8 + 0xd8 + DAT_005e000c * 2);
-      iVar13 = (int)*(char *)(DAT_005e000c + 0xec + DAT_007584a8);
+      iVar14 = (int)*(char *)(DAT_005e000c + 0xec + DAT_007584a8);
       iVar5 = (int)*(char *)(DAT_005e000c + 0xf6 + DAT_007584a8);
       iVar9 = DAT_005e000c + -1;
       iVar4 = *(byte *)(DAT_007584a8 + 0x100) - 1;
@@ -770,7 +771,7 @@ LAB_004b1f53:
         goto switchD_004b120b_caseD_3;
       }
       iVar6 = (int)*(short *)(DAT_007584a8 + 0xd8 + DAT_005e000c * 2);
-      iVar13 = (int)*(char *)(DAT_005e000c + 0xec + DAT_007584a8);
+      iVar14 = (int)*(char *)(DAT_005e000c + 0xec + DAT_007584a8);
       iVar5 = (int)*(char *)(DAT_005e000c + 0xf6 + DAT_007584a8);
       iVar9 = DAT_005e000c + 1;
       if (iVar4 < DAT_005e000c + 1) {
@@ -778,7 +779,7 @@ LAB_004b235d:
         iVar9 = iVar4;
       }
     }
-    FUN_004b01b0(DAT_007584a8,1,DAT_005e000c,iVar9,iVar6,iVar13,iVar5);
+    FUN_004b01b0(DAT_007584a8,1,DAT_005e000c,iVar9,iVar6,iVar14,iVar5);
     DAT_005e000c = iVar9;
   default:
     goto switchD_004b120b_caseD_3;
@@ -788,22 +789,22 @@ LAB_004b235d:
     }
     if (((DAT_00748f2e == 0x7a) || (DAT_00748f2e == 0x5a)) && (DAT_00716124 == 2)) {
       DAT_00716124 = 0;
-      puVar12 = DAT_00716120;
-      puVar7 = _g_land_tiles;
+      pLVar12 = g_editor_land_tile_backup;
+      puVar13 = _g_land_tiles;
       for (iVar9 = (g_map_width_tiles * g_map_height_tiles & 0xffffffU) << 6; iVar9 != 0;
           iVar9 = iVar9 + -1) {
-        *puVar7 = *puVar12;
-        puVar12 = puVar12 + 1;
-        puVar7 = puVar7 + 1;
+        *puVar13 = *(undefined4 *)pLVar12;
+        pLVar12 = (LandTile_0x100 *)&pLVar12->field_0x4;
+        puVar13 = puVar13 + 1;
       }
       for (iVar9 = 0; iVar9 != 0; iVar9 = iVar9 + -1) {
-        *(undefined1 *)puVar7 = *(undefined1 *)puVar12;
-        puVar12 = (undefined4 *)((int)puVar12 + 1);
-        puVar7 = (undefined4 *)((int)puVar7 + 1);
+        *(undefined1 *)puVar13 = *(undefined1 *)pLVar12;
+        pLVar12 = (LandTile_0x100 *)&pLVar12->field_0x1;
+        puVar13 = (undefined4 *)((int)puVar13 + 1);
       }
     }
     if (DAT_00748f2f != 'D') goto switchD_004b120b_caseD_3;
-    puVar14 = &DAT_005c2280;
+    puVar15 = &DAT_005c2280;
     if (DAT_005c2288 == 0) {
       FUN_00472120(&DAT_005c2280);
       _DAT_0075c968 = 1;
@@ -823,49 +824,49 @@ switchD_004b1f9c_caseD_4a:
     _DAT_0075c930 = g_frame_tick;
     goto switchD_004b120b_caseD_3;
   case '<':
-    puVar14 = &DAT_005c2028;
+    puVar15 = &DAT_005c2028;
     if (DAT_005c2030 == 0) {
       FUN_00472120();
       goto switchD_004b120b_caseD_3;
     }
     break;
   case '=':
-    puVar14 = &DAT_005c2d70;
+    puVar15 = &DAT_005c2d70;
     if (DAT_005c2d78 == 0) {
       FUN_00472120(&DAT_005c2d70);
       goto switchD_004b120b_caseD_3;
     }
     break;
   case '>':
-    puVar14 = &DAT_005c3798;
+    puVar15 = &DAT_005c3798;
     if (DAT_005c37a0 == 0) {
       FUN_00472120(&DAT_005c3798);
       goto switchD_004b120b_caseD_3;
     }
     break;
   case '?':
-    puVar14 = &DAT_005c3f68;
+    puVar15 = &DAT_005c3f68;
     if (DAT_005c3f70 == 0) {
       FUN_00472120(&DAT_005c3f68);
       goto switchD_004b120b_caseD_3;
     }
     break;
   case '@':
-    puVar14 = &DAT_005c2730;
+    puVar15 = &DAT_005c2730;
     if (DAT_005c2738 == 0) {
       FUN_00472120(&DAT_005c2730);
       goto switchD_004b120b_caseD_3;
     }
     break;
   case 'A':
-    puVar14 = &DAT_005c70a0;
+    puVar15 = &DAT_005c70a0;
     if (DAT_005c70a8 == 0) {
       FUN_00472120(&DAT_005c70a0);
       goto switchD_004b120b_caseD_3;
     }
     break;
   case 'B':
-    puVar14 = &DAT_005c1dd0;
+    puVar15 = &DAT_005c1dd0;
     if (DAT_005c1dd8 == 0) {
       FUN_00472120(&DAT_005c1dd0);
       goto switchD_004b120b_caseD_3;
@@ -876,7 +877,7 @@ switchD_004b1f9c_caseD_4a:
     if (DAT_005893fc == 3) {
       DAT_005893fc = 0;
     }
-    puVar14 = &DAT_005c21b8;
+    puVar15 = &DAT_005c21b8;
     if (DAT_005c21c0 == 0) {
       FUN_00472120(&DAT_005c21b8);
       goto switchD_004b120b_caseD_3;
@@ -887,7 +888,7 @@ switchD_004b1f9c_caseD_4a:
       UI_YesNo_Message(&DAT_0057f280,0,0,1);
       goto switchD_004b120b_caseD_3;
     }
-    puVar14 = &DAT_005c2280;
+    puVar15 = &DAT_005c2280;
     if (DAT_005c2288 == 0) {
       FUN_00472120(&DAT_005c2280);
       _DAT_0075c968 = 1;
@@ -895,7 +896,7 @@ switchD_004b1f9c_caseD_4a:
     }
     break;
   case 'E':
-    puVar14 = &DAT_005c2348;
+    puVar15 = &DAT_005c2348;
     if (DAT_005c2350 == 0) {
       FUN_00472120(&DAT_005c2348);
       goto switchD_004b120b_caseD_3;
@@ -905,7 +906,7 @@ switchD_004b1f9c_caseD_4a:
     goto switchD_004b120b_caseD_3;
   }
 LAB_004b23fe:
-  FUN_00472320(puVar14);
+  FUN_00472320(puVar15);
 switchD_004b120b_caseD_3:
   switch(DAT_00748f2e) {
   case 0x41:
@@ -927,7 +928,7 @@ switchD_004b120b_caseD_3:
       FUN_004a16b0();
       DAT_00588b80 = 1;
       if (g_editor_mode_enabled == 0) {
-        cVar3 = FUN_0049fe50();
+        cVar3 = Edit_Finish();
         if (cVar3 == '\0') {
           g_editor_mode_enabled = (int)(g_editor_mode_enabled == 0);
         }
@@ -969,11 +970,11 @@ switchD_004b120b_caseD_3:
       local_4[1] = s_Exception_00573b34[9];
       FUN_004be070(local_c,local_c);
       FUN_0050e5ec(s_Trace_txt_00573934);
-      puVar12 = &DAT_00758864;
+      puVar13 = &DAT_00758864;
       do {
-        FUN_004fbe70(s_TRACE_TXT_00573928,&DAT_0051bbe4,puVar12);
-        puVar12 = (undefined4 *)((int)puVar12 + 0x65);
-      } while ((int)puVar12 < 0x75afd8);
+        FUN_004fbe70(s_TRACE_TXT_00573928,&DAT_0051bbe4,puVar13);
+        puVar13 = (undefined4 *)((int)puVar13 + 0x65);
+      } while ((int)puVar13 < 0x75afd8);
       break;
     case 'M':
     case 'm':

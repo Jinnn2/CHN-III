@@ -169,6 +169,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "second signed marker used by city-round and near-city checks");
         replaceAt(landTile, 0x16, ByteDataType.dataType, 1, "battle_resource_or_feature_id",
             "Map_To_Battle_Army indexes a feature table at 0x00589644 and adds stat bonuses when the value is valid");
+        replaceAt(landTile, 0x17, ByteDataType.dataType, 1, "city_resource_or_feature_id",
+            "editor tool 6 assigns this id; city resource code grows/consumes the paired stockpile and clears it at zero");
         replaceAt(landTile, 0x24, ByteDataType.dataType, 1, "battle_stat_bonus_mode",
             "Map_To_Battle_Army treats negative values as terrain-dependent modifiers and nonnegative values as doubled defense/support bonuses");
         replaceAt(landTile, 0x25, ByteDataType.dataType, 1, "tile_owner_country_id",
@@ -187,12 +189,18 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "dereferenced during load-time repair");
         replaceAt(landTile, 0xaa, ByteDataType.dataType, 1, "terrain_or_resource_marker",
             "City_Round_Check compares this marker against '('");
+        replaceAt(landTile, 0xae, ShortDataType.dataType, 2, "editor_named_point_index_a",
+            "editor tool 7 and Load_Dat map this tile to the large name/x/y table at 0x005e7d50");
+        replaceAt(landTile, 0xb0, ShortDataType.dataType, 2, "editor_named_point_index_b",
+            "editor tool 8 maps this tile to the secondary name/x/y table at 0x005e0050 and right-click removal clears it");
         replaceAt(landTile, 0xb3, ByteDataType.dataType, 1, "city_round_block_flag",
             "blocks selected City_Round_Check actions when set");
         replaceAt(landTile, 0xb5, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
             "visible_by_country", "per-country map visibility/knowledge flags used by diplomacy, map, and city resource setup");
         replaceAt(landTile, 0xcb, new ArrayDataType(ByteDataType.dataType, 22, 1), 0x16,
             "secondary_visible_or_excluded_by_country", "per-country secondary visibility/exclusion flags tested by City_Round_Check");
+        replaceAt(landTile, 0xf8, IntegerDataType.dataType, 4, "city_resource_or_feature_stockpile",
+            "paired with city_resource_or_feature_id; Do_Map/Calc_City_Resource increase it and city turns consume it");
         resolve(landTile);
 
         replaceAt(city, 0x01, ByteDataType.dataType, 1, "owner_country_id",
@@ -708,6 +716,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x48f620L, "NoDpa_Near_City_Near_Sea"),
             new Rename(0x48f980L, "Near_City_UserKnow_Found"),
             new Rename(0x48faa0L, "NoDpa_Near_City_Found"),
+            new Rename(0x48c8f0L, "CheckMouseOnWindow"),
             new Rename(0x496df0L, "Start_Map_Battle_From_Tile"),
             new Rename(0x492760L, "Do_Country_Diplomat"),
             new Rename(0x495320L, "Order_Diplomat_Choice_Mission"),
@@ -717,7 +726,10 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x49bec0L, "Load_TMG_Background"),
             new Rename(0x49e580L, "Put_City_View"),
             new Rename(0x49fd10L, "Edit_Start"),
+            new Rename(0x49fe50L, "Edit_Finish"),
             new Rename(0x4b0c00L, "Read_Keyboard"),
+            new Rename(0x4b6d70L, "MLR_Edit_GameMap"),
+            new Rename(0x4b8db0L, "Read_MRR_Edit"),
             new Rename(0x4bc720L, "PlayGame_Init"),
             new Rename(0x4c2da0L, "Apply_Resolution_Mode"),
             new Rename(0x4c50d0L, "Draw_MainMenu_Number"),
@@ -811,6 +823,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005dfedcL, "g_directdraw_ready", IntegerDataType.dataType),
             new GlobalRename(0x005dfee0L, "g_main_window", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dfed8L, "g_app_screen_state", IntegerDataType.dataType),
+            new GlobalRename(0x0074c838L, "g_map_interaction_mode", IntegerDataType.dataType),
             new GlobalRename(0x005dff90L, "g_ddraw", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff94L, "g_primary_surface", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x005dff98L, "g_back_surface", new PointerDataType(VoidDataType.dataType, dtm)),
@@ -847,6 +860,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x0057d084L, "g_dirty_rect_y", IntegerDataType.dataType),
             new GlobalRename(0x00755984L, "g_loaded_tmg_background", new PointerDataType(VoidDataType.dataType, dtm)),
             new GlobalRename(0x00755954L, "g_editor_mode_enabled", IntegerDataType.dataType),
+            new GlobalRename(0x00755978L, "g_current_land_tile", new PointerDataType(landTile, dtm)),
+            new GlobalRename(0x00716120L, "g_editor_land_tile_backup", new PointerDataType(landTile, dtm)),
             new GlobalRename(0x007558fcL, "g_frame_tick", IntegerDataType.dataType),
             new GlobalRename(0x0074c0a0L, "g_menu_action_tick", IntegerDataType.dataType),
             new GlobalRename(0x00707f8cL, "g_menu_item_emg_resource", new PointerDataType(VoidDataType.dataType, dtm)),

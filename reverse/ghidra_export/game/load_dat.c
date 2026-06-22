@@ -3168,7 +3168,7 @@ LAB_0047702c:
       FUN_004a1950();
       _DAT_00748f30 = 0;
       DAT_005d8f90 = 0;
-      DAT_00755978 = 0;
+      g_current_land_tile = (LandTile_0x100 *)0x0;
       if (g_back_surface_locked == 0) {
         FUN_0048b6e0();
       }

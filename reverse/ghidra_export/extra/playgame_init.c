@@ -46,7 +46,7 @@ void PlayGame_Init(void)
           (*_DAT_00748e30 == '\x03')) {
     *_DAT_00748e30 = '\x01';
   }
-  DAT_0074c838 = 1;
+  g_map_interaction_mode = 1;
   FUN_0049ca90();
   FUN_00472120(&DAT_005c1d08);
   if (DAT_0075596f == '\0') {
@@ -79,7 +79,7 @@ void PlayGame_Init(void)
   else {
     _DAT_0074a348 = 0;
     _DAT_0074a350 = 0;
-    DAT_0074c838 = 100;
+    g_map_interaction_mode = 100;
     if (DAT_005893f8 == '\0') goto LAB_004bc943;
     puVar1 = &DAT_005c1dd0;
   }

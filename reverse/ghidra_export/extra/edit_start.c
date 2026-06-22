@@ -18,7 +18,7 @@ void Edit_Start(void)
   if (DAT_007584dc != 0) {
     FUN_0041eb00();
   }
-  DAT_0074c838 = 99;
+  g_map_interaction_mode = 99;
   _DAT_0075c964 = 1;
   DAT_00716104 = 1;
   DAT_0057ecdc = g_human_country_index;
@@ -40,12 +40,14 @@ void Edit_Start(void)
     piVar2 = piVar2 + 0x32;
     iVar3 = iVar3 + -1;
   } while (iVar3 != 0);
-  if (DAT_00716120 != 0) {
-    FUN_0047de70(DAT_00716120,s_Edit_MAP_TYPE_BackUp_00517900,1);
-    DAT_00716120 = 0;
+  if (g_editor_land_tile_backup != (LandTile_0x100 *)0x0) {
+    FUN_0047de70(g_editor_land_tile_backup,s_Edit_MAP_TYPE_BackUp_00517900,1);
+    g_editor_land_tile_backup = (LandTile_0x100 *)0x0;
   }
-  DAT_00716120 = FUN_0047de30(g_map_height_tiles * g_map_width_tiles * 0x100,
-                              s_Edit_MAP_TYPE_BackUp_00517900,1);
+  g_editor_land_tile_backup =
+       (LandTile_0x100 *)
+       FUN_0047de30(g_map_height_tiles * g_map_width_tiles * 0x100,s_Edit_MAP_TYPE_BackUp_00517900,1
+                   );
   FUN_00472120(&DAT_005c1dd0);
   FUN_004a1950();
   DAT_00755958 = 1;

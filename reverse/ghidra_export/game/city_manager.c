@@ -20,7 +20,7 @@ void City_Manager(int param_1)
   
   Trace_Function(s_City_Manager_00515a20);
   DAT_005e002c = g_frame_tick;
-  DAT_0074c838 = 2;
+  g_map_interaction_mode = 2;
   DAT_005e0000 = 1;
   DAT_007584b4 = 0;
   DAT_007584b5 = 0;

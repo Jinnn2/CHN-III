@@ -238,7 +238,7 @@ void Diplomat_Start(int param_1,int param_2,int param_3)
   else {
     iVar14 = *(int *)(&DAT_0060b67c + iVar1);
   }
-  DAT_0074c838 = 5;
+  g_map_interaction_mode = 5;
   DAT_00705ebc = 0;
   uVar9 = (uint)(*(int *)(&DAT_0060b674 + iVar1) == 0);
   if (*(int *)(&DAT_0060b674 + iVar1) == 1) {

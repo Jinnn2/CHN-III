@@ -59,6 +59,9 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_battle_grid_front_units` / `g_battle_grid_back_units` | Arrange and battle update code place `BattleUnit_0x64 *` at cell offsets `+0x14/+0x1c`. Ghidra renders them as pointer-array aliases with `idx * 0xc` because the real cell stride is `0x30`. | Front/back visible battle-unit slots inside each grid cell. |
 | `g_battle_grid_front_aux_units` / `g_battle_grid_back_aux_units` | Battle update stores moving/target unit pointers at cell offsets `+0x18/+0x20`. | Auxiliary front/back battle-unit slots. |
 | `g_battle_grid_effect_or_projectile` | `Do_Battle_Stone` and death/update paths store transient effect records at cell offset `+0x24`. | Per-cell effect/projectile pointer slot. |
+| `g_map_interaction_mode` | `PlayGame_Init` sets normal map mode `1`; city/diplomacy paths set other modes; `Edit_Start` sets `99` and `Edit_Finish` restores `1`. | Current map/input interaction mode. |
+| `g_current_land_tile` | Editor left/right-click handlers and `Load_Dat` use this as the selected/hovered tile pointer. | Current map tile under interaction. |
+| `g_editor_land_tile_backup` | `Edit_Start` allocates `width * height * 0x100` bytes under `Edit_MAP_TYPE_BackUp`; `Edit_Finish` frees it. | Whole-map tile backup for editor mode. |
 
 ## Editor And Startup
 
@@ -76,7 +79,11 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Game_Frame_Pump` | Idle-loop frame pump used when `g_app_screen_state == 0x25`; updates game/map timers, dispatches `Read_Keyboard`, redraws active map UI, and can call `Prepare_City_Doing`. | In-game/map/editor frame loop. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
+| `Edit_Finish` | Trace string `Edit_Finish`; frees the editor tile backup, clears `g_editor_mode_enabled`, restores map/UI flags, and returns `g_map_interaction_mode` to `1`. | Editor-mode shutdown. |
 | `Read_Keyboard` | Trace string `Read_Keyboard`; game/map input dispatcher. Pressing `E/e` toggles `g_editor_mode_enabled`, calls `Edit_Start` when entering edit mode, and calls the editor-exit path when leaving. | Keyboard dispatcher, including editor toggle. |
+| `CheckMouseOnWindow` | Trace string `CheckMouseOnWindow`; when no UI window consumes the mouse, editor mode `99` keeps hover/selection timing alive for map interaction. | Mouse-window hit test with editor-map fallback. |
+| `MLR_Edit_GameMap` | Trace string `MLR_Edit_GameMap`; editor left-click map handler. Tool cases create cities, fill city buildings, create armies, assign resource/feature ids, register two classes of named points, and batch-paint terrain. | Main editor map mutation path. |
+| `Read_MRR_Edit` | Trace string `Read_MRR_Edit`; editor right-click map handler. Opens linked objects, removes named-point links for tools `7/8`, or asks before deleting tile occupants. | Editor map removal/inspection path. |
 
 ## Useful Offsets
 
@@ -89,6 +96,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `+0x10` | `load_dat.c` checks and counts. | city/land occupancy count or resource count. |
 | `+0x12/+0x13` | `city_round_check.c`, `near_beach_city_found.c`, and `no_dpa_near_city_near_sea.c` treat these as signed markers beside `+0x10`. | region / terrain / link markers. |
 | `+0x16` | `Map_To_Battle_Army` indexes table `0x00589644` and adds battle stat bonuses when valid. | battle resource or feature id. |
+| `+0x17` | `MLR_Edit_GameMap` tool `6` assigns this from the editor selector; `Do_Map` and `Calc_City_Resource` grow/consume the paired stockpile and clear the id at zero. | city resource or feature id. |
 | `+0x24` | `Map_To_Battle_Army` switches between terrain-dependent modifiers and doubled defense/support bonuses based on the sign of this byte. | battle stat bonus mode. |
 | `+0x25` | `City_Belong_Change` writes the new city owner here; near-city scans require it to match the active country. | tile owner/controller country id. |
 | `+0x27` | `City_Belong_Change` writes the same new owner; `Diplomat_Allow` compares it with source/target ownership pairs. | secondary or previous owner country id. |
@@ -98,9 +106,12 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `+0x7c` | `do_city.c`, `city_building.c`, and `city_people_change.c` add/check it beside the primary occupant count. | secondary occupant/defender count. |
 | `+0x88` | `load_dat.c` dereferences during map repair. | linked record pointer or terrain object. |
 | `+0xaa` | `City_Round_Check` compares this marker against `'('` while testing nearby tiles. | terrain or resource marker. |
+| `+0xae` | `Load_Dat` rebuilds this from the large table at `0x005e7d50`; editor tool `7` creates it and `Read_MRR_Edit` clears it. | editor named point index A. |
+| `+0xb0` | Editor tool `8` creates this from the secondary table at `0x005e0050`; `Read_MRR_Edit` clears it and resets the table row. | editor named point index B. |
 | `+0xb3` | `City_Round_Check` tests this flag before allowing selected nearby-city actions. | city-round block flag. |
 | `+0xb5..0xca` | `Diplomat_Allow`, `Do_Map`, `near_city_user_know_found`, and `user_set_city_resource` index by country id. | per-country visible/known flags. |
 | `+0xcb..0xe0` | `City_Round_Check` tests `active_country + 0xcb` as a secondary exclusion/visibility gate. | per-country secondary visibility/exclusion flags. |
+| `+0xf8` | Paired with `+0x17`; map and city resource ticks increase it up to a cap and city turns decrement it until the feature is exhausted. | city resource or feature stockpile. |
 
 ### `ArmyUnit_0x164_plus`
 
@@ -416,8 +427,10 @@ important code-first files are:
   loading, and initial screen-state selection.
 - `game/app_frame_pump.c`, `game/game_frame_pump.c`,
   `extra/playgame_init.c`, `extra/edit_start.c`, and
-  `extra/read_keyboard.c`: runtime path into map/editor mode, editor toggle,
-  and whole-map backup allocation.
+  `extra/edit_finish.c`, `extra/read_keyboard.c`,
+  `extra/mlr_edit_gamemap.c`, and `extra/read_mrr_edit.c`: runtime path into
+  map/editor mode, editor toggle, whole-map backup allocation, and the
+  left/right-click editor map mutation paths.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.
