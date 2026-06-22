@@ -106,12 +106,32 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Map_To_Battle_Army compares it with owner and battle-side country ids");
         replaceAt(armyUnit, 0x18, ByteDataType.dataType, 1, "battle_slot_or_category",
             "used as an index into battle-side presence arrays");
+        replaceAt(armyUnit, 0x1a, ShortDataType.dataType, 2, "tile_x",
+            "battle entry paths use it with tile_y to locate the current LandTile");
+        replaceAt(armyUnit, 0x1c, ShortDataType.dataType, 2, "tile_y",
+            "battle entry paths use it with tile_x to locate the current LandTile");
+        replaceAt(armyUnit, 0x1e, ShortDataType.dataType, 2, "render_or_anim_x",
+            "movement/battle entry code passes it to animation helpers after tile placement");
+        replaceAt(armyUnit, 0x20, ShortDataType.dataType, 2, "render_or_anim_y",
+            "movement/battle entry code passes it to animation helpers after tile placement");
+        replaceAt(armyUnit, 0x22, ShortDataType.dataType, 2, "target_tile_x_or_anim_x",
+            "battle entry code stores computed target/path coordinates here");
+        replaceAt(armyUnit, 0x24, ShortDataType.dataType, 2, "target_tile_y_or_anim_y",
+            "battle entry code stores computed target/path coordinates here");
+        replaceAt(armyUnit, 0x120, ByteDataType.dataType, 1, "active_anim_step_count",
+            "battle entry code tests it before scheduling movement/animation records");
         replaceAt(armyUnit, 0x127, ByteDataType.dataType, 1, "mission_state",
             "zero means active/free in city-nearby scans; diplomat orders set it nonzero");
         replaceAt(armyUnit, 0x128, ByteDataType.dataType, 1, "mission_action_id",
             "order routines write action ids such as 0x2e, 0x2f, 0x37, 0x38, and 0x39");
+        replaceAt(armyUnit, 0x129, ByteDataType.dataType, 1, "facing_or_move_direction",
+            "battle entry paths index direction tables to find the tile ahead");
+        replaceAt(armyUnit, 0x12a, ByteDataType.dataType, 1, "mission_progress_counter",
+            "battle entry paths accumulate this against ArmyType.mission_range_limit and then reset it");
         replaceAt(armyUnit, 0x12f, ByteDataType.dataType, 1, "strength_or_health",
             "Map_To_Battle_Army converts it to battle formation count with / 0xe + 1");
+        replaceAt(armyUnit, 0x130, ByteDataType.dataType, 1, "battle_entry_retry_counter",
+            "battle entry paths increment and reset it around repeated stat/entry checks");
         replaceAt(armyUnit, 0x131, ByteDataType.dataType, 1, "veteran_level_or_power_shift",
             "battle stat bonus shifts by this value");
         replaceAt(armyUnit, 0x134, ShortDataType.dataType, 2, "cached_stat_a",
@@ -128,6 +148,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "near-city scans and Map_To_Battle_Army add one to this value for carried/sub units");
         replaceAt(armyUnit, 0x14c, new PointerDataType(armyUnit, dtm), 4, "transport_or_carrier_link",
             "inverse carrier link checked against current unit and carrier mission state");
+        replaceAt(armyUnit, 0x152, ByteDataType.dataType, 1, "map_presence_or_cargo_state",
+            "battle entry and tile scans require zero for directly present active units; startup code compares it against 3");
         replaceAt(armyUnit, 0x154, new PointerDataType(city, dtm), 4, "stationed_city",
             "City_Belong_Change assigns the city; Map_To_Battle_Army reads city building statuses through it");
         replaceAt(armyUnit, 0x160, new PointerDataType(armyUnit, dtm), 4, "next_army",

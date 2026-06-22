@@ -96,15 +96,23 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x01` | `City_Belong_Change` compares/re-owns units when a city changes owner. | owner country id. |
 | `+0x02` | `Map_To_Battle_Army` compares it with owner and battle-side country ids. | target or previous owner id. |
 | `+0x18` | `Map_To_Battle_Army` indexes battle-side presence arrays. | battle slot/category. |
+| `+0x1a/+0x1c` | `Start_Map_Battle_From_Army` and `Start_Map_Battle_From_Tile` combine these with map-width strides to find the source `LandTile`. | map tile x/y. |
+| `+0x1e/+0x20` | Battle entry movement paths pass these to animation helpers after `FUN_004d2cc0` schedules movement. | render or animation x/y. |
+| `+0x22/+0x24` | Battle entry and near-city pathing code stores computed destination coordinates before calling `FUN_004d2cc0`. | target tile or animation x/y. |
+| `+0x120` | Battle entry code tests this after movement/path scheduling before emitting animation records. | active animation step count. |
 | `+0x127` | Near-city scans require zero for active/free units; diplomat order code sets it to nonzero. | mission state. |
 | `+0x128` | Load/order paths test or write action ids such as `0x35`, `0x36`, `0x37`, and `0x39`. | mission/action id. |
+| `+0x129` | Battle entry paths index direction tables `DAT_00589344`, `DAT_00589374`, and `DAT_005893b4` with this value to find the tile ahead. | facing or move direction. |
+| `+0x12a` | Battle entry paths accumulate it by the turn/order delta and compare it with `ArmyTypeDef.mission_range_limit`, then reset it on action. | mission progress counter. |
 | `+0x12f` | `BattleArmy(..., unit->strength_or_health / 0xe + 1, ...)` derives formation count from it. | strength/health byte. |
+| `+0x130` | Battle entry paths increment and reset it around repeated battle-entry/stat checks before raising veteran/power state. | battle entry retry counter. |
 | `+0x131` | Battle stat adjustment shifts by this value in `Map_To_Battle_Army`. | veteran level / power shift. |
 | `+0x134/+0x136/+0x138` | Loaded from army type tables and cached as short stats. | cached stat shorts. |
 | `+0x13c` | `BattleArmy` copies this value into `BattleUnit_0x64.map_unit_extra_id`; death/effect records later reuse it. | map unit extra id. |
 | `+0x144` | Direct-unit checks require null; other paths dereference it as another army. | transport parent pointer. |
 | `+0x148` | Near-city capacity and battle conversion add one to this value for carried/sub units. | cargo/subunit count. |
 | `+0x14c` | Cargo/subunit scans compare this pointer against the current unit. | transport or carrier link. |
+| `+0x152` | Battle entry and tile scans require zero for directly present active units; startup/battle-entry code compares it against `3` for broader map presence. | map presence or cargo state. |
 | `+0x154` | `City_Belong_Change` assigns a city pointer; `Map_To_Battle_Army` reads `building_status[...]` through it. | stationed/associated city. |
 | `+0x160` | Country army traversals follow this pointer. | next army in linked list. |
 
