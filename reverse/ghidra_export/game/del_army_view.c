@@ -26,7 +26,8 @@ void Del_Army_View(int tile_x,int tile_y,uint view_radius_mode,int country_id,in
   Trace_Function(s_Del_Army_View_00512a00);
   local_4 = in_ECX;
   if (g_current_map_scenario_info.gameplay_mode == 1) {
-    local_4 = *(int *)&g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].field_0x80;
+    local_4 = g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].
+              scenario_visibility_region_mode;
   }
   country_id = 0;
   iVar6 = g_map_width_tiles;

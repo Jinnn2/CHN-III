@@ -30,7 +30,8 @@ void Add_New_View(int tile_x,uint tile_y,int view_radius_mode,int country_id,int
 
   Trace_Function(s_Add_New_View_005129f0);
   if (g_current_map_scenario_info.gameplay_mode == 1) {
-    local_4 = *(int *)&g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].field_0x80;
+    local_4 = g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].
+              scenario_visibility_region_mode;
   }
   uVar11 = tile_y & 1;
   local_c = 0;

@@ -629,10 +629,13 @@ the first dword as an enabled gate, then use `+0x38` to reach
 | `+0x40/+0x44` | Editor labels are origin X/Y; custom-map selection validates them against map bounds and passability. | origin tile x/y. |
 | `+0x58/+0x5c` | Editor labels are building style and settlement marker; `Load_UI_Dip_EMG` tests building-style values `1` and `3`. | building style / settlement marker ids. |
 | `+0x60` | `City_Resource_Change` compares this against `ScienceDef_0x88.era_or_group_id` for research pacing. | favored science era/group. |
+| `+0x80` | `Add_New_View` and `Del_Army_View` use this only in gameplay mode `1` to allow all, none, or one fixed rectangular map region. | scenario visibility region mode. |
 | `+0x88` | `Diplomat_Turn` compares diplomacy affinity and turn counters against this leader/country parameter. | diplomacy affinity threshold. |
 | `+0x8c` | `Diplomat_Turn` subtracts this value from pressure/caution thresholds. | diplomacy pressure threshold. |
+| `+0x90` | `AI_Army` uses it as the random expedition/search radius around the active city when choosing a target tile. | AI expedition radius. |
 | `+0x94/+0x98/+0x9c` | `City_Building` adds `value - 6` build progress for matching building categories or unit production when positive. | production/build bonuses. |
 | `+0xb4/+0xb8` | `City_Building` applies the category-6 build bonus only when both fields are above the gate. | category-6 build bonus and gate. |
+| `+0xcc` | `Diplomat_Battle_Back` passes this to the audio/theme switcher for the selected side before the diplomacy battle screen. | diplomacy battle music id. |
 | `+0xd0..0xf7` | Editor label is special army type; the editor exposes ten paired entries with `+0xf8..0x11f`. | special army type ids. |
 | `+0xf8..0x11f` | Editor label is required science; paired with each special army type id. | special-army required science ids. |
 | `+0x120/+0x124/+0x128` | `MLP_Edit_Empire_Country` writes palette row ids from three vertical strips; `Edit_Finish` and `Load_Dat` combine these ids with diplomacy UI color/image tables. | diplomacy UI color layers. |

@@ -926,10 +926,14 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "editor label is settlement marker");
         replaceAt(empireCountryDef, 0x60, IntegerDataType.dataType, 4, "favored_science_era_or_group",
             "City_Resource_Change compares this against ScienceDef.era_or_group_id for research pacing");
+        replaceAt(empireCountryDef, 0x80, IntegerDataType.dataType, 4, "scenario_visibility_region_mode",
+            "Add_New_View and Del_Army_View use this in gameplay mode 1 to limit visibility to a fixed map region");
         replaceAt(empireCountryDef, 0x88, IntegerDataType.dataType, 4, "diplomacy_affinity_threshold",
             "Diplomat_Turn compares diplomacy affinity/counters against this leader/country parameter");
         replaceAt(empireCountryDef, 0x8c, IntegerDataType.dataType, 4, "diplomacy_pressure_threshold",
             "Diplomat_Turn subtracts this from diplomatic pressure/caution thresholds");
+        replaceAt(empireCountryDef, 0x90, IntegerDataType.dataType, 4, "ai_expedition_radius",
+            "AI_Army uses this as the random expedition/search radius around its active city");
         replaceAt(empireCountryDef, 0x94, IntegerDataType.dataType, 4, "category4_build_bonus",
             "City_Building adds value-6 build progress for completed category 4 buildings when positive");
         replaceAt(empireCountryDef, 0x98, IntegerDataType.dataType, 4, "category5_build_bonus",
@@ -940,6 +944,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "City_Building adds value-6 build progress for category 6 buildings when paired gate is positive");
         replaceAt(empireCountryDef, 0xb8, IntegerDataType.dataType, 4, "category6_build_bonus_gate",
             "City_Building requires this value positive before applying the category 6 build bonus");
+        replaceAt(empireCountryDef, 0xcc, IntegerDataType.dataType, 4, "diplomacy_battle_music_id",
+            "Diplomat_Battle_Back passes this to the audio/theme switcher for the selected side");
         replaceAt(empireCountryDef, 0xd0, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,
             "special_army_type_ids", "editor label is special army type; paired with required science ids");
         replaceAt(empireCountryDef, 0xf8, new ArrayDataType(IntegerDataType.dataType, 10, 4), 0x28,

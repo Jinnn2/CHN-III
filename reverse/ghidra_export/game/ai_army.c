@@ -489,15 +489,15 @@ switchD_00404026_default:
         }
       }
     }
-    sVar8 = FUN_004fbf50(0x14 - *(short *)&g_empire_country_defs
-                                           [g_active_country->leader_or_country_id].field_0x90);
+    sVar8 = FUN_004fbf50(0x14 - (short)g_empire_country_defs[g_active_country->leader_or_country_id]
+                                       .ai_expedition_radius);
     if (sVar8 == 0) {
       _DAT_00734c58 = FUN_004fbf50(g_map_width_tiles & 0xffff);
       _DAT_00734c58 = _DAT_00734c58 & 0xffff;
       uVar10 = FUN_004fbf50(g_map_height_tiles & 0xffff);
       DAT_00734c5c = uVar10 & 0xffff;
       iVar9 = FUN_004c6ed0(DAT_0070683c,DAT_00706840,_DAT_00734c58,DAT_00734c5c,0);
-      if (iVar9 < *(int *)&g_empire_country_defs[g_active_country->leader_or_country_id].field_0x90
+      if (iVar9 < g_empire_country_defs[g_active_country->leader_or_country_id].ai_expedition_radius
                   * 2 + 0x32) {
         uVar10 = local_4;
         switch(g_map_size_mode) {
