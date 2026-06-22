@@ -23,6 +23,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `ScienceDef_0x88` | Science table starts at `0x005817a8`; research code advances by `0x88` bytes and formats names from the record. | Per-science/research definition table. |
 | `CountryProfileDef_0x7c` | Static table starts at `0x00596218`; `load_dat.c` reads/writes `0x3070` bytes, i.e. 100 records of `0x7c`; country `+0x03` indexes this table. | Country/civilization profile and modifier table. |
 | `GovernmentDef_0x74` | Static table starts at `0x00599288`; `Load_Dat` copies `0x3a0` bytes, i.e. 8 records of `0x74`; country `government_or_ai_mode` indexes this table. | Government/civic modifier table. |
+| `GroundDef_0x24` | Static table starts at `0x00589428`; `Load_Dat` copies `0x21c` bytes, i.e. 15 records of `0x24`; `Before_Edit_Ground` binds editor controls to the same stride. | Ground/terrain definition table. |
 | `ArmyTypeDef_0x400` | `Load_Dat` reads `0x16c00` bytes into `g_army_type_table`, i.e. 91 records of `0x400`; map armies index this table by `army_type_id`. | Static unit/army definitions. |
 | `BattleGridCell_0x30` | `Make_Battle_Map` clears `0x6c00` bytes from `g_battle_grid_cells`, i.e. `24 * 24 * 0x30`; battle arrange/update paths address cells by `x + y * 0x18`. | One cell in the 24x24 battle grid. |
 | `MapScenarioInfo_0x16c` | `Load_Map_GameInfo` reads custom-map metadata in `0x16c` records; `Load_Dat` reads the same shape into `g_current_map_scenario_info`; `Before_Window_Edit_File_Detail` builds an editor form over the current record. | Map/scenario header and editor-visible rules. |
@@ -46,6 +47,7 @@ why regenerated pseudocode now contains names such as `Do_City`,
 | `g_science_defs` | `0x005817a8`, 200 records, `0x88` byte stride. | Static science/research definitions. |
 | `g_country_profile_defs` | `0x00596218`, 100 records, `0x7c` byte stride. | Static country profile definitions and modifiers. |
 | `g_government_defs` | `0x00599288`, 8 records, `0x74` byte stride. | Static government/civic modifier definitions. |
+| `g_ground_defs` | `0x00589428`, 15 records, `0x24` byte stride. | Static ground/terrain definitions. |
 | `g_army_type_table` | `0x005aa2c8`, 91 records, `0x400` byte stride. | Static unit/army definition table. |
 | `g_battle_unit_count_by_side` | `Battle_AutoArrange` sizes an 8-byte work array from it; `Map_To_Battle_Army` clears both entries before battle setup. | Battle unit/formation count for side 0/1. |
 | `g_battle_unit_list_head_by_side` | `Battle_AutoArrange` and arrange/UI code traverse `BattleUnit_0x64.next_battle_unit` from these heads. | Per-side linked-list heads for battle records. |
@@ -106,6 +108,7 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `Before_Edit_Army` | Trace string `Before_Edit_Army`; backs up `g_army_type_table`, checks `ARMYBASE.DAT`, creates the table scrollbar, and binds editor controls to `ArmyTypeDef_0x400` offsets. | Unit/army definition table editor setup. |
 | `Before_Edit_Build` | Trace string `Before_Edit_Build`; backs up `g_building_defs`, checks `BUILD.DAT`, creates the table scrollbar, and binds editor controls to `BuildingDef_0x200` offsets. | Building definition table editor setup. |
 | `Before_Edit_Goverment` | Trace string `Before_Edit_Goverment`; backs up `g_government_defs`, checks `GOVERMENT.DAT`, and binds controls to the `GovernmentDef_0x74` table. | Government/civic modifier table editor setup. |
+| `Before_Edit_Ground` | Trace string `Before_Edit_Ground`; backs up `g_ground_defs`, checks `GROUND.DAT`, and binds controls to the `GroundDef_0x24` table. | Ground/terrain definition table editor setup. |
 | `Before_Edit_Empire_Hero` | Trace string `Before_Edit_Empire_Hero`; reads/writes `HERO.DAT`, backs up `g_country_profile_defs`, binds editor controls to `CountryProfileDef_0x7c`, and previews `DIP_%02d` resources. | Country profile / hero definition table editor setup. |
 | `PlayGame_Init` | Trace string `PlayGame_Init`; loads/initializes map state, calls `Edit_Start` when `g_editor_mode_enabled != 0`, then switches to `g_app_screen_state = 0x25`. | Game/map-mode startup. |
 | `Edit_Start` | Trace string `Edit_Start`; sets map mode marker `99`, allocates `Edit_MAP_TYPE_BackUp` as `width * height * 0x100`, and enables editor-related map flags. | Editor-mode startup and map backup setup. |
@@ -473,6 +476,18 @@ with stride `0x74`, so the table is 8 records. Active countries index it with
 | `+0x40..0x6b` | `City_Resource_Change` indexes this 11-dword block by country `research_efficiency_level`. | research efficiency modifiers. |
 | `+0x6c/+0x70` | `Before_Edit_Goverment` exposes these dwords as editable numeric fields. | editor-visible government values. |
 
+### `GroundDef_0x24`
+
+`Load_Dat` copies a `0x21c` byte static ground table into `0x00589428`.
+`Before_Edit_Ground` backs up the same block and binds controls with stride
+`0x24`, giving 15 records.
+
+| Offset | Evidence | Working field |
+|---:|---|---|
+| `+0x00..0x04` | `Before_Edit_Ground` binds this as a five-byte text field. | short name bytes. |
+| `+0x08/+0x0c/+0x10` | `Before_Edit_Ground` binds these dwords to option-list controls. | editor-visible terrain selectors. |
+| `+0x14/+0x18/+0x1c/+0x20` | `Before_Edit_Ground` exposes these dwords as editable numeric fields. | editor-visible terrain values. |
+
 ## Resource Containers
 
 `.EMG` and `.XMG` resources share a compact container shape used by
@@ -553,10 +568,10 @@ important code-first files are:
   mutation paths.
 - `ui/add_new_data_format.c`, `ui/node_insert_data_format.c`,
   `editor/before_edit_army.c`, `editor/before_edit_build.c`,
-  `editor/before_edit_government.c`, and `editor/before_edit_empire_hero.c`:
-  generic editor form binding plus unit/building/government/country-profile
-  table setup, useful for recovering static data-table semantics from editor
-  controls.
+  `editor/before_edit_government.c`, `editor/before_edit_ground.c`, and
+  `editor/before_edit_empire_hero.c`: generic editor form binding plus
+  unit/building/government/ground/country-profile table setup, useful for
+  recovering static data-table semantics from editor controls.
 - `game/do_city.c`: per-turn city simulation and city AI/resource/job/event
   processing.
 - `game/do_battle_army_and_die.c`: battle army update and death processing.

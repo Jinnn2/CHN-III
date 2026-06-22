@@ -45,6 +45,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
     private StructureDataType scienceDef;
     private StructureDataType countryProfileDef;
     private StructureDataType governmentDef;
+    private StructureDataType groundDef;
     private StructureDataType mapScenarioInfo;
     private StructureDataType dataFormat;
 
@@ -825,6 +826,25 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "Before_Edit_Goverment exposes this dword as an editable numeric field");
         resolve(governmentDef);
 
+        groundDef = fixedStruct("GroundDef_0x24", 0x24);
+        replaceAt(groundDef, 0x00, new ArrayDataType(CharDataType.dataType, 5, 1), 5,
+            "short_name_bytes", "Before_Edit_Ground exposes this as a five-byte text field");
+        replaceAt(groundDef, 0x08, IntegerDataType.dataType, 4, "terrain_select_08",
+            "Before_Edit_Ground binds this dword to an option-list editor control");
+        replaceAt(groundDef, 0x0c, IntegerDataType.dataType, 4, "terrain_select_0c",
+            "Before_Edit_Ground binds this dword to an option-list editor control");
+        replaceAt(groundDef, 0x10, IntegerDataType.dataType, 4, "terrain_select_10",
+            "Before_Edit_Ground binds this dword to an option-list editor control");
+        replaceAt(groundDef, 0x14, IntegerDataType.dataType, 4, "terrain_value_14",
+            "Before_Edit_Ground exposes this dword as an editable numeric field");
+        replaceAt(groundDef, 0x18, IntegerDataType.dataType, 4, "terrain_value_18",
+            "Before_Edit_Ground exposes this dword as an editable numeric field");
+        replaceAt(groundDef, 0x1c, IntegerDataType.dataType, 4, "terrain_value_1c",
+            "Before_Edit_Ground exposes this dword as an editable numeric field");
+        replaceAt(groundDef, 0x20, IntegerDataType.dataType, 4, "terrain_value_20",
+            "Before_Edit_Ground exposes this dword as an editable numeric field");
+        resolve(groundDef);
+
         resolve(new TypedefDataType(cat, "CityPtr", new PointerDataType(city, dtm)));
         resolve(new TypedefDataType(cat, "LandTilePtr", new PointerDataType(landTile, dtm)));
         resolve(new TypedefDataType(cat, "CountryStatePtr", new PointerDataType(country, dtm)));
@@ -905,6 +925,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x452110L, "Before_Edit_Army"),
             new Rename(0x454570L, "Before_Edit_Build"),
             new Rename(0x45d6f0L, "Before_Edit_Goverment"),
+            new Rename(0x45e4d0L, "Before_Edit_Ground"),
             new Rename(0x45ee10L, "Before_Edit_Empire_Hero"),
             new Rename(0x450490L, "Do_City"),
             new Rename(0x4514f0L, "Prepare_City_Doing"),
@@ -1086,6 +1107,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new GlobalRename(0x005817a8L, "g_science_defs", new ArrayDataType(scienceDef, 200, scienceDef.getLength())),
             new GlobalRename(0x00596218L, "g_country_profile_defs", new ArrayDataType(countryProfileDef, 100, countryProfileDef.getLength())),
             new GlobalRename(0x00599288L, "g_government_defs", new ArrayDataType(governmentDef, 8, governmentDef.getLength())),
+            new GlobalRename(0x00589428L, "g_ground_defs", new ArrayDataType(groundDef, 15, groundDef.getLength())),
             new GlobalRename(0x0075cf00L, "g_present_use_blt_mode", IntegerDataType.dataType),
             new GlobalRename(0x0075cf18L, "g_present_dst_rect", new ArrayDataType(IntegerDataType.dataType, 4, 4)),
             new GlobalRename(0x0075cf38L, "g_present_src_left", IntegerDataType.dataType),

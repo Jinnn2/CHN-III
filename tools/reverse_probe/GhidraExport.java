@@ -132,6 +132,7 @@ public class GhidraExport extends GhidraScript {
         new Target(0x452110L, "editor/before_edit_army.c"),
         new Target(0x454570L, "editor/before_edit_build.c"),
         new Target(0x45d6f0L, "editor/before_edit_government.c"),
+        new Target(0x45e4d0L, "editor/before_edit_ground.c"),
         new Target(0x45ee10L, "editor/before_edit_empire_hero.c"),
         new Target(0x451de0L, "extra/do_map.c"),
         new Target(0x4596a0L, "extra/before_window_edit_file_detail.c"),
