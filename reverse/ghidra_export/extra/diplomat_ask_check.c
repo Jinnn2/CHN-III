@@ -234,7 +234,8 @@ LAB_00441cc6:
           iVar7 = local_c[-1] + 1;
           if (iVar7 <= *local_c) {
             param_2 = (*local_c - iVar7) + 1;
-            psVar10 = (short *)((&DAT_0074c830)[(int)*(short *)(iVar9 + 0x1c) & 1] + iVar7 * 8);
+            psVar10 = (short *)((int)g_edit_dest_round_buffers[(int)*(short *)(iVar9 + 0x1c) & 1] +
+                               iVar7 * 8);
             do {
               iVar7 = (int)*psVar10 + (int)*(short *)(iVar9 + 0x1a);
               iVar8 = (int)psVar10[1] + (int)*(short *)(iVar9 + 0x1c);

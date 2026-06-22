@@ -21,7 +21,7 @@ NoDpa_Near_City_Away_Enemy
   byte *pbVar7;
   int iVar8;
   int local_c;
-  
+
   Trace_Function(s_NoDpa_Near_City_Away_Enamy_0057dcb8);
   iVar1 = FUN_004c6ed0((int)*(short *)(param_1 + 0x1a),(int)*(short *)(param_1 + 0x1c),param_2,
                        param_3,0);
@@ -49,8 +49,9 @@ NoDpa_Near_City_Away_Enemy
   pbVar7 = param_1;
   if (0 < *(int *)(&DAT_0074a360 + param_4 * 4)) {
     do {
-      iVar6 = *(short *)((&DAT_0074c830)[param_3 & 1] + local_c * 8) + param_2;
-      iVar8 = (int)*(short *)((&DAT_0074c830)[param_3 & 1] + local_c * 8 + 2) + param_3;
+      iVar6 = *(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8) + param_2;
+      iVar8 = (int)*(short *)((int)g_edit_dest_round_buffers[param_3 & 1] + local_c * 8 + 2) +
+              param_3;
       if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
          (((-1 < iVar6 && (iVar6 < iVar4)) ||
           (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
@@ -94,4 +95,3 @@ switchD_0048f4f8_default:
   }
   return 0;
 }
-

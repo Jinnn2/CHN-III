@@ -594,6 +594,30 @@ The color-table lifecycle is now recovered as a group:
 - `Build_Dark_Table_From_Fade_Frame` consumes decoded fade-frame pixel data and writes luminance levels into `g_dark_table_buffer`.
 - `Build_Dark_Table` clears `g_dark_table_buffer` and processes 80 fade frames from the loaded `FADE.EMG` resource.
 - `Load_EMG_Base` owns the cache-file path: `C_TABLE.DAT`, `F_TABLE.DAT`, and `D_TABLE.DAT` are read when valid and regenerated/written otherwise.
+- `Set_Color` consumes the active RGB-to-pixel tables to populate UI and map
+  color constants after DirectDraw pixel-format setup.
+- `Free_Pixel_Format_Tables` releases the luminance, RGB-to-pixel, and alpha
+  blend lookup tables allocated by `Init_Surface_Pixel_State`.
+
+## Shutdown And Resource Lifetime
+
+`ShutDown_Game` is the broad application teardown path. It first drains dynamic
+game lists through `Clear_All_Memory`, then frees long-lived map/render buffers,
+writes `CONFIG.DAT` and `KEYDEF.DAT`, closes indexed IMG handles, and releases
+base EMG/XMG resources before shutting down the window/DirectDraw layer.
+
+| Working name | Evidence | Meaning |
+|---|---|---|
+| `g_bestpath_temp_buffer` | Freed in `ShutDown_Game` with the debug label `BESTPATH PathTemp`. | Pathfinding scratch buffer. |
+| `g_resource_score_buffer` | Freed as `res_score`; `UserSet_City_Resource` writes candidate score tuples into it. | Temporary city resource scoring buffer. |
+| `g_land_record_buffers` | `ShutDown_Game` walks 22 pointers and frees each as `LandRec`. | Per-country or per-slot land-record buffers. |
+| `g_minimap_buffer` | Freed with the `minimap` shutdown label. | Minimap backing buffer. |
+| `g_edit_dest_round_buffers` | Two buffers freed as `DestRound_0/1`; map editor brush code indexes them by parity and reads x/y offset pairs. | Editor brush destination offset tables. |
+
+`Free_EMG_Base` releases the long-lived UI/resource bank loaded around
+`Load_EMG_Base`, including the flag IMG bank, base EMG resources, and XMG
+resources. `Safe_FreeIMG` zeroes an IMG handle after calling the image-free
+helper, and `CloseIndexIMG` closes indexed IMG slots and their index arrays.
 
 ## Applied Function Names
 

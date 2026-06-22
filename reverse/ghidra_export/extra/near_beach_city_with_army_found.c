@@ -24,14 +24,14 @@ undefined4 Near_Beach_City_With_Army_Found(int param_1,int *param_2,uint *param_
   undefined4 *puVar12;
   int local_1c;
   int local_18;
-  
+
   Trace_Function(s_Near_Beach_City_With_Army_Found_0057dbb0);
   local_18 = 1;
   iVar1 = param_1 * 4;
   if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
     iVar10 = param_1;
     iVar11 = param_1;
-    psVar5 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar5 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
       param_1 = (int)psVar5[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
       uVar6 = (int)psVar5[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
@@ -143,4 +143,3 @@ switchD_0048e11d_default:
   }
   return 0;
 }
-

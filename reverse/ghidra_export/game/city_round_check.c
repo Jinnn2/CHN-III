@@ -49,7 +49,7 @@ void City_Round_Check(void)
   int local_254;
   undefined1 local_250 [292];
   undefined1 local_12c [296];
-  
+
   Trace_Function();
   DAT_005e0020 = g_map_width_tiles;
   uVar16 = g_current_city_y & 1;
@@ -104,7 +104,7 @@ void City_Round_Check(void)
   iVar20 = 0;
   if (0 < *(int *)(&DAT_0074a360 + iVar9 * 4)) {
     do {
-      psVar1 = (short *)((&DAT_0074c830)[uVar16] + local_274 * 8);
+      psVar1 = (short *)((int)g_edit_dest_round_buffers[uVar16] + local_274 * 8);
       local_294 = (int)*psVar1 + g_current_city_x;
       iVar19 = (int)psVar1[1] + g_current_city_y;
       if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
@@ -329,7 +329,7 @@ LAB_00428580:
           }
         }
         pCVar5 = g_active_country;
-        iVar9 = *(int *)((&DAT_0074c830)[uVar16] + 4 + local_274 * 8);
+        iVar9 = *(int *)((int)g_edit_dest_round_buffers[uVar16] + local_274 * 8 + 4);
         if (iVar9 < 6) {
           if (*(int *)(pcVar10 + 0x88) != 0) {
             local_26c = local_26c + 1;
@@ -480,4 +480,3 @@ LAB_00428ade:
   g_current_city->nearby_city_count_bucket = (byte)iVar19;
   return;
 }
-

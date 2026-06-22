@@ -276,8 +276,8 @@ LAB_00422c31:
   iVar19 = *(int *)(DAT_00755918 + g_current_city_land_tile->linked_count_or_city_count * 0x14);
   bVar22 = (int)(iVar19 + (iVar19 >> 0x1f & 0xfU)) >> 4 <=
            (int)(uint)*(ushort *)
-                       (*(int *)(&DAT_00748f38 + g_active_country_index * 4) + 2 +
-                       g_current_city_land_tile->linked_count_or_city_count * 4);
+                       ((int)g_land_record_buffers[g_active_country_index] +
+                       g_current_city_land_tile->linked_count_or_city_count * 4 + 2);
   local_268 = (ArmyUnit_0x164_plus **)0x0;
   local_293 = bVar22;
   if (g_active_country->total_force_or_unit_count != 0) {

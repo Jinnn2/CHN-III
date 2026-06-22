@@ -16,12 +16,12 @@ undefined4 Near_City_Found_XY_NoLand(int param_1,uint param_2,int param_3,int *p
   int iVar4;
   int iVar5;
   int local_4;
-  
+
   Trace_Function(s_Near_City_Found_XY_NoLand_0057dc34);
   local_4 = 1;
   if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
     uVar3 = param_2;
-    psVar1 = (short *)(&DAT_0074c830)[param_2 & 1];
+    psVar1 = g_edit_dest_round_buffers[param_2 & 1];
     do {
       iVar5 = psVar1[4] + param_1;
       iVar4 = (int)psVar1[5] + param_2;
@@ -66,4 +66,3 @@ switchD_0048eb85_default:
   }
   return 0;
 }
-

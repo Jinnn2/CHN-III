@@ -297,7 +297,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       FUN_004730d0(0x3f,0x2c1,0x3c3,0x2d5,0,DAT_0074c850,&DAT_00575654);
       FUN_00478860();
       FUN_004730d0(0x3f,0x2c1,0x3c3,0x2d5,2,DAT_0074c850,&DAT_00575630);
-      FUN_004c6490();
+      Clear_All_Memory();
       FUN_00470c50();
       FUN_004730d0(0x3f,0x2c1,0x3c3,0x2d5,5,_DAT_0074a316,&DAT_00575618);
       if (DAT_00707920 != (int *)0x0) {
@@ -580,17 +580,18 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       pcVar24 = &DAT_0073575b;
       iVar6 = 0;
       do {
-        if (*(int *)(&DAT_00748f38 + iVar6) != 0) {
-          FUN_0047de70(*(int *)(&DAT_00748f38 + iVar6),s_Load_Dat__Land_Rec_00575540,0xd);
-          *(undefined4 *)(&DAT_00748f38 + iVar6) = 0;
+        if (*(int *)((int)g_land_record_buffers + iVar6) != 0) {
+          FUN_0047de70(*(int *)((int)g_land_record_buffers + iVar6),s_Load_Dat__Land_Rec_00575540,
+                       0xd);
+          *(undefined4 *)((int)g_land_record_buffers + iVar6) = 0;
         }
         if ('\0' < pcVar24[-0x6a3]) {
           iVar16 = FUN_0047de30(DAT_00755248 * 4,s_Load_Dat__LandRec_0057552c,0xd);
-          *(int *)(&DAT_00748f38 + iVar6) = iVar16;
+          *(int *)((int)g_land_record_buffers + iVar6) = iVar16;
           if (iVar16 == 0) {
             FUN_0046a230(s_Load_Dat__00575500,&DAT_0057550c);
           }
-          puVar12 = *(undefined4 **)(&DAT_00748f38 + iVar6);
+          puVar12 = *(undefined4 **)((int)g_land_record_buffers + iVar6);
           for (iVar16 = DAT_00755248; iVar16 != 0; iVar16 = iVar16 + -1) {
             *puVar12 = 0;
             puVar12 = puVar12 + 1;
@@ -816,9 +817,9 @@ LAB_0047406f:
                 piStack_54c[0x22] = (int)pcVar24;
                 piStack_54c[0x23] = (int)pcVar24;
                 *(undefined1 *)
-                 (*(int *)(&DAT_00748f38 + (int)pbVar10 * 4) + (short)piStack_54c[4] * 4) = 1;
-                psVar19 = (short *)(*(int *)(&DAT_00748f38 + (int)pbVar10 * 4) + 2 +
-                                   (short)piStack_54c[4] * 4);
+                 ((int)g_land_record_buffers[(int)pbVar10] + (short)piStack_54c[4] * 4) = 1;
+                psVar19 = (short *)((int)g_land_record_buffers[(int)pbVar10] +
+                                   (short)piStack_54c[4] * 4 + 2);
                 *psVar19 = *psVar19 + 1;
                 puStack_550 = (ushort *)0x0;
                 puStack_554 = (ushort *)0x0;
@@ -1155,7 +1156,7 @@ switchD_00474a60_default:
               }
               if (0 < (short)_g_land_tiles[iStack_51c * 0x40 + 4]) {
                 *(undefined1 *)
-                 (*(int *)(&DAT_00748f38 + (int)pbVar10 * 4) +
+                 ((int)g_land_record_buffers[(int)pbVar10] +
                  (short)_g_land_tiles[iStack_51c * 0x40 + 4] * 4) = 1;
               }
               if (((pbVar25[0x128] != 0x35) && (pbVar25[0x128] != 0x36)) || (pbVar25[0x127] == 1)) {
@@ -3155,7 +3156,7 @@ LAB_0047702c:
       piVar9 = &DAT_0074d660;
       do {
         if (0 < *piVar9) {
-          FUN_00478dc0(*piVar9);
+          CloseIndexIMG(*piVar9);
         }
         piVar9 = piVar9 + 0x50;
       } while ((int)piVar9 < 0x755220);

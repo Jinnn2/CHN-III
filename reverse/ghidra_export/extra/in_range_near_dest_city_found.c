@@ -25,7 +25,7 @@ InRange_NearDest_City_Found
   int local_10;
   int local_c;
   int local_4;
-  
+
   Trace_Function(s_InRange_NearDest_City_Found_0057dc68);
   bVar2 = *(byte *)(_DAT_00748ff0 + 0x1c);
   local_c = -1;
@@ -37,7 +37,7 @@ InRange_NearDest_City_Found
   iVar9 = param_3;
   if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
     do {
-      psVar1 = (short *)((&DAT_0074c830)[bVar2 & 1] + local_14 * 8);
+      psVar1 = (short *)((int)g_edit_dest_round_buffers[bVar2 & 1] + local_14 * 8);
       iVar7 = (int)*(short *)(iVar5 + 0x1a) + (int)*psVar1;
       iVar8 = (int)psVar1[1] + (int)*(short *)(iVar5 + 0x1c);
       if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
@@ -88,4 +88,3 @@ switchD_0048ee93_default:
   }
   return 0;
 }
-

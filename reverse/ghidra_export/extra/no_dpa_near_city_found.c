@@ -17,7 +17,7 @@ NoDpa_Near_City_Found(undefined4 param_1,int param_2,uint param_3,int param_4,in
   int iVar4;
   int iVar5;
   int iVar6;
-  
+
   Trace_Function(s_NoDpa_Near_City_Found_0057dd0c,param_1);
   if (99 < param_4) {
     param_4 = 99;
@@ -43,7 +43,7 @@ NoDpa_Near_City_Found(undefined4 param_1,int param_2,uint param_3,int param_4,in
   param_4 = 1;
   if (0 < *(int *)(&DAT_0074a360 + iVar3 * 4)) {
     iVar4 = param_2;
-    psVar1 = (short *)(&DAT_0074c830)[param_3 & 1];
+    psVar1 = g_edit_dest_round_buffers[param_3 & 1];
     do {
       iVar5 = psVar1[4] + param_2;
       iVar2 = (int)psVar1[5] + param_3;
@@ -87,4 +87,3 @@ switchD_0048fbc2_default:
   }
   return 0;
 }
-

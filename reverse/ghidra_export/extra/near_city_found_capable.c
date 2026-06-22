@@ -15,12 +15,12 @@ undefined4 Near_City_Found_CapAble(int param_1,int *param_2,int *param_3)
   int iVar3;
   int iVar4;
   int local_c;
-  
+
   Trace_Function(s_Near_City_Found_CapAble_0057dc50);
   local_c = 1;
   if (0 < *(int *)(&DAT_0074a360 + param_1 * 4)) {
     iVar2 = (int)*(short *)(_DAT_00748ff0 + 0x1a);
-    psVar1 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar1 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
       iVar4 = (int)psVar1[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
       iVar3 = (int)psVar1[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
@@ -65,4 +65,3 @@ switchD_0048ed0b_default:
   }
   return 0;
 }
-

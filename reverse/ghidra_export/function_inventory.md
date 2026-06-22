@@ -325,7 +325,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00477ff0` | `Load_EMG_Base` | 1484 | 15 |
 | `0x004785c0` | `FUN_004785c0` | 672 | 5 |
 | `0x00478860` | `FUN_00478860` | 86 | 2 |
-| `0x004788c0` | `FUN_004788c0` | 277 | 4 |
+| `0x004788c0` | `Free_EMG_Base` | 277 | 4 |
 | `0x004789e0` | `Load_EMG_Resource` | 99 | 4 |
 | `0x00478a50` | `Safe_LoadIMG` | 99 | 4 |
 | `0x00478ac0` | `Load_XMG_Resource` | 99 | 4 |
@@ -333,7 +333,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00478b60` | `Safe_FreeIMG` | 40 | 2 |
 | `0x00478b90` | `Free_XMG_Resource` | 40 | 2 |
 | `0x00478bc0` | `FUN_00478bc0` | 504 | 8 |
-| `0x00478dc0` | `FUN_00478dc0` | 131 | 3 |
+| `0x00478dc0` | `CloseIndexIMG` | 131 | 3 |
 | `0x00478e50` | `FUN_00478e50` | 92 | 2 |
 | `0x00478eb0` | `MainMenu_Init` | 322 | 11 |
 | `0x00479000` | `MainMenu_Quit` | 59 | 4 |
@@ -560,7 +560,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004c2da0` | `Apply_Resolution_Mode` | 341 | 5 |
 | `0x004c2f00` | `FUN_004c2f00` | 1523 | 1 |
 | `0x004c3510` | `FUN_004c3510` | 210 | 2 |
-| `0x004c35f0` | `FUN_004c35f0` | 1407 | 1 |
+| `0x004c35f0` | `Set_Color` | 1407 | 1 |
 | `0x004c3b70` | `FUN_004c3b70` | 1374 | 7 |
 | `0x004c44d0` | `FUN_004c44d0` | 2674 | 2 |
 | `0x004c4fc0` | `FUN_004c4fc0` | 132 | 2 |
@@ -573,8 +573,8 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004c56f0` | `FUN_004c56f0` | 103 | 1 |
 | `0x004c5760` | `FUN_004c5760` | 1177 | 19 |
 | `0x004c5c00` | `FUN_004c5c00` | 1176 | 21 |
-| `0x004c60a0` | `FUN_004c60a0` | 994 | 20 |
-| `0x004c6490` | `FUN_004c6490` | 367 | 8 |
+| `0x004c60a0` | `ShutDown_Game` | 994 | 20 |
+| `0x004c6490` | `Clear_All_Memory` | 367 | 8 |
 | `0x004c6800` | `FUN_004c6800` | 383 | 6 |
 | `0x004c6e60` | `FUN_004c6e60` | 21 | 0 |
 | `0x004c6e80` | `FUN_004c6e80` | 16 | 0 |
@@ -703,7 +703,7 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x004f80e0` | `FUN_004f80e0` | 85 | 0 |
 | `0x004f8140` | `FUN_004f8140` | 129 | 0 |
 | `0x004f81e0` | `Init_Surface_Pixel_State` | 1137 | 3 |
-| `0x004f8660` | `FUN_004f8660` | 161 | 1 |
+| `0x004f8660` | `Free_Pixel_Format_Tables` | 161 | 1 |
 | `0x004f8710` | `FUN_004f8710` | 457 | 7 |
 | `0x004f88e0` | `FUN_004f88e0` | 225 | 6 |
 | `0x004f89d0` | `FUN_004f89d0` | 77 | 1 |

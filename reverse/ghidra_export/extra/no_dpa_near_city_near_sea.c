@@ -23,7 +23,7 @@ undefined4 NoDpa_Near_City_Near_Sea(int param_1,int param_2,int *param_3,uint *p
   int local_1c;
   int local_18;
   int local_10;
-  
+
   Trace_Function(s_NoDpa_Near_City_Near_Sea_0057dcd4);
   switch(g_map_size_mode) {
   case 0:
@@ -46,7 +46,7 @@ undefined4 NoDpa_Near_City_Near_Sea(int param_1,int param_2,int *param_3,uint *p
   if (0 < *(int *)(&DAT_0074a360 + param_2 * 4)) {
     iVar6 = param_1;
     iVar10 = param_1;
-    psVar3 = (short *)(&DAT_0074c830)[(int)*(short *)(param_1 + 0x1c) & 1];
+    psVar3 = g_edit_dest_round_buffers[(int)*(short *)(param_1 + 0x1c) & 1];
     do {
       iVar8 = (int)psVar3[4] + (int)*(short *)(param_1 + 0x1a);
       uVar9 = (int)psVar3[5] + (int)*(short *)(param_1 + 0x1c);
@@ -135,4 +135,3 @@ switchD_0048f86f_default:
   }
   return 0;
 }
-

@@ -15,11 +15,11 @@ int Near_City_UserKnow_Found(int param_1,uint param_2,int param_3)
   uint uVar3;
   int iVar4;
   short *psVar5;
-  
+
   Trace_Function(s_Near_City_UserKnow_Found_0057dcf0);
   iVar4 = 0;
   if (-1 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
-    psVar5 = (short *)(&DAT_0074c830)[param_2 & 1];
+    psVar5 = g_edit_dest_round_buffers[param_2 & 1];
     uVar3 = param_2;
     do {
       iVar2 = *psVar5 + param_1;
@@ -58,4 +58,3 @@ int Near_City_UserKnow_Found(int param_1,uint param_2,int param_3)
   }
   return 0;
 }
-

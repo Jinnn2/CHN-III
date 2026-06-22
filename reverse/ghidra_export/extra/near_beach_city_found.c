@@ -22,14 +22,14 @@ undefined4 Near_Beach_City_Found(int param_1,int *param_2,uint *param_3)
   int iVar10;
   uint uVar11;
   int local_14;
-  
+
   Trace_Function(s_Near_Beach_City_Found_0057db98);
   local_14 = 1;
   iVar1 = param_1 * 4;
   if (0 < *(int *)(&DAT_0074a360 + iVar1)) {
     iVar7 = param_1;
     iVar8 = param_1;
-    psVar4 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar4 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
       iVar9 = (int)psVar4[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
       uVar11 = (int)psVar4[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
@@ -119,4 +119,3 @@ switchD_0048dddc_default:
   }
   return 0;
 }
-

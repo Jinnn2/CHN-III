@@ -20,7 +20,7 @@ void Do_Map(void)
   uint local_c;
   int local_8;
   char *local_4;
-  
+
   Trace_Function(s_Do_Map_0057076c);
   local_c = 0;
   pcVar6 = local_4;
@@ -51,7 +51,7 @@ void Do_Map(void)
               if ((*pcVar7 < '\v') || (*(short *)(pcVar7 + 0x10) < 1)) {
                 local_4 = (char *)0x1;
                 if (0 < _DAT_0074a364) {
-                  psVar4 = (short *)((&DAT_0074c830)[local_c & 1] + 8);
+                  psVar4 = (short *)((int)g_edit_dest_round_buffers[local_c & 1] + 8);
                   do {
                     iVar3 = *psVar4 + local_8;
                     iVar1 = (int)psVar4[1] + local_c;
@@ -116,4 +116,3 @@ LAB_0045204d:
   }
   return;
 }
-

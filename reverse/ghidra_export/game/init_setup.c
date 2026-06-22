@@ -58,7 +58,7 @@ void Init_SetUp(void)
     FUN_004f0ec0();
   }
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_0057467c);
-  FUN_004c35f0();
+  Set_Color();
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00574670);
   Safe_LoadIMG(s_EDIT_IMG_00574664,&DAT_007585fc);
   Load_EMG_Resource(s_METAL_EMG_00574658,&DAT_0075858c);

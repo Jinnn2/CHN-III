@@ -870,21 +870,21 @@ switchD_00431b84_default:
     iVar10 = *(int *)((&DAT_007584d0)[DAT_007584d8] + local_bc * 4);
     if (DAT_005aa27c != 0) {
       if ('\n' < *pcVar12) {
-        *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) = 10;
+        *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) = 10;
         return;
       }
       if ('\0' < pcVar12[0x25]) {
-        *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) =
+        *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) =
              *(undefined2 *)(&DAT_0074c0ac + pcVar12[0x25]);
         return;
       }
-      *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) = 0;
+      *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) = 0;
       return;
     }
     if (*(int *)(pcVar12 + 0x88) == 0) {
       if (pcVar12[0x50] < '\x01') {
         if (DAT_005aa270 != 0) {
-          *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) =
+          *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) =
                *(undefined2 *)((&DAT_007584c4)[DAT_007584d8] + iVar10 * 4);
           return;
         }
@@ -901,7 +901,7 @@ switchD_00431b84_default:
         case 3:
           local_c4 = (char *)((param_2 * 0x27 + param_1) * 0x100 + _g_land_tiles);
         }
-        *(ushort *)(DAT_007584c0 + 4 + iVar10 * 2) = (*local_c4 < '\v') - 1 & 10;
+        *(ushort *)((int)g_minimap_buffer + iVar10 * 2 + 4) = (*local_c4 < '\v') - 1 & 10;
       }
       else if (DAT_005aa278 != 0) {
         iVar13 = 0;
@@ -916,12 +916,13 @@ switchD_00431b84_default:
         cVar5 = *(char *)(*(int *)(pcVar12 + iVar13 * 4 + 0x28) + 1);
         if (-1 < cVar5) {
           if (*(char *)(iVar10 + DAT_007584cc) == -1) {
-            *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) = *(undefined2 *)(&DAT_0074c0ac + cVar5);
+            *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) =
+                 *(undefined2 *)(&DAT_0074c0ac + cVar5);
             *(char *)(iVar10 + DAT_007584cc) = cVar5;
             return;
           }
           if (*(char *)(iVar10 + DAT_007584cc) != cVar5) {
-            *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) = DAT_0074c104;
+            *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) = DAT_0074c104;
             *(undefined1 *)(iVar10 + DAT_007584cc) = 0x16;
             return;
           }
@@ -931,11 +932,12 @@ switchD_00431b84_default:
     else if (DAT_005aa274 != 0) {
       iVar13 = (int)*(char *)(*(int *)(pcVar12 + 0x88) + 1);
       if (-1 < iVar13) {
-        *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) = *(undefined2 *)(&DAT_0074c0ac + iVar13);
+        *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) =
+             *(undefined2 *)(&DAT_0074c0ac + iVar13);
         return;
       }
-      if (*(short *)(DAT_007584c0 + 4 + iVar10 * 2) == 0) {
-        *(undefined2 *)(DAT_007584c0 + 4 + iVar10 * 2) =
+      if (*(short *)((int)g_minimap_buffer + iVar10 * 2 + 4) == 0) {
+        *(undefined2 *)((int)g_minimap_buffer + iVar10 * 2 + 4) =
              *(undefined2 *)((&DAT_007584c4)[DAT_007584d8] + iVar10 * 4);
         return;
       }

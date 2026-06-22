@@ -98,7 +98,7 @@ undefined4 Edit_Finish(void)
     piVar10 = &DAT_0074d660;
     do {
       if (0 < *piVar10) {
-        FUN_00478dc0(*piVar10);
+        CloseIndexIMG(*piVar10);
       }
       piVar10 = piVar10 + 0x50;
     } while ((int)piVar10 < 0x755220);

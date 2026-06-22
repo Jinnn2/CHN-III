@@ -29,7 +29,7 @@ void Decode_LongWall(int param_1,uint param_2)
   int local_168;
   int local_164;
   int local_144 [81];
-  
+
   Trace_Function(s_Decode_LongWall_005188c0);
   if (((-1 < (int)param_2) && ((int)param_2 < g_map_height_tiles)) &&
      (((-1 < param_1 && (param_1 < g_map_width_tiles)) ||
@@ -293,7 +293,7 @@ LAB_0043377f:
           return;
         }
         local_164 = _DAT_0074a370 + 1;
-        psVar15 = (short *)(&DAT_0074c830)[uVar14];
+        psVar15 = g_edit_dest_round_buffers[uVar14];
         do {
           iVar12 = *psVar15 + param_1;
           iVar13 = (int)psVar15[1] + param_2;
@@ -338,4 +338,3 @@ switchD_00433712_default:
   }
   return;
 }
-

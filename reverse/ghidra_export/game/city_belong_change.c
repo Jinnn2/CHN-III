@@ -31,7 +31,7 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
   char *pcVar18;
   char *pcVar19;
   int local_4;
-  
+
   pCVar4 = city;
   Trace_Function(s_City_Belong_Change_00514a48);
   iVar14 = (int)(char)city->owner_country_id;
@@ -146,15 +146,15 @@ void City_Belong_Change(City_0x1b8_plus *city,int new_owner_country_id)
   bVar13 = (byte)new_owner_country_id;
   *(byte *)(iVar5 + 0x25) = bVar13;
   *(byte *)(iVar5 + 0x27) = bVar13;
-  psVar2 = (short *)(*(int *)(&DAT_00748f38 + iVar14 * 4) + 2 + *(short *)(iVar5 + 0x10) * 4);
+  psVar2 = (short *)((int)g_land_record_buffers[iVar14] + *(short *)(iVar5 + 0x10) * 4 + 2);
   *psVar2 = *psVar2 + -1;
-  if (*(short *)(*(int *)(&DAT_00748f38 + new_owner_country_id * 4) + 2 +
-                *(short *)(iVar5 + 0x10) * 4) == 0) {
-    *(undefined1 *)
-     (*(int *)(&DAT_00748f38 + new_owner_country_id * 4) + *(short *)(iVar5 + 0x10) * 4) = 1;
+  if (*(short *)((int)g_land_record_buffers[new_owner_country_id] + *(short *)(iVar5 + 0x10) * 4 + 2
+                ) == 0) {
+    *(undefined1 *)((int)g_land_record_buffers[new_owner_country_id] + *(short *)(iVar5 + 0x10) * 4)
+         = 1;
   }
-  psVar2 = (short *)(*(int *)(&DAT_00748f38 + new_owner_country_id * 4) + 2 +
-                    *(short *)(iVar5 + 0x10) * 4);
+  psVar2 = (short *)((int)g_land_record_buffers[new_owner_country_id] +
+                    *(short *)(iVar5 + 0x10) * 4 + 2);
   *psVar2 = *psVar2 + 1;
   pCVar10 = (City_0x1b8_plus *)(int)*(char *)(iVar5 + 0x50);
   if (0 < (int)pCVar10) {
@@ -333,4 +333,3 @@ LAB_0041b084:
   }
   return;
 }
-

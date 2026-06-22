@@ -16,7 +16,8 @@ void UserSet_City_Resource(uint param_1)
   int iVar4;
   int iVar5;
   int iVar6;
-  char *pcVar7;
+  int iVar7;
+  char *pcVar8;
   int local_1c;
   int local_18;
   int local_14;
@@ -24,7 +25,7 @@ void UserSet_City_Resource(uint param_1)
   int local_c;
   int local_8;
   int local_4;
-  
+
   iVar2 = param_1;
   Trace_Function(s_UserSet_City_Resource_00515160);
   param_1 = 0;
@@ -37,14 +38,61 @@ void UserSet_City_Resource(uint param_1)
   }
   *(undefined1 *)(iVar2 + 0x15f) = (undefined1)param_1;
   if ((*(byte *)(iVar2 + 0x15e) != 0) && (1 < *(byte *)(iVar2 + 0x15e))) {
-    pcVar7 = (char *)(iVar2 + 0x132);
+    pcVar8 = (char *)(iVar2 + 0x132);
     uVar3 = param_1;
     do {
-      iVar6 = (int)pcVar7[-0x2d] + (uint)*(ushort *)(iVar2 + 0x16);
-      iVar4 = (uint)*(ushort *)(iVar2 + 0x18) + (int)*pcVar7;
+      iVar7 = (int)pcVar8[-0x2d] + (uint)*(ushort *)(iVar2 + 0x16);
+      iVar5 = (uint)*(ushort *)(iVar2 + 0x18) + (int)*pcVar8;
+      if ((-1 < iVar5) && (iVar5 < g_map_height_tiles)) {
+        if ((iVar7 < 0) || (g_map_width_tiles <= iVar7)) {
+          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041dc22;
+          if (g_map_width_tiles <= iVar7) {
+            iVar7 = iVar7 - g_map_width_tiles;
+          }
+        }
+        if (iVar7 < 0) {
+          iVar7 = iVar7 + g_map_width_tiles;
+        }
+        switch(g_map_size_mode) {
+        case 0:
+          iVar7 = iVar7 + iVar5 * 0x138;
+          break;
+        case 1:
+          iVar7 = iVar7 + iVar5 * 0x9c;
+          break;
+        case 2:
+          iVar7 = iVar7 + iVar5 * 0x4e;
+          break;
+        case 3:
+          iVar7 = iVar5 * 0x27 + iVar7;
+          break;
+        default:
+          goto switchD_0041dbcd_default;
+        }
+        uVar3 = iVar7 * 0x100 + _g_land_tiles;
+switchD_0041dbcd_default:
+        if (*(int *)(uVar3 + 0x8c) == iVar2) {
+          *(undefined4 *)(uVar3 + 0x8c) = 0;
+        }
+      }
+LAB_0041dc22:
+      pcVar8 = pcVar8 + 1;
+    } while ((int)(pcVar8 + (-0x131 - iVar2)) < (int)(uint)*(byte *)(iVar2 + 0x15e));
+  }
+  iVar7 = 0;
+  local_8 = 0;
+  local_c = 0;
+  local_18 = 1;
+  uVar3 = param_1;
+  if (1 < *(byte *)(iVar2 + 0x15e)) {
+    do {
+      if ((int)(uint)*(byte *)(iVar2 + 0x15f) <= local_18) break;
+      iVar6 = (int)*(char *)(local_18 + 0x104 + iVar2) + (uint)*(ushort *)(iVar2 + 0x16);
+      iVar4 = (int)*(char *)(local_18 + 0x131 + iVar2) + (uint)*(ushort *)(iVar2 + 0x18);
+      iVar5 = iVar7;
       if ((-1 < iVar4) && (iVar4 < g_map_height_tiles)) {
         if ((iVar6 < 0) || (g_map_width_tiles <= iVar6)) {
-          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041dc22;
+          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041de3a;
           if (g_map_width_tiles <= iVar6) {
             iVar6 = iVar6 - g_map_width_tiles;
           }
@@ -54,62 +102,16 @@ void UserSet_City_Resource(uint param_1)
         }
         switch(g_map_size_mode) {
         case 0:
-          iVar6 = iVar6 + iVar4 * 0x138;
+          uVar3 = iVar6 + iVar4 * 0x138;
           break;
         case 1:
-          iVar6 = iVar6 + iVar4 * 0x9c;
+          uVar3 = iVar6 + iVar4 * 0x9c;
           break;
         case 2:
-          iVar6 = iVar6 + iVar4 * 0x4e;
+          uVar3 = iVar6 + iVar4 * 0x4e;
           break;
         case 3:
-          iVar6 = iVar4 * 0x27 + iVar6;
-          break;
-        default:
-          goto switchD_0041dbcd_default;
-        }
-        uVar3 = iVar6 * 0x100 + _g_land_tiles;
-switchD_0041dbcd_default:
-        if (*(int *)(uVar3 + 0x8c) == iVar2) {
-          *(undefined4 *)(uVar3 + 0x8c) = 0;
-        }
-      }
-LAB_0041dc22:
-      pcVar7 = pcVar7 + 1;
-    } while ((int)(pcVar7 + (-0x131 - iVar2)) < (int)(uint)*(byte *)(iVar2 + 0x15e));
-  }
-  iVar6 = 0;
-  local_8 = 0;
-  local_c = 0;
-  local_18 = 1;
-  uVar3 = param_1;
-  if (1 < *(byte *)(iVar2 + 0x15e)) {
-    do {
-      if ((int)(uint)*(byte *)(iVar2 + 0x15f) <= local_18) break;
-      iVar5 = (int)*(char *)(local_18 + 0x104 + iVar2) + (uint)*(ushort *)(iVar2 + 0x16);
-      iVar4 = (int)*(char *)(local_18 + 0x131 + iVar2) + (uint)*(ushort *)(iVar2 + 0x18);
-      if ((-1 < iVar4) && (iVar4 < g_map_height_tiles)) {
-        if ((iVar5 < 0) || (g_map_width_tiles <= iVar5)) {
-          if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041de3a;
-          if (g_map_width_tiles <= iVar5) {
-            iVar5 = iVar5 - g_map_width_tiles;
-          }
-        }
-        if (iVar5 < 0) {
-          iVar5 = iVar5 + g_map_width_tiles;
-        }
-        switch(g_map_size_mode) {
-        case 0:
-          uVar3 = iVar5 + iVar4 * 0x138;
-          break;
-        case 1:
-          uVar3 = iVar5 + iVar4 * 0x9c;
-          break;
-        case 2:
-          uVar3 = iVar5 + iVar4 * 0x4e;
-          break;
-        case 3:
-          uVar3 = iVar4 * 0x27 + iVar5;
+          uVar3 = iVar4 * 0x27 + iVar6;
         }
         iVar4 = uVar3 * 0x100 + _g_land_tiles;
         if (((('\0' < *(char *)(iVar4 + 0xb5 + local_4)) && (*(char *)(iVar4 + 0x25) == local_4)) &&
@@ -126,12 +128,13 @@ LAB_0041dc22:
           *(char *)(iVar4 + 0xab) = (char)local_14;
           *(char *)(iVar4 + 0xac) = (char)local_10;
           *(int *)(iVar4 + 0x8c) = iVar2;
-          iVar6 = iVar6 + 0x18;
-          *(int *)(DAT_0074c84c + -0x10 + iVar6) = local_1c + local_14 * 3 + local_10 * 2;
-          *(int *)(DAT_0074c84c + -0xc + iVar6) = local_14;
-          *(int *)(DAT_0074c84c + -8 + iVar6) = local_10;
+          iVar5 = iVar7 + 0x18;
+          *(int *)((int)g_resource_score_buffer + iVar7 + 8) =
+               local_1c + local_14 * 3 + local_10 * 2;
+          *(int *)((int)g_resource_score_buffer + iVar7 + 0xc) = local_14;
+          *(int *)((int)g_resource_score_buffer + iVar7 + 0x10) = local_10;
           local_c = local_c + 1;
-          *(int *)(DAT_0074c84c + -4 + iVar6) = local_1c;
+          *(int *)((int)g_resource_score_buffer + iVar7 + 0x14) = local_1c;
           cVar1 = *(char *)(iVar4 + 0x1a);
           if ((cVar1 < '\0') || ('\x03' < cVar1)) {
             *(char *)(iVar2 + 0x171) = *(char *)(iVar2 + 0x171) + '\x01';
@@ -145,10 +148,10 @@ LAB_0041dc22:
       }
 LAB_0041de3a:
       local_18 = local_18 + 1;
+      iVar7 = iVar5;
     } while (local_18 < (int)(uint)*(byte *)(iVar2 + 0x15e));
   }
   *(char *)(iVar2 + 0x15e) = (char)local_c + '\x01';
   *(char *)(iVar2 + 0x160) = *(char *)(iVar2 + 0x15f) - ((char)local_c + '\x01');
   return;
 }
-

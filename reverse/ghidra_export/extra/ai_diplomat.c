@@ -29,7 +29,7 @@ void AI_Diplomat(void)
   int local_14;
   int local_10;
   int local_4;
-  
+
   Trace_Function(s_AI_Diplomat_0051209c);
   if (DAT_00706838 != '\x01') goto LAB_00405b00;
   local_18 = (int *)0x0;
@@ -44,7 +44,7 @@ LAB_00405863:
   else {
     local_14 = _DAT_0074a374;
     iVar12 = local_4;
-    psVar3 = (short *)(&DAT_0074c830)[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
+    psVar3 = g_edit_dest_round_buffers[(int)*(short *)(_DAT_00748ff0 + 0x1c) & 1];
     do {
       iVar11 = 0;
       local_24 = (int)psVar3[4] + (int)*(short *)(_DAT_00748ff0 + 0x1a);
@@ -239,4 +239,3 @@ LAB_00405b00:
   }
   return;
 }
-

@@ -32,7 +32,7 @@ int Cal_City_Resource(int param_1)
   undefined4 local_c;
   int *local_8;
   int local_4;
-  
+
   Trace_Function(s_Cal_City_Resource_0051518c);
   iVar8 = *(char *)(param_1 + 1) * 0xe68;
   puVar1 = &g_country_states + iVar8;
@@ -174,7 +174,7 @@ LAB_0041e2d1:
     }
   }
   if (*(char *)(param_1 + 1) != '\0') {
-    local_8 = DAT_0074c84c;
+    local_8 = g_resource_score_buffer;
     local_4 = 0;
     if (0 < (int)(*(byte *)(param_1 + 0x15e) - 1)) {
       do {
@@ -373,4 +373,3 @@ LAB_0041e9e5:
   *(short *)(param_1 + 0xc6) = (short)((ulonglong)lVar3 >> 0x20) - (short)(lVar3 >> 0x3f);
   return (int)lVar3;
 }
-

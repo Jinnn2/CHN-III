@@ -16,7 +16,7 @@ undefined4 Near_City_Found_XY(int param_1,uint param_2,int param_3,int *param_4,
   int iVar4;
   int iVar5;
   int local_4;
-  
+
   Trace_Function(s_Near_City_Found_XY_0057dc20);
   iVar5 = param_1;
   switch(g_map_size_mode) {
@@ -35,7 +35,7 @@ undefined4 Near_City_Found_XY(int param_1,uint param_2,int param_3,int *param_4,
   local_4 = 1;
   if (0 < *(int *)(&DAT_0074a360 + param_3 * 4)) {
     iVar2 = param_1;
-    psVar1 = (short *)(&DAT_0074c830)[param_2 & 1];
+    psVar1 = g_edit_dest_round_buffers[param_2 & 1];
     do {
       iVar4 = psVar1[4] + param_1;
       iVar3 = (int)psVar1[5] + param_2;
@@ -81,4 +81,3 @@ switchD_0048e9f0_default:
   }
   return 0;
 }
-
