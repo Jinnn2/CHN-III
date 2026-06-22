@@ -23,7 +23,7 @@ void Load_UI_String_EMG_XMG(void)
   char *pcVar11;
   char *pcVar12;
   char *local_4;
-  
+
   Trace_Function(s_Game_String_Init_005741dc);
   if (g_loaded_tmg_background != (void *)0x0) {
     FUN_0047de70(g_loaded_tmg_background,&DAT_00517890,1);
@@ -231,4 +231,3 @@ void Load_UI_String_EMG_XMG(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

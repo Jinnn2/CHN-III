@@ -50,7 +50,7 @@ void Battle_Arrange_Position(int param_1)
   undefined2 local_2d;
   undefined1 local_2b;
   int aiStack_28 [10];
-  
+
   Trace_Function(s_Battle_Arrange_Position_00514a30);
   local_54 = DAT_00514a28;
   local_50 = DAT_00514a2c;
@@ -338,4 +338,3 @@ LAB_0041a597:
     }
   } while( true );
 }
-

@@ -22,7 +22,7 @@ void Do_Battle_Stone(void)
   char cVar11;
   int iVar12;
   int local_8;
-  
+
   Trace_Function(s_Do_Battle_Stone_005149b8);
   iVar2 = DAT_005dfea0;
   do {
@@ -171,4 +171,3 @@ LAB_00419ea4:
     FUN_00472ba0(iVar5);
   } while( true );
 }
-

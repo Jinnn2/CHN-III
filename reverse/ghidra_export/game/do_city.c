@@ -30,7 +30,7 @@ void Do_City(void)
   int local_1a4;
   undefined1 local_1a0 [204];
   undefined1 local_d4 [208];
-  
+
   Trace_Function();
   DAT_007068c0 = g_frame_tick;
   g_current_city = g_city_turn_list_head;
@@ -561,4 +561,3 @@ LAB_00451424:
   FUN_00451980();
   return;
 }
-

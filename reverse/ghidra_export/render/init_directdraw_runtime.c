@@ -27,7 +27,7 @@ undefined4 Init_DirectDraw_Runtime(void)
   int local_88 [6];
   undefined4 local_70;
   undefined4 uStack_20;
-  
+
   local_88[0] = 0;
   local_88[3] = 0;
   local_88[1] = 0;
@@ -148,4 +148,3 @@ undefined4 Init_DirectDraw_Runtime(void)
   FreeLibrary(pHVar3);
   return 0x800;
 }
-

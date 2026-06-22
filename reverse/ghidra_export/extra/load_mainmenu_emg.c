@@ -27,4 +27,3 @@ void Load_MAINMENU_EMG(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

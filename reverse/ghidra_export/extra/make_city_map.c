@@ -37,7 +37,7 @@ void Make_City_Map(int param_1)
   byte *local_60 [8];
   int aiStack_40 [8];
   int aiStack_20 [8];
-  
+
   Trace_Function(s_Make_City_Map_0057643c);
   pbVar19 = *(byte **)(param_1 + 0x1ac);
   switch(g_map_size_mode) {
@@ -297,4 +297,3 @@ LAB_0047bd96:
     }
   } while( true );
 }
-

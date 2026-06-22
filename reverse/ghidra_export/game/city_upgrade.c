@@ -20,7 +20,7 @@ void City_Upgrade(int param_1)
   undefined4 local_10c;
   undefined4 local_108;
   int local_104 [65];
-  
+
   Trace_Function(s_City_Upgrade_00515d30);
   if (DAT_0074a2b1 != '\0') {
     iVar5 = *(int *)(param_1 + 0x1ac);
@@ -113,4 +113,3 @@ LAB_00429019:
     }
   } while( true );
 }
-

@@ -25,7 +25,7 @@ void Reflash_City_Road(int param_1,int param_2,undefined1 param_3)
   char *local_60 [8];
   int aiStack_40 [8];
   int aiStack_20 [8];
-  
+
   Trace_Function(s_Reflash_City_Road_00576428);
   uVar5 = *(ushort *)(param_1 + 0x18);
   *(undefined1 *)(param_1 + 0x23) = param_3;
@@ -175,4 +175,3 @@ switchD_0047b61e_default:
     }
   } while( true );
 }
-

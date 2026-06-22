@@ -42,9 +42,9 @@ void __fastcall Order_Diplomat_Sel_Buy(int param_1)
   else {
     _DAT_00748ff0->field_0x158 = 0x6e;
     if ((_DAT_00748e34 != g_human_country_index) || (g_auto_turn_or_ai_control_flag != 0)) {
-      iVar1 = FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                           (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y
-                          );
+      iVar1 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                          (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y)
+      ;
       Add_OrderQueue_Army(_DAT_00748ff0,0x35,0x1f,-1,iVar1,(ArmyUnit_0x164_plus *)0x0,
                           (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y)
       ;

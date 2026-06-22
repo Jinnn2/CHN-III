@@ -10,7 +10,7 @@ void __cdecl City_Safe_Change(City_0x1b8_plus *city)
 {
   int iVar1;
   int in_stack_00000008;
-  
+
   Trace_Function(s_City_Safe_Change_00515338);
   iVar1 = in_stack_00000008 + city->safety_score;
   if (((0x3c < iVar1) && ((char)city->building_status[2] < '\x02')) &&
@@ -38,4 +38,3 @@ void __cdecl City_Safe_Change(City_0x1b8_plus *city)
   city->safety_score = iVar1;
   return;
 }
-

@@ -13,7 +13,7 @@ undefined4 Battle_Peace_Place(int param_1,int *param_2,int *param_3,char param_4
   int iVar3;
   int iVar4;
   int iVar5;
-  
+
   Trace_Function(s_Battle_Peace_Place_00513a90);
   iVar5 = 0;
   iVar2 = 1;
@@ -63,4 +63,3 @@ undefined4 Battle_Peace_Place(int param_1,int *param_2,int *param_3,char param_4
   }
   return 0;
 }
-

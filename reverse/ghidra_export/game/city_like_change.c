@@ -11,7 +11,7 @@ void __cdecl City_Like_Change(City_0x1b8_plus *city)
   int iVar1;
   int in_stack_00000008;
   int in_stack_0000000c;
-  
+
   Trace_Function(s_City_Like_Change_00515394);
   iVar1 = (char)city->building_status[in_stack_00000008 + -0x30] + in_stack_0000000c;
   if (iVar1 < 0) {
@@ -24,4 +24,3 @@ void __cdecl City_Like_Change(City_0x1b8_plus *city)
   city->building_status[in_stack_00000008 + -0x30] = (byte)iVar1;
   return;
 }
-

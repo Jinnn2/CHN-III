@@ -15,4 +15,3 @@ void Free_EMG_Resource(int *param_1)
   }
   return;
 }
-

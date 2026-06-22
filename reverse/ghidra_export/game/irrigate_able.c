@@ -15,7 +15,7 @@ int Irrigate_Able(LandTile_0x100 *tile,int tile_x,int tile_y,int allow_dry_neigh
   LandTile_0x100 *pLVar2;
   int iVar3;
   int iVar4;
-  
+
   Trace_Function(s_Irrigate_Able_00514eb4);
   pLVar2 = tile;
   if ((((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\0')) &&
@@ -68,4 +68,3 @@ switchD_0041b79a_default:
   }
   return (uint)pLVar2 & 0xffffff00;
 }
-

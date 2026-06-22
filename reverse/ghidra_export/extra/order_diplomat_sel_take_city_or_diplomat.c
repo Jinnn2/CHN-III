@@ -24,8 +24,8 @@ void Order_Diplomat_Sel_Take_City_or_Diplomat(void)
   }
   else {
     direction_or_mode =
-         FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                      (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y);
+         Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                     (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y);
     Add_OrderQueue_Army(_DAT_00748ff0,0x32,0x20,-1,direction_or_mode,(ArmyUnit_0x164_plus *)0x0,
                         (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y);
   }

@@ -30,7 +30,7 @@ void AI_ActShip(void)
   int local_c;
   int local_8;
   uint local_4;
-  
+
   Trace_Function(s_AI_ActShip_00512060);
   if (DAT_00706838 != '\x01') goto LAB_00401c7e;
   bVar3 = false;
@@ -51,7 +51,7 @@ void AI_ActShip(void)
     if (cVar4 != '\0') {
       _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_8;
       _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_c;
-      FUN_004d2cc0(_DAT_00748ff0);
+      TestRoad(_DAT_00748ff0);
       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xc,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                             (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -140,7 +140,7 @@ switchD_004011db_default:
 LAB_004015de:
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)_DAT_00734c58;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             iVar8 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
                                  (int)_DAT_00748ff0->target_tile_x_or_anim_x,
@@ -148,9 +148,9 @@ LAB_004015de:
             if ((iVar8 == 1) && (iVar10 == 4)) {
               _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->target_tile_x_or_anim_x;
               _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->target_tile_y_or_anim_y;
-              iVar10 = FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                    (int)_DAT_00748ff0->render_or_anim_x,
-                                    (int)_DAT_00748ff0->render_or_anim_y);
+              iVar10 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                                   (int)_DAT_00748ff0->render_or_anim_x,
+                                   (int)_DAT_00748ff0->render_or_anim_y);
               Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3d,-1,iVar10,(ArmyUnit_0x164_plus *)0x0,-1,-1
                                  );
               return;
@@ -233,15 +233,15 @@ joined_r0x0040145f:
         if ((iVar8 == 1) && (iVar10 != 1)) {
           _DAT_00748ff0->render_or_anim_x = DAT_00734c58;
           _DAT_00748ff0->render_or_anim_y = (short)DAT_00734c5c;
-          iVar10 = FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                (int)_DAT_00748ff0->render_or_anim_x,
-                                (int)_DAT_00748ff0->render_or_anim_y);
+          iVar10 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                               (int)_DAT_00748ff0->render_or_anim_x,
+                               (int)_DAT_00748ff0->render_or_anim_y);
           Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3e,-1,iVar10,(ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
         }
         _DAT_00748ff0->target_tile_x_or_anim_x = DAT_00734c58;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
 LAB_00401537:
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,9,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -413,7 +413,7 @@ switchD_0040171f_default:
         }
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar10;
         _DAT_00748ff0->target_tile_y_or_anim_y = sVar1;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,10,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                               (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -458,7 +458,7 @@ switchD_0040171f_default:
           (*(char *)(DAT_0075597c + 0x12) == *(char *)(uVar5 + 0x12))))) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar8;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar10;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                               (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -477,4 +477,3 @@ LAB_00401c7e:
   }
   return;
 }
-

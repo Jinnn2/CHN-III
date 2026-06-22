@@ -11,8 +11,7 @@ int Get_Game_Tick(void)
 
 {
   DWORD DVar1;
-  
+
   DVar1 = timeGetTime();
   return DVar1 - _DAT_0075cef8;
 }
-

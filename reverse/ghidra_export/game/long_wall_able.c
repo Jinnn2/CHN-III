@@ -11,7 +11,7 @@ int LongWall_Able(LandTile_0x100 *tile)
 
 {
   uint3 uVar1;
-  
+
   Trace_Function(s_LongWall_Able_00514eec);
   uVar1 = (uint3)((uint)tile >> 8);
   if ((((tile->battle_stat_bonus_mode == 0xff) && (tile->linked_record == (void *)0x0)) &&
@@ -20,4 +20,3 @@ int LongWall_Able(LandTile_0x100 *tile)
   }
   return (uint)uVar1 << 8;
 }
-

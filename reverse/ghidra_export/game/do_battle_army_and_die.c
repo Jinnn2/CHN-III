@@ -36,7 +36,7 @@ void Do_Battle_Army_And_Battle_Die(BattleUnit_0x64 *battle_unit)
   int local_48;
   int *local_44;
   int local_40 [16];
-  
+
   pBVar1 = battle_unit;
   Trace_Function(s_Do_Battle_Army_00514940);
   iVar18 = battle_unit->army_type_id;
@@ -1632,4 +1632,3 @@ LAB_00417ecf:
   }
   return;
 }
-

@@ -13,7 +13,7 @@ undefined4 Format_Text(undefined1 *param_1,undefined4 param_2)
   int local_20;
   undefined1 *local_1c;
   undefined4 local_18;
-  
+
   local_1c = param_1;
   local_24 = param_1;
   local_18 = 0x42;
@@ -28,4 +28,3 @@ undefined4 Format_Text(undefined1 *param_1,undefined4 param_2)
   }
   return uVar1;
 }
-

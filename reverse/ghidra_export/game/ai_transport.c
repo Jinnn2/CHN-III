@@ -27,7 +27,7 @@ void AI_Transport(void)
   int local_c;
   int local_8;
   int local_4;
-  
+
   Trace_Function(s_AI_Transport_005122a0);
   pAVar9 = _DAT_00748ff0;
   if (DAT_00706838 == '\x01') {
@@ -54,7 +54,7 @@ void AI_Transport(void)
            cVar7 != '\0')) {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_4;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_8;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x1a,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
@@ -65,7 +65,7 @@ void AI_Transport(void)
         if (cVar7 != '\0') {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_c;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_10;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           pAVar9 = _DAT_00748ff0;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x1b,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -196,7 +196,7 @@ switchD_00409033_default:
           if (cVar7 != '\0') {
             _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_c;
             _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_10;
-            FUN_004d2cc0(_DAT_00748ff0);
+            TestRoad(_DAT_00748ff0);
             pAVar9 = _DAT_00748ff0;
             if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
               Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2f,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -215,4 +215,3 @@ switchD_00409033_default:
   }
   return;
 }
-

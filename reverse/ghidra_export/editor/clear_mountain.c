@@ -19,7 +19,7 @@ void Clear_Mountain(int tile_x,int tile_y)
   int iVar6;
   uint uVar7;
   int local_8;
-  
+
   Trace_Function(s_Clear_Mountain_0057f8f0);
   iVar5 = 0;
   iVar6 = tile_y;
@@ -113,4 +113,3 @@ switchD_004b88ba_default:
   }
   return;
 }
-

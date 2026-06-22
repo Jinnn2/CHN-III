@@ -24,8 +24,8 @@ void __fastcall Order_Diplomat_Sel_Take_City(int param_1)
     }
   }
   else {
-    iVar1 = FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                         (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y);
+    iVar1 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                        (int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y);
     if ((-1 < iVar1) && (iVar1 < 8)) {
       _DAT_00748ff0->mission_action_id = 0x24;
       _DAT_00748ff0->field_0x158 = 0x21;
@@ -62,9 +62,9 @@ void __fastcall Order_Diplomat_Sel_Take_City(int param_1)
         iVar1 = iVar1 + 1;
         piVar2 = piVar2 + 1;
       } while (iVar1 < 10);
-      FUN_004131f0((int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y,1,
-                   _DAT_00748e34,0,*(undefined4 *)(_DAT_0074a0b8 + 0x148),
-                   *(undefined4 *)(_DAT_0074a0b8 + 0xc),*(undefined4 *)(_DAT_0074a0b8 + 0x1d8));
+      Add_New_View((int)_DAT_00748ff0->render_or_anim_x,(int)_DAT_00748ff0->render_or_anim_y,1,
+                   _DAT_00748e34,0,*(int *)(_DAT_0074a0b8 + 0x148),*(int *)(_DAT_0074a0b8 + 0xc),
+                   *(int *)(_DAT_0074a0b8 + 0x1d8));
       return;
     }
     Add_OrderQueue_Army(_DAT_00748ff0,0,0x73,0x3f,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);

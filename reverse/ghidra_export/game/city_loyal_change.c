@@ -10,7 +10,7 @@ void __cdecl City_Loyal_Change(City_0x1b8_plus *city)
 {
   int iVar1;
   int in_stack_00000008;
-  
+
   Trace_Function(s_City_Loyal_Change_0051534c);
   iVar1 = in_stack_00000008 + city->growth_or_industry_score;
   if (iVar1 < 0) {
@@ -23,4 +23,3 @@ void __cdecl City_Loyal_Change(City_0x1b8_plus *city)
   city->growth_or_industry_score = iVar1;
   return;
 }
-

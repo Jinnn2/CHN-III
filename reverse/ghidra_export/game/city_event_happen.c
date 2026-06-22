@@ -13,7 +13,7 @@ void __cdecl City_Event_Happen(City_0x1b8_plus *city)
   int iVar1;
   int in_stack_00000008;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_City_Event_Happen_00515a00);
   iVar1 = city->city_policy_mode;
   if (iVar1 == in_stack_00000008) {
@@ -116,4 +116,3 @@ joined_r0x00425584:
   city->event_transition_pending = 0;
   return;
 }
-

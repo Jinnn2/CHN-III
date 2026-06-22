@@ -11,7 +11,7 @@ void PlayGame_Init(void)
 
 {
   undefined *puVar1;
-  
+
   Trace_Function(s_PlayGame_Init_005813d4);
   if (DAT_00706cc8 == '\x01') {
     FUN_004bdc90();
@@ -102,4 +102,3 @@ LAB_004bc943:
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

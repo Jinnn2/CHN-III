@@ -9,7 +9,7 @@ void __cdecl City_Happy_Change(City_0x1b8_plus *city,int delta)
 
 {
   int iVar1;
-  
+
   Trace_Function(s_City_Happy_Change_00515324);
   iVar1 = delta + city->business_score;
   if (iVar1 < 0) {
@@ -22,4 +22,3 @@ void __cdecl City_Happy_Change(City_0x1b8_plus *city,int delta)
   city->business_score = iVar1;
   return;
 }
-

@@ -15,7 +15,7 @@ App_WinMain_Entry(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
   undefined1 *puStack_10;
   undefined *puStack_c;
   undefined4 local_8;
-  
+
   local_8 = 0xffffffff;
   puStack_c = &DAT_0050f2e8;
   puStack_10 = &LAB_00503978;
@@ -76,4 +76,3 @@ App_WinMain_Entry(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
     DispatchMessageA((MSG *)&DAT_005dfee8);
   } while( true );
 }
-

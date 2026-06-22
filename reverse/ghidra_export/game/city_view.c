@@ -26,7 +26,7 @@ void City_View(int param_1)
   int local_24;
   int local_20;
   int local_18 [6];
-  
+
   Trace_Function(s_City_View_00515d74);
   iVar7 = 0x30;
   _DAT_005e0034 = (uint)*(ushort *)(param_1 + 0x1a);
@@ -123,4 +123,3 @@ void City_View(int param_1)
     }
   } while( true );
 }
-

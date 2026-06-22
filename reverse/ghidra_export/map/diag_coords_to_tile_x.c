@@ -12,4 +12,3 @@ int DiagCoords_To_TileX(int diag_a,int diag_b)
 {
   return ((diag_a - diag_b) + 0x1f8 >> 1) + -0x61;
 }
-

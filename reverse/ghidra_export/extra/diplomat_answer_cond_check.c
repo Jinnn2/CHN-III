@@ -14,7 +14,7 @@ void Diplomat_Answer_Cond_Check(int param_1)
   int iVar2;
   int iVar3;
   int iVar4;
-  
+
   Trace_Function(s_Diplomat_Answer_Cond_Check_0051a98c);
   iVar4 = 2;
   _DAT_0060b644 = 0;
@@ -65,4 +65,3 @@ void Diplomat_Answer_Cond_Check(int param_1)
   }
   return;
 }
-

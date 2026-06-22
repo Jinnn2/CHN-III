@@ -13,7 +13,7 @@ void Clear_All_Memory(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  
+
   Trace_Function(s_Clear_All_Memory_00588a30);
   iVar3 = 0;
   do {
@@ -88,4 +88,3 @@ void Clear_All_Memory(void)
   DAT_007584a0 = 0;
   return;
 }
-

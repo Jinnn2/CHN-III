@@ -24,7 +24,7 @@ void Diplomat_Running(void)
   undefined4 *puVar12;
   char *pcVar13;
   char *pcVar14;
-  
+
   Trace_Function(s_Diplomat_Running_0051bc98);
   if (DAT_00705ebc == '\x01') {
     if ((DAT_00705f08 != 0) && (DAT_00705f08 != 4)) {
@@ -323,4 +323,3 @@ LAB_0044b2a6:
   FUN_00443af0(DAT_00705eb8);
   return;
 }
-

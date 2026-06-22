@@ -19,7 +19,7 @@ bool Diplomat_Ask_Surrend(void)
   undefined *puVar6;
   bool local_c1;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_Ask_Surrend_00519244);
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar3 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
@@ -141,4 +141,3 @@ LAB_00438b7a:
   City_Belong_Change(city,_DAT_00748e34);
   return true;
 }
-

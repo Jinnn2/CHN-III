@@ -15,4 +15,3 @@ void Safe_FreeIMG(int *param_1)
   }
   return;
 }
-

@@ -26,7 +26,7 @@ void Battle_AutoArrange(int param_1,uint param_2)
   int local_c;
   int local_8;
   int local_4;
-  
+
   Trace_Function(s_Battle_AutoArrange_00513af0);
   puVar9 = &DAT_005d91e8;
   for (iVar6 = 7; iVar6 != 0; iVar6 = iVar6 + -1) {
@@ -202,4 +202,3 @@ LAB_00415a2b:
   (*(code *)(&PTR_LAB_00415c78)[DAT_005d91e0])();
   return;
 }
-

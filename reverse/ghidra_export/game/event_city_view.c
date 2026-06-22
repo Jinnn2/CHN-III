@@ -17,7 +17,7 @@ void Event_City_View(int param_1,int param_2,int param_3,int param_4,char *param
   uint uVar5;
   char *pcVar6;
   char *pcVar7;
-  
+
   Trace_Function(s_Event_City_View_00515dd0);
   if ((&DAT_0074a2b8)[param_4] != '\0') {
     uVar4 = 0xffffffff;
@@ -63,4 +63,3 @@ void Event_City_View(int param_1,int param_2,int param_3,int param_4,char *param
   }
   return;
 }
-

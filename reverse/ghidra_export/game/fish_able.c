@@ -13,7 +13,7 @@ int Fish_Able(LandTile_0x100 *tile)
   char cVar1;
   undefined4 uVar2;
   void *pvVar3;
-  
+
   uVar2 = Trace_Function(s_Fish_Able_00514ee0);
   pvVar3 = (void *)CONCAT31((int3)((uint)uVar2 >> 8),tile->battle_stat_terrain_mode);
   if (((tile->battle_stat_terrain_mode == 0) && (tile->field_0x1a != '\x03')) &&
@@ -32,4 +32,3 @@ int Fish_Able(LandTile_0x100 *tile)
   }
   return (uint)pvVar3 & 0xffffff00;
 }
-

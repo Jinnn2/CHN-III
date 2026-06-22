@@ -10,7 +10,7 @@ void MainMenu_Init(void)
 {
   char cVar1;
   undefined4 *puVar2;
-  
+
   Trace_Function(s_MainMenu_Init_00575f00);
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00575ef4);
   cVar1 = FUN_0044d0d0(0);
@@ -47,4 +47,3 @@ void MainMenu_Init(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

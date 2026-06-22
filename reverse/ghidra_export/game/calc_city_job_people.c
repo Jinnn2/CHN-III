@@ -21,7 +21,7 @@ void Cal_City_JobPeople(int param_1)
   uint uVar9;
   int local_18;
   undefined1 local_14;
-  
+
   iVar2 = param_1;
   Trace_Function(s_Cal_City_JobPeople_00515178);
   DAT_005dfed0 = (uint)*(byte *)(param_1 + 0x20);
@@ -222,4 +222,3 @@ LAB_0041e193:
   *(undefined1 *)(iVar2 + 0x175) = 0;
   return;
 }
-

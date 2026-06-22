@@ -10,64 +10,65 @@
 void Order_Join_Sel(void)
 
 {
-  undefined4 *puVar1;
-  byte *pbVar2;
+  int *piVar1;
+  ArmyUnit_0x164_plus *pAVar2;
   int iVar3;
-  undefined4 *puVar4;
-  byte *pbVar5;
-  undefined4 *puVar6;
+  int *piVar4;
+  ArmyUnit_0x164_plus *pAVar5;
+  int *piVar6;
   int iVar7;
-  undefined4 *local_8;
+  int *local_8;
   int local_4;
-  
+
   Trace_Function(s_Order_Join_Sel_0057e3d4);
   iVar7 = 0;
-  if (((DAT_007584dc != (byte *)0x0) && (DAT_007584dc[0x127] == 0)) &&
+  if (((DAT_007584dc != (ArmyUnit_0x164_plus *)0x0) && (DAT_007584dc->mission_state == 0)) &&
      ('\x01' < *(char *)(DAT_007584ec + 0x50))) {
-    puVar1 = (undefined4 *)(DAT_007584ec + 0x28);
+    piVar1 = (int *)(DAT_007584ec + 0x28);
     _DAT_00749b2c = 0;
     DAT_0074c824 = 0;
     local_4 = 10;
-    pbVar5 = DAT_007584dc;
-    local_8 = puVar1;
+    pAVar5 = DAT_007584dc;
+    local_8 = piVar1;
     do {
-      pbVar2 = (byte *)*local_8;
-      if (((pbVar2 != (byte *)0x0) && (pbVar2 != pbVar5)) &&
-         ((*(int *)(pbVar2 + 0x144) == 0 &&
-          (*(int *)&g_army_type_table[*pbVar2].field_0x13c == *(int *)(_DAT_0074a0b8 + 0x13c))))) {
-        *(byte **)(&DAT_00748ff4 + iVar7 * 0x28) = pbVar2;
-        if (pbVar2[0x148] != 0) {
-          puVar6 = (undefined4 *)(&DAT_00748ff8 + iVar7 * 0x28);
-          puVar4 = puVar6;
+      pAVar2 = (ArmyUnit_0x164_plus *)*local_8;
+      if (((pAVar2 != (ArmyUnit_0x164_plus *)0x0) && (pAVar2 != pAVar5)) &&
+         ((pAVar2->transport_parent == (ArmyUnit_0x164_plus *)0x0 &&
+          (*(int *)&g_army_type_table[pAVar2->army_type_id].field_0x13c ==
+           *(int *)(_DAT_0074a0b8 + 0x13c))))) {
+        *(ArmyUnit_0x164_plus **)(&DAT_00748ff4 + iVar7 * 0x28) = pAVar2;
+        if (pAVar2->cargo_or_subunit_count != 0) {
+          piVar6 = (int *)(&DAT_00748ff8 + iVar7 * 0x28);
+          piVar4 = piVar6;
           for (iVar3 = 9; iVar3 != 0; iVar3 = iVar3 + -1) {
-            *puVar4 = 0;
-            puVar4 = puVar4 + 1;
+            *piVar4 = 0;
+            piVar4 = piVar4 + 1;
           }
           iVar3 = 10;
-          puVar4 = puVar1;
+          piVar4 = piVar1;
           do {
-            pbVar5 = (byte *)*puVar4;
-            if (((pbVar5 != (byte *)0x0) && (pbVar5 != DAT_007584dc)) &&
-               (*(byte **)(pbVar5 + 0x14c) == pbVar2)) {
-              *puVar6 = pbVar5;
-              puVar6 = puVar6 + 1;
+            pAVar5 = (ArmyUnit_0x164_plus *)*piVar4;
+            if (((pAVar5 != (ArmyUnit_0x164_plus *)0x0) && (pAVar5 != DAT_007584dc)) &&
+               (pAVar5->transport_or_carrier_link == pAVar2)) {
+              *piVar6 = (int)pAVar5;
+              piVar6 = piVar6 + 1;
             }
-            puVar4 = puVar4 + 1;
+            piVar4 = piVar4 + 1;
             iVar3 = iVar3 + -1;
           } while (iVar3 != 0);
-          if ((int)DAT_0074c824 < (int)(uint)pbVar2[0x148]) {
-            DAT_0074c824 = (uint)pbVar2[0x148];
+          if ((int)DAT_0074c824 < (int)(uint)pAVar2->cargo_or_subunit_count) {
+            DAT_0074c824 = (uint)pAVar2->cargo_or_subunit_count;
           }
         }
         iVar7 = iVar7 + 1;
-        pbVar5 = DAT_007584dc;
+        pAVar5 = DAT_007584dc;
         _DAT_00749b2c = iVar7;
       }
       local_8 = local_8 + 1;
       local_4 = local_4 + -1;
     } while (local_4 != 0);
     if (iVar7 == 1) {
-      FUN_004711f0(pbVar5,_DAT_00748ff4);
+      JoinTo(pAVar5,_DAT_00748ff4);
       FUN_0041ec80();
       return;
     }
@@ -77,4 +78,3 @@ void Order_Join_Sel(void)
   }
   return;
 }
-

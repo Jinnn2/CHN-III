@@ -44,7 +44,7 @@ void Put_City_Make(void)
   undefined1 local_e;
   undefined4 local_d;
   undefined1 local_9;
-  
+
   Trace_Function(s_Put_City_Make_005cc5f8);
   if (DAT_005c2b20 < 1) {
     return;
@@ -719,4 +719,3 @@ LAB_004dfaeb:
     }
   } while( true );
 }
-

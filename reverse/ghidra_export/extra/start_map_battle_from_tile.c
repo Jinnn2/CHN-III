@@ -378,7 +378,7 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
                   if (cVar16 != '\0') {
                     pAVar18->target_tile_x_or_anim_x = local_38[0];
                     pAVar18->target_tile_y_or_anim_y = local_34[0];
-                    FUN_004d2cc0(pAVar18);
+                    TestRoad(pAVar18);
                     if ('\0' < (char)pAVar18->active_anim_step_count) {
                       sVar17 = pAVar18->render_or_anim_y;
                       sVar3 = pAVar18->render_or_anim_x;
@@ -395,7 +395,7 @@ LAB_004980fc:
                   if (cVar16 != '\0') {
                     pAVar18->target_tile_x_or_anim_x = local_30[0];
                     pAVar18->target_tile_y_or_anim_y = (short)local_2c;
-                    FUN_004d2cc0(pAVar18);
+                    TestRoad(pAVar18);
                     if ('\0' < (char)pAVar18->active_anim_step_count) {
                       sVar17 = pAVar18->render_or_anim_y;
                       sVar3 = pAVar18->render_or_anim_x;
@@ -652,7 +652,7 @@ LAB_0049842f:
                 if (cVar16 != '\0') {
                   pAVar18->target_tile_x_or_anim_x = local_30[0];
                   pAVar18->target_tile_y_or_anim_y = local_34[0];
-                  FUN_004d2cc0(pAVar18);
+                  TestRoad(pAVar18);
                   bVar15 = pAVar18->active_anim_step_count;
 joined_r0x00498811:
                   if ('\0' < (char)bVar15) {
@@ -667,7 +667,7 @@ joined_r0x00498811:
                 if (cVar16 != '\0') {
                   pAVar18->target_tile_x_or_anim_x = local_38[0];
                   pAVar18->target_tile_y_or_anim_y = (short)local_3c;
-                  FUN_004d2cc0(pAVar18);
+                  TestRoad(pAVar18);
                   bVar15 = pAVar18->active_anim_step_count;
                   goto joined_r0x00498811;
                 }

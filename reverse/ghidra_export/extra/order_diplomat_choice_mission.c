@@ -13,7 +13,7 @@ void Order_Diplomat_Choice_Mission(void)
   char cVar1;
   undefined2 uVar2;
   int iVar3;
-  
+
   Trace_Function(s_Order_Diplomat_Chouice_Mission_0057e2fc);
   iVar3 = (int)*(char *)(_DAT_00748ff0 + 299);
   if ((*(int *)(&DAT_0060b670 + (iVar3 + _DAT_00748e34 * 0x16) * 0x848) == 0) &&
@@ -93,4 +93,3 @@ void Order_Diplomat_Choice_Mission(void)
 switchD_00495418_default:
   return;
 }
-

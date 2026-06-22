@@ -151,6 +151,17 @@ directly to screen state `0x24` when `g_editor_mode_enabled == 1`.
 | `AI_Ship` / `AI_ActShip` / `AI_Carrier` / `AI_Transport` | Trace strings identify ship, active ship, carrier, and transport handlers; they coordinate passenger/cargo state, nearby ports/cities, and route targets through `Add_OrderQueue_Army`. | Naval and carrier/transport automatic action handlers. |
 | `AI_Worker` | Trace string `AI_Worker`; searches nearby owned cities/tiles and enqueues worker map actions or fallback orders. | Worker automatic action handler. |
 | `AI_UnClear` | Trace string `AI_UnClear`; scans known enemy/target lists and retargets selected units toward a chosen enemy/city objective. | Target-clearing / offensive objective AI handler. |
+| `JoinTo` | Trace string `JoinTo`; validates total subunit count, moves child units from the source army to the target, adds cached stats into the target, marks both units dirty, and updates country point state. | Merge/join one army into another. |
+| `BreakOut` | Trace string `BreakOut`; detaches an army from its parent or breaks carried child units out of a carrier/group, rewrites transport links, recomputes cached stats, and restores view coverage. | Split/unload unit or carried stack from a carrier/group. |
+| `Add_New_View` | Trace string `Add_New_View`; increments per-country tile visibility/coverage bytes around a unit or city and refreshes minimap-visible state for the human country. | Add unit/city vision footprint. |
+| `Del_Army_View` | Trace string `Del_Army_View`; decrements the same visibility/coverage bytes and refreshes the human minimap when a unit leaves a tile or changes state. | Remove unit vision footprint. |
+| `Find_Direct` | Trace string `Find_Direct`; compares source/destination tile deltas, handling horizontal wrap bands by map size, and returns direction index `0..7` or `-1`. | Neighbor direction resolver. |
+| `TestRoad` | Trace string `TestRoad`; validates/generates the path from an army's current tile to its target tile, filling queued path steps and clearing the path count on failure. | Army pathfinding / route validation. |
+| `Army_Belong_Change` | Trace string `Army_Belong_Change`; removes an army from old-country counts/visibility, changes `owner_country_id`, updates city stats and country unit counts, then restores visibility for the new owner. | Army ownership transfer. |
+| `City_Capture_Transfer` | Called from the order applier when an army enters a capturable city; transfers population/economy/science effects and emits human-facing capture messages. | City capture/transfer outcome. |
+| `CountryPoint_Minus` | Trace string `CountryPoint_Minus`; decrements a country point/unit-action counter and requests UI/turn refresh when it reaches zero. | Country action/point counter decrement helper. |
+| `NewLand_Name` | Trace string `NewLand_Name`; names or announces newly discovered land regions and records the name at the target coordinates. | New land/region naming side effect. |
+| `Add_New_Explode` | Trace string `Add_New_Explode`; maintains up to ten per-country explosion markers, pruning stale known-region entries before adding a new tile. | Explosion/event marker queue. |
 | `MouseOn_Edit_Sel_Pcx_File` | Trace string `MouseOn_Edit_Sel_Pcx_File`; maps mouse position to a 10-row PCX/file list hover index and three action-button states. | PCX/file selection hover handler. |
 | `Add_New_DataFormat` | Trace string `Add_New_DataFormat`; allocates and initializes a `DataFormat_0xc8` node, copies the display label, stores binding pointers, and inserts it into the active form list. | Generic form/table control descriptor builder. |
 | `NodeInsert_DataFormat` | Trace string `NodeInsert_DataFormat`; appends a descriptor to the data-format linked list and derives list/scrollbar geometry for list-like control types. | Generic form/table descriptor insertion/layout helper. |
@@ -314,9 +325,9 @@ directly, while `BattleArmy` consumes it to create battle records.
 | `+0x131` | Battle stat adjustment shifts by this value in `Map_To_Battle_Army`. | veteran level / power shift. |
 | `+0x134/+0x136/+0x138` | Loaded from army type tables and cached as short stats. | cached stat shorts. |
 | `+0x13c` | `BattleArmy` copies this value into `BattleUnit_0x64.map_unit_extra_id`; death/effect records later reuse it. | map unit extra id. |
-| `+0x144` | Direct-unit checks require null; other paths dereference it as another army. | transport parent pointer. |
-| `+0x148` | Near-city capacity and battle conversion add one to this value for carried/sub units. | cargo/subunit count. |
-| `+0x14c` | Cargo/subunit scans compare this pointer against the current unit. | transport or carrier link. |
+| `+0x144` | `JoinTo`, `BreakOut`, and `Apply_OrderQueue_Army` require null for direct units and set this to the immediate carrier/group when a unit is carried or merged. | transport parent pointer. |
+| `+0x148` | `JoinTo` increments the target, `BreakOut` resets/deducts it, and `Order_Check` uses it to offer join/unload commands. | cargo/subunit count. |
+| `+0x14c` | When the immediate parent is itself carried, join/breakout paths copy the root carrier link here; same-tile scans compare it against selected carrier units. | root transport/carrier link. |
 | `+0x152` | Battle entry and tile scans require zero for directly present active units; startup/battle-entry code compares it against `3` for broader map presence. | map presence or cargo state. |
 | `+0x154` | `City_Belong_Change` assigns a city pointer; `Map_To_Battle_Army` reads `building_status[...]` through it. | stationed/associated city. |
 | `+0x160` | Country army traversals follow this pointer. | next army in linked list. |

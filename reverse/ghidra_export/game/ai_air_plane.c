@@ -34,7 +34,7 @@ void AI_AirPlane(void)
   uint local_c;
   undefined1 local_8 [4];
   int local_4;
-  
+
   Trace_Function(s_AI_AirPlane_0051207c);
   pAVar8 = _DAT_00748ff0;
   if (DAT_00706838 != '\x01') goto LAB_004034b0;
@@ -49,7 +49,7 @@ void AI_AirPlane(void)
     if (cVar5 != '\0') {
       _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_18;
       _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_1c;
-      FUN_004d2cc0(_DAT_00748ff0);
+      TestRoad(_DAT_00748ff0);
       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x33,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                             (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -70,7 +70,7 @@ void AI_AirPlane(void)
          cVar6 != '\0')) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_1c;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_20;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x1a,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                               (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -83,7 +83,7 @@ void AI_AirPlane(void)
       if (cVar6 != '\0') {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_14;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_10;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         iVar14 = local_18;
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x1b,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -139,7 +139,7 @@ LAB_00402a40:
          cVar6 != '\0')) {
         _DAT_00748ff0->target_tile_x_or_anim_x = DAT_00734c58;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           iVar13 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
                                 (int)_DAT_00748ff0->target_tile_x_or_anim_x,
@@ -147,9 +147,9 @@ LAB_00402a40:
           if ((iVar13 == 1) && (iVar14 == 4)) {
             _DAT_00748ff0->render_or_anim_x = _DAT_00748ff0->target_tile_x_or_anim_x;
             _DAT_00748ff0->render_or_anim_y = _DAT_00748ff0->target_tile_y_or_anim_y;
-            iVar14 = FUN_0046ab60((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                  (int)_DAT_00748ff0->render_or_anim_x,
-                                  (int)_DAT_00748ff0->render_or_anim_y);
+            iVar14 = Find_Direct((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
+                                 (int)_DAT_00748ff0->render_or_anim_x,
+                                 (int)_DAT_00748ff0->render_or_anim_y);
             Add_OrderQueue_Army(_DAT_00748ff0,0x29,0x3d,-1,iVar14,(ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
           }
@@ -287,7 +287,7 @@ switchD_00402dc0_default:
         if (cVar5 != '\0') {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_1c;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_20;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           pAVar8 = _DAT_00748ff0;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2f,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -338,7 +338,7 @@ switchD_00402dc0_default:
            ((local_20 != _DAT_00748ff0->tile_x || (local_1c != _DAT_00748ff0->tile_y)))) {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_20;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_1c;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           pAVar8 = _DAT_00748ff0;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x31,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -355,7 +355,7 @@ switchD_00402dc0_default:
       if (cVar5 != '\0') {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_10;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_14;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         pAVar8 = _DAT_00748ff0;
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x30,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -408,7 +408,7 @@ LAB_004032f1:
           (g_active_country->diplomacy_blockade_or_truce_flags[iVar7] == 1)))) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar13;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar14;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         pAVar8 = _DAT_00748ff0;
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x32,-1,-1,(ArmyUnit_0x164_plus *)0x0,
@@ -428,4 +428,3 @@ LAB_004034b0:
   }
   return;
 }
-

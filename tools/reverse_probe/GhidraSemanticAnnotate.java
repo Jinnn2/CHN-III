@@ -930,8 +930,12 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x408ec0L, "AI_Transport"),
             new Rename(0x4094b0L, "AI_UnClear"),
             new Rename(0x409960L, "AI_Worker"),
+            new Rename(0x4086e0L, "NewLand_Name"),
             new Rename(0x40b450L, "Process_CommandLine_Args"),
             new Rename(0x40b580L, "Start_Map_Battle_From_Army"),
+            new Rename(0x411ea0L, "City_Capture_Transfer"),
+            new Rename(0x4131f0L, "Add_New_View"),
+            new Rename(0x413b40L, "Del_Army_View"),
             new Rename(0x414b70L, "Battle_Peace_Place"),
             new Rename(0x414c50L, "Battle_First_Line"),
             new Rename(0x415600L, "Battle_AutoArrange"),
@@ -943,6 +947,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x419bd0L, "Do_Battle_Stone"),
             new Rename(0x419f30L, "Battle_Arrange_Position"),
             new Rename(0x41a9f0L, "City_Belong_Change"),
+            new Rename(0x41b0f0L, "Army_Belong_Change"),
             new Rename(0x41b4a0L, "Bridge_Able"),
             new Rename(0x41b6c0L, "Irrigate_Able"),
             new Rename(0x41b830L, "Pasturage_Able"),
@@ -1008,6 +1013,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x42f3e0L, "Reflash_DataFormat"),
             new Rename(0x42f5c0L, "Del_DataFormat"),
             new Rename(0x42f600L, "CheckPress_DataFormat"),
+            new Rename(0x42b7c0L, "CountryPoint_Minus"),
             new Rename(0x4578a0L, "Before_Edit_Empire_Country"),
             new Rename(0x452110L, "Before_Edit_Army"),
             new Rename(0x454570L, "Before_Edit_Build"),
@@ -1037,6 +1043,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x469c00L, "MakeFadeColorTable"),
             new Rename(0x46a1f0L, "Report_DirectDraw_Error"),
             new Rename(0x46a380L, "City_Army_Error_Fix"),
+            new Rename(0x46a840L, "Add_New_Explode"),
+            new Rename(0x46ab60L, "Find_Direct"),
             new Rename(0x46b850L, "Load_UI_String_EMG"),
             new Rename(0x46cc70L, "Load_UI_String_EMG_XMG"),
             new Rename(0x46d310L, "Init_DirectDraw_Runtime"),
@@ -1086,6 +1094,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x48f980L, "Near_City_UserKnow_Found"),
             new Rename(0x48faa0L, "NoDpa_Near_City_Found"),
             new Rename(0x48c8f0L, "CheckMouseOnWindow"),
+            new Rename(0x4711f0L, "JoinTo"),
+            new Rename(0x471380L, "BreakOut"),
             new Rename(0x496df0L, "Start_Map_Battle_From_Tile"),
             new Rename(0x492760L, "Do_Country_Diplomat"),
             new Rename(0x4912e0L, "Do_Army_TurnJob"),
@@ -1132,6 +1142,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4c6e80L, "DiagCoords_To_TileY"),
             new Rename(0x4c6e90L, "Tile_To_DiagCoordA"),
             new Rename(0x4c6eb0L, "Tile_To_DiagCoordB"),
+            new Rename(0x4d2cc0L, "TestRoad"),
             new Rename(0x4c50d0L, "Draw_MainMenu_Number"),
             new Rename(0x4d91a0L, "Put_City_Citizen"),
             new Rename(0x4d40f0L, "Trace_Function"),
@@ -1378,8 +1389,22 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "side", UnsignedIntegerDataType.dataType, "army", armyUnit, "formation_count", IntegerDataType.dataType,
             "stat_a", new PointerDataType(UnsignedIntegerDataType.dataType, dtm),
             "stat_b", new PointerDataType(UnsignedIntegerDataType.dataType, dtm));
+        pointerArg(0x411ea0L, "City_Capture_Transfer", IntegerDataType.dataType,
+            "city", city, "old_owner_country_id", IntegerDataType.dataType,
+            "new_owner_country_id", IntegerDataType.dataType, "capture_mode", IntegerDataType.dataType);
+        pointerArg(0x4131f0L, "Add_New_View", VoidDataType.dataType,
+            "tile_x", IntegerDataType.dataType, "tile_y", UnsignedIntegerDataType.dataType,
+            "view_radius_mode", IntegerDataType.dataType, "country_id", IntegerDataType.dataType,
+            "force_visible", IntegerDataType.dataType, "zone_mask", IntegerDataType.dataType,
+            "unit_class", IntegerDataType.dataType, "special_visibility", IntegerDataType.dataType);
+        pointerArg(0x413b40L, "Del_Army_View", VoidDataType.dataType,
+            "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
+            "view_radius_mode", UnsignedIntegerDataType.dataType, "country_id", IntegerDataType.dataType,
+            "special_visibility", IntegerDataType.dataType);
         pointerArg(0x41a9f0L, "City_Belong_Change", VoidDataType.dataType,
             "city", city, "new_owner_country_id", IntegerDataType.dataType);
+        pointerArg(0x41b0f0L, "Army_Belong_Change", VoidDataType.dataType,
+            "army", armyUnit, "new_owner_country_id", IntegerDataType.dataType);
         pointerArg(0x41b4a0L, "Bridge_Able", IntegerDataType.dataType, "tile", landTile);
         pointerArg(0x41b6c0L, "Irrigate_Able", IntegerDataType.dataType, "tile", landTile,
             "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType,
@@ -1396,8 +1421,19 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x41f7f0L, "City_Business_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x41f8c0L, "City_Like_Change", VoidDataType.dataType, "city", city);
         pointerArg(0x4254a0L, "City_Event_Happen", VoidDataType.dataType, "city", city);
+        pointerArg(0x42b7c0L, "CountryPoint_Minus", VoidDataType.dataType,
+            "country_state", new PointerDataType(CharDataType.dataType, dtm));
         pointerArg(0x42eed0L, "NodeInsert_DataFormat", VoidDataType.dataType, "data_format", dataFormat);
         pointerArg(0x47c8b0L, "Map_To_Battle_Army", IntegerDataType.dataType, "army", armyUnit);
+        pointerArg(0x46a840L, "Add_New_Explode", VoidDataType.dataType,
+            "country_id", IntegerDataType.dataType, "tile_x", ShortDataType.dataType,
+            "tile_y", ShortDataType.dataType);
+        pointerArg(0x46ab60L, "Find_Direct", IntegerDataType.dataType,
+            "from_tile_x", IntegerDataType.dataType, "from_tile_y", UnsignedIntegerDataType.dataType,
+            "to_tile_x", IntegerDataType.dataType, "to_tile_y", IntegerDataType.dataType);
+        pointerArg(0x4711f0L, "JoinTo", ByteDataType.dataType,
+            "army", armyUnit, "target_army", armyUnit);
+        pointerArg(0x471380L, "BreakOut", VoidDataType.dataType, "army", armyUnit);
         pointerArg(0x4939c0L, "Clear_Forest_Or_Resource", VoidDataType.dataType, "tile", landTile);
         pointerArg(0x493a30L, "Make_New_Work", VoidDataType.dataType,
             "tile", landTile, "work_kind", IntegerDataType.dataType);
@@ -1425,6 +1461,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
         pointerArg(0x4b8820L, "Clear_Mountain", VoidDataType.dataType,
             "tile_x", IntegerDataType.dataType, "tile_y", IntegerDataType.dataType);
         pointerArg(0x4b8f60L, "Cancel_All_Army_On_Tile", VoidDataType.dataType, "tile", landTile);
+        pointerArg(0x4d2cc0L, "TestRoad", IntegerDataType.dataType, "army", armyUnit);
         pointerArg(0x4f02d0L, "Present_Dirty_Rects", VoidDataType.dataType,
             "dst_x", IntegerDataType.dataType, "dst_y", IntegerDataType.dataType);
     }

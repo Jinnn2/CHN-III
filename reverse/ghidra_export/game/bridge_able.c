@@ -11,7 +11,7 @@ int Bridge_Able(LandTile_0x100 *tile)
 
 {
   short sVar1;
-  
+
   Trace_Function(s_Bridge_Able_00514e70);
   if (((((char)tile->region_or_terrain_marker_a < '\0') || (g_editor_mode_enabled != 0)) &&
       (tile->field_0x15 == -1)) &&
@@ -21,4 +21,3 @@ int Bridge_Able(LandTile_0x100 *tile)
   }
   return 0;
 }
-

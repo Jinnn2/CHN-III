@@ -61,7 +61,7 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
   uint local_c;
   uint local_8;
   uint local_4;
-  
+
   uVar6 = Trace_Function(s_Decode_City_005188a4);
   if ((((-1 < (int)param_1) && (uVar6 = param_2, -1 < (int)param_2)) && ((int)param_1 < 0x30)) &&
      ((int)param_2 < 0x30)) {
@@ -946,4 +946,3 @@ uint Decode_City(uint param_1,uint param_2,int param_3)
   }
   return uVar6;
 }
-

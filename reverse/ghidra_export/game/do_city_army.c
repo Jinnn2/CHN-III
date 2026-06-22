@@ -19,7 +19,7 @@ void Do_CityArmy(void)
   int iVar9;
   int iVar10;
   int local_40 [16];
-  
+
   Trace_Function(s_Do_CityArmy_00570760);
   local_40[0] = 1;
   local_40[1] = 0;
@@ -124,4 +124,3 @@ LAB_00451dc4:
     iVar4 = *(int *)(iVar4 + 0x18);
   } while( true );
 }
-

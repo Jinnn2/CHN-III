@@ -13,7 +13,7 @@ int Mine_Able(LandTile_0x100 *tile)
   byte bVar1;
   undefined4 uVar2;
   void *pvVar3;
-  
+
   uVar2 = Trace_Function(s_Mine_Able_00514ed4);
   bVar1 = tile->battle_stat_terrain_mode;
   pvVar3 = (void *)CONCAT31((int3)((uint)uVar2 >> 8),bVar1);
@@ -23,4 +23,3 @@ int Mine_Able(LandTile_0x100 *tile)
   }
   return (uint)pvVar3 & 0xffffff00;
 }
-

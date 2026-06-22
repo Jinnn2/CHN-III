@@ -28,7 +28,7 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
   int local_14;
   int local_10;
   int local_c;
-  
+
   Trace_Function(s_Find_Build_Place_00515850);
   *param_2 = -1;
   *param_3 = -1;
@@ -186,4 +186,3 @@ undefined4 City_Build_AI_Build_Able(int param_1,int *param_2,int *param_3,int pa
   }
   return 0;
 }
-

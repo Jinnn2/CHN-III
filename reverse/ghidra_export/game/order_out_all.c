@@ -10,24 +10,23 @@
 void Order_Out_All(void)
 
 {
-  int iVar1;
   ArmyUnit_0x164_plus *army;
-  int iVar2;
-  
+  ArmyUnit_0x164_plus *army_00;
+  int iVar1;
+
   Trace_Function(s_Order_Out_All_0057e458);
-  army = _DAT_00748ff0;
+  army_00 = _DAT_00748ff0;
   if ((_DAT_00748ff0->mission_state == 0) && ('\x01' < *(char *)(DAT_0075597c + 0x50))) {
-    iVar2 = 0x28;
+    iVar1 = 0x28;
     do {
-      iVar1 = *(int *)(iVar2 + DAT_0075597c);
-      if ((iVar1 != 0) && (*(ArmyUnit_0x164_plus **)(iVar1 + 0x144) == army)) {
-        FUN_00471380(iVar1);
-        army = _DAT_00748ff0;
+      army = *(ArmyUnit_0x164_plus **)(iVar1 + DAT_0075597c);
+      if ((army != (ArmyUnit_0x164_plus *)0x0) && (army->transport_parent == army_00)) {
+        BreakOut(army);
+        army_00 = _DAT_00748ff0;
       }
-      iVar2 = iVar2 + 4;
-    } while (iVar2 < 0x50);
+      iVar1 = iVar1 + 4;
+    } while (iVar1 < 0x50);
   }
-  Add_OrderQueue_Army(army,0,-1,0x57,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
+  Add_OrderQueue_Army(army_00,0,-1,0x57,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
   return;
 }
-

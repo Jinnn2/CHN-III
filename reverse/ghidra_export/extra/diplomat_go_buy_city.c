@@ -20,7 +20,7 @@ undefined1 Diplomat_Go_Buy_City(void)
   undefined8 uVar7;
   undefined1 local_c5;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_Go_Buy_City_00519120);
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar2 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
@@ -144,4 +144,3 @@ LAB_0043896d:
   FUN_0041f490((int)(char)city->owner_country_id,_DAT_00748e34,10);
   return local_c5;
 }
-

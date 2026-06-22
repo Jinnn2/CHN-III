@@ -12,41 +12,41 @@ void Order_Out(void)
 {
   ArmyUnit_0x164_plus *pAVar1;
   ArmyUnit_0x164_plus *pAVar2;
-  int *piVar3;
+  undefined4 *puVar3;
   int iVar4;
-  int *piVar5;
-  
+  undefined4 *puVar5;
+
   Trace_Function(s_Order_Out_0057e44c);
   pAVar1 = DAT_007584dc;
   if (((DAT_007584dc != (ArmyUnit_0x164_plus *)0x0) && (DAT_007584dc->mission_state == 0)) &&
      (DAT_007584dc->cargo_or_subunit_count != 0)) {
     if (DAT_007584dc->cargo_or_subunit_count == 1) {
       iVar4 = 0;
-      piVar3 = (int *)(DAT_007584ec + 0x28);
+      puVar3 = (undefined4 *)(DAT_007584ec + 0x28);
       do {
-        pAVar1 = (ArmyUnit_0x164_plus *)*piVar3;
+        pAVar1 = (ArmyUnit_0x164_plus *)*puVar3;
         if (((pAVar1 != (ArmyUnit_0x164_plus *)0x0) && (pAVar1 != DAT_007584dc)) &&
            (pAVar1->transport_parent == DAT_007584dc)) {
-          FUN_00471380(pAVar1);
+          BreakOut(pAVar1);
           break;
         }
         iVar4 = iVar4 + 1;
-        piVar3 = piVar3 + 1;
+        puVar3 = puVar3 + 1;
       } while (iVar4 < 10);
     }
     else {
       _DAT_00734f80 = DAT_007584dc;
-      piVar5 = &DAT_00734f84;
-      piVar3 = (int *)(DAT_007584ec + 0x28);
+      puVar5 = &DAT_00734f84;
+      puVar3 = (undefined4 *)(DAT_007584ec + 0x28);
       iVar4 = 10;
       do {
-        pAVar2 = (ArmyUnit_0x164_plus *)*piVar3;
+        pAVar2 = (ArmyUnit_0x164_plus *)*puVar3;
         if (((pAVar2 != (ArmyUnit_0x164_plus *)0x0) && (pAVar2 != pAVar1)) &&
            (pAVar2->transport_parent == pAVar1)) {
-          *piVar5 = (int)pAVar2;
-          piVar5 = piVar5 + 1;
+          *puVar5 = pAVar2;
+          puVar5 = puVar5 + 1;
         }
-        piVar3 = piVar3 + 1;
+        puVar3 = puVar3 + 1;
         iVar4 = iVar4 + -1;
       } while (iVar4 != 0);
       DAT_0074c854 = 1;
@@ -58,4 +58,3 @@ void Order_Out(void)
   }
   return;
 }
-

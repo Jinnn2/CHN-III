@@ -15,7 +15,7 @@ void ShutDown_Game(void)
   int iVar3;
   int *piVar4;
   DWORD local_4;
-  
+
   Trace_Function(s_ShutDown_Game_00588a20);
   FUN_0044cf20();
   if (g_bestpath_temp_buffer != (void *)0x0) {
@@ -147,4 +147,3 @@ void ShutDown_Game(void)
   }
   return;
 }
-

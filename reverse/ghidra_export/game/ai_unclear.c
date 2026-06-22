@@ -37,7 +37,7 @@ void AI_UnClear(void)
   undefined *local_12c;
   int local_128;
   undefined1 local_124 [292];
-  
+
   Trace_Function(s_AI_UnClear_005122f0);
   if (DAT_00706838 != '\x01') {
 LAB_004098fa:
@@ -146,7 +146,7 @@ LAB_004096a0:
   } while (local_150 < 0x4c4);
   if (local_144 == 0) goto LAB_004098fa;
   if (_DAT_00748ff0->cargo_or_subunit_count != 0) {
-    FUN_00471380(_DAT_00748ff0);
+    BreakOut(_DAT_00748ff0);
     pCVar3 = g_active_country;
   }
   _DAT_0074946c = 2;
@@ -200,4 +200,3 @@ LAB_00409828:
   g_map_interaction_mode = 0xc;
   return;
 }
-

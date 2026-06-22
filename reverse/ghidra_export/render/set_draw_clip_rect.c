@@ -17,4 +17,3 @@ void Set_Draw_Clip_Rect(undefined4 param_1,undefined4 param_2,undefined4 param_3
   DAT_005d7aa0 = param_4;
   return;
 }
-

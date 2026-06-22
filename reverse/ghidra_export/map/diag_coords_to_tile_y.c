@@ -12,4 +12,3 @@ int DiagCoords_To_TileY(int diag_a,int diag_b)
 {
   return diag_a + -0x136 + diag_b;
 }
-

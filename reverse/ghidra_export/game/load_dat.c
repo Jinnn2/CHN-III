@@ -1093,8 +1093,8 @@ LAB_00475fde:
               iStack_544 = iStack_544 + 1;
               if (7 < pAVar11->facing_or_move_direction) {
                 FUN_00469f90(&DAT_005752b8,1);
-                iVar6 = FUN_0046ab60((int)pAVar11->tile_x,(int)pAVar11->tile_y,
-                                     (int)pAVar11->render_or_anim_x,(int)pAVar11->render_or_anim_y);
+                iVar6 = Find_Direct((int)pAVar11->tile_x,(int)pAVar11->tile_y,
+                                    (int)pAVar11->render_or_anim_x,(int)pAVar11->render_or_anim_y);
                 if ((iVar6 < 0) || (7 < iVar6)) {
                   pAVar11->mission_state = 0;
                   pAVar11->facing_or_move_direction = 0;
@@ -1271,10 +1271,10 @@ LAB_00475f9c:
                     }
                     if (7 < pbVar10[0x129]) {
                       FUN_00469f90(&DAT_005752b8,1);
-                      iVar6 = FUN_0046ab60((int)*(short *)(pbVar10 + 0x1a),
-                                           (int)*(short *)(pbVar10 + 0x1c),
-                                           (int)*(short *)(pbVar10 + 0x1e),
-                                           (int)*(short *)(pbVar10 + 0x20));
+                      iVar6 = Find_Direct((int)*(short *)(pbVar10 + 0x1a),
+                                          (int)*(short *)(pbVar10 + 0x1c),
+                                          (int)*(short *)(pbVar10 + 0x1e),
+                                          (int)*(short *)(pbVar10 + 0x20));
                       if ((iVar6 < 0) || (7 < iVar6)) {
                         pbVar10[0x127] = 0;
                         pbVar10[0x129] = 0;
@@ -1495,10 +1495,10 @@ LAB_00475f1d:
                           }
                           if (7 < pbVar10[0x129]) {
                             FUN_00469f90(&DAT_00575168,1);
-                            iVar6 = FUN_0046ab60((int)*(short *)(pbVar10 + 0x1a),
-                                                 (int)*(short *)(pbVar10 + 0x1c),
-                                                 (int)*(short *)(pbVar10 + 0x1e),
-                                                 (int)*(short *)(pbVar10 + 0x20));
+                            iVar6 = Find_Direct((int)*(short *)(pbVar10 + 0x1a),
+                                                (int)*(short *)(pbVar10 + 0x1c),
+                                                (int)*(short *)(pbVar10 + 0x1e),
+                                                (int)*(short *)(pbVar10 + 0x20));
                             if ((iVar6 < 0) || (7 < iVar6)) {
                               pbVar10[0x127] = 0;
                               pbVar10[0x129] = 0;
@@ -1719,10 +1719,10 @@ LAB_00475ebc:
                               }
                               if (7 < pbVar26[0x129]) {
                                 FUN_00469f90(&DAT_005750c0,1);
-                                iVar6 = FUN_0046ab60((int)*(short *)(pbVar26 + 0x1a),
-                                                     (int)*(short *)(pbVar26 + 0x1c),
-                                                     (int)*(short *)(pbVar26 + 0x1e),
-                                                     (int)*(short *)(pbVar26 + 0x20));
+                                iVar6 = Find_Direct((int)*(short *)(pbVar26 + 0x1a),
+                                                    (int)*(short *)(pbVar26 + 0x1c),
+                                                    (int)*(short *)(pbVar26 + 0x1e),
+                                                    (int)*(short *)(pbVar26 + 0x20));
                                 if ((iVar6 < 0) || (7 < iVar6)) {
                                   pbVar26[0x127] = 0;
                                   pbVar26[0x129] = 0;

@@ -55,7 +55,7 @@ uint Decode_Battle(int param_1,int param_2)
   int local_44;
   int local_40;
   int local_3c [15];
-  
+
   Trace_Function(s_Decode_Battle_00514990);
   iVar2 = param_1 + param_2 * 0x18;
   local_44 = -1;
@@ -394,4 +394,3 @@ uint Decode_Battle(int param_1,int param_2)
   }
   return uVar8;
 }
-

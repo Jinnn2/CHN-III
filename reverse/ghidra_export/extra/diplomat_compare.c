@@ -25,7 +25,7 @@ void Diplomat_Compare(uint param_1)
   uint local_20;
   int local_1c;
   int *local_10;
-  
+
   iVar5 = param_1;
   Trace_Function(s_Diplomat_Compare_0051a9f0);
   param_1 = 0;
@@ -200,4 +200,3 @@ LAB_00442654:
   }
   return;
 }
-

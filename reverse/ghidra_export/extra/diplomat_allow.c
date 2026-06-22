@@ -25,7 +25,7 @@ undefined4 Diplomat_Allow(int param_1,int param_2,int param_3,int param_4)
   int iVar12;
   int iVar13;
   int local_4;
-  
+
   Trace_Function(s_Diplomat_Allow_0051a9a8);
   if (param_4 < 1) {
     return 0;
@@ -390,4 +390,3 @@ LAB_0043f5bb:
   }
   return 0;
 }
-

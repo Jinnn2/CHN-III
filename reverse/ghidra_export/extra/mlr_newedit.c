@@ -75,4 +75,3 @@ void MLR_NewEdit(void)
   }
   return;
 }
-

@@ -11,7 +11,7 @@ void MouseOn_Edit_Sel_Custom_Map(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  
+
   Trace_Function(s_MouseOn_Edit_Sel_Custom_Map_00571f74);
   g_custom_map_hover_index = -1;
   iVar3 = 0;
@@ -42,4 +42,3 @@ void MouseOn_Edit_Sel_Custom_Map(void)
   }
   return;
 }
-

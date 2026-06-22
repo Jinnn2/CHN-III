@@ -30,4 +30,3 @@ void Free_Pixel_Format_Tables(void)
   }
   return;
 }
-

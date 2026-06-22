@@ -16,7 +16,7 @@ void City_Size_Scale(int param_1)
   uint uVar6;
   ushort uVar7;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_City_Size_Scale_00515d10);
   iVar1 = *(int *)(param_1 + 0x24);
   if (iVar1 < 50000) {
@@ -119,9 +119,9 @@ void City_Size_Scale(int param_1)
     }
     *(short *)(param_1 + 0xd2) = *(short *)(param_1 + 0xd2) + sVar5;
     if ((*(byte *)(param_1 + 0x21) < uVar6) && (*(char *)(param_1 + 0xd0) == '\0')) {
-      FUN_00413b40(*(undefined2 *)(param_1 + 0x16),*(undefined2 *)(param_1 + 0x18),
-                   *(undefined4 *)(&DAT_005a7c58 + (uint)*(byte *)(param_1 + 0x21) * 4),
-                   (int)*(char *)(param_1 + 1),0);
+      Del_Army_View((uint)*(ushort *)(param_1 + 0x16),(uint)*(ushort *)(param_1 + 0x18),
+                    *(uint *)(&DAT_005a7c58 + (uint)*(byte *)(param_1 + 0x21) * 4),
+                    (int)*(char *)(param_1 + 1),0);
       if ((*(char *)(param_1 + 1) == g_human_country_index) && (DAT_0074a2ce != '\0')) {
         if (*(byte *)(param_1 + 0x21) < uVar6) {
           Format_Text(local_c0,&DAT_00515cf4,param_1 + 3,
@@ -138,11 +138,10 @@ void City_Size_Scale(int param_1)
                      *(undefined2 *)(param_1 + 0x18));
       }
       *(char *)(param_1 + 0x21) = (char)uVar6;
-      FUN_004131f0(*(undefined2 *)(param_1 + 0x16),*(undefined2 *)(param_1 + 0x18),
-                   *(undefined4 *)(&DAT_005a7c58 + uVar6 * 4),(int)*(char *)(param_1 + 1),1,1,0,0);
+      Add_New_View((uint)*(ushort *)(param_1 + 0x16),(uint)*(ushort *)(param_1 + 0x18),
+                   *(int *)(&DAT_005a7c58 + uVar6 * 4),(int)*(char *)(param_1 + 1),1,1,0,0);
       return;
     }
   }
   return;
 }
-

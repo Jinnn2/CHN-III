@@ -11,7 +11,7 @@ void Load_XMG_Resource(undefined4 param_1,int *param_2)
   int iVar1;
   int iVar2;
   undefined1 local_68 [104];
-  
+
   Format_Text(local_68,s_Safe_LoadXMG____s_00575a80,param_1);
   Trace_Function(local_68);
   if (*param_2 == 0) {
@@ -28,4 +28,3 @@ void Load_XMG_Resource(undefined4 param_1,int *param_2)
   }
   return;
 }
-

@@ -73,7 +73,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
   int local_c;
   int local_8;
   int local_4;
-  
+
   Trace_Function(s_Map_To_Battle_Army_005764e8);
   g_battle_attacker_slot_present[0] = 0;
   g_battle_defender_slot_present[0] = 0;
@@ -750,4 +750,3 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
   } while (local_28 < 0x50);
   return local_14;
 }
-

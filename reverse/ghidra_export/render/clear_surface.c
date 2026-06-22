@@ -11,4 +11,3 @@ void Clear_Surface(undefined4 param_1)
   DAT_00771f20 = param_1;
   return;
 }
-

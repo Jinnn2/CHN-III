@@ -10,7 +10,7 @@ void Make_City_Wall(int param_1)
 {
   int iVar1;
   undefined4 uVar2;
-  
+
   Trace_Function(s_Make_City_Wall_0057644c);
   if ((*(char *)(param_1 + 0x22) == '\0') || (*(char *)(param_1 + 0x22) == '\x04')) {
     FUN_0047c5d0(param_1,0x18,0x23,0x16,0x26,4);
@@ -52,4 +52,3 @@ void Make_City_Wall(int param_1)
   Reflash_City_Road(param_1,7,2);
   return;
 }
-

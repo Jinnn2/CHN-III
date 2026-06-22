@@ -14,7 +14,7 @@ void City_People_Born_Rate(void)
   ushort uVar2;
   short sVar3;
   double local_10;
-  
+
   Trace_Function(s_City_People_Born_Rate_00515a30);
   g_active_country->population_or_score_total =
        g_active_country->population_or_score_total -
@@ -99,4 +99,3 @@ void City_People_Born_Rate(void)
   _DAT_007068c8 = _DAT_007068c8 + local_10;
   return;
 }
-

@@ -21,7 +21,7 @@ void Make_New_Make(LandTile_0x100 *tile,int tile_x,int tile_y,int make_kind,byte
   int iVar8;
   char *pcVar9;
   int iVar10;
-  
+
   Trace_Function(s_Make_New_Make_0057e1d8);
   uVar6 = tile_y & 1;
   tile->field_0x19 = 0;
@@ -242,4 +242,3 @@ switchD_00493e53_default:
   }
   return;
 }
-

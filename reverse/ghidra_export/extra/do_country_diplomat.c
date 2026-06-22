@@ -29,4 +29,3 @@ void Do_Country_Diplomat(void)
   } while ((DAT_0071628c == 7) && ((uint)(g_frame_tick - _DAT_00716278) < 0x32));
   return;
 }
-

@@ -10,7 +10,7 @@ void __cdecl City_Business_Change(City_0x1b8_plus *city)
 {
   int iVar1;
   int in_stack_00000008;
-  
+
   Trace_Function(s_City_Business_Change_00515360);
   if ((0x3b < city->safety_score) || (in_stack_00000008 < 0)) {
     iVar1 = city->science_or_resource_score + in_stack_00000008;
@@ -41,4 +41,3 @@ void __cdecl City_Business_Change(City_0x1b8_plus *city)
   }
   return;
 }
-

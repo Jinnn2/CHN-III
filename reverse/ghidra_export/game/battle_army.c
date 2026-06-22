@@ -15,7 +15,7 @@ void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *st
   int *piVar3;
   uint *puVar4;
   uint uVar5;
-  
+
   pAVar2 = army;
   Trace_Function(s_Add_BattleArmy_00514980);
   uVar5 = (int)(char)army->strength_or_health << 3;
@@ -76,4 +76,3 @@ void BattleArmy(uint side,ArmyUnit_0x164_plus *army,int formation_count,uint *st
   }
   return;
 }
-

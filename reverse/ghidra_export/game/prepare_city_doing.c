@@ -24,7 +24,7 @@ void Prepare_City_Doing(void)
   undefined *local_10;
   int *local_8;
   int local_4;
-  
+
   Trace_Function(s_Prepare_City_Doing_00570738);
   g_city_turn_list_head = (City_0x1b8_plus *)0x0;
   pcVar7 = &g_country_states;
@@ -194,4 +194,3 @@ LAB_004518d6:
   }
   return;
 }
-

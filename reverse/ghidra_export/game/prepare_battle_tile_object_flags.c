@@ -15,7 +15,7 @@ void Prepare_Battle_Tile_Object_Flags(char param_1,int param_2)
   bool bVar5;
   int iVar6;
   int iVar7;
-  
+
   Trace_Function(s_Run_Battle_00514960);
   iVar4 = g_frame_tick;
   g_battle_tile_has_object_by_side[0] = g_battle_attacker_land_tile->linked_record != (void *)0x0;
@@ -144,4 +144,3 @@ void Prepare_Battle_Tile_Object_Flags(char param_1,int param_2)
   }
   return;
 }
-

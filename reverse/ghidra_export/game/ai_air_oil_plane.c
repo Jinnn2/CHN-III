@@ -31,7 +31,7 @@ void AI_AirOilPlane(void)
   int local_30;
   int local_2c;
   int local_28 [10];
-  
+
   Trace_Function(s_AI_AirOilPlane_0051206c);
   if (DAT_00706838 == '\x01') {
     if (_DAT_00748ff0->stationed_city == (City_0x1b8_plus *)0x0) {
@@ -44,7 +44,7 @@ void AI_AirOilPlane(void)
       if (cVar5 != '\0') {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_2c;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_30;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
           Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x33,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                               (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -91,7 +91,7 @@ void AI_AirOilPlane(void)
            (g_active_country->diplomacy_blockade_or_truce_flags[iVar6] == 1)) {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar11;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar10;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x32,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                                 (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -301,7 +301,7 @@ switchD_00402330_default:
                                      &local_30), cVar5 != '\0')) {
                 _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_2c;
                 _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_30;
-                FUN_004d2cc0(_DAT_00748ff0);
+                TestRoad(_DAT_00748ff0);
                 if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                   sVar4 = *(short *)&_DAT_00748ff0->field_0x8a;
                   sVar1 = *(short *)&_DAT_00748ff0->field_0x26;
@@ -321,7 +321,7 @@ LAB_0040251a:
               }
               _DAT_00748ff0->target_tile_x_or_anim_x = (short)piVar13;
               _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_2c;
-              FUN_004d2cc0(_DAT_00748ff0);
+              TestRoad(_DAT_00748ff0);
               if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                 sVar4 = *(short *)&_DAT_00748ff0->field_0x8a;
                 sVar1 = *(short *)&_DAT_00748ff0->field_0x26;
@@ -335,7 +335,7 @@ LAB_0040251a:
               if (cVar5 != '\0') {
                 _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_2c;
                 _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_30;
-                FUN_004d2cc0(_DAT_00748ff0);
+                TestRoad(_DAT_00748ff0);
                 if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                   Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2f,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                                       (int)*(short *)&_DAT_00748ff0->field_0x26,
@@ -357,4 +357,3 @@ LAB_0040251a:
   }
   return;
 }
-

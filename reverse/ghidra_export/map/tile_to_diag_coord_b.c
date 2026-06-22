@@ -12,4 +12,3 @@ int Tile_To_DiagCoordB(int tile_x,int tile_y)
 {
   return ((tile_y >> 1) - tile_x) + 0x136;
 }
-

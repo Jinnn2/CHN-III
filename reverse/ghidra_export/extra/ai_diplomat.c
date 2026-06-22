@@ -144,7 +144,7 @@ LAB_004057da:
     if (local_10 < 0) goto LAB_00405863;
     _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_10;
     _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_4;
-    FUN_004d2cc0(_DAT_00748ff0);
+    TestRoad(_DAT_00748ff0);
     if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
       Add_OrderQueue_Army(_DAT_00748ff0,0x24,1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
@@ -223,7 +223,7 @@ switchD_00405998_default:
   if (iVar11 != 0) {
     _DAT_00748ff0->target_tile_x_or_anim_x = *(short *)(iVar11 + 0x16);
     _DAT_00748ff0->target_tile_y_or_anim_y = *(short *)(iVar11 + 0x18);
-    FUN_004d2cc0(_DAT_00748ff0);
+    TestRoad(_DAT_00748ff0);
     if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
       Add_OrderQueue_Army(_DAT_00748ff0,0x24,1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;

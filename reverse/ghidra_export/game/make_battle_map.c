@@ -24,7 +24,7 @@ void Make_Battle_Map(void)
   int local_10c;
   LandTile_0x100 *local_108 [2];
   int local_100 [64];
-  
+
   Trace_Function(s_Make_Battle_Map_005149a0);
   puVar12 = (undefined4 *)&g_battle_grid_cells;
   for (iVar7 = 0x1b00; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -551,4 +551,3 @@ LAB_00419408:
     }
   } while( true );
 }
-

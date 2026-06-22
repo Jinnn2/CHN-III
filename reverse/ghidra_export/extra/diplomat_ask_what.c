@@ -26,7 +26,7 @@ void Diplomat_AskWhat(uint param_1)
   uint local_10;
   int *local_c;
   int local_4;
-  
+
   iVar3 = param_1;
   Trace_Function(s_Diplomat_AskWhat_0051a9c8);
   if (*(int *)(param_1 + 4) == -1) {
@@ -271,4 +271,3 @@ LAB_00441582:
   *pbVar1 = 0xff;
   return;
 }
-

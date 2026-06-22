@@ -19,7 +19,7 @@ void City_People_Change(void)
   float10 fVar7;
   float10 extraout_ST0;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_City_People_Change_00515a64);
   iVar6 = g_current_city->business_score;
   if (iVar6 < 0x1e) {
@@ -172,4 +172,3 @@ LAB_004260ee:
   _DAT_007068c8 = 1.0;
   goto LAB_0042610e;
 }
-

@@ -49,7 +49,7 @@ switchD_00495225_caseD_2:
            ((int)(related_army->cargo_or_subunit_count + 1 + (uint)param_1->cargo_or_subunit_count)
             <= g_army_type_table[bVar2].transport_capacity)))) &&
          (0 < g_army_type_table[bVar2].unit_class)) {
-        FUN_00471380(param_1);
+        BreakOut(param_1);
         Add_OrderQueue_Army(param_1,param_2,0x7b,-1,-1,related_army,-1,-1);
       }
     }

@@ -23,4 +23,3 @@ void Add_OrderQueue_Army(ArmyUnit_0x164_plus *army,int action_id,int event_id,in
              target_y);
   return;
 }
-

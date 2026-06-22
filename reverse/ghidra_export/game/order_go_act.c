@@ -22,7 +22,7 @@ void Order_Go_Act(void)
     return;
   }
   if ((char)_DAT_00748ff0->active_anim_step_count < '\x01') {
-    FUN_004d2cc0(_DAT_00748ff0);
+    TestRoad(_DAT_00748ff0);
     if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
       Add_OrderQueue_Army(_DAT_00748ff0,0x27,-1,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;

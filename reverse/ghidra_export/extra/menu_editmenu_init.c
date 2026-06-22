@@ -22,4 +22,3 @@ void Menu_EditMenu_Init(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

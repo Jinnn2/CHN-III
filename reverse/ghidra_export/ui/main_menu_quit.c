@@ -16,4 +16,3 @@ void MainMenu_Quit(void)
   g_menu_action_tick = g_frame_tick;
   return;
 }
-

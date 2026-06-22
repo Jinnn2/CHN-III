@@ -13,7 +13,7 @@ void Process_CommandLine_Args(void)
   LPSTR pCVar1;
   char *pcVar2;
   char *pcVar3;
-  
+
   Trace_Function(s_Argument_Process_00512364);
   pCVar1 = GetCommandLineA();
   pcVar2 = (char *)FUN_0050e524(pCVar1);
@@ -60,4 +60,3 @@ void Process_CommandLine_Args(void)
   }
   return;
 }
-

@@ -11,7 +11,7 @@ int Pasturage_Able(LandTile_0x100 *tile)
 
 {
   char cVar1;
-  
+
   Trace_Function(s_Pasturage_Able_00514ec4);
   if ((((tile->battle_stat_terrain_mode == 0) || (tile->battle_stat_terrain_mode == 3)) &&
       (tile->field_0x1a != '\x01')) &&
@@ -22,4 +22,3 @@ int Pasturage_Able(LandTile_0x100 *tile)
   }
   return (uint)tile & 0xffffff00;
 }
-

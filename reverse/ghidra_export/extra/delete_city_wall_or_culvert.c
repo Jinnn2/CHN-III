@@ -12,7 +12,7 @@ void Del_City_Wall_Or_Culvert(int param_1,int param_2)
   undefined2 uVar2;
   int iVar3;
   int iVar4;
-  
+
   iVar1 = param_2;
   Trace_Function(s_Del_City_Wall_Or_Culvert_00576470);
   if (DAT_0074a2b1 != '\0') {
@@ -41,4 +41,3 @@ void Del_City_Wall_Or_Culvert(int param_1,int param_2)
   }
   return;
 }
-

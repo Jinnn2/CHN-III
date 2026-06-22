@@ -15,7 +15,7 @@ void Reflash_Dip_City_List(int param_1,int param_2)
   int iVar3;
   int iVar4;
   int iVar5;
-  
+
   Trace_Function(s_Reflash_Dip_City_List_0051aa28);
   iVar5 = (&DAT_00705ec0)[param_2];
   while (iVar5 != 0) {
@@ -68,4 +68,3 @@ LAB_00442c12:
   }
   return;
 }
-

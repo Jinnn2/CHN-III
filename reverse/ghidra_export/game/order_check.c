@@ -32,7 +32,7 @@ void Order_Check(void)
   uint local_c;
   int local_8;
   int local_4;
-  
+
   Trace_Function(s_Order_Check_0057e2d8);
   iVar14 = 0;
   DAT_0057e1ec = 0xffffffff;
@@ -1278,4 +1278,3 @@ LAB_004950fa:
   DAT_005c33d8 = (DAT_00714f94 * 3 + 3) * 8;
   return;
 }
-

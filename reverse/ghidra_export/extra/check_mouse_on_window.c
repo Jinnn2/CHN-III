@@ -14,7 +14,7 @@ void CheckMouseOnWindow(void)
   uint uVar4;
   char *pcVar5;
   int local_4;
-  
+
   Trace_Function(s_CheckMouseOnWindow_0057daec);
   piVar3 = DAT_00758528;
   do {
@@ -112,4 +112,3 @@ LAB_0048cae0:
   (*(code *)DAT_00758530[0x23])();
   return;
 }
-

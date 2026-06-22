@@ -63,7 +63,7 @@ void AI_Worker(void)
   int local_24;
   int local_20 [4];
   int local_10 [4];
-  
+
   Trace_Function(s_AI_Worker_005122fc);
   local_98 = _DAT_00748ff0->stationed_city;
   if (local_98 == (City_0x1b8_plus *)0x0) {
@@ -116,7 +116,7 @@ switchD_00409a7b_default:
                (*(char *)((int)pLVar13->linked_record + 1) == _DAT_00748e34)) {
               _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar11;
               _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar6;
-              FUN_004d2cc0(_DAT_00748ff0);
+              TestRoad(_DAT_00748ff0);
               iVar7 = g_map_width_tiles;
               iVar20 = _g_land_tiles;
               if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
@@ -219,7 +219,7 @@ LAB_00409d12:
       if (-1 < (int)uVar15) {
         _DAT_00748ff0->target_tile_x_or_anim_x = (short)uVar15;
         _DAT_00748ff0->target_tile_y_or_anim_y = uVar5;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         if ((char)_DAT_00748ff0->active_anim_step_count < '\x01') {
           Add_OrderQueue_Army(_DAT_00748ff0,0,-1,1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
           return;
@@ -517,7 +517,7 @@ switchD_0040a5e9_switchD:
                 DAT_005d90b9 = 0;
                 DAT_005d90f0 = 0x37;
                 DAT_005d8f90 = 1;
-                FUN_004d2cc0(&DAT_005d8f98);
+                TestRoad((ArmyUnit_0x164_plus *)&DAT_005d8f98);
                 iVar7 = 0;
                 DAT_005d8f90 = 0;
                 army = _DAT_00748ff0;
@@ -552,7 +552,7 @@ switchD_0040a792_default:
                       }
                       _DAT_00748ff0->target_tile_x_or_anim_x = psVar19[-0x32];
                       _DAT_00748ff0->target_tile_y_or_anim_y = *psVar19;
-                      FUN_004d2cc0(_DAT_00748ff0);
+                      TestRoad(_DAT_00748ff0);
                       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x10,-1,-1,(ArmyUnit_0x164_plus *)0x0
                                             ,-1,-1);
@@ -569,7 +569,7 @@ switchD_0040a792_default:
                       }
                       _DAT_00748ff0->target_tile_x_or_anim_x = psVar19[-0x32];
                       _DAT_00748ff0->target_tile_y_or_anim_y = *psVar19;
-                      FUN_004d2cc0(_DAT_00748ff0);
+                      TestRoad(_DAT_00748ff0);
                       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xf,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                                             -1,-1);
@@ -586,7 +586,7 @@ switchD_0040a792_default:
                       }
                       _DAT_00748ff0->target_tile_x_or_anim_x = psVar19[-0x32];
                       _DAT_00748ff0->target_tile_y_or_anim_y = *psVar19;
-                      FUN_004d2cc0(_DAT_00748ff0);
+                      TestRoad(_DAT_00748ff0);
                       if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
                         Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x11,-1,-1,(ArmyUnit_0x164_plus *)0x0
                                             ,-1,-1);
@@ -633,7 +633,7 @@ LAB_0040a937:
         }
         army->target_tile_x_or_anim_x = (short)iVar7;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar20;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         bVar1 = _DAT_00748ff0->active_anim_step_count;
         army = _DAT_00748ff0;
 joined_r0x0040aa39:
@@ -653,7 +653,7 @@ joined_r0x0040aa39:
       if ((-1 < (int)local_ac) && (-1 < local_88)) {
         army->target_tile_x_or_anim_x = (short)local_ac;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_88;
-        FUN_004d2cc0(_DAT_00748ff0);
+        TestRoad(_DAT_00748ff0);
         bVar1 = _DAT_00748ff0->active_anim_step_count;
         army = _DAT_00748ff0;
         goto joined_r0x0040aa39;
@@ -800,7 +800,7 @@ LAB_0040aee6:
   if (DAT_0074c858 == 0) {
     _DAT_00748ff0->target_tile_x_or_anim_x = local_98->tile_x;
     _DAT_00748ff0->target_tile_y_or_anim_y = local_98->tile_x;
-    FUN_004d2cc0(_DAT_00748ff0);
+    TestRoad(_DAT_00748ff0);
     if ((char)_DAT_00748ff0->active_anim_step_count < '\x01') {
       Add_OrderQueue_Army(_DAT_00748ff0,0,-1,2,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
@@ -819,4 +819,3 @@ LAB_0040aecf:
   if (g_tile_radius_offset_counts[2] < local_b0) goto LAB_0040aee6;
   goto LAB_0040ad9b;
 }
-

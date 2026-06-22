@@ -166,4 +166,3 @@ void Set_Color(void)
   _DAT_00716144 = (uint)_DAT_0074a316;
   return;
 }
-

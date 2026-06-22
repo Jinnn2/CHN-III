@@ -9,7 +9,7 @@ void Make_City_Train(undefined4 param_1)
 
 {
   int iVar1;
-  
+
   Trace_Function(s_Make_City_Train_0057648c);
   FUN_0047c5d0(param_1,0x2f,0x7f,0x16,0x26,4);
   FUN_0047c5d0(param_1,0x2f,0x7e,6,0x16,4);
@@ -30,4 +30,3 @@ void Make_City_Train(undefined4 param_1)
   Reflash_City_Road(param_1,7,3);
   return;
 }
-

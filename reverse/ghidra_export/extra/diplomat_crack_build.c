@@ -24,7 +24,7 @@ char Diplomat_Crack_Build(void)
   byte *pbVar12;
   char local_c1;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_Crack_Build_00519740);
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar5 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
@@ -192,4 +192,3 @@ LAB_00439d43:
   UI_YesNo_Message(local_c0,0,0,1);
   return local_c1;
 }
-

@@ -20,7 +20,7 @@ void Put_Sub_EditMenu(void)
   int iVar7;
   int extraout_var_02;
   int iVar8;
-  
+
   Trace_Function(s_Put_Sub_EditMenu_00578a90);
   iVar8 = extraout_var_02;
   Draw_Image_To_Backbuffer(0,0,g_loaded_tmg_background);
@@ -178,4 +178,3 @@ void Put_Sub_EditMenu(void)
             0xffffffff);
   return;
 }
-

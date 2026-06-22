@@ -10,7 +10,7 @@ int City_People_Change_Percent(int param_1,int param_2)
 {
   int iVar1;
   int iVar2;
-  
+
   Trace_Function(s_City_People_Change_Percent_00515378);
   iVar1 = *(int *)(param_1 + 0x24);
   iVar2 = (iVar1 * param_2) / 100;
@@ -20,4 +20,3 @@ int City_People_Change_Percent(int param_1,int param_2)
   *(int *)(param_1 + 0x24) = iVar2;
   return iVar2 - iVar1;
 }
-

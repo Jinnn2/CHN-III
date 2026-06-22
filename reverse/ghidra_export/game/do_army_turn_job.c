@@ -22,7 +22,7 @@ void __fastcall Do_Army_TurnJob(LandTile_0x100 *param_1)
   int iVar10;
   int iVar11;
   bool bVar12;
-  
+
   Trace_Function(s_Do_Army_TurnJob_0057defc);
   iVar11 = 0;
   iVar5 = _g_land_tiles;
@@ -374,4 +374,3 @@ LAB_00491949:
     }
   } while( true );
 }
-

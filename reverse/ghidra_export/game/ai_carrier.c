@@ -52,7 +52,7 @@ void AI_Carrier(void)
   int local_c;
   uint local_8;
   CountryState_0xe68 *local_4;
-  
+
   Trace_Function(s_AI_Carrier_00512090);
   if (DAT_00706838 != '\x01') goto LAB_0040548b;
   bVar22 = false;
@@ -409,7 +409,7 @@ switchD_00404d02_default:
                *(short *)(&g_active_country->field_0x614 + local_38 * 2);
           _DAT_00748ff0->target_tile_y_or_anim_y =
                *(short *)((int)g_active_country->early_science_status + local_38 * 2 + -0x7c);
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           pCVar15 = extraout_EDX;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,10,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -442,7 +442,7 @@ switchD_00404d02_default:
         if (cVar8 != '\0') {
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_4;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_8;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           iVar12 = extraout_EDX_02;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0x2a,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -454,7 +454,7 @@ switchD_00404d02_default:
            (iVar12 = (int)(char)pCVar6->owner_country_id, iVar12 == _DAT_00748e34)) {
           _DAT_00748ff0->target_tile_x_or_anim_x = pCVar6->tile_x;
           _DAT_00748ff0->target_tile_y_or_anim_y = _DAT_00748ff0->stationed_city->tile_y;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           iVar12 = extraout_EDX_03;
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,8,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
@@ -510,7 +510,7 @@ LAB_0040525c:
 LAB_004053bc:
           _DAT_00748ff0->target_tile_x_or_anim_x = (short)iVar19;
           _DAT_00748ff0->target_tile_y_or_anim_y = (short)iVar12;
-          FUN_004d2cc0(_DAT_00748ff0);
+          TestRoad(_DAT_00748ff0);
           if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
             Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xb,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
             return;
@@ -530,7 +530,7 @@ LAB_004053bc:
      (cVar9 = Near_Beach_City_Found(0xf,&local_4,&local_8), cVar9 != '\0')) {
     _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_4;
     _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_8;
-    FUN_004d2cc0(_DAT_00748ff0);
+    TestRoad(_DAT_00748ff0);
     if ('\0' < (char)_DAT_00748ff0->active_anim_step_count) {
       Add_OrderQueue_Army(_DAT_00748ff0,0x24,0xc,-1,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       return;
@@ -545,4 +545,3 @@ LAB_0040548b:
   }
   return;
 }
-

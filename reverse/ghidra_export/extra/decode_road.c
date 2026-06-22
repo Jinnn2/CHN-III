@@ -33,7 +33,7 @@ void Decode_Road(int param_1,uint param_2)
   int local_2c;
   int local_1c;
   int local_18 [6];
-  
+
   Trace_Function(s_Decode_Road_005188d0);
   if (((-1 < (int)param_2) && ((int)param_2 < g_map_height_tiles)) &&
      (((-1 < param_1 && (param_1 < g_map_width_tiles)) ||
@@ -235,4 +235,3 @@ void Decode_Road(int param_1,uint param_2)
   }
   return;
 }
-

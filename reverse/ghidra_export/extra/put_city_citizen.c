@@ -28,7 +28,7 @@ void Put_City_Citizen(void)
   uint local_18;
   uint local_14;
   int local_10;
-  
+
   Trace_Function(s_Put_City_Citizen_005cc02c);
   iVar3 = DAT_005c30b0;
   iVar9 = DAT_005c30ac;
@@ -162,4 +162,3 @@ void Put_City_Citizen(void)
   }
   return;
 }
-

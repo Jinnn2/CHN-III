@@ -184,7 +184,7 @@ LAB_0042858c:
                 DAT_0075c638 = 0x37;
                 DAT_0075c60b = 0xff;
                 DAT_005d8f90 = 2;
-                FUN_004d2cc0();
+                TestRoad((ArmyUnit_0x164_plus *)&DAT_0075c4e0);
                 DAT_005d8f90 = 0;
                 if ('\0' < DAT_0075c600) {
                   iVar15 = (int)DAT_0075c600;
@@ -307,7 +307,7 @@ LAB_00428580:
                   DAT_0075c638 = 0x37;
                   DAT_0075c60b = 0xff;
                   DAT_005d8f90 = 2;
-                  FUN_004d2cc0();
+                  TestRoad((ArmyUnit_0x164_plus *)&DAT_0075c4e0);
                   DAT_005d8f90 = 0;
                   if ('\0' < DAT_0075c600) {
                     iVar15 = (int)DAT_0075c600;
@@ -419,7 +419,7 @@ LAB_00428580:
                 if (pAVar14 != (ArmyUnit_0x164_plus *)0x0) {
                   pAVar14->target_tile_x_or_anim_x = g_current_city->tile_x;
                   pAVar14->target_tile_y_or_anim_y = g_current_city->tile_y;
-                  FUN_004d2cc0();
+                  TestRoad(pAVar14);
                   if ('\0' < (char)pAVar14->active_anim_step_count) {
                     Add_OrderQueue_Army(pAVar14,0x24,0x38,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                                         (int)*(short *)&pAVar14->field_0x26,
@@ -443,7 +443,7 @@ LAB_00428580:
               if (pAVar14 != (ArmyUnit_0x164_plus *)0x0) {
                 pAVar14->target_tile_x_or_anim_x = g_current_city->tile_x;
                 pAVar14->target_tile_y_or_anim_y = g_current_city->tile_y;
-                FUN_004d2cc0();
+                TestRoad(pAVar14);
                 if ('\0' < (char)pAVar14->active_anim_step_count) {
                   Add_OrderQueue_Army(pAVar14,0x24,0x38,-1,-1,(ArmyUnit_0x164_plus *)0x0,
                                       (int)*(short *)&pAVar14->field_0x26,

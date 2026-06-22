@@ -18,7 +18,7 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
   int iVar5;
   char *pcVar6;
   int local_34 [13];
-  
+
   pLVar2 = tile;
   Trace_Function(s_Make_New_Work_0057e1c8);
   tile->field_0x1a = (char)work_kind;
@@ -98,4 +98,3 @@ void Make_New_Work(LandTile_0x100 *tile,int work_kind)
   }
   return;
 }
-

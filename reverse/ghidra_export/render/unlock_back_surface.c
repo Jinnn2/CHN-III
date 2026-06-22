@@ -13,4 +13,3 @@ void Unlock_Back_Surface(void)
   DAT_00755924 = 0;
   return;
 }
-

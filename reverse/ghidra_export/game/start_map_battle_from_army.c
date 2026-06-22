@@ -419,7 +419,7 @@ LAB_0040b985:
                   if (cVar14 != '\0') {
                     pAVar3->target_tile_x_or_anim_x = (short)iStack_48;
                     pAVar3->target_tile_y_or_anim_y = asStack_44[0];
-                    FUN_004d2cc0(pAVar3);
+                    TestRoad(pAVar3);
                     if ('\0' < (char)pAVar3->active_anim_step_count) {
                       sVar1 = pAVar3->render_or_anim_y;
                       sVar2 = pAVar3->render_or_anim_x;
@@ -436,7 +436,7 @@ LAB_0040c81d:
                   if (cVar14 != '\0') {
                     pAVar3->target_tile_x_or_anim_x = asStack_40[0];
                     pAVar3->target_tile_y_or_anim_y = (short)iStack_3c;
-                    FUN_004d2cc0(pAVar3);
+                    TestRoad(pAVar3);
                     if ('\0' < (char)pAVar3->active_anim_step_count) {
                       sVar1 = pAVar3->render_or_anim_y;
                       sVar2 = pAVar3->render_or_anim_x;
@@ -694,7 +694,7 @@ LAB_0040cb46:
                 if (cVar14 != '\0') {
                   pAVar3->target_tile_x_or_anim_x = (short)iStack_3c;
                   pAVar3->target_tile_y_or_anim_y = asStack_40[0];
-                  FUN_004d2cc0(pAVar3);
+                  TestRoad(pAVar3);
                   bVar13 = pAVar3->active_anim_step_count;
 joined_r0x0040cf15:
                   if ('\0' < (char)bVar13) {
@@ -709,7 +709,7 @@ joined_r0x0040cf15:
                 if (cVar14 != '\0') {
                   pAVar3->target_tile_x_or_anim_x = asStack_44[0];
                   pAVar3->target_tile_y_or_anim_y = (short)local_38;
-                  FUN_004d2cc0(pAVar3);
+                  TestRoad(pAVar3);
                   bVar13 = pAVar3->active_anim_step_count;
                   goto joined_r0x0040cf15;
                 }
@@ -1036,7 +1036,7 @@ LAB_0040cfd7:
     local_54 = (short)iVar25;
     param_1->target_tile_x_or_anim_x = (short)local_68;
     param_1->target_tile_y_or_anim_y = local_54;
-    FUN_004d2cc0(param_1);
+    TestRoad(param_1);
     if ('\0' < (char)param_1->active_anim_step_count) {
       if ((g_army_type_table[uVar15].unit_class == 0) &&
          (g_battle_attacker_land_tile->linked_count_or_city_count < 0)) {

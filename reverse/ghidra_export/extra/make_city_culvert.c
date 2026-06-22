@@ -22,7 +22,7 @@ void Make_City_Culvert(int param_1)
   int local_54;
   int local_50 [16];
   undefined4 local_10 [4];
-  
+
   Trace_Function(s_Make_City_Culvert_0057645c);
   iVar9 = 0;
   iVar3 = *(int *)(param_1 + 0x1ac);
@@ -123,4 +123,3 @@ LAB_0047c160:
   }
   return;
 }
-

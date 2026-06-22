@@ -26,7 +26,7 @@ void PutScreen_Mainmenu(void)
   undefined4 uVar10;
   undefined4 uVar11;
   void *pvVar12;
-  
+
   Trace_Function(s_PutScreen_Mainmenu_00575f44);
   iVar8 = 0;
   uVar11 = 0;
@@ -189,4 +189,3 @@ LAB_004791f2:
     }
   } while( true );
 }
-

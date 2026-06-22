@@ -17,7 +17,7 @@ undefined4 Create_Back_Surface(int param_1)
   int *piVar5;
   int *piVar6;
   undefined1 *puStack_3e4;
-  
+
   Trace_Function();
   FUN_0041f920();
   g_resolution_mode_index = param_1;
@@ -153,4 +153,3 @@ LAB_004f0bf9:
   uVar2 = FUN_0046a300();
   return uVar2;
 }
-

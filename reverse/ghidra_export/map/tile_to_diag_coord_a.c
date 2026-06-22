@@ -11,11 +11,10 @@ int Tile_To_DiagCoordA(int tile_x,int tile_y)
 
 {
   uint uVar1;
-  
+
   uVar1 = tile_y & 0x80000001;
   if ((int)uVar1 < 0) {
     uVar1 = (uVar1 - 1 | 0xfffffffe) + 1;
   }
   return (tile_y >> 1) + tile_x + uVar1;
 }
-

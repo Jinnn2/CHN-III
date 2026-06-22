@@ -17,7 +17,7 @@ void City_Manager(int param_1)
   uint uVar5;
   uint uVar6;
   undefined *puVar7;
-  
+
   Trace_Function(s_City_Manager_00515a20);
   DAT_005e002c = g_frame_tick;
   g_map_interaction_mode = 2;
@@ -101,4 +101,3 @@ LAB_00425b8f:
   Set_Draw_Clip_Rect(0,0,DAT_00755810 + -5,DAT_00755814 + -5);
   return;
 }
-

@@ -22,7 +22,7 @@ bool Diplomat_ScareMonger(void)
   byte *pbVar9;
   bool local_c1;
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Diplomat_ScareMonger_005195b4);
   if ((_DAT_00748e34 != g_human_country_index) ||
      (iVar4 = DAT_0075597c, g_auto_turn_or_ai_control_flag != 0)) {
@@ -179,4 +179,3 @@ LAB_0043984b:
   UI_YesNo_Message(local_c0,0,0,1);
   return local_c1;
 }
-

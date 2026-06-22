@@ -41,7 +41,7 @@ void Order_Nothing(void)
   undefined1 local_6;
   undefined2 local_5;
   undefined1 local_3;
-  
+
   Trace_Function(s_Order_Nothing_0057e43c);
   if ((g_active_country->available_special_project_flags[DAT_0074c034 + 0x1a] == 2) &&
      (_DAT_00748e34 != g_human_country_index)) {
@@ -281,4 +281,3 @@ LAB_00498e6e:
   }
   return;
 }
-

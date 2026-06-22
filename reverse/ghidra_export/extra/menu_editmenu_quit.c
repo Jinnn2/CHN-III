@@ -70,4 +70,3 @@ void Menu_EditMenu_Quit(void)
   }
   return;
 }
-

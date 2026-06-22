@@ -14,7 +14,7 @@ void Cancel_All_Army_On_Tile(LandTile_0x100 *tile)
   int iVar2;
   ArmyUnit_0x164_plus **ppAVar3;
   int iVar4;
-  
+
   Trace_Function(s_Cancle_All_Army_0057f958);
   iVar4 = 0;
   iVar2 = (int)(char)tile->army_count_or_occupant_count;
@@ -40,4 +40,3 @@ void Cancel_All_Army_On_Tile(LandTile_0x100 *tile)
   }
   return;
 }
-

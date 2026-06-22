@@ -11,7 +11,7 @@ void Apply_Resolution_Mode(int param_1,char param_2)
 
 {
   int iVar1;
-  
+
   Trace_Function(s_Screen_Size_00588638);
   if (param_1 != g_resolution_mode_index) {
     g_client_width = g_resolution_width_table[param_1];
@@ -54,4 +54,3 @@ void Apply_Resolution_Mode(int param_1,char param_2)
   }
   return;
 }
-

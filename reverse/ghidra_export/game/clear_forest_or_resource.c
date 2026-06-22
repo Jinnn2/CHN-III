@@ -26,4 +26,3 @@ void Clear_Forest_Or_Resource(LandTile_0x100 *tile)
   tile->field_0x19 = 0;
   return;
 }
-

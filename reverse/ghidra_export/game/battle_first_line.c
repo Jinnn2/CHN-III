@@ -31,7 +31,7 @@ undefined4 Battle_First_Line(int param_1,uint *param_2,uint *param_3,char param_
   int local_18;
   int local_14;
   uint local_10 [4];
-  
+
   Trace_Function(s_Battle_First_Line_00513aa4);
   switch(DAT_005d91e0) {
   case 0:
@@ -493,4 +493,3 @@ LAB_0041520a:
   }
   return 0;
 }
-

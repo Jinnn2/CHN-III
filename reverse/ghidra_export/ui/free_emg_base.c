@@ -37,4 +37,3 @@ void Free_EMG_Base(void)
   Safe_FreeIMG(&DAT_007585f8);
   return;
 }
-

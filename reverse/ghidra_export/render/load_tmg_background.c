@@ -28,7 +28,7 @@ undefined1 * Load_TMG_Background(char *param_1,int param_2)
   DWORD local_12c;
   undefined1 *local_128;
   char local_124 [292];
-  
+
   Trace_Function(s_ReadTMG_0057e68c);
   uVar3 = 0xffffffff;
   puVar6 = (undefined1 *)0x0;
@@ -192,4 +192,3 @@ LAB_0049c1eb:
   }
   return puVar6;
 }
-

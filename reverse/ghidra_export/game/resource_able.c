@@ -11,7 +11,7 @@ byte Resource_Able(LandTile_0x100 *tile,int resource_id)
 
 {
   byte bVar1;
-  
+
   Trace_Function(s_Resource_Able_00514efc);
   bVar1 = 0;
   if (((0 < *(int *)(&DAT_005a812c + ((int)*(char *)tile + resource_id * 0x36) * 4)) ||
@@ -23,4 +23,3 @@ byte Resource_Able(LandTile_0x100 *tile,int resource_id)
   }
   return bVar1;
 }
-

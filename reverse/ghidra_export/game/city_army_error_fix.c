@@ -21,7 +21,7 @@ void City_Army_Error_Fix(void)
   undefined1 local_2ac [192];
   undefined1 local_1ec [192];
   uint local_12c [75];
-  
+
   Trace_Function(s_City_Army_Error_Fix_0057398c);
   local_378 = 0;
   puVar5 = (ushort *)&DAT_00735262;
@@ -79,4 +79,3 @@ void City_Army_Error_Fix(void)
   } while ((int)puVar5 < 0x748f52);
   return;
 }
-

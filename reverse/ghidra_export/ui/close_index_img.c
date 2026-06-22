@@ -23,4 +23,3 @@ void CloseIndexIMG(int param_1)
   }
   return;
 }
-

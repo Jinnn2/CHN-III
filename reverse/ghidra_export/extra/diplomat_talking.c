@@ -19,7 +19,7 @@ void Diplomat_Talking(int param_1)
   undefined4 *puVar9;
   char *pcVar10;
   undefined4 *puVar11;
-  
+
   Trace_Function(s_Diplomat_Talking_0051a978);
   uVar7 = 0xffffffff;
   iVar1 = param_1 * 4;
@@ -63,4 +63,3 @@ void Diplomat_Talking(int param_1)
   }
   return;
 }
-
