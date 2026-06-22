@@ -235,10 +235,10 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x0045b1d0` | `MouseOn_Edit_Sel_Custom_Map` | 275 | 1 |
 | `0x0045b2f0` | `MLR_Edit_SelCustomMap` | 2658 | 15 |
 | `0x0045c330` | `FUN_0045c330` | 263 | 1 |
-| `0x0045c5d0` | `FUN_0045c5d0` | 102 | 3 |
-| `0x0045c640` | `FUN_0045c640` | 207 | 4 |
-| `0x0045d0d0` | `FUN_0045d0d0` | 341 | 7 |
-| `0x0045d2c0` | `FUN_0045d2c0` | 436 | 1 |
+| `0x0045c5d0` | `Before_Edit_Empire_Flag` | 102 | 3 |
+| `0x0045c640` | `After_Edit_Empire_Flag` | 207 | 4 |
+| `0x0045d0d0` | `Save_IMG_Flag` | 341 | 7 |
+| `0x0045d2c0` | `MLP_Edit_Empire_Flag` | 436 | 1 |
 | `0x0045d6f0` | `Before_Edit_Goverment` | 1993 | 4 |
 | `0x0045e4d0` | `Before_Edit_Ground` | 931 | 4 |
 | `0x0045ee10` | `Before_Edit_Empire_Hero` | 2641 | 17 |
@@ -327,10 +327,10 @@ Generated from `China2EX_fontfix8.exe`.
 | `0x00478860` | `FUN_00478860` | 86 | 2 |
 | `0x004788c0` | `FUN_004788c0` | 277 | 4 |
 | `0x004789e0` | `Load_EMG_Resource` | 99 | 4 |
-| `0x00478a50` | `FUN_00478a50` | 99 | 4 |
+| `0x00478a50` | `Safe_LoadIMG` | 99 | 4 |
 | `0x00478ac0` | `Load_XMG_Resource` | 99 | 4 |
 | `0x00478b30` | `Free_EMG_Resource` | 40 | 2 |
-| `0x00478b60` | `FUN_00478b60` | 40 | 2 |
+| `0x00478b60` | `Safe_FreeIMG` | 40 | 2 |
 | `0x00478b90` | `Free_XMG_Resource` | 40 | 2 |
 | `0x00478bc0` | `FUN_00478bc0` | 504 | 8 |
 | `0x00478dc0` | `FUN_00478dc0` | 131 | 3 |

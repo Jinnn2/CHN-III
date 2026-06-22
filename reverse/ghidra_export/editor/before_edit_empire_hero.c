@@ -307,7 +307,7 @@ LAB_0045f0cd:
   _DAT_00572584 = 0xffffffff;
   if (-1 < DAT_00706e88) {
     if (DAT_00706e9c != 0) {
-      FUN_00478b60(&DAT_00706e9c);
+      Safe_FreeIMG(&DAT_00706e9c);
       DAT_00706e9c = 0;
     }
     if (-1 < g_country_profile_defs[DAT_00706e88].portrait_enabled_or_display_flag) {

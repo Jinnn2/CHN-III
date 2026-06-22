@@ -11,7 +11,7 @@ void Diplomat_End(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  
+
   Trace_Function(s_Diplomat_End_0051ab44);
   iVar2 = DAT_00705ec0;
   while (iVar1 = DAT_00705ec4, iVar2 != 0) {
@@ -38,8 +38,8 @@ void Diplomat_End(void)
   g_map_interaction_mode = 1;
   DAT_00705eb8 = 0;
   DAT_00705f14 = 1;
-  FUN_00478b60(&DAT_00705edc);
-  FUN_00478b60(&DAT_00705ee0);
+  Safe_FreeIMG(&DAT_00705edc);
+  Safe_FreeIMG(&DAT_00705ee0);
   if (DAT_005dfe84 != 0) {
     FUN_0047de70(DAT_005dfe84,s_Diplomat_End__BattleBack_0051ab28,0xe);
     DAT_005dfe84 = 0;
@@ -61,4 +61,3 @@ void Diplomat_End(void)
   Free_EMG_Resource(&DAT_007585ac);
   return;
 }
-

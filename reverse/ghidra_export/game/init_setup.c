@@ -19,7 +19,7 @@ void Init_SetUp(void)
   char *pcVar7;
   char acStack_1c4 [260];
   undefined1 local_c0 [192];
-  
+
   Trace_Function(s_Init_SetUp_005747ec);
   FUN_0050e5ec(s_DEBUG_TXT_005153c4);
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_005747e0);
@@ -60,7 +60,7 @@ void Init_SetUp(void)
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_0057467c);
   FUN_004c35f0();
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_00574670);
-  FUN_00478a50(s_EDIT_IMG_00574664,&DAT_007585fc);
+  Safe_LoadIMG(s_EDIT_IMG_00574664,&DAT_007585fc);
   Load_EMG_Resource(s_METAL_EMG_00574658,&DAT_0075858c);
   Load_EMG_Resource(s_NEWUI_EMG_0057464c,&DAT_007585d0);
   Load_EMG_Resource(s_MOUSE_EMG_00574640,&DAT_00758564);
@@ -495,4 +495,3 @@ LAB_0046f064:
   FUN_004fbe70(s_DEBUG_TXT_005153c4,&DAT_005744a4);
   return;
 }
-

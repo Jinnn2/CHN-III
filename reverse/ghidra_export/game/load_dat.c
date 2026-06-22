@@ -419,7 +419,7 @@ undefined4 Load_Dat(char *param_1,char *param_2,int param_3)
       iVar6 = 0;
       DAT_00707920 = DAT_00707920 + 0x870;
       do {
-        piVar9 = *(int **)(DAT_00758570 + iVar6);
+        piVar9 = *(int **)((int)g_flag_img_bank + iVar6);
         Trace_Function(s_MemRead_005755ac);
         piVar20 = DAT_00707920;
         for (iVar16 = 0x40; iVar16 != 0; iVar16 = iVar16 + -1) {
