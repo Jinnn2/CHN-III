@@ -35,7 +35,7 @@ undefined4 Near_City_Away_Enemy(int param_1,uint param_2,int param_3,int *param_
       iVar9 = (int)*(short *)((int)g_edit_dest_round_buffers[uVar3] + param_2 * 8 + 2) + uVar1;
       if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
          (((-1 < iVar7 && (iVar7 < iVar6)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar7 < 0) {
           iVar7 = iVar7 + iVar6;
         }

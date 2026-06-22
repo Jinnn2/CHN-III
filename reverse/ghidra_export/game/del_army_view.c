@@ -25,7 +25,7 @@ void Del_Army_View(int tile_x,int tile_y,uint view_radius_mode,int country_id,in
   iVar2 = country_id;
   Trace_Function(s_Del_Army_View_00512a00);
   local_4 = in_ECX;
-  if (g_current_map_scenario_info.scenario_value_2c == 1) {
+  if (g_current_map_scenario_info.gameplay_mode == 1) {
     local_4 = *(int *)&g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].field_0x80;
   }
   country_id = 0;
@@ -38,14 +38,14 @@ void Del_Army_View(int tile_x,int tile_y,uint view_radius_mode,int country_id,in
       iVar3 = psVar1[1] + tile_y;
       if (((iVar3 < 0) || (g_map_height_tiles <= iVar3)) ||
          (((iVar5 < 0 || (iVar6 <= iVar5)) &&
-          (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_00413d1e;
+          (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_00413d1e;
       if (iVar5 < 0) {
         iVar5 = iVar5 + iVar6;
       }
       if (iVar6 <= iVar5) {
         iVar5 = iVar5 - iVar6;
       }
-      if ((g_current_map_scenario_info.scenario_value_2c == 1) && (local_4 != 1)) {
+      if ((g_current_map_scenario_info.gameplay_mode == 1) && (local_4 != 1)) {
         if ((iVar5 < 0x4b) || (((iVar3 < 0x43 || (0x9e < iVar5)) || (0xa4 < iVar3)))) {
           if (local_4 == 0) goto switchD_00413c4f_switchD;
         }

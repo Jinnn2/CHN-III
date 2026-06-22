@@ -34,7 +34,7 @@ undefined4 Near_City_With_Army_Found(int param_1,int *param_2,int *param_3)
       iVar8 = (int)psVar4[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
          (((-1 < iVar9 && (iVar9 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar9 < 0) {
           iVar9 = iVar9 + g_map_width_tiles;
         }

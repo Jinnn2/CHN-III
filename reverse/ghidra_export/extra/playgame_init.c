@@ -34,7 +34,7 @@ void PlayGame_Init(void)
           DAT_0075595c = 1;
           DAT_005893fc = 0;
           _DAT_00589400 = 15000;
-          g_current_map_scenario_info.scenario_value_58 = 1;
+          g_current_map_scenario_info.player_country_id = 1;
         }
         FUN_00481fe0();
         FUN_00470ed0();

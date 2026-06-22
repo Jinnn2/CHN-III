@@ -183,7 +183,7 @@ LAB_0047173e:
     pAVar4->cached_stat_b = (short)g_army_type_table[bVar1].defense_or_support_stat_a;
     pAVar4->cached_stat_c =
          (short)g_army_type_table[bVar1].movement_or_speed *
-         (short)g_current_map_scenario_info.scenario_value_164;
+         (short)g_current_map_scenario_info.movement_base;
     pAVar4->cargo_or_subunit_count = 0;
     pAVar4->mission_action_id = 0;
     pAVar4[1].army_type_id = 0x27;
@@ -249,7 +249,7 @@ LAB_0047173e:
       pAVar4->cached_stat_b = (short)g_army_type_table[bVar1].defense_or_support_stat_a;
       pAVar4->cached_stat_c =
            (short)g_army_type_table[bVar1].movement_or_speed *
-           (short)g_current_map_scenario_info.scenario_value_164;
+           (short)g_current_map_scenario_info.movement_base;
       pAVar4->cargo_or_subunit_count = 0;
       pAVar8->cached_stat_a = pAVar8->cached_stat_a - pAVar4->cached_stat_a;
       pAVar8->cached_stat_b = pAVar8->cached_stat_b - pAVar4->cached_stat_b;
@@ -274,7 +274,7 @@ LAB_0047173e:
     pAVar4->cached_stat_b = (short)g_army_type_table[bVar1].defense_or_support_stat_a;
     pAVar4->cached_stat_c =
          (short)g_army_type_table[bVar1].movement_or_speed *
-         (short)g_current_map_scenario_info.scenario_value_164;
+         (short)g_current_map_scenario_info.movement_base;
     if (iVar11 == iVar9) {
       pAVar7->cached_stat_a = pAVar7->cached_stat_a - pAVar4->cached_stat_a;
       pAVar7->cached_stat_b = pAVar7->cached_stat_b - pAVar4->cached_stat_b;

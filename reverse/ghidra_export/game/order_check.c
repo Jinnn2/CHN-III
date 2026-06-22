@@ -46,7 +46,7 @@ void Order_Check(void)
         iVar10 = *(int *)((int)&DAT_005893b4 + iVar8) + (int)DAT_007584dc->tile_y;
         if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
            (((-1 < iVar15 && (iVar15 < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if (iVar15 < 0) {
             iVar15 = iVar15 + g_map_width_tiles;
           }
@@ -295,7 +295,7 @@ LAB_00494657:
           iVar14 = iVar14 + 1;
         }
       }
-      else if (g_current_map_scenario_info.scenario_value_30 < 2) {
+      else if (g_current_map_scenario_info.difficulty_level < 2) {
         uVar12 = 0xffffffff;
         pcVar17 = &DAT_00574f60;
         do {

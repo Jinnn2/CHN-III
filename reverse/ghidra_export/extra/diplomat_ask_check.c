@@ -242,7 +242,7 @@ LAB_00441cc6:
               iVar8 = (int)psVar10[1] + (int)*(short *)(iVar9 + 0x1c);
               if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
                  (((-1 < iVar7 && (iVar7 < g_map_width_tiles)) ||
-                  (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                  (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                 if (iVar7 < 0) {
                   iVar7 = iVar7 + g_map_width_tiles;
                 }

@@ -20,25 +20,25 @@ void Menu_EditMenu_Quit(void)
   }
   if (DAT_00714e74 == '\x01') {
     if (g_edit_menu_selected_mode == 0) {
-      g_current_map_scenario_info.country_setup_mode = 0;
-      g_current_map_scenario_info.scenario_value_58 = 0;
-      g_current_map_scenario_info.scenario_value_30 = 2;
-      g_current_map_scenario_info.scenario_value_60 = 0;
-      g_current_map_scenario_info.scenario_value_64 = 0;
-      g_current_map_scenario_info.scenario_value_2c = 0;
-      g_current_map_scenario_info.scenario_rule_d8 = 1;
-      g_current_map_scenario_info.scenario_rule_d4 = 1;
-      g_current_map_scenario_info.scenario_rule_c8 = 0;
-      g_current_map_scenario_info.scenario_rule_d0 = 1;
-      g_current_map_scenario_info.scenario_rule_cc = 1;
+      g_current_map_scenario_info.edit_status_mode = 0;
+      g_current_map_scenario_info.player_country_id = 0;
+      g_current_map_scenario_info.difficulty_level = 2;
+      g_current_map_scenario_info.country_count = 0;
+      g_current_map_scenario_info.country_limit = 0;
+      g_current_map_scenario_info.gameplay_mode = 0;
+      g_current_map_scenario_info.barbarian_count_setting = 1;
+      g_current_map_scenario_info.barbarian_setting = 1;
+      g_current_map_scenario_info.country_feature_setting = 0;
+      g_current_map_scenario_info.disaster_limit_setting = 1;
+      g_current_map_scenario_info.disaster_frequency_setting = 1;
       g_current_map_scenario_info.scenario_rule_c0 = 0;
-      g_current_map_scenario_info.scenario_rule_c4 = 0;
+      g_current_map_scenario_info.country_density_setting = 0;
       g_current_map_scenario_info.scenario_rule_e8 = 1;
-      g_current_map_scenario_info.scenario_rule_e0 = 1;
-      g_current_map_scenario_info.scenario_rule_dc = 0;
+      g_current_map_scenario_info.special_product_count_setting = 1;
+      g_current_map_scenario_info.resource_setting = 0;
       g_current_map_scenario_info.scenario_value_15c = 1;
       g_current_map_scenario_info.scenario_value_160 = 0;
-      g_current_map_scenario_info.scenario_value_164 = 1;
+      g_current_map_scenario_info.movement_base = 1;
       g_editor_mode_enabled = 1;
       DAT_00755958 = 1;
       DAT_0075595c = 1;

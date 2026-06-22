@@ -79,7 +79,7 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
   iVar26 = (&DAT_005893b4)[iVar26] + (int)param_1->tile_y;
   if (((-1 < iVar26) && (iVar26 < g_map_height_tiles)) &&
      (((-1 < local_58 && (local_58 < g_map_width_tiles)) ||
-      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+      (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
     if (local_58 < 0) {
       local_58 = local_58 + g_map_width_tiles;
     }
@@ -271,7 +271,7 @@ undefined4 Start_Map_Battle_From_Tile(ArmyUnit_0x164_plus *param_1)
                 iVar23 = (iVar30 >> 3) << (pAVar18->veteran_level_or_power_shift & 0x1f);
               }
               iVar30 = iVar30 + iVar23 + iVar28 + local_4c + iVar36;
-              if ((iVar32 == 0) && (g_current_map_scenario_info.scenario_rule_d4 == 0)) {
+              if ((iVar32 == 0) && (g_current_map_scenario_info.barbarian_setting == 0)) {
                 iVar30 = iVar30 / 2;
               }
               if (iVar30 < 1) {
@@ -499,7 +499,7 @@ LAB_004980fc:
               iVar35 = ((int)uVar22 >> 3) << (pbVar6[0x131] & 0x1f);
             }
             iVar35 = uVar22 + iVar35 + uVar34 + uVar31 + uVar39;
-            if ((iVar32 == 0) && (g_current_map_scenario_info.scenario_rule_d4 == 0)) {
+            if ((iVar32 == 0) && (g_current_map_scenario_info.barbarian_setting == 0)) {
               iVar35 = iVar35 / 2;
             }
             if (iVar35 < 1) {

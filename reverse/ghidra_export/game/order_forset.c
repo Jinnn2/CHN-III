@@ -44,7 +44,7 @@ void Order_Forset(void)
       iVar10 = *(int *)((int)&DAT_005893b4 + iVar6) + DAT_00706840;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < local_5c && (local_5c < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (local_5c < 0) {
           local_5c = local_5c + g_map_width_tiles;
         }

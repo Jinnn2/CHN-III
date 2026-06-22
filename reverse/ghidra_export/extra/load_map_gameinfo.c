@@ -143,14 +143,14 @@ void Load_Map_GameInfo(char *param_1,int param_2)
       pcVar8 = pcVar11 + -uVar4;
       pMVar10 = g_custom_map_table + param_2;
       for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pMVar10->short_name_bytes = *(undefined4 *)pcVar8;
+        *(undefined4 *)pMVar10->file_name_bytes = *(undefined4 *)pcVar8;
         pcVar8 = pcVar8 + 4;
-        pMVar10 = (MapScenarioInfo_0x16c *)(pMVar10->short_name_bytes + 4);
+        pMVar10 = (MapScenarioInfo_0x16c *)(pMVar10->file_name_bytes + 4);
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        pMVar10->short_name_bytes[0] = *pcVar8;
+        pMVar10->file_name_bytes[0] = *pcVar8;
         pcVar8 = pcVar8 + 1;
-        pMVar10 = (MapScenarioInfo_0x16c *)(pMVar10->short_name_bytes + 1);
+        pMVar10 = (MapScenarioInfo_0x16c *)(pMVar10->file_name_bytes + 1);
       }
       uVar4 = 0xffffffff;
       pcVar8 = local_27b;
@@ -176,9 +176,9 @@ void Load_Map_GameInfo(char *param_1,int param_2)
         pcVar11 = pcVar11 + 1;
       }
       g_custom_map_table[param_2].editor_scratch_or_unused = 0;
-      g_custom_map_table[param_2].country_setup_mode = local_264;
-      g_custom_map_table[param_2].scenario_value_2c = local_260;
-      g_custom_map_table[param_2].scenario_value_30 = local_25c;
+      g_custom_map_table[param_2].edit_status_mode = local_264;
+      g_custom_map_table[param_2].gameplay_mode = local_260;
+      g_custom_map_table[param_2].difficulty_level = local_25c;
       uVar4 = 0xffffffff;
       pcVar8 = local_258;
       do {
@@ -226,29 +226,29 @@ void Load_Map_GameInfo(char *param_1,int param_2)
         pcVar11 = pcVar11 + 1;
       }
       iVar7 = 0x16;
-      g_custom_map_table[param_2].scenario_value_58 = local_234;
-      g_custom_map_table[param_2].scenario_value_5c = local_230;
-      g_custom_map_table[param_2].scenario_value_60 = local_22c;
-      g_custom_map_table[param_2].scenario_value_64 = local_228;
+      g_custom_map_table[param_2].player_country_id = local_234;
+      g_custom_map_table[param_2].current_year = local_230;
+      g_custom_map_table[param_2].country_count = local_22c;
+      g_custom_map_table[param_2].country_limit = local_228;
       iVar6 = param_2 * 0x16c + 0x68;
       puVar3 = local_224;
       do {
         uVar2 = *puVar3;
         puVar3 = puVar3 + 1;
-        *(undefined4 *)(g_custom_map_table->short_name_bytes + iVar6) = uVar2;
+        *(undefined4 *)(g_custom_map_table->file_name_bytes + iVar6) = uVar2;
         iVar6 = iVar6 + 4;
         iVar7 = iVar7 + -1;
       } while (iVar7 != 0);
       g_custom_map_table[param_2].scenario_rule_c0 = local_1cc;
-      g_custom_map_table[param_2].scenario_rule_c4 = local_1c8;
-      g_custom_map_table[param_2].scenario_rule_c8 = local_1c4;
-      g_custom_map_table[param_2].scenario_rule_cc = local_1c0;
-      g_custom_map_table[param_2].scenario_rule_d0 = local_1bc;
-      g_custom_map_table[param_2].scenario_rule_d4 = local_1b8;
-      g_custom_map_table[param_2].scenario_rule_d8 = local_1b4;
-      g_custom_map_table[param_2].scenario_rule_dc = local_1b0;
-      g_custom_map_table[param_2].scenario_rule_e0 = local_1ac;
-      g_custom_map_table[param_2].scenario_rule_e4 = local_1a8;
+      g_custom_map_table[param_2].country_density_setting = local_1c8;
+      g_custom_map_table[param_2].country_feature_setting = local_1c4;
+      g_custom_map_table[param_2].disaster_frequency_setting = local_1c0;
+      g_custom_map_table[param_2].disaster_limit_setting = local_1bc;
+      g_custom_map_table[param_2].barbarian_setting = local_1b8;
+      g_custom_map_table[param_2].barbarian_count_setting = local_1b4;
+      g_custom_map_table[param_2].resource_setting = local_1b0;
+      g_custom_map_table[param_2].special_product_count_setting = local_1ac;
+      g_custom_map_table[param_2].origin_range_error_setting = local_1a8;
       g_custom_map_table[param_2].scenario_rule_e8 = local_1a4;
       g_custom_map_table[param_2].scenario_rule_f0 = local_1a0;
       g_custom_map_table[param_2].scenario_rule_f4 = local_19c;
@@ -256,7 +256,7 @@ void Load_Map_GameInfo(char *param_1,int param_2)
       g_custom_map_table[param_2].scenario_rule_fc = local_194;
       g_custom_map_table[param_2].scenario_rule_100 = local_190;
       g_custom_map_table[param_2].map_size_mode = local_18c;
-      g_custom_map_table[param_2].scenario_value_108 = local_188;
+      g_custom_map_table[param_2].science_table_choice = local_188;
       uVar4 = 0xffffffff;
       pcVar8 = local_184;
       do {
@@ -280,13 +280,13 @@ void Load_Map_GameInfo(char *param_1,int param_2)
         pcVar8 = pcVar8 + 1;
         pcVar11 = pcVar11 + 1;
       }
-      g_custom_map_table[param_2].horizontal_wrap_enabled = local_144;
-      g_custom_map_table[param_2].scenario_value_150 = local_140;
+      g_custom_map_table[param_2].horizontal_wrap_setting = local_144;
+      g_custom_map_table[param_2].place_name_setting = local_140;
       g_custom_map_table[param_2].scenario_value_154 = local_13c;
       g_custom_map_table[param_2].scripted_start_or_generated_flag = local_138;
       g_custom_map_table[param_2].scenario_value_15c = local_134;
       g_custom_map_table[param_2].scenario_value_160 = local_130;
-      g_custom_map_table[param_2].scenario_value_164 = local_12c;
+      g_custom_map_table[param_2].movement_base = local_12c;
       g_custom_map_table[param_2].scenario_flag_168 = local_128;
       CloseHandle(hFile);
       return;

@@ -30,10 +30,10 @@ void Do_Map(void)
       local_8 = 0;
       if (0 < g_map_width_tiles) {
         do {
-          if ((((0 < g_current_map_scenario_info.scenario_rule_d4) && ('\0' < pcVar7[0xb3])) &&
-              ((int)pcVar7[0xb3] < g_current_map_scenario_info.scenario_value_30 + 1)) &&
+          if ((((0 < g_current_map_scenario_info.barbarian_setting) && ('\0' < pcVar7[0xb3])) &&
+              ((int)pcVar7[0xb3] < g_current_map_scenario_info.difficulty_level + 1)) &&
              ((int)pcVar7[0x7c] + (int)pcVar7[0x50] == 0)) {
-            if (g_current_map_scenario_info.scenario_value_30 < 3) {
+            if (g_current_map_scenario_info.difficulty_level < 3) {
               pcVar5 = &DAT_00735f20;
               iVar3 = 1;
               do {
@@ -57,7 +57,7 @@ void Do_Map(void)
                     iVar1 = (int)psVar4[1] + local_c;
                     if (((-1 < iVar1) && (iVar1 < g_map_height_tiles)) &&
                        (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
-                        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                        (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                       if (iVar3 < 0) {
                         iVar3 = iVar3 + g_map_width_tiles;
                       }

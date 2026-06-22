@@ -277,7 +277,7 @@ switchD_004d32af_default:
         iVar13 = *(int *)((int)&DAT_005893b4 + iVar16) + DAT_00758840;
         if (((-1 < iVar13) && (iVar13 < g_map_height_tiles)) &&
            (((-1 < iVar5 && (iVar5 < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if (iVar5 < 0) {
             iVar5 = iVar5 + g_map_width_tiles;
           }
@@ -327,7 +327,7 @@ switchD_004d34fc_default:
           iVar13 = *(int *)((int)&DAT_005893b4 + iVar16) + DAT_00758854;
           if (((-1 < iVar13) && (iVar13 < g_map_height_tiles)) &&
              (((-1 < iVar15 && (iVar15 < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar15 < 0) {
               iVar15 = iVar15 + g_map_width_tiles;
             }
@@ -368,7 +368,7 @@ switchD_004d34fc_default:
           iVar15 = *(int *)((int)&DAT_005893b4 + iVar16) + DAT_00758854;
           if (((-1 < iVar15) && (iVar15 < g_map_height_tiles)) &&
              (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar13 < 0) {
               iVar13 = iVar13 + g_map_width_tiles;
             }
@@ -582,7 +582,7 @@ LAB_004d3c22:
             if (iVar16 < iVar13) {
               do {
                 iVar16 = iVar16 + DAT_00758838->movement_or_speed *
-                                  g_current_map_scenario_info.scenario_value_164;
+                                  g_current_map_scenario_info.movement_base;
                 army = (ArmyUnit_0x164_plus *)&army->owner_country_id;
               } while (iVar16 < iVar13);
             }

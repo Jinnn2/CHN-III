@@ -103,7 +103,7 @@ int City_Capture_Transfer
   FUN_0041f2b0(new_owner_country_id,(undefined4)local_260,local_260._4_4_);
   uVar13 = __ftol();
   iVar9 = -1;
-  if ((g_current_map_scenario_info.scenario_value_30 < 2) ||
+  if ((g_current_map_scenario_info.difficulty_level < 2) ||
      (new_owner_country_id == g_human_country_index)) {
     iVar10 = 0;
     pSVar8 = g_science_defs;
@@ -266,12 +266,12 @@ int City_Capture_Transfer
      ((int)*(char *)(capture_mode + 0x7c) + (int)*(char *)(capture_mode + 0x50) < 10)) {
     if (city->building_status[0x2e] == 2) {
       uVar2 = city->tile_y;
-      iVar7 = (0x1e - g_current_map_scenario_info.scenario_value_30) * 2;
+      iVar7 = (0x1e - g_current_map_scenario_info.difficulty_level) * 2;
       uVar3 = city->tile_x;
       uVar13 = 0x3e;
     }
     else {
-      iVar7 = (10 - g_current_map_scenario_info.scenario_value_30) * 5;
+      iVar7 = (10 - g_current_map_scenario_info.difficulty_level) * 5;
       uVar2 = city->tile_y;
       uVar3 = city->tile_x;
       uVar13 = 1;

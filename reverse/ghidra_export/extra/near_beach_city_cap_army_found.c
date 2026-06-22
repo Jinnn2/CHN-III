@@ -33,7 +33,7 @@ undefined4 Near_Beach_City_Cap_Army_Found(int param_1,int *param_2,uint *param_3
       uVar9 = (int)psVar2[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < (int)uVar9) && ((int)uVar9 < g_map_height_tiles)) &&
          (((-1 < iVar7 && (iVar7 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar7 < 0) {
           iVar7 = iVar7 + g_map_width_tiles;
         }
@@ -70,7 +70,7 @@ switchD_0048e2d6_default:
             iVar4 = *(int *)((int)&DAT_005893b4 + iVar3) + uVar9;
             if (((-1 < iVar4) && (iVar4 < g_map_height_tiles)) &&
                (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-                (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
               if (iVar8 < 0) {
                 iVar8 = iVar8 + g_map_width_tiles;
               }

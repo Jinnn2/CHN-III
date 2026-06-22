@@ -96,7 +96,7 @@ void Read_MRP_Edit(void)
                    g_editor_cursor_tile_y;
           if (((-1 < (int)uVar12) && ((int)uVar12 < g_map_height_tiles)) &&
              (((-1 < iVar14 && (iVar14 < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar14 < 0) {
               iVar14 = iVar14 + g_map_width_tiles;
             }
@@ -159,7 +159,7 @@ switchD_004b86b7_default:
           uVar12 = psVar1[1] + g_editor_cursor_tile_y;
           if (((-1 < (int)uVar12) && ((int)uVar12 < g_map_height_tiles)) &&
              (((-1 < local_13c && (local_13c < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (local_13c < 0) {
               local_13c = local_13c + g_map_width_tiles;
             }
@@ -275,7 +275,7 @@ switchD_004b8314_default:
           iVar8 = psVar1[1] + iVar7;
           if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
              (((-1 < iVar9 && (iVar9 < iVar14)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar9 < 0) {
               iVar9 = iVar9 + iVar14;
             }

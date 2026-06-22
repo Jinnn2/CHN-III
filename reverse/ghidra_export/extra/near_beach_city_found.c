@@ -35,7 +35,7 @@ undefined4 Near_Beach_City_Found(int param_1,int *param_2,uint *param_3)
       uVar11 = (int)psVar4[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < (int)uVar11) && ((int)uVar11 < g_map_height_tiles)) &&
          (((-1 < iVar9 && (iVar9 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar9 < 0) {
           iVar9 = iVar9 + g_map_width_tiles;
         }
@@ -72,7 +72,7 @@ switchD_0048dcd1_default:
             iVar6 = *(int *)((int)&DAT_005893b4 + iVar5) + uVar11;
             if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
                (((-1 < iVar10 && (iVar10 < g_map_width_tiles)) ||
-                (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
               if (iVar10 < 0) {
                 iVar10 = iVar10 + g_map_width_tiles;
               }

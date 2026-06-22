@@ -251,27 +251,39 @@ the tile kind and road/detail mode to write before calling `Decode_NewMap`.
 
 | Offset | Evidence | Working field |
 |---:|---|---|
-| `+0x00` | `Load_Map_GameInfo` copies the first short string here and the custom-map list formats it. | short name bytes. |
-| `+0x11` | `Load_Map_GameInfo` copies the second string here; the editor detail form exposes it as text. | display name bytes. |
+| `+0x00` | Editor label is file name; `Load_Map_GameInfo` copies the first short string here and the custom-map list formats it. | file name bytes. |
+| `+0x11` | Editor label is author name; `Load_Map_GameInfo` copies the second string here. | author name bytes. |
 | `+0x24` | Loader clears it when expanding older `0x168` records; edit detail startup also clears it. | editor scratch or unused field. |
-| `+0x28` | Custom-map load and detail form gate country-slot controls on values such as `0` and `2`. | country setup mode. |
-| `+0x2c/+0x30` | Loaded from the scenario-info file and surfaced in the map detail form. | scenario values. |
+| `+0x28` | Editor label is edit status; options are edit terrain, country setup, and normal mode. | edit status mode. |
+| `+0x2c` | Editor label is game mode; options include open-world, China-closed, and random. | gameplay mode. |
+| `+0x30` | Editor label is difficulty; diplomacy and map systems compare it against tier thresholds. | difficulty level. |
 | `+0x34` | Third copied string in `Load_Map_GameInfo`. | subtitle or author bytes. |
 | `+0x45` | Fourth copied string in `Load_Map_GameInfo`. | short description bytes. |
-| `+0x58..0x64` | Numeric values read before the country-slot block and exposed by the detail form. | scenario values. |
+| `+0x58` | Editor label is player country. | player country id. |
+| `+0x5c` | Editor label is current year; UI string setup formats this value. | current year. |
+| `+0x60/+0x64` | Editor labels are country count and country limit; custom-map initialization clamps count against the limit. | country count / limit. |
 | `+0x68` | Loader copies 22 dwords; custom-map selection uses this area while choosing active country setup. | country slot values. |
-| `+0xc0..0x100` | Detail form exposes these dwords as selectable/editable rules; the annotation keeps them as `scenario_rule_c0` through `scenario_rule_100` so individual uses remain traceable. | scenario rule values. |
-| `+0xd4` | Battle setup halves attack or defense stat groups depending on values `0` or `1`; city-round logic has a special value `2` path. | battle/city event rule. |
-| `+0xdc` | Custom-map initialization sets it when country/template validation fails. | scenario setup fallback rule. |
+| `+0xc0` | Loaded rule/config dword; no editor label has been isolated yet. | scenario rule. |
+| `+0xc4` | Editor label is density; options include near-player and random placement. | country density setting. |
+| `+0xc8` | Editor label is country feature; options include original, random, and custom. | country feature setting. |
+| `+0xcc/+0xd0` | Editor labels are disaster count/frequency and disaster limit. | disaster settings. |
+| `+0xd4` | Editor label is barbarian setting; battle setup halves attack or defense stat groups depending on values `0` or `1`, and city-round logic has a special value `2` path. | barbarian setting. |
+| `+0xd8` | Editor label is barbarian count. | barbarian count setting. |
+| `+0xdc` | Editor label is resource setting; custom-map initialization sets it when country/template validation fails. | resource setting. |
+| `+0xe0` | Editor label is specialty-product count. | special-product count setting. |
+| `+0xe4` | Editor label is origin range error. | origin range error setting. |
 | `+0xe8` | City resource, trade, and resource-feature paths use this as an enable gate. | city resource/trade rule. |
 | `+0xec` | City resource change suppresses an income/tax adjustment when this is nonzero. | city income/tax rule. |
+| `+0xf0..0x100` | Loaded rule/config dwords; editor labels have not been isolated yet. | scenario rule values. |
 | `+0x104` | `Load_Dat` and `MLR_Edit_SelCustomMap` branch on it before setting map dimensions. | map size mode. |
-| `+0x108` | Loaded beside map size in both legacy-expanded and modern records. | scenario value. |
+| `+0x108` | Editor label is science selection; options select one of five science tables. | science table choice. |
 | `+0x10c` | `Load_Map_GameInfo` copies a 64-byte text field here. | long description bytes. |
-| `+0x14c` | Map decode, road/long-wall decode, near-city scans, battle entry, and keyboard movement allow x wrapping when this is `1`. | horizontal wrap enabled. |
-| `+0x150/+0x154` | Late numeric values loaded from the scenario-info file and exposed in the detail form. | scenario values. |
+| `+0x14c` | Editor label is wrap setting; map decode, road/long-wall decode, near-city scans, battle entry, and keyboard movement allow x wrapping when this is `1`. | horizontal wrap setting. |
+| `+0x150` | Editor label is place-name setting; map editing checks it before named-point placement. | place-name setting. |
+| `+0x154` | Late numeric value loaded from the scenario-info file; editor label has not been isolated yet. | scenario value. |
 | `+0x158` | `MLR_Edit_SelCustomMap` takes a different initialization path when nonzero. | scripted start or generated flag. |
-| `+0x15c..0x164` | Late numeric values initialized by the detail form and read from the scenario-info file. | scenario values. |
+| `+0x15c/+0x160` | Late numeric values initialized by the detail form and read from the scenario-info file. | scenario values. |
+| `+0x164` | Editor label is movement base; keyboard/map navigation uses it as a scroll or movement quantum. | movement base. |
 | `+0x168` | Final byte copied from legacy scenario-info payloads. | scenario flag. |
 
 ### `LandTile_0x100`

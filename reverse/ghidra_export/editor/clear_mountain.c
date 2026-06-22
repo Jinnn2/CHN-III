@@ -30,7 +30,7 @@ void Clear_Mountain(int tile_x,int tile_y)
       iVar2 = *(short *)((int)g_edit_dest_round_buffers[tile_y & 1U] + iVar5 * 8 + 2) + tile_y;
       if (((-1 < iVar2) && (iVar2 < g_map_height_tiles)) &&
          (((-1 < iVar3 && (iVar3 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar3 < 0) {
           iVar3 = iVar3 + g_map_width_tiles;
         }
@@ -81,7 +81,7 @@ switchD_004b88ba_default:
       uVar7 = *(short *)((int)g_edit_dest_round_buffers[tile_y & 1U] + local_8 * 8 + 2) + tile_y;
       if (((-1 < (int)uVar7) && ((int)uVar7 < g_map_height_tiles)) &&
          (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar6 < 0) {
           iVar6 = iVar6 + g_map_width_tiles;
         }
@@ -95,7 +95,7 @@ switchD_004b88ba_default:
           iVar2 = (int)((short *)((int)g_edit_dest_round_buffers[uVar7 & 1] + iVar5))[1] + uVar7;
           if (((-1 < iVar2) && (iVar2 < g_map_height_tiles)) &&
              (((-1 < iVar3 && (iVar3 < iVar4)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar3 < 0) {
               iVar3 = iVar3 + iVar4;
             }

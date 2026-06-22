@@ -64,7 +64,7 @@ void AI_AirOilPlane(void)
                (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar11 && (iVar11 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar11 < 0) {
           iVar11 = iVar11 + g_map_width_tiles;
         }
@@ -186,8 +186,8 @@ LAB_00402016:
       do {
         if (((g_active_country->available_special_project_flags[iVar10 + 0x1a] == 1) &&
             (piVar14[-0x41] == 2)) &&
-           (*piVar14 * g_current_map_scenario_info.scenario_value_164 < local_30)) {
-          local_30 = *piVar14 * g_current_map_scenario_info.scenario_value_164;
+           (*piVar14 * g_current_map_scenario_info.movement_base < local_30)) {
+          local_30 = *piVar14 * g_current_map_scenario_info.movement_base;
         }
         piVar14 = piVar14 + 0x100;
         iVar10 = iVar10 + 1;
@@ -252,7 +252,7 @@ LAB_004021fd:
                     local_40;
             if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
                (((-1 < (int)piVar14 && ((int)piVar14 < g_map_width_tiles)) ||
-                (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
               if ((int)piVar14 < 0) {
                 piVar14 = (int *)((int)piVar14 + g_map_width_tiles);
               }
@@ -297,8 +297,8 @@ switchD_00402330_default:
                                     ((*(int *)(_DAT_0074a0b8 + 0x1cc) -
                                      (int)(char)_DAT_00748ff0->field_0x132) *
                                      (uint)(ushort)_DAT_00748ff0->cached_stat_c *
-                                     g_current_map_scenario_info.scenario_value_164,&local_2c,
-                                     &local_30), cVar5 != '\0')) {
+                                     g_current_map_scenario_info.movement_base,&local_2c,&local_30),
+                 cVar5 != '\0')) {
                 _DAT_00748ff0->target_tile_x_or_anim_x = (short)local_2c;
                 _DAT_00748ff0->target_tile_y_or_anim_y = (short)local_30;
                 TestRoad(_DAT_00748ff0);

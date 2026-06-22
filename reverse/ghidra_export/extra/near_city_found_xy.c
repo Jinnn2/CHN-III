@@ -41,7 +41,7 @@ undefined4 Near_City_Found_XY(int param_1,uint param_2,int param_3,int *param_4,
       iVar3 = (int)psVar1[5] + param_2;
       if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
          (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar4 < 0) {
           iVar4 = iVar4 + g_map_width_tiles;
         }

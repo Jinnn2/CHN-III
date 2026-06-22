@@ -33,7 +33,7 @@ LAB_0041b810:
       iVar3 = *(int *)((int)&DAT_005893b4 + iVar1) + tile_y;
       if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
          (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar4 < 0) {
           iVar4 = iVar4 + g_map_width_tiles;
         }

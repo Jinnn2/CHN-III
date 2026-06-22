@@ -81,7 +81,7 @@ void City_Round_Check(void)
   local_270 = 0;
   if (((g_city_should_auto_manage != 0) &&
       (_DAT_0050f320 < g_active_country->science_budget_or_treasury)) && (DAT_00706940 == '\x01')) {
-    if (g_current_map_scenario_info.scenario_value_30 < 4) {
+    if (g_current_map_scenario_info.difficulty_level < 4) {
       if (g_current_city->trade_route_count < 10) {
         iVar20 = 1;
         DAT_00706944 = 0;
@@ -110,7 +110,7 @@ void City_Round_Check(void)
       iVar20 = (int)psVar1[1] + g_current_city_y;
       if (((-1 < iVar20) && (iVar20 < g_map_height_tiles)) &&
          (((-1 < local_294 && (local_294 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (local_294 < 0) {
           local_294 = local_294 + g_map_width_tiles;
         }
@@ -169,7 +169,7 @@ LAB_0042858c:
               if (*(short *)(pcVar10 + 0x10) == g_current_city_land_tile->linked_count_or_city_count
                  ) {
                 _DAT_0075c60c =
-                     (short)g_current_map_scenario_info.scenario_value_164 *
+                     (short)g_current_map_scenario_info.movement_base *
                      (short)g_army_type_table[1].movement_or_speed;
                 DAT_007068ec = 1;
                 DAT_0075c4e1 = (undefined1)g_active_country_index;
@@ -218,7 +218,7 @@ LAB_00428580:
                   iVar12 = *(int *)((int)&DAT_005893b4 + iVar11) + g_current_city_y;
                   if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
                      (((-1 < iVar16 && (iVar16 < g_map_width_tiles)) ||
-                      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                      (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                     if (iVar16 < 0) {
                       iVar16 = iVar16 + g_map_width_tiles;
                     }
@@ -257,7 +257,7 @@ LAB_00428580:
                   iVar15 = *(int *)((int)&DAT_005893b4 + iVar11) + (uint)*(ushort *)(iVar21 + 0x18);
                   if (((-1 < iVar15) && (iVar15 < g_map_height_tiles)) &&
                      (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
-                      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                      (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                     if (iVar12 < 0) {
                       iVar12 = iVar12 + g_map_width_tiles;
                     }
@@ -293,7 +293,7 @@ LAB_00428580:
                    ) {
                   _DAT_0075c60c =
                        (short)g_army_type_table[0x22].movement_or_speed *
-                       (short)g_current_map_scenario_info.scenario_value_164;
+                       (short)g_current_map_scenario_info.movement_base;
                   DAT_0075c4e1 = (undefined1)g_active_country_index;
                   DAT_0075c4fa = (ushort)g_current_city_x;
                   DAT_007068ed = 1;
@@ -397,10 +397,10 @@ LAB_00428580:
               _DAT_00706918 = _DAT_00706918 + 1;
             }
           }
-          if ((((((g_current_map_scenario_info.scenario_rule_d4 == 2) &&
+          if ((((((g_current_map_scenario_info.barbarian_setting == 2) &&
                  (g_active_country_index == g_human_country_index)) &&
                 (g_auto_turn_or_ai_control_flag == 0)) &&
-               ((2 < g_current_map_scenario_info.scenario_value_30 && (pcVar10[0x50] == '\0')))) &&
+               ((2 < g_current_map_scenario_info.difficulty_level && (pcVar10[0x50] == '\0')))) &&
               (((pcVar10[0xb3] == '\0' && ((!bVar4 && (_DAT_007068f0 == _DAT_0050f2a0)))) &&
                ((DAT_0070693c == 0 &&
                 ((((char)g_current_city_land_tile->army_count_or_occupant_count < '\x02' &&

@@ -64,7 +64,7 @@ LAB_00496b8b:
           iVar3 = (int)psVar2[5] + DAT_00706840;
           if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
              (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar4 < 0) {
               iVar4 = iVar4 + g_map_width_tiles;
             }
@@ -124,7 +124,7 @@ LAB_00496b8b:
         iVar3 = (int)psVar2[5] + DAT_00706840;
         if (((-1 < iVar3) && (iVar3 < g_map_height_tiles)) &&
            (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if (iVar4 < 0) {
             iVar4 = iVar4 + g_map_width_tiles;
           }

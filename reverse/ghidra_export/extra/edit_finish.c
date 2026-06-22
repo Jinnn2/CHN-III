@@ -33,7 +33,7 @@ undefined4 Edit_Finish(void)
   }
   else {
     bVar2 = false;
-    if (g_current_map_scenario_info.country_setup_mode < 1) {
+    if (g_current_map_scenario_info.edit_status_mode < 1) {
       UI_YesNo_Result(&DAT_0057ed04,0);
       return 0;
     }

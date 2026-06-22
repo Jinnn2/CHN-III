@@ -110,7 +110,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
     local_9c = g_army_type_table[uVar10].defense_or_support_stat_b;
     local_98 = g_army_type_table[uVar10].defense_or_support_stat_c;
     if (local_24 == 0) {
-      if (g_current_map_scenario_info.scenario_rule_d4 == 0) {
+      if (g_current_map_scenario_info.barbarian_setting == 0) {
         local_a0 = local_a0 >> 1;
         local_9c = local_9c >> 1;
         local_98 = local_98 >> 1;
@@ -118,7 +118,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
         local_a8 = local_a8 >> 1;
         local_a4 = local_a4 >> 1;
       }
-      else if (g_current_map_scenario_info.scenario_rule_d4 == 1) {
+      else if (g_current_map_scenario_info.barbarian_setting == 1) {
         local_ac = local_ac >> 1;
         local_a8 = local_a8 >> 1;
         local_a4 = local_a4 >> 1;
@@ -318,7 +318,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
           local_a0 = g_army_type_table[(int)local_30].defense_or_support_stat_a;
           local_98 = g_army_type_table[(int)local_30].defense_or_support_stat_c;
           if (local_24 == 0) {
-            if (g_current_map_scenario_info.scenario_rule_d4 == 0) {
+            if (g_current_map_scenario_info.barbarian_setting == 0) {
               local_a0 = local_a0 >> 1;
               local_9c = local_9c >> 1;
               local_98 = local_98 >> 1;
@@ -326,7 +326,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
               local_a8 = local_a8 >> 1;
               local_a4 = local_a4 >> 1;
             }
-            else if (g_current_map_scenario_info.scenario_rule_d4 == 1) {
+            else if (g_current_map_scenario_info.barbarian_setting == 1) {
               local_ac = local_ac >> 1;
               local_a8 = local_a8 >> 1;
               local_a4 = local_a4 >> 1;
@@ -548,7 +548,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
             local_a8 = g_army_type_table[uVar10].attack_stat_b;
             local_a4 = g_army_type_table[uVar10].attack_stat_c;
             if (iVar5 == 0) {
-              if (g_current_map_scenario_info.scenario_rule_d4 == 0) {
+              if (g_current_map_scenario_info.barbarian_setting == 0) {
                 local_ac = local_ac >> 1;
                 local_a8 = local_a8 >> 1;
                 local_a4 = local_a4 >> 1;
@@ -556,7 +556,7 @@ int Map_To_Battle_Army(ArmyUnit_0x164_plus *army)
                 local_90 = local_90 >> 1;
                 local_8c = local_8c >> 1;
               }
-              else if (g_current_map_scenario_info.scenario_rule_d4 == 1) {
+              else if (g_current_map_scenario_info.barbarian_setting == 1) {
                 local_94 = local_94 >> 1;
                 local_90 = local_90 >> 1;
                 local_8c = local_8c >> 1;

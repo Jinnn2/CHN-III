@@ -112,18 +112,18 @@ LAB_0045b379:
           }
           iVar8 = 1;
           DAT_0075594c = 0;
-          g_current_map_scenario_info.scenario_value_58 = 0;
-          g_current_map_scenario_info.scenario_value_30 = 2;
-          g_current_map_scenario_info.scenario_rule_d8 = 1;
-          g_current_map_scenario_info.scenario_rule_d4 = 1;
-          g_current_map_scenario_info.scenario_rule_c8 = 0;
-          g_current_map_scenario_info.scenario_rule_d0 = 1;
-          g_current_map_scenario_info.scenario_rule_cc = 1;
+          g_current_map_scenario_info.player_country_id = 0;
+          g_current_map_scenario_info.difficulty_level = 2;
+          g_current_map_scenario_info.barbarian_count_setting = 1;
+          g_current_map_scenario_info.barbarian_setting = 1;
+          g_current_map_scenario_info.country_feature_setting = 0;
+          g_current_map_scenario_info.disaster_limit_setting = 1;
+          g_current_map_scenario_info.disaster_frequency_setting = 1;
           g_current_map_scenario_info.scenario_rule_c0 = 0;
-          g_current_map_scenario_info.scenario_rule_c4 = 0;
-          g_current_map_scenario_info.scenario_rule_e0 = 1;
+          g_current_map_scenario_info.country_density_setting = 0;
+          g_current_map_scenario_info.special_product_count_setting = 1;
           g_current_map_scenario_info.scenario_rule_e8 = 1;
-          g_current_map_scenario_info.scenario_rule_dc = 0;
+          g_current_map_scenario_info.resource_setting = 0;
           g_current_map_scenario_info.scenario_value_15c = 1;
           g_current_map_scenario_info.scenario_value_160 = 0;
           bVar3 = true;
@@ -154,7 +154,7 @@ LAB_0045b379:
             psVar5 = psVar5 + 0x734;
             iVar8 = iVar8 + -1;
           } while (iVar8 != 0);
-          if ((g_custom_map_table[iVar7].country_setup_mode < 2) || (iVar11 == 0)) {
+          if ((g_custom_map_table[iVar7].edit_status_mode < 2) || (iVar11 == 0)) {
             local_2b4 = 0;
             pEVar14 = g_empire_country_defs;
             iVar7 = 1;
@@ -198,39 +198,39 @@ LAB_0045b379:
               local_2b4 = local_2b4 + -1;
             } while (local_2b4 != 0);
           }
-          g_current_map_scenario_info.scenario_value_60 = iVar8 + -1;
-          if (0x14 < g_current_map_scenario_info.scenario_value_60) {
-            g_current_map_scenario_info.scenario_value_60 = 0x14;
+          g_current_map_scenario_info.country_count = iVar8 + -1;
+          if (0x14 < g_current_map_scenario_info.country_count) {
+            g_current_map_scenario_info.country_count = 0x14;
           }
-          g_current_map_scenario_info.scenario_value_64 = iVar8;
+          g_current_map_scenario_info.country_limit = iVar8;
           if (bVar2) {
             DAT_00706cc8 = 1;
             DAT_00714bb0 = 2;
-            g_current_map_scenario_info.scenario_value_2c = 0;
+            g_current_map_scenario_info.gameplay_mode = 0;
             DAT_00707f94 = 1;
           }
           else if (bVar3) {
             DAT_00714bb0 = 1;
-            g_current_map_scenario_info.scenario_value_2c = 0;
+            g_current_map_scenario_info.gameplay_mode = 0;
           }
           else {
-            g_current_map_scenario_info.scenario_rule_dc = 1;
+            g_current_map_scenario_info.resource_setting = 1;
             DAT_00714bb0 = 2;
-            g_current_map_scenario_info.scenario_value_2c = 2;
+            g_current_map_scenario_info.gameplay_mode = 2;
           }
         }
         else {
-          g_current_map_scenario_info.scenario_value_60 = 3;
+          g_current_map_scenario_info.country_count = 3;
           DAT_00755950 = 1;
           DAT_0075594c = 1;
-          g_current_map_scenario_info.scenario_value_58 = 1;
+          g_current_map_scenario_info.player_country_id = 1;
           puVar13 = &DAT_00758748;
           for (iVar7 = 0x39; iVar7 != 0; iVar7 = iVar7 + -1) {
             *puVar13 = 0;
             puVar13 = puVar13 + 1;
           }
-          g_current_map_scenario_info.scenario_value_2c = 2;
-          g_current_map_scenario_info.scenario_value_30 = 0;
+          g_current_map_scenario_info.gameplay_mode = 2;
+          g_current_map_scenario_info.difficulty_level = 0;
           DAT_005c8340 = 0xffffffff;
           DAT_0075873c = 0;
           DAT_0071627d = 0;
@@ -259,8 +259,8 @@ LAB_0045b379:
         pMVar16 = &g_current_map_scenario_info;
         puVar13 = &DAT_00706b40;
         for (iVar7 = 0x5b; iVar7 != 0; iVar7 = iVar7 + -1) {
-          *puVar13 = *(undefined4 *)pMVar16->short_name_bytes;
-          pMVar16 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 4);
+          *puVar13 = *(undefined4 *)pMVar16->file_name_bytes;
+          pMVar16 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 4);
           puVar13 = puVar13 + 1;
         }
       }
@@ -305,8 +305,8 @@ LAB_0045b379:
         pMVar19 = pMVar16;
         if (uVar9 == 0) break;
         uVar9 = uVar9 - 1;
-        pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 1);
-        pcVar12 = pMVar16->short_name_bytes;
+        pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 1);
+        pcVar12 = pMVar16->file_name_bytes;
         pMVar16 = pMVar19;
       } while (*pcVar12 != '\0');
       uVar9 = ~uVar9;
@@ -400,8 +400,8 @@ LAB_0045b379:
             pMVar19 = pMVar16;
             if (uVar9 == 0) break;
             uVar9 = uVar9 - 1;
-            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 1);
-            pcVar12 = pMVar16->short_name_bytes;
+            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 1);
+            pcVar12 = pMVar16->file_name_bytes;
             pMVar16 = pMVar19;
           } while (*pcVar12 != '\0');
           uVar9 = ~uVar9;
@@ -490,8 +490,8 @@ LAB_0045b379:
             pMVar19 = pMVar16;
             if (uVar9 == 0) break;
             uVar9 = uVar9 - 1;
-            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 1);
-            pcVar12 = pMVar16->short_name_bytes;
+            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 1);
+            pcVar12 = pMVar16->file_name_bytes;
             pMVar16 = pMVar19;
           } while (*pcVar12 != '\0');
           uVar9 = ~uVar9;
@@ -580,8 +580,8 @@ LAB_0045b379:
             pMVar19 = pMVar16;
             if (uVar9 == 0) break;
             uVar9 = uVar9 - 1;
-            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 1);
-            pcVar12 = pMVar16->short_name_bytes;
+            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 1);
+            pcVar12 = pMVar16->file_name_bytes;
             pMVar16 = pMVar19;
           } while (*pcVar12 != '\0');
           uVar9 = ~uVar9;
@@ -670,8 +670,8 @@ LAB_0045b379:
             pMVar19 = pMVar16;
             if (uVar9 == 0) break;
             uVar9 = uVar9 - 1;
-            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->short_name_bytes + 1);
-            pcVar12 = pMVar16->short_name_bytes;
+            pMVar19 = (MapScenarioInfo_0x16c *)(pMVar16->file_name_bytes + 1);
+            pcVar12 = pMVar16->file_name_bytes;
             pMVar16 = pMVar19;
           } while (*pcVar12 != '\0');
           uVar9 = ~uVar9;
@@ -742,8 +742,8 @@ LAB_0045b379:
               iVar7 = g_selected_custom_map_index;
               do {
                 iVar7 = iVar7 + 1;
-                pcVar17 = g_custom_map_table[1].short_name_bytes + iVar8;
-                pcVar12 = g_custom_map_table->short_name_bytes + iVar8;
+                pcVar17 = g_custom_map_table[1].file_name_bytes + iVar8;
+                pcVar12 = g_custom_map_table->file_name_bytes + iVar8;
                 iVar8 = iVar8 + 0x16c;
                 for (iVar11 = 0x5b; iVar11 != 0; iVar11 = iVar11 + -1) {
                   *(undefined4 *)pcVar12 = *(undefined4 *)pcVar17;

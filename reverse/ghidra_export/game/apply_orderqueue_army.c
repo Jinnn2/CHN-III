@@ -536,7 +536,7 @@ LAB_004999c5:
       army->cached_stat_b = (short)g_army_type_table[bVar2].defense_or_support_stat_a;
       army->cached_stat_c =
            (short)g_army_type_table[bVar2].movement_or_speed *
-           (short)g_current_map_scenario_info.scenario_value_164;
+           (short)g_current_map_scenario_info.movement_base;
       if ((pAVar24->mission_action_id != 3) && (pAVar24->mission_action_id != 2)) {
         return;
       }
@@ -634,7 +634,7 @@ LAB_004999c5:
         army->cached_stat_b = (short)g_army_type_table[bVar2].defense_or_support_stat_a;
         army->cached_stat_c =
              (short)g_army_type_table[bVar2].movement_or_speed *
-             (short)g_current_map_scenario_info.scenario_value_164;
+             (short)g_current_map_scenario_info.movement_base;
         puVar18 = (undefined4 *)(local_14c + 0x28);
         do {
           pAVar4 = (ArmyUnit_0x164_plus *)*puVar18;
@@ -716,7 +716,7 @@ LAB_004999c5:
       army->cached_stat_b = (short)g_army_type_table[bVar2].defense_or_support_stat_a;
       army->cached_stat_c =
            (short)g_army_type_table[bVar2].movement_or_speed *
-           (short)g_current_map_scenario_info.scenario_value_164;
+           (short)g_current_map_scenario_info.movement_base;
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
                    g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
                    ,g_army_type_table[bVar2].special_visibility_attack_gate);
@@ -728,7 +728,7 @@ LAB_004999c5:
       army->cached_stat_b = (short)g_army_type_table[bVar2].defense_or_support_stat_a;
       army->cached_stat_c =
            (short)g_army_type_table[bVar2].movement_or_speed *
-           (short)g_current_map_scenario_info.scenario_value_164;
+           (short)g_current_map_scenario_info.movement_base;
       Apply_OrderQueue_Army(army,0,-1,0x5e,-1,(ArmyUnit_0x164_plus *)0x0,-1,-1);
       Add_New_View((int)army->tile_x,(int)army->tile_y,1,country_id,0,
                    g_army_type_table[bVar2].visibility_zone_mask,g_army_type_table[bVar2].unit_class
@@ -812,7 +812,7 @@ switchD_00499541_caseD_47:
   army->cached_stat_b = (short)g_army_type_table[bVar2].defense_or_support_stat_a;
   army->cached_stat_c =
        (short)g_army_type_table[bVar2].movement_or_speed *
-       (short)g_current_map_scenario_info.scenario_value_164;
+       (short)g_current_map_scenario_info.movement_base;
   if ((pAVar24->mission_action_id != 3) && (pAVar24->mission_action_id != 2)) {
     return;
   }

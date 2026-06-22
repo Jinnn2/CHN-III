@@ -29,7 +29,7 @@ void Add_New_View(int tile_x,uint tile_y,int view_radius_mode,int country_id,int
   int local_4;
 
   Trace_Function(s_Add_New_View_005129f0);
-  if (g_current_map_scenario_info.scenario_value_2c == 1) {
+  if (g_current_map_scenario_info.gameplay_mode == 1) {
     local_4 = *(int *)&g_empire_country_defs[(byte)(&DAT_007350b9)[country_id * 0xe68]].field_0x80;
   }
   uVar11 = tile_y & 1;
@@ -57,14 +57,14 @@ LAB_00413264:
   iVar5 = (int)*(short *)((int)pvVar2 + local_c * 8 + 2) + tile_y;
   if (((iVar5 < 0) || (g_map_height_tiles <= iVar5)) ||
      (((iVar7 < 0 || (iVar12 <= iVar7)) &&
-      (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_00413643;
+      (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_00413643;
   if (iVar7 < 0) {
     iVar7 = iVar7 + iVar12;
   }
   if (iVar12 <= iVar7) {
     iVar7 = iVar7 - iVar12;
   }
-  if ((g_current_map_scenario_info.scenario_value_2c != 1) || (local_4 == 1)) {
+  if ((g_current_map_scenario_info.gameplay_mode != 1) || (local_4 == 1)) {
 switchD_004132fe_switchD:
     switch(g_map_size_mode) {
     case 0:

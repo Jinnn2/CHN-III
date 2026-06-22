@@ -72,7 +72,7 @@ void __fastcall Do_Army_TurnJob(LandTile_0x100 *param_1)
 switchD_004913b2_default:
         pAVar3->map_presence_or_cargo_state = 0;
         iVar5 = g_army_type_table[uVar6].movement_or_speed *
-                g_current_map_scenario_info.scenario_value_164;
+                g_current_map_scenario_info.movement_base;
         if (*(short *)&pAVar3->field_0x12c < iVar5) {
           *(short *)&pAVar3->field_0x12c = (short)iVar5;
           if (pAVar3->mission_action_id == 0x2a) {

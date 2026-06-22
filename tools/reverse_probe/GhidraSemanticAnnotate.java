@@ -210,51 +210,51 @@ public class GhidraSemanticAnnotate extends GhidraScript {
 
         mapScenarioInfo = fixedStruct("MapScenarioInfo_0x16c", 0x16c);
         replaceAt(mapScenarioInfo, 0x00, new ArrayDataType(CharDataType.dataType, 0x11, 1),
-            0x11, "short_name_bytes", "Load_Map_GameInfo copies the first string from the scenario-info file");
+            0x11, "file_name_bytes", "editor label is file name; Load_Map_GameInfo copies the first string here");
         replaceAt(mapScenarioInfo, 0x11, new ArrayDataType(CharDataType.dataType, 0x17, 1),
-            0x17, "display_name_bytes", "Load_Map_GameInfo copies the second string from the scenario-info file");
+            0x17, "author_name_bytes", "editor label is author name; Load_Map_GameInfo copies the second string here");
         replaceAt(mapScenarioInfo, 0x24, IntegerDataType.dataType, 4, "editor_scratch_or_unused",
             "Load_Map_GameInfo clears this field before storing numeric scenario metadata");
-        replaceAt(mapScenarioInfo, 0x28, IntegerDataType.dataType, 4, "country_setup_mode",
-            "custom-map loader branches on this with active-country count before choosing country slots");
-        replaceAt(mapScenarioInfo, 0x2c, IntegerDataType.dataType, 4, "scenario_value_2c",
-            "loaded from the scenario-info file and exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0x30, IntegerDataType.dataType, 4, "scenario_value_30",
-            "loaded from the scenario-info file and exposed in the edit-file-detail form");
+        replaceAt(mapScenarioInfo, 0x28, IntegerDataType.dataType, 4, "edit_status_mode",
+            "editor label is edit status; options are edit terrain, country setup, and normal mode");
+        replaceAt(mapScenarioInfo, 0x2c, IntegerDataType.dataType, 4, "gameplay_mode",
+            "editor label is game mode; options include open-world, China-closed, and random");
+        replaceAt(mapScenarioInfo, 0x30, IntegerDataType.dataType, 4, "difficulty_level",
+            "editor label is difficulty; diplomacy and map systems compare it against tier thresholds");
         replaceAt(mapScenarioInfo, 0x34, new ArrayDataType(CharDataType.dataType, 0x11, 1),
             0x11, "subtitle_or_author_bytes", "Load_Map_GameInfo copies the third string here");
         replaceAt(mapScenarioInfo, 0x45, new ArrayDataType(CharDataType.dataType, 0x13, 1),
             0x13, "description_short_bytes", "Load_Map_GameInfo copies the fourth string here");
-        replaceAt(mapScenarioInfo, 0x58, IntegerDataType.dataType, 4, "scenario_value_58",
-            "numeric scenario metadata read before the country slot block");
-        replaceAt(mapScenarioInfo, 0x5c, IntegerDataType.dataType, 4, "scenario_value_5c",
-            "numeric scenario metadata read before the country slot block");
-        replaceAt(mapScenarioInfo, 0x60, IntegerDataType.dataType, 4, "scenario_value_60",
-            "numeric scenario metadata read before the country slot block");
-        replaceAt(mapScenarioInfo, 0x64, IntegerDataType.dataType, 4, "scenario_value_64",
-            "numeric scenario metadata read before the country slot block");
+        replaceAt(mapScenarioInfo, 0x58, IntegerDataType.dataType, 4, "player_country_id",
+            "editor label is player country");
+        replaceAt(mapScenarioInfo, 0x5c, IntegerDataType.dataType, 4, "current_year",
+            "editor label is current year; UI string setup formats this value");
+        replaceAt(mapScenarioInfo, 0x60, IntegerDataType.dataType, 4, "country_count",
+            "editor label is country count; custom-map initialization clamps it to the country limit");
+        replaceAt(mapScenarioInfo, 0x64, IntegerDataType.dataType, 4, "country_limit",
+            "editor label is country limit");
         replaceAt(mapScenarioInfo, 0x68, new ArrayDataType(IntegerDataType.dataType, 22, 4),
             0x58, "country_slot_values", "Load_Map_GameInfo copies 22 dwords; custom-map load uses them to seed selectable countries");
         replaceAt(mapScenarioInfo, 0xc0, IntegerDataType.dataType, 4, "scenario_rule_c0",
             "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xc4, IntegerDataType.dataType, 4, "scenario_rule_c4",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xc8, IntegerDataType.dataType, 4, "scenario_rule_c8",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xcc, IntegerDataType.dataType, 4, "scenario_rule_cc",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xd0, IntegerDataType.dataType, 4, "scenario_rule_d0",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xd4, IntegerDataType.dataType, 4, "scenario_rule_d4",
-            "battle/city event rule; compared with values 0, 1, and 2 in battle and city-round paths");
-        replaceAt(mapScenarioInfo, 0xd8, IntegerDataType.dataType, 4, "scenario_rule_d8",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xdc, IntegerDataType.dataType, 4, "scenario_rule_dc",
-            "custom-map initialization sets this when country/template validation fails");
-        replaceAt(mapScenarioInfo, 0xe0, IntegerDataType.dataType, 4, "scenario_rule_e0",
-            "rule/config dword exposed in the edit-file-detail form");
-        replaceAt(mapScenarioInfo, 0xe4, IntegerDataType.dataType, 4, "scenario_rule_e4",
-            "rule/config dword exposed in the edit-file-detail form");
+        replaceAt(mapScenarioInfo, 0xc4, IntegerDataType.dataType, 4, "country_density_setting",
+            "editor label is density; options include near-player and random placement");
+        replaceAt(mapScenarioInfo, 0xc8, IntegerDataType.dataType, 4, "country_feature_setting",
+            "editor label is country feature; options include original, random, and custom");
+        replaceAt(mapScenarioInfo, 0xcc, IntegerDataType.dataType, 4, "disaster_frequency_setting",
+            "editor label is disaster count/frequency");
+        replaceAt(mapScenarioInfo, 0xd0, IntegerDataType.dataType, 4, "disaster_limit_setting",
+            "editor label is disaster limit");
+        replaceAt(mapScenarioInfo, 0xd4, IntegerDataType.dataType, 4, "barbarian_setting",
+            "editor label is barbarian setting; battle/city event paths compare values 0, 1, and 2");
+        replaceAt(mapScenarioInfo, 0xd8, IntegerDataType.dataType, 4, "barbarian_count_setting",
+            "editor label is barbarian count");
+        replaceAt(mapScenarioInfo, 0xdc, IntegerDataType.dataType, 4, "resource_setting",
+            "editor label is resource setting; custom-map initialization sets it when country/template validation fails");
+        replaceAt(mapScenarioInfo, 0xe0, IntegerDataType.dataType, 4, "special_product_count_setting",
+            "editor label is specialty-product count");
+        replaceAt(mapScenarioInfo, 0xe4, IntegerDataType.dataType, 4, "origin_range_error_setting",
+            "editor label is origin range error");
         replaceAt(mapScenarioInfo, 0xe8, IntegerDataType.dataType, 4, "scenario_rule_e8",
             "city resource/trade/resource-feature rule gate");
         replaceAt(mapScenarioInfo, 0xec, IntegerDataType.dataType, 4, "scenario_rule_ec",
@@ -271,14 +271,14 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "rule/config dword exposed in the edit-file-detail form");
         replaceAt(mapScenarioInfo, 0x104, IntegerDataType.dataType, 4, "map_size_mode",
             "custom-map loader sets g_map_size_mode from this field before sizing the tile map");
-        replaceAt(mapScenarioInfo, 0x108, IntegerDataType.dataType, 4, "scenario_value_108",
-            "loaded from the scenario-info file beside map_size_mode");
+        replaceAt(mapScenarioInfo, 0x108, IntegerDataType.dataType, 4, "science_table_choice",
+            "editor label is science selection; options choose one of five science tables");
         replaceAt(mapScenarioInfo, 0x10c, new ArrayDataType(CharDataType.dataType, 0x40, 1),
             0x40, "description_long_bytes", "Load_Map_GameInfo copies a 64-byte text field here");
-        replaceAt(mapScenarioInfo, 0x14c, IntegerDataType.dataType, 4, "horizontal_wrap_enabled",
-            "map tile neighborhood and decode paths allow x wrapping when this field is 1");
-        replaceAt(mapScenarioInfo, 0x150, IntegerDataType.dataType, 4, "scenario_value_150",
-            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x14c, IntegerDataType.dataType, 4, "horizontal_wrap_setting",
+            "editor label is wrap setting; map tile neighborhood and decode paths allow x wrapping when this field is 1");
+        replaceAt(mapScenarioInfo, 0x150, IntegerDataType.dataType, 4, "place_name_setting",
+            "editor label is place-name setting; map editing checks it before allowing named-point placement");
         replaceAt(mapScenarioInfo, 0x154, IntegerDataType.dataType, 4, "scenario_value_154",
             "late scenario metadata loaded from file");
         replaceAt(mapScenarioInfo, 0x158, IntegerDataType.dataType, 4, "scripted_start_or_generated_flag",
@@ -287,8 +287,8 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             "late scenario metadata loaded from file");
         replaceAt(mapScenarioInfo, 0x160, IntegerDataType.dataType, 4, "scenario_value_160",
             "late scenario metadata loaded from file");
-        replaceAt(mapScenarioInfo, 0x164, IntegerDataType.dataType, 4, "scenario_value_164",
-            "late scenario metadata loaded from file");
+        replaceAt(mapScenarioInfo, 0x164, IntegerDataType.dataType, 4, "movement_base",
+            "editor label is movement base; keyboard/map navigation uses it as a scroll or movement quantum");
         replaceAt(mapScenarioInfo, 0x168, ByteDataType.dataType, 1, "scenario_flag_168",
             "last byte copied by Load_Map_GameInfo from legacy scenario-info files");
         resolve(mapScenarioInfo);

@@ -185,7 +185,7 @@ LAB_0041e2d1:
         iVar9 = local_8[1] + (uint)*(ushort *)(param_1 + 0x18);
         if ((-1 < iVar9) && (iVar9 < g_map_height_tiles)) {
           if ((iVar13 < 0) || (g_map_width_tiles <= iVar13)) {
-            if (g_current_map_scenario_info.horizontal_wrap_enabled != 1) goto LAB_0041e9e5;
+            if (g_current_map_scenario_info.horizontal_wrap_setting != 1) goto LAB_0041e9e5;
             if (g_map_width_tiles <= iVar13) {
               iVar13 = iVar13 - g_map_width_tiles;
             }

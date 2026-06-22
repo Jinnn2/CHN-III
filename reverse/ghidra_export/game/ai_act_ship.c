@@ -74,7 +74,7 @@ void AI_ActShip(void)
       iVar6 = *(int *)((int)&DAT_005893b4 + iVar10) + (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
          (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar8 < 0) {
           iVar8 = iVar8 + g_map_width_tiles;
         }
@@ -173,7 +173,7 @@ LAB_004015de:
         iVar7 = *(int *)((int)&DAT_005893b4 + iVar8) + DAT_00734c5c;
         if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
            (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if (iVar6 < 0) {
             iVar6 = iVar6 + g_map_width_tiles;
           }
@@ -306,7 +306,7 @@ switchD_00401836_default:
               iVar7 = *piVar11 + uVar9;
               if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
                  (((-1 < iVar6 && (iVar10 = local_24, iVar6 < g_map_width_tiles)) ||
-                  (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                  (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                 if (iVar6 < 0) {
                   iVar6 = iVar6 + g_map_width_tiles;
                 }
@@ -404,7 +404,7 @@ switchD_0040171f_default:
       iVar10 = (int)sVar1;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar10 && (iVar10 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar10 < 0) {
           iVar10 = iVar10 + g_map_width_tiles;
         }
@@ -432,7 +432,7 @@ switchD_0040171f_default:
              (int)_DAT_00748ff0->tile_y;
     if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
        (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+        (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
       if (iVar8 < 0) {
         iVar8 = iVar8 + g_map_width_tiles;
       }

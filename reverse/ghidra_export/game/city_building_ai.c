@@ -807,7 +807,7 @@ LAB_004245ea:
         piVar21 = &g_building_defs[0].population_requirement;
         do {
           if (*local_280 == 1) {
-            if ((bVar23) && (g_current_map_scenario_info.scenario_value_30 < 2)) {
+            if ((bVar23) && (g_current_map_scenario_info.difficulty_level < 2)) {
               cVar7 = City_Build_AI_Build_Able(g_current_city,&local_25c,&local_290,piVar15);
               if (cVar7 != '\0') {
                 FUN_004b01b0(g_current_city,0,1,piVar15,local_25c,local_290,0xffffffff);

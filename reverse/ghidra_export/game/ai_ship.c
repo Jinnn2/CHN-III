@@ -95,7 +95,7 @@ void AI_Ship(void)
         *(undefined4 *)((int)aiStack_20 + iVar22) = 0;
         if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
            (((-1 < iVar17 && (iVar17 < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if (iVar17 < 0) {
             iVar17 = iVar17 + g_map_width_tiles;
           }
@@ -398,7 +398,7 @@ switchD_00407c1d_default:
                 iVar19 = *piVar20 + local_78;
                 if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
                    (((-1 < (int)pcVar18 && ((int)pcVar18 < g_map_width_tiles)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if ((int)pcVar18 < 0) {
                     pcVar18 = pcVar18 + g_map_width_tiles;
                   }
@@ -612,7 +612,7 @@ switchD_00407f98_default:
       bVar8 = false;
     }
     if ((0 < local_7c) || (bVar8)) {
-      if ((2 < g_current_map_scenario_info.scenario_value_30) &&
+      if ((2 < g_current_map_scenario_info.difficulty_level) &&
          ((((_DAT_00748e34 != g_human_country_index &&
             (g_active_country->diplomacy_state_by_country[g_human_country_index] == 0)) &&
            ('\0' < (char)(&g_country_states)[g_human_country_index * 0xe68])) &&
@@ -652,14 +652,14 @@ switchD_00407f98_default:
                (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar22) && (iVar22 < g_map_height_tiles)) &&
          (((-1 < iVar19 && (iVar19 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar19 < 0) {
           iVar19 = iVar19 + g_map_width_tiles;
         }
         if (g_map_width_tiles <= iVar19) {
           iVar19 = iVar19 - g_map_width_tiles;
         }
-        if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
+        if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
           if ((iVar19 < 0x4b) || (((iVar22 < 0x43 || (0x9e < iVar19)) || (0xa4 < iVar22)))) {
             if (_DAT_00749a50 == 0) goto switchD_004083d4_switchD;
           }
@@ -799,7 +799,7 @@ LAB_004084bb:
       iVar17 = *(int *)((int)&DAT_005893b4 + iVar22) + local_84;
       if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
          (((-1 < iVar19 && (iVar19 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar19 < 0) {
           iVar19 = iVar19 + g_map_width_tiles;
         }

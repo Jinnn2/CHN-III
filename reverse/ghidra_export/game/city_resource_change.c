@@ -350,7 +350,7 @@ LAB_00426559:
             iVar4 = iVar4 / 2;
           }
           else {
-            iVar4 = ((0xc - g_current_map_scenario_info.scenario_value_30) * iVar4 * 5) / 100;
+            iVar4 = ((0xc - g_current_map_scenario_info.difficulty_level) * iVar4 * 5) / 100;
           }
         }
         local_1b4 = local_1b4 + -1;
@@ -361,10 +361,10 @@ LAB_00426559:
           g_empire_country_defs[g_active_country->leader_or_country_id].favored_science_era_or_group
          )) {
         if (g_active_country_index == g_human_country_index) {
-          iVar4 = ((g_current_map_scenario_info.scenario_value_30 + 0xc) * iVar4 * 5) / 100;
+          iVar4 = ((g_current_map_scenario_info.difficulty_level + 0xc) * iVar4 * 5) / 100;
         }
         else {
-          iVar4 = ((0x10 - g_current_map_scenario_info.scenario_value_30) * iVar4 * 5) / 100;
+          iVar4 = ((0x10 - g_current_map_scenario_info.difficulty_level) * iVar4 * 5) / 100;
         }
       }
       if ((iVar4 <= g_active_country->current_research_progress) ||
@@ -372,7 +372,7 @@ LAB_00426559:
         if (g_active_country->early_science_status[iVar12] < 2) {
           if ((g_active_country_index == g_human_country_index) &&
              ((g_auto_turn_or_ai_control_flag == 0 || (DAT_00755940 != 0)))) {
-            _DAT_007166dc = (undefined2)g_current_map_scenario_info.scenario_value_5c;
+            _DAT_007166dc = (undefined2)g_current_map_scenario_info.current_year;
             DAT_00716298 = g_active_country->build_or_draft_capacity;
             FUN_00472120();
           }
@@ -491,7 +491,7 @@ LAB_0042711c:
                   FUN_004898b0(DAT_0074c850,local_c8,0,0xffffffff);
                 }
                 if (g_auto_turn_or_ai_control_flag == 0) {
-                  _DAT_007166dc = (undefined2)g_current_map_scenario_info.scenario_value_5c;
+                  _DAT_007166dc = (undefined2)g_current_map_scenario_info.current_year;
                   DAT_00716298 = g_active_country->build_or_draft_capacity;
                   FUN_00472120();
                 }

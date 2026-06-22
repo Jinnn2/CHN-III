@@ -120,7 +120,7 @@ void AI_Carrier(void)
       iVar11 = *(int *)((int)&DAT_005893b4 + iVar19) + local_8;
       if (((-1 < iVar11) && (iVar11 < g_map_height_tiles)) &&
          (((-1 < iVar14 && (iVar14 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar14 < 0) {
           iVar14 = iVar14 + g_map_width_tiles;
         }
@@ -170,7 +170,7 @@ switchD_0040498d_default:
       iVar19 = (int)psVar7[5] + (int)_DAT_00748ff0->tile_y;
       if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
          (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar12 < 0) {
           iVar12 = iVar12 + g_map_width_tiles;
         }
@@ -299,7 +299,7 @@ switchD_00404e29_default:
                   iVar19 = uVar16 + *piVar21;
                   if (((-1 < iVar19) && (iVar19 < g_map_height_tiles)) &&
                      (((-1 < iVar12 && (iVar12 < g_map_width_tiles)) ||
-                      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                      (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                     if (iVar12 < 0) {
                       iVar12 = iVar12 + g_map_width_tiles;
                     }
@@ -482,7 +482,7 @@ LAB_0040525c:
              (int)_DAT_00748ff0->tile_y;
     if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
        (((-1 < iVar19 && (iVar19 < g_map_width_tiles)) ||
-        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+        (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
       if (iVar19 < 0) {
         iVar19 = iVar19 + g_map_width_tiles;
       }

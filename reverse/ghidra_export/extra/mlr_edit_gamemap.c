@@ -44,7 +44,7 @@ void MLR_Edit_GameMap(void)
   }
   switch(g_editor_tool_mode) {
   case 1:
-    if (g_current_map_scenario_info.country_setup_mode != 2) {
+    if (g_current_map_scenario_info.edit_status_mode != 2) {
       FUN_00469f90(&DAT_0057f730,1);
       return;
     }
@@ -125,7 +125,7 @@ LAB_004b709e:
     }
     break;
   case 2:
-    if (g_current_map_scenario_info.country_setup_mode != 2) {
+    if (g_current_map_scenario_info.edit_status_mode != 2) {
       FUN_00469f90(&DAT_0057f62c,1);
       return;
     }
@@ -264,7 +264,7 @@ LAB_004b71a9:
     }
     break;
   case 7:
-    if (g_current_map_scenario_info.scenario_value_150 == 1) {
+    if (g_current_map_scenario_info.place_name_setting == 1) {
       if (0 < g_current_land_tile->linked_count_or_city_count) {
         if (g_current_land_tile->editor_named_point_index_a == -1) {
           iVar11 = 0;
@@ -303,7 +303,7 @@ LAB_004b762a:
     FUN_00469f90(&DAT_0057f56c,1);
     return;
   case 8:
-    if (g_current_map_scenario_info.scenario_value_150 != 1) goto LAB_004b762a;
+    if (g_current_map_scenario_info.place_name_setting != 1) goto LAB_004b762a;
     if (g_current_land_tile->linked_count_or_city_count < 1) goto LAB_004b7810;
     if (g_current_land_tile->editor_named_point_index_b != -1) goto LAB_004b77fa;
     local_10 = DAT_0057f590;
@@ -389,7 +389,7 @@ switchD_004b7727_default:
       iVar11 = local_1c;
       if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
          (((-1 < iVar9 && (iVar9 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar9 < 0) {
           iVar9 = iVar9 + g_map_width_tiles;
         }

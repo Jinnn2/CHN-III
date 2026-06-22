@@ -87,7 +87,7 @@ void AI_Worker(void)
                   + (int)_DAT_00748ff0->tile_y;
           if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
              (((-1 < iVar11 && (iVar11 < iVar7)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar11 < 0) {
               iVar11 = iVar11 + iVar7;
             }
@@ -145,14 +145,14 @@ switchD_00409a7b_default:
       iVar7 = (int)local_ac[1] + (int)_DAT_00748ff0->tile_y;
       if (((iVar7 < 0) || (g_map_height_tiles <= iVar7)) ||
          ((((int)uVar17 < 0 || (g_map_width_tiles <= (int)uVar17)) &&
-          (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_00409d12;
+          (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_00409d12;
       if ((int)uVar17 < 0) {
         uVar17 = uVar17 + g_map_width_tiles;
       }
       if (g_map_width_tiles <= (int)uVar17) {
         uVar17 = uVar17 - g_map_width_tiles;
       }
-      if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
+      if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
         if (((int)uVar17 < 0x4b) || (((iVar7 < 0x43 || (0x9e < (int)uVar17)) || (0xa4 < iVar7)))) {
           if (_DAT_00749a50 == 0) goto switchD_00409c4d_switchD;
         }
@@ -254,14 +254,14 @@ LAB_00409d12:
       iVar20 = (int)psVar19[1] + (uint)local_98->tile_y;
       if (((iVar20 < 0) || (g_map_height_tiles <= iVar20)) ||
          (((iVar7 < 0 || (g_map_width_tiles <= iVar7)) &&
-          (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_0040a309;
+          (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_0040a309;
       if (iVar7 < 0) {
         iVar7 = iVar7 + g_map_width_tiles;
       }
       if (g_map_width_tiles <= iVar7) {
         iVar7 = iVar7 - g_map_width_tiles;
       }
-      if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
+      if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
         if ((iVar7 < 0x4b) || (((iVar20 < 0x43 || (0x9e < iVar7)) || (0xa4 < iVar20)))) {
           if (_DAT_00749a50 == 0) goto switchD_00409f1d_switchD;
         }
@@ -381,14 +381,14 @@ LAB_0040a309:
       iVar7 = (int)psVar19[5] + DAT_00706840;
       if (((iVar7 < 0) || (g_map_height_tiles <= iVar7)) ||
          ((((int)psVar18 < 0 || (g_map_width_tiles <= (int)psVar18)) &&
-          (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_0040a466;
+          (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_0040a466;
       if ((int)psVar18 < 0) {
         psVar18 = (short *)((int)psVar18 + g_map_width_tiles);
       }
       if (g_map_width_tiles <= (int)psVar18) {
         psVar18 = (short *)((int)psVar18 - g_map_width_tiles);
       }
-      if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
+      if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
         if (((int)psVar18 < 0x4b) || (((iVar7 < 0x43 || (0x9e < (int)psVar18)) || (0xa4 < iVar7))))
         {
           if (_DAT_00749a50 == 0) goto switchD_0040a3f4_switchD;
@@ -466,14 +466,14 @@ LAB_0040a466:
                                    ) + (uint)local_98->tile_y;
             if (((iVar7 < 0) || (g_map_height_tiles <= iVar7)) ||
                (((iVar20 < 0 || (g_map_width_tiles <= iVar20)) &&
-                (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_0040a937;
+                (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_0040a937;
             if (iVar20 < 0) {
               iVar20 = iVar20 + g_map_width_tiles;
             }
             if (g_map_width_tiles <= iVar20) {
               iVar20 = iVar20 - g_map_width_tiles;
             }
-            if ((g_current_map_scenario_info.scenario_value_2c == 1) && (_DAT_00749a50 != 1)) {
+            if ((g_current_map_scenario_info.gameplay_mode == 1) && (_DAT_00749a50 != 1)) {
               if ((iVar20 < 0x4b) || (((iVar7 < 0x43 || (0x9e < iVar20)) || (0xa4 < iVar7)))) {
                 if (_DAT_00749a50 == 0) goto switchD_0040a5e9_switchD;
               }
@@ -506,7 +506,7 @@ switchD_0040a5e9_switchD:
                 DAT_005d8f99 = (undefined1)_DAT_00748e34;
                 _DAT_005d90c4 =
                      *(short *)(_DAT_0074a0b8 + 0x110) *
-                     (short)g_current_map_scenario_info.scenario_value_164;
+                     (short)g_current_map_scenario_info.movement_base;
                 DAT_005d8f98 = (undefined1)DAT_0074c034;
                 DAT_005d90c0 = 0x1c;
                 DAT_005d90e0 = 0;
@@ -676,7 +676,7 @@ LAB_0040abf0:
                                 (int)local_a4 * 8 + 2) + (uint)local_98->tile_y;
         if (((-1 < (int)uVar15) && ((int)uVar15 < g_map_height_tiles)) &&
            (((-1 < (int)local_ac && ((int)local_ac < g_map_width_tiles)) ||
-            (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+            (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
           if ((int)local_ac < 0) {
             local_ac = (short *)((int)local_ac + g_map_width_tiles);
           }
@@ -711,7 +711,7 @@ LAB_0040ad9b:
                       uVar15;
               if (((iVar7 < 0) || (g_map_height_tiles <= iVar7)) ||
                  (((iVar20 < 0 || (g_map_width_tiles <= iVar20)) &&
-                  (g_current_map_scenario_info.horizontal_wrap_enabled != 1)))) goto LAB_0040aecf;
+                  (g_current_map_scenario_info.horizontal_wrap_setting != 1)))) goto LAB_0040aecf;
               if (iVar20 < 0) {
                 iVar20 = iVar20 + g_map_width_tiles;
               }

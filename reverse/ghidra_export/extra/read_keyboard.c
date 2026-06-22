@@ -152,7 +152,7 @@ joined_r0x004b0ef5:
         DAT_00716204 = g_frame_tick;
         if ((-1 < (int)_DAT_007161fc) && ((int)_DAT_007161fc < g_map_height_tiles)) {
           if (((-1 < _DAT_007161f8) && (_DAT_007161f8 < g_map_width_tiles)) ||
-             (g_current_map_scenario_info.horizontal_wrap_enabled == 1)) goto joined_r0x004b0fa5;
+             (g_current_map_scenario_info.horizontal_wrap_setting == 1)) goto joined_r0x004b0fa5;
           goto LAB_004b11d8;
         }
       }
@@ -165,7 +165,7 @@ joined_r0x004b0ef5:
     _DAT_007161f8 = _DAT_0074a348 + (&DAT_00589374)[iVar8] * 2;
     if (((int)_DAT_007161fc < 0) || (g_map_height_tiles <= (int)_DAT_007161fc)) break;
     if (((-1 < _DAT_007161f8) && (_DAT_007161f8 < g_map_width_tiles)) ||
-       (g_current_map_scenario_info.horizontal_wrap_enabled == 1)) {
+       (g_current_map_scenario_info.horizontal_wrap_setting == 1)) {
       if (_DAT_007161f8 < 0) {
         _DAT_007161f8 = _DAT_007161f8 + g_map_width_tiles;
       }
@@ -223,7 +223,7 @@ joined_r0x004b0ef5:
         _DAT_007161f8 = _DAT_0074a348 + (&DAT_00589374)[iVar8] * 0xc;
         if ((-1 < (int)_DAT_007161fc) && ((int)_DAT_007161fc < g_map_height_tiles)) {
           if (((_DAT_007161f8 < 0) || (g_map_width_tiles <= _DAT_007161f8)) &&
-             (g_current_map_scenario_info.horizontal_wrap_enabled != 1)) goto LAB_004b11d8;
+             (g_current_map_scenario_info.horizontal_wrap_setting != 1)) goto LAB_004b11d8;
 joined_r0x004b0fa5:
           if (_DAT_007161f8 < 0) {
             _DAT_007161f8 = _DAT_007161f8 + g_map_width_tiles;
@@ -302,7 +302,7 @@ LAB_004b11d8:
             }
             else if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
                     (((-1 < local_20 && (local_20 < g_map_width_tiles)) ||
-                     (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                     (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
               if (local_20 < 0) {
                 local_20 = local_20 + g_map_width_tiles;
               }
@@ -317,7 +317,7 @@ LAB_004b11d8:
                 if (*(int *)(DAT_007584e4 + 0xc) == 2) {
                   local_14 = ((*(int *)(DAT_007584e4 + 0x1cc) - (int)(char)DAT_007584dc->field_0x132
                               ) + -1) * *(int *)(DAT_007584e4 + 0x110) *
-                             g_current_map_scenario_info.scenario_value_164;
+                             g_current_map_scenario_info.movement_base;
                   if (99 < local_14) {
                     local_14 = 99;
                   }
@@ -330,8 +330,8 @@ LAB_004b11d8:
                     if (cVar3 != '\0') {
                       iVar4 = FUN_004c6ed0(local_1c,local_18,local_20,iVar8,0);
                       if ((iVar4 < iVar5) &&
-                         (*(int *)(DAT_007584e4 + 0x110) *
-                          g_current_map_scenario_info.scenario_value_164 >> 1 <= iVar5 - iVar4)) {
+                         (*(int *)(DAT_007584e4 + 0x110) * g_current_map_scenario_info.movement_base
+                          >> 1 <= iVar5 - iVar4)) {
                         DAT_007584dc->target_tile_x_or_anim_x = (short)local_1c;
                         DAT_007584dc->target_tile_y_or_anim_y = (short)local_18;
                         army = DAT_007584dc;
@@ -340,7 +340,7 @@ LAB_004b11d8:
                       local_10 = ((*(int *)(DAT_007584e4 + 0x1cc) -
                                   (int)(char)DAT_007584dc->field_0x132) + -2) *
                                  *(int *)(DAT_007584e4 + 0x110) *
-                                 g_current_map_scenario_info.scenario_value_164;
+                                 g_current_map_scenario_info.movement_base;
                       pbVar11 = *(byte **)(&DAT_0074a05c + (char)DAT_007584dc->owner_country_id * 4)
                       ;
                       puVar13 = _g_land_tiles;
@@ -394,8 +394,7 @@ switchD_004b1746_default:
                                 army = DAT_007584dc, iVar5 <= iVar4)) ||
                                (iVar5 - iVar4 <
                                 *(int *)(DAT_007584e4 + 0x110) *
-                                g_current_map_scenario_info.scenario_value_164 >> 1))
-                            goto LAB_004b184d;
+                                g_current_map_scenario_info.movement_base >> 1)) goto LAB_004b184d;
 LAB_004b1821:
                             bVar2 = true;
                             DAT_007584dc->target_tile_x_or_anim_x = *(short *)(pbVar11 + 0x1c);
@@ -441,8 +440,8 @@ switchD_004b161a_default:
                                                       ,0), puVar13 = _g_land_tiles,
                                 army = DAT_007584dc, iVar4 < iVar5 &&
                                 (*(int *)(DAT_007584e4 + 0x110) *
-                                 g_current_map_scenario_info.scenario_value_164 >> 1 <=
-                                 iVar5 - iVar4)))) goto LAB_004b1821;
+                                 g_current_map_scenario_info.movement_base >> 1 <= iVar5 - iVar4))))
+                            goto LAB_004b1821;
                           }
 LAB_004b184d:
                           pbVar11 = *(byte **)(pbVar11 + 0x160);
@@ -626,7 +625,7 @@ LAB_004b1e34:
           }
           if (((-1 < DAT_005dfec8) && (DAT_005dfec8 < g_map_height_tiles)) &&
              (((-1 < DAT_005dfecc && (DAT_005dfecc < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (DAT_005dfecc < 0) {
               DAT_005dfecc = DAT_005dfecc + g_map_width_tiles;
             }
@@ -727,7 +726,7 @@ LAB_004b1f53:
           iVar8 = (&DAT_005893b4)[iVar8] + (int)_DAT_00748ff0->tile_y;
           if (((-1 < iVar8) && (iVar8 < g_map_height_tiles)) &&
              (((-1 < iVar4 && (iVar4 < g_map_width_tiles)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (iVar4 < 0) {
               iVar4 = iVar4 + g_map_width_tiles;
             }

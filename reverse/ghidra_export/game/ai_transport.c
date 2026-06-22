@@ -137,7 +137,7 @@ switchD_00409033_default:
               iVar8 = FUN_004c6ed0((int)pAVar9->tile_x,(int)pAVar9->tile_y,(int)sVar1,(int)sVar2,0);
               if ((*(short *)(iVar11 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
                  (iVar8 <= *(int *)(_DAT_0074a0b8 + 0x110) *
-                           g_current_map_scenario_info.scenario_value_164)) {
+                           g_current_map_scenario_info.movement_base)) {
                 iVar11 = 0x28;
                 pAVar9 = _DAT_00748ff0;
                 do {

@@ -49,7 +49,7 @@ NoDpa_Near_City_Found(undefined4 param_1,int param_2,uint param_3,int param_4,in
       iVar2 = (int)psVar1[5] + param_3;
       if (((-1 < iVar2) && (iVar2 < g_map_height_tiles)) &&
          (((-1 < iVar5 && (iVar5 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar5 < 0) {
           iVar5 = iVar5 + g_map_width_tiles;
         }

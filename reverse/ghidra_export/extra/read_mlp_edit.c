@@ -74,7 +74,7 @@ void Read_MLP_Edit(void)
           tile_y = psVar1[1] + g_editor_cursor_tile_y;
           if (((-1 < (int)tile_y) && ((int)tile_y < g_map_height_tiles)) &&
              (((-1 < local_34 && (local_34 < iVar8)) ||
-              (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+              (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
             if (local_34 < 0) {
               local_34 = local_34 + iVar8;
             }
@@ -104,7 +104,7 @@ void Read_MLP_Edit(void)
                 if (g_editor_selected_terrain_kind < 0xb) {
                   if ('\n' < cVar3) {
 LAB_004b3ae2:
-                    g_current_map_scenario_info.country_setup_mode = 0;
+                    g_current_map_scenario_info.edit_status_mode = 0;
                     g_editor_terrain_clear_guard = 0;
                   }
                 }
@@ -180,7 +180,7 @@ LAB_004b3ae2:
                         tile_y;
                 if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
                    (((-1 < iVar12 && (iVar12 < iVar8)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if (iVar12 < 0) {
                     iVar12 = iVar12 + iVar8;
                   }
@@ -227,7 +227,7 @@ LAB_004b3ae2:
                              [1] + tile_y;
                 if (((-1 < iVar6) && (iVar6 < g_map_height_tiles)) &&
                    (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if (iVar8 < 0) {
                     iVar8 = iVar8 + g_map_width_tiles;
                   }
@@ -273,7 +273,7 @@ switchD_004b3da7_default:
                          + tile_y;
                 if (((-1 < (int)uVar15) && ((int)uVar15 < g_map_height_tiles)) &&
                    (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if (iVar8 < 0) {
                     iVar8 = iVar8 + g_map_width_tiles;
                   }
@@ -311,7 +311,7 @@ switchD_004b3da7_default:
                          tile_y;
                 if (((-1 < iVar12) && (iVar12 < g_map_height_tiles)) &&
                    (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if (iVar6 < 0) {
                     iVar6 = iVar6 + g_map_width_tiles;
                   }
@@ -357,7 +357,7 @@ switchD_004b3bff_default:
                          + tile_y;
                 if (((-1 < (int)uVar15) && ((int)uVar15 < g_map_height_tiles)) &&
                    (((-1 < iVar8 && (iVar8 < g_map_width_tiles)) ||
-                    (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                    (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                   if (iVar8 < 0) {
                     iVar8 = iVar8 + g_map_width_tiles;
                   }
@@ -412,7 +412,7 @@ switchD_004b3bff_default:
                     g_editor_cursor_tile_y;
             if (((iVar6 < 0) || (g_map_height_tiles <= iVar6)) ||
                (((iVar8 < 0 || (g_map_width_tiles <= iVar8)) &&
-                (g_current_map_scenario_info.horizontal_wrap_enabled != 1))))
+                (g_current_map_scenario_info.horizontal_wrap_setting != 1))))
             goto switchD_004b377a_default;
             if (iVar8 < 0) {
               iVar8 = iVar8 + g_map_width_tiles;
@@ -554,7 +554,7 @@ switchD_004b377a_default:
                       g_editor_cursor_tile_y;
               if (((-1 < iVar9) && (iVar9 < g_map_height_tiles)) &&
                  (((-1 < iVar10 && (iVar10 < iVar6)) ||
-                  (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                  (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
                 if (iVar10 < 0) {
                   iVar10 = iVar10 + iVar6;
                 }
@@ -630,7 +630,7 @@ switchD_004b377a_default:
             iVar10 = psVar1[1] + g_editor_cursor_tile_y;
             if (((-1 < iVar10) && (iVar10 < g_map_height_tiles)) &&
                (((-1 < iVar12 && (iVar12 < iVar8)) ||
-                (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+                (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
               if (iVar12 < 0) {
                 iVar12 = iVar12 + iVar8;
               }

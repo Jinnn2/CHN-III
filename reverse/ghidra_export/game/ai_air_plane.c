@@ -131,11 +131,11 @@ void AI_AirPlane(void)
 LAB_00402a40:
       local_18 = iVar14;
       iVar14 = FUN_004c3510((*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
-                            g_current_map_scenario_info.scenario_value_164);
+                            g_current_map_scenario_info.movement_base);
       if (((0 < DAT_00734c4c) && (iVar14 < 5)) &&
          (cVar6 = Near_City_Found_CapAble
                             ((*(int *)(_DAT_0074a0b8 + 0x110) - DAT_00734c68) *
-                             g_current_map_scenario_info.scenario_value_164,&local_14,&local_10),
+                             g_current_map_scenario_info.movement_base,&local_14,&local_10),
          cVar6 != '\0')) {
         _DAT_00748ff0->target_tile_x_or_anim_x = DAT_00734c58;
         _DAT_00748ff0->target_tile_y_or_anim_y = (short)DAT_00734c5c;
@@ -228,8 +228,8 @@ switchD_00402dc0_default:
           if (0 < *(short *)(uVar10 + 0x10)) {
             iVar7 = FUN_004c6ed0((int)pAVar8->tile_x,(int)pAVar8->tile_y,iVar12,iVar7,0);
             if ((*(short *)(uVar10 + 0x10) == *(short *)(DAT_0075597c + 0x10)) &&
-               (iVar7 <= *(int *)(_DAT_0074a0b8 + 0x110) *
-                         g_current_map_scenario_info.scenario_value_164)) {
+               (iVar7 <= *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base
+               )) {
               iVar14 = 0x28;
               pAVar8 = _DAT_00748ff0;
               do {
@@ -300,8 +300,8 @@ switchD_00402dc0_default:
     }
     else if ((((int)uVar10 < 1) || (DAT_0074c034 == 0x1b)) || (DAT_0074c034 == 0x1d)) {
       cVar5 = Near_City_Found_CapAble
-                        (*(int *)(_DAT_0074a0b8 + 0x110) *
-                         g_current_map_scenario_info.scenario_value_164,&local_4,local_8);
+                        (*(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base
+                         ,&local_4,local_8);
       pAVar8 = _DAT_00748ff0;
       if (cVar5 != '\0') {
         iVar14 = 0;
@@ -312,13 +312,13 @@ switchD_00402dc0_default:
           if (((-1 < iVar7) && (-1 < iVar12)) &&
              ((iVar9 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,
                                     iVar12,0),
-              *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.scenario_value_164 <
-              iVar9 && ((cVar5 = Near_City_Found_XY(iVar7,iVar12,
-                                                    (*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
-                                                    g_current_map_scenario_info.scenario_value_164,
-                                                    &local_14,&local_10), cVar5 != '\0' &&
-                        (iVar7 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,
-                                              iVar7,iVar12,0), iVar7 < local_24)))))) {
+              *(int *)(_DAT_0074a0b8 + 0x110) * g_current_map_scenario_info.movement_base < iVar9 &&
+              ((cVar5 = Near_City_Found_XY(iVar7,iVar12,
+                                           (*(int *)(_DAT_0074a0b8 + 0x110) + -1) *
+                                           g_current_map_scenario_info.movement_base,&local_14,
+                                           &local_10), cVar5 != '\0' &&
+               (iVar7 = FUN_004c6ed0((int)_DAT_00748ff0->tile_x,(int)_DAT_00748ff0->tile_y,iVar7,
+                                     iVar12,0), iVar7 < local_24)))))) {
             local_24 = iVar7;
             local_20 = iVar14;
           }
@@ -382,7 +382,7 @@ LAB_004032f1:
     pAVar8 = _DAT_00748ff0;
     if (((-1 < iVar14) && (iVar14 < g_map_height_tiles)) &&
        (((-1 < iVar13 && (iVar13 < g_map_width_tiles)) ||
-        (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+        (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
       if (iVar13 < 0) {
         iVar13 = iVar13 + g_map_width_tiles;
       }

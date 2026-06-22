@@ -37,7 +37,7 @@ void Decode_Road(int param_1,uint param_2)
   Trace_Function(s_Decode_Road_005188d0);
   if (((-1 < (int)param_2) && ((int)param_2 < g_map_height_tiles)) &&
      (((-1 < param_1 && (param_1 < g_map_width_tiles)) ||
-      (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+      (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
     if (param_1 < 0) {
       param_1 = param_1 + g_map_width_tiles;
     }
@@ -87,7 +87,7 @@ void Decode_Road(int param_1,uint param_2)
       iVar17 = (&DAT_005893bc)[uVar15 * 8] + param_2;
       if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
          (((-1 < iVar18 && (iVar18 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar18 < 0) {
           iVar18 = iVar18 + g_map_width_tiles;
         }
@@ -117,7 +117,7 @@ void Decode_Road(int param_1,uint param_2)
       iVar17 = (&DAT_005893b4)[uVar15 * 8] + param_2;
       if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
          (((-1 < iVar18 && (iVar18 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar18 < 0) {
           iVar18 = iVar18 + g_map_width_tiles;
         }
@@ -147,7 +147,7 @@ void Decode_Road(int param_1,uint param_2)
       iVar17 = (&DAT_005893c4)[uVar15 * 8] + param_2;
       if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
          (((-1 < iVar18 && (iVar18 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar18 < 0) {
           iVar18 = iVar18 + g_map_width_tiles;
         }
@@ -177,7 +177,7 @@ void Decode_Road(int param_1,uint param_2)
       iVar17 = (&DAT_005893cc)[uVar15 * 8] + param_2;
       if (((-1 < iVar17) && (iVar17 < g_map_height_tiles)) &&
          (((-1 < param_1 && (param_1 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (param_1 < 0) {
           param_1 = param_1 + g_map_width_tiles;
         }

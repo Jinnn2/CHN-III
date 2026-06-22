@@ -33,7 +33,7 @@ undefined4 Near_City_With_Air_Found(undefined4 *param_1,int *param_2,int *param_
       iVar7 = (int)psVar4[5] + (int)*(short *)(_DAT_00748ff0 + 0x1c);
       if (((-1 < iVar7) && (iVar7 < g_map_height_tiles)) &&
          (((-1 < iVar6 && (iVar6 < g_map_width_tiles)) ||
-          (g_current_map_scenario_info.horizontal_wrap_enabled == 1)))) {
+          (g_current_map_scenario_info.horizontal_wrap_setting == 1)))) {
         if (iVar6 < 0) {
           iVar6 = iVar6 + g_map_width_tiles;
         }

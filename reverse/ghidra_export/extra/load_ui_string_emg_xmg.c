@@ -198,7 +198,7 @@ void Load_UI_String_EMG_XMG(void)
       uVar7 = ~uVar7;
       pcVar9 = pcVar11 + -uVar7;
       pcVar11 = &DAT_00707592 + iVar10;
-      for (uVar8 = uVar7 >> 2; iVar6 = g_current_map_scenario_info.scenario_value_5c, uVar8 != 0;
+      for (uVar8 = uVar7 >> 2; iVar6 = g_current_map_scenario_info.current_year, uVar8 != 0;
           uVar8 = uVar8 - 1) {
         *(undefined4 *)pcVar11 = *(undefined4 *)pcVar9;
         pcVar9 = pcVar9 + 4;

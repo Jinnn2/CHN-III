@@ -28,8 +28,8 @@ void Put_Edit_File_Detail(void)
     do {
       if (iVar5 == 0) break;
       iVar5 = iVar5 + -1;
-      pcVar2 = pMVar6->short_name_bytes;
-      pMVar6 = (MapScenarioInfo_0x16c *)(pMVar6->short_name_bytes + 1);
+      pcVar2 = pMVar6->file_name_bytes;
+      pMVar6 = (MapScenarioInfo_0x16c *)(pMVar6->file_name_bytes + 1);
     } while (*pcVar2 != '\0');
     if (iVar5 == -2) {
       Draw_Text_Centered(iVar3 + 0x104,iVar4 + 0xe,&DAT_00571d4c,0xffffffff,_DAT_0074a316,0xffffffff
