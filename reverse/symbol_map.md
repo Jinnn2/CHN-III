@@ -31,6 +31,14 @@ Naming convention:
 | `0x00749a54` | `g_active_country_index` | `int` | 4 | 80% | turn logic, city/order paths |
 | `0x0074c82c` | `g_human_country_index` | `int` | 4 | 80% | UI/visibility/minimap |
 | `0x00748e04` | `g_active_country` | `CountryState_0xe68 *` | 4 | 80% | active-turn country logic |
+| `0x00707920` | `g_load_dat_mem_cursor_candidate` | `byte/int *` | 4 | 75% | `Load_Dat`; moving cursor through decompressed DAT/save memory stream |
+| `0x0070792c` | `g_load_dat_mem_offset_candidate` | `int offset` | 4 | 70% | `Load_Dat`; consumed-byte/progress counter for memory stream |
+| `0x00707924` | `g_load_dat_header_major_candidate` | `int` | 4 | 55% | `Load_Dat`; participates in version/check expression |
+| `0x00707928` | `g_load_dat_header_minor_candidate` | `int` | 4 | 55% | `Load_Dat`; participates in version/check expression |
+| `0x00755248` | `g_land_record_count_candidate` | `int` | 4 | 70% | `Load_Dat`; per-country land-record buffer length |
+| `0x0074cf24` | `g_loaded_city_count_expected_candidate` | `int/byte * in decompiler` | 4 | 60% | `Load_Dat`; city section total/check value |
+| `0x0074d518` | `g_loaded_army_count_expected_candidate` | `int` | 4 | 60% | `Load_Dat`; army section total/check value |
+| `0x0075524c` | `g_loaded_business_count_candidate` | `int` | 4 | 60% | `Load_Dat`; business/trade section total/check value |
 | `0x00706948` | `g_city_turn_list_head` | `City_0x1b8_plus *` | 4 | 80% | `Do_City`, city turn traversal |
 | `0x00749184` | `g_current_city` | `City_0x1b8_plus *` | 4 | 80% | city UI/update paths |
 | `0x00755980` | `g_current_city_land_tile` | `LandTile_0x100 *` | 4 | 75% | city/map cross-links |

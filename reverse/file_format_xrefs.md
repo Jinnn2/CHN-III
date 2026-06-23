@@ -9,6 +9,9 @@ Functions:
 
 - `0x00473270` `Load_Dat`: main DAT/save/scenario loader. Strings mention map,
   city, army, memory buffer, decompression, and minimap decode.
+- `0x004fc230` `Gzip_GetSize_Or_Decompress_candidate`: container helper used by
+  `Load_Dat`; size-query mode reads the last four bytes of the compressed file
+  like a gzip ISIZE trailer, and decompress mode reads `0x1000`-byte chunks.
 - `0x00477ff0` `Load_EMG_Base`: loads or regenerates cache tables:
   `C_TABLE.DAT`, `F_TABLE.DAT`, `D_TABLE.DAT`.
 - `0x004c60a0` `ShutDown_Game`: writes `CONFIG.DAT` and `KEYDEF.DAT`.
@@ -38,8 +41,10 @@ Files observed:
 
 Notes:
 
-- `Load_Dat` is the key File IO entry point and should get function notes
-  before deeper formula work.
+- `Load_Dat` is tracked in `function_notes_dat.md`. Its confirmed memory
+  stream order is static definitions, flag blocks, land tiles, view center,
+  country state, city records, army records, death records, business/trade
+  records, map bookmarks, then post-load rebuilds and sidecar place names.
 - Editor setup functions are the best route for static DAT table field names.
 
 ## EMG
@@ -196,6 +201,8 @@ Functions:
 
 - `0x00473270` `Load_Dat`: contains save decompression/memory-buffer strings and
   reconstructs scenario state.
+- `0x004fc230` `Gzip_GetSize_Or_Decompress_candidate`: proven decompression
+  helper for the `Load_Dat` payload.
 - Main save/write counterpart is not yet isolated in the current status board.
 
 Files observed:
@@ -208,4 +215,5 @@ Notes:
 
 - Runtime save/config files should not be committed with reverse-engineering
   docs.
-- SaveGame container struct is still a candidate in `data_structures.md`.
+- SaveGame/load-stream layout is staged in `data_structures.md` and
+  `function_notes_dat.md`; the write counterpart is still unidentified.

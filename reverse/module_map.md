@@ -18,7 +18,12 @@ Use `function_status.md` for per-function confidence and next actions.
 
 ## File IO
 
-- `0x00473270` `Load_Dat`: large DAT/save/scenario loader.
+- `0x00473270` `Load_Dat`: DAT/save memory-stream parser. Current phase map is
+  in `function_notes_dat.md`: gzip container, static tables, map/country,
+  city, army, death, business, bookmarks, minimap, portrait resources, and
+  place-name sidecars.
+- `0x004fc230` `Gzip_GetSize_Or_Decompress_candidate`: gzip-style helper used
+  by `Load_Dat` to query uncompressed size and inflate the payload into memory.
 - `0x00477800` `Load_Map_GameInfo`: map metadata/game-info loader.
 - `0x00477ff0` `Load_EMG_Base`: long-lived EMG/XMG/IMG resources and lookup-cache DAT files.
 - `0x004789e0` `Load_EMG_Resource`: safe EMG wrapper.

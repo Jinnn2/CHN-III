@@ -203,21 +203,70 @@ struct SpriteBankHandle {
 };
 ```
 
-## SaveGame
+## Load DAT Memory Stream / SaveGame
 
 Evidence: `Load_Dat` contains decompression/memory-buffer strings and rebuilds
 land, city, army, country, named-point, and static-definition tables. The file
-container is not yet modeled as a single struct.
+container is not yet modeled as a single struct. The best current model is a
+gzip-style payload with a fixed-order memory stream.
 
 ```c
-struct SaveGame_candidate {
-    /* +0x0000 */ uint8_t header_unknown[0x20]; // not verified
-    /* varies */ LandTile_0x100 land_tiles[];
-    /* varies */ City_0x1b8_plus cities[];
-    /* varies */ ArmyUnit_0x164_plus armies[];
-    /* varies */ CountryState_0xe68 countries[];
+struct LoadDatMemoryStream_candidate {
+    /* +0x000000 */ ScienceDef_0x88 science_defs[200];
+    /* +0x006a40 */ ArmyTypeDef_0x400 army_type_defs[91];
+    /* +0x01d640 */ uint8_t building_defs_block[0xc000]; // stride/count still being reconciled
+    /* +0x029640 */ CountryProfileDef_0x7c country_profile_defs[100];
+    /* +0x02c6b0 */ GovernmentDef_0x74 government_defs[8];
+    /* +0x02ca50 */ GroundDef_0x24 ground_defs[15];
+    /* +0x02cc6c */ CityResourceDef_0xd8 city_resource_defs[40];
+    /* +0x02ee2c */ uint8_t flag_image_blocks[100][0x100];
+    /* +varies */ LandTile_0x100 land_tiles[map_width * map_height];
+    /* +varies */ int32_t view_center_x;
+    /* +varies */ int32_t view_center_y;
+    /* +varies */ int32_t land_record_count;
+    /* +varies */ EmpireCountryDef_0x200 empire_country_defs[100];
+    /* +varies */ CountryState_0xe68 country_states[22]; // Load_Dat copies 22 records
+    /* +varies */ int32_t unknown_country_or_turn_fields[2];
+    /* +varies */ int32_t human_country_index;
+    /* +varies */ uint8_t city_section_marker[5];
+    /* +varies */ int32_t expected_city_count;
+    /* +varies */ CityFileRecord_0x200 city_records[];
+    /* +varies */ uint8_t army_section_marker[5];
+    /* +varies */ int32_t expected_army_count;
+    /* +varies */ ArmyFileRecord_0x200 army_records_and_cargo[];
+    /* +varies */ uint8_t die_section_marker[5];
+    /* +varies */ int32_t die_record_count;
+    /* +varies */ DieRecord_0x20 die_records[];
+    /* +varies */ uint8_t business_section_marker[5];
+    /* +varies */ int32_t business_record_count;
+    /* +varies */ BusinessRecord_0x100 business_records[];
+    /* +varies */ int32_t map_bookmark_slots[20];
+};
+
+struct DieRecord_0x20 {
+    /* +0x00 */ uint8_t unknown_00[0x20];
+    /* +0x18 */ uint32_t runtime_next_or_link; // cleared by Load_Dat
+    /* +0x1c */ uint32_t runtime_aux_or_link;  // cleared by Load_Dat
+};
+
+struct BusinessRecord_0x100 {
+    /* +0x00 */ uint32_t unknown_00;
+    /* +0x04 */ City_0x1b8_plus *source_city; // resolved from source tile
+    /* +0x08 */ City_0x1b8_plus *dest_city;   // resolved from destination tile
+    /* +0x0c */ uint8_t unknown_0c[0xd0];
+    /* +0xdc */ struct BusinessRecord_0x100 *next_business_candidate;
+    /* +0xe0 */ uint8_t unknown_e0[0x20];
 };
 ```
+
+Open questions:
+
+- The direct header/check data before the compressed payload is not yet
+  structurally modeled.
+- `g_country_states` reserves more space elsewhere, but `Load_Dat` copies
+  `0x13cf0` bytes, exactly 22 `0xe68` records.
+- City and army file records are read as `0x200` bytes even when runtime
+  structures use only part of that space plus cleared pointer fields.
 
 ## EMG / XMG Resource
 

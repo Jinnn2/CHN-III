@@ -64,7 +64,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x0046cc70` | `Load_UI_String_EMG_XMG` | partial | file_io | 70% | Loads `UI_STRING.EMG` plus `UI_STRING.XMG`; score/history path. |
 | `0x0046d310` | `Init_DirectDraw_Runtime` | partial | render_ui | 80% | DirectDraw create/query/cooperative-level/surface setup. |
 | `0x0046e950` | `Init_SetUp` | partial | startup_init | 85% | Main setup: DirectDraw, AVI intro, base UI resources, fonts, loading TMG, exception map prompt, music. |
-| `0x00473270` | `Load_Dat` | partial | file_io | 75% | Large scenario/save/table loader; reconstructs map/city/army/country state. |
+| `0x00473270` | `Load_Dat` | partial | file_io | 85% | DAT/save memory-stream parser; reads static tables, map, countries, city/army/death/business records, sidecar place names. See `function_notes_dat.md`. |
 | `0x00477800` | `Load_Map_GameInfo` | named | file_io | 55% | Map/game info loader from string-derived name. |
 | `0x00477ff0` | `Load_EMG_Base` | partial | file_io | 75% | Loads long-lived EMG/XMG/IMG resources and color/fade caches. |
 | `0x004789e0` | `Load_EMG_Resource` | partial | file_io | 75% | Safe wrapper around EMG load; resource path and trace strings verified. |
@@ -107,6 +107,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x004f0de0` | `Create_Back_Surface` | partial | render_ui | 75% | Creates CPU-drawn back/logical surface. |
 | `0x004f4f60` | `Init_Pixel_Format_Tables` | candidate | render_ui | 65% | Builds pixel conversion/color lookup support tables. |
 | `0x004f81e0` | `Init_Surface_Pixel_State` | partial | render_ui | 75% | Reads surface desc/pixel format and initializes render globals. |
+| `0x004fc230` | `Gzip_GetSize_Or_Decompress_candidate` | partial | file_io | 75% | Gzip-style helper: size query reads trailing ISIZE; decompress mode gzreads chunks into caller buffer. |
 | `0x005027b0` | `Input_On_KeyDown` | partial | input | 80% | Handles `WM_KEYDOWN`/`WM_SYSKEYDOWN`, updates modifier flags and queues key-down events. |
 | `0x005028b0` | `Input_On_KeyUp` | partial | input | 80% | Handles `WM_KEYUP`/`WM_SYSKEYUP`, clears key state and queues key-up events. |
 | `0x00502a00` | `Input_Reset_Keyboard_State` | partial | input | 80% | Sets focus, clears key bitmap, and resets keyboard ring indices. |

@@ -1341,6 +1341,7 @@ public class GhidraSemanticAnnotate extends GhidraScript {
             new Rename(0x4f81e0L, "Init_Surface_Pixel_State"),
             new Rename(0x4f00b0L, "Get_Game_Tick"),
             new Rename(0x4fbf50L, "Game_Random_Mod"),
+            new Rename(0x4fc230L, "Gzip_GetSize_Or_Decompress_candidate"),
             new Rename(0x4fa910L, "Clear_Surface"),
             new Rename(0x5035c0L, "Set_Draw_Clip_Rect"),
             new Rename(0x5027b0L, "Input_On_KeyDown"),
