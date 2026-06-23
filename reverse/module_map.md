@@ -10,6 +10,8 @@ Use `function_status.md` for per-function confidence and next actions.
 - `0x0041f9a0` `App_Frame_Pump`: top-level message/frame pump.
 - `0x0041fab0` `Game_Frame_Pump`: in-game/editor frame pump.
 - `0x0040b450` `Process_CommandLine_Args`: editor/demo/load flags.
+- `0x00420350` `Create_Main_Window`: registers the window class and creates the main host window.
+- `0x004204b0` `Init_Working_Directories`: derives work/resource directory strings used by loaders.
 - `0x0046e950` `Init_SetUp`: DirectDraw, fonts, base resources, startup data.
 - `0x004c60a0` `ShutDown_Game`: config/key save, resource release, DirectDraw/window shutdown.
 - `0x004c6490` `Clear_All_Memory`: cleanup/reset support.

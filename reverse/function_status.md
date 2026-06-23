@@ -13,7 +13,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x00405540` | `AI_Diplomat` | named | diplomacy_country | 40% | Name from trace string and diplomacy xrefs. |
 | `0x00406ff0` | `AI_Ship` | named | ai_orders | 40% | Name from trace string; ship AI executor. |
 | `0x004086e0` | `NewLand_Name` | partial | map | 70% | Promotes/updates named-point rows loaded by `Load_Dat`. |
-| `0x0040b450` | `Process_CommandLine_Args` | partial | startup_init | 75% | Parses startup flags including editor/demo/load behavior. |
+| `0x0040b450` | `Process_CommandLine_Args` | partial | startup_init | 80% | Parses `SERVER`, `LOAD`, `DEMO`, `SIMPLE`, `ENGLISH`, `NOTEACH`, `EDIT`, and hidden/debug flags. |
 | `0x0040b580` | `Start_Map_Battle_From_Army` | partial | battle | 65% | Battle-entry path from active map army; paired with tile entry path. |
 | `0x00411ea0` | `City_Capture_Transfer` | partial | city_economy | 65% | Transfers city ownership and related state after capture. |
 | `0x00414b70` | `Battle_Peace_Place` | named | battle | 45% | Name from trace string; battle placement helper. |
@@ -33,9 +33,11 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x0041daf0` | `UserSet_City_Resource` | named | city_economy | 50% | City resource assignment/update path. |
 | `0x0041dea0` | `Cal_City_JobPeople` | named | city_economy | 55% | City worker/job calculation; name from trace string. |
 | `0x0041e200` | `Cal_City_Resource` | partial | city_economy | 70% | Reads city resource defs and tile resource/feature fields. |
-| `0x0041f9a0` | `App_Frame_Pump` | partial | startup_init | 75% | Top-level message/frame pump; calls game frame path by state. |
-| `0x0041fab0` | `Game_Frame_Pump` | partial | startup_init | 75% | In-game/editor frame loop; dispatches keyboard/map redraw/city prep. |
-| `0x00420820` | `App_WinMain_Entry` | partial | startup_init | 75% | WinMain-like entry; initializes app and enters screen-state loop. |
+| `0x0041f9a0` | `App_Frame_Pump` | partial | startup_init | 80% | Non-game idle frame pump: timing, input, redraw flag, draw/present. |
+| `0x0041fab0` | `Game_Frame_Pump` | partial | startup_init | 80% | Game/editor idle frame pump: timing throttle, blink/redraw cadence, input, auto city processing. |
+| `0x00420350` | `Create_Main_Window` | partial | startup_init | 80% | Registers main window class, creates fullscreen/borderless host window, hides cursor. |
+| `0x004204b0` | `Init_Working_Directories` | partial | startup_init | 80% | Builds canonical work/resource path strings from startup directory. |
+| `0x00420820` | `App_WinMain_Entry` | partial | startup_init | 85% | WinMain-like entry: mutex, command line, window/path/setup, screen-state loop, message dispatch. |
 | `0x00420a30` | `Font_Select` | named | render_ui | 55% | Font selection helper. |
 | `0x00420ba0` | `Draw_Text_Centered` | named | render_ui | 60% | Text draw helper. |
 | `0x00420c00` | `Draw_Text` | named | render_ui | 60% | Text draw helper. |
@@ -60,7 +62,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x0046b850` | `Load_UI_String_EMG` | partial | file_io | 70% | Loads `UI_STRING.EMG` and score-list background. |
 | `0x0046cc70` | `Load_UI_String_EMG_XMG` | partial | file_io | 70% | Loads `UI_STRING.EMG` plus `UI_STRING.XMG`; score/history path. |
 | `0x0046d310` | `Init_DirectDraw_Runtime` | partial | render_ui | 80% | DirectDraw create/query/cooperative-level/surface setup. |
-| `0x0046e950` | `Init_SetUp` | partial | startup_init | 80% | Main setup: DirectDraw, base UI resources, fonts, startup data. |
+| `0x0046e950` | `Init_SetUp` | partial | startup_init | 85% | Main setup: DirectDraw, AVI intro, base UI resources, fonts, loading TMG, exception map prompt, music. |
 | `0x00473270` | `Load_Dat` | partial | file_io | 75% | Large scenario/save/table loader; reconstructs map/city/army/country state. |
 | `0x00477800` | `Load_Map_GameInfo` | named | file_io | 55% | Map/game info loader from string-derived name. |
 | `0x00477ff0` | `Load_EMG_Base` | partial | file_io | 75% | Loads long-lived EMG/XMG/IMG resources and color/fade caches. |
@@ -91,7 +93,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x004b80c0` | `Read_MRP_Edit` | partial | editor_map | 75% | Editor right-press handler; clears/removes map objects and fields. |
 | `0x004b8db0` | `Read_MRR_Edit` | partial | editor_map | 70% | Editor right-release handler; clears named-point rows. |
 | `0x004c2da0` | `Apply_Resolution_Mode` | partial | render_ui | 80% | Applies logical resolution state and viewport offsets. |
-| `0x004c60a0` | `ShutDown_Game` | partial | startup_init | 75% | Writes config/key data, frees resources, shuts down render/window state. |
+| `0x004c60a0` | `ShutDown_Game` | partial | startup_init | 80% | Frees dynamic map/render/resource buffers, writes `CONFIG.DAT`/`KEYDEF.DAT`, releases IMG/EMG and platform state. |
 | `0x004c6e60` | `DiagCoords_To_TileX` | named | map | 65% | Tile/diagnonal coordinate conversion helper. |
 | `0x004c7160` | `Tile_Direction_DeltaX` | named | map | 65% | Tile direction delta helper. |
 | `0x004d2cc0` | `TestRoad` | partial | ai_orders | 70% | Pathfinding/route validation for army orders. |

@@ -42,8 +42,21 @@ Naming convention:
 | `0x005dff90` | `g_ddraw` | `void *` | 4 | 75% | DirectDraw runtime |
 | `0x005dff94` | `g_front_surface` | `void *` | 4 | 75% | present/render |
 | `0x005dff98` | `g_back_surface` | `void *` | 4 | 75% | present/render/lock |
-| `0x005dff9c` | `g_back_surface_pixels` | `void *` | 4 | 70% | CPU drawing after surface lock |
-| `0x005dffa0` | `g_back_surface_pitch` | `int` | 4 | 70% | CPU drawing after surface lock |
+| `0x005dff9c` | `g_frame_one_second_elapsed` | `int/bool` | 4 | 75% | `App_Frame_Pump`, `Game_Frame_Pump` |
+| `0x005dffa0` | `g_frame_elapsed_ms_accum` | `int` | 4 | 75% | `App_Frame_Pump`, `Game_Frame_Pump` |
+| `0x005dffa4` | `g_frame_count_this_second` | `int` | 4 | 75% | `App_Frame_Pump`, `Game_Frame_Pump` |
+| `0x005dffa8` | `g_frame_count_last_second` | `int` | 4 | 75% | `App_Frame_Pump`, `Game_Frame_Pump`, debug/status draw |
+| `0x005dfed8` | `g_app_screen_state` | `int` | 4 | 80% | main loop dispatch, menu/game/editor transitions |
+| `0x005dfedc` | `g_directdraw_ready` | `int` | 4 | 75% | message loop idle guard, present path |
+| `0x005dfee0` | `g_main_window` | `HWND` | 4 | 80% | window creation, DirectDraw setup, input/font helpers |
+| `0x005dff04` | `g_single_instance_mutex` | `HANDLE` | 4 | 70% | `App_WinMain_Entry` single-instance guard |
+| `0x005dff8c` | `g_app_instance` | `HINSTANCE` | 4 | 70% | window creation, setup/resource helpers |
+| `0x0075cf00` | `g_present_use_blt_mode` | `int` | 4 | 75% | startup window style and DirectDraw present mode |
+| `0x0058940c` | `g_resolution_mode_index` | `int` | 4 | 80% | startup display mode selection and resolution changes |
+| `0x00734c08` | `g_client_width` | `int` | 4 | 80% | viewport/window size |
+| `0x00734c14` | `g_client_height` | `int` | 4 | 80% | viewport/window size |
+| `0x0074a56c` | `g_startup_work_dir` | `char[]` | unknown | 70% | `Init_Working_Directories` source path |
+| `0x0074c62c` | `g_map_data_dir` | `char[]` | unknown | 70% | exception-map checks and map data loads |
 | `0x005997b8` | `g_building_defs` | `BuildingDef_0x200[]` | unknown | 75% | city build UI/AI, building editor |
 | `0x005817a8` | `g_science_defs` | `ScienceDef_0x88[]` | unknown | 75% | science editor/research |
 | `0x00581778` | `g_science_priority_target_ids` | `int[12]` | 48 | 75% | science priority editor and `Science_Next` |
