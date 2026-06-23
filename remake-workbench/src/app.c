@@ -48,6 +48,11 @@ static const MainMenuHotspotStep kMainMenuHotspotSteps[3] = {
     {0x1a8, 0x1dc, 0x13, 0x47, 0, "Step 3: left-top zone triggers DAT_0075593e=1 if progress==2"}
 };
 
+typedef struct MainMenuXmgBankRef {
+    unsigned int bank_index;
+    const char *label;
+} MainMenuXmgBankRef;
+
 static void LogLine(const char *text)
 {
     OutputDebugStringA(text);
@@ -481,6 +486,95 @@ static void DrawMenuLayoutOverlay(AppState *app, HDC dc, RECT *client_rect)
     }
 }
 
+static void DrawMainMenuXmgTriplet(AppState *app, HDC dc, int origin_x, int origin_y)
+{
+    MainMenuXmgBankRef refs[3];
+    unsigned int index;
+    RECT panel;
+
+    if (app->mainmenu_selected_index < 0 || app->mainmenu_selected_index >= (int)MAINMENU_ITEM_COUNT ||
+        app->mainmenu_xmg_diagnostic.group_count < MAINMENU_ITEM_COUNT * 3u + 1u) {
+        return;
+    }
+
+    refs[0].bank_index = (unsigned int)app->mainmenu_selected_index;
+    refs[0].label = "Base";
+    refs[1].bank_index = (unsigned int)app->mainmenu_selected_index + MAINMENU_ITEM_COUNT;
+    refs[1].label = "Selected";
+    refs[2].bank_index = MAINMENU_ITEM_COUNT * 2u + app->mainmenu_highlight_frame;
+    refs[2].label = "Highlight";
+
+    panel.left = origin_x;
+    panel.top = origin_y;
+    panel.right = origin_x + 338;
+    panel.bottom = origin_y + 176;
+    {
+        HBRUSH brush = CreateSolidBrush(RGB(20, 23, 31));
+        FillRect(dc, &panel, brush);
+        DeleteObject(brush);
+    }
+
+    SetTextColor(dc, RGB(232, 236, 243));
+    TextOutA(dc, origin_x + 10, origin_y + 8, "Recovered MAINMENU.XMG bank triplet", 34);
+
+    for (index = 0; index < 3; ++index) {
+        XmgGroupStat *group = &app->mainmenu_xmg_diagnostic.groups[refs[index].bank_index];
+        RECT bank_box;
+        RECT sample_box;
+        char line[160];
+        char detail[192];
+        unsigned int box_x = origin_x + 10 + index * 108;
+        unsigned int box_y = origin_y + 34;
+
+        bank_box.left = (LONG)box_x;
+        bank_box.top = (LONG)box_y;
+        bank_box.right = (LONG)box_x + 98;
+        bank_box.bottom = (LONG)box_y + 132;
+        sample_box.left = bank_box.left + 8;
+        sample_box.top = bank_box.top + 20;
+        sample_box.right = bank_box.right - 8;
+        sample_box.bottom = bank_box.top + 84;
+
+        {
+            HBRUSH brush = CreateSolidBrush(index == 1 ? RGB(59, 70, 89) : RGB(39, 45, 58));
+            HPEN pen = CreatePen(PS_SOLID, 1, index == 2 ? RGB(220, 175, 92) : RGB(103, 119, 144));
+            HGDIOBJ old_brush = SelectObject(dc, brush);
+            HGDIOBJ old_pen = SelectObject(dc, pen);
+            Rectangle(dc, bank_box.left, bank_box.top, bank_box.right, bank_box.bottom);
+            SelectObject(dc, old_brush);
+            SelectObject(dc, old_pen);
+            DeleteObject(brush);
+            DeleteObject(pen);
+        }
+
+        snprintf(line, sizeof(line), "%s #%u", refs[index].label, refs[index].bank_index);
+        SetTextColor(dc, RGB(236, 239, 245));
+        TextOutA(dc, bank_box.left + 6, bank_box.top + 4, line, (int)strlen(line));
+
+        {
+            HBRUSH brush = CreateSolidBrush(group->alt_frame_count > 0 ? RGB(71, 95, 124) : RGB(124, 94, 53));
+            FillRect(dc, &sample_box, brush);
+            DeleteObject(brush);
+        }
+
+        snprintf(detail, sizeof(detail),
+                 "bbox %u..%u\n%u..%u\nframes %u\nalt %u\nwords %u..%u",
+                 group->min_x,
+                 group->max_x,
+                 group->min_y,
+                 group->max_y,
+                 group->frame_count,
+                 group->alt_frame_count,
+                 group->min_payload_words,
+                 group->max_payload_words);
+        DrawTextA(dc, detail, -1, &sample_box, DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+
+        snprintf(line, sizeof(line), "payload=%u mask=%u", group->total_payload_words, group->total_mask_bytes);
+        SetTextColor(dc, RGB(201, 209, 222));
+        TextOutA(dc, bank_box.left + 6, bank_box.bottom - 18, line, (int)strlen(line));
+    }
+}
+
 static int SameMainmenuFamily(EmgGroup *group, unsigned int family_index)
 {
     static const struct {
@@ -624,6 +718,18 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
         DrawTextUtf8Box(dc, &detail_rect,
                         app->mainmenu_layout.entries[app->mainmenu_selected_index].long_label,
                         DT_WORDBREAK | DT_NOPREFIX);
+
+        if (app->mainmenu_xmg_diagnostic.group_count >= MAINMENU_ITEM_COUNT * 3u) {
+            XmgGroupStat *base_group = &app->mainmenu_xmg_diagnostic.groups[app->mainmenu_selected_index];
+            XmgGroupStat *selected_group = &app->mainmenu_xmg_diagnostic.groups[app->mainmenu_selected_index + MAINMENU_ITEM_COUNT];
+            XmgGroupStat *highlight_group = &app->mainmenu_xmg_diagnostic.groups[MAINMENU_ITEM_COUNT * 2u + app->mainmenu_highlight_frame];
+            snprintf(line, sizeof(line),
+                     "bbox base=%u..%u/%u..%u sel=%u..%u/%u..%u hl=%u..%u/%u..%u",
+                     base_group->min_x, base_group->max_x, base_group->min_y, base_group->max_y,
+                     selected_group->min_x, selected_group->max_x, selected_group->min_y, selected_group->max_y,
+                     highlight_group->min_x, highlight_group->max_x, highlight_group->min_y, highlight_group->max_y);
+            TextOutA(dc, 28, 518, line, (int)strlen(line));
+        }
     } else {
         TextOutA(dc, 28, 360, "MLR select=-1: no menu item selected", 35);
         TextOutA(dc, 28, 384, "PutScreen_Mainmenu uses XMG base bank when item is not selected", 61);
@@ -692,6 +798,7 @@ static void DrawFrame(AppState *app, HDC dc)
                  52);
         DrawMenuLayoutOverlay(app, dc, &rect);
         DrawMainmenuResourcePanel(app, dc, &rect);
+        DrawMainMenuXmgTriplet(app, dc, rect.right - 376, rect.bottom - 206);
         DrawEmgGroupPreview(dc, &app->menu_item_resource, app->menu_item_preview_group, rect.right - 264, 160, "MENU_ITEM.EMG");
         DrawEmgGroupPreview(dc, &app->mainmenu_emg_resource, app->mainmenu_preview_group, rect.right - 664, 352, "MAINMENU.EMG");
     }

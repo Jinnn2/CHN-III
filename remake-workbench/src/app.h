@@ -51,6 +51,14 @@ typedef struct XmgGroupStat {
     unsigned int alt_frame_count;
     unsigned int min_width_field;
     unsigned int max_width_field;
+    unsigned int min_x;
+    unsigned int max_x;
+    unsigned int min_y;
+    unsigned int max_y;
+    unsigned int min_payload_words;
+    unsigned int max_payload_words;
+    unsigned int total_payload_words;
+    unsigned int total_mask_bytes;
 } XmgGroupStat;
 
 typedef struct XmgDiagnostic {

@@ -596,10 +596,19 @@ int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic)
         group = &out_diagnostic->groups[group_index];
         group->frame_count = frame_count;
         group->min_width_field = 0xffffffffu;
+        group->min_payload_words = 0xffffffffu;
+        group->min_x = 0xffffffffu;
+        group->min_y = 0xffffffffu;
         group->max_width_field = 0;
+        group->max_payload_words = 0;
+        group->max_x = 0;
+        group->max_y = 0;
 
         for (frame_index = 0; frame_index < frame_count; ++frame_index) {
+            uint16_t x;
+            uint16_t y;
             uint16_t width_field;
+            unsigned int payload_words;
 
             if (offset + 6 > file_size) {
                 free(bytes);
@@ -607,21 +616,43 @@ int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic)
                 return 0;
             }
 
+            x = (uint16_t)(bytes[offset] | (bytes[offset + 1] << 8));
+            y = (uint16_t)(bytes[offset + 2] | (bytes[offset + 3] << 8));
             width_field = (uint16_t)(bytes[offset + 4] | (bytes[offset + 5] << 8));
+            payload_words = width_field & 0x7fffu;
             if (width_field < group->min_width_field) {
                 group->min_width_field = width_field;
             }
             if (width_field > group->max_width_field) {
                 group->max_width_field = width_field;
             }
+            if (payload_words < group->min_payload_words) {
+                group->min_payload_words = payload_words;
+            }
+            if (payload_words > group->max_payload_words) {
+                group->max_payload_words = payload_words;
+            }
+            if (x < group->min_x) {
+                group->min_x = x;
+            }
+            if (x > group->max_x) {
+                group->max_x = x;
+            }
+            if (y < group->min_y) {
+                group->min_y = y;
+            }
+            if (y > group->max_y) {
+                group->max_y = y;
+            }
+            group->total_payload_words += payload_words;
 
             if ((width_field & 0x8000u) != 0) {
-                unsigned int payload_words = width_field & 0x7fffu;
                 group->alt_frame_count += 1;
                 out_diagnostic->total_alt_frame_count += 1;
-                offset += ((size_t)payload_words + 2u) * 3u;
+                group->total_mask_bytes += payload_words;
+                offset += 6u + (size_t)payload_words * 3u;
             } else {
-                offset += 6u + (size_t)width_field * 2u;
+                offset += 6u + (size_t)payload_words * 2u;
             }
 
             if (offset > file_size) {
@@ -633,6 +664,15 @@ int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic)
 
         if (group->min_width_field == 0xffffffffu) {
             group->min_width_field = 0;
+        }
+        if (group->min_payload_words == 0xffffffffu) {
+            group->min_payload_words = 0;
+        }
+        if (group->min_x == 0xffffffffu) {
+            group->min_x = 0;
+        }
+        if (group->min_y == 0xffffffffu) {
+            group->min_y = 0;
         }
     }
 
