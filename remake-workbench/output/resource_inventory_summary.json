@@ -1,0 +1,1116 @@
+{
+  "workspace": "C:\\baidunetdiskdownload\\zhongguo2lianhe\\zhongguo2lianhe",
+  "resource_count": 472,
+  "resource_bytes": 1126669271,
+  "by_extension": {
+    ".avi": {
+      "count": 3,
+      "bytes": 67584
+    },
+    ".ctn": {
+      "count": 4,
+      "bytes": 576000
+    },
+    ".dat": {
+      "count": 2,
+      "bytes": 49300
+    },
+    ".emg": {
+      "count": 101,
+      "bytes": 158648418
+    },
+    ".grp": {
+      "count": 10,
+      "bytes": 590110
+    },
+    ".idi": {
+      "count": 100,
+      "bytes": 30768
+    },
+    ".img": {
+      "count": 84,
+      "bytes": 516677364
+    },
+    ".ldn": {
+      "count": 4,
+      "bytes": 128000
+    },
+    ".map": {
+      "count": 11,
+      "bytes": 4696309
+    },
+    ".mgi": {
+      "count": 11,
+      "bytes": 4092
+    },
+    ".pcx": {
+      "count": 5,
+      "bytes": 603506
+    },
+    ".tmg": {
+      "count": 10,
+      "bytes": 31510688
+    },
+    ".ttc": {
+      "count": 1,
+      "bytes": 27702516
+    },
+    ".ttf": {
+      "count": 1,
+      "bytes": 5181580
+    },
+    ".wav": {
+      "count": 75,
+      "bytes": 275334164
+    },
+    ".xmg": {
+      "count": 50,
+      "bytes": 104868872
+    }
+  },
+  "parse_coverage": {
+    ".pcx": {
+      "files": 5,
+      "parsed": 5,
+      "unparsed": 0
+    },
+    ".tmg": {
+      "files": 10,
+      "parsed": 10,
+      "unparsed": 0
+    },
+    ".emg": {
+      "files": 101,
+      "parsed": 100,
+      "unparsed": 1
+    },
+    ".xmg": {
+      "files": 50,
+      "parsed": 50,
+      "unparsed": 0
+    },
+    ".mgi": {
+      "files": 11,
+      "parsed": 11,
+      "unparsed": 0
+    },
+    ".map": {
+      "files": 11,
+      "parsed": 11,
+      "unparsed": 0
+    }
+  },
+  "map_models": [
+    {
+      "path": "Save/ASIA.MAP",
+      "map_size_mode": 0,
+      "size_label": "large_312x402",
+      "width": 312,
+      "height": 402,
+      "tile_count": 125424,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 32108544,
+      "post_land_offset": 32326188,
+      "saved_view_x": 218,
+      "saved_view_y": 314,
+      "land_record_capacity": 69,
+      "tail_offset": 32326200,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "4": 14418,
+        "8": 11334,
+        "5": 1775,
+        "2": 22596,
+        "11": 13313,
+        "0": 12724,
+        "3": 1731,
+        "12": 6662,
+        "9": 2005,
+        "13": 18632,
+        "7": 5570,
+        "1": 6697,
+        "6": 80,
+        "14": 7887
+      },
+      "battle_feature_tile_count": 10481,
+      "city_resource_tile_count": 1575,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 0
+      }
+    },
+    {
+      "path": "Save/BIG_MAP_01.MAP",
+      "map_size_mode": 1,
+      "size_label": "big_156x201",
+      "width": 156,
+      "height": 201,
+      "tile_count": 31356,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 8027136,
+      "post_land_offset": 8244780,
+      "saved_view_x": 66,
+      "saved_view_y": 82,
+      "land_record_capacity": 13,
+      "tail_offset": 8244792,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "14": 11166,
+        "11": 4781,
+        "13": 6117,
+        "0": 4904,
+        "1": 2188,
+        "2": 389,
+        "7": 260,
+        "3": 188,
+        "12": 487,
+        "4": 175,
+        "5": 95,
+        "9": 329,
+        "8": 277
+      },
+      "battle_feature_tile_count": 2759,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/BIG_MAP_02.MAP",
+      "map_size_mode": 1,
+      "size_label": "big_156x201",
+      "width": 156,
+      "height": 201,
+      "tile_count": 31356,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 8027136,
+      "post_land_offset": 8244780,
+      "saved_view_x": 49,
+      "saved_view_y": 34,
+      "land_record_capacity": 12,
+      "tail_offset": 8244792,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "3": 467,
+        "0": 13513,
+        "2": 1695,
+        "8": 113,
+        "12": 1101,
+        "5": 457,
+        "6": 521,
+        "13": 2936,
+        "14": 3779,
+        "1": 4354,
+        "11": 1634,
+        "4": 262,
+        "9": 106,
+        "7": 418
+      },
+      "battle_feature_tile_count": 2357,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/EUROPE.MAP",
+      "map_size_mode": 0,
+      "size_label": "large_312x402",
+      "width": 312,
+      "height": 402,
+      "tile_count": 125424,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 32108544,
+      "post_land_offset": 32326188,
+      "saved_view_x": 165,
+      "saved_view_y": 200,
+      "land_record_capacity": 88,
+      "tail_offset": 32326200,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "14": 21327,
+        "13": 25040,
+        "11": 17655,
+        "2": 21812,
+        "8": 5559,
+        "9": 686,
+        "12": 6616,
+        "4": 9595,
+        "0": 13087,
+        "1": 2964,
+        "7": 1070,
+        "5": 13
+      },
+      "battle_feature_tile_count": 11768,
+      "city_resource_tile_count": 1305,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 0
+      }
+    },
+    {
+      "path": "Save/JAPEN.MAP",
+      "map_size_mode": 0,
+      "size_label": "large_312x402",
+      "width": 312,
+      "height": 402,
+      "tile_count": 125424,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 32108544,
+      "post_land_offset": 32326188,
+      "saved_view_x": 145,
+      "saved_view_y": 298,
+      "land_record_capacity": 83,
+      "tail_offset": 32326200,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "11": 23496,
+        "2": 9679,
+        "12": 1415,
+        "8": 2090,
+        "0": 7367,
+        "13": 75584,
+        "4": 3195,
+        "1": 2598
+      },
+      "battle_feature_tile_count": 4890,
+      "city_resource_tile_count": 480,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 0
+      }
+    },
+    {
+      "path": "Save/MID_MAP_01.MAP",
+      "map_size_mode": 2,
+      "size_label": "mid_78x100",
+      "width": 78,
+      "height": 100,
+      "tile_count": 7800,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 1996800,
+      "post_land_offset": 2214444,
+      "saved_view_x": 18,
+      "saved_view_y": 16,
+      "land_record_capacity": 4,
+      "tail_offset": 2214456,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "7": 183,
+        "5": 374,
+        "4": 405,
+        "2": 693,
+        "0": 3038,
+        "1": 932,
+        "8": 258,
+        "12": 627,
+        "13": 739,
+        "11": 27,
+        "3": 201,
+        "9": 121,
+        "6": 202
+      },
+      "battle_feature_tile_count": 959,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/MID_MAP_02.MAP",
+      "map_size_mode": 2,
+      "size_label": "mid_78x100",
+      "width": 78,
+      "height": 100,
+      "tile_count": 7800,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 1996800,
+      "post_land_offset": 2214444,
+      "saved_view_x": 42,
+      "saved_view_y": 62,
+      "land_record_capacity": 26,
+      "tail_offset": 2214456,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "8": 392,
+        "11": 1262,
+        "14": 2465,
+        "13": 1471,
+        "2": 992,
+        "0": 348,
+        "6": 153,
+        "5": 362,
+        "12": 21,
+        "9": 51,
+        "1": 47,
+        "4": 236
+      },
+      "battle_feature_tile_count": 1025,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/MID_MAP_03.MAP",
+      "map_size_mode": 2,
+      "size_label": "mid_78x100",
+      "width": 78,
+      "height": 100,
+      "tile_count": 7800,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 1996800,
+      "post_land_offset": 2214444,
+      "saved_view_x": 36,
+      "saved_view_y": 34,
+      "land_record_capacity": 4,
+      "tail_offset": 2214456,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "3": 572,
+        "7": 415,
+        "2": 1044,
+        "12": 403,
+        "4": 327,
+        "0": 890,
+        "11": 536,
+        "6": 369,
+        "13": 589,
+        "5": 280,
+        "8": 500,
+        "14": 823,
+        "9": 103,
+        "1": 949
+      },
+      "battle_feature_tile_count": 843,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/SAVE00/SAVE.MAP",
+      "map_size_mode": 2,
+      "size_label": "mid_78x100",
+      "width": 78,
+      "height": 100,
+      "tile_count": 7800,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 1996800,
+      "post_land_offset": 2214444,
+      "saved_view_x": 45,
+      "saved_view_y": 74,
+      "land_record_capacity": 4,
+      "tail_offset": 2214456,
+      "tail_size": 12066488,
+      "terrain_kind_histogram": {
+        "7": 183,
+        "5": 374,
+        "4": 405,
+        "2": 693,
+        "0": 3038,
+        "1": 932,
+        "8": 258,
+        "12": 627,
+        "13": 739,
+        "11": 27,
+        "3": 201,
+        "9": 121,
+        "6": 202
+      },
+      "battle_feature_tile_count": 919,
+      "city_resource_tile_count": 428,
+      "owned_tile_count": 6198,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": 1595,
+        "country_count": 20,
+        "country_limit": 38,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/SML_MAP_01.MAP",
+      "map_size_mode": 3,
+      "size_label": "small_39x50",
+      "width": 39,
+      "height": 50,
+      "tile_count": 1950,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 499200,
+      "post_land_offset": 716844,
+      "saved_view_x": 2,
+      "saved_view_y": 23,
+      "land_record_capacity": 3,
+      "tail_offset": 716856,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "7": 135,
+        "0": 276,
+        "12": 217,
+        "2": 136,
+        "5": 155,
+        "11": 358,
+        "14": 208,
+        "13": 161,
+        "9": 116,
+        "6": 69,
+        "3": 119
+      },
+      "battle_feature_tile_count": 425,
+      "city_resource_tile_count": 0,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    },
+    {
+      "path": "Save/WORLD_FLAT.MAP",
+      "map_size_mode": 0,
+      "size_label": "large_312x402",
+      "width": 312,
+      "height": 402,
+      "tile_count": 125424,
+      "static_prefix_size": 217644,
+      "static_prefix_blocks": [
+        {
+          "name": "science_defs",
+          "offset": 0,
+          "size": 27200
+        },
+        {
+          "name": "army_type_defs",
+          "offset": 27200,
+          "size": 93184
+        },
+        {
+          "name": "building_defs",
+          "offset": 120384,
+          "size": 49152
+        },
+        {
+          "name": "country_profile_defs",
+          "offset": 169536,
+          "size": 12400
+        },
+        {
+          "name": "government_defs",
+          "offset": 181936,
+          "size": 928
+        },
+        {
+          "name": "ground_defs",
+          "offset": 182864,
+          "size": 540
+        },
+        {
+          "name": "city_resource_defs",
+          "offset": 183404,
+          "size": 8640
+        },
+        {
+          "name": "flag_img_bank",
+          "offset": 192044,
+          "size": 25600
+        }
+      ],
+      "land_offset": 217644,
+      "land_bytes": 32108544,
+      "post_land_offset": 32326188,
+      "saved_view_x": 136,
+      "saved_view_y": 146,
+      "land_record_capacity": 153,
+      "tail_offset": 32326200,
+      "tail_size": 132464,
+      "terrain_kind_histogram": {
+        "8": 14447,
+        "13": 29982,
+        "11": 9309,
+        "12": 1952,
+        "5": 1388,
+        "1": 5763,
+        "14": 42050,
+        "2": 6024,
+        "0": 3516,
+        "9": 265,
+        "4": 3622,
+        "3": 4569,
+        "7": 2537
+      },
+      "battle_feature_tile_count": 6088,
+      "city_resource_tile_count": 1095,
+      "owned_tile_count": 0,
+      "scenario": {
+        "version_major": 3,
+        "version_minor": 19,
+        "current_year": -3000,
+        "country_count": 0,
+        "country_limit": 0,
+        "horizontal_wrap_setting": 1
+      }
+    }
+  ],
+  "inferred_tables": {
+    "LandTile": {
+      "stride": 256,
+      "source": "Load_Dat / STRUCTURE_NOTES"
+    },
+    "CountryState": {
+      "stride": 3688,
+      "count": 22,
+      "source": "Load_Dat"
+    },
+    "City": {
+      "stride": "0x1b8+",
+      "source": "Do_City / Load_Dat"
+    },
+    "ArmyTypeDef": {
+      "stride": 1024,
+      "count": 91,
+      "source": "Load_Dat"
+    },
+    "BuildingDef": {
+      "stride": 512,
+      "count": 65,
+      "source": "Load_Dat"
+    },
+    "SpecialProjectDef": {
+      "stride": 512,
+      "count": 25,
+      "source": "Load_Dat"
+    },
+    "ScienceDef": {
+      "stride": 136,
+      "count": 200,
+      "source": "Load_Dat"
+    },
+    "CityResourceDef": {
+      "stride": 216,
+      "count": 40,
+      "source": "Load_Dat"
+    },
+    "CountryProfileDef": {
+      "stride": 124,
+      "count": 100,
+      "source": "Load_Dat"
+    },
+    "EmpireCountryDef": {
+      "stride": 512,
+      "count": 100,
+      "source": "Load_Dat"
+    },
+    "GovernmentDef": {
+      "stride": 116,
+      "count": 8,
+      "source": "Load_Dat"
+    },
+    "GroundDef": {
+      "stride": 36,
+      "count": 15,
+      "source": "Load_Dat"
+    },
+    "BattleGridCell": {
+      "stride": 48,
+      "count": 576,
+      "source": "Make_Battle_Map"
+    },
+    "MapNamedPoint": {
+      "stride": 32,
+      "counts": [
+        1000,
+        4500
+      ],
+      "source": "Load_Dat"
+    }
+  },
+  "reverse_sources": [
+    "reverse/ghidra_export/STRUCTURE_NOTES.md",
+    "reverse/ghidra_export/UNCERTAINTIES.md",
+    "reverse/ghidra_export/game/load_dat.c",
+    "reverse/ghidra_export/game/do_city.c",
+    "reverse/ghidra_export/game/city_resource_change.c",
+    "reverse/ghidra_export/game/city_building.c",
+    "reverse/ghidra_export/game/do_battle_army_and_die.c"
+  ]
+}
