@@ -202,6 +202,15 @@ void FreeEmgResource(EmgResource *resource)
     resource->group_count = 0;
 }
 
+void FreeXmgDiagnostic(XmgDiagnostic *diagnostic)
+{
+    free(diagnostic->groups);
+    diagnostic->groups = NULL;
+    diagnostic->group_count = 0;
+    diagnostic->trailing_size = 0;
+    diagnostic->total_alt_frame_count = 0;
+}
+
 int LoadEmgResource(const char *relative_path, EmgResource *out_resource)
 {
     char path[MAX_PATH];
@@ -307,4 +316,90 @@ int LoadEmgResource(const char *relative_path, EmgResource *out_resource)
 
     free(bytes);
     return offset == file_size;
+}
+
+int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic)
+{
+    char path[MAX_PATH];
+    unsigned char *bytes = NULL;
+    size_t file_size = 0;
+    size_t offset = 0;
+    uint16_t group_count;
+    unsigned int group_index;
+
+    snprintf(path, sizeof(path), "..\\%s", relative_path);
+    FreeXmgDiagnostic(out_diagnostic);
+
+    if (!LoadFileBytes(path, &bytes, &file_size) || file_size < 2) {
+        return 0;
+    }
+
+    group_count = (uint16_t)(bytes[0] | (bytes[1] << 8));
+    offset = 2;
+    out_diagnostic->groups = (XmgGroupStat *)calloc(group_count, sizeof(XmgGroupStat));
+    if (out_diagnostic->groups == NULL) {
+        free(bytes);
+        return 0;
+    }
+    out_diagnostic->group_count = group_count;
+
+    for (group_index = 0; group_index < group_count; ++group_index) {
+        uint16_t frame_count;
+        unsigned int frame_index;
+        XmgGroupStat *group;
+
+        if (offset + 2 > file_size) {
+            free(bytes);
+            FreeXmgDiagnostic(out_diagnostic);
+            return 0;
+        }
+
+        frame_count = (uint16_t)(bytes[offset] | (bytes[offset + 1] << 8));
+        offset += 2;
+        group = &out_diagnostic->groups[group_index];
+        group->frame_count = frame_count;
+        group->min_width_field = 0xffffffffu;
+        group->max_width_field = 0;
+
+        for (frame_index = 0; frame_index < frame_count; ++frame_index) {
+            uint16_t width_field;
+
+            if (offset + 6 > file_size) {
+                free(bytes);
+                FreeXmgDiagnostic(out_diagnostic);
+                return 0;
+            }
+
+            width_field = (uint16_t)(bytes[offset + 4] | (bytes[offset + 5] << 8));
+            if (width_field < group->min_width_field) {
+                group->min_width_field = width_field;
+            }
+            if (width_field > group->max_width_field) {
+                group->max_width_field = width_field;
+            }
+
+            if ((width_field & 0x8000u) != 0) {
+                unsigned int payload_words = width_field & 0x7fffu;
+                group->alt_frame_count += 1;
+                out_diagnostic->total_alt_frame_count += 1;
+                offset += ((size_t)payload_words + 2u) * 3u;
+            } else {
+                offset += 6u + (size_t)width_field * 2u;
+            }
+
+            if (offset > file_size) {
+                free(bytes);
+                FreeXmgDiagnostic(out_diagnostic);
+                return 0;
+            }
+        }
+
+        if (group->min_width_field == 0xffffffffu) {
+            group->min_width_field = 0;
+        }
+    }
+
+    out_diagnostic->trailing_size = (unsigned int)(file_size - offset);
+    free(bytes);
+    return 1;
 }

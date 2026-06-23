@@ -86,7 +86,14 @@ static void MainMenu_Init(AppState *app)
     if (LoadEmgResource("EMG\\MENU_ITEM.EMG", &app->menu_item_resource)) {
         LogLine("MainMenu_Init: MENU_ITEM.EMG loaded");
     }
+    if (LoadEmgResource("EMG\\MAINMENU.EMG", &app->mainmenu_emg_resource)) {
+        LogLine("MainMenu_Init: MAINMENU.EMG loaded");
+    }
+    if (LoadXmgDiagnostic("IMAGE\\MAINMENU.XMG", &app->mainmenu_xmg_diagnostic)) {
+        LogLine("MainMenu_Init: MAINMENU.XMG diagnostic loaded");
+    }
     app->menu_item_preview_group = 0;
+    app->mainmenu_preview_group = 0;
     app->screen_state = APP_SCREEN_MAIN_MENU;
     app->frame_tick = Get_Game_Tick();
     app->menu_action_tick = app->frame_tick;
@@ -122,18 +129,15 @@ static void DrawXrgb32Image(HDC dc, int x, int y, unsigned int width, unsigned i
         SRCCOPY);
 }
 
-static void DrawMenuItemPreview(AppState *app, HDC dc, RECT *client_rect)
+static void DrawEmgGroupPreview(HDC dc, EmgResource *resource, unsigned int group_index, int origin_x, int origin_y, const char *label_prefix)
 {
-    if (app->menu_item_resource.group_count > 0) {
-        unsigned int group_index = app->menu_item_preview_group % app->menu_item_resource.group_count;
-        EmgGroup *group = &app->menu_item_resource.groups[group_index];
+    if (resource->group_count > 0) {
+        EmgGroup *group = &resource->groups[group_index % resource->group_count];
         if (group->frame_count > 0) {
             unsigned int frame_index;
             unsigned int max_width = 0;
             unsigned int max_height = 0;
             unsigned int *composed;
-            int origin_x;
-            int origin_y;
 
             for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
                 EmgFrame *frame = &group->frames[frame_index];
@@ -147,6 +151,8 @@ static void DrawMenuItemPreview(AppState *app, HDC dc, RECT *client_rect)
 
             composed = (unsigned int *)calloc((size_t)max_width * (size_t)max_height, sizeof(unsigned int));
             if (composed != NULL) {
+                char label[160];
+
                 for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
                     EmgFrame *frame = &group->frames[frame_index];
                     unsigned int x;
@@ -155,26 +161,70 @@ static void DrawMenuItemPreview(AppState *app, HDC dc, RECT *client_rect)
                     }
                 }
 
-                origin_x = client_rect->right - (int)max_width - 24;
-                origin_y = 140;
-                if (origin_x < 24) {
-                    origin_x = 24;
-                }
                 DrawXrgb32Image(dc, origin_x, origin_y, max_width, max_height, composed);
                 free(composed);
 
-                {
-                    char label[128];
-                    snprintf(label, sizeof(label),
-                             "MENU_ITEM.EMG group %u/%u (%u x %u)",
-                             group_index,
-                             app->menu_item_resource.group_count - 1,
-                             max_width,
-                             max_height);
-                    TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
-                }
+                snprintf(label, sizeof(label),
+                         "%s group %u/%u (%u x %u)",
+                         label_prefix,
+                         group_index % resource->group_count,
+                         resource->group_count - 1,
+                         max_width,
+                         max_height);
+                TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
             }
         }
+    }
+}
+
+static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
+{
+    RECT panel_rect;
+    HBRUSH panel_brush;
+    char line[192];
+
+    panel_rect.left = 16;
+    panel_rect.top = 136;
+    panel_rect.right = 420;
+    panel_rect.bottom = client_rect->bottom - 16;
+    panel_brush = CreateSolidBrush(RGB(16, 18, 24));
+    FillRect(dc, &panel_rect, panel_brush);
+    DeleteObject(panel_brush);
+
+    SetTextColor(dc, RGB(228, 232, 240));
+    TextOutA(dc, 28, 148, "Main menu resource diagnostics", 30);
+    TextOutA(dc, 28, 172, "LEFT/RIGHT: MENU_ITEM.EMG, UP/DOWN: MAINMENU.EMG", 48);
+
+    snprintf(line, sizeof(line),
+             "MENU_ITEM.EMG groups=%u current=%u",
+             app->menu_item_resource.group_count,
+             app->menu_item_resource.group_count ? (app->menu_item_preview_group % app->menu_item_resource.group_count) : 0);
+    TextOutA(dc, 28, 204, line, (int)strlen(line));
+
+    snprintf(line, sizeof(line),
+             "MAINMENU.EMG groups=%u current=%u",
+             app->mainmenu_emg_resource.group_count,
+             app->mainmenu_emg_resource.group_count ? (app->mainmenu_preview_group % app->mainmenu_emg_resource.group_count) : 0);
+    TextOutA(dc, 28, 228, line, (int)strlen(line));
+
+    snprintf(line, sizeof(line),
+             "MAINMENU.XMG groups=%u alt_frames=%u trailing=%u",
+             app->mainmenu_xmg_diagnostic.group_count,
+             app->mainmenu_xmg_diagnostic.total_alt_frame_count,
+             app->mainmenu_xmg_diagnostic.trailing_size);
+    TextOutA(dc, 28, 252, line, (int)strlen(line));
+
+    if (app->mainmenu_xmg_diagnostic.group_count > 0) {
+        unsigned int group_index = app->mainmenu_preview_group % app->mainmenu_xmg_diagnostic.group_count;
+        XmgGroupStat *group = &app->mainmenu_xmg_diagnostic.groups[group_index];
+        snprintf(line, sizeof(line),
+                 "XMG group %u: frames=%u alt=%u min_field=%u max_field=%u",
+                 group_index,
+                 group->frame_count,
+                 group->alt_frame_count,
+                 group->min_width_field,
+                 group->max_width_field);
+        TextOutA(dc, 28, 276, line, (int)strlen(line));
     }
 }
 
@@ -219,9 +269,11 @@ static void DrawFrame(AppState *app, HDC dc)
              59);
     if (app->screen_state == APP_SCREEN_MAIN_MENU) {
         TextOutA(dc, 24, 112,
-                 "Resource preview: LEFT/RIGHT cycles MENU_ITEM.EMG groups",
-                 57);
-        DrawMenuItemPreview(app, dc, &rect);
+                 "Resource preview and diagnostics for MAINMENU assets",
+                 52);
+        DrawMainmenuResourcePanel(app, dc, &rect);
+        DrawEmgGroupPreview(dc, &app->menu_item_resource, app->menu_item_preview_group, rect.right - 264, 160, "MENU_ITEM.EMG");
+        DrawEmgGroupPreview(dc, &app->mainmenu_emg_resource, app->mainmenu_preview_group, rect.right - 664, 352, "MAINMENU.EMG");
     }
 }
 
@@ -260,17 +312,31 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
         break;
     }
     case WM_KEYDOWN:
-        if (app != NULL && app->screen_state == APP_SCREEN_MAIN_MENU && app->menu_item_resource.group_count > 0) {
-            if (wparam == VK_RIGHT) {
+        if (app != NULL && app->screen_state == APP_SCREEN_MAIN_MENU) {
+            if (wparam == VK_RIGHT && app->menu_item_resource.group_count > 0) {
                 app->menu_item_preview_group = (app->menu_item_preview_group + 1) % app->menu_item_resource.group_count;
                 InvalidateRect(window, NULL, FALSE);
                 return 0;
             }
-            if (wparam == VK_LEFT) {
+            if (wparam == VK_LEFT && app->menu_item_resource.group_count > 0) {
                 if (app->menu_item_preview_group == 0) {
                     app->menu_item_preview_group = app->menu_item_resource.group_count - 1;
                 } else {
                     app->menu_item_preview_group -= 1;
+                }
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_DOWN && app->mainmenu_emg_resource.group_count > 0) {
+                app->mainmenu_preview_group = (app->mainmenu_preview_group + 1) % app->mainmenu_emg_resource.group_count;
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_UP && app->mainmenu_emg_resource.group_count > 0) {
+                if (app->mainmenu_preview_group == 0) {
+                    app->mainmenu_preview_group = app->mainmenu_emg_resource.group_count - 1;
+                } else {
+                    app->mainmenu_preview_group -= 1;
                 }
                 InvalidateRect(window, NULL, FALSE);
                 return 0;
@@ -281,6 +347,8 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
         if (app != NULL) {
             FreeTmgImage(&app->mainmenu_background);
             FreeEmgResource(&app->menu_item_resource);
+            FreeEmgResource(&app->mainmenu_emg_resource);
+            FreeXmgDiagnostic(&app->mainmenu_xmg_diagnostic);
         }
         PostQuitMessage(0);
         return 0;

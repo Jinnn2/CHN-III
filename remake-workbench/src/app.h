@@ -43,6 +43,20 @@ typedef struct EmgResource {
     EmgGroup *groups;
 } EmgResource;
 
+typedef struct XmgGroupStat {
+    unsigned int frame_count;
+    unsigned int alt_frame_count;
+    unsigned int min_width_field;
+    unsigned int max_width_field;
+} XmgGroupStat;
+
+typedef struct XmgDiagnostic {
+    unsigned int group_count;
+    unsigned int trailing_size;
+    unsigned int total_alt_frame_count;
+    XmgGroupStat *groups;
+} XmgDiagnostic;
+
 typedef struct AppState {
     HINSTANCE instance;
     HWND window;
@@ -54,7 +68,10 @@ typedef struct AppState {
     int running;
     TmgImage mainmenu_background;
     EmgResource menu_item_resource;
+    EmgResource mainmenu_emg_resource;
+    XmgDiagnostic mainmenu_xmg_diagnostic;
     unsigned int menu_item_preview_group;
+    unsigned int mainmenu_preview_group;
 } AppState;
 
 int App_Run(HINSTANCE instance, LPSTR command_line, int show_command);

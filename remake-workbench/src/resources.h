@@ -9,4 +9,7 @@ void FreeTmgImage(TmgImage *image);
 int LoadEmgResource(const char *relative_path, EmgResource *out_resource);
 void FreeEmgResource(EmgResource *resource);
 
+int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic);
+void FreeXmgDiagnostic(XmgDiagnostic *diagnostic);
+
 #endif
