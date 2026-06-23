@@ -68,6 +68,20 @@ Naming convention:
 | `0x005aa2c8` | `g_army_type_table` | `ArmyTypeDef_0x400[91]` | 93184 | 75% | army/unit definitions, AI, battle |
 | `0x00588b80` | `g_request_redraw` | `byte` | 1 | 70% | map/render update requests |
 | `0x0057e94c` | `g_editor_tool_mode` | `int` | 4 | 80% | editor input switch |
+| `0x00755954` | `g_editor_mode_enabled` | `int` | 4 | 80% | `Read_Keyboard`, `Edit_Start`, `Edit_Finish`, map decode/editor paths |
+| `0x00748f2e` | `g_input_current_key_word` | `uint16/int` | 2 | 70% | frame pumps, `Read_Keyboard`, dialogs, text entry |
+| `0x00748f2f` | `g_input_current_key_char` | `byte` | 1 | 70% | `Read_Keyboard` direction-char dispatch |
+| `0x00589408` | `g_input_direction_current` | `int` | 4 | 70% | `Read_Keyboard` map/cursor direction dispatch |
+| `0x0057f25c` | `g_input_direction_last` | `int` | 4 | 70% | `Read_Keyboard` held-direction repeat timing |
+| `0x005c7810` | `g_map_bookmark_tile_x_slots` | `int field, stride 0x10` | 4 each | 70% | `Load_Dat`, `Read_Keyboard` map bookmark save/jump |
+| `0x005c7814` | `g_map_bookmark_tile_y_slots` | `int field, stride 0x10` | 4 each | 70% | `Load_Dat`, `Read_Keyboard` map bookmark save/jump |
+| `0x005c7818` | `g_map_bookmark_unknown_slots` | `int field, stride 0x10` | 4 each | 55% | `Load_Dat`, `Read_Keyboard`; third per-slot bookmark field, meaning not verified |
+| `0x0077b0ac` | `g_input_key_down_bitmap` | `byte[256]?` | 256 | 75% | `Input_On_KeyDown`, `Input_On_KeyUp`, `Input_Is_KeyDownOrModifier` |
+| `0x0077c038` | `g_input_modifier_flags` | `byte/int` | 4 | 75% | input key handlers and modifier queries |
+| `0x0077ab9c` | `g_input_key_event_code_ring` | `uint16[64]` | 128 | 75% | keyboard event queue |
+| `0x0077af20` | `g_input_key_event_type_ring` | `byte[64]` | 64 | 75% | keyboard event queue |
+| `0x0077af60` | `g_input_key_event_read_index` | `byte/int` | 4 | 75% | keyboard event queue |
+| `0x0077a698` | `g_input_key_event_write_index` | `byte/int` | 4 | 70% | keyboard event queue |
 | `0x00715da8` | `g_editor_brush_size_index` | `int` | 4 | 75% | editor brush radius |
 | `0x0074a360` | `g_tile_radius_offset_counts` | `int[5]` | 20 | 70% | editor brush loops |
 | `0x0074c830` | `g_edit_dest_round_buffers` | `void *[2]` | 8 | 70% | editor brush offset buffers |

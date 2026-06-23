@@ -88,7 +88,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x0049bec0` | `Load_TMG_Background` | partial | file_io | 80% | Opens `GRAPH\<name>.TMG`, reads image/header, creates decoded background. |
 | `0x0049fd10` | `Edit_Start` | partial | editor_map | 75% | Allocates editor map backup and enters edit state. |
 | `0x0049fe50` | `Edit_Finish` | partial | editor_map | 75% | Frees editor backups and reloads/commits edited data resources. |
-| `0x004b0c00` | `Read_Keyboard` | candidate | input | 60% | Keyboard/input dispatch, including editor/game map paths. |
+| `0x004b0c00` | `Read_Keyboard` | partial | input | 75% | Frame-level keyboard dispatcher: directions, map bookmarks, city entry, editor toggle/undo, and army order bridge. |
 | `0x004b3330` | `Read_MLP_Edit` | partial | editor_map | 75% | Editor left-press/drag handler; paints terrain/resources/ownership/names. |
 | `0x004b6d70` | `MLR_Edit_GameMap` | partial | editor_map | 75% | Editor mouse-left-release on map; creates city/army/name/resource entries. |
 | `0x004b80c0` | `Read_MRP_Edit` | partial | editor_map | 75% | Editor right-press handler; clears/removes map objects and fields. |
@@ -109,6 +109,12 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x004f81e0` | `Init_Surface_Pixel_State` | partial | render_ui | 75% | Reads surface desc/pixel format and initializes render globals. |
 | `0x005027b0` | `Input_On_KeyDown` | partial | input | 80% | Handles `WM_KEYDOWN`/`WM_SYSKEYDOWN`, updates modifier flags and queues key-down events. |
 | `0x005028b0` | `Input_On_KeyUp` | partial | input | 80% | Handles `WM_KEYUP`/`WM_SYSKEYUP`, clears key state and queues key-up events. |
+| `0x00502a00` | `Input_Reset_Keyboard_State` | partial | input | 80% | Sets focus, clears key bitmap, and resets keyboard ring indices. |
+| `0x00502a40` | `Input_Is_KeyDownOrModifier` | partial | input | 85% | Queries Shift/Ctrl/Alt aliases from modifier bits or ordinary key-down bitmap bytes. |
+| `0x00502b00` | `Input_Pop_KeyEvent_candidate` | partial | input | 80% | Pops translated key code and event type from 64-slot keyboard event ring. |
+| `0x00502b60` | `Input_Release_IME_Resources_candidate` | candidate | input | 65% | Releases input/IME object and two allocated buffers. |
+| `0x00502bc0` | `Input_Create_IME_Context_candidate` | candidate | input | 70% | Creates and associates an IME context for the window. |
+| `0x00502bf0` | `Input_Reassociate_IME_Context_candidate` | candidate | input | 70% | Reassociates saved IME context when present. |
 | `0x00502c70` | `Input_On_InputLangChange_candidate` | candidate | input | 65% | Handles `WM_INPUTLANGCHANGE`; probes IME/keyboard layout registry text and posts status update. |
 | `0x00502fd0` | `IME_On_Composition_candidate` | candidate | input | 65% | Handles `WM_IME_COMPOSITION`; reads composition/result strings and feeds committed bytes into char queue. |
 | `0x00503360` | `Input_On_MouseButtonDown` | partial | input | 80% | Queues mouse down events with button id and lParam x/y coordinates. |

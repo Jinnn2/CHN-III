@@ -45,11 +45,14 @@ Use `function_status.md` for per-function confidence and next actions.
 
 - `0x0041fd60` `Main_WindowProc`: Win32 message bridge installed by `Create_Main_Window`.
 - `0x005027b0` `Input_On_KeyDown` / `0x005028b0` `Input_On_KeyUp`: keyboard event queue and modifier state.
+- `0x00502a00` `Input_Reset_Keyboard_State`: focus/reset helper that clears key state and keyboard ring indices.
+- `0x00502a40` `Input_Is_KeyDownOrModifier`: key bitmap and Shift/Ctrl/Alt alias query.
+- `0x00502b00` `Input_Pop_KeyEvent_candidate`: 64-slot keyboard event ring popper used by frame pumps, dialogs, and text entry.
 - `0x00503360` `Input_On_MouseButtonDown` / `0x005033f0` `Input_On_MouseButtonUp`: mouse button event queue.
 - `0x00503480` `Input_On_MouseMove`: mouse coordinate/capture clamp.
 - `0x00503710` `Input_Set_MouseCapture`: `SetCapture`/`ReleaseCapture` wrapper.
-- `0x00502c70` `Input_On_InputLangChange_candidate` and `0x00502fd0` `IME_On_Composition_candidate`: IME/layout bridge.
-- `0x004b0c00` `Read_Keyboard`: keyboard/input dispatch.
+- IME/layout bridge: `Input_Create_IME_Context_candidate`, `Input_Reassociate_IME_Context_candidate`, `Input_On_InputLangChange_candidate`, `IME_On_Composition_candidate`, `Input_Release_IME_Resources_candidate`.
+- `0x004b0c00` `Read_Keyboard`: frame-level keyboard dispatch for map directions/repeat, map bookmarks, selected-city entry, editor toggle/undo, debug chords, and active-army route/order targeting.
 - Mouse-left release handlers use `MLR_` prefix: `MLR_MainMenu`, `MLR_NewEdit`, `MLR_Edit_GameMap`, `MLR_Edit_SelCustomMap`.
 - Editor press/release handlers: `Read_MLP_Edit`, `Read_MRP_Edit`, `Read_MRR_Edit`.
 - `CheckMouseOnWindow` and `MouseOn_Edit_*` helpers are UI hit-test anchors.
