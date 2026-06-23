@@ -12,6 +12,7 @@
 #define MAINMENU_LAYOUT_VERSION_MINOR_VA 0x00575b54u
 #define MAINMENU_LAYOUT_TITLE_VA 0x00575f20u
 #define MAINMENU_LAYOUT_ADMIN_VA 0x00575f3cu
+#define MAINMENU_LAYOUT_SHORT_LABELS_VA 0x00575bb8u
 
 typedef struct PeSectionHeader {
     uint32_t virtual_size;
@@ -421,12 +422,16 @@ int LoadMainMenuLayoutFromExe(const char *exe_relative_path, MainMenuLayout *out
             !ReadS32LE(bytes, file_size, record_offset + 0x0c, &entry->current_y) ||
             !ReadS32LE(bytes, file_size, record_offset + 0x10, &entry->settled_flag) ||
             !ReadS32LE(bytes, file_size, record_offset + 0x14, &entry->enabled_flag) ||
-            !ReadNullTerminatedBig5String(bytes, file_size, record_offset + 0x18, 0x48u, entry->label, sizeof(entry->label))) {
+            !ReadNullTerminatedBig5String(bytes, file_size, record_offset + 0x18, 0x34u, entry->long_label, sizeof(entry->long_label)) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x4c, &entry->intro_counter) ||
+            !ReadNullTerminatedBig5String(bytes, file_size, record_offset + 0x50, 0x10u, entry->short_label, sizeof(entry->short_label))) {
             free(sections);
             free(bytes);
             FreeMainMenuLayout(out_layout);
             return 0;
         }
+        entry->start_x = entry->current_x;
+        entry->start_y = entry->current_y;
     }
 
     free(sections);

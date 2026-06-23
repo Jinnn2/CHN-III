@@ -9,6 +9,9 @@
 static const char *kWindowClassName = "China2EXRebuildWindow";
 static const char *kWindowTitle = "China2EX Rebuild Workbench";
 
+#define MAINMENU_ITEM_COUNT 9u
+#define MAINMENU_HIGHLIGHT_FRAME_COUNT 10u
+
 typedef struct MainMenuActionInfo {
     const char *label;
     unsigned int target_screen_state;
@@ -51,9 +54,161 @@ static void LogLine(const char *text)
     OutputDebugStringA("\r\n");
 }
 
+static void TextOutUtf8(HDC dc, int x, int y, const char *utf8_text)
+{
+    int wide_len;
+    wchar_t *wide_text;
+
+    if (utf8_text == NULL || utf8_text[0] == '\0') {
+        return;
+    }
+
+    wide_len = MultiByteToWideChar(CP_UTF8, 0, utf8_text, -1, NULL, 0);
+    if (wide_len <= 1) {
+        return;
+    }
+
+    wide_text = (wchar_t *)calloc((size_t)wide_len, sizeof(wchar_t));
+    if (wide_text == NULL) {
+        return;
+    }
+
+    if (MultiByteToWideChar(CP_UTF8, 0, utf8_text, -1, wide_text, wide_len) > 0) {
+        TextOutW(dc, x, y, wide_text, wide_len - 1);
+    }
+    free(wide_text);
+}
+
+static void DrawTextUtf8Box(HDC dc, RECT *rect, const char *utf8_text, UINT format)
+{
+    int wide_len;
+    wchar_t *wide_text;
+
+    if (utf8_text == NULL || utf8_text[0] == '\0') {
+        return;
+    }
+
+    wide_len = MultiByteToWideChar(CP_UTF8, 0, utf8_text, -1, NULL, 0);
+    if (wide_len <= 1) {
+        return;
+    }
+
+    wide_text = (wchar_t *)calloc((size_t)wide_len, sizeof(wchar_t));
+    if (wide_text == NULL) {
+        return;
+    }
+
+    if (MultiByteToWideChar(CP_UTF8, 0, utf8_text, -1, wide_text, wide_len) > 0) {
+        DrawTextW(dc, wide_text, -1, rect, format);
+    }
+    free(wide_text);
+}
+
 static DWORD Get_Game_Tick(void)
 {
     return GetTickCount();
+}
+
+static int StepTowardCoordinate(int current, int target)
+{
+    int delta = current - target;
+
+    if (delta > 0) {
+        if (delta < 0x1f) {
+            return current - delta;
+        }
+        return current - 0x1e;
+    }
+    if (delta < 0) {
+        if (delta > -0x1f) {
+            return current - delta;
+        }
+        return current + 0x1e;
+    }
+    return current;
+}
+
+static void ResetMainMenuRuntimeState(AppState *app)
+{
+    unsigned int index;
+
+    app->mainmenu_anim_state = 0;
+    app->mainmenu_intro_spawn_index = 1;
+    app->mainmenu_intro_completed_count = 0;
+    app->mainmenu_highlight_frame = 0;
+
+    for (index = 0; index < app->mainmenu_layout.entry_count; ++index) {
+        app->mainmenu_layout.entries[index].current_x = app->mainmenu_layout.entries[index].start_x;
+        app->mainmenu_layout.entries[index].current_y = app->mainmenu_layout.entries[index].start_y;
+        app->mainmenu_layout.entries[index].settled_flag = 0;
+        app->mainmenu_layout.entries[index].intro_counter = -1;
+    }
+    if (app->mainmenu_layout.entry_count > 0) {
+        app->mainmenu_layout.entries[0].intro_counter = 0;
+    }
+}
+
+static void UpdateMainMenuAnimation(AppState *app)
+{
+    unsigned int index;
+    int all_settled = 1;
+
+    if (app->mainmenu_layout.entry_count == 0) {
+        return;
+    }
+
+    if (app->mainmenu_anim_state == 0) {
+        for (index = 0; index < app->mainmenu_layout.entry_count; ++index) {
+            MainMenuLayoutEntry *entry = &app->mainmenu_layout.entries[index];
+            if (entry->settled_flag == 0) {
+                int next_x = StepTowardCoordinate(entry->current_x, entry->final_x);
+                int next_y = StepTowardCoordinate(entry->current_y, entry->final_y);
+                entry->current_x = next_x;
+                entry->current_y = next_y;
+                if (entry->current_x == entry->final_x && entry->current_y == entry->final_y) {
+                    entry->settled_flag = 1;
+                } else {
+                    all_settled = 0;
+                }
+            }
+        }
+
+        if (all_settled) {
+            app->mainmenu_anim_state = 1;
+            app->mainmenu_intro_spawn_index = 1;
+            app->mainmenu_intro_completed_count = 0;
+            app->mainmenu_highlight_frame = 0;
+            for (index = 0; index < app->mainmenu_layout.entry_count; ++index) {
+                app->mainmenu_layout.entries[index].intro_counter = -1;
+            }
+            app->mainmenu_layout.entries[0].intro_counter = 0;
+        }
+        return;
+    }
+
+    if (app->mainmenu_anim_state == 1) {
+        for (index = 0; index < app->mainmenu_layout.entry_count; ++index) {
+            MainMenuLayoutEntry *entry = &app->mainmenu_layout.entries[index];
+            if (entry->intro_counter >= 0 && entry->intro_counter < (int)MAINMENU_HIGHLIGHT_FRAME_COUNT) {
+                entry->intro_counter += 1;
+                if (entry->intro_counter == (int)MAINMENU_HIGHLIGHT_FRAME_COUNT) {
+                    app->mainmenu_intro_completed_count += 1;
+                    if (app->mainmenu_intro_completed_count == app->mainmenu_layout.entry_count) {
+                        app->mainmenu_anim_state = 2;
+                        app->mainmenu_highlight_frame = 0;
+                    }
+                } else if (entry->intro_counter == 3 && app->mainmenu_intro_spawn_index < app->mainmenu_layout.entry_count) {
+                    app->mainmenu_layout.entries[app->mainmenu_intro_spawn_index].intro_counter = 0;
+                    app->mainmenu_intro_spawn_index += 1;
+                }
+            }
+        }
+        return;
+    }
+
+    if (app->mainmenu_anim_state == 2 && app->mainmenu_selected_index >= 0) {
+        app->mainmenu_highlight_frame = (app->mainmenu_highlight_frame + 1) % MAINMENU_HIGHLIGHT_FRAME_COUNT;
+    }
 }
 
 static int ContainsTokenCaseInsensitive(const char *haystack, const char *needle)
@@ -136,6 +291,7 @@ static void MainMenu_Init(AppState *app)
     app->mainmenu_family_index = 0;
     app->mainmenu_selected_index = -1;
     app->mainmenu_hotspot_progress = 0;
+    ResetMainMenuRuntimeState(app);
     app->screen_state = APP_SCREEN_MAIN_MENU;
     app->frame_tick = Get_Game_Tick();
     app->menu_action_tick = app->frame_tick;
@@ -257,11 +413,12 @@ static void DrawMenuLayoutOverlay(AppState *app, HDC dc, RECT *client_rect)
         RECT box;
         COLORREF stroke;
         COLORREF fill;
-        int draw_x = background_x + entry->final_x;
-        int draw_y = background_y + entry->final_y;
-        int text_width = 252;
-        int text_height = 36;
+        int draw_x = background_x + (app->mainmenu_anim_state == 2 ? entry->final_x : entry->current_x);
+        int draw_y = background_y + (app->mainmenu_anim_state == 2 ? entry->final_y : entry->current_y);
+        int text_width = 190;
+        int text_height = 34;
         int highlight = (int)index == app->mainmenu_selected_index;
+        RECT text_rect;
 
         box.left = draw_x - 10;
         box.top = draw_y - 10;
@@ -290,26 +447,38 @@ static void DrawMenuLayoutOverlay(AppState *app, HDC dc, RECT *client_rect)
             DeleteObject(pen);
         }
 
-        TextOutA(dc, draw_x, draw_y, entry->label, (int)strlen(entry->label));
+        text_rect.left = draw_x + 8;
+        text_rect.top = draw_y + 5;
+        text_rect.right = box.right - 8;
+        text_rect.bottom = box.bottom - 4;
+        DrawTextUtf8Box(dc, &text_rect, entry->short_label[0] != '\0' ? entry->short_label : entry->long_label,
+                        DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS);
 
         if (highlight) {
             char hint[96];
             snprintf(hint, sizeof(hint),
-                     "base=%u selected=%u",
+                     "base=%u selected=%u hl=%u",
                      index,
-                     index + 9u);
+                     index + MAINMENU_ITEM_COUNT,
+                     MAINMENU_ITEM_COUNT * 2u + app->mainmenu_highlight_frame);
             SetTextColor(dc, RGB(86, 52, 5));
             TextOutA(dc, draw_x + 4, draw_y + 18, hint, (int)strlen(hint));
+        } else if (app->mainmenu_anim_state == 1 && entry->intro_counter >= 0 && entry->intro_counter < (int)MAINMENU_HIGHLIGHT_FRAME_COUNT) {
+            char intro_hint[64];
+            snprintf(intro_hint, sizeof(intro_hint),
+                     "intro=%d bank=%u",
+                     entry->intro_counter,
+                     MAINMENU_ITEM_COUNT * 2u + (unsigned int)entry->intro_counter);
+            SetTextColor(dc, RGB(203, 225, 255));
+            TextOutA(dc, draw_x + 4, draw_y + 18, intro_hint, (int)strlen(intro_hint));
         }
     }
 
     SetTextColor(dc, RGB(224, 231, 239));
-    TextOutA(dc, background_x + 725, background_y + 742,
-             app->mainmenu_layout.title_text,
-             (int)strlen(app->mainmenu_layout.title_text));
-    TextOutA(dc, background_x + 0, background_y + 741,
-             app->mainmenu_hotspot_progress == 2 ? app->mainmenu_layout.admin_text : "",
-             app->mainmenu_hotspot_progress == 2 ? (int)strlen(app->mainmenu_layout.admin_text) : 0);
+    TextOutUtf8(dc, background_x + 725, background_y + 742, app->mainmenu_layout.title_text);
+    if (app->mainmenu_hotspot_progress == 2) {
+        TextOutUtf8(dc, background_x + 0, background_y + 741, app->mainmenu_layout.admin_text);
+    }
 }
 
 static int SameMainmenuFamily(EmgGroup *group, unsigned int family_index)
@@ -362,6 +531,7 @@ static void JumpMainmenuPreviewByFamily(AppState *app, int direction)
 static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
 {
     RECT panel_rect;
+    RECT detail_rect;
     HBRUSH panel_brush;
     char line[192];
     const MainMenuActionInfo *action;
@@ -433,9 +603,10 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
         TextOutA(dc, 28, 360, line, (int)strlen(line));
 
         snprintf(line, sizeof(line),
-                 "XMG bank offsets: base=%d selected=%d highlight=18..27 (+0x24/+0x48 bytes)",
+                 "XMG bank offsets: base=%d selected=%d highlight=%u",
                  app->mainmenu_selected_index,
-                 app->mainmenu_selected_index + 9);
+                 app->mainmenu_selected_index + MAINMENU_ITEM_COUNT,
+                 MAINMENU_ITEM_COUNT * 2u + app->mainmenu_highlight_frame);
         TextOutA(dc, 28, 384, line, (int)strlen(line));
 
         snprintf(line, sizeof(line),
@@ -446,6 +617,13 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
         TextOutA(dc, 28, 408, line, (int)strlen(line));
 
         TextOutA(dc, 28, 432, action->notes, (int)strlen(action->notes));
+        detail_rect.left = 28;
+        detail_rect.top = 456;
+        detail_rect.right = 408;
+        detail_rect.bottom = 516;
+        DrawTextUtf8Box(dc, &detail_rect,
+                        app->mainmenu_layout.entries[app->mainmenu_selected_index].long_label,
+                        DT_WORDBREAK | DT_NOPREFIX);
     } else {
         TextOutA(dc, 28, 360, "MLR select=-1: no menu item selected", 35);
         TextOutA(dc, 28, 384, "PutScreen_Mainmenu uses XMG base bank when item is not selected", 61);
@@ -455,18 +633,18 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
              "Hidden hotspot chain progress=%u reveal=%s",
              app->mainmenu_hotspot_progress,
              app->mainmenu_hotspot_progress == 0 ? "off" : (app->mainmenu_hotspot_progress == 2 ? "armed" : "mid-chain"));
-    TextOutA(dc, 28, 468, line, (int)strlen(line));
+    TextOutA(dc, 28, 532, line, (int)strlen(line));
 
     snprintf(line, sizeof(line),
              "Recovered exe layout: entries=%u version=%u.%u",
              app->mainmenu_layout.entry_count,
              app->mainmenu_layout.version_major,
              app->mainmenu_layout.version_minor);
-    TextOutA(dc, 28, 492, line, (int)strlen(line));
+    TextOutA(dc, 28, 556, line, (int)strlen(line));
 
-    TextOutA(dc, 28, 516, kMainMenuHotspotSteps[0].label, (int)strlen(kMainMenuHotspotSteps[0].label));
-    TextOutA(dc, 28, 540, kMainMenuHotspotSteps[1].label, (int)strlen(kMainMenuHotspotSteps[1].label));
-    TextOutA(dc, 28, 564, kMainMenuHotspotSteps[2].label, (int)strlen(kMainMenuHotspotSteps[2].label));
+    TextOutA(dc, 28, 580, kMainMenuHotspotSteps[0].label, (int)strlen(kMainMenuHotspotSteps[0].label));
+    TextOutA(dc, 28, 604, kMainMenuHotspotSteps[1].label, (int)strlen(kMainMenuHotspotSteps[1].label));
+    TextOutA(dc, 28, 628, kMainMenuHotspotSteps[2].label, (int)strlen(kMainMenuHotspotSteps[2].label));
 }
 
 static void DrawFrame(AppState *app, HDC dc)
@@ -522,6 +700,9 @@ static void DrawFrame(AppState *app, HDC dc)
 static void App_Frame_Pump(AppState *app)
 {
     app->frame_tick = Get_Game_Tick();
+    if (app->screen_state == APP_SCREEN_MAIN_MENU) {
+        UpdateMainMenuAnimation(app);
+    }
     InvalidateRect(app->window, NULL, FALSE);
     Sleep(16);
 }
@@ -629,6 +810,11 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
                 } else {
                     app->mainmenu_hotspot_progress = 0;
                 }
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == 'R') {
+                ResetMainMenuRuntimeState(app);
                 InvalidateRect(window, NULL, FALSE);
                 return 0;
             }

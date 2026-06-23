@@ -63,11 +63,15 @@ typedef struct XmgDiagnostic {
 typedef struct MainMenuLayoutEntry {
     int final_x;
     int final_y;
+    int start_x;
+    int start_y;
     int current_x;
     int current_y;
     int settled_flag;
     int enabled_flag;
-    char label[80];
+    int intro_counter;
+    char long_label[80];
+    char short_label[32];
 } MainMenuLayoutEntry;
 
 typedef struct MainMenuLayout {
@@ -96,6 +100,10 @@ typedef struct AppState {
     unsigned int menu_item_preview_group;
     unsigned int mainmenu_preview_group;
     unsigned int mainmenu_family_index;
+    unsigned int mainmenu_anim_state;
+    unsigned int mainmenu_intro_spawn_index;
+    unsigned int mainmenu_intro_completed_count;
+    unsigned int mainmenu_highlight_frame;
     int mainmenu_selected_index;
     unsigned int mainmenu_hotspot_progress;
 } AppState;
