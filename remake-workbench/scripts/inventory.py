@@ -5,6 +5,8 @@ import json
 import struct
 from pathlib import Path
 
+import map_model
+
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = ROOT / "remake-workbench" / "output"
@@ -49,25 +51,6 @@ INFERRED_TABLES = {
     "MapNamedPoint": {"stride": 0x20, "counts": [1000, 4500], "source": "Load_Dat"},
 }
 
-STATIC_MAP_PREFIX_BLOCKS = [
-    ("science_defs", 0x6A40),
-    ("army_type_defs", 0x16C00),
-    ("building_defs", 0xC000),
-    ("country_profile_defs", 0x3070),
-    ("government_defs", 0x3A0),
-    ("ground_defs", 0x21C),
-    ("city_resource_defs", 0x21C0),
-    ("flag_img_bank", 100 * 0x100),
-]
-
-MAP_SIZE_MODES = {
-    0: {"width": 0x138, "height": 0x192, "label": "large_312x402"},
-    1: {"width": 0x9C, "height": 0xC9, "label": "big_156x201"},
-    2: {"width": 0x4E, "height": 100, "label": "mid_78x100"},
-    3: {"width": 0x27, "height": 0x32, "label": "small_39x50"},
-}
-
-
 def sha1(path):
     h = hashlib.sha1()
     with path.open("rb") as f:
@@ -104,7 +87,7 @@ def emg_summary(path):
     if len(data) < 2:
         return None
     group_count = read_u16(data, 0)
-    if group_count > 2000:
+    if group_count > 10000:
         return None
     offset = 2
     groups = []
@@ -167,152 +150,6 @@ def emg_summary(path):
     }
 
 
-def read_c_string(data, offset, size):
-    chunk = data[offset:offset + size]
-    return chunk.split(b"\x00", 1)[0].decode("gbk", errors="replace")
-
-
-def read_i32(data, offset):
-    return struct.unpack_from("<i", data, offset)[0]
-
-
-def read_u32(data, offset):
-    return struct.unpack_from("<I", data, offset)[0]
-
-
-def mgi_info(path):
-    data = path.read_bytes()
-    if len(data) < 8:
-        return None
-    major = read_u32(data, 0)
-    minor = read_u32(data, 4)
-    version_score = major * 100 + minor
-    record_offset = 8
-    if len(data) < record_offset + 0x168:
-        return None
-    return {
-        "format": "mgi_scenario_info",
-        "version_major": major,
-        "version_minor": minor,
-        "version_score": version_score,
-        "record_offset": record_offset,
-        "record_size_available": len(data) - record_offset,
-        "file_name": read_c_string(data, record_offset + 0x00, 17),
-        "map_name": read_c_string(data, record_offset + 0x11, 23),
-        "edit_status_mode": read_i32(data, record_offset + 0x28),
-        "gameplay_mode": read_i32(data, record_offset + 0x2C),
-        "difficulty_level": read_i32(data, record_offset + 0x30),
-        "subtitle_or_author": read_c_string(data, record_offset + 0x34, 17),
-        "description_short": read_c_string(data, record_offset + 0x45, 19),
-        "player_country_id": read_i32(data, record_offset + 0x58),
-        "current_year": read_i32(data, record_offset + 0x5C),
-        "country_count": read_i32(data, record_offset + 0x60),
-        "country_limit": read_i32(data, record_offset + 0x64),
-        "barbarian_setting": read_i32(data, record_offset + 0xD4),
-        "city_resource_system_enabled": read_i32(data, record_offset + 0xE8),
-        "corruption_deduction_mode": read_i32(data, record_offset + 0xEC),
-        "scenario_rule_values": [
-            read_i32(data, record_offset + 0xF0),
-            read_i32(data, record_offset + 0xF4),
-            read_i32(data, record_offset + 0xF8),
-            read_i32(data, record_offset + 0xFC),
-        ],
-        "auto_city_processing_countdown": read_i32(data, record_offset + 0x100),
-        "map_size_mode": read_i32(data, record_offset + 0x104),
-        "science_table_choice": read_i32(data, record_offset + 0x108),
-        "description_long": read_c_string(data, record_offset + 0x10C, 64),
-        "horizontal_wrap_setting": read_i32(data, record_offset + 0x14C),
-        "place_name_setting": read_i32(data, record_offset + 0x150),
-        "scenario_value_154": read_i32(data, record_offset + 0x154),
-        "scripted_start_or_generated_flag": read_i32(data, record_offset + 0x158),
-        "scenario_value_15c": read_i32(data, record_offset + 0x15C),
-        "scenario_value_160": read_i32(data, record_offset + 0x160),
-        "movement_base": read_i32(data, record_offset + 0x164),
-        "score_history_scenario_flag": read_i32(data, record_offset + 0x168),
-    }
-
-
-def map_model_info(path, decompressed):
-    mgi_path = path.with_suffix(".MGI")
-    if not mgi_path.exists():
-        return None
-    mgi = mgi_info(mgi_path)
-    if not mgi:
-        return None
-    mode = mgi["map_size_mode"]
-    size_mode = MAP_SIZE_MODES.get(mode)
-    if not size_mode:
-        return {"error": f"unknown map_size_mode {mode}"}
-
-    prefix_size = sum(size for _, size in STATIC_MAP_PREFIX_BLOCKS)
-    width = size_mode["width"]
-    height = size_mode["height"]
-    tile_count = width * height
-    land_offset = prefix_size
-    land_bytes = tile_count * 0x100
-    after_land_offset = land_offset + land_bytes
-    if len(decompressed) < after_land_offset + 12:
-        return {
-            "error": "decompressed stream shorter than inferred land block",
-            "map_size_mode": mode,
-            "width": width,
-            "height": height,
-            "land_offset": land_offset,
-            "land_bytes": land_bytes,
-        }
-
-    terrain_histogram = {}
-    battle_feature_count = 0
-    city_resource_count = 0
-    owned_tile_count = 0
-    for index in range(tile_count):
-        offset = land_offset + index * 0x100
-        terrain = struct.unpack_from("<b", decompressed, offset)[0]
-        terrain_histogram[str(terrain)] = terrain_histogram.get(str(terrain), 0) + 1
-        if struct.unpack_from("<b", decompressed, offset + 0x16)[0] >= 0:
-            battle_feature_count += 1
-        if struct.unpack_from("<b", decompressed, offset + 0x17)[0] >= 0:
-            city_resource_count += 1
-        if struct.unpack_from("<b", decompressed, offset + 0x25)[0] >= 0:
-            owned_tile_count += 1
-
-    block_offsets = []
-    offset = 0
-    for name, size in STATIC_MAP_PREFIX_BLOCKS:
-        block_offsets.append({"name": name, "offset": offset, "size": size})
-        offset += size
-
-    return {
-        "map_size_mode": mode,
-        "size_label": size_mode["label"],
-        "width": width,
-        "height": height,
-        "tile_count": tile_count,
-        "static_prefix_size": prefix_size,
-        "static_prefix_blocks": block_offsets,
-        "land_offset": land_offset,
-        "land_bytes": land_bytes,
-        "post_land_offset": after_land_offset,
-        "saved_view_x": read_i32(decompressed, after_land_offset),
-        "saved_view_y": read_i32(decompressed, after_land_offset + 4),
-        "land_record_capacity": read_i32(decompressed, after_land_offset + 8),
-        "tail_offset": after_land_offset + 12,
-        "tail_size": len(decompressed) - (after_land_offset + 12),
-        "terrain_kind_histogram": terrain_histogram,
-        "battle_feature_tile_count": battle_feature_count,
-        "city_resource_tile_count": city_resource_count,
-        "owned_tile_count": owned_tile_count,
-        "scenario": {
-            "version_major": mgi["version_major"],
-            "version_minor": mgi["version_minor"],
-            "current_year": mgi["current_year"],
-            "country_count": mgi["country_count"],
-            "country_limit": mgi["country_limit"],
-            "horizontal_wrap_setting": mgi["horizontal_wrap_setting"],
-        },
-    }
-
-
 def gzip_info(path):
     data = path.read_bytes()
     if len(data) < 2 or data[:2] != b"\x1f\x8b":
@@ -326,9 +163,9 @@ def gzip_info(path):
         info["decompressed_size"] = len(decompressed)
         info["decompressed_sha1"] = hashlib.sha1(decompressed).hexdigest()
         info["decompressed_head_hex"] = decompressed[:64].hex()
-        map_model = map_model_info(path, decompressed)
-        if map_model:
-            info["map_model"] = map_model
+        model = map_model.infer_map_model(path, decompressed)
+        if model:
+            info["map_model"] = model
     except OSError as exc:
         info["error"] = str(exc)
     return info
@@ -353,7 +190,7 @@ def file_info(path):
         if parsed:
             info["parsed"] = parsed
     elif ext == ".mgi":
-        parsed = mgi_info(path)
+        parsed = map_model.mgi_info(path)
         if parsed:
             info["parsed"] = parsed
     elif ext == ".map":

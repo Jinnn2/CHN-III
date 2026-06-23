@@ -111,11 +111,21 @@ Done when the remake is playable for a short, constrained session.
    summaries/probes; full pixel/audio conversion remains later work.
 3. Build table schema stubs from recovered record sizes. Started in
    `schemas/core_records.json`.
-4. Implement map coordinate helpers and tests.
+4. Implement map coordinate helpers and tests. Done in `scripts/map_model.py`
+   and `scripts/check_map_model.py`.
 5. Build a read-only map model loader from the MAP/MGI boundaries now recorded
-   in `output/resource_inventory_summary.json`.
-6. Choose core language/runtime after the first map loader proves the data
-   boundary.
+   in `output/resource_inventory_summary.json`. Done for M1 tooling.
+6. Export first visual terrain previews from LandTile fields. Done in
+   `scripts/export_terrain_preview.py`.
+7. Connect LandTile sprite ids to decoded terrain/EMG art. Done for base
+   terrain using `EMG/NEW_GROUND.EMG`.
+8. Add sprite-backed terrain detail overlays from LandTile `+0x08..0x0e`.
+   Done.
+9. Add sprite-backed overlays for resources, roads, cities,
+   armies, fog/visibility, and editor markers. Started for resource/road/city
+   banks; city objects still need save-tail city record reconstruction.
+10. Choose core language/runtime after the first sprite-backed map renderer
+   proves the data boundary.
 
 ## Known Risks
 
