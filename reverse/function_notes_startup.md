@@ -83,8 +83,8 @@ partial, 80%
 ## Observations
 
 - Registers the main class/window title from the same string at `0x005153dc`.
-- Uses wndproc `FUN_0041fd60`; this should be the next startup/input function
-  to classify.
+- Uses wndproc `Main_WindowProc`; this is the startup/input bridge into Win32
+  messages.
 - Creates a screen-sized host window. `g_present_use_blt_mode == 0` sets
   extended style `8`; otherwise the extended style is `0`.
 

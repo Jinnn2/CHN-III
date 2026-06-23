@@ -35,6 +35,7 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x0041e200` | `Cal_City_Resource` | partial | city_economy | 70% | Reads city resource defs and tile resource/feature fields. |
 | `0x0041f9a0` | `App_Frame_Pump` | partial | startup_init | 80% | Non-game idle frame pump: timing, input, redraw flag, draw/present. |
 | `0x0041fab0` | `Game_Frame_Pump` | partial | startup_init | 80% | Game/editor idle frame pump: timing throttle, blink/redraw cadence, input, auto city processing. |
+| `0x0041fd60` | `Main_WindowProc` | partial | input | 80% | Main Win32 message bridge: lifecycle, activation, keyboard, mouse, IME, timer, custom redraw/restore message. |
 | `0x00420350` | `Create_Main_Window` | partial | startup_init | 80% | Registers main window class, creates fullscreen/borderless host window, hides cursor. |
 | `0x004204b0` | `Init_Working_Directories` | partial | startup_init | 80% | Builds canonical work/resource path strings from startup directory. |
 | `0x00420820` | `App_WinMain_Entry` | partial | startup_init | 85% | WinMain-like entry: mutex, command line, window/path/setup, screen-state loop, message dispatch. |
@@ -106,6 +107,14 @@ Status values: `raw`, `named`, `candidate`, `partial`, `stable`.
 | `0x004f0de0` | `Create_Back_Surface` | partial | render_ui | 75% | Creates CPU-drawn back/logical surface. |
 | `0x004f4f60` | `Init_Pixel_Format_Tables` | candidate | render_ui | 65% | Builds pixel conversion/color lookup support tables. |
 | `0x004f81e0` | `Init_Surface_Pixel_State` | partial | render_ui | 75% | Reads surface desc/pixel format and initializes render globals. |
+| `0x005027b0` | `Input_On_KeyDown` | partial | input | 80% | Handles `WM_KEYDOWN`/`WM_SYSKEYDOWN`, updates modifier flags and queues key-down events. |
+| `0x005028b0` | `Input_On_KeyUp` | partial | input | 80% | Handles `WM_KEYUP`/`WM_SYSKEYUP`, clears key state and queues key-up events. |
+| `0x00502c70` | `Input_On_InputLangChange_candidate` | candidate | input | 65% | Handles `WM_INPUTLANGCHANGE`; probes IME/keyboard layout registry text and posts status update. |
+| `0x00502fd0` | `IME_On_Composition_candidate` | candidate | input | 65% | Handles `WM_IME_COMPOSITION`; reads composition/result strings and feeds committed bytes into char queue. |
+| `0x00503360` | `Input_On_MouseButtonDown` | partial | input | 80% | Queues mouse down events with button id and lParam x/y coordinates. |
+| `0x005033f0` | `Input_On_MouseButtonUp` | partial | input | 80% | Queues mouse up events with button id and lParam x/y coordinates. |
+| `0x00503480` | `Input_On_MouseMove` | partial | input | 75% | Tracks mouse x/y, clamps to capture bounds, recenters cursor if outside bounds. |
+| `0x00503710` | `Input_Set_MouseCapture` | named | input | 75% | Wraps `SetCapture`/`ReleaseCapture` and writes the mouse-capture flag. |
 | `0x00503730` | `Format_Text` | named | render_ui | 60% | Formatting helper used by resource loaders and UI. |
 | `0x00405b70` | `FUN_00405b70` | raw | unknown | 0% | Untouched large function; keep in inventory until xrefs explain it. |
 | `0x0040da80` | `FUN_0040da80` | raw | unknown | 0% | Untouched large function; likely important due size/call count, but no safe name yet. |

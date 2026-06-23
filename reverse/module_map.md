@@ -43,6 +43,12 @@ Use `function_status.md` for per-function confidence and next actions.
 
 ## Input
 
+- `0x0041fd60` `Main_WindowProc`: Win32 message bridge installed by `Create_Main_Window`.
+- `0x005027b0` `Input_On_KeyDown` / `0x005028b0` `Input_On_KeyUp`: keyboard event queue and modifier state.
+- `0x00503360` `Input_On_MouseButtonDown` / `0x005033f0` `Input_On_MouseButtonUp`: mouse button event queue.
+- `0x00503480` `Input_On_MouseMove`: mouse coordinate/capture clamp.
+- `0x00503710` `Input_Set_MouseCapture`: `SetCapture`/`ReleaseCapture` wrapper.
+- `0x00502c70` `Input_On_InputLangChange_candidate` and `0x00502fd0` `IME_On_Composition_candidate`: IME/layout bridge.
 - `0x004b0c00` `Read_Keyboard`: keyboard/input dispatch.
 - Mouse-left release handlers use `MLR_` prefix: `MLR_MainMenu`, `MLR_NewEdit`, `MLR_Edit_GameMap`, `MLR_Edit_SelCustomMap`.
 - Editor press/release handlers: `Read_MLP_Edit`, `Read_MRP_Edit`, `Read_MRR_Edit`.
