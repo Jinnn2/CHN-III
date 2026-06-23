@@ -13,7 +13,7 @@ gcc ^
     -std=c11 ^
     -Wall -Wextra ^
     -Isrc ^
-    src\main.c src\app.c ^
+    src\main.c src\app.c src\resources.c ^
     -lgdi32 -luser32 ^
     -o build\china2ex_rebuild.exe
 

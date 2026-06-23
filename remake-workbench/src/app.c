@@ -1,7 +1,7 @@
 #include "app.h"
+#include "resources.h"
 
 #include <ctype.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,187 +9,15 @@
 static const char *kWindowClassName = "China2EXRebuildWindow";
 static const char *kWindowTitle = "China2EX Rebuild Workbench";
 
-typedef struct TmgHeader {
-    unsigned char manufacturer;
-    unsigned char version;
-    unsigned char encoding;
-    unsigned char bits_per_pixel;
-    uint16_t x_min;
-    uint16_t y_min;
-    uint16_t x_max;
-    uint16_t y_max;
-    unsigned char reserved_0[54];
-    unsigned char planes;
-    uint16_t bytes_per_line;
-    unsigned char reserved_1[60];
-} TmgHeader;
-
 static void LogLine(const char *text)
 {
     OutputDebugStringA(text);
     OutputDebugStringA("\r\n");
 }
 
-static void FreeTmgImage(TmgImage *image)
-{
-    if (image->pixels != NULL) {
-        free(image->pixels);
-        image->pixels = NULL;
-    }
-    image->width = 0;
-    image->height = 0;
-}
-
 static DWORD Get_Game_Tick(void)
 {
     return GetTickCount();
-}
-
-static int LoadFileBytes(const char *path, unsigned char **out_bytes, size_t *out_size)
-{
-    FILE *file;
-    long size;
-    unsigned char *bytes;
-
-    *out_bytes = NULL;
-    *out_size = 0;
-
-    file = fopen(path, "rb");
-    if (file == NULL) {
-        return 0;
-    }
-    if (fseek(file, 0, SEEK_END) != 0) {
-        fclose(file);
-        return 0;
-    }
-    size = ftell(file);
-    if (size < 0 || fseek(file, 0, SEEK_SET) != 0) {
-        fclose(file);
-        return 0;
-    }
-
-    bytes = (unsigned char *)malloc((size_t)size);
-    if (bytes == NULL) {
-        fclose(file);
-        return 0;
-    }
-    if (fread(bytes, 1, (size_t)size, file) != (size_t)size) {
-        free(bytes);
-        fclose(file);
-        return 0;
-    }
-
-    fclose(file);
-    *out_bytes = bytes;
-    *out_size = (size_t)size;
-    return 1;
-}
-
-static int DecodePcxRle(const unsigned char *src, size_t src_size, unsigned char *dst, size_t dst_size)
-{
-    size_t src_index = 0;
-    size_t dst_index = 0;
-
-    while (src_index < src_size && dst_index < dst_size) {
-        unsigned char value = src[src_index++];
-        if ((value & 0xC0u) == 0xC0u) {
-            size_t run_length = (size_t)(value & 0x3Fu);
-            unsigned char run_value;
-            size_t i;
-
-            if (src_index >= src_size) {
-                return 0;
-            }
-            run_value = src[src_index++];
-            if (dst_index + run_length > dst_size) {
-                return 0;
-            }
-            for (i = 0; i < run_length; ++i) {
-                dst[dst_index++] = run_value;
-            }
-        } else {
-            dst[dst_index++] = value;
-        }
-    }
-
-    return dst_index == dst_size;
-}
-
-static unsigned int ExpandRgbToXrgb32(unsigned char red, unsigned char green, unsigned char blue)
-{
-    return ((unsigned int)red << 16) | ((unsigned int)green << 8) | (unsigned int)blue;
-}
-
-static int LoadTmgBackground(const char *name, TmgImage *out_image)
-{
-    char path[MAX_PATH];
-    unsigned char *file_bytes = NULL;
-    unsigned char *planar_bytes = NULL;
-    size_t file_size = 0;
-    size_t decoded_size;
-    TmgHeader header;
-    unsigned int width;
-    unsigned int height;
-    unsigned int y;
-
-    snprintf(path, sizeof(path), "..\\GRAPH\\%s.TMG", name);
-    FreeTmgImage(out_image);
-
-    if (!LoadFileBytes(path, &file_bytes, &file_size) || file_size < sizeof(TmgHeader)) {
-        LogLine("LoadTmgBackground: failed to read TMG file");
-        return 0;
-    }
-
-    memcpy(&header, file_bytes, sizeof(header));
-    width = (unsigned int)(header.x_max - header.x_min + 1u);
-    height = (unsigned int)(header.y_max - header.y_min + 1u);
-
-    if (header.manufacturer != 0x0A || header.version != 5 || header.encoding != 1 ||
-        header.bits_per_pixel != 8 || header.planes != 3 || header.bytes_per_line < width) {
-        free(file_bytes);
-        LogLine("LoadTmgBackground: unsupported TMG header");
-        return 0;
-    }
-
-    decoded_size = (size_t)header.bytes_per_line * (size_t)header.planes * (size_t)height;
-    planar_bytes = (unsigned char *)malloc(decoded_size);
-    out_image->pixels = (unsigned int *)malloc((size_t)width * (size_t)height * sizeof(unsigned int));
-    if (planar_bytes == NULL || out_image->pixels == NULL) {
-        free(file_bytes);
-        free(planar_bytes);
-        FreeTmgImage(out_image);
-        LogLine("LoadTmgBackground: out of memory");
-        return 0;
-    }
-
-    if (!DecodePcxRle(file_bytes + sizeof(TmgHeader), file_size - sizeof(TmgHeader), planar_bytes, decoded_size)) {
-        free(file_bytes);
-        free(planar_bytes);
-        FreeTmgImage(out_image);
-        LogLine("LoadTmgBackground: decode failed");
-        return 0;
-    }
-
-    out_image->width = width;
-    out_image->height = height;
-
-    for (y = 0; y < height; ++y) {
-        const unsigned char *row = planar_bytes + (size_t)y * (size_t)header.bytes_per_line * 3u;
-        const unsigned char *plane_r = row;
-        const unsigned char *plane_g = row + header.bytes_per_line;
-        const unsigned char *plane_b = row + header.bytes_per_line * 2u;
-        unsigned int x;
-
-        for (x = 0; x < width; ++x) {
-            out_image->pixels[(size_t)y * width + x] =
-                ExpandRgbToXrgb32(plane_r[x], plane_g[x], plane_b[x]);
-        }
-    }
-
-    free(file_bytes);
-    free(planar_bytes);
-    LogLine("LoadTmgBackground: MAINMENU background loaded");
-    return 1;
 }
 
 static int ContainsTokenCaseInsensitive(const char *haystack, const char *needle)
@@ -252,12 +80,102 @@ static void Init_SetUp(AppState *app)
 
 static void MainMenu_Init(AppState *app)
 {
-    LoadTmgBackground("MAINMENU", &app->mainmenu_background);
+    if (LoadTmgBackground("MAINMENU", &app->mainmenu_background)) {
+        LogLine("MainMenu_Init: MAINMENU.TMG loaded");
+    }
+    if (LoadEmgResource("EMG\\MENU_ITEM.EMG", &app->menu_item_resource)) {
+        LogLine("MainMenu_Init: MENU_ITEM.EMG loaded");
+    }
+    app->menu_item_preview_group = 0;
     app->screen_state = APP_SCREEN_MAIN_MENU;
     app->frame_tick = Get_Game_Tick();
     app->menu_action_tick = app->frame_tick;
     LogLine("MainMenu_Init: logical main menu state entered");
     LogLine("MainMenu_Init: resource names MAINMENU, MENU_ITEM.EMG, MAINMENU.XMG");
+}
+
+static void DrawXrgb32Image(HDC dc, int x, int y, unsigned int width, unsigned int height, const unsigned int *pixels)
+{
+    BITMAPINFO bmi;
+
+    ZeroMemory(&bmi, sizeof(bmi));
+    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth = (LONG)width;
+    bmi.bmiHeader.biHeight = -(LONG)height;
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biBitCount = 32;
+    bmi.bmiHeader.biCompression = BI_RGB;
+
+    StretchDIBits(
+        dc,
+        x,
+        y,
+        (int)width,
+        (int)height,
+        0,
+        0,
+        (int)width,
+        (int)height,
+        pixels,
+        &bmi,
+        DIB_RGB_COLORS,
+        SRCCOPY);
+}
+
+static void DrawMenuItemPreview(AppState *app, HDC dc, RECT *client_rect)
+{
+    if (app->menu_item_resource.group_count > 0) {
+        unsigned int group_index = app->menu_item_preview_group % app->menu_item_resource.group_count;
+        EmgGroup *group = &app->menu_item_resource.groups[group_index];
+        if (group->frame_count > 0) {
+            unsigned int frame_index;
+            unsigned int max_width = 0;
+            unsigned int max_height = 0;
+            unsigned int *composed;
+            int origin_x;
+            int origin_y;
+
+            for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
+                EmgFrame *frame = &group->frames[frame_index];
+                if (frame->x + frame->width > max_width) {
+                    max_width = frame->x + frame->width;
+                }
+                if (frame->y + frame->height > max_height) {
+                    max_height = frame->y + frame->height;
+                }
+            }
+
+            composed = (unsigned int *)calloc((size_t)max_width * (size_t)max_height, sizeof(unsigned int));
+            if (composed != NULL) {
+                for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
+                    EmgFrame *frame = &group->frames[frame_index];
+                    unsigned int x;
+                    for (x = 0; x < frame->width; ++x) {
+                        composed[(size_t)frame->y * max_width + frame->x + x] = frame->pixels[x];
+                    }
+                }
+
+                origin_x = client_rect->right - (int)max_width - 24;
+                origin_y = 140;
+                if (origin_x < 24) {
+                    origin_x = 24;
+                }
+                DrawXrgb32Image(dc, origin_x, origin_y, max_width, max_height, composed);
+                free(composed);
+
+                {
+                    char label[128];
+                    snprintf(label, sizeof(label),
+                             "MENU_ITEM.EMG group %u/%u (%u x %u)",
+                             group_index,
+                             app->menu_item_resource.group_count - 1,
+                             max_width,
+                             max_height);
+                    TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
+                }
+            }
+        }
+    }
 }
 
 static void DrawFrame(AppState *app, HDC dc)
@@ -279,34 +197,12 @@ static void DrawFrame(AppState *app, HDC dc)
     }
 
     if (app->screen_state != APP_SCREEN_GAME && app->mainmenu_background.pixels != NULL) {
-        BITMAPINFO bmi;
-        int draw_x;
-        int draw_y;
-
-        ZeroMemory(&bmi, sizeof(bmi));
-        bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-        bmi.bmiHeader.biWidth = (LONG)app->mainmenu_background.width;
-        bmi.bmiHeader.biHeight = -(LONG)app->mainmenu_background.height;
-        bmi.bmiHeader.biPlanes = 1;
-        bmi.bmiHeader.biBitCount = 32;
-        bmi.bmiHeader.biCompression = BI_RGB;
-
-        draw_x = (rect.right - (LONG)app->mainmenu_background.width) / 2;
-        draw_y = (rect.bottom - (LONG)app->mainmenu_background.height) / 2;
-        StretchDIBits(
-            dc,
-            draw_x,
-            draw_y,
-            (int)app->mainmenu_background.width,
-            (int)app->mainmenu_background.height,
-            0,
-            0,
-            (int)app->mainmenu_background.width,
-            (int)app->mainmenu_background.height,
-            app->mainmenu_background.pixels,
-            &bmi,
-            DIB_RGB_COLORS,
-            SRCCOPY);
+        int draw_x = (rect.right - (LONG)app->mainmenu_background.width) / 2;
+        int draw_y = (rect.bottom - (LONG)app->mainmenu_background.height) / 2;
+        DrawXrgb32Image(dc, draw_x, draw_y,
+                        app->mainmenu_background.width,
+                        app->mainmenu_background.height,
+                        app->mainmenu_background.pixels);
     } else {
         HBRUSH brush = CreateSolidBrush(background);
         FillRect(dc, &rect, brush);
@@ -321,6 +217,12 @@ static void DrawFrame(AppState *app, HDC dc)
     TextOutA(dc, 24, 88,
              "Recovered boot path: WinMain -> args -> setup -> frame pump",
              59);
+    if (app->screen_state == APP_SCREEN_MAIN_MENU) {
+        TextOutA(dc, 24, 112,
+                 "Resource preview: LEFT/RIGHT cycles MENU_ITEM.EMG groups",
+                 57);
+        DrawMenuItemPreview(app, dc, &rect);
+    }
 }
 
 static void App_Frame_Pump(AppState *app)
@@ -357,9 +259,28 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
         }
         break;
     }
+    case WM_KEYDOWN:
+        if (app != NULL && app->screen_state == APP_SCREEN_MAIN_MENU && app->menu_item_resource.group_count > 0) {
+            if (wparam == VK_RIGHT) {
+                app->menu_item_preview_group = (app->menu_item_preview_group + 1) % app->menu_item_resource.group_count;
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_LEFT) {
+                if (app->menu_item_preview_group == 0) {
+                    app->menu_item_preview_group = app->menu_item_resource.group_count - 1;
+                } else {
+                    app->menu_item_preview_group -= 1;
+                }
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+        }
+        break;
     case WM_DESTROY:
         if (app != NULL) {
             FreeTmgImage(&app->mainmenu_background);
+            FreeEmgResource(&app->menu_item_resource);
         }
         PostQuitMessage(0);
         return 0;

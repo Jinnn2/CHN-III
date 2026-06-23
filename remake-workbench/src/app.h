@@ -25,6 +25,24 @@ typedef struct TmgImage {
     unsigned int *pixels;
 } TmgImage;
 
+typedef struct EmgFrame {
+    unsigned int x;
+    unsigned int y;
+    unsigned int width;
+    unsigned int height;
+    unsigned int *pixels;
+} EmgFrame;
+
+typedef struct EmgGroup {
+    unsigned int frame_count;
+    EmgFrame *frames;
+} EmgGroup;
+
+typedef struct EmgResource {
+    unsigned int group_count;
+    EmgGroup *groups;
+} EmgResource;
+
 typedef struct AppState {
     HINSTANCE instance;
     HWND window;
@@ -35,6 +53,8 @@ typedef struct AppState {
     DWORD menu_action_tick;
     int running;
     TmgImage mainmenu_background;
+    EmgResource menu_item_resource;
+    unsigned int menu_item_preview_group;
 } AppState;
 
 int App_Run(HINSTANCE instance, LPSTR command_line, int show_command);
