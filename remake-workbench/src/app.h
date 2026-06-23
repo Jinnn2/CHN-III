@@ -68,6 +68,30 @@ typedef struct XmgDiagnostic {
     XmgGroupStat *groups;
 } XmgDiagnostic;
 
+typedef struct XmgFrame {
+    unsigned int x;
+    unsigned int y;
+    unsigned int width;
+    unsigned int height;
+    int has_alt_mask;
+    unsigned int *pixels;
+    unsigned char *mask_bytes;
+} XmgFrame;
+
+typedef struct XmgGroup {
+    unsigned int frame_count;
+    unsigned int max_width;
+    unsigned int max_height;
+    unsigned int alt_frame_count;
+    unsigned int nonzero_frame_count;
+    XmgFrame *frames;
+} XmgGroup;
+
+typedef struct XmgResource {
+    unsigned int group_count;
+    XmgGroup *groups;
+} XmgResource;
+
 typedef struct MainMenuLayoutEntry {
     int final_x;
     int final_y;
@@ -104,6 +128,7 @@ typedef struct AppState {
     EmgResource menu_item_resource;
     EmgResource mainmenu_emg_resource;
     XmgDiagnostic mainmenu_xmg_diagnostic;
+    XmgResource mainmenu_xmg_resource;
     MainMenuLayout mainmenu_layout;
     unsigned int menu_item_preview_group;
     unsigned int mainmenu_preview_group;

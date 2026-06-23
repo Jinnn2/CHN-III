@@ -374,6 +374,30 @@ void FreeXmgDiagnostic(XmgDiagnostic *diagnostic)
     diagnostic->total_alt_frame_count = 0;
 }
 
+void FreeXmgResource(XmgResource *resource)
+{
+    unsigned int group_index;
+
+    if (resource->groups != NULL) {
+        for (group_index = 0; group_index < resource->group_count; ++group_index) {
+            XmgGroup *group = &resource->groups[group_index];
+            unsigned int frame_index;
+            for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
+                free(group->frames[frame_index].pixels);
+                group->frames[frame_index].pixels = NULL;
+                free(group->frames[frame_index].mask_bytes);
+                group->frames[frame_index].mask_bytes = NULL;
+            }
+            free(group->frames);
+            group->frames = NULL;
+            group->frame_count = 0;
+        }
+        free(resource->groups);
+        resource->groups = NULL;
+    }
+    resource->group_count = 0;
+}
+
 void FreeMainMenuLayout(MainMenuLayout *layout)
 {
     ZeroMemory(layout, sizeof(*layout));
@@ -553,6 +577,158 @@ int LoadEmgResource(const char *relative_path, EmgResource *out_resource)
 
     free(bytes);
     return offset == file_size;
+}
+
+int LoadXmgResource(const char *relative_path, XmgResource *out_resource)
+{
+    char path[MAX_PATH];
+    unsigned char *bytes = NULL;
+    size_t file_size = 0;
+    size_t offset = 0;
+    uint16_t group_count;
+    unsigned int group_index;
+
+    snprintf(path, sizeof(path), "..\\%s", relative_path);
+    FreeXmgResource(out_resource);
+
+    if (!LoadFileBytes(path, &bytes, &file_size) || file_size < 2) {
+        return 0;
+    }
+
+    group_count = (uint16_t)(bytes[0] | (bytes[1] << 8));
+    offset = 2;
+    out_resource->groups = (XmgGroup *)calloc(group_count, sizeof(XmgGroup));
+    if (out_resource->groups == NULL) {
+        free(bytes);
+        return 0;
+    }
+    out_resource->group_count = group_count;
+
+    for (group_index = 0; group_index < group_count; ++group_index) {
+        uint16_t frame_count;
+        XmgGroup *group;
+        unsigned int frame_index;
+        unsigned int max_width = 0;
+        unsigned int max_height = 0;
+
+        if (offset + 2 > file_size) {
+            free(bytes);
+            FreeXmgResource(out_resource);
+            return 0;
+        }
+
+        frame_count = (uint16_t)(bytes[offset] | (bytes[offset + 1] << 8));
+        offset += 2;
+
+        group = &out_resource->groups[group_index];
+        group->frame_count = frame_count;
+        group->frames = (XmgFrame *)calloc(frame_count, sizeof(XmgFrame));
+        if (group->frames == NULL) {
+            free(bytes);
+            FreeXmgResource(out_resource);
+            return 0;
+        }
+
+        for (frame_index = 0; frame_index < frame_count; ++frame_index) {
+            XmgFrame *frame = &group->frames[frame_index];
+            uint16_t x;
+            uint16_t y;
+            uint16_t width_field;
+            unsigned int payload_words;
+            int has_nonzero = 0;
+
+            if (offset + 6 > file_size) {
+                free(bytes);
+                FreeXmgResource(out_resource);
+                return 0;
+            }
+
+            x = (uint16_t)(bytes[offset] | (bytes[offset + 1] << 8));
+            y = (uint16_t)(bytes[offset + 2] | (bytes[offset + 3] << 8));
+            width_field = (uint16_t)(bytes[offset + 4] | (bytes[offset + 5] << 8));
+            payload_words = width_field & 0x7fffu;
+            offset += 6;
+
+            frame->x = x;
+            frame->y = y;
+            frame->width = payload_words;
+            frame->height = 1;
+            frame->has_alt_mask = (width_field & 0x8000u) != 0;
+            frame->pixels = (unsigned int *)calloc(payload_words, sizeof(unsigned int));
+            if (frame->pixels == NULL || offset + (size_t)payload_words * 2u > file_size) {
+                free(bytes);
+                FreeXmgResource(out_resource);
+                return 0;
+            }
+
+            {
+                unsigned int pixel_index;
+                const unsigned char *payload = bytes + offset;
+                for (pixel_index = 0; pixel_index < payload_words; ++pixel_index) {
+                    uint16_t pixel = (uint16_t)(payload[pixel_index * 2] | (payload[pixel_index * 2 + 1] << 8));
+                    unsigned int rgb = ExpandRgb565ToXrgb32(pixel);
+                    frame->pixels[pixel_index] = rgb;
+                    if (pixel != 0) {
+                        has_nonzero = 1;
+                    }
+                }
+            }
+            offset += (size_t)payload_words * 2u;
+
+            if (frame->has_alt_mask) {
+                unsigned int pixel_index;
+                if (offset + payload_words > file_size) {
+                    free(bytes);
+                    FreeXmgResource(out_resource);
+                    return 0;
+                }
+                frame->mask_bytes = (unsigned char *)malloc(payload_words);
+                if (frame->mask_bytes == NULL) {
+                    free(bytes);
+                    FreeXmgResource(out_resource);
+                    return 0;
+                }
+                memcpy(frame->mask_bytes, bytes + offset, payload_words);
+                for (pixel_index = 0; pixel_index < payload_words; ++pixel_index) {
+                    unsigned char mask = frame->mask_bytes[pixel_index];
+                    if (mask == 0) {
+                        frame->pixels[pixel_index] = 0;
+                    } else {
+                        unsigned int rgb = frame->pixels[pixel_index];
+                        unsigned int red = (rgb >> 16) & 0xffu;
+                        unsigned int green = (rgb >> 8) & 0xffu;
+                        unsigned int blue = rgb & 0xffu;
+                        red = (red * (unsigned int)mask) / 255u;
+                        green = (green * (unsigned int)mask) / 255u;
+                        blue = (blue * (unsigned int)mask) / 255u;
+                        frame->pixels[pixel_index] = (red << 16) | (green << 8) | blue;
+                    }
+                }
+                offset += payload_words;
+                group->alt_frame_count += 1;
+            }
+
+            if (has_nonzero) {
+                group->nonzero_frame_count += 1;
+            }
+
+            if (frame->x + frame->width > max_width) {
+                max_width = frame->x + frame->width;
+            }
+            if (frame->y + 1u > max_height) {
+                max_height = frame->y + 1u;
+            }
+        }
+
+        group->max_width = max_width;
+        group->max_height = max_height;
+        for (frame_index = 0; frame_index < frame_count; ++frame_index) {
+            group->frames[frame_index].height = max_height;
+        }
+    }
+
+    free(bytes);
+    return offset <= file_size;
 }
 
 int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic)

@@ -288,6 +288,9 @@ static void MainMenu_Init(AppState *app)
     if (LoadXmgDiagnostic("IMAGE\\MAINMENU.XMG", &app->mainmenu_xmg_diagnostic)) {
         LogLine("MainMenu_Init: MAINMENU.XMG diagnostic loaded");
     }
+    if (LoadXmgResource("IMAGE\\MAINMENU.XMG", &app->mainmenu_xmg_resource)) {
+        LogLine("MainMenu_Init: MAINMENU.XMG decoded preview loaded");
+    }
     if (LoadMainMenuLayoutFromExe("China2EX_fontfix8.exe", &app->mainmenu_layout)) {
         LogLine("MainMenu_Init: recovered main menu layout table loaded from exe");
     }
@@ -394,6 +397,46 @@ static void DrawEmgGroupPreview(HDC dc, EmgResource *resource, unsigned int grou
                          resource->group_count - 1,
                          group->max_width,
                          group->max_height,
+                         group->nonzero_frame_count,
+                         group->frame_count);
+                TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
+            }
+        }
+    }
+}
+
+static void DrawXmgGroupPreview(HDC dc, XmgResource *resource, unsigned int group_index, int origin_x, int origin_y, const char *label_prefix)
+{
+    if (resource->group_count > 0) {
+        XmgGroup *group = &resource->groups[group_index % resource->group_count];
+        if (group->frame_count > 0 && group->max_width > 0 && group->max_height > 0) {
+            unsigned int frame_index;
+            unsigned int *composed = (unsigned int *)calloc((size_t)group->max_width * (size_t)group->max_height, sizeof(unsigned int));
+            if (composed != NULL) {
+                char label[192];
+
+                for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
+                    XmgFrame *frame = &group->frames[frame_index];
+                    unsigned int x;
+                    for (x = 0; x < frame->width; ++x) {
+                        unsigned int pixel = frame->pixels[x];
+                        if (pixel != 0) {
+                            composed[(size_t)frame->y * group->max_width + frame->x + x] = pixel;
+                        }
+                    }
+                }
+
+                DrawXrgb32Image(dc, origin_x, origin_y, group->max_width, group->max_height, composed);
+                free(composed);
+
+                snprintf(label, sizeof(label),
+                         "%s group %u/%u (%u x %u, alt=%u, nonzero=%u/%u)",
+                         label_prefix,
+                         group_index % resource->group_count,
+                         resource->group_count - 1,
+                         group->max_width,
+                         group->max_height,
+                         group->alt_frame_count,
                          group->nonzero_frame_count,
                          group->frame_count);
                 TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
@@ -552,13 +595,41 @@ static void DrawMainMenuXmgTriplet(AppState *app, HDC dc, int origin_x, int orig
         TextOutA(dc, bank_box.left + 6, bank_box.top + 4, line, (int)strlen(line));
 
         {
-            HBRUSH brush = CreateSolidBrush(group->alt_frame_count > 0 ? RGB(71, 95, 124) : RGB(124, 94, 53));
+            HBRUSH brush = CreateSolidBrush(RGB(11, 13, 18));
             FillRect(dc, &sample_box, brush);
             DeleteObject(brush);
         }
 
+        if (app->mainmenu_xmg_resource.group_count > refs[index].bank_index) {
+            XmgGroup *decoded_group = &app->mainmenu_xmg_resource.groups[refs[index].bank_index];
+            if (decoded_group->max_width > 0 && decoded_group->max_height > 0) {
+                unsigned int frame_index;
+                unsigned int *composed = (unsigned int *)calloc((size_t)decoded_group->max_width * (size_t)decoded_group->max_height, sizeof(unsigned int));
+                if (composed != NULL) {
+                    for (frame_index = 0; frame_index < decoded_group->frame_count; ++frame_index) {
+                        XmgFrame *frame = &decoded_group->frames[frame_index];
+                        unsigned int x;
+                        for (x = 0; x < frame->width; ++x) {
+                            unsigned int pixel = frame->pixels[x];
+                            if (pixel != 0) {
+                                composed[(size_t)frame->y * decoded_group->max_width + frame->x + x] = pixel;
+                            }
+                        }
+                    }
+
+                    DrawXrgb32Image(dc,
+                                    sample_box.left,
+                                    sample_box.top,
+                                    decoded_group->max_width,
+                                    decoded_group->max_height,
+                                    composed);
+                    free(composed);
+                }
+            }
+        }
+
         snprintf(detail, sizeof(detail),
-                 "bbox %u..%u\n%u..%u\nframes %u\nalt %u\nwords %u..%u",
+                 "bbox %u..%u\n%u..%u\nframes %u alt %u\nwords %u..%u",
                  group->min_x,
                  group->max_x,
                  group->min_y,
@@ -567,7 +638,7 @@ static void DrawMainMenuXmgTriplet(AppState *app, HDC dc, int origin_x, int orig
                  group->alt_frame_count,
                  group->min_payload_words,
                  group->max_payload_words);
-        DrawTextA(dc, detail, -1, &sample_box, DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+        DrawTextA(dc, detail, -1, &sample_box, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 
         snprintf(line, sizeof(line), "payload=%u mask=%u", group->total_payload_words, group->total_mask_bytes);
         SetTextColor(dc, RGB(201, 209, 222));
@@ -801,6 +872,11 @@ static void DrawFrame(AppState *app, HDC dc)
         DrawMainMenuXmgTriplet(app, dc, rect.right - 376, rect.bottom - 206);
         DrawEmgGroupPreview(dc, &app->menu_item_resource, app->menu_item_preview_group, rect.right - 264, 160, "MENU_ITEM.EMG");
         DrawEmgGroupPreview(dc, &app->mainmenu_emg_resource, app->mainmenu_preview_group, rect.right - 664, 352, "MAINMENU.EMG");
+        if (app->mainmenu_selected_index >= 0) {
+            DrawXmgGroupPreview(dc, &app->mainmenu_xmg_resource,
+                                MAINMENU_ITEM_COUNT * 2u + app->mainmenu_highlight_frame,
+                                rect.right - 664, 160, "MAINMENU.XMG highlight");
+        }
     }
 }
 
@@ -933,6 +1009,7 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
             FreeEmgResource(&app->menu_item_resource);
             FreeEmgResource(&app->mainmenu_emg_resource);
             FreeXmgDiagnostic(&app->mainmenu_xmg_diagnostic);
+            FreeXmgResource(&app->mainmenu_xmg_resource);
             FreeMainMenuLayout(&app->mainmenu_layout);
         }
         PostQuitMessage(0);
