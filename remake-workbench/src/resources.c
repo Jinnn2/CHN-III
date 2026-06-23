@@ -291,9 +291,16 @@ int LoadEmgResource(const char *relative_path, EmgResource *out_resource)
             {
                 unsigned int pixel_index;
                 const unsigned char *payload = bytes + offset;
+                int frame_has_nonzero = 0;
                 for (pixel_index = 0; pixel_index < width_words; ++pixel_index) {
                     uint16_t pixel = (uint16_t)(payload[pixel_index * 2] | (payload[pixel_index * 2 + 1] << 8));
                     frame->pixels[pixel_index] = ExpandRgb565ToXrgb32(pixel);
+                    if (pixel != 0) {
+                        frame_has_nonzero = 1;
+                    }
+                }
+                if (frame_has_nonzero) {
+                    group->nonzero_frame_count += 1;
                 }
             }
             offset += (size_t)width_words * 2;
@@ -312,6 +319,8 @@ int LoadEmgResource(const char *relative_path, EmgResource *out_resource)
                 group->frames[frame_index].width = max_width;
             }
         }
+        group->max_width = max_width;
+        group->max_height = max_height;
     }
 
     free(bytes);

@@ -35,6 +35,9 @@ typedef struct EmgFrame {
 
 typedef struct EmgGroup {
     unsigned int frame_count;
+    unsigned int max_width;
+    unsigned int max_height;
+    unsigned int nonzero_frame_count;
     EmgFrame *frames;
 } EmgGroup;
 
@@ -72,6 +75,9 @@ typedef struct AppState {
     XmgDiagnostic mainmenu_xmg_diagnostic;
     unsigned int menu_item_preview_group;
     unsigned int mainmenu_preview_group;
+    unsigned int mainmenu_family_index;
+    int mainmenu_selected_index;
+    unsigned int mainmenu_hotspot_progress;
 } AppState;
 
 int App_Run(HINSTANCE instance, LPSTR command_line, int show_command);

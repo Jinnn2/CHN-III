@@ -9,6 +9,42 @@
 static const char *kWindowClassName = "China2EXRebuildWindow";
 static const char *kWindowTitle = "China2EX Rebuild Workbench";
 
+typedef struct MainMenuActionInfo {
+    const char *label;
+    unsigned int target_screen_state;
+    int sets_transition_flag;
+    int refreshes_ticks_only;
+    int frees_mainmenu_resources;
+    const char *notes;
+} MainMenuActionInfo;
+
+typedef struct MainMenuHotspotStep {
+    unsigned int min_x_exclusive;
+    unsigned int max_x_exclusive;
+    unsigned int min_y_exclusive;
+    unsigned int max_y_exclusive;
+    unsigned int next_progress_value;
+    const char *label;
+} MainMenuHotspotStep;
+
+static const MainMenuActionInfo kMainMenuActions[9] = {
+    {"Item 0", 0x04, 0, 0, 0, "MLR_MainMenu case 0: direct transition"},
+    {"Item 1", 0x0b, 1, 0, 0, "MLR_MainMenu case 1: sets DAT_005153ac"},
+    {"Item 2", 0x0e, 1, 0, 0, "MLR_MainMenu case 2: sets DAT_005153ac"},
+    {"Item 3", 0x11, 0, 0, 0, "MLR_MainMenu case 3: enters Load_MAINMENU_EMG path"},
+    {"Item 4", 0x14, 0, 0, 0, "MLR_MainMenu case 4: AVI play path"},
+    {"Item 5", 0x18, 1, 1, 0, "MLR_MainMenu case 5: resets DAT_00707568 and ticks"},
+    {"Item 6", 0x15, 0, 1, 0, "MLR_MainMenu case 6: refreshes ticks and calls FUN_004d0dd0"},
+    {"Item 7", 0x02, 0, 0, 0, "MLR_MainMenu case 7: ShellExecute to http://www.double2.com.tw"},
+    {"Item 8", 0x2a, 0, 0, 1, "MLR_MainMenu case 8: frees menu resources before exit path"}
+};
+
+static const MainMenuHotspotStep kMainMenuHotspotSteps[3] = {
+    {0x20c, 0x240, 0x13, 0x47, 1, "Step 1: right-top zone sets DAT_00707f84=1"},
+    {0x1da, 0x20e, 0x13, 0x47, 2, "Step 2: middle-top zone advances DAT_00707f84=2"},
+    {0x1a8, 0x1dc, 0x13, 0x47, 0, "Step 3: left-top zone triggers DAT_0075593e=1 if progress==2"}
+};
+
 static void LogLine(const char *text)
 {
     OutputDebugStringA(text);
@@ -94,11 +130,46 @@ static void MainMenu_Init(AppState *app)
     }
     app->menu_item_preview_group = 0;
     app->mainmenu_preview_group = 0;
+    app->mainmenu_family_index = 0;
+    app->mainmenu_selected_index = -1;
+    app->mainmenu_hotspot_progress = 0;
     app->screen_state = APP_SCREEN_MAIN_MENU;
     app->frame_tick = Get_Game_Tick();
     app->menu_action_tick = app->frame_tick;
     LogLine("MainMenu_Init: logical main menu state entered");
     LogLine("MainMenu_Init: resource names MAINMENU, MENU_ITEM.EMG, MAINMENU.XMG");
+}
+
+static const char *DescribeScreenState(unsigned int screen_state)
+{
+    switch (screen_state) {
+    case APP_SCREEN_MAIN_MENU:
+        return "MainMenu steady state";
+    case APP_SCREEN_GAME:
+        return "Game/map frame pump";
+    case APP_SCREEN_POST_BOOT:
+        return "Post-boot loader";
+    case 0x04:
+        return "Menu branch state 0x04";
+    case 0x0b:
+        return "Menu branch state 0x0b";
+    case 0x0e:
+        return "Menu branch state 0x0e";
+    case 0x11:
+        return "Load_MAINMENU_EMG dispatcher";
+    case 0x12:
+        return "MAINMENU.EMG loaded state";
+    case 0x14:
+        return "Main menu AVI path";
+    case 0x15:
+        return "Menu branch state 0x15";
+    case 0x18:
+        return "Load_UI_String_EMG_XMG path";
+    case 0x2a:
+        return "Exit / teardown path";
+    default:
+        return "Unlabeled state";
+    }
 }
 
 static void DrawXrgb32Image(HDC dc, int x, int y, unsigned int width, unsigned int height, const unsigned int *pixels)
@@ -135,21 +206,9 @@ static void DrawEmgGroupPreview(HDC dc, EmgResource *resource, unsigned int grou
         EmgGroup *group = &resource->groups[group_index % resource->group_count];
         if (group->frame_count > 0) {
             unsigned int frame_index;
-            unsigned int max_width = 0;
-            unsigned int max_height = 0;
             unsigned int *composed;
 
-            for (frame_index = 0; frame_index < group->frame_count; ++frame_index) {
-                EmgFrame *frame = &group->frames[frame_index];
-                if (frame->x + frame->width > max_width) {
-                    max_width = frame->x + frame->width;
-                }
-                if (frame->y + frame->height > max_height) {
-                    max_height = frame->y + frame->height;
-                }
-            }
-
-            composed = (unsigned int *)calloc((size_t)max_width * (size_t)max_height, sizeof(unsigned int));
+            composed = (unsigned int *)calloc((size_t)group->max_width * (size_t)group->max_height, sizeof(unsigned int));
             if (composed != NULL) {
                 char label[160];
 
@@ -157,23 +216,72 @@ static void DrawEmgGroupPreview(HDC dc, EmgResource *resource, unsigned int grou
                     EmgFrame *frame = &group->frames[frame_index];
                     unsigned int x;
                     for (x = 0; x < frame->width; ++x) {
-                        composed[(size_t)frame->y * max_width + frame->x + x] = frame->pixels[x];
+                        composed[(size_t)frame->y * group->max_width + frame->x + x] = frame->pixels[x];
                     }
                 }
 
-                DrawXrgb32Image(dc, origin_x, origin_y, max_width, max_height, composed);
+                DrawXrgb32Image(dc, origin_x, origin_y, group->max_width, group->max_height, composed);
                 free(composed);
 
                 snprintf(label, sizeof(label),
-                         "%s group %u/%u (%u x %u)",
+                         "%s group %u/%u (%u x %u, nonzero=%u/%u)",
                          label_prefix,
                          group_index % resource->group_count,
                          resource->group_count - 1,
-                         max_width,
-                         max_height);
+                         group->max_width,
+                         group->max_height,
+                         group->nonzero_frame_count,
+                         group->frame_count);
                 TextOutA(dc, origin_x, origin_y - 20, label, (int)strlen(label));
             }
         }
+    }
+}
+
+static int SameMainmenuFamily(EmgGroup *group, unsigned int family_index)
+{
+    static const struct {
+        unsigned int width;
+        unsigned int height;
+    } families[] = {
+        {309, 273},
+        {322, 456},
+        {272, 111},
+        {426, 523},
+        {174, 245},
+        {528, 480}
+    };
+
+    if (family_index >= sizeof(families) / sizeof(families[0])) {
+        return 0;
+    }
+    return group->max_width == families[family_index].width && group->max_height == families[family_index].height;
+}
+
+static void JumpMainmenuPreviewByFamily(AppState *app, int direction)
+{
+    unsigned int count = app->mainmenu_emg_resource.group_count;
+    unsigned int attempts = 0;
+
+    if (count == 0) {
+        return;
+    }
+
+    while (attempts < count) {
+        if (direction > 0) {
+            app->mainmenu_preview_group = (app->mainmenu_preview_group + 1) % count;
+        } else {
+            if (app->mainmenu_preview_group == 0) {
+                app->mainmenu_preview_group = count - 1;
+            } else {
+                app->mainmenu_preview_group -= 1;
+            }
+        }
+
+        if (SameMainmenuFamily(&app->mainmenu_emg_resource.groups[app->mainmenu_preview_group], app->mainmenu_family_index)) {
+            return;
+        }
+        attempts += 1;
     }
 }
 
@@ -182,6 +290,7 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
     RECT panel_rect;
     HBRUSH panel_brush;
     char line[192];
+    const MainMenuActionInfo *action;
 
     panel_rect.left = 16;
     panel_rect.top = 136;
@@ -193,26 +302,39 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
 
     SetTextColor(dc, RGB(228, 232, 240));
     TextOutA(dc, 28, 148, "Main menu resource diagnostics", 30);
-    TextOutA(dc, 28, 172, "LEFT/RIGHT: MENU_ITEM.EMG, UP/DOWN: MAINMENU.EMG", 48);
+    TextOutA(dc, 28, 172, "LEFT/RIGHT: MENU_ITEM, UP/DOWN: MAINMENU, TAB: family, [ ]: select", 67);
+    TextOutA(dc, 28, 196, "ENTER: inspect MLR action, H: advance hidden top-hotspot chain", 59);
 
     snprintf(line, sizeof(line),
              "MENU_ITEM.EMG groups=%u current=%u",
              app->menu_item_resource.group_count,
              app->menu_item_resource.group_count ? (app->menu_item_preview_group % app->menu_item_resource.group_count) : 0);
-    TextOutA(dc, 28, 204, line, (int)strlen(line));
+    TextOutA(dc, 28, 228, line, (int)strlen(line));
 
     snprintf(line, sizeof(line),
              "MAINMENU.EMG groups=%u current=%u",
              app->mainmenu_emg_resource.group_count,
              app->mainmenu_emg_resource.group_count ? (app->mainmenu_preview_group % app->mainmenu_emg_resource.group_count) : 0);
-    TextOutA(dc, 28, 228, line, (int)strlen(line));
+    TextOutA(dc, 28, 252, line, (int)strlen(line));
+
+    if (app->mainmenu_emg_resource.group_count > 0) {
+        EmgGroup *group = &app->mainmenu_emg_resource.groups[app->mainmenu_preview_group % app->mainmenu_emg_resource.group_count];
+        snprintf(line, sizeof(line),
+                 "MAINMENU family=%u size=%u x %u nonzero=%u/%u",
+                 app->mainmenu_family_index,
+                 group->max_width,
+                 group->max_height,
+                 group->nonzero_frame_count,
+                 group->frame_count);
+        TextOutA(dc, 28, 276, line, (int)strlen(line));
+    }
 
     snprintf(line, sizeof(line),
              "MAINMENU.XMG groups=%u alt_frames=%u trailing=%u",
              app->mainmenu_xmg_diagnostic.group_count,
              app->mainmenu_xmg_diagnostic.total_alt_frame_count,
              app->mainmenu_xmg_diagnostic.trailing_size);
-    TextOutA(dc, 28, 252, line, (int)strlen(line));
+    TextOutA(dc, 28, 300, line, (int)strlen(line));
 
     if (app->mainmenu_xmg_diagnostic.group_count > 0) {
         unsigned int group_index = app->mainmenu_preview_group % app->mainmenu_xmg_diagnostic.group_count;
@@ -224,8 +346,46 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
                  group->alt_frame_count,
                  group->min_width_field,
                  group->max_width_field);
-        TextOutA(dc, 28, 276, line, (int)strlen(line));
+        TextOutA(dc, 28, 324, line, (int)strlen(line));
     }
+
+    if (app->mainmenu_selected_index >= 0 && app->mainmenu_selected_index < 9) {
+        action = &kMainMenuActions[app->mainmenu_selected_index];
+        snprintf(line, sizeof(line),
+                 "MLR select=%d -> state=0x%02x (%s)",
+                 app->mainmenu_selected_index,
+                 action->target_screen_state,
+                 DescribeScreenState(action->target_screen_state));
+        TextOutA(dc, 28, 360, line, (int)strlen(line));
+
+        snprintf(line, sizeof(line),
+                 "XMG bank offsets: base=%d selected=%d highlight=18..27 (+0x24/+0x48 bytes)",
+                 app->mainmenu_selected_index,
+                 app->mainmenu_selected_index + 9);
+        TextOutA(dc, 28, 384, line, (int)strlen(line));
+
+        snprintf(line, sizeof(line),
+                 "Flags: transition=%s tick-refresh=%s free-resources=%s",
+                 action->sets_transition_flag ? "yes" : "no",
+                 action->refreshes_ticks_only ? "yes" : "no",
+                 action->frees_mainmenu_resources ? "yes" : "no");
+        TextOutA(dc, 28, 408, line, (int)strlen(line));
+
+        TextOutA(dc, 28, 432, action->notes, (int)strlen(action->notes));
+    } else {
+        TextOutA(dc, 28, 360, "MLR select=-1: no menu item selected", 35);
+        TextOutA(dc, 28, 384, "PutScreen_Mainmenu uses XMG base bank when item is not selected", 61);
+    }
+
+    snprintf(line, sizeof(line),
+             "Hidden hotspot chain progress=%u reveal=%s",
+             app->mainmenu_hotspot_progress,
+             app->mainmenu_hotspot_progress == 0 ? "off" : (app->mainmenu_hotspot_progress == 2 ? "armed" : "mid-chain"));
+    TextOutA(dc, 28, 468, line, (int)strlen(line));
+
+    TextOutA(dc, 28, 492, kMainMenuHotspotSteps[0].label, (int)strlen(kMainMenuHotspotSteps[0].label));
+    TextOutA(dc, 28, 516, kMainMenuHotspotSteps[1].label, (int)strlen(kMainMenuHotspotSteps[1].label));
+    TextOutA(dc, 28, 540, kMainMenuHotspotSteps[2].label, (int)strlen(kMainMenuHotspotSteps[2].label));
 }
 
 static void DrawFrame(AppState *app, HDC dc)
@@ -328,15 +488,64 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
                 return 0;
             }
             if (wparam == VK_DOWN && app->mainmenu_emg_resource.group_count > 0) {
-                app->mainmenu_preview_group = (app->mainmenu_preview_group + 1) % app->mainmenu_emg_resource.group_count;
+                JumpMainmenuPreviewByFamily(app, 1);
                 InvalidateRect(window, NULL, FALSE);
                 return 0;
             }
             if (wparam == VK_UP && app->mainmenu_emg_resource.group_count > 0) {
-                if (app->mainmenu_preview_group == 0) {
-                    app->mainmenu_preview_group = app->mainmenu_emg_resource.group_count - 1;
+                JumpMainmenuPreviewByFamily(app, -1);
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_TAB) {
+                app->mainmenu_family_index = (app->mainmenu_family_index + 1) % 6;
+                if (app->mainmenu_emg_resource.group_count > 0 &&
+                    !SameMainmenuFamily(&app->mainmenu_emg_resource.groups[app->mainmenu_preview_group], app->mainmenu_family_index)) {
+                    unsigned int attempts = 0;
+                    while (attempts < app->mainmenu_emg_resource.group_count) {
+                        if (SameMainmenuFamily(&app->mainmenu_emg_resource.groups[app->mainmenu_preview_group], app->mainmenu_family_index)) {
+                            break;
+                        }
+                        app->mainmenu_preview_group = (app->mainmenu_preview_group + 1) % app->mainmenu_emg_resource.group_count;
+                        attempts += 1;
+                    }
+                }
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_OEM_4) {
+                if (app->mainmenu_selected_index < 0) {
+                    app->mainmenu_selected_index = 8;
                 } else {
-                    app->mainmenu_preview_group -= 1;
+                    app->mainmenu_selected_index = (app->mainmenu_selected_index + 8) % 9;
+                }
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_OEM_6) {
+                app->mainmenu_selected_index = (app->mainmenu_selected_index + 1) % 9;
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == VK_RETURN && app->mainmenu_selected_index >= 0 && app->mainmenu_selected_index < 9) {
+                const MainMenuActionInfo *action = &kMainMenuActions[app->mainmenu_selected_index];
+                char line_buffer[160];
+                snprintf(line_buffer, sizeof(line_buffer),
+                         "MLR_MainMenu diagnostic: select=%d target=0x%02x note=%s",
+                         app->mainmenu_selected_index,
+                         action->target_screen_state,
+                         action->notes);
+                LogLine(line_buffer);
+                InvalidateRect(window, NULL, FALSE);
+                return 0;
+            }
+            if (wparam == 'H') {
+                if (app->mainmenu_hotspot_progress == 0) {
+                    app->mainmenu_hotspot_progress = 1;
+                } else if (app->mainmenu_hotspot_progress == 1) {
+                    app->mainmenu_hotspot_progress = 2;
+                } else {
+                    app->mainmenu_hotspot_progress = 0;
                 }
                 InvalidateRect(window, NULL, FALSE);
                 return 0;
