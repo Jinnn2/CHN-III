@@ -16,6 +16,15 @@ to avoid a blind rewrite:
 - `.TMG`, `.EMG`, `.XMG`, `.IMG`, and `.IDI` resources should be converted into
   modern atlas and metadata assets.
 
+Restoration boundaries are tracked in `RESTORATION_BOUNDARIES.md`. Original
+behavior should be restored when evidence is strong; uncertain areas stay as
+probes or become explicit remake-design decisions after review.
+
+Map resources now use the modern pipeline defined in
+`MAP_RESOURCE_PIPELINE.md`: original files remain source evidence, while
+canonical manifests, atlases, and render graphs become the runtime-facing map
+resource model.
+
 ## Architecture
 
 Use four layers:
@@ -24,6 +33,8 @@ Use four layers:
    - Read original binary resources.
    - Emit PNG/atlas/JSON where possible.
    - Keep hashes, sizes, parse status, and source paths for traceability.
+   - For map assets, emit canonical manifests matching
+     `schemas/map_resource_manifest.schema.json`.
 
 2. Data model
    - Recreate fixed records as typed structures.
@@ -123,8 +134,14 @@ Done when the remake is playable for a short, constrained session.
    Done.
 9. Add sprite-backed overlays for resources, roads, cities,
    armies, fog/visibility, and editor markers. Started for resource/road/city
-   banks; city objects still need save-tail city record reconstruction.
-10. Choose core language/runtime after the first sprite-backed map renderer
+   banks; resources render from original fields/art, road connection fields are
+   confirmed but world-map road visuals remain unresolved, and cities render
+   from save-tail city records with modern markers while original `CITY.EMG`
+   world-map selection remains pending.
+10. Migrate map rendering probes to the canonical map resource manifest and
+    atlas pipeline described in `MAP_RESOURCE_PIPELINE.md`. Started with
+    `scripts/export_map_resources.py` and manifest-driven bank selection.
+11. Choose core language/runtime after the first sprite-backed map renderer
    proves the data boundary.
 
 ## Known Risks

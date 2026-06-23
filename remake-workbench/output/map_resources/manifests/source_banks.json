@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ground",
+    "source_path": "EMG/NEW_GROUND.EMG",
+    "format": "emg_horizontal_runs",
+    "group_count": 5127,
+    "sha256": "d49eff84631d01bfffac262234ae4965bd1dff0aea915d2f84fe7a3bfe51cf33",
+    "evidence_level": "confirmed_original",
+    "notes": "Terrain base, terrain details, and battle/resource feature sprites."
+  },
+  {
+    "id": "resource",
+    "source_path": "EMG/RESOURCE.EMG",
+    "format": "emg_horizontal_runs",
+    "group_count": 43,
+    "sha256": "95070cf42ef95b35f561d6775c31a633746ebbe6642450912f243c49c477372f",
+    "evidence_level": "confirmed_original",
+    "notes": "City-resource tile markers from LandTile +0x17."
+  },
+  {
+    "id": "make",
+    "source_path": "EMG/MAKE.EMG",
+    "format": "emg_horizontal_runs",
+    "group_count": 321,
+    "sha256": "329bcebbe2407d209a806834197106e8c4f3b43fb14f3b6b54159581f2181244",
+    "evidence_level": "confirmed_original",
+    "notes": "World-map make/road overlays; roads are drawn from LandTile +0x14/+0x13."
+  },
+  {
+    "id": "road",
+    "source_path": "EMG/ROAD.EMG",
+    "format": "emg_horizontal_runs",
+    "group_count": 236,
+    "sha256": "8583dd3e191d1fde49a41dfd340f2b75212e26a2dc7de1dcd2a1a9292fa74614",
+    "evidence_level": "confirmed_original",
+    "notes": "Confirmed loaded as ROAD.EMG and used by city view roads; not the world-map road draw path."
+  },
+  {
+    "id": "city",
+    "source_path": "EMG/CITY.EMG",
+    "format": "emg_horizontal_runs",
+    "group_count": 32,
+    "sha256": "72afeb5624590342ac9ef3f97eb5950880585a86f3d63ad4db85e9eced77f92f",
+    "evidence_level": "weak_inference",
+    "notes": "Parsed bank; exact world-map city sprite selection is not confirmed."
+  }
+]

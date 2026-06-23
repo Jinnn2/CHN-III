@@ -1,0 +1,7661 @@
+{
+  "schema_version": 1,
+  "map": {
+    "width": 30,
+    "height": 24,
+    "projection": "isometric_diamond"
+  },
+  "tiles": [
+    [
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      }
+    ],
+    [
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      }
+    ],
+    [
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 925
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 943
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 959
+      },
+      {
+        "terrain": "forest",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 935
+      },
+      {
+        "terrain": "forest",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 944
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      }
+    ],
+    [
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 945
+      },
+      {
+        "terrain": "forest",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 918
+      },
+      {
+        "terrain": "forest",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 949
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      }
+    ],
+    [
+      {
+        "terrain": "grass",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      }
+    ],
+    [
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1027
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1043
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1040
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1025
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1044
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 980
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "sand",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "sand",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 978
+      },
+      {
+        "terrain": "hill",
+        "height": 3,
+        "sprite_bank": "ground",
+        "sprite_id": 1042
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "grass",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "sand",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 2,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "marsh",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "sand",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 51
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 28
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "marsh",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "plain",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 5
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 69
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      }
+    ],
+    [
+      {
+        "terrain": "sand",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1574
+      },
+      {
+        "terrain": "sand",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1560
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1537
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1562
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1542
+      },
+      {
+        "terrain": "sand",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1541
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1553
+      },
+      {
+        "terrain": "sand",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1572
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 33
+      },
+      {
+        "terrain": "grass",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 79
+      },
+      {
+        "terrain": "plain",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 71
+      },
+      {
+        "terrain": "marsh",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": -3,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "marsh",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 1405
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1379
+      },
+      {
+        "terrain": "marsh",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 1414
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1410
+      },
+      {
+        "terrain": "marsh",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 1367
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1417
+      },
+      {
+        "terrain": "marsh",
+        "height": 1,
+        "sprite_bank": "ground",
+        "sprite_id": 1407
+      },
+      {
+        "terrain": "grass",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 30
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 11
+      },
+      {
+        "terrain": "plain",
+        "height": 0,
+        "sprite_bank": "ground",
+        "sprite_id": 12
+      },
+      {
+        "terrain": "plain",
+        "height": -1,
+        "sprite_bank": "ground",
+        "sprite_id": 77
+      },
+      {
+        "terrain": "grass",
+        "height": -2,
+        "sprite_bank": "ground",
+        "sprite_id": 37
+      }
+    ]
+  ],
+  "layers": {
+    "river_networks": [
+      {
+        "id": "main-river",
+        "kind": "river",
+        "width": 9,
+        "nodes": [
+          {
+            "x": 2,
+            "y": 3,
+            "offset_y": -0.2
+          },
+          {
+            "x": 5,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 7
+          },
+          {
+            "x": 11,
+            "y": 7
+          },
+          {
+            "x": 14,
+            "y": 9
+          },
+          {
+            "x": 17,
+            "y": 8
+          },
+          {
+            "x": 20,
+            "y": 9
+          },
+          {
+            "x": 23,
+            "y": 12
+          },
+          {
+            "x": 27,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "south-creek",
+        "kind": "creek",
+        "width": 5,
+        "nodes": [
+          {
+            "x": 11,
+            "y": 14
+          },
+          {
+            "x": 14,
+            "y": 13
+          },
+          {
+            "x": 16,
+            "y": 14
+          },
+          {
+            "x": 20,
+            "y": 16
+          },
+          {
+            "x": 24,
+            "y": 17
+          }
+        ]
+      }
+    ],
+    "road_networks": [
+      {
+        "id": "imperial-road",
+        "kind": "stone",
+        "width": 5,
+        "nodes": [
+          {
+            "x": 5,
+            "y": 17
+          },
+          {
+            "x": 7,
+            "y": 14
+          },
+          {
+            "x": 8,
+            "y": 9
+          },
+          {
+            "x": 11,
+            "y": 8
+          },
+          {
+            "x": 17,
+            "y": 8
+          },
+          {
+            "x": 20,
+            "y": 10
+          },
+          {
+            "x": 20,
+            "y": 16
+          }
+        ]
+      },
+      {
+        "id": "north-branch",
+        "kind": "dirt",
+        "width": 3,
+        "nodes": [
+          {
+            "x": 8,
+            "y": 9
+          },
+          {
+            "x": 9,
+            "y": 6
+          },
+          {
+            "x": 12,
+            "y": 4
+          },
+          {
+            "x": 16,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "id": "east-branch",
+        "kind": "dirt",
+        "width": 3,
+        "nodes": [
+          {
+            "x": 17,
+            "y": 8
+          },
+          {
+            "x": 21,
+            "y": 7
+          },
+          {
+            "x": 25,
+            "y": 9
+          }
+        ]
+      }
+    ],
+    "cities": [
+      {
+        "id": "capital",
+        "name": "Jingzhou",
+        "x": 8,
+        "y": 9,
+        "size": 3
+      },
+      {
+        "id": "riverport",
+        "name": "Hekou",
+        "x": 17,
+        "y": 8,
+        "size": 2
+      },
+      {
+        "id": "southpost",
+        "name": "Nanling",
+        "x": 20,
+        "y": 16,
+        "size": 2
+      },
+      {
+        "id": "westgate",
+        "name": "Xiguan",
+        "x": 5,
+        "y": 17,
+        "size": 1
+      }
+    ]
+  },
+  "rendering": {
+    "network_rule": "roads and rivers are continuous polylines over tile anchors; per-tile masks can be derived for gameplay, but rendering is not limited to original tile sprite ids",
+    "texture_resources": {
+      "terrain_and_river_surfaces": "EMG/NEW_GROUND.EMG",
+      "road_overlays": "EMG/MAKE.EMG groups 0..80"
+    },
+    "layer_order": [
+      "terrain",
+      "rivers",
+      "roads",
+      "cities"
+    ]
+  },
+  "derived": {
+    "tile_connection_masks": {
+      "roads": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          34,
+          10,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          34,
+          24,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          48,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          34,
+          10,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          35,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          24,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          12,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          33,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          33,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          48,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "rivers": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          10,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          34,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          24,
+          0,
+          0,
+          0,
+          2,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          34,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          0,
+          0,
+          0,
+          2,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          10,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "tile_network_kinds": {
+      "roads": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          "dirt",
+          "dirt",
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          "dirt",
+          "dirt",
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          "stone",
+          "stone",
+          "stone",
+          "stone",
+          "stone",
+          "stone",
+          "stone",
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          "dirt",
+          "dirt",
+          "dirt",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "stone",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "rivers": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "river",
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          "river",
+          "river",
+          "river",
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          "river",
+          "river",
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          "river",
+          null,
+          null,
+          null,
+          "river",
+          "river",
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "creek",
+          "creek",
+          "creek",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "creek",
+          null,
+          null,
+          null,
+          "creek",
+          "creek",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "river",
+          "river",
+          "river",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "creek",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "creek",
+          "creek",
+          "creek",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "creek",
+          "creek",
+          "creek",
+          "creek",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ]
+    }
+  }
+}

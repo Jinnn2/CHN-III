@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "generated_from": {
+    "workspace_root": "C:/baidunetdiskdownload/zhongguo2lianhe/zhongguo2lianhe",
+    "tool": "future export_map_resources.py",
+    "evidence_policy": "remake-workbench/RESTORATION_BOUNDARIES.md"
+  },
+  "banks": [
+    {
+      "id": "ground",
+      "source_path": "EMG/NEW_GROUND.EMG",
+      "format": "emg_horizontal_runs",
+      "group_count": 5127,
+      "evidence_level": "confirmed_original",
+      "notes": "Terrain base, terrain details, and battle/resource feature sprites."
+    },
+    {
+      "id": "resource",
+      "source_path": "EMG/RESOURCE.EMG",
+      "format": "emg_horizontal_runs",
+      "group_count": 43,
+      "evidence_level": "confirmed_original",
+      "notes": "City-resource tile markers from LandTile +0x17."
+    },
+    {
+      "id": "road",
+      "source_path": "EMG/ROAD.EMG",
+      "format": "emg_horizontal_runs",
+      "group_count": 236,
+      "evidence_level": "strong_inference",
+      "notes": "Confirmed loaded and used by city view; world-map visual use is unresolved."
+    },
+    {
+      "id": "city",
+      "source_path": "EMG/CITY.EMG",
+      "format": "emg_horizontal_runs",
+      "group_count": 32,
+      "evidence_level": "weak_inference",
+      "notes": "Parsed bank; live city overlay source must come from save-tail City_0x200 records."
+    }
+  ],
+  "layers": [
+    {
+      "id": "terrain_base.original",
+      "canonical_layer": "terrain_base",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_new_map.c",
+        "reverse/ghidra_export/render/load_emg_base.c"
+      ],
+      "source_bank": "ground",
+      "source_group_expr": "LandTile+0x04, or LandTile+0x06 for special terrain",
+      "tile_field_refs": ["LandTile+0x04", "LandTile+0x06"],
+      "draw_order": 100,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -40,
+        "blend": "opaque"
+      }
+    },
+    {
+      "id": "terrain_detail.original",
+      "canonical_layer": "terrain_detail",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_new_map.c"
+      ],
+      "source_bank": "ground",
+      "source_group_expr": "4801 + detail_id, or 4905 + detail_id",
+      "tile_field_refs": ["LandTile+0x08..0x0e"],
+      "draw_order": 200,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -40,
+        "blend": "masked"
+      }
+    },
+    {
+      "id": "resources.battle_feature.original",
+      "canonical_layer": "resources",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_new_map.c",
+        "remake-workbench/scripts/check_sprite_assets.py"
+      ],
+      "source_bank": "ground",
+      "source_group_expr": "4937 + LandTile+0x16",
+      "tile_field_refs": ["LandTile+0x16"],
+      "draw_order": 300,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -48,
+        "blend": "masked"
+      }
+    },
+    {
+      "id": "resources.city_resource.original",
+      "canonical_layer": "resources",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/render/load_emg_base.c",
+        "remake-workbench/scripts/check_sprite_assets.py"
+      ],
+      "source_bank": "resource",
+      "source_group_expr": "LandTile+0x17",
+      "tile_field_refs": ["LandTile+0x17"],
+      "draw_order": 310,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -58,
+        "blend": "masked"
+      }
+    },
+    {
+      "id": "roads.connection_field.original",
+      "canonical_layer": "roads",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_road.c",
+        "Save/save.MAP"
+      ],
+      "source_bank": "road",
+      "source_group_expr": "Decode_Road recomputes LandTile+0x13 from adjacent roads and bridges",
+      "tile_field_refs": ["LandTile+0x13", "LandTile+0x14"],
+      "draw_order": 400,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -40,
+        "blend": "data_only"
+      },
+      "notes": "Save/save.MAP validates connection values 0..40 against Decode_Road; visual world-map bank remains unresolved."
+    },
+    {
+      "id": "cities.save_tail.pending",
+      "canonical_layer": "cities",
+      "evidence_level": "strong_inference",
+      "status": "blocked",
+      "source_refs": [
+        "reverse/ghidra_export/game/load_dat.c"
+      ],
+      "source_bank": "city",
+      "source_group_expr": "pending: city sprite id from validated City_0x200 fields",
+      "record_refs": ["City_0x200+0x16", "City_0x200+0x18", "LandTile+0x88/+0x8c rebuilt by Load_Dat"],
+      "draw_order": 500,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -76,
+        "blend": "masked"
+      },
+      "notes": "Needs save-tail parser before runtime use."
+    }
+  ]
+}

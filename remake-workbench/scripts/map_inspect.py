@@ -8,6 +8,8 @@ import map_model
 
 
 ROOT = Path(__file__).resolve().parents[2]
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 
 def parse_tile_coord(raw):
@@ -24,6 +26,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Inspect a decompressed MAP/MGI model boundary.")
     parser.add_argument("map", nargs="?", default="Save/WORLD_FLAT.MAP", help="Path to a .MAP file")
     parser.add_argument("--tile", action="append", type=parse_tile_coord, help="Tile coordinate as x,y")
+    parser.add_argument("--cities", action="store_true", help="Show parsed live save-tail city records")
     parser.add_argument("--json", action="store_true", help="Emit JSON instead of text")
     args = parser.parse_args(argv)
 
@@ -49,6 +52,8 @@ def main(argv=None):
         "scenario": model["scenario"],
         "tiles": [map_model.tile_summary(data, model, x, y) for x, y in coords],
     }
+    if args.cities:
+        result["cities"] = map_model.parse_save_tail_cities(data, model)
     if args.json:
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
@@ -76,6 +81,21 @@ def main(argv=None):
             "battle_feature={battle_feature_id} city_resource={city_resource_id} "
             "owner={owner_country_id} stockpile={city_resource_stockpile}".format(**tile)
         )
+    if args.cities:
+        cities = result["cities"]
+        print(
+            "cities: status=%s count=%s stored=%s stride=0x%x"
+            % (
+                cities["status"],
+                cities["city_record_count"],
+                cities.get("stored_city_record_count", 0),
+                cities.get("city_record_stride", 0),
+            )
+        )
+        for city in cities["cities"][:20]:
+            print(
+                "  city #{index} owner={owner_country_id} tile={x},{y} name={name}".format(**city)
+            )
     return 0
 
 

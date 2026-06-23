@@ -4,6 +4,18 @@
 
 Created the remake workbench and completed the first resource inventory pass.
 
+Restoration policy:
+
+- Added `RESTORATION_BOUNDARIES.md` to keep original-compatible work separate
+  from speculative probes and remake-design decisions.
+- Current rule: confirmed original behavior can enter the model; weak
+  inference must stay documented as a probe until reviewed.
+- Added `MAP_RESOURCE_PIPELINE.md` and
+  `schemas/map_resource_manifest.schema.json` as the modern map resource
+  scheme. Future map resource organization and rendering should target
+  canonical manifests and generated atlases instead of accumulating raw EMG
+  constants in renderer scripts.
+
 Command:
 
 ```powershell
@@ -164,21 +176,22 @@ Next immediate work:
 
 1. Render battle/city resources from `+0x16/+0x17` via `NEW_GROUND.EMG`
    offset `0x4d24` and the static resource tables.
-2. Add road/bridge/long-wall overlays from `ROAD.EMG` and terrain fields
-   `+0x13..0x15/+0x24`.
+2. Add road/bridge/long-wall overlays from original draw paths and terrain
+   fields `+0x13..0x15/+0x24`.
 3. Identify city and army sprite banks for live save object layers.
 
 Sixth pass:
 
-- Added `ROAD.EMG`, `CITY.EMG`, and `RESOURCE.EMG` parsing checks alongside
-  `NEW_GROUND.EMG`.
+- Added `MAKE.EMG`, `ROAD.EMG`, `CITY.EMG`, and `RESOURCE.EMG` parsing checks
+  alongside `NEW_GROUND.EMG`.
 - Added sprite-backed overlay layer selection to
   `scripts/export_terrain_preview.py`:
   - `--layers resources` draws battle-resource/feature ids from LandTile
     `+0x16` through the `NEW_GROUND.EMG` resource range and city-resource ids
     from LandTile `+0x17` through `RESOURCE.EMG`.
-  - `--layers roads` wires LandTile `+0x13/+0x14/+0x15/+0x24` to `ROAD.EMG`
-    ranges for roads, bridges, and long-wall candidates.
+  - `--layers roads` now draws confirmed large-map roads from `MAKE.EMG` using
+    `LandTile+0x14 * 0x51 + LandTile+0x13`; bridge and long-wall candidates
+    remain separate probes until sample-backed.
   - `--layers cities` reserves a `CITY.EMG` marker path for LandTile-linked
     city/object pointers.
 - Fixed `scripts/check_sprite_assets.py` so map scans resolve from the project
@@ -199,7 +212,8 @@ python remake-workbench\scripts\export_terrain_preview.py Save\SAVE00\SAVE.MAP -
 Current findings:
 
 - `NEW_GROUND.EMG`: 5127 groups; terrain detail scan covers 113,571 draw calls.
-- `ROAD.EMG`: 236 groups; `CITY.EMG`: 32 groups; `RESOURCE.EMG`: 43 groups.
+- `MAKE.EMG`: 321 groups; `ROAD.EMG`: 236 groups; `CITY.EMG`: 32 groups;
+  `RESOURCE.EMG`: 43 groups.
 - Resource layer scan across MAP files finds 41,595 battle-resource draws and
   4,455 city-resource draws.
 - Current MAP files do not persist live `+0x88` city pointers or road/bridge/
@@ -212,7 +226,118 @@ Next immediate work:
 
 1. Decode the live save tail order around country states and `City_0x200`
    records so city positions can be overlaid from real city data.
-2. Locate a scenario/save with constructed roads or create a controlled editor
-   sample, then validate the `ROAD.EMG` road/bridge/long-wall ranges visually.
+2. Locate or create bridge and long-wall positive samples, then validate those
+   ranges visually.
 3. Start army layer probing from the `ArmyUnit_0x164_plus` tail records and
    `ARMY.IMG`/related banks.
+
+Seventh pass:
+
+- Added the modern map resource pipeline implementation:
+  - `scripts/map_resources.py` defines source banks and canonical map layers.
+  - `scripts/export_map_resources.py` emits manifests, frame metadata, and
+    preview atlases under `output/map_resources/`.
+  - `scripts/export_terrain_preview.py` can read the generated manifest and use
+    it for bank selection.
+- Added save-tail city parsing in `scripts/map_model.py` using the `Load_Dat`
+  order after LandTile/view state:
+  empire country defs, `CountryState_0xe68[22]`, three dwords, five-byte city
+  section tag, live city count, then `City_0x200` records. For `SAVE00`, each
+  city record is followed by the `0x12000` city-map block observed in
+  `Load_Dat`.
+- City layer rendering now draws modern owner-colored markers from real
+  `City_0x200 +0x16/+0x18` save-tail coordinates. Exact original world-map
+  `CITY.EMG` sprite selection is still not confirmed, so the marker is
+  explicitly a modern presentation layer backed by original city data.
+- Validated the user-created `Save/save.MAP` road-only sample for road
+  connection data:
+  - map size `39x50`
+  - positive road tiles: 25
+  - LandTile `+0x13` values are `0..40`
+  - LandTile `+0x14` is `0` for all road-positive tiles
+  - a Python port of `Decode_Road` matches all sampled `+0x13` values
+  - bridge `+0x15` and long-wall `+0x24` still have no positive samples
+- Important correction: `ROAD.EMG` is loaded as `DAT_00758590` and is proven in
+  `put_city_view.c` for city-view roads, but the large-map draw path at
+  `0x004a3ce0` uses `DAT_0075856c`, i.e. `MAKE.EMG`.
+- Promoted road connection fields and large-map road visual mapping to
+  `confirmed_original` in the modern map resource manifest:
+  `MAKE.EMG[LandTile+0x14 * 0x51 + LandTile+0x13]`.
+- Bridge `+0x15` and long-wall `+0x24` remain probes until positive samples are
+  available.
+- Note: this pass follows `Load_Dat` where the city phase uses
+  `CountryState +0x1aa` as the city-record count and the later army phase uses
+  `CountryState +0x7c` as the army-record count. This conflicts with some older
+  working labels in `STRUCTURE_NOTES.md`; the loader names these fields by
+  observed load phase.
+
+Current verification additions:
+
+```powershell
+python remake-workbench\scripts\export_map_resources.py
+python remake-workbench\scripts\check_sprite_assets.py
+python remake-workbench\scripts\map_inspect.py Save\SAVE00\SAVE.MAP --cities
+python remake-workbench\scripts\export_terrain_preview.py Save\SAVE00\SAVE.MAP --mode sprite --layers all,roads --viewport 0,0,40,40 --out remake-workbench\output\previews\save00_modern_layers.png
+python remake-workbench\scripts\inspect_road_sample.py Save\save.MAP --out remake-workbench\output\map_resources\diagnostics\save_roads.json
+python remake-workbench\scripts\export_terrain_preview.py Save\save.MAP --mode sprite --layers roads --out remake-workbench\output\previews\save_roads.png
+```
+
+Eighth pass:
+
+- Rendered the newly created `Save/SAVE01/SAVE.MAP` save through the modern
+  map resource pipeline.
+- Parsed `SAVE01` as `small_39x50`, with a live save tail containing 2 city
+  records at `(25,21)` and `(25,33)`.
+- Confirmed `SAVE01` road data uses both `road_kind=0` and `road_kind=2`;
+  `Decode_Road` matches all positive `LandTile+0x13` samples and the large-map
+  draw path uses `MAKE.EMG[LandTile+0x14 * 0x51 + LandTile+0x13]`.
+- Generated:
+  - `output/previews/save01_complete_layers.png`
+  - `output/previews/save01_city_road_focus.png`
+  - `output/previews/save01_roads_focus.png`
+  - `output/map_resources/diagnostics/save01_roads.json`
+- Visual check: the focused preview shows terrain, resources, and the two
+  save-tail cities in the expected area. A later pass found that roads still
+  needed original-style multi-pass draw ordering to avoid later terrain tiles
+  covering connected road sprites.
+- Remaining boundary: exact original world-map `CITY.EMG` culture/style block
+  selection is still unresolved. City positions and population-derived sprite
+  levels are restored from save-tail city records and `City_Size_Scale`.
+
+Ninth pass:
+
+- Fixed large-map sprite draw ordering in `scripts/export_terrain_preview.py`:
+  terrain, terrain details, overlays, and city sprites now render as separate
+  passes over the viewport. This matches the original large-map structure more
+  closely and fixes the visual road disconnection seen in `SAVE01`.
+- Kept the confirmed large-map road path:
+  `MAKE.EMG[LandTile+0x14 * 0x51 + LandTile+0x13]`, with y adjustment from
+  the `DAT_0057f084` height table.
+- Confirmed `SAVE01` `LandTile+0x13` values still match the Python
+  `Decode_Road` port exactly; the road problem was draw order, not bad
+  connection ids.
+- Promoted bridge `LandTile+0x15` mapping from the large-map renderer evidence:
+  `DAT_0075856c + 0x3cc + LandTile+0x15 * 4`, i.e.
+  `MAKE.EMG[0x3cc / 4 + LandTile+0x15]`. The controlled `Save/save.MAP`
+  sample now validates bridge group 244 inside `MAKE.EMG`.
+- Updated the city layer manifest from the older modern-marker wording to the
+  current partial original restoration:
+  save-tail city coordinates, `CITY.EMG`, and population-to-`City+0x21` level
+  selection are active; exact `CITY.EMG` style block remains unresolved and
+  currently uses block 0.
+- Generated final previews:
+  - `output/previews/save01_complete_layers_final.png`
+  - `output/previews/save01_city_road_focus_final.png`
+  - `output/previews/save01_roads_final.png`
+  - `output/map_resources/diagnostics/save01_roads_final.json`
+
+Current verification additions:
+
+```powershell
+python remake-workbench\scripts\export_terrain_preview.py Save\SAVE01\SAVE.MAP --mode sprite --layers all --viewport 16,18,18,20 --out remake-workbench\output\previews\save01_city_road_focus_final.png
+python remake-workbench\scripts\export_terrain_preview.py Save\SAVE01\SAVE.MAP --mode sprite --layers roads --viewport 18,20,12,14 --out remake-workbench\output\previews\save01_roads_final.png
+python remake-workbench\scripts\export_terrain_preview.py Save\SAVE01\SAVE.MAP --mode sprite --layers all --out remake-workbench\output\previews\save01_complete_layers_final.png
+python remake-workbench\scripts\export_map_resources.py
+python remake-workbench\scripts\check_sprite_assets.py
+python remake-workbench\scripts\inspect_road_sample.py Save\SAVE01\SAVE.MAP --out remake-workbench\output\map_resources\diagnostics\save01_roads_final.json
+```

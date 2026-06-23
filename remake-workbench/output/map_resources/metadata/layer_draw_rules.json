@@ -1,0 +1,216 @@
+[
+  {
+    "id": "terrain_base.original",
+    "canonical_layer": "terrain_base",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/extra/decode_new_map.c",
+      "reverse/ghidra_export/render/load_emg_base.c"
+    ],
+    "source_bank": "ground",
+    "source_group_expr": "LandTile+0x04, or LandTile+0x06 for special terrain",
+    "tile_field_refs": [
+      "LandTile+0x04",
+      "LandTile+0x06"
+    ],
+    "draw_order": 100,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -40,
+      "blend": "masked"
+    }
+  },
+  {
+    "id": "terrain_detail.original",
+    "canonical_layer": "terrain_detail",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/extra/decode_new_map.c"
+    ],
+    "source_bank": "ground",
+    "source_group_expr": "4801 + detail_id, or 4905 + detail_id",
+    "tile_field_refs": [
+      "LandTile+0x08..0x0e"
+    ],
+    "draw_order": 200,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -40,
+      "blend": "masked"
+    }
+  },
+  {
+    "id": "resources.battle_feature.original",
+    "canonical_layer": "resources",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/extra/decode_new_map.c",
+      "remake-workbench/scripts/check_sprite_assets.py"
+    ],
+    "source_bank": "ground",
+    "source_group_expr": "4937 + LandTile+0x16",
+    "tile_field_refs": [
+      "LandTile+0x16"
+    ],
+    "draw_order": 300,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -48,
+      "blend": "masked"
+    }
+  },
+  {
+    "id": "resources.city_resource.original",
+    "canonical_layer": "resources",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/render/load_emg_base.c",
+      "remake-workbench/scripts/check_sprite_assets.py"
+    ],
+    "source_bank": "resource",
+    "source_group_expr": "LandTile+0x17",
+    "tile_field_refs": [
+      "LandTile+0x17"
+    ],
+    "draw_order": 310,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -58,
+      "blend": "masked"
+    }
+  },
+  {
+    "id": "roads.connection_field.original",
+    "canonical_layer": "roads",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/extra/decode_road.c",
+      "reverse/ghidra_export/extra/decode_new_map.c",
+      "Save/save.MAP"
+    ],
+    "source_group_expr": "Decode_Road recomputes LandTile+0x13 from adjacent roads and bridges",
+    "tile_field_refs": [
+      "LandTile+0x13",
+      "LandTile+0x14"
+    ],
+    "draw_order": 400,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "blend": "data_only"
+    },
+    "notes": "Save/save.MAP validates connection values 0..40 against a Python Decode_Road port."
+  },
+  {
+    "id": "roads.make_emg_world.original",
+    "canonical_layer": "roads",
+    "evidence_level": "confirmed_original",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/render/load_emg_base.c",
+      "reverse/ghidra_export/all_functions/0x004a3ce0_FUN_004a3ce0.c"
+    ],
+    "source_bank": "make",
+    "source_group_expr": "LandTile+0x14 * 0x51 + LandTile+0x13",
+    "tile_field_refs": [
+      "LandTile+0x13",
+      "LandTile+0x14"
+    ],
+    "draw_order": 405,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": "height_adjusted",
+      "blend": "masked"
+    },
+    "notes": "Large-map draw path calls DAT_0075856c/MAKE.EMG at (road_kind * 0x51 + road_id)."
+  },
+  {
+    "id": "roads.bridge_probe",
+    "canonical_layer": "roads",
+    "evidence_level": "confirmed_original",
+    "status": "probe",
+    "source_refs": [
+      "reverse/ghidra_export/all_functions/0x004a3ce0_FUN_004a3ce0.c",
+      "reverse/ghidra_export/extra/decode_road.c"
+    ],
+    "source_bank": "make",
+    "source_group_expr": "0x3cc / 4 + LandTile+0x15",
+    "tile_field_refs": [
+      "LandTile+0x15"
+    ],
+    "draw_order": 410,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -40,
+      "blend": "masked"
+    },
+    "notes": "Large-map draw path uses DAT_0075856c/MAKE.EMG at byte offset 0x3cc plus LandTile+0x15 * 4."
+  },
+  {
+    "id": "roads.long_wall_probe",
+    "canonical_layer": "roads",
+    "evidence_level": "strong_inference",
+    "status": "probe",
+    "source_refs": [
+      "reverse/ghidra_export/extra/decode_long_wall.c"
+    ],
+    "source_bank": "road",
+    "source_group_expr": "214 + LandTile+0x24",
+    "tile_field_refs": [
+      "LandTile+0x24"
+    ],
+    "draw_order": 420,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": 0,
+      "pivot_y": -45,
+      "blend": "masked"
+    },
+    "notes": "No long-wall-positive sample yet."
+  },
+  {
+    "id": "cities.save_tail.city_emg_world",
+    "canonical_layer": "cities",
+    "evidence_level": "strong_inference",
+    "status": "active",
+    "source_refs": [
+      "reverse/ghidra_export/game/load_dat.c",
+      "reverse/ghidra_export/game/city_size_scale.c",
+      "reverse/ghidra_export/render/load_emg_base.c"
+    ],
+    "source_bank": "city",
+    "source_group_expr": "City population -> City+0x21 level -> CITY.EMG level 0..7; style block unresolved",
+    "record_refs": [
+      "CountryState+0x1aa city count in Load_Dat city phase",
+      "City_0x200+0x16/+0x18",
+      "City_0x200+0x21"
+    ],
+    "draw_order": 500,
+    "draw": {
+      "tile_step_x": 48,
+      "tile_step_y": 24,
+      "pivot_x": -18,
+      "pivot_y": -104,
+      "blend": "masked"
+    },
+    "notes": "Uses real save-tail city records and CITY.EMG sprites. Population-to-level is confirmed; exact culture/style block selection remains unresolved and currently uses block 0."
+  }
+]

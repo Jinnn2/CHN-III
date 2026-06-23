@@ -1,0 +1,351 @@
+{
+  "path": "Save/SAVE01/SAVE.MAP",
+  "width": 39,
+  "height": 50,
+  "decode_road_status": "confirmed_original_connection_field",
+  "visual_mapping_status": "confirmed_original_world_map_draw_path",
+  "world_map_draw_path": "reverse/ghidra_export/all_functions/0x004a3ce0_FUN_004a3ce0.c uses MAKE.EMG/DAT_0075856c with LandTile+0x14 * 0x51 + LandTile+0x13",
+  "road_emg_known_use": "reverse/ghidra_export/extra/put_city_view.c draws city-view roads from DAT_00758590",
+  "counts": {
+    "road": {
+      "-1": 1926,
+      "3": 1,
+      "30": 4,
+      "36": 4,
+      "4": 2,
+      "12": 2,
+      "13": 2,
+      "39": 1,
+      "10": 2,
+      "28": 3,
+      "1": 1,
+      "31": 1,
+      "0": 1
+    },
+    "road_kind": {
+      "-1": 1926,
+      "0": 11,
+      "2": 13
+    },
+    "bridge": {
+      "-1": 1950
+    },
+    "long_wall": {
+      "-1": 1950
+    }
+  },
+  "positive_samples": [
+    {
+      "x": 25,
+      "y": 21,
+      "road": 3,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 3
+    },
+    {
+      "x": 26,
+      "y": 22,
+      "road": 30,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 30
+    },
+    {
+      "x": 26,
+      "y": 23,
+      "road": 36,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 36
+    },
+    {
+      "x": 26,
+      "y": 24,
+      "road": 4,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 4
+    },
+    {
+      "x": 22,
+      "y": 25,
+      "road": 12,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 12
+    },
+    {
+      "x": 26,
+      "y": 25,
+      "road": 36,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 36
+    },
+    {
+      "x": 21,
+      "y": 26,
+      "road": 12,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 12
+    },
+    {
+      "x": 22,
+      "y": 26,
+      "road": 13,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 13
+    },
+    {
+      "x": 23,
+      "y": 26,
+      "road": 39,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 39
+    },
+    {
+      "x": 26,
+      "y": 26,
+      "road": 10,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 10
+    },
+    {
+      "x": 20,
+      "y": 27,
+      "road": 10,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 10
+    },
+    {
+      "x": 21,
+      "y": 27,
+      "road": 28,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 28
+    },
+    {
+      "x": 22,
+      "y": 27,
+      "road": 28,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 28
+    },
+    {
+      "x": 23,
+      "y": 27,
+      "road": 30,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 30
+    },
+    {
+      "x": 25,
+      "y": 27,
+      "road": 4,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 4
+    },
+    {
+      "x": 20,
+      "y": 28,
+      "road": 1,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 1
+    },
+    {
+      "x": 24,
+      "y": 28,
+      "road": 30,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 30
+    },
+    {
+      "x": 26,
+      "y": 28,
+      "road": 36,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 36
+    },
+    {
+      "x": 24,
+      "y": 29,
+      "road": 30,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 30
+    },
+    {
+      "x": 25,
+      "y": 29,
+      "road": 13,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 13
+    },
+    {
+      "x": 25,
+      "y": 30,
+      "road": 31,
+      "road_kind": 2,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 31
+    },
+    {
+      "x": 26,
+      "y": 30,
+      "road": 36,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 36
+    },
+    {
+      "x": 25,
+      "y": 31,
+      "road": 28,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 28
+    },
+    {
+      "x": 25,
+      "y": 33,
+      "road": 0,
+      "road_kind": 0,
+      "bridge": -1,
+      "long_wall": -1,
+      "decoded_road": 0
+    }
+  ],
+  "manifest_layers": [
+    {
+      "id": "roads.connection_field.original",
+      "canonical_layer": "roads",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_road.c",
+        "reverse/ghidra_export/extra/decode_new_map.c",
+        "Save/save.MAP"
+      ],
+      "source_group_expr": "Decode_Road recomputes LandTile+0x13 from adjacent roads and bridges",
+      "tile_field_refs": [
+        "LandTile+0x13",
+        "LandTile+0x14"
+      ],
+      "draw_order": 400,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "blend": "data_only"
+      },
+      "notes": "Save/save.MAP validates connection values 0..40 against a Python Decode_Road port."
+    },
+    {
+      "id": "roads.make_emg_world.original",
+      "canonical_layer": "roads",
+      "evidence_level": "confirmed_original",
+      "status": "active",
+      "source_refs": [
+        "reverse/ghidra_export/render/load_emg_base.c",
+        "reverse/ghidra_export/all_functions/0x004a3ce0_FUN_004a3ce0.c"
+      ],
+      "source_bank": "make",
+      "source_group_expr": "LandTile+0x14 * 0x51 + LandTile+0x13",
+      "tile_field_refs": [
+        "LandTile+0x13",
+        "LandTile+0x14"
+      ],
+      "draw_order": 405,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": "height_adjusted",
+        "blend": "masked"
+      },
+      "notes": "Large-map draw path calls DAT_0075856c/MAKE.EMG at (road_kind * 0x51 + road_id)."
+    },
+    {
+      "id": "roads.bridge_probe",
+      "canonical_layer": "roads",
+      "evidence_level": "strong_inference",
+      "status": "probe",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_road.c"
+      ],
+      "source_bank": "road",
+      "source_group_expr": "226 + LandTile+0x15",
+      "tile_field_refs": [
+        "LandTile+0x15"
+      ],
+      "draw_order": 410,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -40,
+        "blend": "masked"
+      },
+      "notes": "No bridge-positive sample yet."
+    },
+    {
+      "id": "roads.long_wall_probe",
+      "canonical_layer": "roads",
+      "evidence_level": "strong_inference",
+      "status": "probe",
+      "source_refs": [
+        "reverse/ghidra_export/extra/decode_long_wall.c"
+      ],
+      "source_bank": "road",
+      "source_group_expr": "214 + LandTile+0x24",
+      "tile_field_refs": [
+        "LandTile+0x24"
+      ],
+      "draw_order": 420,
+      "draw": {
+        "tile_step_x": 48,
+        "tile_step_y": 24,
+        "pivot_x": 0,
+        "pivot_y": -45,
+        "blend": "masked"
+      },
+      "notes": "No long-wall-positive sample yet."
+    }
+  ]
+}

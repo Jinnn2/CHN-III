@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 
 import emg_sprites
+import map_resources
 import map_model
 import png_writer
 
@@ -10,12 +11,15 @@ import png_writer
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT_DIR = ROOT / "remake-workbench" / "output" / "previews"
 NEW_GROUND_EMG = ROOT / "EMG" / "NEW_GROUND.EMG"
+MAKE_EMG = ROOT / "EMG" / "MAKE.EMG"
 ROAD_EMG = ROOT / "EMG" / "ROAD.EMG"
 CITY_EMG = ROOT / "EMG" / "CITY.EMG"
 RESOURCE_EMG = ROOT / "EMG" / "RESOURCE.EMG"
-TERRAIN_DETAIL_BASE = 0x4B04 // 4
-TERRAIN_DETAIL_ALT_BASE = 0x4CA4 // 4
-GROUND_RESOURCE_BASE = 0x4D24 // 4
+TERRAIN_DETAIL_BASE = map_resources.TERRAIN_DETAIL_BASE
+TERRAIN_DETAIL_ALT_BASE = map_resources.TERRAIN_DETAIL_ALT_BASE
+GROUND_RESOURCE_BASE = map_resources.GROUND_RESOURCE_BASE
+ROAD_HEIGHT_DRAW_Y = [-12, 0, 12, 24, 36, 90, 90, 30, 60, 15]
+ROAD_HEIGHT_MODE_BY_DETAIL = map_model.ROAD_HEIGHT_MODE_BY_DETAIL
 
 TERRAIN_COLORS = {
     -1: (32, 32, 36),
@@ -176,20 +180,24 @@ def map_overlay_sprite_ids(data, model, x, y):
         yield "city_resource", "resource", city_resource, -18
     if road_id >= 0:
         road_kind = tile["road_overlay_kind"]
-        road_base = 0
-        if road_kind == 1:
-            road_base = 81
-        elif road_kind == 2:
-            road_base = 162
-        yield "road", "road", road_base + road_id, 0
+        height_bucket = ROAD_HEIGHT_MODE_BY_DETAIL[tile["terrain_detail_mode"]]
+        yield "road", "make", road_kind * 0x51 + road_id, -ROAD_HEIGHT_DRAW_Y[height_bucket]
     if bridge_id >= 0:
-        yield "bridge", "road", 226 + bridge_id, 0
+        yield "bridge_probe", "make", 0x3CC // 4 + bridge_id, 0
     if wall_id >= 0:
-        yield "long_wall", "road", 214 + wall_id, -5
+        yield "long_wall_probe", "road", 214 + wall_id, -5
     if tile["linked_city_or_object_ptr"] != 0:
-        owner = tile["owner_country_id"]
-        sprite_id = 0 if owner < 0 else min(owner, 31)
-        yield "city_marker", "city", sprite_id, -36
+        yield "city_link", "city", 0, -104
+
+
+def city_sprite_id(city):
+    level = city.get("city_sprite_level_from_population", city.get("city_sprite_level", 0))
+    if level < 0:
+        level = 0
+    # CITY.EMG is arranged in three style blocks of eight levels. Current
+    # large-map evidence confirms the bank, while exact culture/style selection
+    # still needs more samples; block 0 matches the small house seen in SAVE01.
+    return max(0, min(level, 7))
 
 
 def draw_group(groups, pixels, canvas_width, canvas_height, sprite_id, x, y, color_mode):
@@ -207,20 +215,9 @@ def draw_group(groups, pixels, canvas_width, canvas_height, sprite_id, x, y, col
     return True
 
 
-def render_sprite_map(data, model, sprite_banks, viewport, color_mode, layers):
-    view_x, view_y, view_width, view_height = clamp_viewport(model, viewport)
+def iter_visible_tiles(view_x, view_y, view_width, view_height, origin_x, origin_y):
     tile_step_x = 48
     tile_step_y = 24
-    max_sprite_right = 96
-    max_sprite_bottom = 96
-    canvas_width = (view_width + view_height - 1) * tile_step_x + max_sprite_right
-    canvas_height = (view_width + view_height - 1) * tile_step_y + max_sprite_bottom
-    origin_x = (view_height - 1) * tile_step_x
-    origin_y = 0
-    pixels = bytearray([0, 0, 0] * canvas_width * canvas_height)
-    ground_groups = sprite_banks["ground"]["groups"]
-    draw_details = "details" in layers
-
     for diag in range(view_width + view_height - 1):
         min_dx = max(0, diag - (view_height - 1))
         max_dx = min(view_width - 1, diag)
@@ -228,33 +225,76 @@ def render_sprite_map(data, model, sprite_banks, viewport, color_mode, layers):
             dy = diag - dx
             map_x = view_x + dx
             map_y = view_y + dy
-            sprite_id = terrain_sprite_id(data, model, map_x, map_y)
             draw_x = origin_x + (dx - dy) * tile_step_x
             draw_y = origin_y + (dx + dy) * tile_step_y - 40
-            draw_group(ground_groups, pixels, canvas_width, canvas_height, sprite_id, draw_x, draw_y, color_mode)
-            if draw_details:
-                for detail_sprite_id, detail_y_adjust in terrain_detail_sprite_ids(data, model, map_x, map_y):
-                    draw_group(
-                        ground_groups,
-                        pixels,
-                        canvas_width,
-                        canvas_height,
-                        detail_sprite_id,
-                        draw_x,
-                        draw_y + detail_y_adjust,
-                        color_mode,
-                    )
-            for layer, bank_name, overlay_sprite_id, y_adjust in map_overlay_sprite_ids(data, model, map_x, map_y):
-                if layer not in layers:
-                    continue
+            yield map_x, map_y, draw_x, draw_y
+
+
+def render_sprite_map(data, model, sprite_banks, viewport, color_mode, layers, city_records=None):
+    view_x, view_y, view_width, view_height = clamp_viewport(model, viewport)
+    tile_step_x = 48
+    tile_step_y = 24
+    max_sprite_right = 96
+    max_sprite_bottom = 180
+    canvas_width = (view_width + view_height - 1) * tile_step_x + max_sprite_right
+    canvas_height = (view_width + view_height - 1) * tile_step_y + max_sprite_bottom
+    origin_x = (view_height - 1) * tile_step_x
+    origin_y = 0
+    pixels = bytearray([0, 0, 0] * canvas_width * canvas_height)
+    ground_groups = sprite_banks["ground"]["groups"]
+    draw_details = "details" in layers
+    city_by_tile = {}
+    if "city" in layers and city_records:
+        for city in city_records:
+            if city.get("valid_position"):
+                city_by_tile.setdefault((city["x"], city["y"]), []).append(city)
+
+    visible_tiles = list(iter_visible_tiles(view_x, view_y, view_width, view_height, origin_x, origin_y))
+
+    for map_x, map_y, draw_x, draw_y in visible_tiles:
+        sprite_id = terrain_sprite_id(data, model, map_x, map_y)
+        draw_group(ground_groups, pixels, canvas_width, canvas_height, sprite_id, draw_x, draw_y, color_mode)
+
+    if draw_details:
+        for map_x, map_y, draw_x, draw_y in visible_tiles:
+            for detail_sprite_id, detail_y_adjust in terrain_detail_sprite_ids(data, model, map_x, map_y):
                 draw_group(
-                    sprite_banks[bank_name]["groups"],
+                    ground_groups,
                     pixels,
                     canvas_width,
                     canvas_height,
-                    overlay_sprite_id,
+                    detail_sprite_id,
                     draw_x,
-                    draw_y + y_adjust,
+                    draw_y + detail_y_adjust,
+                    color_mode,
+                )
+
+    for map_x, map_y, draw_x, draw_y in visible_tiles:
+        for layer, bank_name, overlay_sprite_id, y_adjust in map_overlay_sprite_ids(data, model, map_x, map_y):
+            if layer not in layers:
+                continue
+            draw_group(
+                sprite_banks[bank_name]["groups"],
+                pixels,
+                canvas_width,
+                canvas_height,
+                overlay_sprite_id,
+                draw_x,
+                draw_y + y_adjust,
+                color_mode,
+            )
+
+    if "city" in layers:
+        for map_x, map_y, draw_x, draw_y in visible_tiles:
+            for city in city_by_tile.get((map_x, map_y), []):
+                draw_group(
+                    sprite_banks["city"]["groups"],
+                    pixels,
+                    canvas_width,
+                    canvas_height,
+                    city_sprite_id(city),
+                    draw_x - 18,
+                    draw_y - 104,
                     color_mode,
                 )
     return canvas_width, canvas_height, pixels, (view_x, view_y, view_width, view_height)
@@ -264,10 +304,12 @@ def parse_layers(raw):
     aliases = {
         "terrain": ["details"],
         "resources": ["battle_resource", "city_resource"],
-        "roads": ["road", "bridge", "long_wall"],
-        "cities": ["city_marker"],
-        "objects": ["battle_resource", "city_resource", "road", "bridge", "long_wall", "city_marker"],
-        "all": ["details", "battle_resource", "city_resource", "road", "bridge", "long_wall", "city_marker"],
+        "roads": ["road"],
+        "road_probe": ["road_probe", "bridge_probe", "long_wall_probe"],
+        "roads_probe": ["road_probe", "bridge_probe", "long_wall_probe"],
+        "cities": ["city"],
+        "objects": ["battle_resource", "city_resource", "city"],
+        "all": ["details", "battle_resource", "city_resource", "road", "city"],
     }
     layers = set()
     for part in raw.split(","):
@@ -276,7 +318,8 @@ def parse_layers(raw):
             continue
         for expanded in aliases.get(name, [name]):
             layers.add(expanded)
-    valid = set(aliases["all"])
+    valid = set(aliases["all"]) | set(aliases["road_probe"])
+    valid.update(aliases["roads"])
     unknown = sorted(layers - valid)
     if unknown:
         raise argparse.ArgumentTypeError(f"unknown layer(s): {', '.join(unknown)}")
@@ -301,7 +344,11 @@ def main():
         "--layers",
         type=parse_layers,
         default=parse_layers("terrain"),
-        help="Sprite overlay layers: terrain, resources, roads, cities, objects, all",
+        help="Sprite overlay layers: terrain, resources, cities, objects, all, road_probe",
+    )
+    parser.add_argument(
+        "--map-resource-manifest",
+        help="Modern map resource manifest. Defaults to generated manifest when present.",
     )
     parser.add_argument("--no-details", action="store_true", help="Skip terrain detail overlay sprites")
     parser.add_argument("--out", help="Output PNG path")
@@ -320,16 +367,23 @@ def main():
 
     viewport = None
     if args.mode == "sprite":
+        manifest = map_resources.load_manifest(args.map_resource_manifest)
         layers = set(args.layers)
         if args.no_details:
             layers.discard("details")
-        sprite_banks = {"ground": emg_sprites.parse_emg(NEW_GROUND_EMG)}
-        if {"road", "bridge", "long_wall"} & layers:
-            sprite_banks["road"] = emg_sprites.parse_emg(ROAD_EMG)
-        if "city_marker" in layers:
-            sprite_banks["city"] = emg_sprites.parse_emg(CITY_EMG)
+        bank_paths = {bank["id"]: bank["source_path"] for bank in manifest["banks"]}
+        sprite_banks = {"ground": emg_sprites.parse_emg(bank_paths.get("ground", NEW_GROUND_EMG))}
+        if {"road", "bridge_probe"} & layers:
+            sprite_banks["make"] = emg_sprites.parse_emg(bank_paths.get("make", MAKE_EMG))
+        if {"road_probe", "long_wall_probe"} & layers:
+            sprite_banks["road"] = emg_sprites.parse_emg(bank_paths.get("road", ROAD_EMG))
+        if "city" in layers:
+            sprite_banks["city"] = emg_sprites.parse_emg(bank_paths.get("city", CITY_EMG))
         if "city_resource" in layers:
-            sprite_banks["resource"] = emg_sprites.parse_emg(RESOURCE_EMG)
+            sprite_banks["resource"] = emg_sprites.parse_emg(bank_paths.get("resource", RESOURCE_EMG))
+        city_records = None
+        if "city" in layers:
+            city_records = map_model.parse_save_tail_cities(data, model)["cities"]
         width, height, pixels, viewport = render_sprite_map(
             data,
             model,
@@ -337,6 +391,7 @@ def main():
             args.viewport,
             args.color_mode,
             layers,
+            city_records=city_records,
         )
     else:
         width, height, pixels = render_preview(data, model, args.scale, args.overlay)
