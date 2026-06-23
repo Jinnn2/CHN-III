@@ -5,6 +5,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAINMENU_LAYOUT_ENTRY_COUNT 9u
+#define MAINMENU_LAYOUT_VA_BASE 0x400000u
+#define MAINMENU_LAYOUT_RECORDS_VA 0x00575b68u
+#define MAINMENU_LAYOUT_VERSION_MAJOR_VA 0x00575b50u
+#define MAINMENU_LAYOUT_VERSION_MINOR_VA 0x00575b54u
+#define MAINMENU_LAYOUT_TITLE_VA 0x00575f20u
+#define MAINMENU_LAYOUT_ADMIN_VA 0x00575f3cu
+
+typedef struct PeSectionHeader {
+    uint32_t virtual_size;
+    uint32_t virtual_address;
+    uint32_t size_of_raw_data;
+    uint32_t pointer_to_raw_data;
+} PeSectionHeader;
+
 typedef struct TmgHeader {
     unsigned char manufacturer;
     unsigned char version;
@@ -101,6 +116,153 @@ static unsigned int ExpandRgb565ToXrgb32(uint16_t pixel)
     unsigned int green = ((pixel >> 5) & 0x3Fu) * 255u / 63u;
     unsigned int blue = (pixel & 0x1Fu) * 255u / 31u;
     return (red << 16) | (green << 8) | blue;
+}
+
+static int DecodeBig5String(const unsigned char *src, size_t src_size, char *dst, size_t dst_size)
+{
+    int wide_count;
+    wchar_t *wide_text;
+    int utf8_count;
+
+    if (dst == NULL || dst_size == 0) {
+        return 0;
+    }
+
+    dst[0] = '\0';
+    wide_count = MultiByteToWideChar(950, 0, (const char *)src, (int)src_size, NULL, 0);
+    if (wide_count <= 0) {
+        return 0;
+    }
+
+    wide_text = (wchar_t *)calloc((size_t)wide_count + 1u, sizeof(wchar_t));
+    if (wide_text == NULL) {
+        return 0;
+    }
+
+    if (MultiByteToWideChar(950, 0, (const char *)src, (int)src_size, wide_text, wide_count) <= 0) {
+        free(wide_text);
+        return 0;
+    }
+
+    utf8_count = WideCharToMultiByte(CP_UTF8, 0, wide_text, wide_count, dst, (int)dst_size - 1, NULL, NULL);
+    free(wide_text);
+    if (utf8_count <= 0) {
+        dst[0] = '\0';
+        return 0;
+    }
+    dst[utf8_count] = '\0';
+    return 1;
+}
+
+static int ReadU16LE(const unsigned char *bytes, size_t file_size, size_t offset, uint16_t *out_value)
+{
+    if (offset + 2 > file_size) {
+        return 0;
+    }
+    *out_value = (uint16_t)(bytes[offset] | (bytes[offset + 1] << 8));
+    return 1;
+}
+
+static int ReadU32LE(const unsigned char *bytes, size_t file_size, size_t offset, uint32_t *out_value)
+{
+    if (offset + 4 > file_size) {
+        return 0;
+    }
+    *out_value = (uint32_t)(bytes[offset] |
+        ((uint32_t)bytes[offset + 1] << 8) |
+        ((uint32_t)bytes[offset + 2] << 16) |
+        ((uint32_t)bytes[offset + 3] << 24));
+    return 1;
+}
+
+static int ReadS32LE(const unsigned char *bytes, size_t file_size, size_t offset, int *out_value)
+{
+    uint32_t value;
+
+    if (!ReadU32LE(bytes, file_size, offset, &value)) {
+        return 0;
+    }
+    *out_value = (int)value;
+    return 1;
+}
+
+static int LoadPeSections(const unsigned char *bytes, size_t file_size, size_t *out_section_count, PeSectionHeader **out_sections)
+{
+    uint32_t pe_offset;
+    uint16_t section_count;
+    uint16_t optional_header_size;
+    size_t section_offset;
+    PeSectionHeader *sections;
+    unsigned int index;
+
+    *out_section_count = 0;
+    *out_sections = NULL;
+
+    if (!ReadU32LE(bytes, file_size, 0x3c, &pe_offset) || pe_offset + 24 > file_size) {
+        return 0;
+    }
+    if (!ReadU16LE(bytes, file_size, (size_t)pe_offset + 6, &section_count) ||
+        !ReadU16LE(bytes, file_size, (size_t)pe_offset + 20, &optional_header_size)) {
+        return 0;
+    }
+
+    section_offset = (size_t)pe_offset + 24u + (size_t)optional_header_size;
+    if (section_offset + (size_t)section_count * 40u > file_size) {
+        return 0;
+    }
+
+    sections = (PeSectionHeader *)calloc(section_count, sizeof(PeSectionHeader));
+    if (sections == NULL) {
+        return 0;
+    }
+
+    for (index = 0; index < section_count; ++index) {
+        size_t header_offset = section_offset + (size_t)index * 40u;
+        if (!ReadU32LE(bytes, file_size, header_offset + 8, &sections[index].virtual_size) ||
+            !ReadU32LE(bytes, file_size, header_offset + 12, &sections[index].virtual_address) ||
+            !ReadU32LE(bytes, file_size, header_offset + 16, &sections[index].size_of_raw_data) ||
+            !ReadU32LE(bytes, file_size, header_offset + 20, &sections[index].pointer_to_raw_data)) {
+            free(sections);
+            return 0;
+        }
+    }
+
+    *out_section_count = section_count;
+    *out_sections = sections;
+    return 1;
+}
+
+static int VirtualAddressToFileOffset(uint32_t virtual_address, const PeSectionHeader *sections, size_t section_count, size_t file_size, size_t *out_offset)
+{
+    uint32_t rva = virtual_address - MAINMENU_LAYOUT_VA_BASE;
+    size_t index;
+
+    for (index = 0; index < section_count; ++index) {
+        uint32_t span = sections[index].virtual_size > sections[index].size_of_raw_data
+            ? sections[index].virtual_size
+            : sections[index].size_of_raw_data;
+        if (rva >= sections[index].virtual_address && rva < sections[index].virtual_address + span) {
+            size_t offset = (size_t)sections[index].pointer_to_raw_data + (size_t)(rva - sections[index].virtual_address);
+            if (offset > file_size) {
+                return 0;
+            }
+            *out_offset = offset;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+static int ReadNullTerminatedBig5String(const unsigned char *bytes, size_t file_size, size_t offset, size_t max_size, char *dst, size_t dst_size)
+{
+    size_t length = 0;
+
+    while (length < max_size && offset + length < file_size && bytes[offset + length] != 0) {
+        length += 1;
+    }
+
+    return DecodeBig5String(bytes + offset, length, dst, dst_size);
 }
 
 void FreeTmgImage(TmgImage *image)
@@ -209,6 +371,67 @@ void FreeXmgDiagnostic(XmgDiagnostic *diagnostic)
     diagnostic->group_count = 0;
     diagnostic->trailing_size = 0;
     diagnostic->total_alt_frame_count = 0;
+}
+
+void FreeMainMenuLayout(MainMenuLayout *layout)
+{
+    ZeroMemory(layout, sizeof(*layout));
+}
+
+int LoadMainMenuLayoutFromExe(const char *exe_relative_path, MainMenuLayout *out_layout)
+{
+    char path[MAX_PATH];
+    unsigned char *bytes = NULL;
+    size_t file_size = 0;
+    size_t section_count = 0;
+    PeSectionHeader *sections = NULL;
+    size_t offset;
+    unsigned int index;
+
+    snprintf(path, sizeof(path), "..\\%s", exe_relative_path);
+    FreeMainMenuLayout(out_layout);
+
+    if (!LoadFileBytes(path, &bytes, &file_size) || !LoadPeSections(bytes, file_size, &section_count, &sections)) {
+        free(bytes);
+        return 0;
+    }
+
+    if (!VirtualAddressToFileOffset(MAINMENU_LAYOUT_VERSION_MAJOR_VA, sections, section_count, file_size, &offset) ||
+        !ReadU32LE(bytes, file_size, offset, &out_layout->version_major) ||
+        !VirtualAddressToFileOffset(MAINMENU_LAYOUT_VERSION_MINOR_VA, sections, section_count, file_size, &offset) ||
+        !ReadU32LE(bytes, file_size, offset, &out_layout->version_minor) ||
+        !VirtualAddressToFileOffset(MAINMENU_LAYOUT_TITLE_VA, sections, section_count, file_size, &offset) ||
+        !ReadNullTerminatedBig5String(bytes, file_size, offset, 31, out_layout->title_text, sizeof(out_layout->title_text)) ||
+        !VirtualAddressToFileOffset(MAINMENU_LAYOUT_ADMIN_VA, sections, section_count, file_size, &offset) ||
+        !ReadNullTerminatedBig5String(bytes, file_size, offset, 31, out_layout->admin_text, sizeof(out_layout->admin_text)) ||
+        !VirtualAddressToFileOffset(MAINMENU_LAYOUT_RECORDS_VA, sections, section_count, file_size, &offset)) {
+        free(sections);
+        free(bytes);
+        FreeMainMenuLayout(out_layout);
+        return 0;
+    }
+
+    out_layout->entry_count = MAINMENU_LAYOUT_ENTRY_COUNT;
+    for (index = 0; index < MAINMENU_LAYOUT_ENTRY_COUNT; ++index) {
+        size_t record_offset = offset + (size_t)index * 0x60u;
+        MainMenuLayoutEntry *entry = &out_layout->entries[index];
+        if (!ReadS32LE(bytes, file_size, record_offset + 0x00, &entry->final_x) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x04, &entry->final_y) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x08, &entry->current_x) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x0c, &entry->current_y) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x10, &entry->settled_flag) ||
+            !ReadS32LE(bytes, file_size, record_offset + 0x14, &entry->enabled_flag) ||
+            !ReadNullTerminatedBig5String(bytes, file_size, record_offset + 0x18, 0x48u, entry->label, sizeof(entry->label))) {
+            free(sections);
+            free(bytes);
+            FreeMainMenuLayout(out_layout);
+            return 0;
+        }
+    }
+
+    free(sections);
+    free(bytes);
+    return 1;
 }
 
 int LoadEmgResource(const char *relative_path, EmgResource *out_resource)

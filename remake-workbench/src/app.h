@@ -60,6 +60,25 @@ typedef struct XmgDiagnostic {
     XmgGroupStat *groups;
 } XmgDiagnostic;
 
+typedef struct MainMenuLayoutEntry {
+    int final_x;
+    int final_y;
+    int current_x;
+    int current_y;
+    int settled_flag;
+    int enabled_flag;
+    char label[80];
+} MainMenuLayoutEntry;
+
+typedef struct MainMenuLayout {
+    unsigned int entry_count;
+    unsigned int version_major;
+    unsigned int version_minor;
+    char title_text[48];
+    char admin_text[32];
+    MainMenuLayoutEntry entries[9];
+} MainMenuLayout;
+
 typedef struct AppState {
     HINSTANCE instance;
     HWND window;
@@ -73,6 +92,7 @@ typedef struct AppState {
     EmgResource menu_item_resource;
     EmgResource mainmenu_emg_resource;
     XmgDiagnostic mainmenu_xmg_diagnostic;
+    MainMenuLayout mainmenu_layout;
     unsigned int menu_item_preview_group;
     unsigned int mainmenu_preview_group;
     unsigned int mainmenu_family_index;

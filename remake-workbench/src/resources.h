@@ -12,4 +12,7 @@ void FreeEmgResource(EmgResource *resource);
 int LoadXmgDiagnostic(const char *relative_path, XmgDiagnostic *out_diagnostic);
 void FreeXmgDiagnostic(XmgDiagnostic *diagnostic);
 
+int LoadMainMenuLayoutFromExe(const char *exe_relative_path, MainMenuLayout *out_layout);
+void FreeMainMenuLayout(MainMenuLayout *layout);
+
 #endif

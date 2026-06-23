@@ -128,6 +128,9 @@ static void MainMenu_Init(AppState *app)
     if (LoadXmgDiagnostic("IMAGE\\MAINMENU.XMG", &app->mainmenu_xmg_diagnostic)) {
         LogLine("MainMenu_Init: MAINMENU.XMG diagnostic loaded");
     }
+    if (LoadMainMenuLayoutFromExe("China2EX_fontfix8.exe", &app->mainmenu_layout)) {
+        LogLine("MainMenu_Init: recovered main menu layout table loaded from exe");
+    }
     app->menu_item_preview_group = 0;
     app->mainmenu_preview_group = 0;
     app->mainmenu_family_index = 0;
@@ -236,6 +239,77 @@ static void DrawEmgGroupPreview(HDC dc, EmgResource *resource, unsigned int grou
             }
         }
     }
+}
+
+static void DrawMenuLayoutOverlay(AppState *app, HDC dc, RECT *client_rect)
+{
+    unsigned int index;
+    int background_x = (client_rect->right - (int)app->mainmenu_background.width) / 2;
+    int background_y = (client_rect->bottom - (int)app->mainmenu_background.height) / 2;
+
+    if (app->mainmenu_layout.entry_count == 0) {
+        return;
+    }
+
+    SetBkMode(dc, TRANSPARENT);
+    for (index = 0; index < app->mainmenu_layout.entry_count; ++index) {
+        MainMenuLayoutEntry *entry = &app->mainmenu_layout.entries[index];
+        RECT box;
+        COLORREF stroke;
+        COLORREF fill;
+        int draw_x = background_x + entry->final_x;
+        int draw_y = background_y + entry->final_y;
+        int text_width = 252;
+        int text_height = 36;
+        int highlight = (int)index == app->mainmenu_selected_index;
+
+        box.left = draw_x - 10;
+        box.top = draw_y - 10;
+        box.right = draw_x + text_width;
+        box.bottom = draw_y + text_height;
+
+        if (highlight) {
+            fill = RGB(245, 227, 123);
+            stroke = RGB(111, 66, 7);
+            SetTextColor(dc, RGB(39, 24, 6));
+        } else {
+            fill = RGB(31, 37, 50);
+            stroke = RGB(120, 140, 176);
+            SetTextColor(dc, RGB(234, 238, 246));
+        }
+
+        {
+            HBRUSH brush = CreateSolidBrush(fill);
+            HPEN pen = CreatePen(PS_SOLID, 1, stroke);
+            HGDIOBJ old_brush = SelectObject(dc, brush);
+            HGDIOBJ old_pen = SelectObject(dc, pen);
+            RoundRect(dc, box.left, box.top, box.right, box.bottom, 8, 8);
+            SelectObject(dc, old_brush);
+            SelectObject(dc, old_pen);
+            DeleteObject(brush);
+            DeleteObject(pen);
+        }
+
+        TextOutA(dc, draw_x, draw_y, entry->label, (int)strlen(entry->label));
+
+        if (highlight) {
+            char hint[96];
+            snprintf(hint, sizeof(hint),
+                     "base=%u selected=%u",
+                     index,
+                     index + 9u);
+            SetTextColor(dc, RGB(86, 52, 5));
+            TextOutA(dc, draw_x + 4, draw_y + 18, hint, (int)strlen(hint));
+        }
+    }
+
+    SetTextColor(dc, RGB(224, 231, 239));
+    TextOutA(dc, background_x + 725, background_y + 742,
+             app->mainmenu_layout.title_text,
+             (int)strlen(app->mainmenu_layout.title_text));
+    TextOutA(dc, background_x + 0, background_y + 741,
+             app->mainmenu_hotspot_progress == 2 ? app->mainmenu_layout.admin_text : "",
+             app->mainmenu_hotspot_progress == 2 ? (int)strlen(app->mainmenu_layout.admin_text) : 0);
 }
 
 static int SameMainmenuFamily(EmgGroup *group, unsigned int family_index)
@@ -383,9 +457,16 @@ static void DrawMainmenuResourcePanel(AppState *app, HDC dc, RECT *client_rect)
              app->mainmenu_hotspot_progress == 0 ? "off" : (app->mainmenu_hotspot_progress == 2 ? "armed" : "mid-chain"));
     TextOutA(dc, 28, 468, line, (int)strlen(line));
 
-    TextOutA(dc, 28, 492, kMainMenuHotspotSteps[0].label, (int)strlen(kMainMenuHotspotSteps[0].label));
-    TextOutA(dc, 28, 516, kMainMenuHotspotSteps[1].label, (int)strlen(kMainMenuHotspotSteps[1].label));
-    TextOutA(dc, 28, 540, kMainMenuHotspotSteps[2].label, (int)strlen(kMainMenuHotspotSteps[2].label));
+    snprintf(line, sizeof(line),
+             "Recovered exe layout: entries=%u version=%u.%u",
+             app->mainmenu_layout.entry_count,
+             app->mainmenu_layout.version_major,
+             app->mainmenu_layout.version_minor);
+    TextOutA(dc, 28, 492, line, (int)strlen(line));
+
+    TextOutA(dc, 28, 516, kMainMenuHotspotSteps[0].label, (int)strlen(kMainMenuHotspotSteps[0].label));
+    TextOutA(dc, 28, 540, kMainMenuHotspotSteps[1].label, (int)strlen(kMainMenuHotspotSteps[1].label));
+    TextOutA(dc, 28, 564, kMainMenuHotspotSteps[2].label, (int)strlen(kMainMenuHotspotSteps[2].label));
 }
 
 static void DrawFrame(AppState *app, HDC dc)
@@ -431,6 +512,7 @@ static void DrawFrame(AppState *app, HDC dc)
         TextOutA(dc, 24, 112,
                  "Resource preview and diagnostics for MAINMENU assets",
                  52);
+        DrawMenuLayoutOverlay(app, dc, &rect);
         DrawMainmenuResourcePanel(app, dc, &rect);
         DrawEmgGroupPreview(dc, &app->menu_item_resource, app->menu_item_preview_group, rect.right - 264, 160, "MENU_ITEM.EMG");
         DrawEmgGroupPreview(dc, &app->mainmenu_emg_resource, app->mainmenu_preview_group, rect.right - 664, 352, "MAINMENU.EMG");
@@ -558,6 +640,7 @@ static LRESULT CALLBACK App_WndProc(HWND window, UINT message, WPARAM wparam, LP
             FreeEmgResource(&app->menu_item_resource);
             FreeEmgResource(&app->mainmenu_emg_resource);
             FreeXmgDiagnostic(&app->mainmenu_xmg_diagnostic);
+            FreeMainMenuLayout(&app->mainmenu_layout);
         }
         PostQuitMessage(0);
         return 0;
